@@ -151,9 +151,7 @@ public final class MainActivity extends Activity {
         root.addView(nav);
     }
     private void explore() {
-        label(content, getString(R.string.ui_knowledge_beyond_coverage));
-        TextView hero = text(getString(R.string.ui_your_library_wherever_you_are), 37, INK); hero.setTypeface(Typeface.create("serif", Typeface.NORMAL)); hero.setLineSpacing(0, 1.03f); add(content, hero, 10, 0);
-        add(content, text(getString(R.string.ui_find_sources_and_keep_learning_everything_stays_on_your_device), 15, MUTED), 12, 0);
+        // Opens directly on the question surface: no landing block and no preset questions.
         LinearLayout searchCard = column(); searchCard.setPadding(dp(18), dp(18), dp(18), dp(18)); searchCard.setBackground(shape(GREEN, 20, 0)); add(content, searchCard, 24, 0);
         TextView searchLabel = text(getString(R.string.ui_what_do_you_want_to_understand), 17, Color.WHITE); searchLabel.setTypeface(null, Typeface.BOLD); searchCard.addView(searchLabel);
         query = new EditText(this); query.setId(QUERY_ID); query.setSingleLine(false); query.setMaxLines(3); query.setTextSize(16); query.setTextColor(INK); query.setHintTextColor(MUTED); query.setHint(getString(R.string.ui_enter_a_question_or_topic)); query.setContentDescription(getString(R.string.ui_question_to_search_in_your_library));
@@ -164,18 +162,9 @@ public final class MainActivity extends Activity {
         searchButton.setOnClickListener(v -> search(query.getText().toString()));
         query.setOnEditorActionListener((v, action, event) -> { if (action == EditorInfo.IME_ACTION_SEARCH) { search(query.getText().toString()); return true; } return false; });
         results = column(); add(content, results, 20, 0);
-        label(results, getString(R.string.ui_start_with_a_question));
-        example(getString(R.string.ui_how_does_gps_calculate_my_position));
-        example(getString(R.string.ui_what_is_the_difference_between_kw_and_kwh));
-        example(getString(R.string.ui_how_does_a_solar_panel_work));
         LinearLayout note = column(); note.setPadding(dp(16), dp(16), dp(16), dp(16)); note.setBackground(shape(PALE, 14, 0)); add(content, note, 20, 0);
         TextView title = text(documents.size() + getString(R.string.ui_documents_available_offline), 14, INK); title.setTypeface(null, Typeface.BOLD); note.addView(title);
         add(note, text(models.ready() ? getString(R.string.ui_local_experimental_ai_installed_search_for_a_topic_and_draft_an_a) : getString(R.string.ui_search_without_installing_anything_else_to_draft_with_ai_import_a), 12, MUTED), 6, 0);
-    }
-    private void example(String question) {
-        TextView b = text(question + "  ↗", 14, INK); b.setMinHeight(dp(48)); b.setGravity(Gravity.CENTER_VERTICAL); b.setPadding(0, dp(8), 0, dp(8));
-        b.setBackground(selectable()); b.setOnClickListener(v -> { query.setText(question); search(question); }); results.addView(b);
-        View divider = new View(this); divider.setBackgroundColor(LINE); results.addView(divider, new LinearLayout.LayoutParams(-1, dp(1)));
     }
     void search(String question) {
         if (!ready) return;
@@ -445,7 +434,6 @@ public final class MainActivity extends Activity {
     private TextView text(String value, int size, int color) { TextView t = new TextView(this); t.setText(value); t.setTextSize(size); t.setTextColor(color); t.setLineSpacing(dp(2), 1); return t; }
     private Button button(String value, int bg, int fg) { Button b = new Button(this); b.setText(value); b.setTextSize(13); b.setAllCaps(false); b.setTextColor(fg); b.setTypeface(null, Typeface.BOLD); b.setMinHeight(dp(48)); b.setPadding(dp(10), 0, dp(10), 0); b.setBackground(shape(bg, 12, 0)); b.setStateListAnimator(null); return b; }
     private GradientDrawable shape(int color, int radius, int stroke) { GradientDrawable d = new GradientDrawable(); d.setColor(color); d.setCornerRadius(dp(radius)); if (stroke != 0) d.setStroke(dp(1), stroke); return d; }
-    private android.graphics.drawable.Drawable selectable() { android.util.TypedValue value = new android.util.TypedValue(); getTheme().resolveAttribute(android.R.attr.selectableItemBackground, value, true); return getDrawable(value.resourceId); }
     private void add(LinearLayout parent, View view, int top, int height) { LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-1, height > 0 ? height : -2); p.topMargin = dp(top); parent.addView(view, p); }
     private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
 

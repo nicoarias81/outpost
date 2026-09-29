@@ -30,17 +30,10 @@
   <string name="ui_library">"Library"</string>
   <string name="ui_status">"Status"</string>
   <string name="ui_selected">", selected"</string>
-  <string name="ui_knowledge_beyond_coverage">"KNOWLEDGE BEYOND COVERAGE"</string>
-  <string name="ui_your_library_wherever_you_are">"Your library,\nwherever you are."</string>
-  <string name="ui_find_sources_and_keep_learning_everything_stays_on_your_device">"Find sources and keep learning.\nEverything stays on your device."</string>
   <string name="ui_what_do_you_want_to_understand">"What do you want to understand?"</string>
   <string name="ui_enter_a_question_or_topic">"Enter a question or topic…"</string>
   <string name="ui_question_to_search_in_your_library">"Question to search in your library"</string>
   <string name="ui_search_my_library">"Search my library  →"</string>
-  <string name="ui_start_with_a_question">"START WITH A QUESTION"</string>
-  <string name="ui_how_does_gps_calculate_my_position">"How does GPS calculate my position?"</string>
-  <string name="ui_what_is_the_difference_between_kw_and_kwh">"What is the difference between kW and kWh?"</string>
-  <string name="ui_how_does_a_solar_panel_work">"How does a solar panel work?"</string>
   <string name="ui_documents_available_offline">" documents available offline"</string>
   <string name="ui_local_experimental_ai_installed_search_for_a_topic_and_draft_an_a">"Local experimental AI installed. Search for a topic and draft an answer from its sources."</string>
   <string name="ui_search_without_installing_anything_else_to_draft_with_ai_import_a">"Search without installing anything else. To draft with AI, import a test model in Status."</string>
