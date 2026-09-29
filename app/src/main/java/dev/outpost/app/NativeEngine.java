@@ -41,7 +41,7 @@ final class NativeEngine implements AutoCloseable {
         Configuration(int threads,int promptThreads,int batch,boolean cache) { this(threads,promptThreads,batch,cache,1); }
         Configuration {
             if(threads<1 || threads>8 || promptThreads<1 || promptThreads>8 || batch<16 || batch>512) throw new IllegalArgumentException("Invalid runtime configuration");
-            if(matrixWidth!=1 && matrixWidth!=2 && matrixWidth!=4) throw new IllegalArgumentException("Invalid matrix kernel width");
+            if(matrixWidth!=1 && matrixWidth!=2 && matrixWidth!=4 && matrixWidth!=8) throw new IllegalArgumentException("Invalid matrix kernel width");
             if(speculativeDepth<0 || speculativeDepth>7) throw new IllegalArgumentException("Invalid speculation depth");
         }
     }

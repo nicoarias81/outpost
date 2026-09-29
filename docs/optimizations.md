@@ -13,6 +13,7 @@ Status: measured history and current decisions through 0.7.0. All model executio
 | Prompt cache, 0.6 | Cold 30.253 s; related question with 256 reused tokens 7.105 s; exact repeat with 293 reused tokens 3.013 s | Retain compatible prefixes; workload-specific reuse, not a universal multiplier |
 | Cache memory, 0.6 | 1,496,272 vs 1,184,160 KiB post-run PSS | About 305 MiB retention cost; not a peak-memory measurement |
 | Grouped profile confirmation, 0.7 | Width 1 median total 22.935 s; width 4 18.465 s | Preserve width 4 in this build/device/model profile |
+| Grouped prefill width 4 -> 8, 0.8 | Alternating sweep, three rounds, rotating order, 222-token prompt and 32-token output: prefill median 18,293 -> 17,659 ms; total median 23,369 -> 22,851 ms; 3.6% and 2.2% | Adopt width 8 for this build/device/model profile. The margin over width 4 is near the working threshold, so it rests on bit-exact parity plus the monotone 1 -> 2 -> 4 -> 8 trend (22.2% less prefill than width 1), not on a large margin |
 | Final context speculation, 0.7 | Long control median decode 21.664 -> 19.818 s | 8.5% less decode time; optional and default off |
 
 Primary evidence: [dot](../evidence/0.7-before-outpost/optimization/kernel-numeric.json), [0.5 report](validation-0.5.md), [calibration](../evidence/0.7-before-outpost/strata/runtime-calibrate.json), [prefill](../evidence/0.7-before-outpost/strata/runtime-batch.json), [cache](../evidence/0.7-before-outpost/strata/runtime-cache.json), [0.7 profile](../evidence/0.7-before-outpost/speculation/speculation-profile.json), [speculation](../evidence/0.7-before-outpost/speculation/speculation-benchmark.json).
@@ -25,7 +26,9 @@ Controls differ in prompt, output length, cache state, sampling, and host load. 
 
 `q2_batch.c` wraps `ggml_compute_forward_mul_mat_tiled`. It reuses unpacked weight blocks across two or four activation columns, calls GGML's activation quantizer, synchronizes workers, and partitions output rows. It checks tensor types, dimensions, strides, workspace, and selected path before entering the custom implementation. Unsupported shapes and single-token operations use the existing path.
 
-Grouped prefill passed 7,932 bitwise comparisons including real GGML graphs, odd tails, and 1/2/4 workers. This validates those tested operations. It does not prove that every whole-model batched graph has bitwise-identical logits; [speculation auditing](speculation.md) exposed a case that does not.
+Grouped prefill passed 10,023 bitwise comparisons including real GGML graphs, odd tails, and 1/2/4 workers across widths 1, 2, 4 and 8. This validates those tested operations. It does not prove that every whole-model batched graph has bitwise-identical logits; [speculation auditing](speculation.md) exposed a case that does not.
+
+The grouped path reuses each unpacked weight block across `width` activation columns. Because it applies each activation block's own scale before accumulating in float, the width only changes how many columns share one weight unpack; the arithmetic per output element is unchanged, so wider grouping is bit-exact by construction. Raising the ceiling from 4 to 8 therefore needed no numerical work, only the guard extension and the calibration candidate list.
 
 ## Lessons from Strata
 
@@ -40,6 +43,8 @@ The transferable lesson is to measure the dominant cost on the actual execution 
 - Early speculation on four-token suffixes was narrowed to eight-token matches and delayed activation; short answers could regress.
 - Bonsai 1.7B as a live drafter was not integrated after the measured cost estimate showed no margin even under optimistic acceptance.
 - Capability detection did not justify enabling VNNI, ARM, GPU, or NPU paths without implementations and evidence.
+- Caching the activation byte-sum that `dot32` subtracts was analysed and rejected before implementation. The value depends only on the activation, not the weight row, so it is recomputed once per weight row today; but substituting a precomputed lookup costs one load per 32-weight group, which offsets the two ALU operations it removes. The instruction count is unchanged, so there is nothing to win.
+- Grouping wider than 8 was not pursued: the measured 4 -> 8 step returned 3.6% of prefill against 8.1% for 2 -> 4, a clearly diminishing return once the weight unpack is already amortised across four columns.
 
 ## Next optimization experiments
 
@@ -52,3 +57,8 @@ The transferable lesson is to measure the dominant cost on the actual execution 
 | GPU/NPU offload is worthwhile | Prototype a concrete backend and measure transfers, supported operations, RAM, and integration complexity | End-to-end benefit and fallback integrity; no theoretical-throughput claims |
 
 These experiments are pending. Start with a hypothesis and baseline, alternate paired runs, preserve raw results, and use the [evaluation protocol](evaluation.md). A nominal 5% improvement is only a working adoption threshold; repeated evidence must also show it exceeds run-to-run noise.
+
+## Measurement caveats found in 0.8
+
+- The 32-token output budget in the grouped-prefill control makes prefill look like 77% of total time. At the 96-token budget real answers actually use, decode is the larger share (15.8 s decode against 10.0 s prefill in the traveler fixture). A lever that only shortens prefill is worth less on realistic answers than the short control suggests, and a lever that only shortens decode is worth more.
+- The mission fixtures run baseline and optimised once each, in a fixed order, and are not alternated. Between two sessions the same fixture's decode time moved by up to 10% with no code or profile mechanism to explain it. Mission totals were therefore not used as an adoption basis for the width change; the alternated three-round sweep was. Treat a single unaltered mission pair as directional only.

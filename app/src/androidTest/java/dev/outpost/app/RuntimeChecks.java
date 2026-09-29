@@ -105,11 +105,12 @@ final class RuntimeChecks {
         RuntimeSettings.Profile base=RuntimeSettings.load(test.getTargetContext(),model.spec());
         String user=prompt(RECORD,QUESTION);
         call(e,"warmup-excluded",p(base.threads(),base.promptThreads(),base.batch(),1),false,user,32,false);
-        List<List<Long>> totals=List.of(new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
-        List<List<Long>> prompts=List.of(new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+        int[] widths={1,2,4,8};
+        List<List<Long>> totals=List.of(new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+        List<List<Long>> prompts=List.of(new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
         NativeEngine.Result reference=null; boolean parity=true;
-        for(int round=0;round<3;round++) for(int i=0;i<3;i++) {
-            int index=(i+round)%3,width=new int[]{1,2,4}[index];
+        for(int round=0;round<3;round++) for(int i=0;i<widths.length;i++) {
+            int index=(i+round)%widths.length,width=widths[index];
             RuntimeSettings.Profile c=p(base.threads(),base.promptThreads(),base.batch(),width);
             NativeEngine.Result r=call(e,"matrix-"+round+"-width-"+width,c,false,user,32,false);
             if(reference==null) reference=r;
@@ -117,13 +118,13 @@ final class RuntimeChecks {
             if(width>1) require(NativeEngine.kernelBatchUsed(),"Full model did not use batch kernel");
             totals.get(index).add(r.totalMs()); prompts.get(index).add(r.prefillMs());
         }
-        int best=0; for(int i=1;i<3;i++) if(median(totals.get(i))<median(totals.get(best))) best=i;
+        int best=0; for(int i=1;i<widths.length;i++) if(median(totals.get(i))<median(totals.get(best))) best=i;
         double gain=(double)median(totals.get(0))/median(totals.get(best))-1;
-        int width=parity && gain>0.05 ? new int[]{1,2,4}[best] : 1;
+        int width=parity && gain>0.05 ? widths[best] : 1;
         RuntimeSettings.Profile chosen=p(base.threads(),base.promptThreads(),base.batch(),width);
         RuntimeSettings.save(test.getTargetContext(),model.spec(),chosen);
-        report.put("exactFirstLogitsAndTextParity",parity).put("medianTotalsMs",new JSONArray(List.of(median(totals.get(0)),median(totals.get(1)),median(totals.get(2)))))
-            .put("medianPrefillMs",new JSONArray(List.of(median(prompts.get(0)),median(prompts.get(1)),median(prompts.get(2)))))
+        report.put("exactFirstLogitsAndTextParity",parity).put("medianTotalsMs",new JSONArray(List.of(median(totals.get(0)),median(totals.get(1)),median(totals.get(2)),median(totals.get(3)))))
+            .put("medianPrefillMs",new JSONArray(List.of(median(prompts.get(0)),median(prompts.get(1)),median(prompts.get(2)),median(prompts.get(3)))))
             .put("gain",gain).put("chosen",profile(chosen));
         require(parity,"Batched model changed first-token logits or generated text");
     }

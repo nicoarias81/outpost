@@ -24,7 +24,7 @@ final class RuntimeSettings {
                 org.json.JSONObject v=new org.json.JSONObject(text);
                 Profile p=new Profile(v.getInt("threads"),v.getInt("promptThreads"),v.getInt("batch"),v.getInt("width"),true);
                 p.configuration(true);
-                if(p.width()==1 || p.width()==2 || p.width()==4) return p;
+                if(p.width()==1 || p.width()==2 || p.width()==4 || p.width()==8) return p;
             }
         } catch(Exception ignored) { }
         int threads=Math.max(1,Math.min(4,Runtime.getRuntime().availableProcessors()));
@@ -32,7 +32,7 @@ final class RuntimeSettings {
     }
     static void save(Context context,ModelStore.Spec spec,Profile p) throws Exception {
         p.configuration(true);
-        if(p.width()!=1 && p.width()!=2 && p.width()!=4) throw new IllegalArgumentException("Invalid batch kernel width");
+        if(p.width()!=1 && p.width()!=2 && p.width()!=4 && p.width()!=8) throw new IllegalArgumentException("Invalid batch kernel width");
         String value=new org.json.JSONObject().put("threads",p.threads()).put("promptThreads",p.promptThreads()).put("batch",p.batch()).put("width",p.width()).toString();
         if(!context.getSharedPreferences("runtime-calibration",0).edit().putString(key(context,spec),value).commit()) throw new IllegalStateException("Cannot save calibration");
     }

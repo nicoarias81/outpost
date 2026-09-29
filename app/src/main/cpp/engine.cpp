@@ -160,7 +160,7 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
     try {
         if (run <= 0 || max_tokens < 1 || max_tokens > 256 || !callback) throw std::runtime_error("Invalid generation parameters");
         if (threads<1 || threads>8 || prompt_threads<1 || prompt_threads>8 || batch_size<16 || batch_size>512) throw std::runtime_error("Invalid runtime configuration");
-        if(matrix_width!=1 && matrix_width!=2 && matrix_width!=4) throw std::runtime_error("Invalid matrix kernel width");
+        if(matrix_width!=1 && matrix_width!=2 && matrix_width!=4 && matrix_width!=8) throw std::runtime_error("Invalid matrix kernel width");
         if(spec_depth<0 || spec_depth>7) throw std::runtime_error("Invalid speculation depth");
         std::vector<llama_token> oracle;
         if(oracle_tokens) {

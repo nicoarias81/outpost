@@ -16,7 +16,7 @@ void __real_ggml_vec_dot_q2_0_q8_0(int,float *,size_t,const void *,size_t,const 
 static _Atomic int batch_width=1;
 static _Atomic int batch_used;
 void outpost_q2_set_batch_width(int width) {
-    atomic_store(&batch_width,width==2 || width==4 ? width : 1);
+    atomic_store(&batch_width,width==2 || width==4 || width==8 ? width : 1);
     atomic_store(&batch_used,0);
 }
 int outpost_q2_batch_used(void) { return atomic_load(&batch_used); }
@@ -40,7 +40,7 @@ static inline int dot32(__m256i codes,const int8_t *q) {
 }
 __attribute__((target("avx2,f16c"),noinline))
 static void multi(int n,const block_q2_0 *x,const char *ys,size_t stride,int nt,float *out,size_t out_stride) {
-    float sum[4]={0};
+    float sum[8]={0};
     for(int b=0;b<n/64;b++) {
         const __m256i lo=unpack32(x[b].qs),hi=unpack32(x[b].qs+8);
         const float scale=_cvtsh_ss(x[b].d);
@@ -143,7 +143,7 @@ outpost_q2_report outpost_q2_batch_test(void) {
         outpost_q2_set_batch_width(1);
         if(ggml_graph_compute_with_ctx(ctx,g,threads)!=GGML_STATUS_SUCCESS) r.dispatch_ok=0;
         memcpy(expected,dst->data,17*cols[ci]*sizeof(float));
-        for(int width=2;width<=4;width*=2) {
+        for(int width=2;width<=8;width*=2) {
             outpost_q2_set_batch_width(width);
             if(ggml_graph_compute_with_ctx(ctx,g,threads)!=GGML_STATUS_SUCCESS) r.dispatch_ok=0;
             if(outpost_q2_batch_used()!=(cols[ci]>=2)) r.dispatch_ok=0;
