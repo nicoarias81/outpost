@@ -12,6 +12,8 @@ Read [AGENTS.md](../AGENTS.md) and [the engineering handoff](handoff.md). The la
 |---|---|
 | Understand the project | [Overview](project-overview.md), [current state](current-state.md), [roadmap](roadmap.md) |
 | Define the questions Outpost should answer | [Contextual question families](offline-world-knowledge.md) |
+| Trace the external acceptance bar | [Bounty record (poidh #31)](bounty-31.md) — verbatim bounty text, provenance and requirement trace; the bar is external and not under project control |
+| Define or score the evaluation | [Evaluation protocol](evaluation.md), [fixture manifest](../eval/fixtures-v1.json) (15 fixtures: 11 runnable, 4 blocked), [rubric](../eval/rubric-v1.md), [validator guide](../eval/README.md) — the manifest and rubric define the benchmark; no fixture has been executed as a scored run, and the validator exiting 0 proves internal consistency only |
 | Review new user input | [Personal knowledge and field-work discovery](discovery-2026-09-29.md) |
 | Change the architecture | [Architecture](architecture.md), [knowledge contracts](knowledge-base.md), [decisions](decisions.md) |
 | Work on performance | [Runtime](inference-runtime.md), [optimizations](optimizations.md), [speculation](speculation.md), [evaluation](evaluation.md) |

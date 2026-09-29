@@ -7,7 +7,7 @@ Consolidated: 2026-09-29. Application baseline: **Outpost 0.8.0 / version code 9
 1. Read [AGENTS.md](../AGENTS.md), this handoff, and [current state](current-state.md).
 2. Check `git status --short` and the latest log before editing. Do not overwrite another contributor's uncommitted work. The implementation baseline is commit `f2811ac`; subsequent handoff/discovery commits are documentation changes unless their diffs say otherwise.
 3. Read [contextual question families](offline-world-knowledge.md) before changing product priorities. Read [architecture](architecture.md) and the relevant domain guide before implementation.
-4. Select a bounded task from the [roadmap](roadmap.md), retaining its acceptance criteria. Read [evaluation](evaluation.md) to distinguish runtime correctness from task quality.
+4. Select a bounded task from the [roadmap](roadmap.md), retaining its acceptance criteria. Read [evaluation](evaluation.md) to distinguish runtime correctness from task quality. Before proposing evaluation work, read [eval/README.md](../eval/README.md), the fixture manifest [eval/fixtures-v1.json](../eval/fixtures-v1.json) and the rubric [eval/rubric-v1.md](../eval/rubric-v1.md).
 5. Before any runtime test, follow the [emulator operating guide](emulator-runbook.md) and [development](development.md), verify the AVD name as well as serial, matching installed APKs/models, and offline state. Archive evidence that a script would overwrite.
 
 Canonical repository: `E:\projects\outpost`; documented working branch: `codex/outpost`; Android/Java identity: `dev.outpost.app`; native library: `outpost_engine`. No remote or public release is configured. The original `brujula-android` source/AVD is preserved; continue work in Outpost.
@@ -53,7 +53,7 @@ The English 0.8 field fixtures contain source repetition and truncation. The far
 
 Kev passed simple probes but falsely supported two harder diagnostic claims. Numeric citation checks verify reference ranges, not claim support; the English UI example cites one passage for material also supplied in another. Neither mechanism is evaluation ground truth.
 
-Database upgrades currently throw; schema changes need a migration preserving user imports. Peak memory, real Android memory pressure, phone battery/thermal behavior and real-device speed are not measured. The approximately 305 MiB cache retention observation is a historical post-run PSS sample, not a peak.
+Database upgrades currently throw; schema changes need a migration preserving user imports. Peak memory, real Android memory pressure, phone battery/thermal behavior and real-device speed are not measured. The approximately 305 MiB cache retention observation is a historical post-run PSS sample, not a peak. The bounty's device, GrapheneOS, RAM, storage, phone-speed and public-publication requirements cannot be verified in the current emulator-only, private-repository scope and must never be reported as met; the trace and scope boundary live in [bounty-31.md](bounty-31.md).
 
 ## Last validated delivery, not a live-state guarantee
 
@@ -69,7 +69,7 @@ Historical 0.7 evidence is preserved in `evidence/0.7-before-outpost`. Do not re
 
 These are engineering recommendations within the documented direction, not claims that every proposal is approved for implementation:
 
-1. **E-01 + W-01:** define a versioned question-family evaluation matrix across varied subjects and public/regional/personal evidence. Include held-out questions, ambiguity, missing/conflicting data and exact success/critical-failure criteria. Keep retrieval, fixed-evidence inference, tools and integration scores separate.
+1. **E-01 + W-01 (definition done):** the question-family matrix now exists as the versioned manifest [eval/fixtures-v1.json](../eval/fixtures-v1.json) — 15 fixtures, 11 runnable and 4 blocked — with the machine validator `eval/validate.py` and the scoring rubric [eval/rubric-v1.md](../eval/rubric-v1.md). The remaining work is executing and scoring it rather than defining it; no fixture has been executed as a scored run. Keep retrieval, fixed-evidence inference, tools and integration scores separate.
 2. **E-02:** reproduce known failures under controlled prompts and budgets, then identify retrieval, context selection, generation, truncation or arithmetic causes. Do not hide a failure by weakening its rubric.
 3. **K-01 + K-03:** introduce the evidence/locator contract and a safe database migration path around the existing library. Keep search/reading useful with no model loaded.
 4. **K-02 + one justified adapter:** implement a small versioned package lifecycle and one next source type based on the evaluation needs. PDF/manual, structured personal records and regional/reference data are candidates, not a mandate to implement all formats at once. W-02/W-03 cover contextual recommendations and cross-source reasoning.
@@ -87,6 +87,8 @@ D-01 through D-05 capture discovery candidates. USB changes, networked executors
 | Kernels | `q2_kernel.c`, `q2_batch.c`, `cpu_caps.c`, `q2_dispatch.c`; [optimizations](optimizations.md) |
 | Speculation | `speculation.cpp`, `SpeculationChecks.java`, `test-speculation.ps1` |
 | Product and evaluation | [question families](offline-world-knowledge.md), [overview](project-overview.md), [evaluation](evaluation.md) |
+| Evaluation definition | [eval/fixtures-v1.json](../eval/fixtures-v1.json), [eval/rubric-v1.md](../eval/rubric-v1.md), `eval/validate.py` |
+| External bar | [bounty-31.md](bounty-31.md) |
 
 Production Java lives in `app/src/main/java/dev/outpost/app`, test Java in `app/src/androidTest/java/dev/outpost/app`, and native code in `app/src/main/cpp`. The maintained [index](index.md) is the documentation map. `current-state.md` owns observed capabilities/failures; `roadmap.md` owns task status/acceptance; `decisions.md` owns rationale and proposal/adoption status. IDs are scoped to their owning document. Historical Spanish reports retain their experimental context and do not override the latest scope clarification.
 

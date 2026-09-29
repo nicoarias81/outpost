@@ -16,6 +16,8 @@ Performance work can continue alongside M1/M2, but no speed result substitutes f
 
 ## P0 — Project foundation and quality baseline
 
+E-01 and W-01 define the benchmark; defining it is not measuring it: no fixture in `eval/fixtures-v1.json` has been executed as a scored run, and a green `eval/validate.py` proves internal consistency only.
+
 | ID | Task | Depends on | Acceptance criteria |
 |---|---|---|---|
 | R-01 — done | Select English product name, repo slug, namespace plan | Outpost selected | Outpost selected; identity recorded in `project.json` |
@@ -23,7 +25,7 @@ Performance work can continue alongside M1/M2, but no speed result substitutes f
 | R-03 — done | Remove sibling toolchain assumptions | R-02 | SDK/JDK/cache can be configured explicitly; missing prerequisites have actionable errors; build from new location |
 | R-04 — done | Establish English application baseline | R-01 | Resource-backed UI strings, English prompts and demo content, locale-aware formatting, reviewed screenshots and mission results; no stale JNI/test/appId references |
 | R-05 | Choose code license and distribution policy | Before public distribution | Root license and contribution/release terms chosen; dependency notices retained; no accidental relicensing of upstream assets |
-| E-01 | Create a versioned mission fixture manifest and rubric | None | Five contexts, expected evidence, successful outcome, critical failures, package/model/prompt identities; executable checks distinct from reviewed quality |
+| E-01 — done | Create a versioned mission fixture manifest and rubric — recorded in [eval/fixtures-v1.json](../eval/fixtures-v1.json) and [eval/rubric-v1.md](../eval/rubric-v1.md), checked by `eval/validate.py` | None | Five contexts, expected evidence, successful outcome, critical failures, package/model/prompt identities; executable checks distinct from reviewed quality (consuming the manifest in the harness and actually measuring it remains E-02, E-04 and E-05) |
 | E-02 | Reproduce traveler and mountaineer failures under controlled prompts | E-01 | Freeze source/query/template/sampler; compare app and fixture prompts; record whether error comes from retrieval, truncation, interpretation, or calculation |
 | E-03 | Preserve run identity and evidence snapshots | None | New runs do not overwrite the only record of a release; JSON links include app/build/config identity and failure results |
 
@@ -48,7 +50,7 @@ The user clarified that [Vitalik's example](offline-world-knowledge.md) identifi
 
 | ID | Task | Dependencies / acceptance |
 |---|---|---|
-| W-01 | Define a varied question-family benchmark | E-01; varied domains, contextual constraints, held-out questions/entities, public/personal/mixed evidence, missing/ambiguous/conflicting data and inspectable locators |
+| W-01 — done | Define a varied question-family benchmark — declared in [eval/fixtures-v1.json](../eval/fixtures-v1.json) and judged per [eval/rubric-v1.md](../eval/rubric-v1.md) | E-01; varied domains, contextual constraints, held-out questions/entities, public/personal/mixed evidence, missing/ambiguous/conflicting data and inspectable locators (the definition is done; executing and scoring it remains E-02, E-04 and E-05) |
 | W-02 | Demonstrate contextual retrieval and recommendations | K-01, K-02 and source-specific adapters as needed; preserve applicable entities/constraints, explain ranking criteria, show useful results before long generation, and avoid unsupported current-state claims |
 | W-03 | Demonstrate comparison, synthesis and supported explanations | K-01, W-01 and suitable reference material; combine relevant sources, preserve specifications/units, distinguish evidence from inference, and clarify material gaps |
 

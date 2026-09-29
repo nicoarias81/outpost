@@ -19,13 +19,21 @@ Evaluate the [type of contextual questions](offline-world-knowledge.md): specifi
 
 Use restaurant recommendations and issue-list recall only as illustrative fixtures. Test supported reasoning, applicability, exact values, useful ranking criteria, source navigation, proportionate clarification and missing-data behavior across domains. Separate time to useful evidence from generation latency; do not let success on one familiar example stand in for broad utility.
 
-## Mission fixture format to implement
+## Mission fixture format
+
+*(Formerly "Mission fixture format to implement"; the format described below is now implemented.)*
 
 Each fixture should identify its domain, version, package hashes, source locators, initial context, user turns, missing facts, expected tool operations, supported outcomes, and critical errors. Record language and prompt template version explicitly. Include positive cases, absent-data cases, conflicting revisions, misleading nearby text, and a corrected user observation.
 
 Use a held-out set after development fixtures are stable. Domain-specific operational references need qualified review before claims of real field usefulness. Current equipment IDs and procedures in runtime fixtures are fictitious.
 
-Proposed rubric: task completion; evidence applicability; supported claims; citation resolution; context handling; deterministic result correctness; handling of unknown conditions; and time to useful information. Keep critical failures separate from an averaged score. Refusing a supported simple calculation is also a quality failure.
+Rubric dimensions: task completion; evidence applicability; supported claims; citation resolution; context handling; deterministic result correctness; handling of unknown conditions; and time to useful information. Keep critical failures separate from an averaged score. Refusing a supported simple calculation is also a quality failure.
+
+### Implementation status (2026-09-29)
+
+The manifest and rubric now exist: [eval/fixtures-v1.json](../eval/fixtures-v1.json) declares 15 fixtures (11 runnable, 4 blocked) and [eval/rubric-v1.md](../eval/rubric-v1.md) defines the scoring rules. The manifest shape is enforced by the host-only validator (`python eval/validate.py`, exits 0); see [eval/README.md](../eval/README.md) for what a passing run does and does not prove. The rubric dimensions are therefore no longer merely proposed: the eight review dimensions, the separation of deterministic checks from reviewed quality, and per-fixture critical failures kept outside the averaged score are now concrete declarations in the manifest and rubric. The rubric itself is not restated here.
+
+The external acceptance bar for this evaluation is recorded in [bounty-31.md](bounty-31.md); its proposed comparison protocol lives in [eval/rubric-v1.md](../eval/rubric-v1.md) and has not been run.
 
 ## Performance protocol
 
