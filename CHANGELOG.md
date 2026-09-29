@@ -2,6 +2,23 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## Agent handoff consolidation — 2026-09-29
+
+- Integrated the corrected question-family direction and anonymized discovery notes into the repository documentation.
+- Added AGENTS.md and a self-contained engineering handoff covering runtime constraints, implementation state, evidence limits, known failures, open decisions and bounded next tasks.
+- Documentation only; application version, model/runtime behavior and validation baseline remain 0.8.0.
+
+## Product scope clarification — 2026-09-29
+
+- Clarified that Vitalik's example concerns contextual question types, not a diet/restaurant specialization or mandatory standalone benchmark.
+- Proposed question-family evaluation across varied world, regional and personal evidence; action-oriented ideas remain complementary proposals.
+
+## Product discovery notes — 2026-09-29
+
+- Recorded anonymized hypotheses from owner-supplied group feedback: personal document recall, contextual visits, reflection, deferred actions, and field equipment diagnosis.
+- Proposed an issue-list recall demo, a simulated read-only device workflow, and follow-up discovery tasks; clarified provenance and action boundaries.
+- Documentation only: no application/model/permission change, no outbound message, and no hardware connection.
+
 ## 0.8.0 — Outpost — 2026-09-29
 
 - Selected the Outpost identity and created an independent local repository under `E:\projects\outpost`.

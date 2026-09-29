@@ -13,6 +13,12 @@ Status: existing test inventory plus proposed mission evaluation protocol. Histo
 | Integration | Complete mission and installed packages | Preparation, source inspection, context correction, cancellation, useful outcome |
 | Runtime | Model/hash, prompt/tokens, sampler, cache and kernel settings | Numerical behavior, load/prefill/decode, RAM, stability |
 
+## Question families across varied evidence
+
+Evaluate the [type of contextual questions](offline-world-knowledge.md): specific facts, discovery, recommendations under constraints, comparisons/compatibility, explanations, cross-source synthesis and bounded troubleshooting. Sample different topics, locations where applicable, wording and evidence conditions. World, regional and personal material are content dimensions of this matrix, not separate products or two fixed demos.
+
+Use restaurant recommendations and issue-list recall only as illustrative fixtures. Test supported reasoning, applicability, exact values, useful ranking criteria, source navigation, proportionate clarification and missing-data behavior across domains. Separate time to useful evidence from generation latency; do not let success on one familiar example stand in for broad utility.
+
 ## Mission fixture format to implement
 
 Each fixture should identify its domain, version, package hashes, source locators, initial context, user turns, missing facts, expected tool operations, supported outcomes, and critical errors. Record language and prompt template version explicitly. Include positive cases, absent-data cases, conflicting revisions, misleading nearby text, and a corrected user observation.

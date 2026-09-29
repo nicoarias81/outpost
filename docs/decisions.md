@@ -62,6 +62,14 @@ Recorded on 2026-09-29 from the current implementation and project discussion. T
 
 **Status: implemented locally as Outpost.** The user selected Outpost. Repository: `E:\projects\outpost`; app ID: `dev.outpost.app`; native library: `outpost_engine`; branch: `codex/outpost`. The original copy, emulator, and unmodified 0.7 evidence are preserved. Models, tools, builds, AVD data, and machine settings remain ignored. Code license, release signing, and publication policy are still open. See the [migration record](repository-migration.md).
 
+## ADR-016 — Keep action and context proposals under the coordinator
+
+**Status: proposed, no runtime change.** Qualitative [group feedback](discovery-2026-09-29.md) suggests personal recall, local-device diagnosis and reconnect actions. Preserve inference/knowledge separation; use explicit user context, bounded adapters and a persistent action ledger if experiments justify them. Internet availability, local-device connectivity and authorization are separate states. Begin with synthetic documents and emulator mock transports. A connector or permission expansion requires a subsequent concrete design decision; reconnect is not authorization. Revisit after the proposed document-recall and read-only diagnostic experiments.
+
+## ADR-017 — Evaluate contextual question families, not a narrow example
+
+**Status: user-clarified product direction; implementation pending.** Vitalik's example illustrates the kind of specific, contextual question Outpost should answer. It is not a request for a vegan/restaurant app or a mandatory domain-specific benchmark. Evaluate contextual facts, discovery, recommendations, comparisons, explanations, synthesis and bounded troubleshooting across world, regional and personal evidence. Individual examples help construct fixtures; they do not define product verticals or substitute for transfer across topics. See the [corrected specification](offline-world-knowledge.md).
+
 ## Updating this register
 
 Add a new numbered decision when a material tradeoff changes. Include status, problem, choice, alternatives, consequences, evidence, and reconsideration condition. Mark superseded decisions rather than erasing the reason an earlier implementation existed.

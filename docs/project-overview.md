@@ -16,7 +16,13 @@ The user identified five equally relevant contexts:
 | Mountaineer | Relate position and itinerary to saved terrain information | Map, elevation data, route, battery and equipment context | Documented alternatives and explicit areas of missing coverage |
 | Driver | Interpret a vehicle warning or find a saved service location | Correct vehicle manual, route, service records, stated remaining range | Relevant manual section and bounded calculations, without invented live availability |
 
-Restaurant recommendations are one travel subcase. Generic trivia is useful for integration checks but is not the primary product evaluation.
+The [contextual-question requirement](offline-world-knowledge.md) preserves the aim of useful offline knowledge about the world. Vitalik's restaurant example illustrates specific, contextual questions that require retrieval, constraints, comparison or recommendations; it does not define a restaurant or vegan product. Evaluate those question families across different subjects, using world, regional and personal knowledge as appropriate.
+
+## Additional discovery hypotheses
+
+A [small group discussion](discovery-2026-09-29.md) suggests personal document recall, contextual visits, reflective conversation, tasks prepared for reconnection, and local equipment diagnosis. One participant recalled carrying manuals and prepared scripts for disconnected equipment. Another questioned how often coverage loss still occurs. These are qualitative signals, not validated demand or approved feature commitments.
+
+The issue-list demo is one personal-recall fixture within a broader question-family evaluation. Restaurant recommendations are another illustrative fixture; neither alone defines acceptance. Read-only diagnosis against a simulated device is an additional candidate. Reflection and connected execution would require distinct interaction/permission designs; neither is implemented. The five original contexts remain in scope.
 
 ## User journey
 

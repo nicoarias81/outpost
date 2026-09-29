@@ -2,12 +2,17 @@
 
 Status: TXT/Markdown library implemented; typed contracts and all additional adapters proposed. This is a design specification, not an API already exposed by the app.
 
+## Complementary content layers
+
+World/reference knowledge, regional/activity packages, and personal documents are complementary layers of the same knowledge domain. The [contextual-question requirement](offline-world-knowledge.md) evaluates retrieval, recommendations and synthesis across these layers. Choose adapters for the evidence each task needs; neither a document-only workflow nor a geographic catalog defines the full product.
+
 ## Storage by capability
 
 | Source | Proposed storage and query strategy | Current status |
 |---|---|---|
 | Text / Markdown | Original text, document metadata, lexical passage index | Implemented in `Library`, without versioned packages |
 | PDF manuals and drawings | Original file, page/section locators, extracted text; separate OCR provenance where needed | Pending |
+| DOCX and XLSX personal documents | Preserve document structure or sheet/row/cell relationships; retain original file, version and optional receipt/download metadata | Proposed discovery scope; legacy DOC/XLS not implied |
 | Wikipedia / Wikivoyage ZIM | Read archive through a ZIM adapter; use available archive indexes; avoid duplicating the entire corpus | Pending |
 | OSM regions | Entity and geometry indexes; display layers and route graph as distinct capabilities | Pending |
 | User observations | Typed values, units, timestamps, asset identity, and user provenance | Pending |
@@ -31,6 +36,12 @@ Each result should contain the following fields. IDs are stable within a package
 | `limitations` | Missing coverage, stale or unknown date, extraction uncertainty, conflict |
 
 A locator must resolve without internet to the exact installed version. Conflicting results remain separate evidence items. Retrieval score indicates relevance, not factual confidence. Record the bounded subset actually sent to inference so an answer can be audited.
+
+## Proposed personal-file provenance extension
+
+The [issue-list discovery case](discovery-2026-09-29.md) requires more than passage similarity. Add optional filename/display name, user-confirmed project/equipment, receipt/download timestamps when actually provided, and structured sheet/row/cell locators. Keep file modification, source revision and Outpost import times separate. Unknown dates remain unknown, and a vague relative date is a retrieval clue rather than permission to discard all files with missing metadata.
+
+Preserve table row relationships and exact IDs before generating prose. Represent formulas and cached values distinctly when spreadsheet support is evaluated; do not assume formula recalculation or execute embedded macros. Imported files do not imply access to their originating email account or all files on the phone. These are proposed contract additions, not fields in the current schema.
 
 ## Package manifest, draft v0
 

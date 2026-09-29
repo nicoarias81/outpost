@@ -84,6 +84,14 @@ The knowledge domain owns content, indexes, versions, provenance, and retrieval.
 
 Changing a generator should not rebuild a knowledge package. Changing an embedding encoder may require rebuilding its own index. Reading a manual page or calculating a difference should remain possible without generation.
 
+## Proposed context and action extensions
+
+The [discovery note](discovery-2026-09-29.md) proposes personal-file context, a simulated equipment adapter, and a future action ledger under the application coordinator. These extend the application layer while preserving inference and knowledge as the two core domains. No transport, scheduler, connector, or new permission is implemented by this proposal.
+
+Track internet reachability, local-device reachability, available documents, and location freshness independently. Document-answer mode still requires evidence; a potential reflection mode would use an explicit different context/retention contract. A device adapter returns typed observations and exposes only known procedures with applicability checks. A persistent queue binds each future action to an exact destination/payload and an explicit authorization scope; network recovery alone cannot authorize it.
+
+The current no-INTERNET manifest remains unchanged. Any IP or remote executor needs a separate design decision about component boundaries, permissions, delivery semantics, and user expectations. Emulator fake transports/services are the only initial execution candidates.
+
 ## Data and failure boundaries
 
 Current database schema version 1 has `documents` and an FTS4 `passages` table. It does not yet have package versions, structured entities, a persistent mission state, or a database upgrade path. The next schema must migrate existing imports rather than reseed and erase them.

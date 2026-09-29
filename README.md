@@ -12,6 +12,8 @@ Migration and fresh English validation: [0.8 report](docs/validation-0.8.md). Ea
 
 ## Start here
 
+For agents continuing the project, begin with [AGENTS.md](AGENTS.md) and the [engineering handoff](docs/handoff.md). They include the latest scope corrections, current state, constraints, known failures, and suggested next tasks.
+
 - [Documentation index](docs/index.md): reading paths and document ownership.
 - [Product scope](docs/project-overview.md): users, field workflows, and success criteria.
 - [Current status](docs/current-state.md): implemented capabilities, gaps, and known failures.

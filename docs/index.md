@@ -2,11 +2,17 @@
 
 Outpost 0.8.0, version code 9. Maintained English documentation, updated on 2026-09-29. The standalone local repository is `E:\projects\outpost`; historical Brújula evidence is archived separately. Start with the [migration validation](validation-0.8.md) for the new build.
 
+## Start here when taking over
+
+Read [AGENTS.md](../AGENTS.md) and [the engineering handoff](handoff.md). The latest scope clarification is [question families](offline-world-knowledge.md); the anonymized [discovery input](discovery-2026-09-29.md) is recorded alongside it. These updates are maintained here in the repository; earlier external proposal files are not the source of truth.
+
 ## Reading paths
 
 | Purpose | Read in this order |
 |---|---|
 | Understand the project | [Overview](project-overview.md), [current state](current-state.md), [roadmap](roadmap.md) |
+| Define the questions Outpost should answer | [Contextual question families](offline-world-knowledge.md) |
+| Review new user input | [Personal knowledge and field-work discovery](discovery-2026-09-29.md) |
 | Change the architecture | [Architecture](architecture.md), [knowledge contracts](knowledge-base.md), [decisions](decisions.md) |
 | Work on performance | [Runtime](inference-runtime.md), [optimizations](optimizations.md), [speculation](speculation.md), [evaluation](evaluation.md) |
 | Build or reproduce results | [Development](development.md), [evaluation](evaluation.md), [dependencies](../THIRD_PARTY.md) |

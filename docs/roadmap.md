@@ -8,7 +8,7 @@ Baseline: Outpost 0.8.0. R-01 through R-04 are implemented and validated in the 
 |---|---|---|
 | M0 — Independent English project | Named, reproducible local repository under `E:\projects` | Clean source checkout builds using documented external prerequisites; English app baseline and migration evidence |
 | M1 — Evidence and reliable task baseline | Versioned evidence plus a task-oriented evaluation harness | Existing imports survive migration; all five mission fixtures have explicit outcomes, missing-data cases, and source locators |
-| M2 — First useful field slice | One complete document-based workflow | Prepare, search, calculate if needed, answer, inspect original, recover after cancellation, all offline |
+| M2 — Useful contextual knowledge workflows | Several question families across world, regional and personal evidence | Correct interpretation, useful answers, inspectable sources, and missing/ambiguous-data handling across varied subject matter; implementation may be sequential |
 | M3 — Broader knowledge | Encyclopedia and geographic package prototypes | Independent adapters demonstrate stated capabilities and storage/latency costs |
 | M4 — Portable runtime | Complete ARM build and defensible dispatch/fallback | ARM emulator execution evidence where available; physical-device validation remains outside current scope |
 
@@ -42,6 +42,18 @@ Performance work can continue alongside M1/M2, but no speed result substitutes f
 
 Suggested first slice: a fictitious equipment manual with an exact model/revision, a numeric observation, and a source page to inspect. This exercises common infrastructure without waiting for a map renderer. Choosing the specific mission is an implementation decision, not a promise that the current prototype provides field guidance.
 
+## Contextual-question evaluation — primary requirement
+
+The user clarified that [Vitalik's example](offline-world-knowledge.md) identifies a question type, not a diet/travel specialization or fixed mandatory test. Evaluate contextual retrieval, recommendations, comparisons, synthesis and bounded troubleshooting across different subjects and evidence conditions.
+
+| ID | Task | Dependencies / acceptance |
+|---|---|---|
+| W-01 | Define a varied question-family benchmark | E-01; varied domains, contextual constraints, held-out questions/entities, public/personal/mixed evidence, missing/ambiguous/conflicting data and inspectable locators |
+| W-02 | Demonstrate contextual retrieval and recommendations | K-01, K-02 and source-specific adapters as needed; preserve applicable entities/constraints, explain ranking criteria, show useful results before long generation, and avoid unsupported current-state claims |
+| W-03 | Demonstrate comparison, synthesis and supported explanations | K-01, W-01 and suitable reference material; combine relevant sources, preserve specifications/units, distinguish evidence from inference, and clarify material gaps |
+
+The restaurant and issue-list questions are illustrative fixtures, not product-defining gates. Evaluate transfer across topics; neither a prepared POI list nor a successful file lookup establishes the broader capability.
+
 ## P2 — Knowledge breadth and runtime portability
 
 | ID | Task | Depends on | Acceptance criteria |
@@ -66,6 +78,20 @@ Suggested first slice: a fictitious equipment manual with an exact model/revisio
 | X-04 | Voice and vision | A mission requires them; local models and consent/permissions designed; text workflow still works |
 | X-05 | Field notebook and controlled export | User workflow requires persistent observations; explicit save/export behavior, provenance, deletion, and private-data review |
 | X-06 | Physical Pixel and GrapheneOS validation | User explicitly lifts emulator-only execution restriction; define device-specific latency, peak RAM, thermal and battery protocol first |
+
+## Discovery candidates — not yet scheduled for implementation
+
+These tasks follow the [2026-09-29 group feedback](discovery-2026-09-29.md). They are proposed experiments, not authorization to connect to equipment/accounts. D-02 is one personal-recall experiment within W-01 through W-03; D-03 through D-05 require further discovery and must not displace the broader knowledge objective.
+
+| ID | Candidate | Dependencies / acceptance |
+|---|---|---|
+| D-01 | Validate recurring jobs and existing workarounds | Recent concrete incidents, frequency/cost, preparation behavior, relevant file/device types, phone-versus-laptop comparison; anonymized artifacts |
+| D-02 | Find the downloaded issue list | E-01, K-01; synthetic versioned files, row-aware retrieval, distinct date meanings, ambiguity/missing-file cases; measure correct source and exact rows before prose; PDF/DOCX/XLSX adapters staged separately |
+| D-03 | Manual-assisted equipment diagnosis | K-01, U-01; emulator fake transport only; exact device/firmware/manual revision; read-only observations; known-procedure registry; timeout/disconnect/wrong-device cases; no physical writes |
+| D-04 | Draft and retry a reconnect action | Define the actual job first; simulated destination/network; exact payload/destination, expiry, scoped authorization, cancel/restart persistence, duplicate prevention and unknown-result reconciliation; no real sending or permission change |
+| D-05 | Reflection and brainstorming interaction | Define optional retention and mode boundary separately from source answers; user correction, multi-turn continuity, no fabricated personal history; no clinical positioning or efficacy claim |
+
+D-02 and the earlier manual example share evidence identity, provenance, import and retrieval foundations. The broader contextual-question evaluation remains required across varied topics and evidence sources. Do not implement every file format or all five discovery candidates to demonstrate initial utility.
 
 ## Definition of done
 
