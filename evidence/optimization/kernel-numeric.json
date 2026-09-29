@@ -8,8 +8,8 @@
   "guardPagesPassed": true,
   "maxAbsoluteDifference": 0,
   "maxRelativeDifference": 0,
-  "scalarNanosecondsPer4096": 2551.56,
-  "avx2NanosecondsPer4096": 427.2,
-  "microbenchmarkSpeedup": 5.972752808988764,
+  "scalarNanosecondsPer4096": 2515.745,
+  "avx2NanosecondsPer4096": 434.395,
+  "microbenchmarkSpeedup": 5.791376512160591,
   "limits": "Median of 3 warm-cache rounds, 20000 dots per round. Not end-to-end speed or a phone measurement."
 }
