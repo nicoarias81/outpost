@@ -23,7 +23,7 @@ if (-not ($result -match 'PASS:')) { throw 'Generation tests failed; inspect gen
 foreach ($name in @('generation.png','generation-checks.json')) {
     $psi = [System.Diagnostics.ProcessStartInfo]::new($adb)
     $psi.UseShellExecute = $false; $psi.RedirectStandardOutput = $true
-    foreach ($arg in @('-s',$Serial,'exec-out','run-as','dev.outpost.app','cat',"files/evidence/$name")) { $psi.ArgumentList.Add($arg) }
+    $psi.Arguments = "-s $Serial exec-out run-as dev.outpost.app cat `"files/evidence/$name`""
     $p = [System.Diagnostics.Process]::Start($psi)
     $output = [System.IO.File]::Create((Join-Path $project "evidence\$name"))
     try { $p.StandardOutput.BaseStream.CopyTo($output) } finally { $output.Dispose() }

@@ -18,7 +18,7 @@ $result=Invoke-Adb shell am instrument -w -e speculation $Phase dev.outpost.app.
 $dir=Join-Path $project 'evidence/speculation'; New-Item -ItemType Directory -Force -Path $dir | Out-Null
 $name="speculation-$Phase.json"
 $psi=[System.Diagnostics.ProcessStartInfo]::new($adb); $psi.UseShellExecute=$false; $psi.RedirectStandardOutput=$true
-foreach($arg in @('-s',$Serial,'exec-out','run-as','dev.outpost.app','cat',"files/evidence/$name")) { $psi.ArgumentList.Add($arg) }
+$psi.Arguments = "-s $Serial exec-out run-as dev.outpost.app cat `"files/evidence/$name`""
 $process=[System.Diagnostics.Process]::Start($psi); $file=[System.IO.File]::Create((Join-Path $dir $name))
 try { $process.StandardOutput.BaseStream.CopyTo($file) } finally { $file.Dispose() }
 $process.WaitForExit()
@@ -26,7 +26,7 @@ if($process.ExitCode -ne 0 -or -not($result -match "PASS speculation $Phase")) {
 if($Phase -eq 'ui') {
     foreach($image in @('speculation-state.png','speculation-answer.png')) {
         $copy=[System.Diagnostics.ProcessStartInfo]::new($adb); $copy.UseShellExecute=$false; $copy.RedirectStandardOutput=$true
-        foreach($arg in @('-s',$Serial,'exec-out','run-as','dev.outpost.app','cat',"files/evidence/$image")) { $copy.ArgumentList.Add($arg) }
+        $copy.Arguments = "-s $Serial exec-out run-as dev.outpost.app cat `"files/evidence/$image`""
         $p=[System.Diagnostics.Process]::Start($copy); $f=[System.IO.File]::Create((Join-Path $dir $image))
         try { $p.StandardOutput.BaseStream.CopyTo($f) } finally { $f.Dispose() }
         $p.WaitForExit(); if($p.ExitCode -ne 0) { throw "Could not retrieve $image" }
