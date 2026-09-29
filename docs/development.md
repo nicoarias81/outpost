@@ -2,6 +2,8 @@
 
 Baseline: Windows/PowerShell development and x86_64 emulator execution. Commands are run from the project root. The repository is `E:\projects\outpost` and uses `dev.outpost.app`. The original project and emulator are preserved separately.
 
+For the actual operating sequence, identity checks, installed APK hashes, models and recovery, use the [emulator runbook](emulator-runbook.md). It distinguishes an already prepared host from a fresh clone.
+
 ## Prerequisites and preparation
 
 | Component | Pinned / required value |
@@ -25,7 +27,7 @@ python scripts/prepare-bonsai.py
 
 `prepare-native.py` obtains the pinned backend, NDK/CMake, and Qwen file. `prepare-judge.py` obtains Kev and copies its small head/config assets into the app. `prepare-bonsai.py` obtains both Bonsai profiles. Initial downloads total several GB; extraction, build caches, staged imports, and emulator disks require additional space. These scripts do not install the base SDK/JDK. Inspect [lock files and provenance](../THIRD_PARTY.md) before changing any dependency.
 
-For a populated local cache, append `--offline` to Gradle or use `pwsh -File scripts/build.ps1 -Offline`. The helper reads explicit parameters/environment settings or ignored `.local/developer-settings.json`. Copy [developer-settings.example.json](../developer-settings.example.json) and fill in actual `sdk`, `javaHome`, and optional `gradleHome` paths. An optional `gradleExecutable` can select an already installed Gradle; otherwise the pinned wrapper is used. No sibling-folder fallback exists. Python preparation may still access the network; an offline Gradle flag does not make first-time preparation offline.
+For a populated local cache, append `--offline` to Gradle or use `pwsh -File scripts/build.ps1 -Offline`. The helper reads explicit parameters/environment settings or ignored `.local/developer-settings.json`. Copy [developer-settings.example.json](../developer-settings.example.json) and fill in actual `sdk`, `javaHome`, and optional `gradleHome` paths. An optional `gradleExecutable` can select an already installed Gradle; otherwise the pinned wrapper is used. No sibling-folder fallback exists. The optional `pythonExecutable` records an interpreter when Python is not on PATH; invoke it explicitly for preparation scripts. Python preparation may still access the network; an offline Gradle flag does not make first-time preparation offline.
 
 ## Emulator setup
 
@@ -64,7 +66,7 @@ For UI generation, cached repeat, and simulated memory callback:
 pwsh -File scripts/test-bonsai.ps1 -UiOnly -UiProfile bonsai4 -SkipInstall -KeepSelected
 ```
 
-`-SkipInstall` is only appropriate when installed APKs and imported models match the current build. Rebuild/reinstall after code changes. Archive existing evidence before a script overwrites its output names.
+For `test-runtime.ps1` and `test-speculation.ps1`, `-SkipInstall` skips APK installation and requires installed APKs to match the build. For `test-bonsai.ps1`, it skips Bonsai weight staging/import but **still installs both APKs**, including in `-UiOnly` and `-SelectOnly` modes. Rebuild after code changes and archive evidence before a script overwrites it. The [runbook](emulator-runbook.md) provides exact readiness checks.
 
 ## Focused verification
 

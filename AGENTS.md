@@ -1,6 +1,6 @@
 # Agent entry point — Outpost
 
-Read [docs/handoff.md](docs/handoff.md) first. It contains the current product interpretation, implementation baseline, known failures, active constraints, next tasks, and resumption checklist. Then read the specific architecture, runtime, knowledge or evaluation document relevant to your change. [docs/index.md](docs/index.md) maps the rest.
+Read [docs/handoff.md](docs/handoff.md) first. It contains the current product interpretation, implementation baseline, known failures, active constraints, next tasks, and resumption checklist. For emulator work, also read [docs/emulator-runbook.md](docs/emulator-runbook.md): it covers host settings, identity checks, boot/offline state, APK/model readiness, test flags, evidence and recovery. Then read the specific architecture, runtime, knowledge or evaluation document relevant to your change. [docs/index.md](docs/index.md) maps the rest.
 
 ## Persistent project constraints
 

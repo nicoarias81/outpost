@@ -8,7 +8,7 @@ Consolidated: 2026-09-29. Application baseline: **Outpost 0.8.0 / version code 9
 2. Check `git status --short` and the latest log before editing. Do not overwrite another contributor's uncommitted work. The implementation baseline is commit `f2811ac`; subsequent handoff/discovery commits are documentation changes unless their diffs say otherwise.
 3. Read [contextual question families](offline-world-knowledge.md) before changing product priorities. Read [architecture](architecture.md) and the relevant domain guide before implementation.
 4. Select a bounded task from the [roadmap](roadmap.md), retaining its acceptance criteria. Read [evaluation](evaluation.md) to distinguish runtime correctness from task quality.
-5. Before any runtime test, follow [development](development.md), verify the intended emulator, matching installed APKs/models, and offline state. Archive evidence that a script would overwrite.
+5. Before any runtime test, follow the [emulator operating guide](emulator-runbook.md) and [development](development.md), verify the AVD name as well as serial, matching installed APKs/models, and offline state. Archive evidence that a script would overwrite.
 
 Canonical repository: `E:\projects\outpost`; documented working branch: `codex/outpost`; Android/Java identity: `dev.outpost.app`; native library: `outpost_engine`. No remote or public release is configured. The original `brujula-android` source/AVD is preserved; continue work in Outpost.
 

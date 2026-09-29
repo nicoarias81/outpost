@@ -1,5 +1,6 @@
 {
   "sdk": "C:/Android/Sdk",
   "javaHome": "C:/Java/jdk-21",
-  "gradleHome": "C:/Caches/Gradle"
+  "gradleHome": "C:/Caches/Gradle",
+  "pythonExecutable": "C:/Python/python.exe"
 }

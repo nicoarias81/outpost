@@ -2,6 +2,12 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## Emulator operating handoff — 2026-09-29
+
+- Added a practical runbook for tool resolution, correct AVD identity, startup/readiness, offline state, matching APKs, installed models, evidence, test flag semantics and recovery.
+- Recorded optional Python executable configuration for hosts without Python on PATH, and corrected the distinction between Bonsai and runtime/speculation `-SkipInstall` behavior.
+- Read-only live checks only; no application behavior change, emulator reset, model execution or new performance claim.
+
 ## Agent handoff consolidation — 2026-09-29
 
 - Integrated the corrected question-family direction and anonymized discovery notes into the repository documentation.

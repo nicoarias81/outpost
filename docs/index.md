@@ -15,6 +15,7 @@ Read [AGENTS.md](../AGENTS.md) and [the engineering handoff](handoff.md). The la
 | Review new user input | [Personal knowledge and field-work discovery](discovery-2026-09-29.md) |
 | Change the architecture | [Architecture](architecture.md), [knowledge contracts](knowledge-base.md), [decisions](decisions.md) |
 | Work on performance | [Runtime](inference-runtime.md), [optimizations](optimizations.md), [speculation](speculation.md), [evaluation](evaluation.md) |
+| Operate the emulator | [Emulator runbook](emulator-runbook.md): bootstrap, preflight, models, evidence and recovery |
 | Build or reproduce results | [Development](development.md), [evaluation](evaluation.md), [dependencies](../THIRD_PARTY.md) |
 | Prepare a standalone repository | [Migration and English baseline](repository-migration.md), [handoff](handoff.md) |
 | Handle local data | [Security and data](security-and-data.md), [knowledge contracts](knowledge-base.md) |
