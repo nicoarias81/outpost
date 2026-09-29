@@ -416,12 +416,14 @@ constant-extracted and is reported as recorded-but-unverified on every run. The 
 could not be re-fetched during verification (no network in the verification scope) and is recorded as
 provider-served and unsigned.
 
-### Found outside this feature
+### Found outside this feature, then fixed separately
 
-`app/src/main/AndroidManifest.xml` sets `android:label="BrÃºjula"` — a double-encoded, hardcoded
-label that contradicts `strings.xml` (`app_name` = `Outpost`) and the R-04 acceptance criterion about
-stale identity references and resource-backed strings. Recorded as a separate task; not fixed here
-because it is outside this feature's surfaces and needs its own authorization.
+`app/src/main/AndroidManifest.xml` set `android:label="BrÃºjula"` — a double-encoded, hardcoded label
+that contradicted `strings.xml` (`app_name` = `Outpost`) and the R-04 acceptance criterion about stale
+identity references and resource-backed strings. It was outside this feature's surfaces, so it was
+recorded as a separate task and fixed under explicit owner authorization in `270fec8`, verified with
+the project's own build: `BUILD SUCCESSFUL`, `lintDebug` reporting no issues, and `aapt2` reporting
+`application-label:'Outpost'` with no permissions declared for the built debug APK.
 
 ### Commit status
 
@@ -429,12 +431,19 @@ Three work-unit commits on `codex/outpost`:
 
 | Slice | Commit | Contents |
 |---|---|---|
-| Evaluation definition | `8bf097d` | `eval/fixtures-v1.json`, `eval/validate.py`, `eval/README.md`, `eval/rubric-v1.md` |
-| Bounty record and decisions | `33e62b4` | `docs/bounty-31.md`, `docs/decisions.md` (ADR-018), `docs/current-state.md` |
-| Documentation wiring | this commit | `docs/index.md`, `docs/roadmap.md`, `docs/evaluation.md`, `docs/handoff.md`, this file |
+| Evaluation definition | `eb4ff77` | `eval/fixtures-v1.json`, `eval/validate.py`, `eval/README.md`, `eval/rubric-v1.md` |
+| Bounty record and decisions | `ad9a08f` | `docs/bounty-31.md`, `docs/decisions.md` (ADR-018), `docs/current-state.md` |
+| Documentation wiring | `5b3c26b` | `docs/index.md`, `docs/roadmap.md`, `docs/evaluation.md`, `docs/handoff.md`, this file |
+| Launcher label fix | `270fec8` | `app/src/main/AndroidManifest.xml` |
 
-Nothing is pushed and no remote is configured. A private GitHub repository is authorized by the owner
-but has not been created.
+A private GitHub remote exists at `nicoarias81/outpost` with `origin` configured. Nothing is public.
+
+These hashes are post-rewrite. The whole branch was rewritten once (`git filter-branch --env-filter`)
+to replace the author and committer email with the account's GitHub noreply address, because GitHub
+rejected the first push with `GH007: Your push would publish a private email address`. Only the emails
+changed: the tree hash is identical before and after (`bf58db8`), `git diff` between the pre-rewrite
+backup ref and the rewritten branch is empty, and author and committer dates were preserved. Any hash
+quoted from an earlier conversation is void.
 
 ### Native review record
 
