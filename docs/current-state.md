@@ -49,6 +49,16 @@ Current implementation: Outpost 0.8.0 / version code 9. Fresh migration checks a
 
 The 0.6 mountaineer fixture did calculate 250 m, while the 0.7 fixture did not. Their system prompts differ; this is not proof that speculation introduced a numerical-reasoning regression. Compare controlled inputs before assigning a cause.
 
+## External acceptance bar
+
+Outpost originates from an external bounty (poidh #31). The full bounty text, provenance and requirement trace are owned by [bounty-31.md](bounty-31.md); capability status stays owned by this document.
+
+- Satisfied today: R-NONETWORK — the application manifest declares no INTERNET permission, so no network requests are possible during use; R-NOGMS — AOSP system image with no Google Play Services dependency (ADR-002).
+- Unmeasured rather than unmet: R-RAM-12GB (no peak-memory measurement exists; P-04) and R-SPEED (no phone timing exists; emulator timing is not a phone prediction, P-01).
+- Outside the current authorized scope by user decision: R-REAL-DEVICE and R-GRAPHENEOS (the emulator remains the only execution target, ADR-003) and R-PUBLIC-REPO (a private GitHub remote is authorized; public visibility is deferred to a final usable version).
+
+No bounty requirement is claimed as met: a passing harness, a citation index or a reviewer score does not establish the bounty's quality bar.
+
 ## Fresh English quality observations
 
 The 0.8 mission run preserves text across baseline/grouped paths, but source copying and truncation remain problems. The traveler response is partial; the farmer response fails to identify F-28; the engineering answer overstates the absence of authorization records. The mountaineer arithmetic and driver manual-page lookup work in these fixtures. See the [fresh content review](../evidence/strata/mission-review.json). Historical 0.7 failures above are not silently rewritten.
