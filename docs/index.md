@@ -1,0 +1,46 @@
+# Documentation index
+
+Outpost 0.8.0, version code 9. Maintained English documentation, updated on 2026-09-29. The standalone local repository is `E:\projects\outpost`; historical Brújula evidence is archived separately. Start with the [migration validation](validation-0.8.md) for the new build.
+
+## Reading paths
+
+| Purpose | Read in this order |
+|---|---|
+| Understand the project | [Overview](project-overview.md), [current state](current-state.md), [roadmap](roadmap.md) |
+| Change the architecture | [Architecture](architecture.md), [knowledge contracts](knowledge-base.md), [decisions](decisions.md) |
+| Work on performance | [Runtime](inference-runtime.md), [optimizations](optimizations.md), [speculation](speculation.md), [evaluation](evaluation.md) |
+| Build or reproduce results | [Development](development.md), [evaluation](evaluation.md), [dependencies](../THIRD_PARTY.md) |
+| Prepare a standalone repository | [Migration and English baseline](repository-migration.md), [handoff](handoff.md) |
+| Handle local data | [Security and data](security-and-data.md), [knowledge contracts](knowledge-base.md) |
+| Decode terminology or release history | [Glossary](glossary.md), [changelog](../CHANGELOG.md) |
+
+## Status vocabulary
+
+- **Implemented:** present in the checked source. This alone does not imply adequate product quality.
+- **Measured:** supported by a linked artifact, with a stated workload and environment.
+- **Proposed:** a design or task that has not been implemented.
+- **Deferred:** intentionally not being integrated under the current evidence or constraints.
+- **Open:** a decision or investigation still required.
+
+`current-state.md` owns the capability inventory. `roadmap.md` owns future work and acceptance criteria. `decisions.md` owns rationale and reconsideration conditions. Performance numbers belong in `optimizations.md` and `speculation.md`, linked to original evidence. Avoid introducing competing status lists in new documents.
+
+## Historical records
+
+The following reports remain in their original Spanish to preserve the experimental record. Their statements about future work are historical, not the current backlog. Use the English documents above for current status.
+
+| Record | Scope |
+|---|---|
+| [0.1](validation-0.1.md) | Initial offline library |
+| [0.2](validation-0.2.md) | Local generation |
+| [0.3](validation-0.3.md) | Kev review experiment |
+| [0.4](validation-0.4.md) | Bonsai model integration |
+| [0.5](validation-0.5.md) | Ternary dot kernel and prompt/sampling work |
+| [0.6](validation-0.6.md) | Grouped prefill, calibration, and cache |
+| [0.7](validation-0.7.md) | Context speculation and MTP feasibility |
+| [Two domains](two-domain-design.md), [field use cases](field-use-cases.md), [travel evaluation](travel-evaluation.md) | Earlier product and knowledge design |
+| [Strata review](strata-review.md), [device runtime](device-runtime.md) | Earlier optimization hypotheses and capability design |
+| [Original README](../README.legacy-es.md) | Full operational snapshot before English documentation |
+
+## Maintenance
+
+For each behavior change, update the owning document, its linked decision when applicable, and the relevant task status. Record the exact model hash, app version, test configuration, and limitations with measurements. Preserve failed results as well as successful ones. Translate historical reports as separate clearly labeled translations if needed; do not rewrite their observations to match later results.

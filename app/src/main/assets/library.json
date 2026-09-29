@@ -1,0 +1,56 @@
+[
+  {
+    "id": "gps",
+    "title": "GPS: position from satellites",
+    "category": "Orientation",
+    "source": "NASA · GPS",
+    "url": "https://www.nasa.gov/directorates/somd/space-communications-navigation-program/gps/",
+    "date": "2026-09-29",
+    "body": "A GPS receiver calculates its position from radio signals sent by satellites. The time taken by each signal helps estimate the distance to the satellite. Combining several signals provides the receiver position and corrects its clock.\n\nReceiving satellite signals is different from downloading an online map. A receiver can therefore calculate coordinates without a data connection. To show those coordinates on a map, the application must also have the map available. This is an educational explanation, not a test of any particular application."
+  },
+  {
+    "id": "gps-accuracy",
+    "title": "Why GPS accuracy changes",
+    "category": "Orientation",
+    "source": "GPS.gov · GPS Accuracy",
+    "url": "https://www.gps.gov/gps-accuracy",
+    "date": "2026-09-29",
+    "body": "GPS position accuracy depends on satellite geometry, obstacles blocking signals, atmospheric conditions, and receiver characteristics. The accuracy of the transmitted signal does not guarantee the same accuracy on a phone.\n\nBuildings, bridges, and trees can block signals. Signal reflections from walls and other surfaces can also introduce errors. A position shown on a map must therefore be interpreted with its uncertainty; the plotted point is not a guarantee of an exact location."
+  },
+  {
+    "id": "compass",
+    "title": "Compass: orientation and the magnetic field",
+    "category": "Orientation",
+    "source": "Android Developers · Position sensors",
+    "url": "https://developer.android.com/develop/sensors-and-location/sensors/sensors_position",
+    "date": "2026-09-29",
+    "body": "The geomagnetic field sensor measures magnetic field strength on three axes. Android can combine this information with the accelerometer to estimate device orientation relative to magnetic north.\n\nOrientation and position are different quantities: a compass indicates a direction, while GPS estimates coordinates. Magnetic north does not necessarily match geographic north. Android provides tools to calculate magnetic declination, which depends on location and time."
+  },
+  {
+    "id": "energy",
+    "title": "Power and energy: kW versus kWh",
+    "category": "Energy",
+    "source": "U.S. EIA · Measuring electricity",
+    "url": "https://www.eia.gov/energyexplained/electricity/measuring-electricity.php",
+    "date": "2026-09-29",
+    "body": "Power expresses the rate at which energy is consumed or produced. It is measured in watts (W) or kilowatts (kW): one kilowatt equals one thousand watts. Energy consumed over an interval can be expressed in watt-hours (Wh) or kilowatt-hours (kWh).\n\nIf power remains constant, energy is power multiplied by time. For example, a 100 W appliance running for three hours consumes 300 Wh, or 0.3 kWh. This calculated example illustrates why kW and kWh are not interchangeable."
+  },
+  {
+    "id": "solar",
+    "title": "How a solar panel converts light",
+    "category": "Energy",
+    "source": "U.S. DOE · Solar Photovoltaic Technology Basics",
+    "url": "https://www.energy.gov/cmei/systems/solar-photovoltaic-technology-basics",
+    "date": "2026-09-29",
+    "body": "Photovoltaic materials convert sunlight into electrical energy. Cells are connected to form modules or panels, which can in turn be grouped into larger systems.\n\nModules produce direct current. A system intended to power alternating-current appliances includes the components needed for conversion. A panel is therefore one part of a system: mounting structures and other electrical components suitable for the intended use are also required."
+  },
+  {
+    "id": "solar-efficiency",
+    "title": "Photovoltaic cell efficiency",
+    "category": "Energy",
+    "source": "U.S. DOE · Photovoltaic Performance and Efficiency",
+    "url": "https://www.energy.gov/cmei/systems/solar-photovoltaic-performance-and-efficiency-basics",
+    "date": "2026-09-29",
+    "body": "Photovoltaic efficiency is the proportion of solar energy received by a device that is converted into usable electricity. Not all incoming radiation becomes electrical energy.\n\nComparing efficiency requires considering measurement conditions. Temperature and received light affect performance. An efficiency value describes conversion; on its own, it does not say how much energy an installation will produce over an entire day."
+  }
+]

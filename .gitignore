@@ -1,0 +1,19 @@
+.gradle/
+**/build/
+.local/
+local.properties
+*.iml
+.idea/
+dist/
+.cxx/
+**/.cxx/
+__pycache__/
+# Large models and local/private material
+*.gguf
+*.safetensors
+*.keystore
+*.jks
+.env
+.env.*
+!.env.example
+private/

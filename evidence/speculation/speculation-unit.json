@@ -1,0 +1,75 @@
+{
+  "version": "0.8.0",
+  "modelSha256": "9d968b04a3c9a794897bcc744c8072fb6a061c0e42efd03c989401ddf8baef0c",
+  "system": "Use only the fictitious record. Follow the request literally. Do not add facts or procedures.",
+  "runtime": {
+    "abi": "x86_64",
+    "onlineCpus": 4,
+    "featureMask": 15,
+    "selected": "Q2_0 AVX2\/F16C",
+    "candidates": [
+      {
+        "id": 0,
+        "name": "Q2_0 reference",
+        "cpuCompatible": true,
+        "compiled": true,
+        "enabled": true,
+        "selected": false
+      },
+      {
+        "id": 1,
+        "name": "Q2_0 AVX2\/F16C",
+        "cpuCompatible": true,
+        "compiled": true,
+        "enabled": true,
+        "selected": true
+      },
+      {
+        "id": 2,
+        "name": "Q2_0 AVX-VNNI",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 3,
+        "name": "Q2_0 AVX-512 VNNI\/VL",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 4,
+        "name": "Q2_0 NEON",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 5,
+        "name": "Q2_0 NEON DotProd",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 6,
+        "name": "Q2_0 NEON I8MM",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      }
+    ]
+  },
+  "unitChecks": 561,
+  "unitFailures": 0,
+  "rows": [],
+  "adaptivePolicy": "At least 8 emitted tokens, a matching suffix of 8..16 tokens, up to 3 drafts in the app; stop after 3 windows without estimated >5% benefit. Fixed diagnostic mode uses suffixes of 4..16 tokens.",
+  "limits": "Emulator x86 only. Fictitious records. The oracle uses a previous answer and is not a practical draft source. Batched target arithmetic may differ from serial arithmetic; text parity is reported separately from algorithm checks. PSS is sampled after calls, not peak RAM.",
+  "passed": true
+}

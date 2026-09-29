@@ -1,0 +1,10 @@
+{
+  "model": "Ternary Bonsai 4B · Q2_0 g64",
+  "text": "La potencia (en kW) mide la tasa a la que se consume o produce energía, mientras que la energía (en kWh) es el total consumido o producido durante un período de tiempo. Si la potencia permanece constante, la energía se calcula como potencia multiplicada por tiempo, lo que demuestra que kW y kWh no son intercambiables; por ejemplo, un aparato de 100 W durante tres horas consume 0,3 kWh [1].",
+  "tokens": 105,
+  "firstTokenMs": 29672,
+  "totalMs": 52136,
+  "stopReason": 0,
+  "kernel": "Q2_0 AVX2\/F16C (runtime dispatch)",
+  "fastPathUsed": true
+}

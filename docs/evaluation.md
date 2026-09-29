@@ -1,0 +1,64 @@
+# Evaluation and evidence protocol
+
+Status: existing test inventory plus proposed mission evaluation protocol. Historical Brújula results remain archived under `evidence/0.7-before-outpost`. Fresh English migration checks are described in [validation-0.8.md](validation-0.8.md); they are not substitutes for controlled optimization benchmarks.
+
+## Separate the questions
+
+| Layer | Hold fixed | Evaluate |
+|---|---|---|
+| Knowledge coverage | Mission and required facts | Whether the installed package contains applicable information |
+| Retrieval | Corpus, query, expected source IDs | Relevant passages/entities, wrong-revision filtering, provenance, latency |
+| Inference | Correct bounded evidence and confirmed context | Task understanding, supported answer, useful abstention, citations, truncation |
+| Tools | Typed inputs and expected results | Arithmetic/units/geometry correctness and applicability |
+| Integration | Complete mission and installed packages | Preparation, source inspection, context correction, cancellation, useful outcome |
+| Runtime | Model/hash, prompt/tokens, sampler, cache and kernel settings | Numerical behavior, load/prefill/decode, RAM, stability |
+
+## Mission fixture format to implement
+
+Each fixture should identify its domain, version, package hashes, source locators, initial context, user turns, missing facts, expected tool operations, supported outcomes, and critical errors. Record language and prompt template version explicitly. Include positive cases, absent-data cases, conflicting revisions, misleading nearby text, and a corrected user observation.
+
+Use a held-out set after development fixtures are stable. Domain-specific operational references need qualified review before claims of real field usefulness. Current equipment IDs and procedures in runtime fixtures are fictitious.
+
+Proposed rubric: task completion; evidence applicability; supported claims; citation resolution; context handling; deterministic result correctness; handling of unknown conditions; and time to useful information. Keep critical failures separate from an averaged score. Refusing a supported simple calculation is also a quality failure.
+
+## Performance protocol
+
+1. Freeze app/build identity, backend revision, model SHA-256, input source version, rendered prompt/tokens, sampler, output budget, and timeout.
+2. Record ABI/CPU/OS features, thread counts, batch and matrix widths, emulator RAM/CPU configuration, and whether the host is contended.
+3. Separate model-cold, context-cold, partial-cache, and exact-cache cases. Exclude warmup explicitly where the test does so.
+4. Alternate baseline/candidate order over repeated pairs. Compare medians and individual runs; investigate variance rather than selecting the fastest run.
+5. Record load, prepare, prefill, decode, first-token and total time, reused tokens, output text/count, and stop reason. For speculation include proposal/acceptance counts, verification time and disablement.
+6. Inspect answer quality and numerical behavior independently. A different output length can change latency; token-budget truncation must be visible.
+7. Preserve failures and superseded candidates. Label estimates and oracle controls separately from executable production paths.
+
+Do not infer battery life, thermal sustainability, real-phone latency, or peak memory from emulator wall time or post-run PSS. There are no confidence intervals in the existing small paired controls; the 5% adoption threshold is a working rule, not a statistical significance test.
+
+## Existing tests and evidence
+
+| Area | Entry point | Evidence |
+|---|---|---|
+| Library/import/UI | `test-emulator.ps1` | [checks.json](../evidence/0.7-before-outpost/checks.json), UI screenshots |
+| Qwen generation/cancel/recovery | `test-generation.ps1` | [generation-checks.json](../evidence/0.7-before-outpost/generation-checks.json) |
+| Kev controls | `test-review.ps1` | [review-checks.json](../evidence/0.7-before-outpost/review-checks.json), [0.3 interpretation](validation-0.3.md) |
+| Three generator comparison | `test-bonsai.ps1` | [summary](../evidence/0.7-before-outpost/bonsai-summary.json), raw per-model outputs |
+| Dot numerical checks | `test-kernel.ps1 -Phase numeric` | [16,241 checks](../evidence/0.7-before-outpost/optimization/kernel-numeric.json) |
+| Dispatch policy | `test-kernel.ps1 -Phase dispatch` | [64 synthetic checks](../evidence/0.7-before-outpost/optimization/kernel-dispatch.json) |
+| Grouped numerical checks | `test-kernel.ps1 -Phase batch` | [7,932 comparisons](../evidence/0.7-before-outpost/optimization/kernel-batch.json) |
+| Native compile portability | `check-native-portability.ps1` | [ten objects](../evidence/0.7-before-outpost/optimization/portability.json), no ARM execution |
+| Calibration / grouping / cache | `test-runtime.ps1 -Phase ...` | [calibration](../evidence/0.7-before-outpost/strata/runtime-calibrate.json), [grouping](../evidence/0.7-before-outpost/strata/runtime-batch.json), [cache](../evidence/0.7-before-outpost/strata/runtime-cache.json) |
+| Speculation units and runtime | `test-speculation.ps1 -Phase ...` | [units](../evidence/0.7-before-outpost/speculation/speculation-unit.json), [benchmark](../evidence/0.7-before-outpost/speculation/speculation-benchmark.json), [guard](../evidence/0.7-before-outpost/speculation/speculation-guard.json), [UI](../evidence/0.7-before-outpost/speculation/speculation-ui.json) |
+| MTP/checkpoint inspection | `audit-spec-models.py` | [model audit](../evidence/0.7-before-outpost/speculation/model-audit.json) |
+
+The 0.7 report records 48 functional checks and 17 Qwen generation checks passing, plus the specific kernel/speculation checks above. These counts describe different scopes and should not be combined into a claim of overall product accuracy.
+
+Some scripts overwrite fixed evidence filenames. Archive a run before repeating it if it is the only release record. A run-manifest and immutable output-directory convention is backlog item E-03, not a feature already implemented.
+
+## Preserved adverse findings
+
+- [Initial cache UI mismatch](../evidence/0.7-before-outpost/strata/cache-initial-ui-mismatch.json).
+- [Initial speculative UI mismatch](../evidence/0.7-before-outpost/speculation/initial-v1/speculation-ui.json).
+- [Batched logit differences](../evidence/0.7-before-outpost/speculation/speculation-energy-audit.json).
+- [Traveler and mountaineer content failures](../evidence/0.7-before-outpost/speculation/mission-review.json).
+- [Optimistic auxiliary-drafter cost estimate](../evidence/0.7-before-outpost/speculation/speculation-draft-cost.json).
+
+The final mission harness may report successful execution and parity while the content review records failures. Both records are required. The result of a classifier, a keyword match, and a correct mission outcome are different observations.

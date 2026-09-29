@@ -1,0 +1,12 @@
+{
+  "source": "speculation-missions.json",
+  "method": "Assistant review of recorded fictitious field cases. Baseline and speculative texts are identical in the five comparisons; the system prompt differs from the earlier 0.6 mission experiment.",
+  "cases": [
+    {"id":"traveler","assessment":"failed and truncated","observed":"Mentions the 10:00 luggage time but does not answer the practical storage question and distracts itself with absent restaurant information. Stops at 96 tokens in both variants."},
+    {"id":"farmer","assessment":"supported","observed":"Identifies filter F-28. The final policy makes no proposals in this six-token answer."},
+    {"id":"field-engineer","assessment":"supported","observed":"Does not infer authorization or current electrical safety from the incomplete record."},
+    {"id":"mountaineer","assessment":"failed","observed":"Incorrectly refuses the 250 m elevation subtraction and says no positive gain is established. Both modes make the same error under this prompt."},
+    {"id":"driver","assessment":"supported","observed":"Returns page 42 for the recorded warning."}
+  ],
+  "limits":"Neither token verification nor text parity verifies facts. Positive marker detection is insufficient; these fixtures do not establish safe or effective real field use."
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "Package": "ndk;28.1.13356709",
+    "Url": "android-ndk-r28b-windows.zip",
+    "SHA1": "c7d82072807fcabbd6ee356476761d8729307185",
+    "Size": 748117965
+  },
+  {
+    "Package": "cmake;3.22.1",
+    "Url": "cmake-3.22.1-windows.zip",
+    "SHA1": "292778f32a7d5183e1c49c7897b870653f2d2c1b",
+    "Size": 16116742
+  }
+]

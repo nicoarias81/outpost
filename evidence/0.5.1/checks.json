@@ -1,0 +1,202 @@
+{
+  "version": "0.5.1",
+  "checksPassed": 48,
+  "results": [
+    {
+      "check": "APK has no INTERNET permission",
+      "passed": true
+    },
+    {
+      "check": "Bare reference numbers are not displayed as an explanation",
+      "passed": true
+    },
+    {
+      "check": "Numeric answers retain meaningful content",
+      "passed": true
+    },
+    {
+      "check": "Generator profile selection persists independently of weights",
+      "passed": true
+    },
+    {
+      "check": "Qwen and Bonsai use different installed files",
+      "passed": true
+    },
+    {
+      "check": "Bonsai sizes use distinct installed files",
+      "passed": true
+    },
+    {
+      "check": "Unknown saved profile falls back without becoming a path",
+      "passed": true
+    },
+    {
+      "check": "Six attributed demo documents installed",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: GPS satélites",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: GPS posición señales",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: satélites receptor reloj",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: GPS coordenadas internet",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: precisión GPS edificios",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: GPS obstáculos árboles",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: reflexiones señal paredes",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: brújula norte magnético",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: brujula orientacion",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: sensor acelerómetro",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: declinación magnética",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: diferencia kW kWh",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: 100 W tres horas",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: vatios kilovatios potencia",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: panel solar corriente continua",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: paneles módulos montaje",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: eficiencia fotovoltaica temperatura",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: radiación electricidad eficiencia",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: ornitorrinco",
+      "passed": true
+    },
+    {
+      "check": "Retrieval: ",
+      "passed": true
+    },
+    {
+      "check": "FTS control characters cannot inject query syntax",
+      "passed": true
+    },
+    {
+      "check": "Mixed punctuation query remains searchable",
+      "passed": true
+    },
+    {
+      "check": "Stopword-only input is empty",
+      "passed": true
+    },
+    {
+      "check": "Accented and unaccented search both work",
+      "passed": true
+    },
+    {
+      "check": "Imported passage indexed with source position",
+      "passed": true
+    },
+    {
+      "check": "Citation passage exists verbatim in stored document",
+      "passed": true
+    },
+    {
+      "check": "Imported content is not labeled verified",
+      "passed": true
+    },
+    {
+      "check": "Text beyond first chunk remains searchable",
+      "passed": true
+    },
+    {
+      "check": "Reject empty import",
+      "passed": true
+    },
+    {
+      "check": "UTF-8 byte size limit enforced",
+      "passed": true
+    },
+    {
+      "check": "Reject embedded NUL\/binary content",
+      "passed": true
+    },
+    {
+      "check": "Near-limit document returns bounded results without duplicating full body per candidate",
+      "passed": true
+    },
+    {
+      "check": "Selected passages share one loaded source object",
+      "passed": true
+    },
+    {
+      "check": "Library list loads metadata only",
+      "passed": true
+    },
+    {
+      "check": "Full source can be loaded on demand",
+      "passed": true
+    },
+    {
+      "check": "Imported source and index survive reopening database",
+      "passed": true
+    },
+    {
+      "check": "Database reopening does not duplicate seeds",
+      "passed": true
+    },
+    {
+      "check": "Main screen finishes loading",
+      "passed": true
+    },
+    {
+      "check": "Search button executes real local query",
+      "passed": true
+    },
+    {
+      "check": "Source reader opens asynchronously",
+      "passed": true
+    }
+  ],
+  "elapsedMs": 4051,
+  "device": "Android SDK built for x86_64",
+  "androidApi": 35,
+  "scope": "Functional retrieval and Activity checks; this suite does not run LLM generation; no physical-device measurement"
+}

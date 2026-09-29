@@ -1,0 +1,19 @@
+{
+  "source": "runtime-missions.json",
+  "method": "Assistant review of the saved baseline and optimized texts against their supplied fictitious records. Not a real-world validation.",
+  "performanceTextParity": "The optimized and baseline text match in all five cases.",
+  "cases": [
+    {
+      "id": "traveler",
+      "assessment": "failed",
+      "expected": "The traveler can leave the backpack at reception at 11:00 because luggage is accepted from 10:00; room check-in is later.",
+      "observed": "The model incorrectly makes luggage storage depend on absent restaurant information and says it cannot provide an option despite mentioning the luggage time. Both variants also stop at the 96-token limit.",
+      "markerCaveat": "The automatic marker 10:00 is present but does not establish that the answer is useful or correct."
+    },
+    {"id":"farmer","assessment":"supported","observed":"Identifies the replacement filter F-28 and cites the supplied record."},
+    {"id":"field-engineer","assessment":"supported","observed":"Correctly says the record does not establish authorization or the current electrical state. No actual intervention is evaluated."},
+    {"id":"mountaineer","assessment":"supported calculation with terminology defect","observed":"Computes the 250 m elevation gain correctly, but calls the two absolute elevations desnivel instead of elevation."},
+    {"id":"driver","assessment":"supported","observed":"Directs the user to the recorded page 42 for X17; does not invent a diagnosis."}
+  ],
+  "limits": "A marker match, a completed test harness, and identical text are separate from task success. These five synthetic records do not cover navigation, real equipment procedures, live conditions, or broad factual reliability."
+}

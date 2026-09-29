@@ -1,0 +1,30 @@
+plugins { id 'com.android.application' }
+android {
+    ndkVersion '28.1.13356709'
+    ndkPath rootProject.file('.local/native/ndk/android-ndk-r28b').absolutePath
+    namespace 'dev.outpost.app'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'dev.outpost.app'
+        minSdk 28
+        targetSdk 35
+        versionCode 9
+        versionName '0.8.0'
+        ndk { abiFilters 'x86_64' }
+        externalNativeBuild {
+            cmake { arguments '-DCMAKE_BUILD_TYPE=Release', '-DANDROID_STL=c++_shared' }
+        }
+        testInstrumentationRunner 'dev.outpost.app.GenerationInstrumentation'
+    }
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    lint { abortOnError true }
+    externalNativeBuild { cmake { path file('src/main/cpp/CMakeLists.txt'); version '3.22.1' } }
+}
+dependencies { coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5' }
+
+// Keep Java literals consistent across Windows and other build hosts.
+tasks.withType(JavaCompile).configureEach { options.encoding = "UTF-8" }

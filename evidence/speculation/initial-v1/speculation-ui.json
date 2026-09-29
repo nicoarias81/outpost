@@ -1,0 +1,100 @@
+{
+  "version": "0.7.0",
+  "modelSha256": "9d968b04a3c9a794897bcc744c8072fb6a061c0e42efd03c989401ddf8baef0c",
+  "system": "Usa exclusivamente la ficha ficticia. Respeta literalmente lo pedido. No añadas datos ni procedimientos.",
+  "runtime": {
+    "abi": "x86_64",
+    "onlineCpus": 4,
+    "featureMask": 15,
+    "selected": "Q2_0 AVX2\/F16C",
+    "candidates": [
+      {
+        "id": 0,
+        "name": "Q2_0 reference",
+        "cpuCompatible": true,
+        "compiled": true,
+        "enabled": true,
+        "selected": false
+      },
+      {
+        "id": 1,
+        "name": "Q2_0 AVX2\/F16C",
+        "cpuCompatible": true,
+        "compiled": true,
+        "enabled": true,
+        "selected": true
+      },
+      {
+        "id": 2,
+        "name": "Q2_0 AVX-VNNI",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 3,
+        "name": "Q2_0 AVX-512 VNNI\/VL",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 4,
+        "name": "Q2_0 NEON",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 5,
+        "name": "Q2_0 NEON DotProd",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 6,
+        "name": "Q2_0 NEON I8MM",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      }
+    ]
+  },
+  "unitChecks": 305,
+  "unitFailures": 0,
+  "rows": [],
+  "limits": "Emulator x86 only. Fictitious records. The oracle uses a previous answer and is not a practical draft source. Batched target arithmetic may differ from serial arithmetic; text parity is reported separately from algorithm checks. PSS is sampled after calls, not peak RAM.",
+  "uiBaseline": {
+    "text": "La potencia (en kW) mide la tasa a la que se consume o produce energía, mientras que la energía (en kWh) es el total consumido o producido durante un período de tiempo. Si la potencia permanece constante, la energía se calcula como potencia multiplicada por tiempo, lo que demuestra que kW y kWh no son intercambiables; por ejemplo, un aparato de 100 W durante tres horas consume 0,3 kWh [1].",
+    "tokens": 105,
+    "firstTokenMs": 26401,
+    "decodeMs": 31706,
+    "totalMs": 58104,
+    "cachedTokens": 0,
+    "drafted": 0,
+    "accepted": 0,
+    "verifyPasses": 0,
+    "disabledByCost": false
+  },
+  "uiSpeculative": {
+    "text": "La potencia (en kW) mide la tasa a la que se consume o produce energía, mientras que la energía (en kWh) mide el total de energía consumida o producida en un intervalo de tiempo. Si la potencia permanece constante, la energía es la potencia multiplicada por el tiempo, lo que demuestra que kW y kWh no son intercambiables [1].",
+    "tokens": 87,
+    "firstTokenMs": 9,
+    "decodeMs": 24815,
+    "totalMs": 24821,
+    "cachedTokens": 268,
+    "drafted": 18,
+    "accepted": 14,
+    "verifyPasses": 6,
+    "disabledByCost": false
+  },
+  "textParity": false,
+  "passed": false,
+  "error": "java.lang.AssertionError: Speculation changed this UI response\n\tat dev.brujula.app.SpeculationChecks.require(SpeculationChecks.java:270)\n\tat dev.brujula.app.SpeculationChecks.ui(SpeculationChecks.java:240)\n\tat dev.brujula.app.SpeculationChecks.run(SpeculationChecks.java:56)\n\tat dev.brujula.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:48)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2594)\n"
+}

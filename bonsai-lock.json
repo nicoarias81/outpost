@@ -1,0 +1,7 @@
+{
+  "format": "Q2_0 g64, 2.25 effective bits per block weight including FP16 scale",
+  "models": [
+    {"id":"bonsai17","name":"Ternary Bonsai 1.7B · Q2_0 g64","repo":"prism-ml/Ternary-Bonsai-1.7B-gguf","revision":"983b5dec2ff16aab79990711ba0f828a499a7e6a","file":"Ternary-Bonsai-1.7B-Q2_0_g64.gguf","size":490163968,"sha256":"6d0ecb3d9055969b5cde332b6fdb60e67ed3599e9f73e56b977731e1467e5c91"},
+    {"id":"bonsai4","name":"Ternary Bonsai 4B · Q2_0 g64","repo":"prism-ml/Ternary-Bonsai-4B-gguf","revision":"a3eb42bafe873f9686bc97486c43b72ef7d75ec8","file":"Ternary-Bonsai-4B-Q2_0_g64.gguf","size":1137806656,"sha256":"9d968b04a3c9a794897bcc744c8072fb6a061c0e42efd03c989401ddf8baef0c"}
+  ]
+}

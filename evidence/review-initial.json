@@ -1,0 +1,330 @@
+{
+  "version": "0.3.0",
+  "model": "Kev 0.8B Q8_0 · revisor experimental",
+  "modelSha256": "bb280c1fe370a50a165ba1d2617e3549f33e97f05045ee4000fea6e92aedb584",
+  "headSha256": "81e93556686afce55e4aacc93428dede06e3909d47173e31e1b3a6fb78000171",
+  "functionalChecksPassed": 21,
+  "functionalChecks": [
+    {
+      "check": "Reviewer APK has no INTERNET permission",
+      "passed": true
+    },
+    {
+      "check": "Kev GGUF and pointer head verified",
+      "passed": true
+    },
+    {
+      "check": "Bad reviewer import preserves previous model",
+      "passed": true
+    },
+    {
+      "check": "Review explicitly selects only the first sentence",
+      "passed": true
+    },
+    {
+      "check": "Queued review cancellation preserved",
+      "passed": true
+    },
+    {
+      "check": "Native decision is finite, normalized and complete",
+      "passed": true
+    },
+    {
+      "check": "Native decision is finite, normalized and complete",
+      "passed": true
+    },
+    {
+      "check": "Native decision is finite, normalized and complete",
+      "passed": true
+    },
+    {
+      "check": "Native decision is finite, normalized and complete",
+      "passed": true
+    },
+    {
+      "check": "Native decision is finite, normalized and complete",
+      "passed": true
+    },
+    {
+      "check": "Native decision is finite, normalized and complete",
+      "passed": true
+    },
+    {
+      "check": "Native decision is finite, normalized and complete",
+      "passed": true
+    },
+    {
+      "check": "Native decision is finite, normalized and complete",
+      "passed": true
+    },
+    {
+      "check": "Native decision is finite, normalized and complete",
+      "passed": true
+    },
+    {
+      "check": "Native decision is finite, normalized and complete",
+      "passed": true
+    },
+    {
+      "check": "Native decision is finite, normalized and complete",
+      "passed": true
+    },
+    {
+      "check": "Native decision is finite, normalized and complete",
+      "passed": true
+    },
+    {
+      "check": "Native decision is finite, normalized and complete",
+      "passed": true
+    },
+    {
+      "check": "Native decision is finite, normalized and complete",
+      "passed": true
+    },
+    {
+      "check": "Generator still runs before reviewer in same UI",
+      "passed": true
+    },
+    {
+      "check": "UI executes genuine Kev pointer-head review",
+      "passed": true
+    }
+  ],
+  "evaluationCases": [
+    {
+      "id": "en-power-supported",
+      "language": "en",
+      "evidence": "Power is measured in watts (W). Energy is measured in watt-hours (Wh).",
+      "claim": "Energy is measured in watt-hours.",
+      "expected": 0,
+      "predicted": 0,
+      "probabilities": [
+        0.8904723413201585,
+        0.03032613121445809,
+        0.0792015274653834
+      ],
+      "inputTokens": 76,
+      "loadMs": 823,
+      "totalMs": 2449
+    },
+    {
+      "id": "en-energy-contradicted",
+      "language": "en",
+      "evidence": "Power is measured in watts (W). Energy is measured in watt-hours (Wh).",
+      "claim": "Energy is measured in watts instead of watt-hours.",
+      "expected": 1,
+      "predicted": 1,
+      "probabilities": [
+        0.011571891238406172,
+        0.9442807430327086,
+        0.04414736572888523
+      ],
+      "inputTokens": 79,
+      "loadMs": 0,
+      "totalMs": 2082
+    },
+    {
+      "id": "en-gps-unknown",
+      "language": "en",
+      "evidence": "A GPS receiver uses radio signals from satellites to estimate its position.",
+      "claim": "This receiver has an accuracy of exactly one metre.",
+      "expected": 2,
+      "predicted": 2,
+      "probabilities": [
+        0.07620702747424421,
+        0.1056689280867997,
+        0.818124044438956
+      ],
+      "inputTokens": 75,
+      "loadMs": 0,
+      "totalMs": 1714
+    },
+    {
+      "id": "en-gps-supported",
+      "language": "en",
+      "evidence": "A GPS receiver uses radio signals from satellites to estimate its position.",
+      "claim": "GPS receivers receive signals from satellites.",
+      "expected": 0,
+      "predicted": 0,
+      "probabilities": [
+        0.9211641856264814,
+        0.006394072809236137,
+        0.07244174156428267
+      ],
+      "inputTokens": 72,
+      "loadMs": 0,
+      "totalMs": 1615
+    },
+    {
+      "id": "en-solar-contradicted",
+      "language": "en",
+      "evidence": "Photovoltaic panels convert sunlight to electricity. Their output is direct current.",
+      "claim": "The panels produce alternating current rather than direct current.",
+      "expected": 1,
+      "predicted": 1,
+      "probabilities": [
+        0.008746463239924,
+        0.9454754912118108,
+        0.045778045548265076
+      ],
+      "inputTokens": 77,
+      "loadMs": 0,
+      "totalMs": 1730
+    },
+    {
+      "id": "en-solar-unknown",
+      "language": "en",
+      "evidence": "Photovoltaic panels convert sunlight to electricity.",
+      "claim": "These panels have an efficiency of 22 percent.",
+      "expected": 2,
+      "predicted": 2,
+      "probabilities": [
+        0.11285468523622735,
+        0.048192722405643165,
+        0.8389525923581295
+      ],
+      "inputTokens": 72,
+      "loadMs": 0,
+      "totalMs": 1601
+    },
+    {
+      "id": "es-power-supported",
+      "language": "es",
+      "evidence": "La potencia se mide en vatios (W). La energía se mide en vatios hora (Wh).",
+      "claim": "La energía se mide en vatios hora.",
+      "expected": 0,
+      "predicted": 0,
+      "probabilities": [
+        0.8856561291915709,
+        0.03330836274856045,
+        0.08103550805986878
+      ],
+      "inputTokens": 82,
+      "loadMs": 0,
+      "totalMs": 1747
+    },
+    {
+      "id": "es-energy-contradicted",
+      "language": "es",
+      "evidence": "La potencia se mide en vatios (W). La energía se mide en vatios hora (Wh).",
+      "claim": "La energía se mide en vatios en lugar de vatios hora.",
+      "expected": 1,
+      "predicted": 1,
+      "probabilities": [
+        0.019814793600080153,
+        0.8969368269905544,
+        0.08324837940936537
+      ],
+      "inputTokens": 87,
+      "loadMs": 0,
+      "totalMs": 1930
+    },
+    {
+      "id": "es-gps-unknown",
+      "language": "es",
+      "evidence": "Un receptor GPS utiliza señales de radio de satélites para estimar su posición.",
+      "claim": "Este receptor tiene una precisión de exactamente un metro.",
+      "expected": 2,
+      "predicted": 2,
+      "probabilities": [
+        0.09353085964446958,
+        0.11353230142014788,
+        0.7929368389353826
+      ],
+      "inputTokens": 79,
+      "loadMs": 0,
+      "totalMs": 1766
+    },
+    {
+      "id": "es-gps-supported",
+      "language": "es",
+      "evidence": "Un receptor GPS utiliza señales de radio de satélites para estimar su posición.",
+      "claim": "Los receptores GPS reciben señales de satélites.",
+      "expected": 0,
+      "predicted": 0,
+      "probabilities": [
+        0.9263096499230009,
+        0.004684421407160523,
+        0.06900592866983857
+      ],
+      "inputTokens": 80,
+      "loadMs": 0,
+      "totalMs": 1782
+    },
+    {
+      "id": "es-solar-contradicted",
+      "language": "es",
+      "evidence": "Los paneles fotovoltaicos convierten luz solar en electricidad. Producen corriente continua.",
+      "claim": "Los paneles producen corriente alterna en lugar de continua.",
+      "expected": 1,
+      "predicted": 1,
+      "probabilities": [
+        0.014416476536039408,
+        0.9222897711070825,
+        0.06329375235687808
+      ],
+      "inputTokens": 81,
+      "loadMs": 0,
+      "totalMs": 1752
+    },
+    {
+      "id": "es-solar-unknown",
+      "language": "es",
+      "evidence": "Los paneles fotovoltaicos convierten luz solar en electricidad.",
+      "claim": "Estos paneles tienen una eficiencia del 22 por ciento.",
+      "expected": 2,
+      "predicted": 2,
+      "probabilities": [
+        0.1576723144103031,
+        0.04561649171649135,
+        0.7967111938732054
+      ],
+      "inputTokens": 77,
+      "loadMs": 0,
+      "totalMs": 1925
+    },
+    {
+      "id": "en-energy-options-reordered",
+      "predicted": 1,
+      "expected": 1,
+      "probabilitiesInReorderedOrder": [
+        0.037031790566225506,
+        0.010681535022342509,
+        0.952286674411432
+      ],
+      "totalMs": 1709
+    },
+    {
+      "id": "observed-qwen-0.5b-error",
+      "language": "es",
+      "evidence": "La potencia expresa el ritmo al que se consume o produce energía. Se mide en vatios (W) o kilovatios (kW): un kilovatio equivale a mil vatios. La energía consumida durante un intervalo se puede expresar en vatios hora (Wh) o kilovatios hora (kWh).\n\nSi la potencia permanece constante, la energía es potencia multiplicada por tiempo. Por ejemplo, un aparato de 100 W funcionando durante tres horas consume 300 Wh, es decir, 0,3 kWh. Este ejemplo calculado ilustra por qué kW y kWh no son intercambiables.",
+      "claim": "La potencia y energía se mide en vatios (W) o kilovatios (kW).",
+      "expected": 1,
+      "predicted": 0,
+      "probabilities": [
+        0.7565310282184242,
+        0.018696511843040668,
+        0.2247724599385351
+      ],
+      "inputTokens": 199,
+      "loadMs": 0,
+      "totalMs": 4590
+    }
+  ],
+  "balancedCases": 12,
+  "correct": 12,
+  "englishCorrect": 6,
+  "spanishCorrect": 6,
+  "falseSupport": 0,
+  "uiAnswer": "La potencia expresa el ritmo con el que se consume o produce energía, mientras que la energía se mide en el tiempo durante la cual se consume o produce esa energía. Por ejemplo, un aparato de 100 W funcionando durante tres horas consume 300 Wh, es decir, 0,3 kWh. [1]",
+  "uiClaim": "La potencia expresa el ritmo con el que se consume o produce energía, mientras que la energía se mide en el tiempo durante la cual se consume o produce esa energía.",
+  "uiReview": [
+    0.7948998793322091,
+    0.012479942823224422,
+    0.1926201778445664
+  ],
+  "uiReviewMs": 5276,
+  "processPssKiBAtEnd": 898361,
+  "elapsedMs": 69921,
+  "limits": "Small bilingual development probe. Not a held-out benchmark or calibration. Same weights evaluated in Android x86_64 only; no physical device or remote inference."
+}

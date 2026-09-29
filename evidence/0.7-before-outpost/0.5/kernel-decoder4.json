@@ -1,0 +1,27 @@
+{
+  "model": "Ternary Bonsai 4B · Q2_0 g64",
+  "system": "Responde en español con una frase breve, usando solo la fuente.",
+  "user": "FUENTE: La potencia se mide en vatios. La energía se mide en vatios hora.\nPREGUNTA: ¿En qué se mide la energía?",
+  "scalar": {
+    "text": "La energía se mide en vatios hora.",
+    "tokens": 10,
+    "promptTokens": 69,
+    "loadMs": 694,
+    "firstTokenMs": 44260,
+    "totalMs": 51562,
+    "stopReason": 0
+  },
+  "avx2": {
+    "text": "La energía se mide en vatios hora.",
+    "tokens": 10,
+    "promptTokens": 69,
+    "loadMs": 0,
+    "firstTokenMs": 7693,
+    "totalMs": 9103,
+    "stopReason": 0
+  },
+  "scalarSelected": true,
+  "avx2Selected": true,
+  "identicalText": true,
+  "limits": "One paired prompt, scalar first with model load, then AVX2 with warm model. Full-model regression, not a quality benchmark."
+}

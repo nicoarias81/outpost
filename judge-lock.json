@@ -1,0 +1,12 @@
+{
+  "name": "Kev 0.8B Q8_0 (conversion DreamBlooms)",
+  "repo": "DreamBlooms/kev-0.8b-GGUF",
+  "revision": "4f3367e227569b4be717a0ca4aa30739efcaa575",
+  "upstream": "jaredpalmer/kev-0.8b",
+  "portRevision": "63374ff55a66c50b266adfef422e1fc4b0ee5717",
+  "files": [
+    {"file":"kev-0.8b-q8_0.gguf","size":811843040,"sha256":"bb280c1fe370a50a165ba1d2617e3549f33e97f05045ee4000fea6e92aedb584"},
+    {"file":"kev-head.f32","size":2099200,"sha256":"81e93556686afce55e4aacc93428dede06e3909d47173e31e1b3a6fb78000171"},
+    {"file":"kev.json","size":101,"sha256":"7ada84ace293fe7ef54fcbd61ae9fa3b6e216bcfd201e5387989bba65b005e6f"}
+  ]
+}

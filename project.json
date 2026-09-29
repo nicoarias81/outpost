@@ -1,0 +1,14 @@
+{
+  "name": "Outpost",
+  "slug": "outpost",
+  "applicationId": "dev.outpost.app",
+  "nativeLibrary": "outpost_engine",
+  "defaultLanguage": "en",
+  "version": "0.8.0",
+  "executionScope": "emulator-only",
+  "previousIdentity": {
+    "name": "Brújula",
+    "applicationId": "dev.brujula.app",
+    "version": "0.7.0"
+  }
+}
