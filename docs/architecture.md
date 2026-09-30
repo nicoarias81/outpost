@@ -1,6 +1,6 @@
 # Architecture
 
-Implementation reference for **Outpost 0.13.0 / code 15**, checked on 2026-09-30. One Android process owns the UI, local databases and JNI inference session. There is no inference server or cloud fallback. Inference and knowledge are separate responsibilities within one application module, not separate Gradle modules.
+Implementation reference for **Outpost 0.14.0 / code 16**, checked on 2026-09-30. One Android process owns the UI, local databases and JNI inference session. There is no inference server or cloud fallback. Inference and knowledge are separate responsibilities within one application module, not separate Gradle modules.
 
 ## Current application flow
 
@@ -40,7 +40,7 @@ Java files are under [app/src/main/java/dev/outpost/app](../app/src/main/java/de
 | `ModelStore` / `RuntimeSettings` | Locked generator imports; device/app-version/model-specific runtime policy |
 | `NativeEngine` / `engine.cpp` | JNI, request IDs/cancellation, model/context lifecycle, sampling, cache and results |
 | `cpu_caps.c` / `q2_dispatch.c` | CPU/OS detection separated from compiled/enabled implementation selection |
-| `q2_kernel.c` / `q2_batch.c` | AVX2/F16C Q2 g64 dot and grouped matrix wrappers, guarded reference fallback |
+| `q2_kernel.c` / `q2_batch.c` | AVX2/F16C Q2 g64 dot, grouped columns and guarded output-row reuse; separate multi-/single-column selection and reference fallback |
 | `speculation.cpp` | Research-only same-request proposals, verification helpers and cost controller |
 | `ResearchPrompt`, `JudgeStore`, `EvidenceReview` | Evidence-only evaluation and optional Kev research; no reviewer/speculation product controls |
 | `CMakeLists.txt` | Pinned unmodified backend, ABI configuration and linker wrappers |
@@ -51,10 +51,10 @@ Java files are under [app/src/main/java/dev/outpost/app](../app/src/main/java/de
 
 ### General chat request
 
-1. Sending saves a pending turn and retrieves against the current message. `Library.search` bounds the query to 1,000 characters and 20 normalized terms, reads up to 500 FTS candidates and returns up to eight ranked fragments. It is lexical retrieval, not semantic or spatial ranking. Follow-up conversation is supplied to generation; there is no implemented history-based query rewrite.
+1. Sending saves a pending turn and retrieves against the current message. `Library.search` bounds the query to 1,000 characters and 20 normalized terms, reads up to 500 FTS candidates and returns up to eight ranked fragments. This general path uses lexical retrieval; an empty first search retries with the preceding user question appended. Recent conversation is supplied to generation. Structured place queries use the separate deterministic path above.
 2. `ChatPrompt` v1.1 includes the last two completed/length-limited turns (240 question and 400 answer characters each), up to three current excerpts of 600 characters, titles of 100 characters and the current question bounded to 600 characters. Excerpts are query-centered. Earlier numeric citations are stripped; failed/canceled/interrupted drafts are excluded.
 3. The app saves the selected exact source locators and resolves the verified model/profile. No matching document permits general model knowledge with explicit instructions against invented personal/current facts. Research fixtures instead use `ResearchPrompt` and its evidence-only no-hit path.
-4. The inference queue calls JNI with context 2,048 tokens, output limit 192 tokens and deadline 120 seconds. Product chat always sets speculation depth to zero. Character bounds do not guarantee token fit; native validation remains authoritative.
+4. The inference queue calls JNI with context 2,048 tokens, output limit 192 tokens and deadline 120 seconds, applying the measured row/width profile when its key matches. Multi-column and single-column row settings are independent and part of context-cache compatibility. Product chat always sets speculation depth to zero. Character bounds do not guarantee token fit; native validation remains authoritative.
 5. Confirmed text streams to the UI. The final turn retains its response, source references and completion/limit/cancel/error state. Numeric citation checks do not prove factual support.
 
 The document reader is usable without a loaded generator. There is no separate product search screen; the library search API remains available to chat and tests. See [chat behavior](chat-beta.md).

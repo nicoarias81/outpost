@@ -1,6 +1,6 @@
 # Developer guide
 
-Current baseline: **Outpost 0.13.0**, Windows/PowerShell host, Android API 35 emulator execution. Work from `E:/projects/outpost`. The APK packages `x86_64` and `arm64-v8a`; all runtime/model/numerical testing remains in Outpost35 / `emulator-5582`. Read the [emulator runbook](emulator-runbook.md) before runtime work.
+Current baseline: **Outpost 0.14.0**, Windows/PowerShell host, Android API 35 emulator execution. Work from `E:/projects/outpost`. The APK packages `x86_64` and `arm64-v8a`; all runtime/model/numerical testing remains in Outpost35 / `emulator-5582`. Read the [emulator runbook](emulator-runbook.md) before runtime work.
 
 ## Environment and preparation
 
@@ -48,7 +48,7 @@ pwsh -File scripts/publish-artifact.ps1 -Verify
 if ($LASTEXITCODE -ne 0) { throw 'Artifact verification failed.' }
 ```
 
-Publication copies the debug APK into ignored `dist/` using the version in `app/build.gradle`, writes an LF checksum sidecar and refuses a different artifact with the same version. `-Verify` checks the existing artifact without requiring a build APK. This is local integrity checking, not production signing, public distribution or an independent reproducible-build attestation. The current artifact is `outpost-0.13.0-user-test.apk`; exact hashes/receipt are in [validation](validation-0.13.md).
+Publication copies the debug APK into ignored `dist/` using the version in `app/build.gradle`, writes an LF checksum sidecar and refuses a different artifact with the same version. `-Verify` checks the existing artifact without requiring a build APK. This is local integrity checking, not production signing, public distribution or an independent reproducible-build attestation. The current artifact is `outpost-0.14.0-user-test.apk`; exact hashes/receipt are in [validation](validation-0.14.md).
 
 Current lint: **0 errors, 3 existing upstream BouncyCastle TrustAllX509TrustManager warnings**. The app has no INTERNET permission and does not use those networking helpers. Report actual counts; do not describe lint as having no issues.
 
@@ -74,6 +74,12 @@ Speculation's old `ui` phase and direct Bonsai search/reviewer UI phases are ret
 
 For an ingestion change, a typical no-model regression sequence is OSM, folders, chat, then knowledge. `-SkipInstall` on these four wrappers skips APK installation while still requiring matching app/test hashes and a successful current receipt. It never means skip verification. These suites and the evaluation runner write unique `evidence/runs` directories.
 
+## Row-kernel experiments
+
+`test-rows.ps1 -Phase graphs` runs numerical/reference/guard/stride/tail/worker controls, actual-shape cache-resident/64 MiB-pressure measurements and grouped-width coverage. It executes no model. `-Phase model` retains the exploratory combined multi-/single-column variants. `-Phase confirm` tests the prefill-only policy with the product 192-token budget and normal EOS, then checks cache invalidation, cancellation/recovery, non-Q2 fallback and model switching. All runs are unique and enforce build/APK/AVD/offline identity. These remain developer tests; there are no runtime-tuning product controls.
+
+Use `-ApplyProfile` only with confirmation. It persists the full measured 4/4/128/width 4/prefill2/decode1 tuple for the specific build/kernel/device/model if the gate passes. It does not change global defaults or enable unmeasured ARM/VNNI paths. Shape-based selection treats one-column prompt tails as single-column work too. [Experiment record](kernel-rows-0.14.md).
+
 ## Model provisioning and research scripts
 
 The product imports one of the exact locked GGUFs through **Settings → Offline model**. Select its matching profile first. There is no downloader and no generator weights in the APK. Documents can be inspected without a model. Kev is not selectable in product UI.
@@ -86,7 +92,7 @@ For runtime/speculation wrappers, `-SkipInstall` skips APK installation **withou
 
 ## Test provider and recovery
 
-Folder/OSM suites use a synthetic DocumentsProvider in the test APK. `FixtureGrantReceiver` acknowledges ordered grant/revoke broadcasts; `FixtureGrants` obtains permission after instrumentation startup and checks readability. Keep the provider registered, revoke grants and hide inactive roots after tests. Do not disable/re-enable it between suites or revive the removed grant Activity; see the [preserved failure record](validation-0.13.md).
+Folder/OSM suites use a synthetic DocumentsProvider in the test APK. `FixtureGrantReceiver` acknowledges ordered grant/revoke broadcasts; `FixtureGrants` obtains permission after instrumentation startup and checks readability. Keep the provider registered, revoke grants and hide inactive roots after tests. Do not disable/re-enable it between suites or revive the removed grant Activity; see the [preserved provider failure record](validation-0.12.md).
 
 No fixture provider, receiver or mock corpus is in the user APK. Repair test lifecycle in the harness, not by broadening product permissions. Provider/parser calls can delay cancellation; do not run a competing install/instrumentation to recover a busy test. Follow the runbook's targeted recovery instructions.
 
@@ -96,7 +102,7 @@ Keep behavior commits separate from regenerated evidence; raw JSON/screenshots c
 
 A native-controller review must actually complete before it grants review authority. The historical `a52f2b3` review failed with empty/length-limited output; later practical fixes do not retroactively acknowledge it. [Handoff](handoff.md) retains that distinction.
 
-For docs-only work, inspect source contracts, resolve local links, run `eval/validate.py`, `eval/check-build.ps1`, artifact `-Verify` and `git diff --check` as appropriate. No emulator/model/build rerun is needed. The fixture validator now compares the full packaged ABI set; v6 preserves the current identity while earlier manifests remain frozen. Validate with `eval/validate.py`; host-only ABI fault-injection results are preserved with the place-query research evidence.
+For docs-only work, inspect source contracts, resolve local links, run `eval/validate.py`, `eval/check-build.ps1`, artifact `-Verify` and `git diff --check` as appropriate. No emulator/model/build rerun is needed. The fixture validator now compares the full packaged ABI set; v7 preserves the current identity while earlier manifests remain frozen. Validate with `eval/validate.py`; host-only ABI fault-injection results are preserved with the place-query research evidence.
 
 ## Troubleshooting
 

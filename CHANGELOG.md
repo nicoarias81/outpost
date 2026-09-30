@@ -2,6 +2,14 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## 0.14.0 — Measured Q2 row reuse — 2026-09-30
+
+- Adds guarded two-row Q2 reuse across multi-column work, with independent single-column policy, reference fallback and unchanged pinned weights/backend.
+- Keeps the old decoder after grouped decode underperformed; adopts only a device/model-specific profile confirmed on complete answers, with cache/cancellation/model-switch validation.
+- Adds unique numerical/actual-shape/model experiment runs, preserves rejected and deliberately interrupted controls, and extends grouped-width/tail coverage.
+- Keys calibration by `q2-row-v3-phase`, persists both row settings and invalidates incompatible cached computation. General chat and OSM functionality retain their protocols.
+- [Kernel experiment](docs/kernel-rows-0.14.md) and [validation](docs/validation-0.14.md) state measurements, identities and limits. No phone or ARM runtime claim.
+
 ## 0.13.0 — Offline place answers — 2026-09-30
 
 - Adds exact name/alias lookup, recorded-locality category search and computed proximity around named references, with radius units, stable top-five ordering and per-place sources.

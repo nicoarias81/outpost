@@ -1,6 +1,6 @@
 # Optimization record
 
-Status: measured history through 0.9, interpreted against Outpost 0.12.0. Native numerical kernels remain unchanged from 0.8.1. No performance sweep was rerun for this documentation update. Current app-version profile keys do not inherit the historical measured width 4 profile; unmeasured fallback is width 1 (see [runtime](inference-runtime.md)). All model execution and numerical tests cited here ran in an AOSP Android 15 x86_64 emulator configured with four logical CPUs and 4 GiB RAM. Results are not phone-performance claims.
+Status: historical measurements plus the new 0.14 row-reuse experiment. The owned multi-column kernel changed; pinned backend/model weights did not. Current measured settings are local to Outpost35/Bonsai 4B; unmeasured device/model keys retain conservative defaults. See [0.14 experiment](kernel-rows-0.14.md) and [runtime](inference-runtime.md). All model execution and numerical tests cited here ran in an AOSP Android 15 x86_64 emulator configured with four logical CPUs and 4 GiB RAM. Results are not phone-performance claims.
 
 ## Measurements and attribution
 
@@ -79,3 +79,7 @@ These experiments are pending. Start with a hypothesis and baseline, alternate p
 ## 0.9 remeasurement and report precision
 
 The [0.9 width sweep](../evidence/archive/0.9.0/strata/runtime-batch.json) retained parity and selected width 4 at 4/4 threads, batch 128: median total 27,596 ms at width 1 and 24,015 ms selected, a 1.149x speedup or 12.98% elapsed-time reduction. Width 8 measured 22,991 ms, 4.26% less than width 4; narrowest-within-5% retains width 4. Fastest, candidate and selected values are now distinct fields with tested fallback semantics. This is an existing-kernel control, not a new kernel improvement over 0.8.1. See [0.9 validation](validation-0.9.md) for exact scope and quality results. Its former integration quota block was resolved before 0.10; this measurement remains historical.
+
+## Adopted row-reuse slice in 0.14
+
+The original decode-only two/four-row candidates passed numerical checks but did not justify adoption. Extending two-row reuse to multi-column work improved prompt evaluation; complete-answer controls then exposed a decode tradeoff, so the policies were separated. The final measured profile keeps the old single-token decoder and enables two-row reuse only for eligible multi-column matrices. Exact results, source/APK identities, rejected/partial controls and timing interpretation live in [the experiment record](kernel-rows-0.14.md). Do not apply server Ascend constants or emulator timings to phones.

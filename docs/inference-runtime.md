@@ -1,6 +1,6 @@
 # Inference runtime
 
-Status: implementation reference for Outpost 0.12.0; native numerical implementation unchanged from 0.8.1. See [architecture](architecture.md) for the application flow and [optimizations](optimizations.md) for measurements.
+Status: implementation reference for Outpost 0.14.0. The owned Q2 wrappers now support guarded output-row reuse and separate multi-column/single-column policies; vendor backend, model weights and sampler remain pinned and unchanged. See [architecture](architecture.md) for the application flow and [optimizations](optimizations.md) for measurements.
 
 ## Model identities
 
@@ -61,3 +61,13 @@ First token, complete answer, and first useful source are different latency metr
 `RuntimePolicy` (instrumented-test support) reports `fastestWidth`, `candidateWidth` and `selectedWidth` separately. It selects the narrowest candidate within 5% of the fastest and adopts it only with parity and baseline/selected speedup >1.05. A rejected candidate reports the actual baseline selection, not the candidate's gain. `selectedSpeedup = baselineMedianMs / selectedMedianMs`; time reduction is `100 * (1 - selectedMedianMs / baselineMedianMs)`.
 
 Boundary cases are covered in the knowledge suite. The historical 0.9 [width control](../evidence/archive/0.9.0/strata/runtime-batch.json) selects width 4 at 1.149x / 12.98% less elapsed time. This improves reporting precision; it is not a newly optimized kernel in 0.9. Formal controller review status is recorded separately in the [handoff](handoff.md).
+
+## Row policy and measured adoption in 0.14
+
+`NativeEngine.Configuration` and its JNI call now carry separate `rowTile` and `decodeRows` fields. `rowTile` selects one/two output rows for eligible multi-column matrices; `decodeRows` selects one/two/four for single-column matrices. This distinction follows matrix shape, not an explicit generation-phase tag: a one-column prefill tail uses the single-column policy too. Product speculation remains off. Each policy change invalidates cached computation, alongside existing model/thread/batch/width/kernel conditions.
+
+The two-row kernel reuses Q8 loads/corrections across adjacent output rows and retains each output's scale/accumulation order. Existing type/stride/workspace/CPU/reference guards remain; insufficient rows per worker and unsupported shapes fall back. No model-wide dequantized copy or scratch-space extension is introduced. ARM keeps the backend/reference route; no custom ARM/VNNI implementation was added.
+
+`RuntimeSettings` uses kernel identity `q2-row-v3-phase` and persists both dimensions. Unmatched hardware/model/build keys retain the conservative width 1 / row 1 / decode 1 default. Legacy thread/batch/width calibration preserves the row dimensions it did not measure. The validated Outpost35 Bonsai 4B profile is 4/4 threads, batch 128, matrixWidth 4, rowTile 2 and decodeRows 1. It is a local measured profile, not a universal phone default or automatic startup benchmark.
+
+The selected policy improves prompt-oriented work while retaining the old decoder. Combined two/four-row decode experiments did not justify product adoption. [Measurement and decisions](kernel-rows-0.14.md) records the paired controls, cancellation/cache/model-switch checks and limitations.

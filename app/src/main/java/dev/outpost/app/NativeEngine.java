@@ -9,6 +9,10 @@ final class NativeEngine implements AutoCloseable {
     static { System.loadLibrary("outpost_engine"); }
     static native double[] nativeKernelChecks();
     static native double[] nativeBatchChecks();
+    static native String nativeRowsBenchmark();
+    static native boolean kernelRowsUsed();
+    static native void beginRowsProfile();
+    static native String endRowsProfile();
     static native void setKernelBatchWidth(int width);
     static native boolean kernelBatchUsed();
     static native int[] nativeDispatchChecks();
@@ -36,13 +40,17 @@ final class NativeEngine implements AutoCloseable {
         } catch(org.json.JSONException e) { return "Could not read CPU profile. Active path: "+kernelName(); }
     }
     private volatile long handle = nativeCreate();
-    record Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int speculativeDepth,boolean adaptive) {
+    record Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int speculativeDepth,boolean adaptive,int rowTile,int decodeRows) {
+        Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int speculativeDepth,boolean adaptive,int legacyRows) {this(threads,promptThreads,batch,cache,matrixWidth,speculativeDepth,adaptive,legacyRows==2?2:1,legacyRows);}
+        Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int speculativeDepth,boolean adaptive) {this(threads,promptThreads,batch,cache,matrixWidth,speculativeDepth,adaptive,1);}
         Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth) { this(threads,promptThreads,batch,cache,matrixWidth,0,true); }
         Configuration(int threads,int promptThreads,int batch,boolean cache) { this(threads,promptThreads,batch,cache,1); }
         Configuration {
             if(threads<1 || threads>8 || promptThreads<1 || promptThreads>8 || batch<16 || batch>512) throw new IllegalArgumentException("Invalid runtime configuration");
             if(matrixWidth!=1 && matrixWidth!=2 && matrixWidth!=4 && matrixWidth!=8) throw new IllegalArgumentException("Invalid matrix kernel width");
             if(speculativeDepth<0 || speculativeDepth>7) throw new IllegalArgumentException("Invalid speculation depth");
+            if(rowTile!=1 && rowTile!=2) throw new IllegalArgumentException("Invalid prefill row tile");
+            if(decodeRows!=1 && decodeRows!=2 && decodeRows!=4) throw new IllegalArgumentException("Invalid decode row tile");
         }
     }
     private volatile Configuration configuration=new Configuration(4,4,128,true);
@@ -54,6 +62,7 @@ final class NativeEngine implements AutoCloseable {
     int[] lastTokens() { return nativeLastTokens(handle); }
     int[] modelCapabilities() { return nativeModelCapabilities(handle); }
     double[] verificationAudit(int[] tokens,int width) { return nativeVerificationAudit(handle,tokens,width); }
+    double[] rowsAudit(int[] tokens,int rows) { return nativeRowsAudit(handle,tokens,rows); }
     private final AtomicLong nextRequest = new AtomicLong(1);
     interface Listener { void onText(String text, int tokens); }
     record Result(String text, long promptTokens, long tokens, long loadMs, long firstTokenMs, long totalMs, long reason,
@@ -79,7 +88,7 @@ final class NativeEngine implements AutoCloseable {
     Result generateWithSampling(long request,File model,String system,String user,int maxTokens,boolean sampled,Listener listener) {
         Callback callback = new Callback(listener);
         Configuration c=configuration;
-        long[] result = nativeGenerate(handle,request,utf8(model.getAbsolutePath()),utf8(system),utf8(user),maxTokens,sampled,c.threads(),c.promptThreads(),c.batch(),c.cache(),c.matrixWidth(),c.speculativeDepth(),c.adaptive(),oracleForTests,callback);
+        long[] result = nativeGenerate(handle,request,utf8(model.getAbsolutePath()),utf8(system),utf8(user),maxTokens,sampled,c.threads(),c.promptThreads(),c.batch(),c.cache(),c.matrixWidth(),c.speculativeDepth(),c.adaptive(),c.rowTile(),c.decodeRows(),oracleForTests,callback);
         if (result == null || result.length != 19) throw new IllegalStateException("The engine did not return a valid result.");
         return new Result(callback.text,result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14],result[15],result[16],result[17],result[18]!=0);
     }
@@ -101,6 +110,7 @@ final class NativeEngine implements AutoCloseable {
     private static native int[] nativeLastTokens(long handle);
     private static native int[] nativeModelCapabilities(long handle);
     private static native double[] nativeVerificationAudit(long handle,int[] tokens,int width);
-    private static native long[] nativeGenerate(long handle,long request,byte[] path,byte[] system,byte[] user,int maxTokens,boolean sampled,int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int specDepth,boolean adaptive,int[] oracle,Callback callback);
+    private static native double[] nativeRowsAudit(long handle,int[] tokens,int rows);
+    private static native long[] nativeGenerate(long handle,long request,byte[] path,byte[] system,byte[] user,int maxTokens,boolean sampled,int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int specDepth,boolean adaptive,int rowTile,int decodeRows,int[] oracle,Callback callback);
     private static native double[] nativeJudge(long handle, long request, byte[] path, byte[] head, byte[] evidence, byte[] instruction, byte[][] choices);
 }

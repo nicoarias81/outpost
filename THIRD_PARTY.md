@@ -80,3 +80,7 @@ Files under `examples/knowledge` are synthetic project demonstration material. P
 ## OpenStreetMap data in 0.12
 
 The application uses Android's XML pull parser and JSON reader; no map SDK or additional parser dependency was added. Users supply bounded OSM XML/Overpass JSON extracts. Source/evidence UI carries OpenStreetMap contributor attribution and the [OSM copyright/license link](https://www.openstreetmap.org/copyright). The product APK ships no real map dataset. A bounded prepared public Madrid subset is packaged only in the test APK for place-query regression; [provenance](evidence/research/osm-places-20260930/source.json) retains source URL, hashes, preparation and ODbL attribution. It is not a bundled product knowledge base or current availability data. Instrumented examples are synthetic and remain outside production assets. Data licensing does not select a license for Outpost's code; redistribution decisions must preserve the actual source's rights and attribution.
+
+## Owned row-kernel work in 0.14
+
+The two-row Q2 helper, phase-separated runtime settings and tests are project-owned extensions to the existing wrappers. No DeepGEMM-Ascend code, CANN/TorchNPU dependency, new model or vendor patch was imported. [Measured scope](docs/kernel-rows-0.14.md) distinguishes the conceptual reference from our implementation and rejects unsupported hardware/model-performance claims.

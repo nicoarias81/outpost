@@ -1,6 +1,6 @@
 # Chat and local documents
 
-Current behavior in Outpost 0.12.0; introduced in 0.10. [Latest validation](validation-0.12.md) owns current run identities. Recursive/OSM import extend preparation without changing the chat prompt or native kernels.
+Current behavior in Outpost 0.14.0; introduced in 0.10. [Latest validation](validation-0.14.md) owns current run identities. Recursive/OSM import extend preparation without changing the chat prompt or native kernels.
 
 ## Product flow
 
@@ -42,3 +42,7 @@ PDF extraction is not a proof of correct reading order or table recognition. Ori
 ## Current document preparation
 
 Settings/Documents offer Add file and Add folder. Recursive folder import, progress/cancel/retry, summaries, source paths and unchanged-file identity are described in [folder-import](folder-import.md). Schema 4 adds origin bindings without deleting current content; schema 5 adds OSM features. Add file/Add folder accepts bounded OSM XML/Overpass JSON as described in [OSM import](osm-import.md). `.json` files in this picker are Overpass exports, not developer knowledge packs. Document lists show 50 entries per page. While the library worker imports a batch, chat displays progress access and disables send; the conversation/model protocol is unchanged.
+
+## Direct place answers and measured runtime
+
+Since 0.13, bounded OSM name/category/proximity requests are answered directly with exact sources and computed distances, without a generator; general chat remains unchanged. In 0.14, matching measured runtime profiles can select guarded multi-column row reuse while retaining the single-column decoder. Both row dimensions participate in cache compatibility; product speculation remains off. See [place behavior](osm-place-queries.md) and [kernel measurements](kernel-rows-0.14.md).

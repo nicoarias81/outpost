@@ -1,6 +1,6 @@
 # Documentation index
 
-**Outpost 0.13.0 / version code 15**, maintained English documentation consolidated against source on **2026-09-30**. Canonical repository: `E:/projects/outpost`. Start with [AGENTS.md](../AGENTS.md), [handoff](handoff.md) and [current validation](validation-0.13.md).
+**Outpost 0.14.0 / version code 16**, maintained English documentation consolidated against source on **2026-09-30**. Canonical repository: `E:/projects/outpost`. Start with [AGENTS.md](../AGENTS.md), [handoff](handoff.md) and [current validation](validation-0.14.md).
 
 ## Reading paths and ownership
 
@@ -11,13 +11,13 @@
 | Find remaining work | [Roadmap](roadmap.md): stable task IDs, status, dependencies and acceptance criteria |
 | Understand rationale | [Architecture](architecture.md), [decision register](decisions.md) |
 | Use chat and prepare personal files | [Chat/PDF](chat-beta.md), [recursive folders](folder-import.md) |
-| Answer questions about places | [OSM place-query scope and next slice](osm-place-queries.md), [import/preparation/formats/limits](osm-import.md) |
+| Answer questions about places | [OSM place-query behavior and bounds](osm-place-queries.md), [import/preparation/formats/limits](osm-import.md) |
 | Change ingestion or storage | [Knowledge contracts](knowledge-base.md), [developer pack v1](knowledge-packs-v1.md), [data boundaries](security-and-data.md) |
 | Build or run tests | [Development](development.md), [emulator operating guide](emulator-runbook.md), [dependencies](../THIRD_PARTY.md) |
 | Review new kernel ideas | [DeepGEMM-Ascend static review and prioritized experiments](deepgemm-ascend-review.md) |
-| Improve inference | [Runtime](inference-runtime.md), [measured optimizations](optimizations.md), [speculation/MTP](speculation.md) |
-| Define/score outcomes | [Evaluation protocol](evaluation.md), [runner/review guide](../eval/README.md), [v6 fixtures](../eval/fixtures-v6.json), [rubric v2](../eval/rubric-v2.md) |
-| Verify current delivery | [0.13 validation](validation-0.13.md), [frozen release manifest](../evidence/releases/0.13.0/manifest.json) |
+| Improve inference | [Runtime](inference-runtime.md), [measured optimizations](optimizations.md), [0.14 row-kernel experiment](kernel-rows-0.14.md), [speculation/MTP](speculation.md) |
+| Define/score outcomes | [Evaluation protocol](evaluation.md), [runner/review guide](../eval/README.md), [v7 fixtures](../eval/fixtures-v7.json), [rubric v2](../eval/rubric-v2.md) |
+| Verify current delivery | [0.14 validation](validation-0.14.md), [frozen release manifest](../evidence/releases/0.14.0/manifest.json) |
 | Trace external/product input | [Bounty snapshot and requirement trace](bounty-31.md), [anonymized discovery](discovery-2026-09-29.md) |
 | Understand naming and history | [Migration record](repository-migration.md), [changelog](../CHANGELOG.md), [glossary](glossary.md) |
 | Review this documentation pass | [Documentation audit](documentation-audit-2026-09-30.md) |

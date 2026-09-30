@@ -1,6 +1,6 @@
 # Evaluation and evidence protocol
 
-Current reference: **Outpost 0.13.0**, [validation](validation-0.13.md), [fixtures v6](../eval/fixtures-v6.json), [rubric v2](../eval/rubric-v2.md). Broad field/held-out quality remains open. Scored development experiments from 0.9 are historical; the current product protocol is `ChatPrompt` v1.1, distinct from the matrix's evidence-only `ResearchPrompt`.
+Current reference: **Outpost 0.14.0**, [validation](validation-0.14.md), [fixtures v7](../eval/fixtures-v7.json), [rubric v2](../eval/rubric-v2.md). Broad field/held-out quality remains open. Scored development experiments from 0.9 are historical; the current product protocol is `ChatPrompt` v1.1, distinct from the matrix's evidence-only `ResearchPrompt`.
 
 ## Separate the questions
 
@@ -34,10 +34,10 @@ The longer 0.9 prompt candidate was rejected after controlled comparison, and Qw
 | Recursive folder ingestion | `test-folders.ps1` | 30 checks |
 | Chat/files/PDF/persistence | `test-chat.ps1` | 35 model-free checks; older multi-turn generation controls belong to their recorded release |
 | Migrations/CSV/packs/locators/runtime policy | `test-knowledge.ps1` | 60 checks |
-| Evidence-only fixture matrix | `test-evaluation.ps1` / `eval/review.py` | Attributed 0.9 development reviews; no newly scored broad v6 run claimed |
+| Evidence-only fixture matrix | `test-evaluation.ps1` / `eval/review.py` | Attributed 0.9 development reviews; no newly scored broad v7 run claimed |
 | Build/package/lint | `build.ps1`, `publish-artifact.ps1 -Verify` | ARM64+x86_64 packaging; 0 lint errors, 3 upstream warnings |
 
-All current run links and exact identities are in [0.13 validation](validation-0.13.md). The new place suite executes no generator and checks a frozen real-data subset as well as synthetic inputs. The older 33-token, 76.152-second Bonsai answer belongs to [0.12](validation-0.12.md); it is not a current timing or broad accuracy claim. Do not combine counts across suites into an accuracy percentage.
+All current run links and exact identities are in [0.14 validation](validation-0.14.md). The new place suite executes no generator and checks a frozen real-data subset as well as synthetic inputs. The older 33-token, 76.152-second Bonsai answer belongs to [0.12](validation-0.12.md); it is not a current timing or broad accuracy claim. Do not combine counts across suites into an accuracy percentage.
 
 ## Performance protocol
 
@@ -58,3 +58,7 @@ Use [optimizations](optimizations.md) and [speculation](speculation.md) for meas
 `evidence/0.7-before-outpost`, `evidence/archive/0.8.0`, `evidence/archive/pre-0.9`, `evidence/archive/0.9.0`, immutable `evidence/runs` and `evidence/releases` preserve different checkpoints. The 0.8.0 reconstruction has a PROVENANCE record. Raw archive/run/release line endings are protected in `.gitattributes`. Legacy scripts still overwrite fixed outputs: archive before rerunning and keep regenerated evidence commits separate from behavior changes.
 
 A documentation audit needs source/link/identity checks, not another model run. A harness PASS, citation marker, classifier score and reviewed task outcome remain different observations.
+
+## Row optimization evidence in 0.14
+
+[The row-kernel record](kernel-rows-0.14.md) separates synthetic full-matrix measurements, tuning prompts, an intentionally interrupted combined-policy run and final phase-separated confirmation. Confirmation uses three alternating pairs per case and the product 192-token cap, requires normal EOS and exact output/first-logit parity, and saves a local profile only after lifecycle checks. The confirmation prompts were reused after inspecting combined-policy behavior; they are development controls, not a blinded held-out study. Native generation-call total is not tap-to-answer UI latency. Weight/model quality and OSM answer speed are separate questions.

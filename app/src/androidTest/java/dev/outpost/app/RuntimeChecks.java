@@ -57,7 +57,7 @@ final class RuntimeChecks {
             output.putString("stream","\nFAIL runtime: "+android.util.Log.getStackTraceString(error)); test.finish(Activity.RESULT_CANCELED,output);
         } finally { NativeEngine.setKernelBatchWidth(1); NativeEngine.setKernelAutomatic(true); }
     }
-    private RuntimeSettings.Profile p(int threads,int prompt,int batch,int width) { return new RuntimeSettings.Profile(threads,prompt,batch,width,true); }
+    private RuntimeSettings.Profile p(int threads,int prompt,int batch,int width) { RuntimeSettings.Profile current=RuntimeSettings.load(test.getTargetContext(),model.spec());return new RuntimeSettings.Profile(threads,prompt,batch,width,true,current.rowTile(),current.decodeRows()); }
     private NativeEngine.Result call(NativeEngine engine,String label,RuntimeSettings.Profile profile,boolean cache,String user,int max,boolean sampled) throws Exception {
         engine.configure(profile.configuration(cache));
         NativeEngine.Result r=engine.generateWithSampling(engine.request(),model.file(),SYSTEM,user,max,sampled,(s,n)->{});
@@ -66,7 +66,7 @@ final class RuntimeChecks {
         return r;
     }
     private void add(String label,RuntimeSettings.Profile p,boolean cache,String user,NativeEngine.Result r) throws Exception {
-        rows.put(new JSONObject().put("label",label).put("threads",p.threads()).put("promptThreads",p.promptThreads()).put("batch",p.batch()).put("width",p.width()).put("cache",cache)
+        rows.put(new JSONObject().put("label",label).put("threads",p.threads()).put("promptThreads",p.promptThreads()).put("batch",p.batch()).put("width",p.width()).put("rowTile",p.rowTile()).put("decodeRows",p.decodeRows()).put("cache",cache)
             .put("prompt",user).put("text",r.text()).put("promptTokens",r.promptTokens()).put("tokens",r.tokens()).put("loadMs",r.loadMs()).put("prepareMs",r.prepareMs())
             .put("prefillMs",r.prefillMs()).put("decodeMs",r.decodeMs()).put("firstTokenMs",r.firstTokenMs()).put("totalMs",r.totalMs()).put("cachedTokens",r.cachedTokens())
             .put("firstLogitsHash",Long.toUnsignedString(r.firstLogitsHash(),16)).put("reason",r.reason()).put("batchKernelUsed",NativeEngine.kernelBatchUsed()).put("pssKiBAfter",Debug.getPss()));

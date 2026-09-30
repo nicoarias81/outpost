@@ -120,6 +120,10 @@ Originated on 2026-09-29; status reconciled with Outpost 0.12.0 on 2026-09-30. T
 
 **Status: implemented in 0.13.** Named-location and category/proximity questions have exact entity/distance/source results. Render those results directly in chat, including clarification and unsupported constraints, before requiring a generator. This avoids generating coordinates/ranks and makes the capability usable without a model. General chat and document synthesis retain ChatPrompt/inference. Use a bounded two-pass feature scan initially rather than a new schema/index; preserve sources and expose collection bounds. Reconsider a spatial index and richer language interpretation after workload evidence, keeping deterministic geographic operations separate from model prose. This refines ADR-028's presentation choice and does not imply unrestricted place understanding.
 
+## ADR-030 — Measure and select row reuse separately by matrix shape
+
+**Status: bounded adoption in 0.14 for the measured Bonsai 4B/Outpost35 profile.** Reusing activations/correction across output rows helped multi-column prompt work, but applying row grouping to single-token decode erased much of that gain on longer answers. Keep those settings independent, retain the prior single-column decoder and preserve guarded fallback. Use `q2-row-v3-phase` profile identity and include both settings in cache compatibility. Require full-answer paired timing, exact output/logit checks and lifecycle validation; microbenchmarks or early truncation alone do not justify adoption. Unmatched environments remain conservative. Further per-shape tuning, ARM kernels and memory/energy claims require separate evidence. See [experiment record](kernel-rows-0.14.md).
+
 ## Updating this register
 
 Add a new numbered decision when a material tradeoff changes. Include status, problem, choice, alternatives, consequences, evidence, and reconsideration condition. Mark superseded decisions rather than erasing the reason an earlier implementation existed.

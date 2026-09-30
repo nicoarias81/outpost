@@ -17,6 +17,12 @@ outpost_q2_report outpost_q2_test(void);
 void outpost_q2_set_batch_width(int width);
 int outpost_q2_batch_used(void);
 outpost_q2_report outpost_q2_batch_test(void);
+void outpost_q2_set_row_tile(int rows);
+void outpost_q2_set_row_tiles(int prefill_rows,int decode_rows);
+int outpost_q2_rows_used(void);
+void outpost_q2_rows_benchmark(char *out,size_t capacity);
+void outpost_q2_rows_profile_begin(void);
+void outpost_q2_rows_profile_end(char *out,size_t capacity);
 #ifdef __cplusplus
 }
 #endif

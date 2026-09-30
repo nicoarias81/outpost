@@ -16,7 +16,7 @@ Configured target and latest recorded checkpoint. This documentation pass did no
 | Data partition | 10 GB configured; check current free space before staging models/imports |
 | App / test package | `dev.outpost.app` / `dev.outpost.app.test` |
 | Instrumentation | `dev.outpost.app.test/dev.outpost.app.GenerationInstrumentation` |
-| Last recorded app/model | Outpost 0.12.0/code 14; Bonsai 4B selected after test cleanup; recheck live state |
+| Last recorded app/model | Outpost 0.14.0/code 16; Bonsai 4B selected after test cleanup; recheck live state |
 | Runtime profile | Keyed by device/OS/app version/model; unmeasured fallback ≤4 threads, batch 128, width 1; old width 4 measurements are historical |
 | Product speculation / required test connectivity | Forced depth 0; airplane mode 1, Wi-Fi 0, mobile data 0 |
 | Separate preserved emulator | `emulator-5580` belongs to the old Brújula setup; leave it alone |
@@ -143,7 +143,7 @@ foreach ($OutpostApk in $OutpostApks) {
 }
 ```
 
-Exact 0.12 app/test identities are in [validation](validation-0.12.md). Run `pwsh -File eval/check-build.ps1` to check the current source/build receipt as well. Byte identity is stronger than a version label, but does not prove model quality.
+Exact 0.14 app/test identities are in [validation](validation-0.14.md). Run `pwsh -File eval/check-build.ps1` to check the current source/build receipt as well. Byte identity is stronger than a version label, but does not prove model quality.
 
 ## 5. Understand model installation before copying GB of data
 
@@ -244,3 +244,7 @@ Before rerunning a phase, preserve the evidence files it overwrites. Use a separ
 - **Permission or port problem:** use the required host/filesystem permission path and report the actual limitation. Do not bypass emulator guards or substitute a physical phone.
 
 These procedures were checked against current scripts; the earlier live observations remain release evidence, not a new live preflight. This documentation task did not restart, install, generate or change emulator connectivity. If an owned test stalls, preserve its run/logs first. A targeted `am force-stop dev.outpost.app` on the verified Outpost emulator interrupts the app without clearing its files, but must not interrupt another workflow. Recheck fixture cleanup before retrying; never use `pm clear` as a routine recovery step.
+
+## Measured row profile in 0.14
+
+The final post-validation checkpoint selected Bonsai 4B with 4/4 threads, batch 128, width 4, multi-column rowTile 2 and single-column decodeRows 1, under kernel identity `q2-row-v3-phase`. This is scoped to the recorded device/model/build; recheck live state and do not transplant it to other phones/models. `test-rows.ps1` has graphs/model/confirm phases; only confirmation accepts `-ApplyProfile`. All kernel/model execution stays on the emulator, and runs remain sequential. See [kernel record](kernel-rows-0.14.md) and [post-validation state](../evidence/releases/0.14.0/emulator.json).

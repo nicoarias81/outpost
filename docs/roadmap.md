@@ -1,6 +1,6 @@
 # Roadmap and actionable backlog
 
-Baseline: Outpost 0.13.0; [current validation](validation-0.13.md). Chat/Settings, seed removal, bounded PDF extraction and ARM64 packaging are implemented; quality and physical-device acceptance remain separate. R-01 through R-04 are implemented and validated in the [0.8.1 report](validation-0.8.1.md). Field-answer quality remains separate open work. All other tasks below are **open** unless explicitly labeled otherwise. Priorities express sequence and dependencies, not dates or committed effort estimates. Owner is unassigned. The [current-state inventory](current-state.md) lists already implemented features.
+Baseline: Outpost 0.14.0; [current validation](validation-0.13.md). Chat/Settings, seed removal, bounded PDF extraction and ARM64 packaging are implemented; quality and physical-device acceptance remain separate. R-01 through R-04 are implemented and validated in the [0.8.1 report](validation-0.8.1.md). Field-answer quality remains separate open work. All other tasks below are **open** unless explicitly labeled otherwise. Priorities express sequence and dependencies, not dates or committed effort estimates. Owner is unassigned. The [current-state inventory](current-state.md) lists already implemented features.
 
 ## Milestones
 
@@ -16,7 +16,7 @@ Performance work can continue alongside M1/M2, but no speed result substitutes f
 
 ## P0 — Project foundation and quality baseline
 
-E-01/W-01 definitions and an executable evidence-only runner exist; the current manifest is v6 (schema 2, app 0.12). V1 baseline/candidate and v2 baseline/diagnostic runs have attributed assistant reviews; see [0.9 validation](validation-0.9.md). V6 has 12 runnable and 3 blocked fixtures. Product chat uses a different prompt; no new broad v6/chat quality score is claimed. A validator PASS establishes internal consistency; reviewed development outcomes are not general task accuracy.
+E-01/W-01 definitions and an executable evidence-only runner exist; the current manifest is v7 (schema 2, app 0.12). V1 baseline/candidate and v2 baseline/diagnostic runs have attributed assistant reviews; see [0.9 validation](validation-0.9.md). V7 has 12 runnable and 3 blocked fixtures. Product chat uses a different prompt; no new broad v6/chat quality score is claimed. A validator PASS establishes internal consistency; reviewed development outcomes are not general task accuracy.
 
 | ID | Task | Depends on | Acceptance criteria |
 |---|---|---|---|
@@ -68,8 +68,8 @@ The restaurant and issue-list questions are illustrative fixtures, not product-d
 | P-02 | Implement ARM Q2 kernels | P-01 | Reference equivalence/guard/tail tests, supported feature dispatch, whole-model timing and memory; no unsupported-instruction execution |
 | P-03 | Prototype VNNI candidates separately | Existing dispatch, compatible emulator | Signedness/overflow/packing tests; CPU/OS gates; paired dot, prefill and generation measurements; retain fallback |
 | P-04 | Measure peak memory and pressure recovery | E-03 | Defined sampling cadence, peak vs post-run distinction, cancellation/model-switch/process-recovery behavior; no battery inference from PSS |
-| P-05 — open | Profile operation shapes and establish current cache/phase baselines | E-03 | [DeepGEMM-Ascend review](deepgemm-ascend-review.md), DG-01/DG-03: low-overhead test-only shape/path/quantization/kernel accounting, actual Bonsai matrices, hot/streaming and prefill/decode controls; explicit current profile, no inherited speedup claim or product profiling overhead |
-| P-06 — proposed | Reuse Q8 activations/correction across output rows | P-05 | Review DG-02: small R×T Q2 tile including T=1 decode; no unchecked scratch extension, preserved arithmetic/reference guards, real-shape/tail/worker/lifecycle/logit tests and repeated end-to-end benefit before adoption. Finer-grained selection, unpack/prefetch or fusion only if measurement justifies it |
+| P-05 — partial, measured in 0.14 | Profile operation shapes and establish current cache/phase baselines | E-03 | [DeepGEMM-Ascend review](deepgemm-ascend-review.md), DG-01/DG-03: Implemented opt-in shape/path counts, actual-shape cache/pressure controls and paired generation timing. Detailed quantization/barrier attribution, profiler-overhead study, peak memory and wider devices remain open; [results](kernel-rows-0.14.md) |
+| P-06 — bounded prefill slice adopted in 0.14 | Reuse Q8 activations/correction across output rows | P-05 | Two-row reuse adopted for eligible multi-column matrices in the measured Bonsai 4B emulator profile, with unchanged weights/scratch contract and exact numerical/output checks. Single-column two/four-row alternatives remain research-only after regressions; finer shape selection and ARM require new evidence; [record](kernel-rows-0.14.md) |
 | E-05 — partial | Compare generators and optional reviewer on missions | E-01, E-04 | Four problem-case Qwen diagnostics and Bonsai baselines recorded; complete representative paired generator/reviewer comparison with fixed evidence/budgets and qualified review; Kev not ground truth |
 
 ## P3 — Conditional research

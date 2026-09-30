@@ -29,7 +29,7 @@ struct Session {
     llama_model *model = nullptr;
     llama_context *context = nullptr;
     int context_batch = 0;
-    int context_threads=0,context_prompt_threads=0,context_width=0;
+    int context_threads=0,context_prompt_threads=0,context_width=0,context_rows=1,context_decode_rows=1;
     std::string context_kernel;
     std::vector<llama_token> prefix;
     std::vector<float> prefix_logits;
@@ -156,12 +156,14 @@ extern "C" JNIEXPORT jlongArray JNICALL
 Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
     jlong run, jbyteArray model_path, jbyteArray system_text, jbyteArray user_text,
     jint max_tokens,jboolean sampled,jint threads,jint prompt_threads,jint batch_size,jboolean cache,jint matrix_width,
-    jint spec_depth,jboolean adaptive,jintArray oracle_tokens,jobject callback) {
+    jint spec_depth,jboolean adaptive,jint row_tile,jint decode_rows,jintArray oracle_tokens,jobject callback) {
     try {
         if (run <= 0 || max_tokens < 1 || max_tokens > 256 || !callback) throw std::runtime_error("Invalid generation parameters");
         if (threads<1 || threads>8 || prompt_threads<1 || prompt_threads>8 || batch_size<16 || batch_size>512) throw std::runtime_error("Invalid runtime configuration");
         if(matrix_width!=1 && matrix_width!=2 && matrix_width!=4 && matrix_width!=8) throw std::runtime_error("Invalid matrix kernel width");
         if(spec_depth<0 || spec_depth>7) throw std::runtime_error("Invalid speculation depth");
+        if(row_tile!=1 && row_tile!=2) throw std::runtime_error("Invalid prefill row tile");
+        if(decode_rows!=1 && decode_rows!=2 && decode_rows!=4) throw std::runtime_error("Invalid decode row tile");
         std::vector<llama_token> oracle;
         if(oracle_tokens) {
             int n=env->GetArrayLength(oracle_tokens);
@@ -172,6 +174,7 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
         std::lock_guard<std::mutex> execution(execution_mutex);
         std::lock_guard<std::mutex> lock(session->inference);
         outpost_q2_set_batch_width(matrix_width);
+        outpost_q2_set_row_tiles(row_tile,decode_rows);
         session->last_tokens.clear();
         struct Cleanup {
             Session *s; bool keep=false;
@@ -228,7 +231,7 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
                 if (llama_tokenize(vocab, formatted.data(), formatted.size(), tokens.data(), tokens.size(), true, true) != count) throw std::runtime_error("Cannot tokenize input");
                 prompt_count = count;
                 if (!cache || session->context_batch!=batch_size || session->context_threads!=threads || session->context_prompt_threads!=prompt_threads
-                    || session->context_width!=matrix_width || session->context_kernel!=outpost_q2_name()) session->clear_context();
+                    || session->context_width!=matrix_width || session->context_rows!=row_tile || session->context_decode_rows!=decode_rows || session->context_kernel!=outpost_q2_name()) session->clear_context();
                 if (!session->context) {
                     auto params = llama_context_default_params();
                     params.n_ctx = 2048; params.n_batch = batch_size; params.n_ubatch = batch_size;
@@ -237,6 +240,8 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
                     session->context=llama_init_from_model(session->model,params);
                     session->context_batch=batch_size;
                     session->context_threads=threads; session->context_prompt_threads=prompt_threads; session->context_width=matrix_width;
+                    session->context_rows=row_tile;
+                    session->context_decode_rows=decode_rows;
                     session->context_kernel=outpost_q2_name();
                 }
                 auto *context=session->context;
@@ -534,6 +539,40 @@ Java_dev_outpost_app_NativeEngine_nativeBatchChecks(JNIEnv *env,jclass) {
     auto out=env->NewDoubleArray(5); if(out) env->SetDoubleArrayRegion(out,0,5,v); return out;
 }
 
+extern "C" JNIEXPORT jstring JNICALL
+Java_dev_outpost_app_NativeEngine_nativeRowsBenchmark(JNIEnv *env,jclass) {
+    std::lock_guard<std::mutex> execution(execution_mutex);std::vector<char> report(65536);
+    outpost_q2_rows_benchmark(report.data(),report.size());return env->NewStringUTF(report.data());
+}
+extern "C" JNIEXPORT jboolean JNICALL
+Java_dev_outpost_app_NativeEngine_kernelRowsUsed(JNIEnv *,jclass){return outpost_q2_rows_used()!=0;}
+extern "C" JNIEXPORT void JNICALL
+Java_dev_outpost_app_NativeEngine_beginRowsProfile(JNIEnv *,jclass){std::lock_guard<std::mutex> execution(execution_mutex);outpost_q2_rows_profile_begin();}
+extern "C" JNIEXPORT jstring JNICALL
+Java_dev_outpost_app_NativeEngine_endRowsProfile(JNIEnv *env,jclass){std::lock_guard<std::mutex> execution(execution_mutex);char report[24576];outpost_q2_rows_profile_end(report,sizeof(report));return env->NewStringUTF(report);}
+
+extern "C" JNIEXPORT jdoubleArray JNICALL
+Java_dev_outpost_app_NativeEngine_nativeRowsAudit(JNIEnv *env,jclass,jlong id,jintArray continuation,jint rows) {
+    try {
+        int count=continuation?env->GetArrayLength(continuation):0;
+        if(count<1||count>32||(rows!=2&&rows!=4))throw std::runtime_error("Invalid row audit dimensions");
+        auto s=get(id);std::lock_guard<std::mutex> execution(execution_mutex);std::lock_guard<std::mutex> lock(s->inference);
+        if(!s->context||s->prefix.empty())throw std::runtime_error("Row audit requires a cached prompt");
+        struct Restore {Session *session;int rows,decode;bool complete=false;~Restore(){outpost_q2_set_row_tiles(rows,decode);if(!complete)session->clear_context();}} restore{s.get(),s->context_rows,s->context_decode_rows};
+        auto *ctx=s->context;const int prefix=s->prefix.size(),vocab=llama_vocab_n_tokens(llama_model_get_vocab(s->model));
+        if(prefix+count>=2048)throw std::runtime_error("Row audit exceeds context");
+        std::vector<llama_token> input(count);env->GetIntArrayRegion(continuation,0,count,input.data());for(auto t:input)if(t<0||t>=vocab)throw std::runtime_error("Invalid row audit token");
+        auto reset=[&]{if(!llama_memory_seq_rm(llama_get_memory(ctx),0,prefix,-1))throw std::runtime_error("Cannot reset row audit KV");};
+        auto decode=[&](int i){llama_pos pos=prefix+i;auto b=llama_batch_get_one(&input[i],1);b.pos=&pos;if(llama_decode(ctx,b)!=0)throw std::runtime_error("Row audit decode failed");return llama_get_logits_ith(ctx,-1);};
+        reset();outpost_q2_set_row_tile(1);std::vector<std::vector<float>> reference(count);
+        for(int i=0;i<count;i++){const float *p=decode(i);reference[i].assign(p,p+vocab);}
+        reset();outpost_q2_set_row_tile(rows);double maximum=0,identical=0;
+        for(int i=0;i<count;i++){const float *p=decode(i);if(!std::memcmp(reference[i].data(),p,vocab*sizeof(float)))identical++;for(int j=0;j<vocab;j++)maximum=std::max(maximum,std::abs((double)reference[i][j]-p[j]));}
+        bool applied=outpost_q2_rows_used();reset();restore.complete=true;
+        double values[]={(double)count,maximum,identical,applied?1.0:0.0};auto out=env->NewDoubleArray(4);if(out)env->SetDoubleArrayRegion(out,0,4,values);return out;
+    }catch(const std::exception &e){fail(env,e.what());return nullptr;}
+}
+
 extern "C" JNIEXPORT jintArray JNICALL
 Java_dev_outpost_app_NativeEngine_nativeLastTokens(JNIEnv *env,jclass,jlong id) {
     try {
@@ -633,4 +672,3 @@ Java_dev_outpost_app_NativeEngine_nativeVerificationAudit(JNIEnv *env,jclass,jlo
         auto out=env->NewDoubleArray(8); if(out) env->SetDoubleArrayRegion(out,0,8,values); return out;
     } catch(const std::exception &e) { fail(env,e.what()); return nullptr; }
 }
-

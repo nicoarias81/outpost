@@ -225,7 +225,7 @@ public final class MainActivity extends Activity {
                     try {
                         RuntimeSettings.Profile p=RuntimeSettings.load(this,model.spec());
                         ActivityManager.MemoryInfo m=new ActivityManager.MemoryInfo();((ActivityManager)getSystemService(ACTIVITY_SERVICE)).getMemoryInfo(m);
-                        engine.configure(new NativeEngine.Configuration(p.threads(),p.promptThreads(),p.batch(),!m.lowMemory,p.width(),0,true));
+                        engine.configure(new NativeEngine.Configuration(p.threads(),p.promptThreads(),p.batch(),!m.lowMemory,p.width(),0,true,p.rowTile(),p.decodeRows()));
                         NativeEngine.Result result=engine.generateWithSampling(request,model.file(),ChatPrompt.SYSTEM,prepared.user(),192,model.spec().sampled(),(value,count)->runOnUiThread(()->{
                             if(!closed&&activeRun==request){ChatStore.Turn streaming=withSources.withAnswer(value,"pending");replaceTurn(streaming);TextView view=replyViews.get(pending.id());if(view!=null){view.setText(value);scrollBottom();}}
                         }));
