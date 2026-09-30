@@ -2,8 +2,8 @@
   "model": "Ternary Bonsai 4B · Q2_0 g64",
   "text": "[1] Power (measured in kW) expresses the rate at which energy is consumed or produced, while energy (measured in kWh) refers to the total amount of energy consumed or produced over a period of time. kW and kWh are not interchangeable because kW is a rate (power) and kWh is a unit of energy, which depends on both power and time. For instance, a 100 W appliance running for three hours consumes 300 Wh or 0.3 kWh, showing that energy is power multiplied by time. [1]",
   "tokens": 114,
-  "firstTokenMs": 13514,
-  "totalMs": 31420,
+  "firstTokenMs": 17650,
+  "totalMs": 39446,
   "stopReason": 0,
   "kernel": "Q2_0 AVX2\/F16C",
   "fastPathUsed": true
