@@ -71,3 +71,8 @@ The current default is `fixtures-v3.json` (same schema2 execution shape, new man
 ## 0.11 update
 
 The default evidence-only manifest is now `fixtures-v4.json`, preserving the prior matrix with 0.11 app identity. Recursive import uses separate no-model `test-folders.ps1` integration checks. The product's chat prompt and native model/runtime code did not change; previous answer-quality results are not rerun or relabeled by these import checks.
+
+
+## 0.12 update
+
+`fixtures-v5.json` is the current app-identity revision of the evidence-only matrix. OSM import has a separate instrumented suite, `scripts/test-osm.ps1`, with optional genuine generation. The matrix's regional recommendation case is still unexecuted and must not be declared solved by synthetic import/source checks.

@@ -110,3 +110,8 @@ Add a new numbered decision when a material tradeoff changes. Include status, pr
 ## ADR-026 — Import a selected directory as resumable snapshots
 
 **Status: user-requested, implemented in 0.11.** The owner requested choosing a directory and loading supported files recursively. Use ACTION_OPEN_DOCUMENT_TREE and the existing offline parsers through one shared bounded importer. Process files sequentially with independent transactions, preserve paths, report skips/errors and allow cancellation. Schema4 binds provider/document identity, format and raw-byte hash so reselecting an unchanged tree does not duplicate completed work. Changed files create new snapshots and retain older references. Automatic sync, background watchers and source writes are outside this request. Android access restrictions and traversal bounds remain explicit. Revisit for a separate refresh/version-management workflow if user tests justify it.
+
+
+## ADR-027 — Start OSM integration with bounded, inspectable feature extracts
+
+**Status: implemented in 0.12.** The owner requested OSM data alongside document imports. Accept local OSM XML and Overpass JSON, preserve typed IDs/tags/dates/coordinates/attribution, index features separately and bind citations to the exact file snapshot. Use standard Android parsers with bounded input and reject DTDs, invalid/ambiguous coordinates, duplicate identities and error/partial exports. Optional way centers are explicitly approximate and require complete referenced geometry. PBF/GeoJSON, full topology, maps, spatial ranking, GPS and routing remain separate work. This gives a reviewable knowledge slice without claiming a map/navigation engine or current place availability. Revisit with real-region workloads and geographic-query requirements.

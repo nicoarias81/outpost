@@ -1,6 +1,6 @@
 # Third-party dependencies and model provenance
 
-Current app: Outpost 0.11.0. Runtime/model identities remain pinned; PDF extraction adds the dependencies listed below. Model and dependency identities refer to the locked files used by this prototype, not automatically to newer upstream releases. This file preserves dependency notices; it does not select a license for this project's own code.
+Current app: Outpost 0.12.0. Runtime/model identities remain pinned; PDF extraction adds the dependencies listed below. Model and dependency identities refer to the locked files used by this prototype, not automatically to newer upstream releases. This file preserves dependency notices; it does not select a license for this project's own code.
 
 ## llama.cpp
 
@@ -73,3 +73,8 @@ Files under `examples/knowledge` are synthetic project demonstration material. P
 - Its pinned transitive BouncyCastle artifacts are `bcprov-jdk15to18`, `bcpkix-jdk15to18` and `bcutil-jdk15to18`, version1.72. The official `r1rv72` license is included in assets/licenses.
 - [pdfbox-lock.json](pdfbox-lock.json) records resolved AAR/JAR/POM sizes/hashes and notice-source hashes. These are pinned resolved inputs, not a claim of independent security certification or the latest upstream versions.
 - No optional JPEG2000 library, OCR engine, network service or cloud parser is added. Android PdfRenderer displays stored original pages. Original files stay in app-private storage.
+
+
+## OpenStreetMap data in 0.12
+
+The application uses Android's XML pull parser and JSON reader; no map SDK or additional parser dependency was added. Users supply bounded OSM XML/Overpass JSON extracts. Source/evidence UI carries OpenStreetMap contributor attribution and the [OSM copyright/license link](https://www.openstreetmap.org/copyright). The product APK ships no real map dataset. Instrumented examples are synthetic and remain outside production assets. Data licensing does not select a license for Outpost's code; redistribution decisions must preserve the actual source's rights and attribution.

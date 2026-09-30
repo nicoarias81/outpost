@@ -209,7 +209,7 @@ public final class MainActivity extends Activity {
                 if(found.isEmpty()&&!history.isEmpty())found=library.search(pending.question()+" "+history.get(history.size()-1).question());
                 ChatPrompt.Prepared prepared=ChatPrompt.prepare(pending.question(),history,found);lastPrepared=prepared;
                 List<ChatStore.Source> sources=new ArrayList<>();
-                for(Library.Hit hit:prepared.sources())sources.add(new ChatStore.Source(hit.document().title(),library.evidence(hit).locator()));
+                for(Library.Hit hit:prepared.sources()){Evidence evidence=library.evidence(hit);sources.add(new ChatStore.Source(evidence.title(),evidence.locator()));}
                 ChatStore.Turn withSources=new ChatStore.Turn(pending.id(),pending.question(),"","pending",List.copyOf(sources));chats.save(withSources);
                 lastHits=prepared.sources();searchDone=true;
                 if(closed||stopRequested){finishTurn(withSources.withAnswer("","canceled"),null,request);return;}
@@ -310,6 +310,7 @@ public final class MainActivity extends Activity {
         documentOpen=false;worker.execute(()->{try{Library.Document full=library.load(document.id());Library.Metadata metadata=library.metadata(full.id());runOnUiThread(()->{if(!closed){showDocument(full,passage,metadata,ordinal);documentOpen=true;}});}catch(Exception e){error(getString(R.string.chat_source_removed));}});
     }
     private void showDocument(Library.Document document,String passage,Library.Metadata metadata,int ordinal) {
+        if(metadata.format().equals("osm")){showOsm(document,ordinal);return;}
         if(metadata.format().equals("pdf")){showPdf(document,Math.max(1,ordinal));return;}
         ScrollView view=new ScrollView(this);LinearLayout body=column();body.setPadding(dp(20),dp(12),dp(20),dp(20));view.addView(body);
         add(body,text(document.source(),12,MUTED),0,0);
@@ -320,6 +321,33 @@ public final class MainActivity extends Activity {
         add(body,text(getString(R.string.source_identity,metadata.revision(),metadata.language(),metadata.sha256().substring(0,12)),11,MUTED),18,0);
         new AlertDialog.Builder(this).setTitle(document.title()).setView(view).setPositiveButton(R.string.chat_done,null).show();
     }
+    private void showOsm(Library.Document document,int ordinal) {
+        worker.execute(()->{
+            try {
+                OsmStorage.Row selected=ordinal>0?library.osmFeature(document.id(),ordinal):null;
+                int count=library.osmFeatureCount(document.id());
+                runOnUiThread(()->{
+                    if(closed)return;
+                    LinearLayout body=column();body.setPadding(dp(18),dp(12),dp(18),dp(12));
+                    TextView credit=text(OsmImporter.ATTRIBUTION,13,GREEN);add(body,credit,0,0);add(body,text(OsmImporter.LICENSE_URL,11,MUTED),4,0);
+                    ScrollView list=new ScrollView(this);LinearLayout rows=column();list.addView(rows);body.addView(list,new LinearLayout.LayoutParams(-1,dp(390)));
+                    AlertDialog dialog=new AlertDialog.Builder(this).setTitle(selected==null?document.title():selected.feature().name()).setView(body).setPositiveButton(R.string.chat_done,null).create();
+                    if(selected!=null){TextView record=text(selected.text(),14,INK);record.setTextIsSelectable(true);add(rows,record,10,0);if(!selected.feature().url().isEmpty()){TextView url=text(selected.feature().url(),12,GREEN);url.setTextIsSelectable(true);add(rows,url,12,0);}add(rows,text(document.body(),12,MUTED),20,0);}
+                    else {
+                        int[] page={0};LinearLayout controls=row();Button previous=button(getString(R.string.chat_previous),PAPER,GREEN),next=button(getString(R.string.chat_next),PAPER,GREEN);TextView range=text("",12,INK);range.setGravity(Gravity.CENTER);
+                        controls.addView(previous,new LinearLayout.LayoutParams(0,dp(48),1));controls.addView(range,new LinearLayout.LayoutParams(0,dp(48),1));controls.addView(next,new LinearLayout.LayoutParams(0,dp(48),1));body.addView(controls);
+                        Runnable display=()->{
+                            previous.setEnabled(false);next.setEnabled(false);int requested=page[0];
+                            worker.execute(()->{try{List<OsmStorage.Row> features=library.osmFeatures(document.id(),requested*50);runOnUiThread(()->{if(closed||!dialog.isShowing()||page[0]!=requested)return;rows.removeAllViews();add(rows,text(document.body(),12,MUTED),8,0);for(OsmStorage.Row item:features){Button open=button(item.feature().name()+" · "+item.feature().key(),PAPER,GREEN);open.setOnClickListener(v->showOsm(document,item.ordinal()));add(rows,open,10,52);}range.setText(getString(R.string.osm_range,requested*50+1,Math.min(count,(requested+1)*50),count));previous.setEnabled(requested>0);next.setEnabled((requested+1)*50<count);list.scrollTo(0,0);});}catch(Exception error){error(getString(R.string.chat_source_removed));}});
+                        };
+                        previous.setOnClickListener(v->{page[0]--;display.run();});next.setOnClickListener(v->{page[0]++;display.run();});dialog.setOnShowListener(d->display.run());
+                    }
+                    dialog.show();documentOpen=true;
+                });
+            }catch(Exception e){error(getString(R.string.chat_source_removed));}
+        });
+    }
+
     private void showPdf(Library.Document document,int requestedPage) {
         try {
             JSONArray pages=new JSONArray(document.body());int[] page={Math.min(requestedPage,pages.length())};
@@ -399,7 +427,7 @@ public final class MainActivity extends Activity {
 
     private void pick(int request) {
         Intent intent=new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*");
-        if(request==10)intent.putExtra(Intent.EXTRA_MIME_TYPES,new String[]{"text/plain","text/csv","text/markdown","application/pdf","application/octet-stream"});
+        if(request==10)intent.putExtra(Intent.EXTRA_MIME_TYPES,new String[]{"text/plain","text/csv","text/markdown","application/pdf","application/xml","text/xml","application/json","application/vnd.openstreetmap.data+xml","application/octet-stream"});
         startActivityForResult(intent,request);
     }
     @Override protected void onActivityResult(int request,int result,Intent data) {

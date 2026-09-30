@@ -44,8 +44,8 @@ final class FolderChecks {
             check(Intent.ACTION_OPEN_DOCUMENT_TREE.equals(picker.getAction()),"Folder action uses the system directory picker");
             check((picker.getFlags()&Intent.FLAG_GRANT_READ_URI_PERMISSION)!=0&&(picker.getFlags()&Intent.FLAG_GRANT_WRITE_URI_PERMISSION)==0,"Folder picker requests read access without source write access");
             String retained;
-            try(Library old=new Library(test.getTargetContext(),migration)){retained=old.importText("keep.txt","Existing user document.").id();old.getWritableDatabase().execSQL("DROP TABLE imported_files");old.getWritableDatabase().setVersion(3);}
-            try(Library upgraded=new Library(test.getTargetContext(),migration)){check(upgraded.getReadableDatabase().getVersion()==4,"Actual schema-3 database migrates to schema 4");check(upgraded.load(retained).body().equals("Existing user document."),"Schema upgrade preserves existing document bytes and identity");}
+            try(Library old=new Library(test.getTargetContext(),migration)){retained=old.importText("keep.txt","Existing user document.").id();old.getWritableDatabase().execSQL("DROP TABLE osm_features");old.getWritableDatabase().execSQL("DROP TABLE imported_files");old.getWritableDatabase().setVersion(3);}
+            try(Library upgraded=new Library(test.getTargetContext(),migration)){check(upgraded.getReadableDatabase().getVersion()==5,"Actual schema-3 database migrates to schema 5");check(upgraded.load(retained).body().equals("Existing user document."),"Schema upgrade preserves existing document bytes and identity");}
             grantFixtureAccess();
             try(Library library=new Library(test.getTargetContext(),null)) {
                 try {
@@ -124,14 +124,6 @@ final class FolderChecks {
         }
         test.finish(success?Activity.RESULT_OK:Activity.RESULT_CANCELED,response);
     }
-    private void grantFixtureAccess()throws Exception {
-        // Instrumentation startup revokes earlier transient grants. Issue them after the target is running.
-        String command="am start -W -n dev.outpost.app.test/dev.outpost.app.FolderGrantActivity --es run_id "+run+" --es operation grant";
-        try(android.os.ParcelFileDescriptor fd=test.getUiAutomation().executeShellCommand(command);
-            java.io.FileInputStream input=new java.io.FileInputStream(fd.getFileDescriptor())) {
-            String output=new String(input.readAllBytes(),StandardCharsets.UTF_8);
-            if(!output.contains("Status: ok"))throw new IllegalStateException("Fixture grant activity failed: "+output);
-        }
-    }
+    private void grantFixtureAccess()throws Exception {FixtureGrants.grant(test,run);}
     private void screenshot(String name)throws Exception{SystemClock.sleep(150);Bitmap b=test.getUiAutomation().takeScreenshot();if(b==null)throw new IllegalStateException("No screenshot");try(FileOutputStream f=new FileOutputStream(new File(output,name))){b.compress(Bitmap.CompressFormat.PNG,100,f);}b.recycle();}
 }

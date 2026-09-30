@@ -2,6 +2,15 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## 0.12.0 — OpenStreetMap knowledge import — 2026-09-30
+
+- Adds bounded OSM XML and Overpass JSON import through Add file/Add folder, retaining tags, IDs, dates, coordinates and attribution.
+- Adds schema5 feature rows and exact element source locators; stores the original file and preserves prior snapshots on rejected updates.
+- Adds a paginated feature/source browser and integrates feature identities into chat retrieval/citations.
+- Distinguishes node positions, exported/derived centers and unknown geometry; retains missing tags as unknown and opening hours as recorded data.
+- Adds OSM parsing/storage/SAF/UI and optional generation checks; stabilizes sequential fixture tests with ordered grants and hidden inactive roots.
+- No new map renderer, routing/GPS, PBF/GeoJSON support, native kernel or network permission. See [validation](docs/validation-0.12.md).
+
 ## 0.11.0 — Recursive folder import — 2026-09-30
 
 - Adds Settings/Documents → Add folder using Android's selected-tree picker; recursively imports supported PDF/TXT/Markdown/CSV.

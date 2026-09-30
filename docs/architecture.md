@@ -109,3 +109,8 @@ The [knowledge contract](knowledge-base.md), [decision register](decisions.md), 
 ## Recursive ingestion in 0.11
 
 `FolderImporter` iteratively enumerates the selected SAF tree with cycle/size/depth guards. `DocumentImporter` copies and hashes one bounded file at a time, sharing parsers with Add file. `Library.importFileSnapshot` commits source rows, FTS and schema4 origin bindings together; unchanged source/format/byte identities skip reimport. UI progress is coalesced on the main thread; each file succeeds/fails independently and cancellation keeps already committed documents. [Folder design](folder-import.md) defines snapshot and recovery boundaries.
+
+
+## OSM features in 0.12
+
+`OsmImporter` streams bounded OSM XML/Overpass JSON into validated feature records. `OsmStorage` stores payload/text rows under schema5 and inserts one FTS fragment per tagged object. `Library.resolve` handles `element` locators tied to a dataset/file hash and exposes original OSM identity. The UI browses feature pages or one cited object. Metadata/coordinates stay separate from current-device location and live state. [Design/limits](osm-import.md).

@@ -1,6 +1,6 @@
 # Roadmap and actionable backlog
 
-Baseline: Outpost 0.10.0; [current validation](validation-0.10.md). Chat/Settings, seed removal, bounded PDF extraction and ARM64 packaging are implemented; quality and physical-device acceptance remain separate. R-01 through R-04 are implemented and validated in the [0.8.1 report](validation-0.8.1.md). Field-answer quality remains separate open work. All other tasks below are **open** unless explicitly labeled otherwise. Priorities express sequence and dependencies, not dates or committed effort estimates. Owner is unassigned. The [current-state inventory](current-state.md) lists already implemented features.
+Baseline: Outpost 0.12.0; [current validation](validation-0.12.md). Chat/Settings, seed removal, bounded PDF extraction and ARM64 packaging are implemented; quality and physical-device acceptance remain separate. R-01 through R-04 are implemented and validated in the [0.8.1 report](validation-0.8.1.md). Field-answer quality remains separate open work. All other tasks below are **open** unless explicitly labeled otherwise. Priorities express sequence and dependencies, not dates or committed effort estimates. Owner is unassigned. The [current-state inventory](current-state.md) lists already implemented features.
 
 ## Milestones
 
@@ -61,8 +61,8 @@ The restaurant and issue-list questions are illustrative fixtures, not product-d
 | ID | Task | Depends on | Acceptance criteria |
 |---|---|---|---|
 | K-05 | ZIM reader/search spike | K-02 — partial | Read an explicitly licensed bounded archive; preserve entry locators; measure binary/index/storage cost; record archives without search indexes |
-| K-06 | Regional OSM entity lookup spike | K-02 — partial | Query saved POIs and geometry with attribution, coverage and content dates; distinguish missing tags from negative facts |
-| K-07 | Map display and routing feasibility | K-06 | Select formats/libraries after measured spike; display and route capability flags separate; no route beyond installed graph coverage |
+| K-06 — partial | Regional OSM entity lookup spike | K-02 — partial | Bounded OSM feature import, lexical lookup, coordinate/ID/date/attribution handling and source inspection now work. Geographic filters/ranking, full geometry, real-region evaluation and explicit coverage validation remain pending; missing tags are unknown |
+| K-07 | Map display and routing feasibility | K-06 — partial | Select formats/libraries after measured spike; display and route capability flags separate; no route beyond installed graph coverage |
 | K-08 | Investigate OCR | K-04, mission need | Page image remains inspectable; uncertain numbers/units flagged; extraction evaluation and size/cost recorded |
 | P-01 — build complete; runtime pending | Build complete ARM64 app/backend | R-03 | JNI/llama ARM64 link and APK packaging now complete. ARM emulator/phone startup, model execution and fallback remain unverified; physical-device execution still requires expanded scope |
 | P-02 | Implement ARM Q2 kernels | P-01 — build complete; runtime pending | Reference equivalence/guard/tail tests, supported feature dispatch, whole-model timing and memory; no unsupported-instruction execution |

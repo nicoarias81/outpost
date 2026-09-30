@@ -24,6 +24,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
     private boolean generationSuite;
     private Bundle chatArgs;
     private String folderRun;
+    private Bundle osmArgs;
     private Bundle evaluationArgs;
     private boolean knowledgeSuite;
     private String knowledgeRun;
@@ -41,6 +42,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         checks++;
     }
     @Override public void onCreate(Bundle arguments) {
+        osmArgs=arguments!=null&&arguments.containsKey("osm_run")?new Bundle(arguments):null;
         folderRun=arguments==null?null:arguments.getString("folder_run");
         chatArgs=arguments!=null&&arguments.containsKey("chat_run")?new Bundle(arguments):null;
         knowledgeRun = arguments == null ? "" : arguments.getString("knowledge_run", "");
@@ -55,6 +57,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         super.onCreate(arguments);
     }
     @Override public void onStart() {
+        if(osmArgs!=null){new OsmChecks(this,osmArgs.getString("osm_run"),"true".equals(osmArgs.getString("osm_generate"))).run();return;}
         if(folderRun!=null){new FolderChecks(this,folderRun).run();return;}
         if(chatArgs!=null){new ChatChecks(this,chatArgs.getString("chat_run"),"true".equals(chatArgs.getString("chat_generate"))).run();return;}
         if(knowledgeSuite) { new KnowledgeChecks(this, knowledgeRun).run(); return; }

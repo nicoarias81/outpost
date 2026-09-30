@@ -252,4 +252,4 @@ The launcher is Chat. Settings contains documents and offline-model setup. There
 
 ## 0.11 folder tests
 
-`pwsh -File scripts/test-folders.ps1` validates the selected-tree import using a real test-only DocumentsProvider. It checks the build receipt, APK hashes, dedicated AVD and offline state first. Its owner-grant Activity handles fixture URI permissions after instrumentation starts; do not use shell component-state changes or broad product permissions. The wrapper revokes grants and hides the provider after testing. Fixture data and import-summary state are cleaned/restored, and unique host run folders retain outcomes.
+`pwsh -File scripts/test-folders.ps1` validates the selected-tree import using a real test-only DocumentsProvider. It checks the build receipt, APK hashes, dedicated AVD and offline state first. Its owner-ordered grant receiver handles fixture URI permissions after instrumentation starts; do not use shell component-state changes or broad product permissions. The wrapper revokes grants and hides the provider after testing. Fixture data and import-summary state are cleaned/restored, and unique host run folders retain outcomes.

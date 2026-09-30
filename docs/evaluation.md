@@ -84,3 +84,8 @@ The final mission harness may report successful execution and parity while the c
 ## 0.10 split between product checks and historical evidence controls
 
 Current chat behavior is verified by `scripts/test-chat.ps1`, including optional genuine multi-turn/source/cancel/restart generation. Those are plumbing/regression controls with synthetic files, not the broad contextual-quality benchmark. [Fixtures v3](../eval/fixtures-v3.json) keeps the earlier evidence-only matrix with explicit test-APK corpus provenance and current app identity. `ResearchPrompt` and `ChatPrompt` are different protocols; no old fixture score transfers automatically to product chat. Long/complex documents and representative human user tasks remain open.
+
+
+## OSM verification in 0.12
+
+`test-osm.ps1` covers XML/JSON bounds, coordinates/IDs/dates/tags, typed storage/locators, cancellation rollback, deduplication, original files, SAF import and source UI. `-Generate` runs one genuine source-answer check with synthetic data. It is not a real-region or recommendation-quality benchmark. The latest evidence-only manifest is v5; the broad regional recommendation fixture remains blocked by its missing concrete corpus/executor and geographic workflow, even though basic OSM ingestion is now implemented.

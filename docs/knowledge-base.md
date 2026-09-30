@@ -1,6 +1,6 @@
 # Knowledge domain and source contracts
 
-Outpost 0.11 implements text/Markdown/CSV/PDF, typed passage/record/page locators and schema-3 migration with an empty product library. Bounded JSON pack APIs remain available for existing data and developer tooling; the product imports individual documents through Settings. The authoritative implemented format is [knowledge-pack v1](knowledge-packs-v1.md). Broader contracts below remain design direction.
+Outpost 0.12 implements text/Markdown/CSV/PDF and bounded OSM XML/Overpass JSON, typed passage/record/page/element locators and schema-5 migration with an empty product library. Bounded JSON pack APIs remain available for existing data and developer tooling; the product imports individual documents through Settings. The authoritative implemented format is [knowledge-pack v1](knowledge-packs-v1.md). Broader contracts below remain design direction.
 
 ## Complementary content layers
 
@@ -13,7 +13,7 @@ World/reference knowledge, regional/activity packages and personal documents are
 | PDF manuals/drawings | Bounded text extraction, original page locators and rendering implemented; OCR, robust table/layout interpretation and broad document evaluation remain pending |
 | DOCX/XLSX | Pending document structure or sheet/row/cell relationships; CSV support does not imply Office support |
 | Wikipedia/Wikivoyage ZIM | Pending bounded archive-reader/search spike, archive-specific locators and index/storage measurements |
-| OSM regions | Pending entity/geometry lookup; map rendering and route graphs are separate capabilities |
+| OSM regions | Bounded tagged-feature import, name/tag retrieval, stored coordinates, original IDs/dates/attribution implemented; geographic filtering/ranking, real-region validation, rendering and routing remain separate pending capabilities |
 | User observations | Pending typed units/time/equipment identity and explicit user provenance |
 | Semantic index | Deferred until lexical/entity retrieval misses justify encoder/index cost |
 

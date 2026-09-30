@@ -84,7 +84,7 @@ final class KnowledgeChecks {
                 old.setVersion(1);
             }
             try (Library migrated = new Library(test.getTargetContext(), legacyName)) {
-                check(migrated.getReadableDatabase().getVersion() == 4, "Schema 1 upgrades to 4");
+                check(migrated.getReadableDatabase().getVersion() == 5, "Schema 1 upgrades to 5");
                 check(migrated.documents().size() == 1, "Migration does not reseed or duplicate user data");
                 check(migrated.load("user-kept").body().equals(retained), "Migration preserves source bytes and document identity");
                 check(migrated.search("PX-77").size() == 1, "Legacy FTS rows survive migration");

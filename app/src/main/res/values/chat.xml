@@ -19,7 +19,7 @@
   <string name="chat_no_answer">I could not produce an answer. Please try rephrasing your question.</string>
   <string name="chat_settings_help">Your conversation and documents stay on this device.</string>
   <string name="chat_import">Add file</string>
-  <string name="chat_import_help">PDF, TXT, Markdown or CSV. Text files up to 1 MiB; PDFs up to 10 MiB and 100 pages. Scanned PDFs need OCR first.</string>
+  <string name="chat_import_help">PDF, TXT, Markdown, CSV, OSM XML or Overpass JSON. Text: 1 MiB · PDF: 10 MiB / 100 pages · OSM: 32 MiB. Scanned PDFs need OCR first.</string>
   <string name="chat_model">Offline model</string>
   <string name="chat_model_ready">Ready to use offline</string>
   <string name="chat_model_missing">No model installed for this selection</string>

@@ -53,3 +53,8 @@ PDF parsing introduces a pinned local dependency and stores an original private 
 ## Selected-folder boundary
 
 0.11 reads only the tree chosen through Android's picker. There is no broad storage permission, source write/delete, background watcher or automatic synchronization. Imports become app-private copies. Provider identity, detected format and original-byte SHA-256 distinguish repeated snapshots; they do not authenticate content truth. Item failures and traversal limits are visible. Cancellation/process interruption preserve committed files; reselecting the folder resumes by skipping existing unchanged snapshots. The fixture provider belongs only to the test APK, with temporary owner-issued read grants.
+
+
+## OSM source boundary
+
+OSM XML and Overpass JSON are local unverified inputs. DTD/entity declarations and oversized/nested fields are rejected before parsing, and feature IDs, coordinates and timestamps are validated. No source URL, tag or XML reference triggers a network fetch. The import does not request location access. Attribution and hashes preserve provenance/identity; neither certifies that a mapped feature is current or operational. Original files and rows remain app-private until removed by the user.

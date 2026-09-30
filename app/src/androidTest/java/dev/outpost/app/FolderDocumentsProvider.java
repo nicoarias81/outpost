@@ -13,14 +13,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Synthetic SAF provider in the test APK only. No access to arbitrary files. Disabled outside tests. */
+/** Synthetic SAF provider in the test APK only. No access to arbitrary files. Roots are hidden and grants revoked outside tests. */
 public final class FolderDocumentsProvider extends DocumentsProvider {
     static final String AUTHORITY="dev.outpost.app.test.folders";
     private static final String[] DOCS={DocumentsContract.Document.COLUMN_DOCUMENT_ID,DocumentsContract.Document.COLUMN_DISPLAY_NAME,DocumentsContract.Document.COLUMN_MIME_TYPE,DocumentsContract.Document.COLUMN_SIZE,DocumentsContract.Document.COLUMN_FLAGS};
     private final Map<String,Integer> reads=new HashMap<>();
     @Override public boolean onCreate(){return true;}
-    private static boolean directory(String id){return id.equals("root")||id.equals("sub")||id.equals("deep")||id.equals("other")||id.equals("denied")||id.equals("empty")||id.equals("many");}
-    private static String name(String id){return switch(id){case "root"->"Field kit";case "sub"->"Manuals";case "deep"->"More";case "other"->"Other";case "denied"->"Restricted";case "empty"->"Empty";case "many"->"Many files";case "note","other-note"->"note.TXT";case "rows"->"issues.csv";case "pdf"->"guide.PDF";case "hidden"->".hidden.md";case "unsupported"->"photo.png";case "bad"->"broken.csv";case "oversized"->"large.txt";case "virtual"->"virtual.txt";case "unknown-size"->"unknown.txt";default->id.startsWith("change-")?"changing.txt":id.startsWith("many-")?id+".txt":"missing";};}
+    private static boolean directory(String id){return id.equals("root")||id.equals("sub")||id.equals("deep")||id.equals("other")||id.equals("denied")||id.equals("empty")||id.equals("many")||id.equals("osm-root");}
+    private static String name(String id){return switch(id){case "root"->"Field kit";case "sub"->"Manuals";case "deep"->"More";case "other"->"Other";case "denied"->"Restricted";case "empty"->"Empty";case "many"->"Many files";case "osm-root"->"OSM extracts";case "osm-xml"->"area.osm";case "osm-json"->"area.json";case "note","other-note"->"note.TXT";case "rows"->"issues.csv";case "pdf"->"guide.PDF";case "hidden"->".hidden.md";case "unsupported"->"photo.png";case "bad"->"broken.csv";case "oversized"->"large.txt";case "virtual"->"virtual.txt";case "unknown-size"->"unknown.txt";default->id.startsWith("change-")?"changing.txt":id.startsWith("many-")?id+".txt":"missing";};}
     private static String mime(String id){return directory(id)?DocumentsContract.Document.MIME_TYPE_DIR:id.equals("pdf")?"application/pdf":id.equals("rows")||id.equals("bad")?"text/csv":id.equals("unsupported")?"image/png":"text/plain";}
     private void row(MatrixCursor cursor,String id){
         MatrixCursor.RowBuilder row=cursor.newRow();
@@ -33,7 +33,7 @@ public final class FolderDocumentsProvider extends DocumentsProvider {
             default->null;
         });
     }
-    @Override public Cursor queryRoots(String[] projection){MatrixCursor c=new MatrixCursor(new String[]{DocumentsContract.Root.COLUMN_ROOT_ID,DocumentsContract.Root.COLUMN_DOCUMENT_ID,DocumentsContract.Root.COLUMN_TITLE,DocumentsContract.Root.COLUMN_FLAGS});c.addRow(new Object[]{"fixture","root","Outpost test folders",DocumentsContract.Root.FLAG_SUPPORTS_IS_CHILD});return c;}
+    @Override public Cursor queryRoots(String[] projection){MatrixCursor c=new MatrixCursor(new String[]{DocumentsContract.Root.COLUMN_ROOT_ID,DocumentsContract.Root.COLUMN_DOCUMENT_ID,DocumentsContract.Root.COLUMN_TITLE,DocumentsContract.Root.COLUMN_FLAGS});if(getContext().getSharedPreferences("fixture-provider",android.content.Context.MODE_PRIVATE).getBoolean("active",false))c.addRow(new Object[]{"fixture","root","Outpost test folders",DocumentsContract.Root.FLAG_SUPPORTS_IS_CHILD});return c;}
     @Override public Cursor queryDocument(String id,String[] projection)throws FileNotFoundException {
         if(name(id).equals("missing"))throw new FileNotFoundException("Unknown fixture");MatrixCursor c=new MatrixCursor(projection==null?DOCS:projection);row(c,id);return c;
     }
@@ -41,18 +41,21 @@ public final class FolderDocumentsProvider extends DocumentsProvider {
         if(parent.equals("denied"))throw new SecurityException("Synthetic denied folder");
         MatrixCursor c=new MatrixCursor(projection==null?DOCS:projection);
         String[] children=switch(parent){
+            case "osm-root"->new String[]{"osm-xml","osm-json"};
             case "root"->new String[]{"note","sub","other","unsupported","bad","oversized","virtual","unknown-size","denied","root","note"};
             case "sub"->new String[]{"rows","deep"};case "deep"->new String[]{"pdf","hidden"};case "other"->new String[]{"other-note"};case "empty"->new String[]{};case "many"->java.util.stream.IntStream.range(0,60).mapToObj(i->String.format(java.util.Locale.ROOT,"many-%02d",i)).toArray(String[]::new);
             default->throw new FileNotFoundException("Unknown directory");
         };
         for(String child:children)row(c,child);return c;
     }
-    @Override public boolean isChildDocument(String parent,String id){return parent.equals("root")||parent.equals("many")&&id.startsWith("many-")||parent.equals("sub")&&(id.equals("rows")||id.equals("deep")||id.equals("pdf")||id.equals("hidden"))||parent.equals("deep")&&(id.equals("pdf")||id.equals("hidden"))||parent.equals("other")&&id.equals("other-note");}
+    @Override public boolean isChildDocument(String parent,String id){return parent.equals("root")||parent.equals("osm-root")&&id.startsWith("osm-")||parent.equals("many")&&id.startsWith("many-")||parent.equals("sub")&&(id.equals("rows")||id.equals("deep")||id.equals("pdf")||id.equals("hidden"))||parent.equals("deep")&&(id.equals("pdf")||id.equals("hidden"))||parent.equals("other")&&id.equals("other-note");}
     @Override public ParcelFileDescriptor openDocument(String id,String mode,CancellationSignal signal)throws FileNotFoundException {
         if(!mode.equals("r")||directory(id)||name(id).equals("missing"))throw new FileNotFoundException("Only fixture reads are available");
         if(signal!=null)signal.throwIfCanceled();
         byte[] bytes;
-        if(id.equals("pdf"))bytes=pdf();
+        if(id.equals("osm-xml"))bytes=OsmFixtures.XML.getBytes(StandardCharsets.UTF_8);
+        else if(id.equals("osm-json"))bytes=OsmFixtures.JSON.getBytes(StandardCharsets.UTF_8);
+        else if(id.equals("pdf"))bytes=pdf();
         else {
             String body=switch(id){case "note"->"Folder sample: spare filter AX-71.";case "other-note"->"A different note in another subfolder: BX-82.";case "rows"->"id,value\nOP-1,07\n";case "hidden"->"Nested hidden Markdown is included.";case "unknown-size"->"Unknown size metadata is supported.";case "bad"->"id,value\nA,1,extra\n";default->"Fixture";};
             if(id.startsWith("change-")){int n=reads.merge(id,1,Integer::sum);body=n==1?"Original changing file.":"Updated changing file.";}

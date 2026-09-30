@@ -3,9 +3,9 @@
         <!-- Synthetic fixture provider only; test script enables it temporarily on Outpost35. -->
         <provider android:name="dev.outpost.app.FolderDocumentsProvider"
             android:authorities="dev.outpost.app.test.folders" android:exported="true"
-            android:enabled="false" android:grantUriPermissions="true" android:permission="android.permission.MANAGE_DOCUMENTS">
+            android:enabled="true" android:grantUriPermissions="true" android:permission="android.permission.MANAGE_DOCUMENTS">
             <intent-filter><action android:name="android.content.action.DOCUMENTS_PROVIDER" /></intent-filter>
         </provider>
-        <activity android:name="dev.outpost.app.FolderGrantActivity" android:exported="true" />
+        <receiver android:name="dev.outpost.app.FixtureGrantReceiver" android:exported="true" />
     </application>
 </manifest>

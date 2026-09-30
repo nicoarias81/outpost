@@ -66,7 +66,7 @@ final class FolderImporter {
                                 pending.push(child);
                             }
                         }
-                    } else if(DocumentImporter.format(node.name()).isEmpty()) {skipped++;issue(node.path(),"Unsupported type; accepts PDF, TXT, Markdown and CSV.");}
+                    } else if(DocumentImporter.format(node.name()).isEmpty()) {skipped++;issue(node.path(),DocumentImporter.unsupported(node.name()));}
                     else if((node.flags()&Document.FLAG_VIRTUAL_DOCUMENT)!=0){skipped++;issue(node.path(),"Export a local copy of this document before importing it.");}
                     else {
                         DocumentImporter.Result result=importer.importFile(uri,node.name(),node.path(),node.size(),cancel);

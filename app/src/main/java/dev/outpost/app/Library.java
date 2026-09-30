@@ -27,7 +27,7 @@ import java.util.function.BooleanSupplier;
 /** Local retrieval, immutable source locators, and transactional text/CSV packs. */
 public final class Library extends SQLiteOpenHelper {
     public static final int MAX_IMPORT_BYTES = 1_048_576;
-    static final int SCHEMA_VERSION = 4;
+    static final int SCHEMA_VERSION = 5;
     private static final String ACTIVE = "(d.package_id IS NULL OR EXISTS (SELECT 1 FROM knowledge_packs k "
         + "WHERE k.id=d.package_id AND k.version=d.package_version AND k.active=1))";
     private static final Set<String> STOP = new HashSet<>(Arrays.asList(
@@ -53,6 +53,7 @@ public final class Library extends SQLiteOpenHelper {
         db.execSQL("CREATE VIRTUAL TABLE passages USING fts4(doc_id, part, content, search_text, notindexed=doc_id, notindexed=part, notindexed=content)");
         addMetadataSchema(db);
         addImportSchema(db);
+        OsmStorage.create(db);
     }
 
     private static void addMetadataSchema(SQLiteDatabase db) {
@@ -87,8 +88,12 @@ public final class Library extends SQLiteOpenHelper {
             removeLegacyDemo(db);
             oldVersion = 3;
         }
-        if (oldVersion == 3 && newVersion == 4) {
+        if (oldVersion == 3 && newVersion >= 4) {
             addImportSchema(db);
+            oldVersion = 4;
+        }
+        if(oldVersion==4 && newVersion==5) {
+            OsmStorage.create(db);
             return;
         }
         throw new IllegalStateException("Unsupported library schema migration");
@@ -103,20 +108,20 @@ public final class Library extends SQLiteOpenHelper {
         }
     }
     synchronized DocumentImporter.Result importFileSnapshot(String name,String format,String body,List<String> pages,
-            java.io.File original,String key,String sha,BooleanSupplier canceled)throws Exception {
+            java.io.File original,String key,String sha,OsmImporter.Extract osm,BooleanSupplier canceled)throws Exception {
         SQLiteDatabase db=getWritableDatabase();db.beginTransaction();Document created=null;boolean complete=false;
         try {
             Document existing=importedFile(key,sha);
             if(existing!=null){db.setTransactionSuccessful();complete=true;return new DocumentImporter.Result(existing,false);}
             cancellation(canceled);
-            created=format.equals("pdf")?importPdf(name,pages,original):format.equals("csv")?importCsv(name,body):importText(name,body);
+            created=format.equals("osm")?importOsm(name,osm,original,sha,canceled):format.equals("pdf")?importPdf(name,pages,original):format.equals("csv")?importCsv(name,body):importText(name,body);
             ContentValues origin=new ContentValues();origin.put("source_key",key);origin.put("raw_sha256",sha);origin.put("document_id",created.id());db.insertOrThrow("imported_files",null,origin);
-            ContentValues source=new ContentValues();source.put("source","Imported file · "+name);db.update("documents",source,"id=?",new String[]{created.id()});
+            ContentValues source=new ContentValues();source.put("source",(format.equals("osm")?OsmImporter.ATTRIBUTION+" · ":"Imported file · ")+name);db.update("documents",source,"id=?",new String[]{created.id()});
             cancellation(canceled);db.setTransactionSuccessful();complete=true;
             return new DocumentImporter.Result(load(created.id()),true);
         } finally {
             try{db.endTransaction();}catch(Exception failure){complete=false;throw failure;}
-            finally{if(!complete&&created!=null&&format.equals("pdf"))pdfFile(created.id()).delete();}
+            finally{if(!complete&&created!=null){if(format.equals("pdf"))pdfFile(created.id()).delete();if(format.equals("osm"))osmFile(created.id()).delete();}}
         }
     }
 
@@ -162,11 +167,23 @@ public final class Library extends SQLiteOpenHelper {
         Metadata m=metadata(id);
         if(m.packageId()!=null)throw new IllegalArgumentException("Remove the containing pack instead.");
         SQLiteDatabase db=getWritableDatabase();db.beginTransaction();
-        try{db.delete("imported_files","document_id=?",new String[]{id});db.delete("passages","doc_id=?",new String[]{id});db.delete("documents","id=?",new String[]{id});db.setTransactionSuccessful();}
+        try{OsmStorage.remove(db,id);db.delete("imported_files","document_id=?",new String[]{id});db.delete("passages","doc_id=?",new String[]{id});db.delete("documents","id=?",new String[]{id});db.setTransactionSuccessful();}
         finally{db.endTransaction();}
         if(m.format().equals("pdf"))pdfFile(id).delete();
+        if(m.format().equals("osm"))osmFile(id).delete();
     }
-    private static String fragmentKind(String format) {return format.equals("pdf")?"page":format.equals("csv")?"row":"passage";}
+    private Document importOsm(String name,OsmImporter.Extract extract,java.io.File original,String hash,BooleanSupplier canceled)throws Exception {
+        String title=name.length()>160?name.substring(0,160):name;
+        Document doc=new Document(UUID.randomUUID().toString(),title,"OpenStreetMap",OsmImporter.ATTRIBUTION,OsmImporter.LICENSE_URL,java.time.Instant.now().toString(),extract.summary());
+        java.io.File file=osmFile(doc.id());file.getParentFile().mkdirs();java.nio.file.Files.copy(original.toPath(),file.toPath());
+        try{OsmStorage.insert(getWritableDatabase(),doc,extract,hash,canceled);return doc;}catch(Exception error){file.delete();throw error;}
+    }
+    java.io.File osmFile(String id){if(!id.matches("[a-f0-9-]{36}"))throw new IllegalArgumentException("Invalid OSM source identity");return new java.io.File(new java.io.File(context.getFilesDir(),"documents"),id+".osmdata");}
+    synchronized OsmStorage.Row osmFeature(String id,int ordinal){return OsmStorage.row(getReadableDatabase(),id,ordinal);}
+    synchronized List<OsmStorage.Row> osmFeatures(String id,int offset){return OsmStorage.page(getReadableDatabase(),id,offset);}
+    synchronized int osmFeatureCount(String id){return OsmStorage.count(getReadableDatabase(),id);}
+
+    private static String fragmentKind(String format) {return format.equals("osm")?"element":format.equals("pdf")?"page":format.equals("csv")?"row":"passage";}
 
     private static List<Fragment> fragments(String body, String format) {
         List<Fragment> result = new ArrayList<>();
@@ -311,6 +328,7 @@ public final class Library extends SQLiteOpenHelper {
             || !locator.kind().equals(fragmentKind(m.format())))
             throw new IllegalArgumentException("Evidence locator no longer matches its source");
         Document d = load(locator.documentId());
+        if(m.format().equals("osm")){OsmStorage.Row row=osmFeature(d.id(),locator.ordinal());return new Evidence(locator,row.feature().name()+" · "+row.feature().key(),row.text(),d.source(),row.feature().url(),m.contentDate(),m.importedAt(),m.language(),m.active());}
         for (Fragment f : fragments(d.body(), m.format())) if (f.ordinal() == locator.ordinal())
             return new Evidence(locator, d.title(), f.text(), d.source(), d.url(), m.contentDate(), m.importedAt(), m.language(), m.active());
         throw new IllegalArgumentException("Evidence fragment unavailable");
@@ -341,6 +359,7 @@ public final class Library extends SQLiteOpenHelper {
         for (Hit hit : hits.subList(0, Math.min(8, hits.size()))) {
             Document full = loaded.get(hit.document().id());
             if (full == null) { full = load(hit.document().id()); loaded.put(full.id(), full); }
+            if(metadata(full.id()).format().equals("osm")){OsmImporter.Feature feature=osmFeature(full.id(),hit.number()).feature();full=new Document(full.id(),feature.name()+" · "+feature.key()+" — "+full.title(),full.category(),full.source(),full.url(),full.date(),full.body());}
             selected.add(new Hit(full, hit.passage(), hit.number(), hit.score()));
         }
         return selected;

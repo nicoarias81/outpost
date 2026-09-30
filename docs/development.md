@@ -135,4 +135,9 @@ The build packages ARM64 and x86_64. No ARM runtime is implied. `pdfbox-lock.jso
 
 ## Folder regression
 
-Use `scripts/test-folders.ps1` against Outpost35. The instrumented provider and grant Activity exist only in the test APK. Android's instrumentation startup clears earlier transient grants, so the test requests fixture-owner read grants afterward. The wrapper revokes grants and disables the fixture provider on completion. Runs and setup failures are preserved under `evidence/runs/folders-*`. Follow with `test-chat.ps1 -SkipInstall` and `test-knowledge.ps1 -SkipInstall` for ingestion/schema regressions; no model generation is required for this feature.
+Use `scripts/test-folders.ps1` against Outpost35. The instrumented provider and ordered grant receiver exist only in the test APK. Android's instrumentation startup clears earlier transient grants, so the test requests fixture-owner read grants afterward. The wrapper revokes grants and hides the fixture roots on completion. Runs and setup failures are preserved under `evidence/runs/folders-*`. Follow with `test-chat.ps1 -SkipInstall` and `test-knowledge.ps1 -SkipInstall` for ingestion/schema regressions; no model generation is required for this feature.
+
+
+## OSM checks and test-provider lifecycle
+
+Use `test-osm.ps1` for data integration, optionally `-Generate` for one real Bonsai answer. Default checks are model-free. The fixture provider remains registered in the test APK; `FixtureGrantReceiver` synchronously grants/revokes test URI access and switches root visibility, while `FixtureGrants` checks readiness after instrumentation starts. Do not disable/re-enable the provider between consecutive suites: this produced an unavailable-provider timeout. The user APK contains no fixture provider/receiver or mock map data.

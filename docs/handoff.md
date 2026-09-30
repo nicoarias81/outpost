@@ -1,6 +1,6 @@
 # Engineering handoff — start here
 
-Updated 2026-09-30. **Outpost 0.11.0 / code13**, moving toward mobile user tests. Previous 0.10 implementation: `aca6d97`; prior evidence: `6091111`. Current implementation: `b0f944a`; current evidence: `acbff0c`. The folder-import work is described below. Read [current state](current-state.md), [chat/document design](chat-beta.md), [validation](validation-0.11.md), then the relevant domain guide. The user now wants the app to open on chat, import files through Settings, and remove mock/demo/prototype UI.
+Updated 2026-09-30. **Outpost 0.12.0 / code14**, moving toward mobile user tests. Previous 0.10 implementation: `aca6d97`; prior evidence: `6091111`. Previous 0.11 implementation: `b0f944a`; evidence: `acbff0c`. The folder-import work is described below. Read [current state](current-state.md), [chat/document design](chat-beta.md), [validation](validation-0.12.md), then the relevant domain guide. The user now wants the app to open on chat, import files through Settings, and remove mock/demo/prototype UI.
 
 ## Canonical work and constraints
 
@@ -11,11 +11,19 @@ Updated 2026-09-30. **Outpost 0.11.0 / code13**, moving toward mobile user tests
 - Vitalik's example describes contextual question types, not a vegan/restaurant vertical. Original contexts remain traveler, farmer, field engineer, mountaineer and driver. Discovery suggestions about reflection/actions/equipment are not external-action authorization.
 - Do not push, publish publicly, operate equipment/accounts or erase user data based on this handoff. Existing remote is private. Code license, release signing and broader user/device distribution remain separate decisions.
 
+## OSM import added in 0.12
+
+Individual/folder import now accepts bounded UTF-8 OSM XML and Overpass JSON. `OsmImporter` validates metadata/tags and distinguishes node positions, exported centers, derived complete-way bounding-box centers and unknown geometry. `OsmStorage`/schema5 store feature rows separately from the document summary and expose exact `element` evidence locators. The source browser is paginated and retains OSM attribution. Chat retrieval/citation labels use the feature identity. The original file is retained privately; updates remain distinct snapshots under the existing policy.
+
+Read [OSM import](osm-import.md) for formats, limits, preparation and source-trust boundaries. PBF/GeoJSON, map rendering, GPS, nearest-neighbor/routing and live availability remain absent. One actual Bonsai source-answer check was recorded; no broad real-place accuracy or phone-performance claim follows. Use `test-osm.ps1`, with `-Generate` only when a genuine answer check is needed.
+
+The test provider lifecycle changed: `FixtureGrantReceiver` acknowledges ordered grant/revoke broadcasts; `FixtureGrants` waits for readability. Keep the provider registered between suites, hide its roots and revoke fixture grants afterward. Repeated component disabling/re-registration caused an unavailable-provider regression. None of this fixture code is in the user APK; do not add broad permissions to the product.
+
 ## Folder import added in 0.11
 
 Settings and Documents now offer **Add folder** using Android's native directory picker. `FolderImporter` traverses subdirectories, isolates per-item failures, reports progress/results and supports stop/retry. `DocumentImporter` shares validation with single-file import. Schema4 preserves existing rows and adds transactional source/format/original-byte identity bindings, preventing duplicate unchanged imports. Changed bytes create another snapshot; this is not sync. Relative paths distinguish equally named files. Read [folder-import](folder-import.md) for limits, cancellation/recovery and exact semantics.
 
-Use `scripts/test-folders.ps1`, then the no-generation chat/import and knowledge regression suites. The test-only DocumentsProvider needs genuine grants after instrumentation starts; the script/test lifecycle revokes them and disables the provider afterward. Do not add MANAGE_DOCUMENTS or broad storage permissions to the product APK. No native/prompt change or new phone/model performance claim is part of this feature.
+Use `scripts/test-folders.ps1`, then the no-generation chat/import and knowledge regression suites. The test-only DocumentsProvider needs genuine grants after instrumentation starts; the script/test lifecycle revokes them and hides its roots afterward. Do not add MANAGE_DOCUMENTS or broad storage permissions to the product APK. No native/prompt change or new phone/model performance claim is part of this feature.
 
 ## Existing chat baseline
 
@@ -27,7 +35,7 @@ The native kernel implementation and locked weights are unchanged. Chat uses `Ch
 
 ## Resume and validate
 
-1. Read [validation](validation-0.11.md) for exact artifact hashes, passed/failing runs, prompt identities and scope. Historical 0.9 scores do not score the new chat prompt.
+1. Read [validation](validation-0.12.md) for exact artifact hashes, passed/failing runs, prompt identities and scope. Historical 0.9 scores do not score the new chat prompt.
 2. Read [emulator runbook](emulator-runbook.md). Verify AVD name as well as serial, completed boot, offline settings, installed app/test hashes and model readiness. The old `emulator-5580` must remain untouched.
 3. For UI/import/migration use `scripts/test-chat.ps1`; add `-Generate` only when actual conversation behavior changed. Use `scripts/test-knowledge.ps1` for locator/CSV/transaction regressions. New run folders are unique; archive fixed-output legacy tests before rerunning.
 4. SDK/JDK/Gradle/Python are configured in ignored `.local/developer-settings.json`. On this host the SDK is `C:/Users/nicoa/Documents/ChatGPT/muna 7/work/bug-hunter-toolchain/sdk`. Python is `C:/Users/nicoa/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe`; set `PYTHONUTF8=1` for host scripts. Do not reimport several GB of already verified model files unnecessarily.
@@ -35,7 +43,7 @@ The native kernel implementation and locked weights are unchanged. Chat uses `Ch
 
 ## Source entry points
 
-`MainActivity`: chat/Settings/documents and lifecycle. `FolderImporter`/`DocumentImporter`: bounded SAF traversal and shared one-file ingestion. `ChatStore`: private conversation DB. `ChatPrompt`: bounded follow-up/source request. `Library`/`Evidence`/`CsvTable`: source identities, schema migration, retrieval and removal. `PdfImporter`: bounded extraction. `ChatChecks`/`KnowledgeChecks`: current product and data regression. `TestLibrary`: explicit isolated mock corpus for historical research; never seed product storage.
+`MainActivity`: chat/Settings/documents and lifecycle. `FolderImporter`/`DocumentImporter`: bounded SAF traversal and shared one-file ingestion. `OsmImporter`/`OsmStorage`: OSM validation, feature storage and typed evidence. `ChatStore`: private conversation DB. `ChatPrompt`: bounded follow-up/source request. `Library`/`Evidence`/`CsvTable`: source identities, schema migration, retrieval and removal. `PdfImporter`: bounded extraction. `ChatChecks`/`KnowledgeChecks`: current product and data regression. `TestLibrary`: explicit isolated mock corpus for historical research; never seed product storage.
 
 The old search/reviewer/speculation UI tests are retired or routed to current chat checks. Native generation, Kev, kernel/cache/speculation controls remain separate developer tests. Full ARM compilation is new, but custom ARM/VNNI kernels and device execution still need work. Locked Bonsai 4B has zero MTP heads.
 
@@ -47,4 +55,4 @@ The earlier native-controller review of `a52f2b3` remains unacknowledged after `
 
 ## Next work
 
-Prioritize observed conversation/source failures and realistic user tasks, then model provisioning and mobile-device validation when explicitly authorized. Evaluate long/complex PDF extraction, claim-to-source alignment, missing/conflicting information, bounded context and recovery. OCR/Office/ZIM/OSM, arithmetic tools and editable mission context remain pending. Record facts and failures, not just green harness counts. No field-quality, peak-RAM, battery, thermal, phone-speed or bounty compliance claim is established.
+Prioritize observed conversation/source failures and realistic user tasks, then model provisioning and mobile-device validation when explicitly authorized. Evaluate long/complex PDF extraction, claim-to-source alignment, missing/conflicting information, bounded context and recovery. OCR/Office/ZIM and broader OSM/geographic workflows, arithmetic tools and editable mission context remain pending. Record facts and failures, not just green harness counts. No field-quality, peak-RAM, battery, thermal, phone-speed or bounty compliance claim is established.
