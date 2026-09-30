@@ -192,8 +192,12 @@ final class SpeculationChecks {
             (width==1 ? scalar:grouped).add(r.totalMs());
         }
         int chosen=(double)median(scalar)/median(grouped)>1.05 ? 4:1;
-        RuntimeSettings.save(test.getTargetContext(),model.spec(),new RuntimeSettings.Profile(4,4,128,chosen,true));
-        report.put("baselineMedianMs",median(scalar)).put("groupedMedianMs",median(grouped)).put("selectedWidth",chosen);
+        // This phase is a diagnostic. It measures one dimension on a four-token copy task, so it must
+        // not persist a profile: the calibration phases own the stored profile, and an earlier version
+        // of this line silently reset a calibrated width, and the calibrated threads and batch, to 4/4/128.
+        RuntimeSettings.Profile stored=RuntimeSettings.load(test.getTargetContext(),model.spec());
+        report.put("baselineMedianMs",median(scalar)).put("groupedMedianMs",median(grouped)).put("selectedWidth",chosen)
+            .put("profilePersisted",false).put("storedWidthAfterRun",stored.width());
     }
     private void audit(NativeEngine e) throws Exception {
         call(e,"warmup",COPY,0,false,true,1,null);

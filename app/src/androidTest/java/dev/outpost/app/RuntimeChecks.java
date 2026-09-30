@@ -73,7 +73,11 @@ final class RuntimeChecks {
         write(); Bundle b=new Bundle(); b.putString("stream","\n"+label+": prefill "+r.prefillMs()+" ms, decode "+r.decodeMs()+" ms, reused "+r.cachedTokens()+", total "+r.totalMs()+" ms\n"); test.sendStatus(0,b);
     }
     private void calibrate(NativeEngine e) throws Exception {
-        String user=prompt(RECORD,QUESTION); RuntimeSettings.Profile baseline=p(4,4,128,1);
+        String user=prompt(RECORD,QUESTION);
+        // The sweep isolates threads and batch by holding the grouped path at width 1. That is a
+        // deliberate control, not a verdict on the width: preserve whatever the batch phase chose.
+        int selectedWidth=RuntimeSettings.load(test.getTargetContext(),model.spec()).width();
+        RuntimeSettings.Profile baseline=p(4,4,128,1);
         NativeEngine.Result reference=call(e,"warmup-excluded",baseline,false,user,32,false);
         List<Trial> decode=new ArrayList<>();
         for(int t:new int[]{4,2,3}) decode.add(new Trial(p(t,4,128,1),call(e,"decode-threads-"+t,p(t,4,128,1),false,user,32,false)));
@@ -97,7 +101,8 @@ final class RuntimeChecks {
             }
         }
         double gain=(double)median(baseTimes)/median(candidateTimes)-1;
-        RuntimeSettings.Profile chosen=parity && gain>0.05 ? best.p : baseline;
+        RuntimeSettings.Profile measured=parity && gain>0.05 ? best.p : baseline;
+        RuntimeSettings.Profile chosen=p(measured.threads(),measured.promptThreads(),measured.batch(),selectedWidth);
         RuntimeSettings.save(test.getTargetContext(),model.spec(),chosen);
         report.put("confirmationGain",gain).put("confirmationTextParity",parity).put("chosen",profile(chosen)).put("acceptanceRule","Identical text and >5% median total-time gain, three alternating comparisons.");
     }
