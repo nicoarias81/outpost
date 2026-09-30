@@ -89,6 +89,19 @@ The speculation script defaults to `pilot`; specify the phase explicitly for rep
 
 The English UI exposes model selection/import and speculation in **Status**. Select a profile, then import its exact locked GGUF. Search a topic and use **Draft from sources**; **Stop generation** cancels it. **Review first claim with Kev** runs optional review after generation. Choose local files in the Android picker; external providers may require their own connectivity. Imported text is labeled unverified and reviewer scores do not certify the full answer.
 
+## Keep regenerated evidence out of behaviour commits
+
+The test scripts rewrite tracked evidence under `evidence/` on every run. Commit that regenerated
+evidence separately, as its own `chore(evidence)` commit, and keep it out of the commit that changes
+behaviour.
+
+A native review candidate is a commit range and it carries the frozen diff of every changed path.
+Mixing thousands of lines of regenerated JSON into a behaviour commit makes the candidate exceed the
+reviewer context budget, and then no review authority is created at all and the range cannot be
+reviewed: the controller never truncates frozen candidate evidence. One behaviour commit plus one
+evidence commit keeps each candidate reviewable. `dist/` and `.local/` are ignored, so published
+artifacts and run archives are unaffected.
+
 ## Troubleshooting
 
 | Symptom | Check |
