@@ -10,7 +10,7 @@ An offline Android assistant. Open the app to chat; add your own documents throu
 - Recent completed messages provide bounded follow-up context. The conversation is saved locally; **New chat** deletes it without deleting documents.
 - **Settings → Add folder** recursively imports supported files from a chosen directory and all readable subdirectories, with progress, cancellation and a summary. Unchanged repeated imports are skipped; sources are never edited. See [folder import](docs/folder-import.md).
 - Import UTF-8 TXT, Markdown or CSV, or a text-bearing PDF individually with **Add file**. Open original PDF pages or inspect exact text/CSV source records from replies.
-- Import **OpenStreetMap XML or Overpass JSON** and consult stored feature names, tags and coordinates through chat or the source browser. Attribution and snapshot dates stay visible. [Formats, preparation and limits](docs/osm-import.md).
+- Import **OpenStreetMap XML or Overpass JSON** and consult stored feature names, tags and coordinates through chat or the source browser. The intended workflow is answering where places are and what is around a named location; structured place/proximity queries are the next slice. [Place-query scope](docs/osm-place-queries.md) and [formats/preparation](docs/osm-import.md).
 - Manage local documents and the installed offline model from Settings. Models are separate verified files; the APK does not download or bundle generator weights.
 
 PDFs are limited to 10 MiB and 100 pages, with bounded extracted text. Text/CSV files are limited to 1 MiB. Scans without readable text, encrypted PDFs and invalid files receive explicit errors; no OCR is implemented. Source references enable inspection, not automatic verification of claims.

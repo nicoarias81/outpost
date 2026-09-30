@@ -71,6 +71,6 @@ Native sessions have a per-session lock; a global `execution_mutex` serializes g
 
 ## Extensions still proposed
 
-The coordinator may eventually own editable mission context, typed arithmetic/units, structured applicability checks and a tool allowlist. ZIM, Office/OCR, geographic filters/ranking, GPS, maps and routing need their own adapters and evidence. OSM stored coordinates do not supply the device's current position or route topology.
+The coordinator may eventually own editable mission context, typed arithmetic/units, structured applicability checks and a tool allowlist. ZIM and Office/OCR need their own adapters and evidence. The next OSM knowledge operations are named-place resolution and structured category/proximity queries, feeding selected entity records and exact locators to chat; see [scope](osm-place-queries.md). Map rendering, navigation and routing are outside this feature. Named-reference queries do not require GPS. Stored coordinates do not supply the device's current position or prove polygon containment.
 
 Discovery proposals for equipment transport, an action ledger and reflection-specific retention are not implemented. Source text/model output cannot authorize actions. Reconnection alone cannot authorize delivery. Future request categories such as `no_coverage`, `missing_context` and `unsupported_capability` are design ideas, not current public error enums. See [decisions](decisions.md), [discovery](discovery-2026-09-29.md) and [roadmap](roadmap.md).

@@ -2,6 +2,13 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## OSM place-query scope clarification — 2026-09-30
+
+- Clarifies OSM as imported place knowledge for chat: named parks, restaurants around a reference place, museums and other categories.
+- Prioritizes entity resolution/category/proximity queries in K-06; defers map/navigation/routing K-07 outside this feature and removes it as a product prerequisite.
+- Adds ADR-028, acceptance examples and preparation guidance including leisure/place records. Records the obsolete v5 evaluation blocker for correction in a new manifest, preserving existing runs.
+- Documentation/scope only; current APK capabilities and runtime results are unchanged.
+
 ## DeepGEMM-Ascend research — 2026-09-30
 
 - Pins and reviews the initial upstream Ascend source against the current Q2 runtime, separating hardware-specific implementation from transferable ideas.

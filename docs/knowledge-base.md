@@ -49,6 +49,10 @@ Knowledge-pack v1 uses exact manifest-text identity, atomic validate/index/activ
 
 Migrations are transactional, without wiping/reseeding user data. `chat.db` has its own schema and lifetime. PDF/OSM originals are retained privately and removed with their document; robust orphan-file/process-death/storage-pressure recovery remains open. See [current validation](validation-0.12.md) for exact regression scopes.
 
+## Place questions from imported OSM
+
+The adopted scope is name lookup and category/proximity questions, such as locating a park or finding restaurants near a stated landmark. Structured entity resolution/filtering/distance ordering belongs in the knowledge domain; the generator receives actual records and locators to explain. A map, route graph and GPS are not dependencies for named-reference questions. [Scope and acceptance](osm-place-queries.md) distinguish the existing lexical importer from these pending query operations.
+
 ## Retrieval and remaining contracts
 
 FTS4 retrieves normalized lexical prefixes; the query is bounded to 20 terms, candidate scan to 500 and results to eight fragments. Generation uses at most three. CSV headers stay attached to rows; OSM has a small category-alias set. This does not implement exhaustive record filtering, semantic retrieval, geographic distance/ranking, equipment applicability or conflict resolution.

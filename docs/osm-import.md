@@ -1,5 +1,9 @@
 # OpenStreetMap data import — 0.12
 
+## Product purpose
+
+OSM provides offline place facts for chat: **where a named park is, which restaurants are around a stated place, or where a museum can be found**. [Place-query scope](osm-place-queries.md) defines the intended retrieval and answer behavior. It requires name/category/proximity queries over imported data; map display, route computation and navigation are outside this feature and are not prerequisites. Current 0.12 provides import, lexical retrieval and exact source inspection; structured proximity/name resolution remains pending.
+
 ## Prepare and import
 
 In **Settings → Add file**, choose an uncompressed UTF-8 OSM XML `.osm`/`.xml` file or an Overpass JSON `.json` export. **Add folder** imports the same formats recursively. The app copies and indexes the file locally; it performs no network download. Existing unchanged-file deduplication and new-snapshot behavior also apply to OSM.
@@ -14,13 +18,15 @@ Before going offline, prepare a small area in an OSM export tool. For Overpass T
   nwr["amenity"]({{bbox}});
   nwr["shop"]({{bbox}});
   nwr["tourism"]({{bbox}});
+  nwr["leisure"]({{bbox}});
+  nwr["place"]({{bbox}});
   nwr["emergency"]({{bbox}});
   nwr["power"]({{bbox}});
 );
 out meta center;
 ```
 
-Export the raw Overpass JSON result, not GeoJSON. `{{bbox}}` is an Overpass Turbo macro. Adjust the area/categories to the actual trip or field task and respect the chosen service's limits. The query is preparation guidance; Outpost does not run it or automatically fetch a location. Queries with no relevant data, incomplete responses and unsupported formats receive import errors rather than fabricated results.
+Export the raw Overpass JSON result, not GeoJSON. `{{bbox}}` is an Overpass Turbo macro. Adjust the area/categories to the actual trip or field task and respect the chosen service's limits. Include reference landmarks as well as possible answers; a restaurant-only extract may omit the place used to anchor a nearby query. Leisure/place records improve the sample's coverage for parks and named localities, but the query is not an exhaustive extract. The query is preparation guidance; Outpost does not run it or automatically fetch a location. Queries with no relevant data, incomplete responses and unsupported formats receive import errors rather than fabricated results.
 
 ## What is retained
 
@@ -30,7 +36,7 @@ Export the raw Overpass JSON result, not GeoJSON. `{{bbox}}` is an Overpass Turb
 - A declared XML bounding box and extract timestamp when available. These do not establish complete coverage, current opening status or current availability. Object edit time, extract time and app import time remain different concepts.
 - The exact original file, source/format/raw-byte identity, attribution and a feature-level locator. Opening a chat source resolves the exact local snapshot and OSM object; positive object IDs also expose the corresponding OSM URL as text.
 
-The source browser lists 50 features per page and displays recorded tags/coordinates without requiring a model. Lexical retrieval searches names and tags, with a few category aliases. Chat can use those excerpts with citations. This is not a geographic nearest-neighbor query engine, a ranking/reviews database, live open-hours evaluation, a rendered map, GPS integration or a routing graph. Those are separate capabilities.
+The source browser lists 50 features per page and displays recorded tags/coordinates without requiring a model. Lexical retrieval searches names and tags, with a few category aliases. Chat can use those excerpts with citations. Name resolution and structured category/proximity filtering are the next knowledge capabilities needed for the requested place questions. Current lexical retrieval alone does not establish them. Subjective reviews, live open-hours evaluation, map display, GPS and routing are not supplied by this importer; maps/routes are outside the current product slice.
 
 ## Attribution and source trust
 

@@ -26,6 +26,10 @@ Examples below are illustrative. They describe proposed tests, not implemented c
 
 A query can belong to several families. Restaurants, electrical adapters, reservations, trails, and equipment are varied subject matter used to test generalization. No one example becomes a dedicated product vertical merely because it is easy to describe.
 
+## OSM application of these question families
+
+The owner clarified that OSM should supply imported place data for questions such as locating a named park, listing restaurants around a stated place or finding a museum. This is entity lookup and category/proximity retrieval for chat. Map rendering/navigation/routing are outside that feature and are not dependencies for these answers. [Place-query scope](osm-place-queries.md) defines current versus pending capabilities and acceptance. Restaurants remain one example alongside other place categories.
+
 ## Common problem structure
 
 1. Understand the user's goal and the actual question, including references such as here, this device, best, or the file from last week.

@@ -11,7 +11,7 @@
 | Find remaining work | [Roadmap](roadmap.md): stable task IDs, status, dependencies and acceptance criteria |
 | Understand rationale | [Architecture](architecture.md), [decision register](decisions.md) |
 | Use chat and prepare personal files | [Chat/PDF](chat-beta.md), [recursive folders](folder-import.md) |
-| Import geographic facts | [OSM preparation/formats/limits](osm-import.md) |
+| Answer questions about places | [OSM place-query scope and next slice](osm-place-queries.md), [import/preparation/formats/limits](osm-import.md) |
 | Change ingestion or storage | [Knowledge contracts](knowledge-base.md), [developer pack v1](knowledge-packs-v1.md), [data boundaries](security-and-data.md) |
 | Build or run tests | [Development](development.md), [emulator operating guide](emulator-runbook.md), [dependencies](../THIRD_PARTY.md) |
 | Review new kernel ideas | [DeepGEMM-Ascend static review and prioritized experiments](deepgemm-ascend-review.md) |

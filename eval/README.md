@@ -58,6 +58,10 @@ Assistant review is not blinded human/domain-expert validation. Critical failure
 
 **Known identity gap:** v5 still declares `abiFilters: ["x86_64"]`, while Gradle and the APK contain both `x86_64` and `arm64-v8a`. `check_11_gradle_identity` extracts only the first Gradle string, so validation misses the second ABI. Do not interpret the manifest as a complete packaging inventory. [Release manifest](../evidence/releases/0.12.0/manifest.json) is the current packaging evidence. Fix the validator and issue a new manifest revision without rewriting frozen runs (roadmap E-06).
 
+## Regional fixture scope correction
+
+The current v5 regional fixture still lists K-07/map-routing as a blocker. [ADR-028 and the place-query specification](../docs/osm-place-queries.md) supersede that product dependency: offline named/category/proximity answers require entity resolution, suitable data and query execution, not a rendered map or route engine. Keep the existing manifest/runs frozen; revise the definition in the next manifest version alongside the E-06 identity correction. This clarification does not mark the currently blocked case as executed or solved.
+
 ## Current integration suites
 
 `test-chat.ps1` checks chat/files/PDF/persistence, with optional `-Generate` for real conversational controls. `test-folders.ps1` checks recursive SAF ingestion; `test-osm.ps1` checks parser/storage/source UI, with optional `-Generate` for one synthetic source answer; `test-knowledge.ps1` checks migrations/CSV/packs/locators. These are integration/regression suites, not the broad question-family study. [0.12 validation](../docs/validation-0.12.md) owns current run identities and the earlier-test-APK provenance of the real OSM answer.

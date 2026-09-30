@@ -10,7 +10,7 @@ The user identified five equally relevant contexts:
 
 | Context | Task | Material to prepare | Expected useful result |
 |---|---|---|---|
-| Traveler | Interpret a reservation, reach a destination, compare local options | Personal documents, regional map, transit reference, travel guide | Correct destination or condition, with saved-data limitations visible |
+| Traveler | Interpret a reservation, reach a destination, compare local options | Personal documents, regional place data, transit reference, travel guide | Correct destination or condition, with saved-data limitations visible |
 | Farmer | Investigate an irrigation or equipment anomaly | Exact equipment manual, installation records, observations with units | Applicable section, plausible explanations, and the next discriminating observation |
 | Field engineer | Inspect an electrical infrastructure asset | Asset ID, applicable drawing revision, authorized procedure, inspection history | Traceable findings and missing information; no invented authorization or equipment state |
 | Mountaineer | Relate position and itinerary to saved terrain information | Map, elevation data, route, battery and equipment context | Documented alternatives and explicit areas of missing coverage |
@@ -32,7 +32,7 @@ The issue-list demo is one personal-recall fixture within a broader question-fam
 
 **Continue:** correct context without retaining invalid assumptions; reopen the original passage; optionally save a local observation or report. Saving is separate from sending. Bounded recent-turn context and local chat persistence are implemented. An editable mission record, typed observations, deterministic tools and a field notebook are not.
 
-The current UI implements chat, file/folder import, model preparation and source reading. Region selection, coverage/storage planning, route guidance, typed tools and explicit mission context in this journey remain goals, not present controls. See [current state](current-state.md).
+The current UI implements chat, file/folder import, model preparation and source reading. Region/context selection, coverage/storage planning, typed tools and explicit mission context remain goals, not present controls. The current OSM goal is chat-based place lookup and category/proximity questions from imported data; map display and route guidance are outside that feature. See [place-query scope](osm-place-queries.md). See [current state](current-state.md).
 
 ## Product principles
 
@@ -50,7 +50,7 @@ The APK packages x86_64 and ARM64 CPU backends; current runtime evidence comes f
 
 Earlier planning used a 12 GB RAM environment and a 50 GB total resource budget as bounty constraints. Those are planning references, not measured compliance or a substitute for checking the active submission rules before a submission. Current emulator configuration is 4 GiB; real peak RAM, battery use, and thermal behavior remain unmeasured.
 
-Voice, image interpretation, automatic location, navigation, and remote synchronization are future possibilities. No cloud inference fallback is part of the current design.
+Voice, image interpretation, automatic location and remote synchronization are future possibilities. Map/navigation work is deferred outside the current OSM feature and requires a separate request. No cloud inference fallback is part of the current design.
 
 ## Definition of a useful milestone
 

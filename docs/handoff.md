@@ -20,7 +20,7 @@ Supported files: strict UTF-8 text/Markdown/CSV, bounded text-bearing PDF, OSM X
 
 Library schema 5 adds `osm_features` after metadata/packs (2), precise seed cleanup (3) and import origins (4). Upgrades preserve imported/edited data. PDF originals/page text and OSM exact files/features remain inspectable. The PDF locator hash is extracted-page serialization; the separate import binding stores raw PDF bytes' hash. OSM locators use the original extract hash. See [knowledge](knowledge-base.md), [chat/PDF](chat-beta.md), [folders](folder-import.md) and [OSM](osm-import.md).
 
-OSM supports lexical feature/tag lookup and recorded coordinates/dates/attribution. PBF/GeoJSON, geographic filtering/ranking, full relation topology, GPS, maps, routes and live hours remain absent. Approximate centers and declared bounds do not establish an entrance, route or complete coverage.
+OSM is a knowledge source for chat questions such as where a named park is, which restaurants are around a stated landmark, and where museums can be found. Current 0.12 supports lexical feature/tag lookup and recorded coordinates/dates/attribution; named-place resolution and structured category/proximity queries are the next K-06 slice. Map display/navigation/routing (K-07) are outside this feature and must not block it; GPS is unnecessary for a named-reference query. [Place-query scope](osm-place-queries.md) and ADR-028 own this clarification. Approximate centers and declared bounds do not establish an entrance or complete coverage.
 
 ## Evidence and runtime state
 
@@ -44,7 +44,7 @@ The test-only `FolderDocumentsProvider` stays registered and protected by MANAGE
 
 ## Next work and known gaps
 
-Follow [roadmap](roadmap.md), preserving existing task IDs. Immediate technical follow-up E-06: fixture v5 declares only x86_64 and the validator reads only the first Gradle ABI string; repair the check and issue a new manifest revision without altering frozen runs. Its current PASS is not complete ABI verification.
+Follow [roadmap](roadmap.md), preserving existing task IDs. Immediate technical follow-up E-06: fixture v5 declares only x86_64 and the validator reads only the first Gradle ABI string; repair the check and issue a new manifest revision without altering frozen runs. Its current PASS is not complete ABI verification. The next manifest revision must also remove the obsolete K-07/map-routing blocker from the regional place-query fixture under ADR-028; preserve historical manifests/runs and keep its actual missing implementation/corpus/executor status explicit.
 
 Prioritize realistic user tasks and source/answer failures; model provisioning and bounded-chat UX; original-file/process-death/storage recovery; complex PDF and real-region OSM evaluation. Typed arithmetic, editable mission context, Office/OCR/ZIM and broader geographic tools remain pending. Phone trials require explicit scope expansion. No field-quality, peak-RAM, phone-speed, battery/thermal or bounty-compliance claim follows from current checks.
 
