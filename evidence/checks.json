@@ -1,6 +1,6 @@
 {
   "version": "0.8.1",
-  "checksPassed": 48,
+  "checksPassed": 53,
   "results": [
     {
       "check": "APK has no INTERNET permission",
@@ -187,6 +187,26 @@
       "passed": true
     },
     {
+      "check": "Question input opens empty",
+      "passed": true
+    },
+    {
+      "check": "Opening screen shows no removed preset text: START WITH A QUESTION",
+      "passed": true
+    },
+    {
+      "check": "Opening screen shows no removed preset text: How does GPS calculate my position?",
+      "passed": true
+    },
+    {
+      "check": "Opening screen shows no removed preset text: What is the difference between kW and kWh?",
+      "passed": true
+    },
+    {
+      "check": "Opening screen shows no removed preset text: How does a solar panel work?",
+      "passed": true
+    },
+    {
       "check": "Search button executes real local query",
       "passed": true
     },
@@ -195,7 +215,7 @@
       "passed": true
     }
   ],
-  "elapsedMs": 4476,
+  "elapsedMs": 5431,
   "device": "Android SDK built for x86_64",
   "androidApi": 35,
   "scope": "Functional retrieval and Activity checks; this suite does not run LLM generation; no physical-device measurement"
