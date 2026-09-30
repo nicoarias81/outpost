@@ -1,5 +1,5 @@
 {
-  "version": "0.8.0",
+  "version": "0.9.0",
   "checksPassed": 17,
   "checks": [
     {
@@ -77,9 +77,9 @@
       "text": "Kilowatts (kW) measure power, while kilowatt-hours (kWh) measure energy. Power is the rate at which energy is consumed or produced, measured in watts or kilowatts. Energy is the amount of power used over a period of time, measured in watt-hours or kilowatt-hours. kW and kWh are not interchangeable because energy is power multiplied by time. [1]",
       "tokens": 83,
       "promptTokens": 207,
-      "firstTokenMs": 14997,
-      "totalMs": 23128,
-      "loadMs": 2565,
+      "firstTokenMs": 17837,
+      "totalMs": 27090,
+      "loadMs": 4352,
       "stopReason": 0,
       "sources": [
         {
@@ -97,8 +97,8 @@
       "text": "Kilow",
       "tokens": 3,
       "promptTokens": 207,
-      "firstTokenMs": 2,
-      "totalMs": 184,
+      "firstTokenMs": 3,
+      "totalMs": 189,
       "loadMs": 0,
       "stopReason": 2,
       "sources": [
@@ -117,8 +117,8 @@
       "text": "GPS calculates its position by receiving signals from satellites, which are used to estimate distances and correct the receiver's clock. [1]",
       "tokens": 26,
       "promptTokens": 227,
-      "firstTokenMs": 13084,
-      "totalMs": 15449,
+      "firstTokenMs": 14218,
+      "totalMs": 16802,
       "loadMs": 0,
       "stopReason": 0,
       "sources": [
@@ -141,9 +141,9 @@
       "text": "Kilowatts (kW) measure power, while kilowatt-hours (kWh) measure energy. Power is the rate at which energy is consumed or produced, measured in watts or kilowatts. Energy is the amount of power used over a period of time, measured in watt-hours or kilowatt-hours. kW and kWh are not interchangeable because energy is power multiplied by time. [1]",
       "tokens": 83,
       "promptTokens": 207,
-      "firstTokenMs": 12512,
-      "totalMs": 22068,
-      "loadMs": 493,
+      "firstTokenMs": 13518,
+      "totalMs": 24660,
+      "loadMs": 641,
       "stopReason": 0,
       "sources": [
         {
@@ -157,12 +157,12 @@
       ]
     }
   ],
-  "elapsedMs": 65636,
+  "elapsedMs": 70971,
   "model": "Qwen2.5 1.5B Instruct · Q4_K_M",
   "modelSha256": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
   "modelBytes": 1117320736,
   "androidApi": 35,
   "device": "Android SDK built for x86_64",
-  "processPssKiBAtEnd": 1249918,
+  "processPssKiBAtEnd": 1259018,
   "measurementScope": "Emulator only. PSS snapshot is not peak RAM. Functional tests, not research-quality evaluation."
 }

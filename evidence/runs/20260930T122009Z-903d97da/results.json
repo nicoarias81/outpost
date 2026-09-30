@@ -1,0 +1,96 @@
+{
+  "runId": "20260930T122009Z-903d97da",
+  "appVersion": "0.9.0",
+  "manifestId": "outpost-fixtures-v2",
+  "manifestVersion": 2,
+  "manifestSha256": "f23a05883a558788474e6d7bcaffa5fb15fc2c5844ad4b6b5de6157ef08bd2aa",
+  "envelopeSha256": "e46ccf501e85ff81027f83f09f8469b6e7fad167f6568b9e4dd797201798827c",
+  "modelId": "bonsai4",
+  "modelSha256": "9d968b04a3c9a794897bcc744c8072fb6a061c0e42efd03c989401ddf8baef0c",
+  "runtime": {
+    "abi": "x86_64",
+    "onlineCpus": 4,
+    "featureMask": 15,
+    "selected": "Q2_0 AVX2\/F16C",
+    "candidates": [
+      {
+        "id": 0,
+        "name": "Q2_0 reference",
+        "cpuCompatible": true,
+        "compiled": true,
+        "enabled": true,
+        "selected": false
+      },
+      {
+        "id": 1,
+        "name": "Q2_0 AVX2\/F16C",
+        "cpuCompatible": true,
+        "compiled": true,
+        "enabled": true,
+        "selected": true
+      },
+      {
+        "id": 2,
+        "name": "Q2_0 AVX-VNNI",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 3,
+        "name": "Q2_0 AVX-512 VNNI\/VL",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 4,
+        "name": "Q2_0 NEON",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 5,
+        "name": "Q2_0 NEON DotProd",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 6,
+        "name": "Q2_0 NEON I8MM",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      }
+    ]
+  },
+  "configuration": {
+    "threads": 4,
+    "promptThreads": 4,
+    "batch": 128,
+    "width": 4,
+    "cache": false,
+    "speculationDepth": 0,
+    "maxTokens": 96,
+    "sampler": "top_k20\/top_p0.8\/temp0.7\/seed42"
+  },
+  "rows": [
+    {
+      "fixtureId": "seed-kwh-power-v1",
+      "status": "blocked",
+      "blockedBy": [
+        "T-01"
+      ]
+    }
+  ],
+  "executionComplete": true,
+  "qualityStatus": "unscored",
+  "limits": "Manifest-driven development evaluation, emulator only. Automatic assertions check bounded properties; quality requires a separate attributed review."
+}

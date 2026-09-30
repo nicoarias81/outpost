@@ -1,0 +1,63 @@
+{
+  "runId": "20260930T120854Z-6f4d0987",
+  "rubricVersion": 2,
+  "resultsSha256": "c98ca4000fbc24fe662732a566aa9313cf2d561374e363d60dbc0fc72a4b89a2",
+  "reviewer": {
+    "kind": "assistant",
+    "name": "Outpost implementation agent",
+    "qualifiedDomainReview": false
+  },
+  "method": "Manual development diagnostic review, not blind, not general model ranking. The app output budget is 192; source ordering/configuration must be inspected before interpreting cross-run differences.",
+  "assessments": [
+    {
+      "fixtureId": "field-engineer-authorization-v1",
+      "variant": "baseline",
+      "taskOutcome": "satisfied",
+      "dimensions": {
+        "unknown-handling": 3,
+        "supported-claims": 3
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "The answer states that the record does not establish authorization, without converting missing data into a negative fact."
+    },
+    {
+      "fixtureId": "seed-absent-pois-v1",
+      "variant": "baseline",
+      "taskOutcome": "failed",
+      "dimensions": {
+        "unknown-handling": 0,
+        "evidence-applicability": 0
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "Emits only repeated citation markers until the token cap. The app has no substantive answer to show."
+    },
+    {
+      "fixtureId": "seed-conflicting-revisions-v1",
+      "variant": "baseline",
+      "taskOutcome": "partial",
+      "dimensions": {
+        "evidence-applicability": 1,
+        "context-handling": 1,
+        "unknown-handling": 1
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "Names both torque values but claims both are correct for different applications/conditions without evidence, and omits the requested revision/date distinction. It does not establish a supported conflict resolution."
+    },
+    {
+      "fixtureId": "personal-record-row-lookup-v2",
+      "variant": "baseline",
+      "taskOutcome": "partial",
+      "dimensions": {
+        "citation-resolution": 0,
+        "context-handling": 1,
+        "deterministic-result-correctness": 1
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "Omits the CSV record locator and measurement-date distinction, compares dates with different meanings, and provides no citations."
+    }
+  ]
+}

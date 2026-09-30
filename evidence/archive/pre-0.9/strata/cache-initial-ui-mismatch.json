@@ -1,0 +1,15 @@
+{
+  "text": "La potencia se mide en vatios (W) o kilovatios (kW) y representa el ritmo al que se consume o produce energía, mientras que la energía se mide en vatios hora (Wh) o kilovatios hora (kWh) y representa la cantidad total de energía consumida o producida durante un tiempo. [1]",
+  "coldText": "La potencia (en kW) mide la tasa a la que se consume o produce energía, mientras que la energía (en kWh) es el total consumido o producido durante un período de tiempo. Si la potencia permanece constante, la energía se calcula como potencia multiplicada por tiempo, lo que demuestra que kW y kWh no son intercambiables; por ejemplo, un aparato de 100 W durante tres horas consume 0,3 kWh [1].",
+  "tokens": 78,
+  "firstTokenMs": 536,
+  "totalMs": 17039,
+  "prefillMs": 531,
+  "decodeMs": 16505,
+  "cachedTokens": 267,
+  "promptTokens": 268,
+  "reason": 0,
+  "coldLogitsHash": "57b41fbaeb3ee75c",
+  "warmLogitsHash": "a2cf7d771933a776",
+  "releaseRequestsDuringRepeat": 0
+}

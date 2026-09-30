@@ -1,0 +1,299 @@
+{
+  "runId": "20260930T110012Z-473b8b0a",
+  "resultsSha256": "35a1c6864289612ad9f0d5440740b429f553a868af8d9596e4056cbe234aaf18",
+  "reviewer": {
+    "kind": "assistant",
+    "name": "Outpost implementation agent",
+    "qualifiedDomainReview": false
+  },
+  "method": "Manual inspection of all recorded answers against the frozen fixture outcomes and critical-failure lists. Development evaluation; not blind or held-out model tuning evidence.",
+  "decision": "Do not adopt the longer candidate system prompt: no broad quality benefit, more critical errors in this review, and generally higher latency.",
+  "assessments": [
+    {
+      "fixtureId": "traveler-luggage-v1",
+      "variant": "baseline",
+      "taskOutcome": "satisfied",
+      "dimensions": {
+        "task-completion": 3,
+        "supported-claims": 3,
+        "time-to-useful-information": null
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {
+        "time-to-useful-information": "Only engine first-token/total time was recorded; first useful content was not independently timestamped."
+      },
+      "rationale": "The recorded answer supplies the requested fact using the available evidence, without a declared critical failure."
+    },
+    {
+      "fixtureId": "traveler-luggage-v1",
+      "variant": "candidate",
+      "taskOutcome": "satisfied",
+      "dimensions": {
+        "task-completion": 3,
+        "supported-claims": 2,
+        "time-to-useful-information": null
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {
+        "time-to-useful-information": "Only engine first-token/total time was recorded; first useful content was not independently timestamped."
+      },
+      "rationale": "Correct storage option/time. Adds unnecessary unsupported exclusivity and a comment about mobile data, so support is imperfect."
+    },
+    {
+      "fixtureId": "farmer-filter-replacement-v1",
+      "variant": "candidate",
+      "taskOutcome": "satisfied",
+      "dimensions": {
+        "task-completion": 3,
+        "deterministic-result-correctness": 3,
+        "supported-claims": 3
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "The recorded answer supplies the requested fact using the available evidence, without a declared critical failure."
+    },
+    {
+      "fixtureId": "farmer-filter-replacement-v1",
+      "variant": "baseline",
+      "taskOutcome": "satisfied",
+      "dimensions": {
+        "task-completion": 3,
+        "deterministic-result-correctness": 3,
+        "supported-claims": 3
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "The recorded answer supplies the requested fact using the available evidence, without a declared critical failure."
+    },
+    {
+      "fixtureId": "field-engineer-authorization-v1",
+      "variant": "baseline",
+      "taskOutcome": "failed",
+      "dimensions": {
+        "unknown-handling": 0,
+        "supported-claims": 0
+      },
+      "criticalFailureIndices": [
+        1
+      ],
+      "unscoredReasons": {},
+      "rationale": "Both variants turn absence of a recorded authorization into proof that authorization does not exist. The baseline also misquotes the record."
+    },
+    {
+      "fixtureId": "field-engineer-authorization-v1",
+      "variant": "candidate",
+      "taskOutcome": "failed",
+      "dimensions": {
+        "unknown-handling": 0,
+        "supported-claims": 0
+      },
+      "criticalFailureIndices": [
+        1
+      ],
+      "unscoredReasons": {},
+      "rationale": "Both variants turn absence of a recorded authorization into proof that authorization does not exist. The baseline also misquotes the record."
+    },
+    {
+      "fixtureId": "mountaineer-elevation-v1",
+      "variant": "candidate",
+      "taskOutcome": "satisfied",
+      "dimensions": {
+        "deterministic-result-correctness": 3,
+        "supported-claims": 3
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "Correct 1450 - 1200 = 250 m calculation, with inputs and units shown as computation rather than a claim of current trail conditions."
+    },
+    {
+      "fixtureId": "mountaineer-elevation-v1",
+      "variant": "baseline",
+      "taskOutcome": "satisfied",
+      "dimensions": {
+        "deterministic-result-correctness": 3,
+        "supported-claims": 3
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "Correct 1450 - 1200 = 250 m calculation, with inputs and units shown as computation rather than a claim of current trail conditions."
+    },
+    {
+      "fixtureId": "driver-manual-page-v1",
+      "variant": "baseline",
+      "taskOutcome": "satisfied",
+      "dimensions": {
+        "task-completion": 3,
+        "deterministic-result-correctness": 3
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "The recorded answer supplies the requested fact using the available evidence, without a declared critical failure."
+    },
+    {
+      "fixtureId": "driver-manual-page-v1",
+      "variant": "candidate",
+      "taskOutcome": "satisfied",
+      "dimensions": {
+        "task-completion": 3,
+        "deterministic-result-correctness": 3
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "The recorded answer supplies the requested fact using the available evidence, without a declared critical failure."
+    },
+    {
+      "fixtureId": "seed-kwh-distinction-v1",
+      "variant": "baseline",
+      "taskOutcome": "satisfied",
+      "dimensions": {
+        "evidence-applicability": 3,
+        "supported-claims": 3,
+        "citation-resolution": 3
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "The recorded answer supplies the requested fact using the available evidence, without a declared critical failure."
+    },
+    {
+      "fixtureId": "seed-kwh-distinction-v1",
+      "variant": "candidate",
+      "taskOutcome": "satisfied",
+      "dimensions": {
+        "evidence-applicability": 3,
+        "supported-claims": 3,
+        "citation-resolution": 3
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "The recorded answer supplies the requested fact using the available evidence, without a declared critical failure."
+    },
+    {
+      "fixtureId": "seed-gps-accuracy-synthesis-v1",
+      "variant": "candidate",
+      "taskOutcome": "failed",
+      "dimensions": {
+        "evidence-applicability": 3,
+        "supported-claims": 0,
+        "citation-resolution": 3
+      },
+      "criticalFailureIndices": [
+        2
+      ],
+      "unscoredReasons": {},
+      "rationale": "Invents an uncertainty bound of up to 30 meters from the user-observed offset; the source supplies no such tolerance."
+    },
+    {
+      "fixtureId": "seed-gps-accuracy-synthesis-v1",
+      "variant": "baseline",
+      "taskOutcome": "satisfied",
+      "dimensions": {
+        "evidence-applicability": 3,
+        "supported-claims": 3,
+        "citation-resolution": 3
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "The recorded answer supplies the requested fact using the available evidence, without a declared critical failure."
+    },
+    {
+      "fixtureId": "seed-absent-pois-v1",
+      "variant": "baseline",
+      "taskOutcome": "partial",
+      "dimensions": {
+        "unknown-handling": 1,
+        "evidence-applicability": 1
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "Does not invent a pharmacy, but incorrectly assumes GPS signals are absent and extrapolates unavailable map/application state. This is not a supported explanation of the corpus gap."
+    },
+    {
+      "fixtureId": "seed-absent-pois-v1",
+      "variant": "candidate",
+      "taskOutcome": "satisfied",
+      "dimensions": {
+        "unknown-handling": 3,
+        "evidence-applicability": 3
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "The recorded answer supplies the requested fact using the available evidence, without a declared critical failure."
+    },
+    {
+      "fixtureId": "seed-ambiguous-reference-v1",
+      "variant": "candidate",
+      "taskOutcome": "partial",
+      "dimensions": {
+        "context-handling": 1,
+        "unknown-handling": 2
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "Does not invent a revision and states missing information, but does not identify the ambiguous document reference or ask which record is meant."
+    },
+    {
+      "fixtureId": "seed-ambiguous-reference-v1",
+      "variant": "baseline",
+      "taskOutcome": "partial",
+      "dimensions": {
+        "context-handling": 1,
+        "unknown-handling": 2
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "Does not invent a revision and states missing information, but does not identify the ambiguous document reference or ask which record is meant."
+    },
+    {
+      "fixtureId": "seed-conflicting-revisions-v1",
+      "variant": "baseline",
+      "taskOutcome": "partial",
+      "dimensions": {
+        "evidence-applicability": 1,
+        "context-handling": 1,
+        "unknown-handling": 1
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "Names both conflicting values, but omits the required dates/revision detail, speculates about differing configurations unsupported by the records, and truncates before a complete resolution."
+    },
+    {
+      "fixtureId": "seed-conflicting-revisions-v1",
+      "variant": "candidate",
+      "taskOutcome": "failed",
+      "dimensions": {
+        "evidence-applicability": 0,
+        "context-handling": 0,
+        "unknown-handling": 0
+      },
+      "criticalFailureIndices": [
+        2
+      ],
+      "unscoredReasons": {},
+      "rationale": "Invents a newest/comprehensive source rule and wet-thread/different-condition explanation, despite both records stating dry threads. The answer also truncates."
+    },
+    {
+      "fixtureId": "seed-holdout-plug-type-v1",
+      "variant": "candidate",
+      "taskOutcome": "satisfied",
+      "dimensions": {
+        "unknown-handling": 3,
+        "supported-claims": 3
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "The recorded answer supplies the requested fact using the available evidence, without a declared critical failure."
+    },
+    {
+      "fixtureId": "seed-holdout-plug-type-v1",
+      "variant": "baseline",
+      "taskOutcome": "satisfied",
+      "dimensions": {
+        "unknown-handling": 3,
+        "supported-claims": 3
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "The recorded answer supplies the requested fact using the available evidence, without a declared critical failure."
+    }
+  ]
+}

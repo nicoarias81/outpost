@@ -1,0 +1,117 @@
+{
+  "version": "0.4.0",
+  "model": "Qwen2.5 1.5B Instruct · Q4_K_M",
+  "id": "qwen15",
+  "bytes": 1117320736,
+  "sha256": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
+  "cases": [
+    {
+      "id": "energy",
+      "question": "¿Qué diferencia hay entre kW y kWh?",
+      "sources": [
+        {
+          "id": "energy",
+          "passage": "La potencia expresa el ritmo al que se consume o produce energía. Se mide en vatios (W) o kilovatios (kW): un kilovatio equivale a mil vatios. La energía consumida durante un intervalo se puede expresar en vatios hora (Wh) o kilovatios hora (kWh)."
+        },
+        {
+          "id": "energy",
+          "passage": "Si la potencia permanece constante, la energía es potencia multiplicada por tiempo. Por ejemplo, un aparato de 100 W funcionando durante tres horas consume 300 Wh, es decir, 0,3 kWh. Este ejemplo calculado ilustra por qué kW y kWh no son intercambiables."
+        }
+      ],
+      "text": "La potencia expresa el ritmo con el que se consume o produce energía, mientras que la energía se mide en el tiempo durante la cual se consume o produce esa energía. Por ejemplo, un aparato de 100 W funcionando durante tres horas consume 300 Wh, es decir, 0,3 kWh. [1]",
+      "inputTokens": 337,
+      "outputTokens": 73,
+      "firstTokenMs": 23369,
+      "loadMs": 644,
+      "totalMs": 31154,
+      "stopReason": 0,
+      "pssKiBAfterCase": 1163301,
+      "hasReasoningTags": false
+    },
+    {
+      "id": "gps",
+      "question": "¿Cómo calcula el GPS su posición?",
+      "sources": [
+        {
+          "id": "gps",
+          "passage": "Un receptor GPS calcula su posición a partir de señales de radio enviadas por satélites. El tiempo que tarda en llegar cada señal permite estimar la distancia al satélite. Al combinar varias señales se obtiene la posición del receptor y se corrige su reloj."
+        },
+        {
+          "id": "gps-accuracy",
+          "passage": "La precisión de una posición GPS depende de la geometría de los satélites, los obstáculos que bloquean las señales, las condiciones atmosféricas y las características del receptor. La precisión de la señal emitida no garantiza la misma precisión en el teléfono."
+        },
+        {
+          "id": "gps",
+          "passage": "Recibir las señales de los satélites es distinto de descargar un mapa por internet. Como consecuencia de este funcionamiento, un receptor puede calcular coordenadas sin una conexión de datos. Para ver esas coordenadas sobre una cartografía, la aplicación necesita disponer también del mapa. Esta distinción es una explicación didáctica; no constituye una prueba del funcionamiento de una app concreta."
+        }
+      ],
+      "text": "El GPS calcula su posición a partir de señales de radio enviadas por satélites. [1]",
+      "inputTokens": 414,
+      "outputTokens": 23,
+      "firstTokenMs": 25437,
+      "loadMs": 0,
+      "totalMs": 28318,
+      "stopReason": 0,
+      "pssKiBAfterCase": 1166620,
+      "hasReasoningTags": false
+    },
+    {
+      "id": "comparison",
+      "question": "Compara qué indica una brújula con lo que calcula el GPS.",
+      "sources": [
+        {
+          "id": "compass",
+          "passage": "La orientación y la posición son magnitudes diferentes: una brújula indica una dirección, mientras que el GPS estima unas coordenadas. El norte magnético no coincide necesariamente con el norte geográfico. Android ofrece herramientas para calcular la declinación magnética, que depende de la ubicación y del tiempo."
+        },
+        {
+          "id": "compass",
+          "passage": "El sensor de campo geomagnético mide la intensidad del campo magnético en tres ejes. Android puede combinar esa información con el acelerómetro para estimar la orientación del dispositivo respecto al norte magnético."
+        },
+        {
+          "id": "gps",
+          "passage": "Un receptor GPS calcula su posición a partir de señales de radio enviadas por satélites. El tiempo que tarda en llegar cada señal permite estimar la distancia al satélite. Al combinar varias señales se obtiene la posición del receptor y se corrige su reloj."
+        }
+      ],
+      "text": "Una brújula indica una dirección, mientras que el GPS estima coordenadas. [1]",
+      "inputTokens": 398,
+      "outputTokens": 21,
+      "firstTokenMs": 25486,
+      "loadMs": 0,
+      "totalMs": 27722,
+      "stopReason": 0,
+      "pssKiBAfterCase": 1167278,
+      "hasReasoningTags": false
+    },
+    {
+      "id": "insufficient",
+      "question": "¿Qué eficiencia exacta, en porcentaje, tienen los paneles solares de estas fuentes?",
+      "sources": [
+        {
+          "id": "solar-efficiency",
+          "passage": "La eficiencia fotovoltaica es la proporción de energía solar que recibe un dispositivo y que se convierte en electricidad utilizable. No toda la radiación incidente se transforma en energía eléctrica."
+        },
+        {
+          "id": "solar-efficiency",
+          "passage": "Comparar eficiencia requiere considerar las condiciones de medida. La temperatura y la luz recibida influyen en el rendimiento. Una cifra de eficiencia describe una conversión; por sí sola no dice cuánta energía producirá una instalación durante todo un día."
+        },
+        {
+          "id": "solar",
+          "passage": "Los materiales fotovoltaicos convierten la luz solar en energía eléctrica. Las células se conectan para formar módulos o paneles, que a su vez pueden agruparse en sistemas de mayor tamaño."
+        }
+      ],
+      "text": "[1] La eficiencia fotovoltaica es la proporción de energía solar que recibe un dispositivo y que se convierte en electricidad utilizable.\n[2] Comparar eficiencia requiere considerar las condiciones de medida. La temperatura y la luz recibida influyen en el rendimiento. Una cifra de eficiencia describe una conversión; por sí sola no dice cuánta energía producirá una instalación durante todo un día.\n[3] Los materiales fotovoltaicos convierten la luz solar en energía eléctrica.",
+      "inputTokens": 374,
+      "outputTokens": 117,
+      "firstTokenMs": 18576,
+      "loadMs": 0,
+      "totalMs": 28918,
+      "stopReason": 0,
+      "pssKiBAfterCase": 1165469,
+      "hasReasoningTags": false
+    }
+  ],
+  "elapsedMs": 116356,
+  "maximumOfPostCasePssKiB": 1167278,
+  "policy": "greedy; 2048 context; 192 output tokens; 120s deadline; 4 CPU threads; fixed official non-thinking suffix for Bonsai",
+  "limits": "Four development probes. Not an independent benchmark. PSS values sampled after cases, not peak RAM. Android emulator only."
+}

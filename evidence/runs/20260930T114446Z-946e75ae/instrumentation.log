@@ -1,0 +1,27 @@
+
+EVAL traveler-luggage-v1 / baseline: completed, 39 tokens, 20266 ms
+
+EVAL farmer-filter-replacement-v1 / baseline: completed, 18 tokens, 23733 ms
+
+EVAL field-engineer-authorization-v1 / baseline: completed, 36 tokens, 16895 ms
+
+EVAL mountaineer-elevation-v1 / baseline: completed, 34 tokens, 16056 ms
+
+EVAL driver-manual-page-v1 / baseline: completed, 31 tokens, 16246 ms
+
+EVAL seed-kwh-distinction-v1 / baseline: completed, 59 tokens, 34772 ms
+
+EVAL seed-gps-accuracy-synthesis-v1 / baseline: completed, 70 tokens, 38234 ms
+
+EVAL seed-absent-pois-v1 / baseline: completed, 50 tokens, 28959 ms
+
+EVAL seed-ambiguous-reference-v1 / baseline: completed, 10 tokens, 22975 ms
+
+EVAL seed-conflicting-revisions-v1 / baseline: completed, 96 tokens, 33853 ms
+
+EVAL seed-holdout-plug-type-v1 / baseline: completed, 65 tokens, 35017 ms
+
+EVAL personal-record-row-lookup-v2 / baseline: completed, 96 tokens, 45242 ms
+
+COMPLETE evaluation 20260930T114446Z-946e75ae; recorded outcomes require separate quality review.
+

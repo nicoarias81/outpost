@@ -1,5 +1,5 @@
 {
-  "version": "0.8.1",
+  "version": "0.9.0",
   "checksPassed": 53,
   "results": [
     {
@@ -215,7 +215,7 @@
       "passed": true
     }
   ],
-  "elapsedMs": 5431,
+  "elapsedMs": 5330,
   "device": "Android SDK built for x86_64",
   "androidApi": 35,
   "scope": "Functional retrieval and Activity checks; this suite does not run LLM generation; no physical-device measurement"

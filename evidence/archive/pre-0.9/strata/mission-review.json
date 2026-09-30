@@ -1,0 +1,34 @@
+{
+  "source": "runtime-missions.json",
+  "version": "0.8.0",
+  "fixture": "English system, sources, questions and ANSWER delimiter; 96-token output budget",
+  "method": "Assistant review of the recorded fictitious controls. This is not qualified field validation. Execution/text-parity checks are distinct from content assessment.",
+  "cases": [
+    {
+      "id": "traveler",
+      "assessment": "partial and truncated",
+      "observed": "Identifies reception luggage storage from 10:00 as usable on arrival at 11:00, but repeats the record and reaches the 96-token limit before finishing."
+    },
+    {
+      "id": "farmer",
+      "assessment": "failed and truncated",
+      "observed": "Copies the beginning of the source and exhausts 96 tokens without identifying replacement filter F-28."
+    },
+    {
+      "id": "field-engineer",
+      "assessment": "mixed; unsupported overstatement",
+      "observed": "Correctly says authorization cannot be inferred, then wrongly turns absence of recorded authorization into a claim that no authorization exists."
+    },
+    {
+      "id": "mountaineer",
+      "assessment": "supported for this fixture",
+      "observed": "Calculates 1450 - 1200 = 250 m and cites the record. This does not validate routing or real mountain decisions."
+    },
+    {
+      "id": "driver",
+      "assessment": "supported for this fixture",
+      "observed": "Returns page 42 without inventing a diagnosis, but repeats source text."
+    }
+  ],
+  "limits": "Baseline and grouped outputs match in all five pairs. Neither parity, marker detection nor the harness PASS establishes a useful complete field workflow."
+}

@@ -1,0 +1,7 @@
+{
+  "model": "Ternary Bonsai 1.7B · Q2_0 g64",
+  "text": "La potencia se mide en kilovatios (kW) cuando se utiliza el kilowatt como unidad de medida, mientras que la energía se mide en kilovatios hora (kWh) cuando se utiliza el kilowatt como unidad de consumo. [1]  \nLa diferencia entre kW y kWh radica en la unidad de medida: kW representa potencia, mientras que kWh representa energía consumida. [1]  \nLa energía consumida en una unidad de tiempo se expresa en kWh, mientras que la potencia se mide en kW. [1]",
+  "tokens": 120,
+  "totalMs": 84990,
+  "stopReason": 0
+}

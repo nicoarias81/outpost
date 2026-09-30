@@ -1,0 +1,36 @@
+{
+  "model": "Ternary Bonsai 4B · Q2_0 g64",
+  "probes": [
+    {
+      "text": "[1] La potencia expresa el ritmo al que se consume o produce energía, medido en vatios (W) o kilovatios (kW), mientras que la energía consumida durante un intervalo se mide en kilovatios hora (kWh). [1]  \n[1] Si la potencia permanece constante, la energía es potencia multiplicada por tiempo, como en el ejemplo de un aparato de 100 W funcionando durante tres horas que consume 300 Wh, es decir, 0,3 kWh. [1]",
+      "tokens": 124,
+      "promptTokens": 341,
+      "loadMs": 415,
+      "firstTokenMs": 36426,
+      "totalMs": 56373,
+      "stopReason": 0,
+      "case": "same-prompt-sampled"
+    },
+    {
+      "text": "La diferencia entre kW y kWh radica en que kW mide la potencia (energía por unidad de tiempo), mientras que kWh mide la energía total consumida o producida. Por ejemplo, 100 W es 0,1 kW, pero 100 W durante tres horas consume 300 Wh (0,3 kWh), lo que demuestra que no se pueden intercambiar directamente.",
+      "tokens": 91,
+      "promptTokens": 198,
+      "loadMs": 0,
+      "firstTokenMs": 14828,
+      "totalMs": 26890,
+      "stopReason": 0,
+      "case": "simple-prompt-greedy"
+    },
+    {
+      "text": "La diferencia entre kW y kWh radica en lo que cada una mide: el **kW** (kilovatio) mide la **potencia**, es decir, el ritmo al que se consume o produce energía, mientras que el **kWh** (kilovatios hora) mide la **energía total** consumida o producida durante un tiempo. Por ejemplo, un aparato de 100 W que funciona durante tres horas consume 300 Wh (0,3 kWh). Como se explica en la fuente [1], si la potencia permanece constante",
+      "tokens": 128,
+      "promptTokens": 205,
+      "loadMs": 0,
+      "firstTokenMs": 20738,
+      "totalMs": 43032,
+      "stopReason": 1,
+      "case": "simple-citation-greedy"
+    }
+  ],
+  "sampledPolicy": "top_k20; top_p0.8; temp0.7; seed42"
+}

@@ -1,0 +1,26 @@
+{
+  "runId": "20260930T120757Z-a4334247",
+  "rubricVersion": 2,
+  "resultsSha256": "95612ddf556b1dc00f5fc6fd7af0ddf3c7f758254f865fabdf26df48d4161b8d",
+  "reviewer": {
+    "kind": "assistant",
+    "name": "Outpost implementation agent",
+    "qualifiedDomainReview": false
+  },
+  "method": "Manual development diagnostic review, not blind, not general model ranking. The app output budget is 192; source ordering/configuration must be inspected before interpreting cross-run differences.",
+  "assessments": [
+    {
+      "fixtureId": "personal-record-row-lookup-v2",
+      "variant": "baseline",
+      "taskOutcome": "partial",
+      "dimensions": {
+        "citation-resolution": 1,
+        "context-handling": 3,
+        "deterministic-result-correctness": 3
+      },
+      "criticalFailureIndices": [],
+      "unscoredReasons": {},
+      "rationale": "At the actual 192-token app budget, the answer completes the CSV row/value/date comparison correctly. It cites only source [1], which is the conflicting note, while CSV facts come from [2]."
+    }
+  ]
+}

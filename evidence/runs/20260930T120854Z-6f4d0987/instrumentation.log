@@ -1,0 +1,11 @@
+
+EVAL field-engineer-authorization-v1 / baseline: completed, 15 tokens, 9817 ms
+
+EVAL seed-absent-pois-v1 / baseline: completed, 192 tokens, 35763 ms
+
+EVAL seed-conflicting-revisions-v1 / baseline: completed, 88 tokens, 21585 ms
+
+EVAL personal-record-row-lookup-v2 / baseline: completed, 68 tokens, 26654 ms
+
+COMPLETE evaluation 20260930T120854Z-6f4d0987; recorded outcomes require separate quality review.
+
