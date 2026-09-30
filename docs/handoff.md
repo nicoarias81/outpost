@@ -1,6 +1,6 @@
 # Engineering handoff — start here
 
-Consolidated: 2026-09-29. Application baseline: **Outpost 0.8.0 / version code 9**. This handoff includes the latest product corrections and the anonymized discovery discussion; a successor should not need the original chat or the earlier external draft to interpret the project.
+Consolidated: 2026-09-29. Application baseline: **Outpost 0.8.1 / version code 10**. This handoff includes the latest product corrections and the anonymized discovery discussion; a successor should not need the original chat or the earlier external draft to interpret the project.
 
 ## First five minutes
 
@@ -57,11 +57,11 @@ Database upgrades currently throw; schema changes need a migration preserving us
 
 ## Last validated delivery, not a live-state guarantee
 
-[Outpost 0.8 validation](validation-0.8.md) records build/lint, 48 functional checks, 17 Qwen generation checks, 25 Kev integration checks, 64 dispatch checks, 16,241 dot vectors, 7,932 grouped values, 561 speculation unit checks, ten native object builds, and Bonsai 4B UI/cache/memory-callback checks.
+[Outpost 0.8.1 validation](validation-0.8.1.md) records a successful `scripts/build.ps1 -Offline` build with `:app:lintDebug` clean, 48 of 48 functional checks, `python eval/validate.py` exiting 0, 16,241 Q2 dot vectors with zero bit mismatches and a 5.79x microbenchmark speedup, 10,023 grouped prefill bitwise comparisons with zero mismatches, a teacher-forced audit bit-identical 24/24 at widths 2, 4 and 8, and completed real Bonsai 4B UI generation. The [0.8 validation record](validation-0.8.md) remains the historical 0.8.0 baseline and was not rewritten.
 
 The last recorded Outpost AVD is `Outpost35` / `emulator-5582`: four logical CPUs, 4 GiB RAM, 10 GB data partition; all three generators and Kev imported; Bonsai 4B selected; speculation off; airplane mode on and Wi-Fi off. Original Brújula used `emulator-5580`. Verify live state before testing; do not assume either emulator is running.
 
-The debug APK is `dist/outpost-0.8.0-emulator-debug.apk`, SHA-256 `bf19c00f4e043435c8c4f262d90c5c9b021665810b57dd5caaf97aa751f3a622`. `dist/` is ignored and is not guaranteed to exist in a fresh clone. Native/model/tool caches live under ignored `.local`; SDK/JDK/Gradle configuration is in ignored `.local/developer-settings.json` or explicit environment/parameters. See [developer settings example](../developer-settings.example.json) and [development](development.md).
+The debug APK is `dist/outpost-0.8.1-emulator-debug.apk`, 8,973,271 bytes, SHA-256 `5551f8047b1746b74e8e04ab0f7778d6c3e08457cc9134000b1c783bd8511676`; the retained `dist/outpost-0.8.0-emulator-debug.apk` is the previous historical build. `dist/` is ignored and is not guaranteed to exist in a fresh clone. Native/model/tool caches live under ignored `.local`; SDK/JDK/Gradle configuration is in ignored `.local/developer-settings.json` or explicit environment/parameters. See [developer settings example](../developer-settings.example.json) and [development](development.md).
 
 Historical 0.7 evidence is preserved in `evidence/0.7-before-outpost`. Do not relabel it as current English performance. Some scripts overwrite fixed output paths; run identity and immutable snapshots remain backlog work E-03. Build activity and two emulators were present during parts of migration, so its timing values are diagnostic.
 

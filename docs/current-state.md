@@ -1,6 +1,6 @@
 # Current implementation and known gaps
 
-Current implementation: Outpost 0.8.0 / version code 9. Fresh migration checks are recorded in [validation-0.8.md](validation-0.8.md); the optimization and quality-failure examples below remain explicitly historical 0.7 evidence.
+Current implementation: Outpost 0.8.1 / version code 10. Current checks are recorded in [validation-0.8.1.md](validation-0.8.1.md); the optimization and quality-failure examples below remain explicitly historical 0.7 evidence.
 
 ## Capability inventory
 
@@ -13,7 +13,7 @@ Current implementation: Outpost 0.8.0 / version code 9. Fresh migration checks a
 | Model import | Implemented | Exact size and SHA-256 allowlist; separate files per profile |
 | Kev review | Experimental | First sentence against up to three passages; false positives recorded |
 | Q2 dot kernel | Implemented and measured | Custom x86 AVX2/F16C; original reference fallback |
-| Grouped prefill | Implemented and measured | Widths 1, 2, 4; validated Q2 g64 paths only |
+| Grouped prefill | Implemented and measured | Widths 1, 2, 4, 8; validated Q2 g64 paths only |
 | Runtime calibration | Implemented | Developer scripts persist a device/build/model-specific profile |
 | Prompt cache | Implemented and measured | Exact tokens and compatible configuration; complete batch boundaries |
 | Context speculation | Experimental | Bonsai 4B only in UI; opt-in, default off; no extra model |
@@ -28,7 +28,7 @@ Current implementation: Outpost 0.8.0 / version code 9. Fresh migration checks a
 
 - Context: 2,048 tokens. UI generation: at most 192 output tokens and a 120-second native deadline, including model load and prompt evaluation.
 - Bonsai sampler: top-k 20, top-p 0.8, temperature 0.7, seed 42. Qwen uses greedy decoding.
-- Runtime settings validate 1–8 decode/prompt threads, batch size 16–512, and matrix width 1, 2, or 4.
+- Runtime settings validate 1–8 decode/prompt threads, batch size 16–512, and matrix width 1, 2, 4 or 8.
 - Uncalibrated UI profile: up to four available CPU threads, batch 128, width 1. The last saved emulator profile was 4/4 threads, batch 128, width 4.
 - The previous 0.7 emulator remains preserved. Outpost uses a separate AVD on port 5582; delivered state and fresh checks are recorded in the 0.8 report.
 
@@ -65,4 +65,4 @@ The 0.8 mission run preserves text across baseline/grouped paths, but source cop
 
 ## Release identity
 
-The current debug APK is `dist/outpost-0.8.0-emulator-debug.apk`; its checksum and validation are linked from the [README](../README.md). The historical Brújula 0.7 artifact remains separate. Project code license, release signing, remote hosting, and public distribution remain open.
+The current debug APK is `dist/outpost-0.8.1-emulator-debug.apk`, SHA-256 `5551f8047b1746b74e8e04ab0f7778d6c3e08457cc9134000b1c783bd8511676`; its validation is linked from the [README](../README.md). The retained `dist/outpost-0.8.0-emulator-debug.apk` remains the previous historical build, and the historical Brújula 0.7 artifact remains separate. Project code license, release signing, remote hosting, and public distribution remain open.

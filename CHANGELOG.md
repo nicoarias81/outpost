@@ -2,6 +2,16 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## 0.8.1 — Outpost
+
+- The launcher label is resource-backed again (`@string/app_name`); the double-encoded hardcoded literal is gone, and the app drawer shows `Outpost`.
+- The Explore screen opens directly on the question surface; the slogan, hero text, and the hardcoded preset questions were removed.
+- Grouped prefill now groups over eight activation columns, bit-exact by construction across widths 1, 2, 4 and 8.
+- The seven `test-*.ps1` scripts retrieve evidence portably, fixing the PowerShell 5.1 `InvokeMethodOnNull` failure that lost run results.
+- Calibration phases no longer overwrite runtime dimensions they did not measure.
+- Context speculation was re-measured on the field missions and stays opt-in, off by default.
+- Validation is recorded in [the 0.8.1 report](docs/validation-0.8.1.md); the artifact is published reproducibly with [publish-artifact.ps1](scripts/publish-artifact.ps1).
+
 ## Emulator operating handoff — 2026-09-29
 
 - Added a practical runbook for tool resolution, correct AVD identity, startup/readiness, offline state, matching APKs, installed models, evidence, test flag semantics and recovery.

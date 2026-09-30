@@ -4,11 +4,11 @@
 
 An Android prototype for consulting local knowledge and generating answers without connectivity. It is intended for travelers, farmers, field engineers, mountaineers, and people traveling through areas without signal.
 
-**Current build: 0.8.0, emulator only.** Outpost is an independent local Git repository at `E:\projects\outpost`, with Android application ID `dev.outpost.app` and native library `outpost_engine`. The original Brújula 0.7 working copy remains preserved.
+**Current build: 0.8.1, emulator only.** Outpost is an independent local Git repository at `E:\projects\outpost`, with Android application ID `dev.outpost.app` and native library `outpost_engine`. The original Brújula 0.7 working copy remains preserved.
 
 The interface, seed library, main prompts, and maintained documentation are in English. Historical reports and raw experimental outputs preserve their original language; explicitly labeled bilingual reviewer probes remain in the tests.
 
-Migration and fresh English validation: [0.8 report](docs/validation-0.8.md). Earlier performance measurements remain historical controls and have not been relabeled as English results.
+Current validation: [0.8.1 report](docs/validation-0.8.1.md). The [0.8 migration report](docs/validation-0.8.md) remains the historical 0.8.0 baseline. Earlier performance measurements remain historical controls and have not been relabeled as English results.
 
 ## Start here
 
@@ -54,9 +54,9 @@ Wait for the emulator to finish booting. Then run the applicable tests in the [d
 
 ## Evidence and release
 
-The local [Outpost 0.8.0 debug APK](dist/outpost-0.8.0-emulator-debug.apk) has a [SHA-256 sidecar](dist/outpost-0.8.0-emulator-debug.apk.sha256). The [0.7.0 artifact](dist/brujula-0.7.0-emulator-debug.apk) remains a separate historical build.
+The local [Outpost 0.8.1 debug APK](dist/outpost-0.8.1-emulator-debug.apk) has a [SHA-256 sidecar](dist/outpost-0.8.1-emulator-debug.apk.sha256). Publication is reproducible with `pwsh -File scripts/publish-artifact.ps1`, which copies the built APK into `dist/` under the version read from `app/build.gradle`, writes an LF sidecar, and supports `-Verify` to re-check an existing artifact against its sidecar. The retained [0.8.0 artifact](dist/outpost-0.8.0-emulator-debug.apk) remains the previous historical build, and the [0.7.0 artifact](dist/brujula-0.7.0-emulator-debug.apk) remains a separate historical build.
 
-`dist/` is ignored by Git; these local artifact links will need a release destination when the repository is published. Historical measurements are linked from the [evaluation guide](docs/evaluation.md). The migration report distinguishes fresh English functional checks from historical performance claims.
+`dist/` is ignored by Git; these local artifact links will need a release destination when the repository is published. Current measurements are recorded in the [0.8.1 validation record](docs/validation-0.8.1.md); historical measurements are linked from the [evaluation guide](docs/evaluation.md). The migration report distinguishes fresh English functional checks from historical performance claims.
 
 Dependency provenance is recorded in [THIRD_PARTY.md](THIRD_PARTY.md) and the model/toolchain lock files. The project code license remains to be selected before public distribution. The [historical Spanish README](README.legacy-es.md) is retained for traceability.
 

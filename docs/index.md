@@ -1,6 +1,6 @@
 # Documentation index
 
-Outpost 0.8.0, version code 9. Maintained English documentation, updated on 2026-09-29. The standalone local repository is `E:\projects\outpost`; historical Brújula evidence is archived separately. Start with the [migration validation](validation-0.8.md) for the new build.
+Outpost 0.8.1, version code 10. Maintained English documentation, updated on 2026-09-30. The standalone local repository is `E:\projects\outpost`; historical Brújula evidence is archived separately. Start with the [current validation record](validation-0.8.1.md) for the current build.
 
 ## Start here when taking over
 
@@ -45,6 +45,7 @@ The following reports remain in their original Spanish to preserve the experimen
 | [0.4](validation-0.4.md) | Bonsai model integration |
 | [0.5](validation-0.5.md) | Ternary dot kernel and prompt/sampling work |
 | [0.6](validation-0.6.md) | Grouped prefill, calibration, and cache |
+| [0.8](validation-0.8.md) | 0.8.0 baseline: Outpost rename, English migration, and fresh validation |
 | [0.7](validation-0.7.md) | Context speculation and MTP feasibility |
 | [Two domains](two-domain-design.md), [field use cases](field-use-cases.md), [travel evaluation](travel-evaluation.md) | Earlier product and knowledge design |
 | [Strata review](strata-review.md), [device runtime](device-runtime.md) | Earlier optimization hypotheses and capability design |

@@ -1,6 +1,6 @@
 # Architecture
 
-Status: current implementation plus explicitly proposed module boundaries. Current code: Outpost 0.8.0. The rename and English baseline preserve the 0.7 runtime architecture.
+Status: current implementation plus explicitly proposed module boundaries. Current code: Outpost 0.8.1. The rename and English baseline preserve the 0.7 runtime architecture.
 
 ## Current application
 

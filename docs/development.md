@@ -29,6 +29,8 @@ python scripts/prepare-bonsai.py
 
 For a populated local cache, append `--offline` to Gradle or use `pwsh -File scripts/build.ps1 -Offline`. The helper reads explicit parameters/environment settings or ignored `.local/developer-settings.json`. Copy [developer-settings.example.json](../developer-settings.example.json) and fill in actual `sdk`, `javaHome`, and optional `gradleHome` paths. An optional `gradleExecutable` can select an already installed Gradle; otherwise the pinned wrapper is used. No sibling-folder fallback exists. The optional `pythonExecutable` records an interpreter when Python is not on PATH; invoke it explicitly for preparation scripts. Python preparation may still access the network; an offline Gradle flag does not make first-time preparation offline.
 
+After a successful build, `pwsh -File scripts/publish-artifact.ps1` copies the built APK into `dist/` under the versioned name read from `app/build.gradle` and writes an LF-terminated `.sha256` sidecar; `pwsh -File scripts/publish-artifact.ps1 -Verify` re-checks an existing artifact against its sidecar. `dist/` is ignored by Git.
+
 ## Emulator setup
 
 ```powershell

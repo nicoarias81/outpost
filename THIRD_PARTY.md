@@ -1,6 +1,6 @@
 # Third-party dependencies and model provenance
 
-Current app: Outpost 0.8.0. Dependency and weight identities are unchanged from 0.7.0. Model and dependency identities refer to the locked files used by this prototype, not automatically to newer upstream releases. This file preserves dependency notices; it does not select a license for this project's own code.
+Current app: Outpost 0.8.1. Dependency and weight identities are unchanged from 0.7.0 and remain unchanged in 0.8.1. Model and dependency identities refer to the locked files used by this prototype, not automatically to newer upstream releases. This file preserves dependency notices; it does not select a license for this project's own code.
 
 ## llama.cpp
 

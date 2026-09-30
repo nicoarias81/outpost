@@ -61,8 +61,8 @@ Top-level keys, all required:
   a passing deterministic check, a citation index, or a Kev score does not establish answer
   correctness, and that this file is not measurement evidence.
 - `identity` — object:
-  - `app`: `name` Outpost, `applicationId` `dev.outpost.app`, `versionName` `0.8.0`,
-    `versionCode` 9, `nativeLibrary` `outpost_engine`, `abiFilters` `["x86_64"]`,
+  - `app`: `name` Outpost, `applicationId` `dev.outpost.app`, `versionName` `0.8.1`,
+    `versionCode` 10, `nativeLibrary` `outpost_engine`, `abiFilters` `["x86_64"]`,
     `minSdk` 28, `targetSdk` 35, `compileSdk` 35.
   - `backend`: `llamaCppRevision` from `llama-revision.txt`,
     `ndk` `28.1.13356709`, `cmake` `3.22.1`, `gradle` `8.11.1`, `agp` `8.9.2`.
@@ -320,8 +320,8 @@ Checks:
     fixed list of fields — the manifest must contain literal text everywhere.
 10b. `identity.prompts` entries are non-empty, and any entry declaring a `source_symbol` must match
     the text extracted from the named source file.
-11. Application identity in the manifest matches `app/build.gradle` (`versionCode 9`,
-    `versionName '0.8.0'`, `abiFilters 'x86_64'`, `minSdk 28`, `targetSdk 35`).
+11. Application identity in the manifest matches `app/build.gradle` (`versionCode 10`,
+    `versionName '0.8.1'`, `abiFilters 'x86_64'`, `minSdk 28`, `targetSdk 35`).
 12. `status == "design"` implies every `observed_0_8.assessment` is either drawn from an existing
     file under `evidence/` or `"not implemented"`; a review claim pointing at a missing path is an
     error.

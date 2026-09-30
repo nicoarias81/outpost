@@ -142,7 +142,7 @@ foreach ($OutpostApk in $OutpostApks) {
 }
 ```
 
-Both matched when this guide was prepared. Current app hash is recorded in [0.8 validation](validation-0.8.md). These checks read files only and do not prove model quality.
+Both matched when this guide was prepared. The current app hash is recorded in the [0.8.1 validation record](validation-0.8.1.md). These checks read files only and do not prove model quality.
 
 ## 5. Understand model installation before copying GB of data
 

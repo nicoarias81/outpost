@@ -1,6 +1,6 @@
 # Inference runtime
 
-Status: implementation reference for Outpost 0.8.0. See [architecture](architecture.md) for the application flow and [optimizations](optimizations.md) for measurements.
+Status: implementation reference for Outpost 0.8.1. See [architecture](architecture.md) for the application flow and [optimizations](optimizations.md) for measurements.
 
 ## Model identities
 
