@@ -1,6 +1,6 @@
 # Outpost 0.12.0 validation — 2026-09-30
 
-Version code14 adds bounded OSM XML/Overpass JSON knowledge import. The chat prompt, pinned models and native kernels are unchanged. Runtime tests used the dedicated offline Outpost35 x86_64 emulator. ARM64 remains compiled/packaged, without physical-device validation.
+Implementation commit `1d311c7`; evidence commit `dbdd0b6`. Version code14 adds bounded OSM XML/Overpass JSON knowledge import. The chat prompt, pinned models and native kernels are unchanged. Runtime tests used the dedicated offline Outpost35 x86_64 emulator. ARM64 remains compiled/packaged, without physical-device validation.
 
 ## Artifact
 
