@@ -20,7 +20,7 @@ function Run-Check([string]$Operation,[string]$Success) {
 }
 function Copy-Evidence([string]$Name) {
     $psi=[System.Diagnostics.ProcessStartInfo]::new($adb); $psi.UseShellExecute=$false; $psi.RedirectStandardOutput=$true
-    $psi.Arguments = "-s $Serial exec-out run-as dev.outpost.app cat `"files/evidence/$Name`""
+    $psi.Arguments = ConvertTo-OutpostArgumentString @('-s',$Serial,'exec-out','run-as','dev.outpost.app','cat',"files/evidence/$Name")
     $p=[System.Diagnostics.Process]::Start($psi); $file=[System.IO.File]::Create((Join-Path $project "evidence\$Name"))
     try { $p.StandardOutput.BaseStream.CopyTo($file) } finally { $file.Dispose() }
     $p.WaitForExit(); if($p.ExitCode -ne 0) { throw "Cannot copy $Name" }

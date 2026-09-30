@@ -11,3 +11,9 @@ function Resolve-OutpostSdk([string]$Sdk) {
     }
     return (Resolve-Path -LiteralPath $Sdk).Path
 }
+# Windows PowerShell 5.1 has no ProcessStartInfo.ArgumentList, so callers build the argument string.
+# Every argument is quoted, so a value containing a space cannot split into two arguments.
+function ConvertTo-OutpostArgumentString([string[]]$Arguments) {
+    $quoted = foreach ($argument in $Arguments) { '"' + ([string]$argument).Replace('"', '\"') + '"' }
+    return ($quoted -join ' ')
+}

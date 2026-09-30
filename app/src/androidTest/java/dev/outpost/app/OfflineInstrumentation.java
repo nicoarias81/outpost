@@ -8,10 +8,14 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -22,10 +26,19 @@ import org.json.JSONObject;
 public class OfflineInstrumentation extends Instrumentation {
     private final JSONArray results = new JSONArray();
     private int checks;
+    /** Text the 0.8.1 Explore screen removed. It must not reappear on the opening screen. */
+    private static final String[] REMOVED_PRESET_TEXT = {"START WITH A QUESTION", "How does GPS calculate my position?", "What is the difference between kW and kWh?", "How does a solar panel work?"};
     private void check(boolean passed, String name) throws Exception {
         results.put(new JSONObject().put("check", name).put("passed", passed));
         if (!passed) throw new AssertionError(name);
         checks++;
+    }
+    private static List<String> visibleTexts(Activity activity) {
+        List<String> out = new ArrayList<>(); collectText(activity.getWindow().getDecorView(), out); return out;
+    }
+    private static void collectText(View view, List<String> out) {
+        if (view instanceof TextView) out.add(((TextView)view).getText().toString());
+        if (view instanceof ViewGroup) { ViewGroup group = (ViewGroup)view; for (int i = 0; i < group.getChildCount(); i++) collectText(group.getChildAt(i), out); }
     }
     @Override public void onCreate(Bundle args) { super.onCreate(args); start(); }
     @Override public void onStart() {
@@ -91,6 +104,11 @@ public class OfflineInstrumentation extends Instrumentation {
             for (int i = 0; i < 100 && activity.findViewById(MainActivity.QUERY_ID) == null; i++) SystemClock.sleep(100);
             waitForIdleSync();
             check(activity.findViewById(MainActivity.QUERY_ID) != null, "Main screen finishes loading");
+            // The app opens directly on the question surface: the input starts empty and carries no preset question.
+            List<String> openingTexts = new ArrayList<>(); String[] openingQuery = new String[1];
+            runOnMainSync(() -> { openingTexts.addAll(visibleTexts(activity)); openingQuery[0] = ((EditText)activity.findViewById(MainActivity.QUERY_ID)).getText().toString(); });
+            check(openingQuery[0].isEmpty(), "Question input opens empty");
+            for (String removed : REMOVED_PRESET_TEXT) check(openingTexts.stream().noneMatch(t -> t.contains(removed)), "Opening screen shows no removed preset text: " + removed);
             screenshot("home.png");
             runOnMainSync(() -> { ((EditText)activity.findViewById(MainActivity.QUERY_ID)).setText("What is the difference between kW and kWh?"); activity.findViewById(MainActivity.SEARCH_ID).performClick(); });
             for (int i = 0; i < 100 && !activity.searchDone; i++) SystemClock.sleep(100);

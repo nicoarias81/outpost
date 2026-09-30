@@ -57,7 +57,7 @@ Database upgrades currently throw; schema changes need a migration preserving us
 
 ## Last validated delivery, not a live-state guarantee
 
-[Outpost 0.8.1 validation](validation-0.8.1.md) records a successful `scripts/build.ps1 -Offline` build with `:app:lintDebug` clean, 48 of 48 functional checks, `python eval/validate.py` exiting 0, 16,241 Q2 dot vectors with zero bit mismatches and a 5.79x microbenchmark speedup, 10,023 grouped prefill bitwise comparisons with zero mismatches, a teacher-forced audit bit-identical 24/24 at widths 2, 4 and 8, and completed real Bonsai 4B UI generation. The [0.8 validation record](validation-0.8.md) remains the historical 0.8.0 baseline and was not rewritten.
+[Outpost 0.8.1 validation](validation-0.8.1.md) records a successful `scripts/build.ps1 -Offline` build with `:app:lintDebug` clean, 53 of 53 functional checks, `python eval/validate.py` exiting 0, 16,241 Q2 dot vectors with zero bit mismatches and a 5.79x microbenchmark speedup, 10,023 grouped prefill bitwise comparisons with zero mismatches, a teacher-forced audit bit-identical 24/24 at widths 2, 4 and 8, and completed real Bonsai 4B UI generation. The [0.8 validation record](validation-0.8.md) remains the historical 0.8.0 baseline and was not rewritten.
 
 The last recorded Outpost AVD is `Outpost35` / `emulator-5582`: four logical CPUs, 4 GiB RAM, 10 GB data partition; all three generators and Kev imported; Bonsai 4B selected; speculation off; airplane mode on and Wi-Fi off. Original Brújula used `emulator-5580`. Verify live state before testing; do not assume either emulator is running.
 

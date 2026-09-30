@@ -20,12 +20,25 @@ $target = Join-Path $dist $artifact
 $sidecar = "$target.sha256"
 if ($Verify) {
     if (-not (Test-Path -LiteralPath $target)) { throw "Nothing published for $name; run without -Verify to publish." }
+    if (-not (Test-Path -LiteralPath $sidecar)) { throw "No sidecar beside $artifact; run without -Verify to publish one." }
     $expected = (Get-FileHash -LiteralPath $target -Algorithm SHA256).Hash.ToLowerInvariant()
     $declared = ([System.IO.File]::ReadAllText($sidecar)).Split(' ')[0].Trim()
     if ($expected -ne $declared) { throw "Sidecar disagrees with the artifact for $name" }
     Write-Output "verified $artifact"
     Write-Output "sha256 $declared"
     exit 0
+}
+# Refuse to publish a stale APK: the artifact is only meaningful if it came from the current sources.
+$sources = @(Get-ChildItem -LiteralPath @(
+    (Join-Path $project 'app/src'),
+    (Join-Path $project 'app/build.gradle'),
+    (Join-Path $project 'settings.gradle'),
+    (Join-Path $project 'build.gradle'),
+    (Join-Path $project 'gradle.properties')
+) -Recurse -File -ErrorAction SilentlyContinue)
+$newest = $sources | Sort-Object LastWriteTimeUtc -Descending | Select-Object -First 1
+if ($newest -and $newest.LastWriteTimeUtc -gt (Get-Item -LiteralPath $apk).LastWriteTimeUtc) {
+    throw "The built APK is older than $($newest.FullName); run scripts/build.ps1 before publishing."
 }
 New-Item -ItemType Directory -Force -Path $dist | Out-Null
 Copy-Item -LiteralPath $apk -Destination $target -Force

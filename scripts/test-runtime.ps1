@@ -18,7 +18,7 @@ $result=Invoke-Adb shell am instrument -w -e runtime $Phase dev.outpost.app.test
 $dir=Join-Path $project 'evidence/strata'; New-Item -ItemType Directory -Force -Path $dir | Out-Null
 $name="runtime-$Phase.json"
 $psi=[System.Diagnostics.ProcessStartInfo]::new($adb); $psi.UseShellExecute=$false; $psi.RedirectStandardOutput=$true
-$psi.Arguments = "-s $Serial exec-out run-as dev.outpost.app cat `"files/evidence/$name`""
+$psi.Arguments = ConvertTo-OutpostArgumentString @('-s',$Serial,'exec-out','run-as','dev.outpost.app','cat',"files/evidence/$name")
 $process=[System.Diagnostics.Process]::Start($psi)
 $file=[System.IO.File]::Create((Join-Path $dir $name))
 try { $process.StandardOutput.BaseStream.CopyTo($file) } finally { $file.Dispose() }

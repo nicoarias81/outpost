@@ -102,7 +102,27 @@ final class RuntimeChecks {
         }
         double gain=(double)median(baseTimes)/median(candidateTimes)-1;
         RuntimeSettings.Profile measured=parity && gain>0.05 ? best.p : baseline;
-        RuntimeSettings.Profile chosen=p(measured.threads(),measured.promptThreads(),measured.batch(),selectedWidth);
+        // The stored width was measured by the batch phase at the threads and batch that were current
+        // then, and this phase can change both. Confirm the width again at the combination about to be
+        // saved, so the saved profile is a configuration that was actually measured as a whole.
+        int width=selectedWidth;
+        if(width>1) {
+            RuntimeSettings.Profile wide=p(measured.threads(),measured.promptThreads(),measured.batch(),width);
+            RuntimeSettings.Profile narrow=p(measured.threads(),measured.promptThreads(),measured.batch(),1);
+            List<Long> wideTimes=new ArrayList<>(),narrowTimes=new ArrayList<>(); boolean widthParity=true;
+            for(int round=0;round<3;round++) {
+                RuntimeSettings.Profile[] order=round%2==0 ? new RuntimeSettings.Profile[]{narrow,wide} : new RuntimeSettings.Profile[]{wide,narrow};
+                for(int i=0;i<2;i++) {
+                    boolean isNarrow=round%2==0 ? i==0 : i==1;
+                    NativeEngine.Result r=call(e,"width-confirm-"+round+(isNarrow?"-width-1":"-width-"+width),order[i],false,user,32,false);
+                    (isNarrow?narrowTimes:wideTimes).add(r.totalMs()); widthParity &= reference.text().equals(r.text());
+                }
+            }
+            double widthGain=(double)median(narrowTimes)/median(wideTimes)-1;
+            if(!widthParity || widthGain<=0.05) width=1;
+            report.put("widthConfirmationGain",widthGain).put("widthConfirmationParity",widthParity).put("widthAfterConfirmation",width);
+        }
+        RuntimeSettings.Profile chosen=p(measured.threads(),measured.promptThreads(),measured.batch(),width);
         RuntimeSettings.save(test.getTargetContext(),model.spec(),chosen);
         report.put("confirmationGain",gain).put("confirmationTextParity",parity).put("chosen",profile(chosen)).put("acceptanceRule","Identical text and >5% median total-time gain, three alternating comparisons.");
     }
@@ -123,7 +143,11 @@ final class RuntimeChecks {
             if(width>1) require(NativeEngine.kernelBatchUsed(),"Full model did not use batch kernel");
             totals.get(index).add(r.totalMs()); prompts.get(index).add(r.prefillMs());
         }
-        int best=0; for(int i=1;i<widths.length;i++) if(median(totals.get(i))<median(totals.get(best))) best=i;
+        int fastest=0; for(int i=1;i<widths.length;i++) if(median(totals.get(i))<median(totals.get(fastest))) fastest=i;
+        // Prefer the narrowest grouping within 5% of the fastest one, so a near tie does not select a
+        // wider width for no measured benefit.
+        int best=fastest;
+        for(int i=0;i<fastest;i++) if((double)median(totals.get(i))/median(totals.get(fastest))-1<=0.05) { best=i; break; }
         double gain=(double)median(totals.get(0))/median(totals.get(best))-1;
         int width=parity && gain>0.05 ? widths[best] : 1;
         RuntimeSettings.Profile chosen=p(base.threads(),base.promptThreads(),base.batch(),width);

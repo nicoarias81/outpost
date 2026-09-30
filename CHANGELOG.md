@@ -6,7 +6,7 @@ This history is reconstructed from saved validation reports. Version dates are o
 
 - The launcher label is resource-backed again (`@string/app_name`); the double-encoded hardcoded literal is gone, and the app drawer shows `Outpost`.
 - The Explore screen opens directly on the question surface; the slogan, hero text, and the hardcoded preset questions were removed.
-- Grouped prefill now groups over eight activation columns, bit-exact by construction across widths 1, 2, 4 and 8.
+- Grouped prefill can now group over eight activation columns, bit-exact by construction across widths 1, 2, 4 and 8. Calibration keeps a wider grouping only when it beats the narrower one by more than the working threshold; three sweeps put the 4 -> 8 step at 1.5% to 4.6% of total time, so this target selects width 4.
 - The seven `test-*.ps1` scripts retrieve evidence portably, fixing the PowerShell 5.1 `InvokeMethodOnNull` failure that lost run results.
 - Calibration phases no longer overwrite runtime dimensions they did not measure.
 - Context speculation was re-measured on the field missions and stays opt-in, off by default.

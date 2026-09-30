@@ -22,7 +22,7 @@ foreach ($name in @('home.png','search.png','source.png','checks.json')) {
     $psi = [System.Diagnostics.ProcessStartInfo]::new($adb)
     $psi.UseShellExecute = $false
     $psi.RedirectStandardOutput = $true
-    $psi.Arguments = "-s $Serial exec-out run-as dev.outpost.app cat `"files/evidence/$name`""
+    $psi.Arguments = ConvertTo-OutpostArgumentString @('-s',$Serial,'exec-out','run-as','dev.outpost.app','cat',"files/evidence/$name")
     $p = [System.Diagnostics.Process]::Start($psi)
     $file = [System.IO.File]::Create((Join-Path $evidence $name))
     try { $p.StandardOutput.BaseStream.CopyTo($file) } finally { $file.Dispose() }

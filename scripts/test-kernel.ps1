@@ -15,7 +15,7 @@ Invoke-Adb install -r "$project\app\build\outputs\apk\androidTest\debug\app-debu
 $result=Invoke-Adb shell am instrument -w -e kernel $Phase dev.outpost.app.test/dev.outpost.app.GenerationInstrumentation | ForEach-Object { Write-Host $_; $_ }
 $name="kernel-$Phase.json"
 $psi=[System.Diagnostics.ProcessStartInfo]::new($adb); $psi.UseShellExecute=$false; $psi.RedirectStandardOutput=$true
-$psi.Arguments = "-s $Serial exec-out run-as dev.outpost.app cat `"files/evidence/$name`""
+$psi.Arguments = ConvertTo-OutpostArgumentString @('-s',$Serial,'exec-out','run-as','dev.outpost.app','cat',"files/evidence/$name")
 $process=[System.Diagnostics.Process]::Start($psi)
 $file=[System.IO.File]::Create((Join-Path $project "evidence\optimization\$name"))
 try { $process.StandardOutput.BaseStream.CopyTo($file) } finally { $file.Dispose() }

@@ -22,7 +22,7 @@ $result = Invoke-Adb shell am instrument -w -e review true dev.outpost.app.test/
 if (-not ($result -match 'PASS:')) { throw 'Review tests failed; inspect review-failure.json and logcat.' }
 foreach ($name in @('review.png','review-checks.json')) {
     $psi=[System.Diagnostics.ProcessStartInfo]::new($adb); $psi.UseShellExecute=$false; $psi.RedirectStandardOutput=$true
-    $psi.Arguments = "-s $Serial exec-out run-as dev.outpost.app cat `"files/evidence/$name`""
+    $psi.Arguments = ConvertTo-OutpostArgumentString @('-s',$Serial,'exec-out','run-as','dev.outpost.app','cat',"files/evidence/$name")
     $p=[System.Diagnostics.Process]::Start($psi); $file=[System.IO.File]::Create((Join-Path $project "evidence\$name"))
     try { $p.StandardOutput.BaseStream.CopyTo($file) } finally { $file.Dispose() }
     $p.WaitForExit(); if($p.ExitCode -ne 0) { throw "Cannot retrieve $name" }
