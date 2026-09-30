@@ -87,6 +87,7 @@ public final class MainActivity extends Activity {
     volatile int cacheReleaseRequests;
     volatile NativeEngine.Result lastAnswer;
     volatile ChatPrompt.Prepared lastPrepared;
+    volatile PlaceQueries.Answer lastPlaces;
     volatile List<Library.Hit> lastHits=List.of();
 
     @Override public void onCreate(Bundle state) {
@@ -198,14 +199,20 @@ public final class MainActivity extends Activity {
     }
     void sendMessage(String question) {
         question=question.trim();if(!ready||!answerDone||importing||question.isEmpty())return;
-        if(!models.ready()){rememberDraft();showSettings();Toast.makeText(this,R.string.chat_setup_model,Toast.LENGTH_LONG).show();return;}
+        if(!models.ready()&&PlaceQueries.parse(question,turns)==null){rememberDraft();showSettings();Toast.makeText(this,R.string.chat_setup_model,Toast.LENGTH_LONG).show();return;}
         hideKeyboard();draft="";getPreferences(MODE_PRIVATE).edit().remove("draft").apply();
-        long request=engine.request();activeRun=request;stopRequested=false;answerDone=false;searchDone=false;lastAnswer=null;
+        long request=engine.request();activeRun=request;stopRequested=false;answerDone=false;searchDone=false;lastAnswer=null;lastPlaces=null;lastPrepared=null;
         ChatStore.Turn pending=new ChatStore.Turn(UUID.randomUUID().toString(),question,"","pending",List.of());
         List<ChatStore.Turn> history=List.copyOf(turns);turns.add(pending);render();ModelStore model=models;
         worker.execute(()->{
             try {
-                chats.save(pending);List<Library.Hit> found=library.search(pending.question());
+                chats.save(pending);
+                PlaceQueries.Answer places=library.answerPlaces(pending.question(),history,()->closed||stopRequested);
+                if(places!=null){lastPlaces=places;lastHits=List.of();searchDone=true;
+                    ChatStore.Turn reply=new ChatStore.Turn(pending.id(),pending.question(),stopRequested?"":places.text(),stopRequested?"canceled":"complete",places.sources());
+                    finishTurn(reply,null,request);return;}
+                if(!model.ready()){searchDone=true;finishTurn(pending.withAnswer(getString(R.string.chat_setup_model),"complete"),null,request);return;}
+                List<Library.Hit> found=library.search(pending.question());
                 if(found.isEmpty()&&!history.isEmpty())found=library.search(pending.question()+" "+history.get(history.size()-1).question());
                 ChatPrompt.Prepared prepared=ChatPrompt.prepare(pending.question(),history,found);lastPrepared=prepared;
                 List<ChatStore.Source> sources=new ArrayList<>();
@@ -227,7 +234,7 @@ public final class MainActivity extends Activity {
                         finishTurn(withSources.withAnswer(answer,status),result,request);
                     }catch(Exception error){finishTurn(withSources.withAnswer("","error"),null,request);}
                 });
-            }catch(Exception error){searchDone=true;finishTurn(pending.withAnswer("","error"),null,request);}
+            }catch(Exception error){searchDone=true;finishTurn(pending.withAnswer("",stopRequested?"canceled":"error"),null,request);}
         });
     }
     private void finishTurn(ChatStore.Turn turn,NativeEngine.Result result,long request) {

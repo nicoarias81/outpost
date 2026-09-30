@@ -1,7 +1,7 @@
 param([string]$Sdk=$env:ANDROID_HOME,[string]$Serial='emulator-5582',
     [ValidateSet('baseline','candidate','both')][string]$Phase='baseline',
     [ValidateSet('qwen15','bonsai17','bonsai4')][string]$Model='bonsai4',
-    [string]$Manifest='eval/fixtures-v5.json',[string]$Fixtures='',
+    [string]$Manifest='eval/fixtures-v6.json',[string]$Fixtures='',
     [ValidateSet(1,2,4,8)][int]$Width=4,[int]$MaxTokens=96,[switch]$SkipInstall)
 $ErrorActionPreference='Stop'
 . (Join-Path $PSScriptRoot 'environment.ps1')

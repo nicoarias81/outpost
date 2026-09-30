@@ -7,7 +7,7 @@
   <string name="chat_offline">On your device · Offline</string>
   <string name="chat_welcome">Ask anything, offline.</string>
   <string name="chat_welcome_help">Add your own documents in Settings for answers with sources.</string>
-  <string name="chat_setup_model">Add a model to start chatting</string>
+  <string name="chat_setup_model">Add a model for general chat</string>
   <string name="chat_thinking">Thinking…</string>
   <string name="chat_stopped">Response stopped.</string>
   <string name="chat_limit">Response reached its limit. Ask a follow-up to continue.</string>

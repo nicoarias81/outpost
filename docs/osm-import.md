@@ -2,7 +2,7 @@
 
 ## Product purpose
 
-OSM provides offline place facts for chat: **where a named park is, which restaurants are around a stated place, or where a museum can be found**. [Place-query scope](osm-place-queries.md) defines the intended retrieval and answer behavior. It requires name/category/proximity queries over imported data; map display, route computation and navigation are outside this feature and are not prerequisites. Current 0.12 provides import, lexical retrieval and exact source inspection; structured proximity/name resolution remains pending.
+OSM provides offline place facts for chat: **where a named park is, which restaurants are around a stated place, or where a museum can be found**. [Place-query scope](osm-place-queries.md) defines the intended retrieval and answer behavior. It requires name/category/proximity queries over imported data; map display, route computation and navigation are outside this feature and are not prerequisites. Outpost 0.13 adds bounded direct place answers: exact recorded-name/alias resolution, locality/category filtering and computed proximity. The general generator is not required for these queries.
 
 ## Prepare and import
 
@@ -36,7 +36,7 @@ Export the raw Overpass JSON result, not GeoJSON. `{{bbox}}` is an Overpass Turb
 - A declared XML bounding box and extract timestamp when available. These do not establish complete coverage, current opening status or current availability. Object edit time, extract time and app import time remain different concepts.
 - The exact original file, source/format/raw-byte identity, attribution and a feature-level locator. Opening a chat source resolves the exact local snapshot and OSM object; positive object IDs also expose the corresponding OSM URL as text.
 
-The source browser lists 50 features per page and displays recorded tags/coordinates without requiring a model. Lexical retrieval searches names and tags, with a few category aliases. Chat can use those excerpts with citations. Name resolution and structured category/proximity filtering are the next knowledge capabilities needed for the requested place questions. Current lexical retrieval alone does not establish them. Subjective reviews, live open-hours evaluation, map display, GPS and routing are not supplied by this importer; maps/routes are outside the current product slice.
+The source browser lists 50 features per page and displays recorded tags/coordinates without requiring a model. Lexical retrieval searches names and tags, with a few category aliases. Chat can use those excerpts with citations. The bounded 0.13 `PlaceQueries` path resolves names and structured category/proximity questions separately from general lexical retrieval. Its limits and supported query forms are in [place-query scope](osm-place-queries.md). Subjective reviews, live open-hours evaluation, map display, GPS and routing are not supplied by this importer; maps/routes are outside the current product slice.
 
 ## Attribution and source trust
 
@@ -52,4 +52,4 @@ Changed bytes produce another snapshot; older files/citations are preserved and 
 
 ## Verify or resume
 
-Use `scripts/test-osm.ps1` on offline Outpost35. `-Generate` adds one genuine Bonsai 4B source-answer check; the default executes no model. Continue with folder, no-generation chat/import, and knowledge regressions. The fixture provider is in the test APK only. Its ordered owner-grant receiver acknowledges permission changes, and the harness checks readiness. Between suites its roots are hidden and grants revoked while the provider stays registered, avoiding the component re-registration failure observed during development. See [validation](validation-0.12.md) for exact final build/run identities and preserved failures.
+Use `scripts/test-osm.ps1` on offline Outpost35. `-Generate` adds one genuine Bonsai 4B source-answer check; the default executes no model. Continue with folder, no-generation chat/import, and knowledge regressions. The fixture provider is in the test APK only. Its ordered owner-grant receiver acknowledges permission changes, and the harness checks readiness. Between suites its roots are hidden and grants revoked while the provider stays registered, avoiding the component re-registration failure observed during development. See [current validation](validation-0.13.md) for place-query delivery and [0.12 validation](validation-0.12.md) for the original import/provider failure record.

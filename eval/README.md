@@ -1,6 +1,6 @@
 # Executable evaluation and attributed review
 
-The current default is [fixtures-v5.json](fixtures-v5.json): manifest schema 2, revision 5, app **0.12.0**, 15 defined fixtures (**12 runnable, 3 blocked**). This evaluates the evidence-only `ResearchPrompt` protocol. Product chat uses `ChatPrompt` v1.1 and has separate integration checks. No historical score automatically transfers to current chat.
+The current default is [fixtures-v6.json](fixtures-v6.json): manifest schema 2, revision 6, app **0.13.0**, 15 defined fixtures (**12 runnable, 3 blocked**). This evaluates the evidence-only `ResearchPrompt` protocol. Product chat uses `ChatPrompt` v1.1 and has separate integration checks. No historical score automatically transfers to current chat.
 
 ## Validate, execute and review
 
@@ -52,16 +52,15 @@ Assistant review is not blinded human/domain-expert validation. Critical failure
 | v2 | 0.9 | Executable schema 2, explicit evidence modes and runnable CSV; attributed development runs/reviews |
 | v3 | 0.10 | Corpus moved to test APK; evidence-only protocol retained after chat became home |
 | v4 | 0.11 | App identity revision for recursive ingestion |
-| v5 | 0.12 | Current app identity and updated blockers after bounded OSM import |
+| v5 | 0.12 | Frozen identity after bounded OSM import |
+| v6 | 0.13 | Full ABI identity and scoped regional blockers; deterministic places tested separately |
 
-`eval/validate.py` defaults to v5 and accepts `--manifest PATH`. It checks schema/references, declared model/tool/prompt identities and source paths. Historical manifests can intentionally differ from current source; evaluate their frozen run snapshots in their own context. A validator PASS does not prove execution or quality.
+`eval/validate.py` defaults to v6 and accepts `--manifest PATH`. It checks schema/references, declared model/tool/prompt identities and source paths. Historical manifests can intentionally differ from current source; evaluate their frozen run snapshots in their own context. A validator PASS does not prove execution or quality.
 
-**Known identity gap:** v5 still declares `abiFilters: ["x86_64"]`, while Gradle and the APK contain both `x86_64` and `arm64-v8a`. `check_11_gradle_identity` extracts only the first Gradle string, so validation misses the second ABI. Do not interpret the manifest as a complete packaging inventory. [Release manifest](../evidence/releases/0.12.0/manifest.json) is the current packaging evidence. Fix the validator and issue a new manifest revision without rewriting frozen runs (roadmap E-06).
+The validator now compares all literal Gradle ABI filters, rejects missing/extra/duplicate/malformed sets and accepts a reordered equal set. V6 records both packaged ABIs. Six host-only controls are preserved in [ABI validation](../evidence/research/osm-places-20260930/abi-validation.json). This is identity consistency, not proof of ARM runtime support.
 
-## Regional fixture scope correction
-
-The current v5 regional fixture still lists K-07/map-routing as a blocker. [ADR-028 and the place-query specification](../docs/osm-place-queries.md) supersede that product dependency: offline named/category/proximity answers require entity resolution, suitable data and query execution, not a rendered map or route engine. Keep the existing manifest/runs frozen; revise the definition in the next manifest version alongside the E-06 identity correction. This clarification does not mark the currently blocked case as executed or solved.
+The regional fixture no longer depends on map/routing K-07. Its broader time/preference recommendation task remains blocked on its actual corpus/executor. `test-places.ps1` separately checks the implemented deterministic name/category/proximity path; neither that suite nor a manifest revision retroactively changes historical scores.
 
 ## Current integration suites
 
-`test-chat.ps1` checks chat/files/PDF/persistence, with optional `-Generate` for real conversational controls. `test-folders.ps1` checks recursive SAF ingestion; `test-osm.ps1` checks parser/storage/source UI, with optional `-Generate` for one synthetic source answer; `test-knowledge.ps1` checks migrations/CSV/packs/locators. These are integration/regression suites, not the broad question-family study. [0.12 validation](../docs/validation-0.12.md) owns current run identities and the earlier-test-APK provenance of the real OSM answer.
+`test-chat.ps1` checks chat/files/PDF/persistence, with optional `-Generate` for real conversational controls. `test-folders.ps1` checks recursive SAF ingestion; `test-osm.ps1` checks parser/storage/source UI, with optional `-Generate` for one synthetic source answer; `test-knowledge.ps1` checks migrations/CSV/packs/locators. These are integration/regression suites, not the broad question-family study. [0.13 validation](../docs/validation-0.13.md) owns current run identities, including `test-places.ps1` and its no-model synthetic/real-subset checks. The older generated OSM answer remains recorded with its 0.12 identities.

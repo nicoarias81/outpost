@@ -333,6 +333,9 @@ public final class Library extends SQLiteOpenHelper {
             return new Evidence(locator, d.title(), f.text(), d.source(), d.url(), m.contentDate(), m.importedAt(), m.language(), m.active());
         throw new IllegalArgumentException("Evidence fragment unavailable");
     }
+    synchronized PlaceQueries.Answer answerPlaces(String question,List<ChatStore.Turn> history,BooleanSupplier canceled) {
+        return PlaceQueries.answer(this,question,history,canceled);
+    }
     public synchronized List<Hit> search(String question) {
         List<String> terms = terms(question);
         if (terms.isEmpty()) return List.of();

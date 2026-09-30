@@ -1,0 +1,51 @@
+{
+  "scope": "Independent host arithmetic over a bounded prepared public OSM subset, not live availability or complete regional coverage.",
+  "cases": [
+    {
+      "question": "Where is Plaza de la Lealtad?",
+      "expectedKeys": [
+        "way/29489645"
+      ],
+      "matched": 1,
+      "referenceKey": null
+    },
+    {
+      "question": "restaurants near Museo de Colecciones ICO within 500 m",
+      "expectedKeys": [
+        "node/13231613801",
+        "node/167302928",
+        "node/4802367221",
+        "node/167302888",
+        "node/3597242732"
+      ],
+      "matched": 47,
+      "referenceKey": "node/1474148142",
+      "distancesMeters": [
+        17.106097,
+        49.422901,
+        91.071973,
+        97.17296,
+        101.525981
+      ]
+    },
+    {
+      "question": "museums near Plaza de la Lealtad within 1000 m",
+      "expectedKeys": [
+        "way/292649859",
+        "way/85817355",
+        "node/1474148142",
+        "way/319609029",
+        "way/286816147"
+      ],
+      "matched": 6,
+      "referenceKey": "way/29489645",
+      "distancesMeters": [
+        133.449917,
+        306.915181,
+        414.538174,
+        441.097912,
+        589.720309
+      ]
+    }
+  ]
+}

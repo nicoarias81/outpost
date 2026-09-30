@@ -1,6 +1,6 @@
 # Evaluation and evidence protocol
 
-Current reference: **Outpost 0.12.0**, [validation](validation-0.12.md), [fixtures v5](../eval/fixtures-v5.json), [rubric v2](../eval/rubric-v2.md). Broad field/held-out quality remains open. Scored development experiments from 0.9 are historical; the current product protocol is `ChatPrompt` v1.1, distinct from the matrix's evidence-only `ResearchPrompt`.
+Current reference: **Outpost 0.13.0**, [validation](validation-0.13.md), [fixtures v6](../eval/fixtures-v6.json), [rubric v2](../eval/rubric-v2.md). Broad field/held-out quality remains open. Scored development experiments from 0.9 are historical; the current product protocol is `ChatPrompt` v1.1, distinct from the matrix's evidence-only `ResearchPrompt`.
 
 ## Separate the questions
 
@@ -19,7 +19,7 @@ Evaluate [contextual question families](offline-world-knowledge.md) across world
 
 The current matrix has 15 fixtures: 12 runnable and 3 blocked. Each declares execution mode, identities, context/turns, expected evidence, supported outcomes, review dimensions and critical failures. Concrete imports and fixed evidence are explicit; expected answers stay outside model input. Blockers describe complete workflows, so implementing PDF pages or OSM storage alone does not unlock the corresponding mission.
 
-[The runner guide](../eval/README.md) owns execution flags, provenance, manifest history and the known multi-ABI validator gap (E-06). Validate definitions without implying execution. Freeze exact source, manifest, prompt, APK and model identity per run; keep original outputs and failed setup logs. Preserve older records without inventing missing provenance.
+[The runner guide](../eval/README.md) owns execution flags, provenance, manifest history and the fixed full-ABI validator contract (E-06). Validate definitions without implying execution. Freeze exact source, manifest, prompt, APK and model identity per run; keep original outputs and failed setup logs. Preserve older records without inventing missing provenance.
 
 Review task completion, applicability, supported claims, citation resolution, context, deterministic correctness, unknown conditions and time to useful information independently. A critical failure fails the fixture even if other scores are high. Refusing a supported simple calculation can also fail usefulness. Unmeasured dimensions stay null with a reason. Attribute assistant versus human/domain-expert review explicitly; held-out qualified review is still required for field claims.
 
@@ -29,14 +29,15 @@ The longer 0.9 prompt candidate was rejected after controlled comparison, and Qw
 
 | Scope | Entry point | Current evidence |
 |---|---|---|
+| Place name/category/proximity and no-model chat | `test-places.ps1` | 63 checks, including independently checked frozen public OSM identities/order and actual UI |
 | OSM parser/storage/SAF/source UI | `test-osm.ps1` | 39 model-free checks; separate 41-check run includes one real synthetic-source answer |
 | Recursive folder ingestion | `test-folders.ps1` | 30 checks |
 | Chat/files/PDF/persistence | `test-chat.ps1` | 35 model-free checks; older multi-turn generation controls belong to their recorded release |
 | Migrations/CSV/packs/locators/runtime policy | `test-knowledge.ps1` | 60 checks |
-| Evidence-only fixture matrix | `test-evaluation.ps1` / `eval/review.py` | Attributed 0.9 development reviews; no newly scored broad v5 run claimed |
+| Evidence-only fixture matrix | `test-evaluation.ps1` / `eval/review.py` | Attributed 0.9 development reviews; no newly scored broad v6 run claimed |
 | Build/package/lint | `build.ps1`, `publish-artifact.ps1 -Verify` | ARM64+x86_64 packaging; 0 lint errors, 3 upstream warnings |
 
-All current run links and exact identities are in [0.12 validation](validation-0.12.md). The real OSM generation used the delivered app bytes and an earlier test APK; final no-model suites used the final test APK. A 33-token, 76.152-second synthetic answer is one integration observation, not real-region quality or phone latency. Do not combine counts across suites into an accuracy percentage.
+All current run links and exact identities are in [0.13 validation](validation-0.13.md). The new place suite executes no generator and checks a frozen real-data subset as well as synthetic inputs. The older 33-token, 76.152-second Bonsai answer belongs to [0.12](validation-0.12.md); it is not a current timing or broad accuracy claim. Do not combine counts across suites into an accuracy percentage.
 
 ## Performance protocol
 

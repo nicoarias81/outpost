@@ -1,6 +1,6 @@
 # Documentation index
 
-**Outpost 0.12.0 / version code 14**, maintained English documentation consolidated against source on **2026-09-30**. Canonical repository: `E:/projects/outpost`. Start with [AGENTS.md](../AGENTS.md), [handoff](handoff.md) and [current validation](validation-0.12.md).
+**Outpost 0.13.0 / version code 15**, maintained English documentation consolidated against source on **2026-09-30**. Canonical repository: `E:/projects/outpost`. Start with [AGENTS.md](../AGENTS.md), [handoff](handoff.md) and [current validation](validation-0.13.md).
 
 ## Reading paths and ownership
 
@@ -16,8 +16,8 @@
 | Build or run tests | [Development](development.md), [emulator operating guide](emulator-runbook.md), [dependencies](../THIRD_PARTY.md) |
 | Review new kernel ideas | [DeepGEMM-Ascend static review and prioritized experiments](deepgemm-ascend-review.md) |
 | Improve inference | [Runtime](inference-runtime.md), [measured optimizations](optimizations.md), [speculation/MTP](speculation.md) |
-| Define/score outcomes | [Evaluation protocol](evaluation.md), [runner/review guide](../eval/README.md), [v5 fixtures](../eval/fixtures-v5.json), [rubric v2](../eval/rubric-v2.md) |
-| Verify current delivery | [0.12 validation](validation-0.12.md), [frozen release manifest](../evidence/releases/0.12.0/manifest.json) |
+| Define/score outcomes | [Evaluation protocol](evaluation.md), [runner/review guide](../eval/README.md), [v6 fixtures](../eval/fixtures-v6.json), [rubric v2](../eval/rubric-v2.md) |
+| Verify current delivery | [0.13 validation](validation-0.13.md), [frozen release manifest](../evidence/releases/0.13.0/manifest.json) |
 | Trace external/product input | [Bounty snapshot and requirement trace](bounty-31.md), [anonymized discovery](discovery-2026-09-29.md) |
 | Understand naming and history | [Migration record](repository-migration.md), [changelog](../CHANGELOG.md), [glossary](glossary.md) |
 | Review this documentation pass | [Documentation audit](documentation-audit-2026-09-30.md) |
@@ -33,7 +33,7 @@
 - **Deferred/conditional:** revisit only when the stated evidence or scope condition changes.
 - **Historical:** describes its recorded release/session, not current instructions or live state.
 
-ARM build is not ARM runtime evidence; synthetic import checks are not a real-region recommendation study; citations and harness PASS do not prove answer correctness. Product `ChatPrompt` and evidence-only evaluation are different protocols. See E-06 for the current manifest validator's incomplete ABI comparison.
+ARM build is not ARM runtime evidence; synthetic import checks are not a real-region recommendation study; citations and harness PASS do not prove answer correctness. Product `ChatPrompt` and evidence-only evaluation are different protocols. E-06 now checks the complete packaged ABI set; its former gap remains recorded in the historical documentation audit.
 
 ## Historical records
 

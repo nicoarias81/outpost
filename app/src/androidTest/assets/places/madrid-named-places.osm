@@ -1,0 +1,1361 @@
+<?xml version='1.0' encoding='utf-8'?>
+<osm version="0.6" generator="Outpost named-place test subset from OSM API"><bounds minlat="40.4100000" minlon="-3.6980000" maxlat="40.4180000" maxlon="-3.6860000" />
+ <node id="26487758" version="4" timestamp="2025-01-18T11:22:23Z" lat="40.4183210" lon="-3.6933047" /><node id="26487760" version="3" timestamp="2011-11-29T05:37:48Z" lat="40.4186946" lon="-3.6932805" /><node id="26487761" version="4" timestamp="2011-11-29T05:37:48Z" lat="40.4187610" lon="-3.6936347" /><node id="26487762" version="3" timestamp="2011-11-29T05:37:48Z" lat="40.4187812" lon="-3.6937594" /><node id="26487763" version="3" timestamp="2011-03-19T19:16:21Z" lat="40.4157718" lon="-3.6945786" /><node id="26487764" version="4" timestamp="2011-08-28T15:52:03Z" lat="40.4157163" lon="-3.6945038" /><node id="26487765" version="5" timestamp="2024-12-25T10:37:14Z" lat="40.4159516" lon="-3.6938352" /><node id="26487766" version="4" timestamp="2025-01-18T11:22:23Z" lat="40.4160304" lon="-3.6937764" /><node id="317743518" version="4" timestamp="2011-08-28T15:52:05Z" lat="40.4158727" lon="-3.6940186" /><node id="325077177" version="7" timestamp="2025-01-18T11:22:23Z" lat="40.4168441" lon="-3.6933138" /><node id="325077178" version="5" timestamp="2025-01-18T11:22:23Z" lat="40.4160341" lon="-3.6934643" /><node id="325077179" version="5" timestamp="2025-01-18T11:22:23Z" lat="40.4159928" lon="-3.6928016" /><node id="325077181" version="5" timestamp="2025-01-18T11:22:23Z" lat="40.4160454" lon="-3.6926161" /><node id="325077183" version="5" timestamp="2025-01-18T11:22:23Z" lat="40.4161610" lon="-3.6924557" /><node id="325077184" version="5" timestamp="2025-01-18T11:22:23Z" lat="40.4162388" lon="-3.6924003" /><node id="325077185" version="5" timestamp="2025-01-18T11:22:23Z" lat="40.4163143" lon="-3.6923708" /><node id="325077187" version="5" timestamp="2025-01-18T11:22:23Z" lat="40.4164620" lon="-3.6923707" /><node id="325077188" version="5" timestamp="2025-01-18T11:22:23Z" lat="40.4166142" lon="-3.6924564" /><node id="325077190" version="5" timestamp="2025-01-18T11:22:23Z" lat="40.4167530" lon="-3.6926639" /><node id="325077191" version="5" timestamp="2025-01-18T11:22:23Z" lat="40.4167844" lon="-3.6927830" /><node id="996183534" version="1" timestamp="2010-11-20T14:50:52Z" lat="40.4153236" lon="-3.6892041" /><node id="996183562" version="1" timestamp="2010-11-20T14:50:53Z" lat="40.4153619" lon="-3.6900113" /><node id="996183660" version="1" timestamp="2010-11-20T14:50:55Z" lat="40.4151461" lon="-3.6892391" /><node id="996183801" version="1" timestamp="2010-11-20T14:51:00Z" lat="40.4151901" lon="-3.6899853" /><node id="996183886" version="1" timestamp="2010-11-20T14:51:03Z" lat="40.4153777" lon="-3.6892470" /><node id="996183932" version="1" timestamp="2010-11-20T14:51:05Z" lat="40.4152015" lon="-3.6892019" /><node id="996183972" version="1" timestamp="2010-11-20T14:51:07Z" lat="40.4151328" lon="-3.6900066" /><node id="996183996" version="1" timestamp="2010-11-20T14:51:08Z" lat="40.4153032" lon="-3.6899880" /><node id="996184042" version="1" timestamp="2010-11-20T14:51:11Z" lat="40.4153231" lon="-3.6892448" /><node id="996184145" version="1" timestamp="2010-11-20T14:51:16Z" lat="40.4152002" lon="-3.6892402" /><node id="996184181" version="1" timestamp="2010-11-20T14:51:19Z" lat="40.4151904" lon="-3.6900055" /><node id="996184205" version="1" timestamp="2010-11-20T14:51:20Z" lat="40.4153039" lon="-3.6900105" /><node id="1209330493" version="2" timestamp="2025-01-18T11:22:23Z" lat="40.4159855" lon="-3.6928756" /><node id="1209331196" version="3" timestamp="2016-07-18T20:12:26Z" lat="40.4173300" lon="-3.6941666" /><node id="1209331666" version="3" timestamp="2024-12-25T10:37:14Z" lat="40.4158194" lon="-3.6939975" /><node id="1209331839" version="2" timestamp="2025-01-18T11:22:23Z" lat="40.4159288" lon="-3.6933425" /><node id="1278336630" version="1" timestamp="2011-05-09T17:09:24Z" lat="40.4176546" lon="-3.6927542" /><node id="1416249540" version="1" timestamp="2011-08-28T15:50:56Z" lat="40.4156739" lon="-3.6944823" /><node id="1416249542" version="1" timestamp="2011-08-28T15:50:56Z" lat="40.4156873" lon="-3.6945342" /><node id="1416249550" version="1" timestamp="2011-08-28T15:50:56Z" lat="40.4157114" lon="-3.6945633" /><node id="1416249565" version="2" timestamp="2024-12-25T10:37:14Z" lat="40.4159468" lon="-3.6938082" /><node id="1522690034" version="1" timestamp="2011-11-29T05:36:56Z" lat="40.4184147" lon="-3.6933487" /><node id="2250394440" version="9" timestamp="2020-09-25T17:01:11Z" lat="40.4109100" lon="-3.6933517" /><node id="2282214500" version="2" timestamp="2015-07-17T21:18:47Z" lat="40.4102505" lon="-3.6933545" /><node id="2282214501" version="2" timestamp="2015-07-17T21:18:47Z" lat="40.4102517" lon="-3.6935175" /><node id="2282214503" version="2" timestamp="2014-12-27T14:56:41Z" lat="40.4103052" lon="-3.6936390" /><node id="2282214504" version="2" timestamp="2014-12-27T14:56:41Z" lat="40.4103117" lon="-3.6938218" /><node id="2282214505" version="2" timestamp="2014-12-27T14:56:41Z" lat="40.4103402" lon="-3.6938047" /><node id="2282214506" version="2" timestamp="2014-12-27T14:56:41Z" lat="40.4104524" lon="-3.6936380" /><node id="2282214507" version="2" timestamp="2014-12-27T14:56:41Z" lat="40.4104503" lon="-3.6935166" /><node id="2282214508" version="3" timestamp="2026-01-16T14:27:11Z" lat="40.4105892" lon="-3.6933558" /><node id="2282214510" version="2" timestamp="2014-12-27T14:56:41Z" lat="40.4105974" lon="-3.6936254" /><node id="2282214511" version="2" timestamp="2014-12-27T14:56:41Z" lat="40.4106359" lon="-3.6936263" /><node id="2282214512" version="2" timestamp="2014-12-27T14:56:41Z" lat="40.4106422" lon="-3.6937967" /><node id="2904920356" version="2" timestamp="2014-07-31T17:14:55Z" lat="40.4109784" lon="-3.6937859" /><node id="2904920358" version="2" timestamp="2014-07-31T17:14:55Z" lat="40.4113007" lon="-3.6933558" /><node id="2904920359" version="2" timestamp="2014-07-31T17:14:55Z" lat="40.4113030" lon="-3.6937774" /><node id="2961839619" version="1" timestamp="2014-07-13T20:50:40Z" lat="40.4173666" lon="-3.6927734" /><node id="2961839620" version="1" timestamp="2014-07-13T20:50:40Z" lat="40.4173839" lon="-3.6919832" /><node id="2961839624" version="1" timestamp="2014-07-13T20:50:40Z" lat="40.4173882" lon="-3.6927950" /><node id="2961839742" version="1" timestamp="2014-07-13T20:50:40Z" lat="40.4174732" lon="-3.6919858" /><node id="2961839797" version="1" timestamp="2014-07-13T20:50:41Z" lat="40.4175783" lon="-3.6924920" /><node id="2961839798" version="1" timestamp="2014-07-13T20:50:41Z" lat="40.4175806" lon="-3.6919890" /><node id="2961839799" version="1" timestamp="2014-07-13T20:50:41Z" lat="40.4175807" lon="-3.6923751" /><node id="2961839801" version="1" timestamp="2014-07-13T20:50:41Z" lat="40.4175843" lon="-3.6922593" /><node id="2961839802" version="1" timestamp="2014-07-13T20:50:41Z" lat="40.4175871" lon="-3.6921530" /><node id="2961839803" version="1" timestamp="2014-07-13T20:50:41Z" lat="40.4175900" lon="-3.6920351" /><node id="2961839804" version="1" timestamp="2014-07-13T20:50:41Z" lat="40.4175904" lon="-3.6919893" /><node id="2961839838" version="1" timestamp="2014-07-13T20:50:42Z" lat="40.4176575" lon="-3.6921562" /><node id="2961839839" version="1" timestamp="2014-07-13T20:50:42Z" lat="40.4176580" lon="-3.6921344" /><node id="2961839845" version="1" timestamp="2014-07-13T20:50:42Z" lat="40.4176598" lon="-3.6924997" /><node id="2961839846" version="1" timestamp="2014-07-13T20:50:42Z" lat="40.4176599" lon="-3.6924949" /><node id="2961839853" version="1" timestamp="2014-07-13T20:50:42Z" lat="40.4176623" lon="-3.6923780" /><node id="2961839854" version="1" timestamp="2014-07-13T20:50:42Z" lat="40.4176625" lon="-3.6923699" /><node id="2961839857" version="1" timestamp="2014-07-13T20:50:42Z" lat="40.4176647" lon="-3.6922629" /><node id="2961839860" version="1" timestamp="2014-07-13T20:50:43Z" lat="40.4176680" lon="-3.6921349" /><node id="2961839862" version="1" timestamp="2014-07-13T20:50:43Z" lat="40.4176699" lon="-3.6920380" /><node id="2961951488" version="1" timestamp="2014-07-13T23:03:03Z" lat="40.4127224" lon="-3.6954172" /><node id="2961951489" version="1" timestamp="2014-07-13T23:03:03Z" lat="40.4127258" lon="-3.6953930" /><node id="2961951498" version="1" timestamp="2014-07-13T23:03:03Z" lat="40.4127396" lon="-3.6955909" /><node id="2961951502" version="1" timestamp="2014-07-13T23:03:03Z" lat="40.4127549" lon="-3.6954477" /><node id="2961951503" version="1" timestamp="2014-07-13T23:03:03Z" lat="40.4127599" lon="-3.6954010" /><node id="3149717351" version="2" timestamp="2020-09-25T17:01:11Z" lat="40.4102760" lon="-3.6936971" /><node id="3260400121" version="2" timestamp="2026-01-17T17:17:00Z" lat="40.4143539" lon="-3.6973514" /><node id="3260400123" version="2" timestamp="2016-09-25T22:11:37Z" lat="40.4143557" lon="-3.6975278" /><node id="3260400148" version="2" timestamp="2026-01-17T17:17:00Z" lat="40.4144724" lon="-3.6973416" /><node id="4481585642" version="1" timestamp="2016-11-04T11:55:47Z" lat="40.4106126" lon="-3.6936257" /><node id="6382139656" version="1" timestamp="2019-04-03T23:36:40Z" lat="40.4127024" lon="-3.6955912" /><node id="6557030339" version="1" timestamp="2019-06-19T08:21:36Z" lat="40.4176147" lon="-3.6927603" /><node id="6585911838" version="3" timestamp="2024-01-27T23:28:11Z" lat="40.4152617" lon="-3.6892030" /><node id="8090558617" version="2" timestamp="2026-01-17T17:17:00Z" lat="40.4144761" lon="-3.6975182" /><node id="8090558618" version="2" timestamp="2026-01-17T17:17:00Z" lat="40.4144473" lon="-3.6975209" /><node id="9873090128" version="3" timestamp="2026-09-08T17:12:27Z" lat="40.4153060" lon="-3.6892038" /><node id="12450892310" version="1" timestamp="2024-12-25T10:37:14Z" lat="40.4157416" lon="-3.6937475" /><node id="12450892311" version="1" timestamp="2024-12-25T10:37:14Z" lat="40.4157462" lon="-3.6938082" /><node id="12450892312" version="1" timestamp="2024-12-25T10:37:14Z" lat="40.4159164" lon="-3.6937401" /><node id="12450892313" version="1" timestamp="2024-12-25T10:37:14Z" lat="40.4159199" lon="-3.6937811" /><node id="12450892314" version="1" timestamp="2024-12-25T10:37:14Z" lat="40.4157727" lon="-3.6938968" /><node id="12512054248" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4160054" lon="-3.6927357" /><node id="12512054249" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4160239" lon="-3.6926684" /><node id="12512054250" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4160711" lon="-3.6925682" /><node id="12512054251" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4161026" lon="-3.6925185" /><node id="12512054252" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4161310" lon="-3.6924832" /><node id="12512054253" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4161966" lon="-3.6924280" /><node id="12512054254" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4162669" lon="-3.6923862" /><node id="12512054255" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4162920" lon="-3.6923761" /><node id="12512054256" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4163520" lon="-3.6923646" /><node id="12512054257" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4163859" lon="-3.6923626" /><node id="12512054258" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4164244" lon="-3.6923638" /><node id="12512054259" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4164996" lon="-3.6923830" /><node id="12512054260" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4165306" lon="-3.6923965" /><node id="12512054261" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4165665" lon="-3.6924173" /><node id="12512054262" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4165897" lon="-3.6924342" /><node id="12512054263" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4167765" lon="-3.6927428" /><node id="12512054264" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4167673" lon="-3.6927061" /><node id="12512054265" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4167293" lon="-3.6926181" /><node id="12512054266" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4166445" lon="-3.6924910" /><node id="12512054267" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4166743" lon="-3.6925321" /><node id="12512054268" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4167021" lon="-3.6925737" /><node id="12512054304" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4160016" lon="-3.6937906" /><node id="12512054305" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4183439" lon="-3.6933040" /><node id="12512054306" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4183647" lon="-3.6933050" /><node id="12512054307" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4183801" lon="-3.6933155" /><node id="12512054308" version="1" timestamp="2025-01-18T11:22:23Z" lat="40.4183974" lon="-3.6933290" /><node id="167301973" visible="true" version="4" timestamp="2026-04-04T11:01:30Z" lat="40.4115676" lon="-3.6978097">
+  <tag k="addr:housenumber" v="68" />
+  <tag k="addr:postcode" v="28012" />
+  <tag k="addr:street" v="Calle de Atocha" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2026-04-04" />
+  <tag k="check_date:opening_hours" v="2026-04-04" />
+  <tag k="cuisine" v="chinese" />
+  <tag k="name" v="KungFu Noodle Atocha 武功牛" />
+  <tag k="opening_hours" v="Mo-Su 12:00-16:00,19:30-23:30" />
+  <tag k="phone" v="+34910713165" />
+  <tag k="website" v="https://kungfunoodle.eu/" />
+  <tag k="website:menu" v="https://kungfunoodle.eu/carta-restaurante-atocha/" />
+ </node>
+ <node id="167302052" visible="true" version="5" timestamp="2024-12-18T10:26:19Z" lat="40.4112109" lon="-3.6956700">
+  <tag k="addr:housenumber" v="20" />
+  <tag k="addr:street" v="Calle de Fúcar" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2024-12-18" />
+  <tag k="name" v="A Cañada" />
+  <tag k="survey:date" v="2022-07-23" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="167302123" visible="true" version="4" timestamp="2016-01-31T20:50:40Z" lat="40.4124270" lon="-3.6963071">
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="Arrocería Gala" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="167302180" visible="true" version="9" timestamp="2025-08-21T17:49:11Z" lat="40.4122937" lon="-3.6939658">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="4" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de la Alameda" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-08-21" />
+  <tag k="cuisine" v="spanish" />
+  <tag k="diet:vegan" v="yes" />
+  <tag k="diet:vegetarian" v="only" />
+  <tag k="name" v="El Fogón Verde" />
+  <tag k="old_name" v="Las 4 Fuentes" />
+  <tag k="website" v="https://elfogonverde.net/" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="167302521" visible="true" version="8" timestamp="2025-02-13T19:48:46Z" lat="40.4125537" lon="-3.6951865">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="40" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Moratín" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-13" />
+  <tag k="name" v="Moratin 40" />
+  <tag k="old_name" v="La Fetén" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="167302661" visible="true" version="3" timestamp="2016-01-29T21:04:12Z" lat="40.4134319" lon="-3.6957085">
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="El Rábano" />
+ </node>
+ <node id="167302675" visible="true" version="8" timestamp="2025-11-11T19:21:54Z" lat="40.4136237" lon="-3.6960696">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="32" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Lope de Vega" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-11-11" />
+  <tag k="check_date:opening_hours" v="2025-11-11" />
+  <tag k="cuisine" v="regional" />
+  <tag k="email" v="restaurante@terramundi.net" />
+  <tag k="name" v="Terra Mundi" />
+  <tag k="opening_hours" v="Mo 13:00-17:30, Tu-Su 13:00-17:30,20:30-24:00" />
+  <tag k="phone" v="+34 914295280;+34 914296380" />
+  <tag k="website" v="https://terramundi.net/" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="167302888" visible="true" version="4" timestamp="2023-01-22T17:04:22Z" lat="40.4169233" lon="-3.6966322">
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="Edelweiss" />
+  <tag k="source" v="survey" />
+  <tag k="toilets:wheelchair" v="no" />
+  <tag k="wheelchair" v="yes" />
+ </node>
+ <node id="167302891" visible="true" version="3" timestamp="2015-06-15T21:03:27Z" lat="40.4171806" lon="-3.6965924">
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="El Secreto de Castilla" />
+  <tag k="source" v="survey" />
+ </node>
+ <node id="167302905" visible="true" version="5" timestamp="2024-07-19T19:20:45Z" lat="40.4173325" lon="-3.6966034">
+  <tag k="addr:housenumber" v="3" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Jovellanos" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="email" v="reservas@sagardi.com" />
+  <tag k="name" v="Sagardi" />
+  <tag k="phone" v="+34 91 531 2564" />
+  <tag k="source" v="survey" />
+  <tag k="website" v="https://sagardi.com/" />
+ </node>
+ <node id="167302928" visible="true" version="6" timestamp="2026-06-30T11:36:54Z" lat="40.4168220" lon="-3.6971908">
+  <tag k="addr:housenumber" v="9" />
+  <tag k="addr:street" v="C. de Zorrilla" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="diet:vegetarian" v="only" />
+  <tag k="fixme" v="Google claims this place is permanently closed. Can someone confirm that?" />
+  <tag k="name" v="Casa Mortero" />
+  <tag k="opening_hours" v="Mo-Fr 13:15-16:00, 20:15-23:30" />
+  <tag k="phone" v="+34 910 59 55 70" />
+  <tag k="website" v="https://casamortero.com/" />
+ </node>
+ <node id="1474148142" visible="true" version="5" timestamp="2026-02-05T22:29:40Z" lat="40.4168361" lon="-3.6977743">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="3" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Zorrilla" />
+  <tag k="addr:suburb" v="Cortes" />
+  <tag k="alt_name" v="Museo Colecciones del Instituto de Crédito Oficial (ICO)" />
+  <tag k="description" v="El Museo dispone de ascensores, rampas y cuarto de baño adaptado. Actividades educativas inclusivas y específicas para personas con necesidades especiales. Cambiador de bebés para todos aquellos que lo necesiten. Red wifi gratuita." />
+  <tag k="email" v="museoico@ico.es" />
+  <tag k="name" v="Museo de Colecciones ICO" />
+  <tag k="opening_hours" v="Su 10:00-14:00; Tu-Sa 11:00-20:00; PH 10:00-14:00; Mo off; Jan 01,May 01,Dec 25 off; Dec 24,31: 10:00-14:00" />
+  <tag k="phone" v="+34 914201242" />
+  <tag k="source:addr" v="Ayuntamiento de Madrid" />
+  <tag k="source:description" v="Ayuntamiento de Madrid" />
+  <tag k="source:email" v="Ayuntamiento de Madrid" />
+  <tag k="source:opening_hours" v="Ayuntamiento de Madrid" />
+  <tag k="source:phone" v="Ayuntamiento de Madrid" />
+  <tag k="source:url" v="Ayuntamiento de Madrid" />
+  <tag k="source:wheelchair" v="Ayuntamiento de Madrid" />
+  <tag k="tourism" v="museum" />
+  <tag k="url" v="http://www.madrid.es/vgn-ext-templating/v/index.jsp?vgnextchannel=9e4c43db40317010VgnVCM100000dc0ca8c0RCRD&amp;vgnextoid=2886444a2951c010VgnVCM2000000c205a0aRCRD" />
+  <tag k="wheelchair" v="yes" />
+ </node>
+ <node id="1625167388" visible="true" version="7" timestamp="2025-10-10T08:50:01Z" lat="40.4142469" lon="-3.6902664">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="7" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle Moreto" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="cuisine" v="korean" />
+  <tag k="name" v="Han Gang" />
+  <tag k="opening_hours" v="Mo,We-Su 13:00-15:30,19:30-22:30" />
+  <tag k="takeaway" v="yes" />
+  <tag k="toilets:access" v="customers" />
+  <tag k="wheelchair" v="limited" />
+ </node>
+ <node id="1625167425" visible="true" version="8" timestamp="2025-10-10T08:50:01Z" lat="40.4133189" lon="-3.6902126">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="15" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle Moreto" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="indoor_seating" v="yes" />
+  <tag k="name" v="Trattoria SantArcangelo" />
+  <tag k="outdoor_seating" v="yes" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="2246509892" visible="true" version="4" timestamp="2017-05-07T09:07:54Z" lat="40.4101960" lon="-3.6975430">
+  <tag k="amenity" v="restaurant" />
+  <tag k="contact:phone" v="+34 915 27 49 30" />
+  <tag k="contact:website" v="https://almacafebar.wordpress.com/" />
+  <tag k="cuisine" v="spanish" />
+  <tag k="internet_access" v="wlan" />
+  <tag k="internet_access:fee" v="yes" />
+  <tag k="name" v="Café Bar Alma" />
+  <tag k="toilets:wheelchair" v="no" />
+  <tag k="wheelchair" v="yes" />
+ </node>
+ <node id="2357618846" visible="true" version="11" timestamp="2026-03-30T17:17:15Z" lat="40.4110877" lon="-3.6943434">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="15" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle Almadén" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2026-03-30" />
+  <tag k="name" v="Matilda" />
+  <tag k="opening_hours" v="Mo-Sa 08:00-17:00" />
+  <tag k="wheelchair" v="no" />
+  <tag k="wheelchair:description" v="Escalón a la entrada" />
+ </node>
+ <node id="2357662191" visible="true" version="3" timestamp="2024-12-18T10:26:19Z" lat="40.4112111" lon="-3.6948323">
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2024-12-18" />
+  <tag k="name" v="Ganz" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="2379590685" visible="true" version="4" timestamp="2025-06-10T09:21:52Z" lat="40.4146851" lon="-3.6945994">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="4" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Plaza de Cánovas del Castillo" />
+  <tag k="air_conditioning" v="yes" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="bar" v="yes" />
+  <tag k="check_date" v="2025-06-10" />
+  <tag k="cuisine" v="european" />
+  <tag k="diet:non-vegetarian" v="yes" />
+  <tag k="diet:vegan" v="yes" />
+  <tag k="diet:vegetarian" v="yes" />
+  <tag k="name" v="Chez Madrid" />
+  <tag k="opening_hours" v="Mo-Th 12:00-02:00; Fr-Sa 12:00-02:30; Su 12:00-02:00" />
+  <tag k="outdoor_seating" v="yes" />
+  <tag k="phone" v="+34 91 989 58 96" />
+  <tag k="toilets" v="yes" />
+  <tag k="website" v="https://grupocarbon.es/restaurantes/chezmadrid/" />
+  <tag k="website:menu" v="https://grupocarbon.es/restaurantes/chezmadrid/carta/" />
+  <tag k="wheelchair" v="limited" />
+ </node>
+ <node id="2494908510" visible="true" version="7" timestamp="2025-10-10T08:50:12Z" lat="40.4138307" lon="-3.6979373">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="15" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Lope de Vega" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="cuisine" v="tapas" />
+  <tag k="name" v="La Cocinilla" />
+  <tag k="old_name" v="La Petisa" />
+  <tag k="phone" v="+34 911 10 40 72" />
+  <tag k="website" v="http://www.lapetisabar.com" />
+ </node>
+ <node id="2501795850" visible="true" version="11" timestamp="2025-10-10T08:50:12Z" lat="40.4128754" lon="-3.6912761">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="27" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle Ruiz de Alarcón" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="contact:phone" v="+34 914202342" />
+  <tag k="contact:website" v="http://restaurantebotanico.com/" />
+  <tag k="indoor_seating" v="yes" />
+  <tag k="name" v="El Botánico" />
+  <tag k="opening_hours" v="Mo-Su 11:00-01:00" />
+  <tag k="outdoor_seating" v="yes" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="2546770617" visible="true" version="8" timestamp="2025-10-10T08:50:13Z" lat="40.4101726" lon="-3.6942588">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="117" />
+  <tag k="addr:postcode" v="28012" />
+  <tag k="addr:street" v="Calle de Atocha" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2024-08-22" />
+  <tag k="name" v="Steak Grill House" />
+  <tag k="old_name" v="Roxy bar" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="2546794632" visible="true" version="8" timestamp="2025-10-10T08:50:13Z" lat="40.4104087" lon="-3.6947574">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="111" />
+  <tag k="addr:postcode" v="28012" />
+  <tag k="addr:street" v="Calle de Atocha" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2024-08-22" />
+  <tag k="name" v="El Campesino" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="2639926091" visible="true" version="11" timestamp="2025-10-10T08:50:17Z" lat="40.4149224" lon="-3.6949679">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="5" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Plaza de Cánovas del Castillo" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="branch" v="Neptuno" />
+  <tag k="brand" v="Vips" />
+  <tag k="brand:wikidata" v="Q66087862" />
+  <tag k="cuisine" v="international" />
+  <tag k="diet:vegetarian" v="yes" />
+  <tag k="name" v="Vips" />
+  <tag k="phone" v="+34 912752183" />
+  <tag k="source" v="survey" />
+  <tag k="toilets:wheelchair" v="yes" />
+  <tag k="wheelchair" v="yes" />
+ </node>
+ <node id="2701952591" visible="true" version="6" timestamp="2025-02-14T12:18:23Z" lat="40.4103465" lon="-3.6977557">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="38" />
+  <tag k="addr:postcode" v="28012" />
+  <tag k="addr:street" v="Calle de Santa Isabel" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-14" />
+  <tag k="name" v="Amores" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="2901534992" visible="true" version="3" timestamp="2025-10-10T08:50:25Z" lat="40.4137861" lon="-3.6976582">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="17" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Lope de Vega" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="Quevedo" />
+  <tag k="phone" v="+34 91 429 4058" />
+  <tag k="smoking" v="no" />
+  <tag k="survey:date" v="2022-07-23" />
+ </node>
+ <node id="2904920327" visible="true" version="7" timestamp="2024-12-18T10:26:19Z" lat="40.4115533" lon="-3.6955653">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="9" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Fúcar" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2024-12-18" />
+  <tag k="cuisine" v="burger" />
+  <tag k="name" v="La Puerta Amarilla" />
+  <tag k="phone" v="+34 911 722 207" />
+  <tag k="survey:date" v="2022-07-23" />
+  <tag k="website" v="https://pecadocarnal.es/huertas/index.html" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="3217981144" visible="true" version="5" timestamp="2025-10-10T08:50:34Z" lat="40.4114617" lon="-3.6955698">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="11" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Fúcar" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2024-12-18" />
+  <tag k="contact:facebook" v="https://www.facebook.com/piccolodiavolo.fenice" />
+  <tag k="contact:phone" v="+34 911 19 43 48" />
+  <tag k="cuisine" v="italian" />
+  <tag k="name" v="Piccolo Diavolo" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="3597242732" visible="true" version="1" timestamp="2015-06-15T21:03:23Z" lat="40.4170048" lon="-3.6965957">
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="Casa Manolo" />
+  <tag k="source" v="survey" />
+ </node>
+ <node id="3673294268" visible="true" version="8" timestamp="2025-05-28T15:28:08Z" lat="40.4110073" lon="-3.6943355">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="14" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle Almadén" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="Summarium" />
+  <tag k="old_name" v="Tinto y Tapas" />
+  <tag k="opening_hours" v="Fr-Su 13:00-24:00, Mo,We,Th 20:00-24:00,13:00-16:00" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="3695444231" visible="true" version="8" timestamp="2025-09-27T15:44:55Z" lat="40.4102015" lon="-3.6972748">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="27" />
+  <tag k="addr:postcode" v="28012" />
+  <tag k="addr:street" v="Calle de Santa Isabel" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="contact:facebook" v="SantayPuraVegan" />
+  <tag k="contact:instagram" v="santaypuravegan" />
+  <tag k="contact:website" v="https://santaypura.es/" />
+  <tag k="cuisine" v="burger;pizza;sandwich;spanish" />
+  <tag k="diet:vegan" v="only" />
+  <tag k="diet:vegetarian" v="only" />
+  <tag k="disused:amenity" v="restaurant" />
+  <tag k="name" v="Santa y Pura" />
+  <tag k="old_name" v="Santa y Pura - Vegan Bar" />
+  <tag k="opening_hours" v="Mo 18:00-00:00; Su, Tu-Th 12:00-00:00; Fr-Sa 11:00-00:00" />
+  <tag k="phone" v="+34 911 66 78 24" />
+  <tag k="website" v="https://santaypura.es/" />
+ </node>
+ <node id="3695444232" visible="true" version="4" timestamp="2025-02-14T12:18:23Z" lat="40.4106112" lon="-3.6979039">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="17" />
+  <tag k="addr:postcode" v="28012" />
+  <tag k="addr:street" v="Calle de Santa Isabel" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-14" />
+  <tag k="contact:facebook" v="https://www.facebook.com/pages/La-Musa-de-Espronceda/183661231649836" />
+  <tag k="name" v="La Musa de Espronceda" />
+  <tag k="wheelchair" v="limited" />
+ </node>
+ <node id="3851689925" visible="true" version="4" timestamp="2025-10-10T15:29:24Z" lat="40.4117805" lon="-3.6954335">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="4" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de la Verónica" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-13" />
+  <tag k="cuisine" v="spanish" />
+  <tag k="name" v="La Malontina" />
+  <tag k="old_name" v="La tragantúa" />
+  <tag k="takeaway" v="yes" />
+  <tag k="website" v="https://lamalontina.es" />
+  <tag k="wheelchair" v="limited" />
+ </node>
+ <node id="3997996365" visible="true" version="4" timestamp="2020-11-15T22:20:02Z" lat="40.4159170" lon="-3.6922033">
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="Plató" />
+  <tag k="old_name" v="Comala" />
+  <tag k="website" v="https://restauranteplato.com" />
+ </node>
+ <node id="4253314999" visible="true" version="3" timestamp="2022-07-23T11:51:27Z" lat="40.4141295" lon="-3.6976579">
+  <tag k="amenity" v="restaurant" />
+  <tag k="cuisine" v="basque" />
+  <tag k="name" v="Sidrería Zerain" />
+  <tag k="survey:date" v="2022-07-23" />
+ </node>
+ <node id="4337436590" visible="true" version="3" timestamp="2025-04-28T10:25:58Z" lat="40.4122524" lon="-3.6939543">
+  <tag k="addr:housenumber" v="6" />
+  <tag k="addr:street" v="Calle de la Alameda" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-04-28" />
+  <tag k="cuisine" v="persian" />
+  <tag k="name" v="Tabriz" />
+  <tag k="old_name" v="Mo" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="4481303510" visible="true" version="7" timestamp="2025-02-14T12:18:23Z" lat="40.4113785" lon="-3.6931665">
+  <tag k="addr:housenumber" v="32" />
+  <tag k="addr:street" v="Paseo del Prado" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-14" />
+  <tag k="name" v="Tapa Arte" />
+  <tag k="note" v="open to general public" />
+  <tag k="old_name" v="Hotel Mora" />
+  <tag k="smoking" v="no" />
+  <tag k="source" v="survey" />
+  <tag k="wheelchair" v="limited" />
+ </node>
+ <node id="4680242490" visible="true" version="4" timestamp="2025-02-14T12:18:23Z" lat="40.4107390" lon="-3.6962503">
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-14" />
+  <tag k="name" v="Restaurante Vietnamita Mekong" />
+  <tag k="wheelchair" v="limited" />
+ </node>
+ <node id="4718119368" visible="true" version="5" timestamp="2025-10-10T15:29:49Z" lat="40.4117697" lon="-3.6955733">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="7" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Fúcar" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-13" />
+  <tag k="contact:phone" v="+34 91 429 65 63" />
+  <tag k="contact:website" v="http://www.alambiquetaberna.es/alambiquetaberna_n.htm" />
+  <tag k="cuisine" v="regional" />
+  <tag k="name" v="El Alambique" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="4718119370" visible="true" version="1" timestamp="2017-03-05T10:42:04Z" lat="40.4128817" lon="-3.6972551">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="28" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Santa María" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="contact:phone" v="+34 910 244 798" />
+  <tag k="contact:website" v="http://www.eltriciclo.es/" />
+  <tag k="name" v="TriCiclo" />
+ </node>
+ <node id="4725967140" visible="true" version="3" timestamp="2021-04-06T17:52:38Z" lat="40.4113431" lon="-3.6973935">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="76" />
+  <tag k="addr:postcode" v="28012" />
+  <tag k="addr:street" v="Calle de Atocha" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="contact:facebook" v="https://es-es.facebook.com/tabernadeatocha76/" />
+  <tag k="cuisine" v="regional" />
+  <tag k="name" v="La Taberna de Atocha" />
+ </node>
+ <node id="4725967142" visible="true" version="5" timestamp="2025-10-10T15:29:49Z" lat="40.4114439" lon="-3.6975604">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="74" />
+  <tag k="addr:postcode" v="28012" />
+  <tag k="addr:street" v="Calle de Atocha" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="cuisine" v="regional" />
+  <tag k="name" v="Sofía" />
+ </node>
+ <node id="4739669328" visible="true" version="2" timestamp="2025-02-13T19:48:46Z" lat="40.4158164" lon="-3.6976757">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="3" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Santa Catalina" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-13" />
+  <tag k="contact:phone" v="+34 914 29 92 89" />
+  <tag k="contact:website" v="http://www.elrincondeesteban.com/" />
+  <tag k="name" v="El Rincón de Esteban" />
+ </node>
+ <node id="4739669329" visible="true" version="3" timestamp="2024-06-19T12:24:35Z" lat="40.4151811" lon="-3.6979464">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="25" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle del Prado" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="brand" v="El Rincón" />
+  <tag k="brand:wikidata" v="Q98456614" />
+  <tag k="contact:phone" v="+34 91 429 66 10" />
+  <tag k="contact:website" v="https://www.elrincondelprado.com/" />
+  <tag k="name" v="El Rincón" />
+  <tag k="shop" v="confectionery" />
+ </node>
+ <node id="4747209323" visible="true" version="3" timestamp="2025-02-14T12:18:23Z" lat="40.4111341" lon="-3.6951317">
+  <tag k="addr:housenumber" v="8" />
+  <tag k="addr:street" v="Calle Almadén" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-14" />
+  <tag k="name" v="La Pitarra" />
+  <tag k="name:es" v="La Pitarra" />
+  <tag k="wheelchair" v="yes" />
+ </node>
+ <node id="4802367221" visible="true" version="1" timestamp="2017-04-18T20:17:15Z" lat="40.4175457" lon="-3.6972371">
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="Umiko" />
+  <tag k="name:es" v="Umiko" />
+ </node>
+ <node id="4891902423" visible="true" version="4" timestamp="2025-10-10T15:30:05Z" lat="40.4100520" lon="-3.6961233">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="7" />
+  <tag k="addr:postcode" v="28012" />
+  <tag k="addr:street" v="Calle del Marqués de Toca" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="contact:instagram" v="https://www.instagram.com/tabernajam" />
+  <tag k="name" v="Taberna Jam" />
+  <tag k="old_name" v="La Berenjena" />
+  <tag k="opening_hours" v="Mo off; Tu- Sa 10:00-24:00; Su 10:00-16:00" />
+ </node>
+ <node id="4934324723" visible="true" version="7" timestamp="2025-10-10T15:30:06Z" lat="40.4130461" lon="-3.6959942">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="66" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de las Huertas" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="Taberna Maceiras" />
+  <tag k="name:es" v="Taberna Maceiras" />
+  <tag k="opening_hours" v="Mo-Su 01:15-16:45, 20:30-00:00" />
+  <tag k="phone" v="+34 91 429 15 84" />
+  <tag k="website" v="https://tabernamaceira.com/" />
+ </node>
+ <node id="4934324724" visible="true" version="6" timestamp="2024-06-18T10:09:33Z" lat="40.4104513" lon="-3.6928735">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="40" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Paseo del Prado" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2024-06-18" />
+  <tag k="cuisine" v="thai" />
+  <tag k="diet:vegetarian" v="yes" />
+  <tag k="name" v="Pad Thai" />
+  <tag k="name:es" v="Pad Thai" />
+  <tag k="smoking" v="no" />
+ </node>
+ <node id="4934346821" visible="true" version="4" timestamp="2021-01-10T22:26:51Z" lat="40.4172562" lon="-3.6956993">
+  <tag k="addr:housenumber" v="6" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle del Marqués de Cubas" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="cuisine" v="indian" />
+  <tag k="name" v="Taj" />
+  <tag k="name:es" v="Taj" />
+  <tag k="opening_hours" v="Mo-Su 13:00-16:00, 20:30-23:30" />
+  <tag k="phone" v="+34 915315059" />
+  <tag k="website" v="https://restaurantetaj.es/" />
+ </node>
+ <node id="4949165321" visible="true" version="5" timestamp="2025-10-10T15:30:07Z" lat="40.4114050" lon="-3.6967132">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="21" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Costanilla de los Desamparados" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="cuisine" v="spanish;regional;local" />
+  <tag k="name" v="La Cazuelita" />
+  <tag k="name:es" v="La Cazuelita" />
+  <tag k="website" v="http://www.lacazuelita.es" />
+ </node>
+ <node id="4957561222" visible="true" version="5" timestamp="2025-10-10T15:30:07Z" lat="40.4102599" lon="-3.6944918">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="115" />
+  <tag k="addr:postcode" v="28012" />
+  <tag k="addr:street" v="Calle de Atocha" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="cuisine" v="burger" />
+  <tag k="name" v="Nugu Burger" />
+  <tag k="opening_hours" v="Mo-Su 12:00-16:00, 20:00-00:00" />
+  <tag k="phone" v="+34913437481" />
+  <tag k="website" v="https://www.nuguburger.com/" />
+ </node>
+ <node id="4961700273" visible="true" version="3" timestamp="2025-02-13T19:48:46Z" lat="40.4141541" lon="-3.6977511">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="16" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle Cervantes" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-13" />
+  <tag k="contact:phone" v="+34 91 737 75 88" />
+  <tag k="contact:website" v="https://laentretenida.com/" />
+  <tag k="name" v="La Entretenida" />
+ </node>
+ <node id="5081180724" visible="true" version="6" timestamp="2025-10-10T15:30:08Z" lat="40.4101632" lon="-3.6971775">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="29" />
+  <tag k="addr:postcode" v="28012" />
+  <tag k="addr:street" v="Calle de Santa Isabel" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2024-09-24" />
+  <tag k="name" v="Taberna Eulogio" />
+  <tag k="wheelchair" v="limited" />
+ </node>
+ <node id="5083496622" visible="true" version="3" timestamp="2025-10-10T15:30:08Z" lat="40.4130232" lon="-3.6959252">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="66" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de las Huertas" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="La Colonial de Huertas" />
+  <tag k="name:es" v="La Colonial de Huertas" />
+ </node>
+ <node id="5085913651" visible="true" version="7" timestamp="2025-10-10T15:30:08Z" lat="40.4125279" lon="-3.6954315">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="36" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Moratín" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-13" />
+  <tag k="name" v="Vinoteca Moratin" />
+  <tag k="opening_hours" v="Tu-Sa 13:30-16:00, 19:30-24:00" />
+  <tag k="phone" v="+34 911 27 60 85" />
+  <tag k="website" v="https://www.vinotecamoratin.com/" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="5139098261" visible="true" version="9" timestamp="2025-02-04T11:14:24Z" lat="40.4158696" lon="-3.6957034">
+  <tag k="addr:housenumber" v="3" />
+  <tag k="addr:street" v="Plaza de las Cortes" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="brand" v="100 Montaditos" />
+  <tag k="brand:wikidata" v="Q8355805" />
+  <tag k="brand:wikipedia" v="en:Cervecería 100 Montaditos" />
+  <tag k="check_date" v="2025-02-04" />
+  <tag k="cuisine" v="sandwich" />
+  <tag k="delivery" v="yes" />
+  <tag k="name" v="100 Montaditos" />
+  <tag k="opening_hours" v="Mo,Tu,Th 09:00-23:00; We 09:00-23:30; Fr 09:00-00:00; Sa 11:00-00:00; Su 11:00-23:30" />
+  <tag k="outdoor_seating" v="yes" />
+  <tag k="wheelchair" v="limited" />
+ </node>
+ <node id="5552314224" visible="true" version="4" timestamp="2025-10-10T15:30:14Z" lat="40.4101770" lon="-3.6962005">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="6" />
+  <tag k="addr:postcode" v="28012" />
+  <tag k="addr:street" v="Calle del Marqués de Toca" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-13" />
+  <tag k="email" v="gatogatoreservas@gmail.com" />
+  <tag k="name" v="GatoGato" />
+  <tag k="opening_hours" v="Mo,Su off; Tu-Th 13:00-16:00,20:30-23:00; Fr-Sa 13:00-16:00,20:30-23:30" />
+  <tag k="phone" v="+34 912 08 68 70" />
+  <tag k="wheelchair" v="limited" />
+ </node>
+ <node id="5636725421" visible="true" version="2" timestamp="2024-10-11T09:39:53Z" lat="40.4137120" lon="-3.6960077">
+  <tag k="addr:housenumber" v="37" />
+  <tag k="addr:street" v="Calle de Lope de Vega" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2024-10-11" />
+  <tag k="name" v="Yantar" />
+  <tag k="old_name" v="Lope de Vega" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="5652367746" visible="true" version="2" timestamp="2025-10-10T15:30:14Z" lat="40.4129125" lon="-3.6900263">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="9" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle Espalter" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="facebook" v="https://www.facebook.com/expressiocafe/" />
+  <tag k="name" v="Expressio Café Restaurante" />
+  <tag k="website" v="https://expressiocafe.com/" />
+ </node>
+ <node id="5824598953" visible="true" version="6" timestamp="2025-10-10T15:30:16Z" lat="40.4136197" lon="-3.6968191">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="20" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Lope de Vega" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2024-10-11" />
+  <tag k="name" v="Lev" />
+  <tag k="old_name" v="Gribok" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="6311521190" visible="true" version="1" timestamp="2019-03-01T19:59:18Z" lat="40.4126738" lon="-3.6963353">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="42" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Santa María" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="Taberna de la Elisa" />
+ </node>
+ <node id="6376894385" visible="true" version="7" timestamp="2025-12-04T20:47:12Z" lat="40.4134718" lon="-3.6957067">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="2" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Jesús" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-13" />
+  <tag k="internet_access" v="wlan" />
+  <tag k="name" v="El Gallo Canta" />
+  <tag k="phone" v="+34 914 29 27 62" />
+  <tag k="survey:date" v="2022-07-23" />
+  <tag k="wheelchair" v="limited" />
+ </node>
+ <node id="6504527355" visible="true" version="5" timestamp="2024-10-11T09:39:53Z" lat="40.4137702" lon="-3.6969025">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="25" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Lope de Vega" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2024-10-11" />
+  <tag k="cuisine" v="regional" />
+  <tag k="internet_access" v="wlan" />
+  <tag k="name" v="Mariano" />
+  <tag k="opening_hours" v="Mo-Sa 10:00-18:00,20:30-01:30" />
+  <tag k="phone" v="+34 914292993" />
+  <tag k="survey:date" v="2022-07-23" />
+  <tag k="website" v="https://www.tabernamariano.com/" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="6945347197" visible="true" version="3" timestamp="2023-11-10T13:29:05Z" lat="40.4178989" lon="-3.6962530">
+  <tag k="addr:housenumber" v="4" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle del Marqués de Casa Riera" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="cuisine" v="mediterranean" />
+  <tag k="name" v="Casa Suecia" />
+  <tag k="phone" v="+34 910 51 35 92" />
+  <tag k="website" v="https://casasuecia.es/es/inicio/" />
+ </node>
+ <node id="7088183338" visible="true" version="6" timestamp="2025-10-10T15:30:31Z" lat="40.4126966" lon="-3.6960121">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="39" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Santa María" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="cuisine" v="italian" />
+  <tag k="name" v="Tandem" />
+  <tag k="phone" v="+34 910 16 80 67" />
+  <tag k="website" v="https://eltriciclo.es/tandem/" />
+ </node>
+ <node id="7207638721" visible="true" version="1" timestamp="2020-02-13T07:07:31Z" lat="40.4165388" lon="-3.6957605">
+  <tag k="amenity" v="restaurant" />
+  <tag k="email" v="paradis_madrid@paradis.es" />
+  <tag k="name" v="Paradis Madrid" />
+  <tag k="phone" v="+34 914 29 7303" />
+  <tag k="website" v="https://paradismadrid.es/" />
+ </node>
+ <node id="8414730489" visible="true" version="2" timestamp="2025-04-21T19:55:29Z" lat="40.4142750" lon="-3.6968598">
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-13" />
+  <tag k="name" v="El Barril de las Letras" />
+  <tag k="website" v="https://barrildelasletras.com/" />
+  <tag k="wheelchair" v="limited" />
+ </node>
+ <node id="8725878217" visible="true" version="6" timestamp="2025-10-10T15:30:39Z" lat="40.4132413" lon="-3.6965549">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="55" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de las Huertas" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-13" />
+  <tag k="cuisine" v="spanish" />
+  <tag k="name" v="Lola Si Mola" />
+  <tag k="website" v="https://lolasimola.com/" />
+ </node>
+ <node id="8830144167" visible="true" version="3" timestamp="2025-11-26T04:13:35Z" lat="40.4172352" lon="-3.6895976">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="14" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle Juan de Mena" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="Viridiana" />
+ </node>
+ <node id="9724478123" visible="true" version="2" timestamp="2026-08-17T01:23:29Z" lat="40.4126390" lon="-3.6956978">
+  <tag k="amenity" v="restaurant" />
+  <tag k="cuisine" v="italian" />
+  <tag k="level" v="0" />
+  <tag k="name" v="La Diez" />
+  <tag k="old_name" v="Peggy Sue's;Skyline Diner" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="9905746218" visible="true" version="2" timestamp="2022-11-01T00:07:40Z" lat="40.4141175" lon="-3.6968621">
+  <tag k="amenity" v="restaurant" />
+  <tag k="cuisine" v="barbecue" />
+  <tag k="name" v="Parrilla El Barril" />
+  <tag k="survey:date" v="2022-07-23" />
+ </node>
+ <node id="9906568017" visible="true" version="3" timestamp="2024-08-22T09:42:09Z" lat="40.4103892" lon="-3.6946942">
+  <tag k="addr:housenumber" v="111" />
+  <tag k="addr:street" v="Calle de Atocha" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2024-08-22" />
+  <tag k="name" v="Jinode" />
+  <tag k="ref" v="33" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="10187203244" visible="true" version="3" timestamp="2025-02-13T19:48:46Z" lat="40.4146260" lon="-3.6968173">
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-13" />
+  <tag k="name" v="Can Punyetes" />
+  <tag k="opening_hours" v="Mo-Su 13:00-16:00; Mo-Sa 20:00-23:00" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="10273282138" visible="true" version="2" timestamp="2025-04-28T10:25:58Z" lat="40.4128773" lon="-3.6950964">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="74" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de las Huertas" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-04-28" />
+  <tag k="contact:facebook" v="https://www.facebook.com/losrotosmadrid/" />
+  <tag k="cuisine" v="regional" />
+  <tag k="email" v="losrotosmadrid@yahoo.es" />
+  <tag k="name" v="Los Rotos" />
+  <tag k="opening_hours" v="Mo-Th 09:00-00:00; Fr 09:00-01:00; Sa 10:00-01:00; Su 10:00-00:00" />
+  <tag k="phone" v="+34 914 29 33 52" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="10816444204" visible="true" version="1" timestamp="2023-04-16T15:27:24Z" lat="40.4137066" lon="-3.6979640">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="14" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Lope de Vega" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="La Buena Guarda" />
+ </node>
+ <node id="10816471406" visible="true" version="2" timestamp="2026-02-10T22:18:20Z" lat="40.4138720" lon="-3.6981849">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="9" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Lope de Vega" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="Gofio" />
+ </node>
+ <node id="10821328405" visible="true" version="2" timestamp="2024-09-10T09:28:34Z" lat="40.4106912" lon="-3.6947928">
+  <tag k="addr:housenumber" v="2" />
+  <tag k="addr:street" v="Calle de San Blas" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2024-09-10" />
+  <tag k="cuisine" v="fish;steak_house" />
+  <tag k="name" v="Bodega de los Secretos" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="11466679869" visible="true" version="1" timestamp="2023-12-29T19:44:00Z" lat="40.4130381" lon="-3.6975047">
+  <tag k="amenity" v="restaurant" />
+  <tag k="cuisine" v="peruvian" />
+  <tag k="name" v="Tambo" />
+ </node>
+ <node id="11989861062" visible="true" version="6" timestamp="2026-06-08T11:36:20Z" lat="40.4103433" lon="-3.6928276">
+  <tag k="addr:housenumber" v="42" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Paseo del Prado" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2026-06-08" />
+  <tag k="check_date:opening_hours" v="2026-06-08" />
+  <tag k="cuisine" v="japanese" />
+  <tag k="email" v="marketing@ramenshifu.com" />
+  <tag k="name" v="Ramen Shifu" />
+  <tag k="opening_hours" v="Mo-Th 12:30-23:15, Fr,Sa 12:30-24:00, Su 12:30-23:15" />
+  <tag k="outdoor_seating" v="no" />
+  <tag k="phone" v="+34910233630" />
+  <tag k="website" v="https://www.ramenshifu.com" />
+  <tag k="website:menu" v="https://www.ramenshifu.com/ramen-shifu-atocha/#carta" />
+ </node>
+ <node id="12167755757" visible="true" version="1" timestamp="2024-09-10T09:28:34Z" lat="40.4106458" lon="-3.6946511">
+  <tag k="addr:housenumber" v="2" />
+  <tag k="addr:street" v="Calle de San Blas" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2024-09-10" />
+  <tag k="name" v="Yugo The Bunker" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="12309738622" visible="true" version="2" timestamp="2024-11-03T16:32:54Z" lat="40.4134972" lon="-3.6906501">
+  <tag k="amenity" v="restaurant" />
+  <tag k="indoor_seating" v="yes" />
+  <tag k="name" v="Un sabor excepcional" />
+  <tag k="outdoor_seating" v="no" />
+ </node>
+ <node id="12556258429" visible="true" version="1" timestamp="2025-02-04T11:14:24Z" lat="40.4159377" lon="-3.6958879">
+  <tag k="addr:housenumber" v="3" />
+  <tag k="addr:street" v="Plaza de las Cortes" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-04" />
+  <tag k="cuisine" v="japanese" />
+  <tag k="name" v="Ginza" />
+  <tag k="wheelchair" v="no" />
+ </node>
+ <node id="12556258442" visible="true" version="1" timestamp="2025-02-04T11:14:24Z" lat="40.4158182" lon="-3.6955273">
+  <tag k="addr:housenumber" v="4" />
+  <tag k="addr:street" v="Plaza de las Cortes" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-04" />
+  <tag k="name" v="La Mafia" />
+  <tag k="wheelchair" v="limited" />
+ </node>
+ <node id="12585946374" visible="true" version="1" timestamp="2025-02-13T19:48:46Z" lat="40.4132634" lon="-3.6966921">
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2025-02-13" />
+  <tag k="cuisine" v="indian" />
+  <tag k="name" v="Masala Darbar" />
+  <tag k="wheelchair" v="limited" />
+ </node>
+ <node id="13231613801" visible="true" version="3" timestamp="2025-10-30T19:08:04Z" lat="40.4167877" lon="-3.6975825">
+  <tag k="addr:housenumber" v="7" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Zorrilla" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="branch" v="Zorrilla" />
+  <tag k="cuisine" v="spanish" />
+  <tag k="name" v="Restaurante La Ancha" />
+  <tag k="opening_hours" v="Mo-Th 13:30-16:00, 20:30-23:30; Fr-Sa 13:00-16:00, 20:30-00:00" />
+  <tag k="phone" v="+34 914 29 81 74" />
+  <tag k="website" v="https://www.laancha.com/" />
+ </node>
+ <node id="13598056984" visible="true" version="1" timestamp="2026-02-25T13:05:59Z" lat="40.4124057" lon="-3.6970554">
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="19" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Moratín" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="check_date" v="2024-12-24" />
+  <tag k="contact:facebook" v="https://es-es.facebook.com/cacaorestobar/" />
+  <tag k="contact:phone" v="+34 654 92 10 43" />
+  <tag k="level" v="0" />
+  <tag k="name" v="Cacao" />
+ </node>
+ <node id="13807156830" visible="true" version="1" timestamp="2026-05-07T21:27:57Z" lat="40.4168615" lon="-3.6963798">
+  <tag k="air_conditioning" v="yes" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="bar" v="yes" />
+  <tag k="branch" v="Zorrilla" />
+  <tag k="cuisine" v="mediterranean" />
+  <tag k="email" v="zorrilla19@elpimientoverde.com" />
+  <tag k="name" v="El Pimiento Verde" />
+  <tag k="opening_hours" v="Mo-Su 07:00-24:00" />
+  <tag k="phone" v="+34 913 304 704" />
+  <tag k="website" v="https://elpimientoverde.com/zorrilla/" />
+  <tag k="website:menu" v="https://elpimientoverde.com/carta/" />
+  <tag k="wheelchair" v="yes" />
+ </node>
+ <node id="13912114705" visible="true" version="1" timestamp="2026-06-05T11:36:57Z" lat="40.4133374" lon="-3.6957028">
+  <tag k="amenity" v="restaurant" />
+  <tag k="name" v="La Menina" />
+ </node>
+ <way id="4349012" visible="true" version="8" timestamp="2026-03-19T10:37:26Z">
+  <nd ref="26487761" />
+  <nd ref="26487762" />
+  <nd ref="1209331196" />
+  <nd ref="26487763" />
+  <nd ref="1416249550" />
+  <nd ref="1416249542" />
+  <nd ref="1416249540" />
+  <nd ref="26487764" />
+  <nd ref="317743518" />
+  <nd ref="1209331666" />
+  <nd ref="12450892314" />
+  <nd ref="12450892311" />
+  <nd ref="12450892310" />
+  <nd ref="12450892312" />
+  <nd ref="12450892313" />
+  <nd ref="1416249565" />
+  <nd ref="26487765" />
+  <nd ref="12512054304" />
+  <nd ref="26487766" />
+  <nd ref="26487758" />
+  <nd ref="12512054305" />
+  <nd ref="12512054306" />
+  <nd ref="12512054307" />
+  <nd ref="12512054308" />
+  <nd ref="1522690034" />
+  <nd ref="26487760" />
+  <nd ref="26487761" />
+  <tag k="leisure" v="park" />
+  <tag k="name" v="Parque Infantil Paseo del prado" />
+ </way>
+ <way id="29489645" visible="true" version="9" timestamp="2025-11-28T08:16:07Z">
+  <nd ref="325077177" />
+  <nd ref="325077178" />
+  <nd ref="1209331839" />
+  <nd ref="1209330493" />
+  <nd ref="325077179" />
+  <nd ref="12512054248" />
+  <nd ref="12512054249" />
+  <nd ref="325077181" />
+  <nd ref="12512054250" />
+  <nd ref="12512054251" />
+  <nd ref="12512054252" />
+  <nd ref="325077183" />
+  <nd ref="12512054253" />
+  <nd ref="325077184" />
+  <nd ref="12512054254" />
+  <nd ref="12512054255" />
+  <nd ref="325077185" />
+  <nd ref="12512054256" />
+  <nd ref="12512054257" />
+  <nd ref="12512054258" />
+  <nd ref="325077187" />
+  <nd ref="12512054259" />
+  <nd ref="12512054260" />
+  <nd ref="12512054261" />
+  <nd ref="12512054262" />
+  <nd ref="325077188" />
+  <nd ref="12512054266" />
+  <nd ref="12512054267" />
+  <nd ref="12512054268" />
+  <nd ref="12512054265" />
+  <nd ref="325077190" />
+  <nd ref="12512054264" />
+  <nd ref="12512054263" />
+  <nd ref="325077191" />
+  <nd ref="325077177" />
+  <tag k="leisure" v="park" />
+  <tag k="name" v="Plaza de la Lealtad" />
+  <tag k="wikidata" v="Q6080203" />
+  <tag k="wikimedia_commons" v="Category:Plaza de la Lealtad, Madrid" />
+  <tag k="wikipedia" v="es:Plaza de la Lealtad" />
+ </way>
+ <way id="85817355" visible="true" version="15" timestamp="2025-11-28T08:16:07Z">
+  <nd ref="996183562" />
+  <nd ref="996183886" />
+  <nd ref="996184042" />
+  <nd ref="996183534" />
+  <nd ref="9873090128" />
+  <nd ref="6585911838" />
+  <nd ref="996183932" />
+  <nd ref="996184145" />
+  <nd ref="996183660" />
+  <nd ref="996183972" />
+  <nd ref="996184181" />
+  <nd ref="996183801" />
+  <nd ref="996183996" />
+  <nd ref="996184205" />
+  <nd ref="996183562" />
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="28" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Alfonso XII" />
+  <tag k="addr:suburb" v="Los Jerónimos" />
+  <tag k="building" v="civic" />
+  <tag k="description" v="Edificio que forma parte del Museo Nacional del Prado, donde pueden consultarse fondos de la Biblioteca, del Archivo y del Servicio de Documentación de la colección del Museo y de otras fuentes relativas a la historia del arte." />
+  <tag k="email" v="biblioteca@museodelprado.es" />
+  <tag k="name" v="Casón del Buen Retiro" />
+  <tag k="name:etymology:wikidata" v="Q3321174" />
+  <tag k="opening_hours" v="Mo-Th 09:00-15:00; Fr 09:00-14:30; Mo 15:00-18:00; We 15:00-18:00; Jun 16-Sep 15: Mo-Fr 09:00-14:30; PH off" />
+  <tag k="phone" v="+34 902 10 70 77" />
+  <tag k="ref:bic" v="RI-MU-0000001" />
+  <tag k="source" v="Ayuntamiento de Madrid" />
+  <tag k="tourism" v="museum" />
+  <tag k="url" v="http://www.madrid.es/vgn-ext-templating/v/index.jsp?vgnextchannel=9e4c43db40317010VgnVCM100000dc0ca8c0RCRD&amp;vgnextoid=f0443d0b5e71c010VgnVCM1000000b205a0aRCRD" />
+  <tag k="wheelchair" v="no" />
+  <tag k="wikidata" v="Q3321174" />
+  <tag k="wikimedia_commons" v="Category:Casón del Buen Retiro" />
+  <tag k="wikipedia" v="es:Casón del Buen Retiro" />
+ </way>
+ <way id="219016719" visible="true" version="13" timestamp="2025-10-10T17:07:30Z">
+  <nd ref="3149717351" />
+  <nd ref="2282214504" />
+  <nd ref="2282214505" />
+  <nd ref="2282214512" />
+  <nd ref="2282214511" />
+  <nd ref="4481585642" />
+  <nd ref="2282214510" />
+  <nd ref="2282214508" />
+  <nd ref="2282214500" />
+  <nd ref="2282214501" />
+  <nd ref="2282214507" />
+  <nd ref="2282214506" />
+  <nd ref="2282214503" />
+  <nd ref="3149717351" />
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="15" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de la Alameda" />
+  <tag k="amenity" v="arts_centre" />
+  <tag k="building" v="public" />
+  <tag k="layer" v="-1" />
+  <tag k="location" v="surface" />
+  <tag k="name" v="Espacio Cultural Serrería Belga" />
+  <tag k="name:etymology:wikidata" v="Q42912700" />
+  <tag k="old_name" v="Medialab-Prado" />
+  <tag k="phone" v="+34 91 5787758" />
+  <tag k="tourism" v="museum" />
+  <tag k="was:leisure" v="hackerspace" />
+  <tag k="was:wikidata" v="Q6008551" />
+  <tag k="wheelchair" v="yes" />
+  <tag k="wikidata" v="Q42912700" />
+  <tag k="wikipedia" v="es:Serrería Belga (Madrid)" />
+ </way>
+ <way id="286816147" visible="true" version="14" timestamp="2025-11-28T08:16:07Z">
+  <nd ref="2250394440" />
+  <nd ref="2904920358" />
+  <nd ref="2904920359" />
+  <nd ref="2904920356" />
+  <nd ref="2250394440" />
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="36" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Paseo del Prado" />
+  <tag k="building" v="civic" />
+  <tag k="description" v="Exposiciones temporales, Jardín vertical" />
+  <tag k="fee" v="yes" />
+  <tag k="museum" v="art" />
+  <tag k="name" v="CaixaForum Madrid" />
+  <tag k="name:es" v="CaixaForum Madrid" />
+  <tag k="name:etymology:wikidata" v="Q1026041" />
+  <tag k="name:ko" v="카익사포룸 마드리드" />
+  <tag k="name:zh" v="36'卡伊莎中心，免费" />
+  <tag k="opening_hours" v="Mo-Su 10:00-20:00" />
+  <tag k="operator" v="Caixa" />
+  <tag k="source" v="PNOA" />
+  <tag k="source:date" v="2009" />
+  <tag k="tourism" v="museum" />
+  <tag k="website" v="https://fundacionlacaixa.org/es/caixaforum-madrid" />
+  <tag k="wheelchair" v="yes" />
+  <tag k="wikidata" v="Q1026041" />
+  <tag k="wikimedia_commons" v="Category:CaixaForum Madrid" />
+  <tag k="wikipedia" v="es:CaixaForum Madrid" />
+ </way>
+ <way id="292649859" visible="true" version="28" timestamp="2026-07-27T16:15:06Z">
+  <nd ref="1278336630" />
+  <nd ref="6557030339" />
+  <nd ref="2961839624" />
+  <nd ref="2961839619" />
+  <nd ref="2961839620" />
+  <nd ref="2961839742" />
+  <nd ref="2961839798" />
+  <nd ref="2961839804" />
+  <nd ref="2961839803" />
+  <nd ref="2961839862" />
+  <nd ref="2961839860" />
+  <nd ref="2961839839" />
+  <nd ref="2961839838" />
+  <nd ref="2961839802" />
+  <nd ref="2961839801" />
+  <nd ref="2961839857" />
+  <nd ref="2961839854" />
+  <nd ref="2961839853" />
+  <nd ref="2961839799" />
+  <nd ref="2961839797" />
+  <nd ref="2961839846" />
+  <nd ref="2961839845" />
+  <nd ref="1278336630" />
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="3" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Paseo del Prado" />
+  <tag k="addr:suburb" v="Los Jeronimos" />
+  <tag k="air_conditioning" v="yes" />
+  <tag k="alt_name" v="Museo Naval" />
+  <tag k="building" v="civic" />
+  <tag k="check_date" v="2026-07-27" />
+  <tag k="contact:facebook" v="FundacionMuseoNaval" />
+  <tag k="contact:instagram" v="museo_naval" />
+  <tag k="contact:twitter" v="Museo_Naval" />
+  <tag k="description" v="Temática: historia de la navegación española Historical museum of the Spanish navy and maritime exploration. Includes a map from 1500 showing America for the first time." />
+  <tag k="email" v="ohculturanaval@fn.mde.es" />
+  <tag k="fax" v="+34 913795056" />
+  <tag k="fee" v="donation 3 Euros" />
+  <tag k="name" v="Museo Naval de Madrid" />
+  <tag k="name:en" v="Naval Museum of Madrid" />
+  <tag k="name:es" v="Museo Naval de Madrid" />
+  <tag k="name:etymology:wikidata" v="Q1815235" />
+  <tag k="name:ru" v="Морской музей" />
+  <tag k="opening_hours" v="Tu-Su 10:00-19:00; Mo,PH off; Jan 01,06,Dec 24,25,31: off" />
+  <tag k="phone" v="+34 915238516" />
+  <tag k="source" v="Ayuntamiento de Madrid" />
+  <tag k="source:addr" v="Ayuntamiento de Madrid" />
+  <tag k="source:description" v="Ayuntamiento de Madrid" />
+  <tag k="source:email" v="Ayuntamiento de Madrid" />
+  <tag k="source:fax" v="Ayuntamiento de Madrid" />
+  <tag k="source:opening_hours" v="Ayuntamiento de Madrid" />
+  <tag k="source:phone" v="Ayuntamiento de Madrid and phone survey" />
+  <tag k="source:url" v="Ayuntamiento de Madrid" />
+  <tag k="source:wheelchair" v="Ayuntamiento de Madrid" />
+  <tag k="toilets" v="yes" />
+  <tag k="toilets:wheelchair" v="yes" />
+  <tag k="tourism" v="museum" />
+  <tag k="url" v="http://www.armada.mde.es/museonaval/" />
+  <tag k="wheelchair" v="yes" />
+  <tag k="wikidata" v="Q1815235" />
+  <tag k="wikimedia_commons" v="Category:Museo Naval, Madrid" />
+  <tag k="wikipedia" v="es:Museo Naval (Madrid)" />
+ </way>
+ <way id="319609029" visible="true" version="19" timestamp="2025-11-28T08:16:07Z">
+  <nd ref="8090558617" />
+  <nd ref="3260400148" />
+  <nd ref="3260400121" />
+  <nd ref="3260400123" />
+  <nd ref="8090558618" />
+  <nd ref="8090558617" />
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="11" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Cervantes" />
+  <tag k="addr:suburb" v="Cortes" />
+  <tag k="building" v="civic" />
+  <tag k="check_date" v="2025-02-13" />
+  <tag k="description" v="Situada en pleno centro histórico se ubica en el edificio donde el escritor vivió sus últimos 25 años. La recreación de ambientes evoca la vida cotidiana del Siglo de Oro y nos acerca a su intimidad." />
+  <tag k="email" v="casamuseolopedevega@madrid.org" />
+  <tag k="fax" v="+34 914292601" />
+  <tag k="fee" v="no" />
+  <tag k="name" v="Casa Museo Lope de Vega" />
+  <tag k="name:es" v="Casa Museo Lope de Vega" />
+  <tag k="name:zh" v="洛佩-德-维加故居，免费" />
+  <tag k="opening_hours" v="Tu-Su 10:00-18:00" />
+  <tag k="phone" v="+34 914299216" />
+  <tag k="source" v="Ayuntamiento de Madrid" />
+  <tag k="tourism" v="museum" />
+  <tag k="url" v="http://www.madrid.es/vgn-ext-templating/v/index.jsp?vgnextchannel=9e4c43db40317010VgnVCM100000dc0ca8c0RCRD&amp;vgnextoid=4eff8c46145e8110VgnVCM2000000c205a0aRCRD" />
+  <tag k="wheelchair" v="no" />
+  <tag k="wikidata" v="Q948580" />
+  <tag k="wikimedia_commons" v="Category:Casa-Museo de Lope de Vega" />
+  <tag k="wikipedia" v="es:Casa-Museo de Lope de Vega" />
+ </way>
+ <way id="681503976" visible="true" version="3" timestamp="2021-01-16T21:47:25Z">
+  <nd ref="6382139656" />
+  <nd ref="2961951488" />
+  <nd ref="2961951489" />
+  <nd ref="2961951503" />
+  <nd ref="2961951502" />
+  <nd ref="2961951498" />
+  <nd ref="6382139656" />
+  <tag k="addr:housenumber" v="7" />
+  <tag k="addr:street" v="Calle de Jesús" />
+  <tag k="amenity" v="restaurant" />
+  <tag k="level" v="0" />
+  <tag k="name" v="Maceira" />
+ </way>
+ <relation id="1869336" visible="true" version="8" timestamp="2025-03-01T06:49:07Z">
+  <member type="way" ref="112478171" role="outer" />
+  <member type="way" ref="112478119" role="outer" />
+  <member type="way" ref="138884807" role="outer" />
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="8" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Paseo del Prado" />
+  <tag k="air_conditioning" v="yes" />
+  <tag k="alt_name" v="Museo Thyssen" />
+  <tag k="check_date" v="2025-02-27" />
+  <tag k="description" v="El Palacio donde se ubica la colección fue el antiguo palacio del duque de Villahermosa. Edificación neoclásica. El museo ofrece un recorrido por la historia de la pintura europea desde sus inicios en el siglo XIII , hasta finales del siglo XX." />
+  <tag k="email" v="mtb@museothyssen.org" />
+  <tag k="fax" v="+34 914202780" />
+  <tag k="internet_access" v="wlan" />
+  <tag k="internet_access:fee" v="no" />
+  <tag k="internet_access:ssid" v="Museo Thyssen Free" />
+  <tag k="museum" v="art" />
+  <tag k="name" v="Museo Thyssen-Bornemisza" />
+  <tag k="name:etymology:wikidata" v="Q176251" />
+  <tag k="name:ko" v="티센 보르네미사 미술관" />
+  <tag k="opening_hours" v="Tu-Su 10:00-19:00; Mo 12:00-16:00" />
+  <tag k="operator" v="Fundación-Colección Thyssen-Bornemisza" />
+  <tag k="payment:cash" v="yes" />
+  <tag k="payment:credit_cards" v="yes" />
+  <tag k="payment:debit_cards" v="yes" />
+  <tag k="phone" v="+34 902760511" />
+  <tag k="source" v="survey" />
+  <tag k="source:description" v="Ayuntamiento de Madrid" />
+  <tag k="source:email" v="Ayuntamiento de Madrid" />
+  <tag k="source:fax" v="Ayuntamiento de Madrid" />
+  <tag k="source:name" v="common knowledge" />
+  <tag k="source:phone" v="Ayuntamiento de Madrid" />
+  <tag k="toilets" v="yes" />
+  <tag k="toilets:wheelchair" v="yes" />
+  <tag k="tourism" v="museum" />
+  <tag k="type" v="multipolygon" />
+  <tag k="website" v="https://www.museothyssen.org/" />
+  <tag k="wheelchair" v="yes" />
+  <tag k="wheelchair:description" v="wheelchair toilet" />
+  <tag k="wikidata" v="Q176251" />
+  <tag k="wikipedia" v="es:Museo Thyssen-Bornemisza" />
+ </relation>
+ <relation id="7726080" visible="true" version="28" timestamp="2025-10-15T16:29:44Z">
+  <member type="way" ref="1394942414" role="outer" />
+  <member type="way" ref="85518599" role="outer" />
+  <member type="way" ref="158854572" role="outer" />
+  <member type="way" ref="158854571" role="outer" />
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Paseo del Prado" />
+  <tag k="addr:suburb" v="Los Jerónimos" />
+  <tag k="air_conditioning" v="yes" />
+  <tag k="alt_name" v="el Prado" />
+  <tag k="check_date" v="2024-03-09" />
+  <tag k="description" v="Construido inicialmente como Museo de Ciencias Naturales, este edificio neoclásico fue transformado en pinacoteca de las Colecciones Reales en 1818 con colecciones de pintura, dibujos, grabados, monedas y medallas desde el Románico hasta el siglo XIX." />
+  <tag k="fee" v="15€. 2h before closing free." />
+  <tag k="internet_access" v="no" />
+  <tag k="museum" v="art" />
+  <tag k="name" v="Museo del Prado" />
+  <tag k="name:en" v="Prado Museum" />
+  <tag k="name:etymology:wikidata" v="Q160112" />
+  <tag k="name:it" v="Museo del Prado" />
+  <tag k="name:ja" v="プラド美術館" />
+  <tag k="name:ko" v="프라도 국립미술관" />
+  <tag k="name:pt" v="Museu do Prado" />
+  <tag k="name:ru" v="музей Прадо" />
+  <tag k="name:zh" v="普拉多美術館" />
+  <tag k="name:zh-Hans" v="普拉多博物馆" />
+  <tag k="nohousenumber" v="yes" />
+  <tag k="official_name" v="Museo Nacional de El Prado" />
+  <tag k="opening_hours" v="Mo-Sa 10:00-20:00; Su 10:00-19:00" />
+  <tag k="payment:cash" v="yes" />
+  <tag k="payment:credit_cards" v="yes" />
+  <tag k="payment:debit_cards" v="yes" />
+  <tag k="phone" v="+34 913302800" />
+  <tag k="source" v="Ayuntamiento de Madrid" />
+  <tag k="toilets" v="yes" />
+  <tag k="toilets:wheelchair" v="yes" />
+  <tag k="tourism" v="museum" />
+  <tag k="type" v="multipolygon" />
+  <tag k="url" v="https://www.madrid.es/vgn-ext-templating/v/index.jsp?vgnextchannel=9e4c43db40317010VgnVCM100000dc0ca8c0RCRD&amp;vgnextoid=060079262ef5d010VgnVCM1000000b205a0aRCRD" />
+  <tag k="website" v="https://www.museodelprado.es/" />
+  <tag k="wheelchair" v="yes" />
+  <tag k="wheelchair:description" v="wheelchair toilet" />
+  <tag k="wikidata" v="Q160112" />
+  <tag k="wikipedia" v="es:Museo del Prado" />
+ </relation>
+ <relation id="8278843" visible="true" version="18" timestamp="2025-11-23T09:25:13Z">
+  <member type="way" ref="292649870" role="outer" />
+  <member type="way" ref="292649875" role="inner" />
+  <tag k="addr:city" v="Madrid" />
+  <tag k="addr:housenumber" v="12" />
+  <tag k="addr:postcode" v="28014" />
+  <tag k="addr:street" v="Calle de Montalbán" />
+  <tag k="addr:suburb" v="Los Jerónimos" />
+  <tag k="building" v="civic" />
+  <tag k="description" v="Inaugurado en 1912, su sede es un típico palacete madrileño del último tercio del siglo XIX. El museo posee muebles, cerámicas, vidrios, joyas, tejidos, arte oriental, y hasta 30.000 objetos distintos." />
+  <tag k="fax" v="+34 915232086" />
+  <tag k="fee" v="yes" />
+  <tag k="name" v="Museo Nacional de Artes Decorativas" />
+  <tag k="name:etymology:wikidata" v="Q5361303" />
+  <tag k="name:ru" v="Национальный музей декоративного искусства" />
+  <tag k="opening_hours" v="Tu-We, Fr-Sa 09:30-15:00; Su 10:00-15:00; Th 09:30-15:00, 17:00-20:00" />
+  <tag k="operator" v="Ministerio de Educación, Cultura y Deporte" />
+  <tag k="operator:type" v="government" />
+  <tag k="phone" v="+34 915 32 64 99" />
+  <tag k="source" v="Ayuntamiento de Madrid" />
+  <tag k="source:url" v="https://www.madrid.es" />
+  <tag k="tourism" v="museum" />
+  <tag k="type" v="multipolygon" />
+  <tag k="url" v="https://www.madrid.es/vgn-ext-templating/v/index.jsp?vgnextchannel=9e4c43db40317010VgnVCM100000dc0ca8c0RCRD&amp;vgnextoid=287079262ef5d010VgnVCM1000000b205a0aRCRD" />
+  <tag k="wheelchair" v="no" />
+  <tag k="wikidata" v="Q5361303" />
+  <tag k="wikipedia" v="es:Museo Nacional de Artes Decorativas" />
+ </relation>
+ <relation id="13616929" visible="true" version="10" timestamp="2024-01-27T23:28:13Z">
+  <member type="way" ref="1016916643" role="outer" />
+  <member type="way" ref="818512613" role="outer" />
+  <member type="way" ref="4088755" role="outer" />
+  <member type="way" ref="1016916653" role="outer" />
+  <member type="way" ref="1016916644" role="outer" />
+  <tag k="access" v="yes" />
+  <tag k="alt_name" v="Parque del Buen Retiro" />
+  <tag k="barrier" v="fence" />
+  <tag k="leisure" v="park" />
+  <tag k="loc_name" v="El Retiro" />
+  <tag k="name" v="Parque del Retiro" />
+  <tag k="name:ca" v="Parc del Retiro" />
+  <tag k="name:en" v="El Retiro Park" />
+  <tag k="name:es" v="Parque del Retiro" />
+  <tag k="name:etymology:wikidata" v="Q1131807" />
+  <tag k="name:it" v="Parco del Retiro" />
+  <tag k="name:ko" v="레티로 공원" />
+  <tag k="name:pl" v="Park Retiro" />
+  <tag k="name:ru" v="Буэн-Ретиро" />
+  <tag k="opening_hours" v="Oct-Mar: 06:00-22:00; Apr-Sep: 06:00-24:00" />
+  <tag k="source:opening_hours" v="survey" />
+  <tag k="type" v="multipolygon" />
+  <tag k="wikidata" v="Q1131807" />
+  <tag k="wikipedia" v="es:Parque del Retiro de Madrid" />
+ </relation>
+ </osm>

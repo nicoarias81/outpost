@@ -2,6 +2,14 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## 0.13.0 — Offline place answers — 2026-09-30
+
+- Adds exact name/alias lookup, recorded-locality category search and computed proximity around named references, with radius units, stable top-five ordering and per-place sources.
+- Answers bounded place questions directly in chat without a generator; retains clarification/follow-up, missing-coordinate, conflicting-snapshot, cancellation and scan-limit behavior.
+- Adds 63 emulator checks with synthetic edge cases and a frozen prepared public OSM subset; preserves existing import/chat/data regressions. No maps, navigation or location permission added.
+- Fixes full-ABI manifest validation, records six fault-injection controls and introduces v6 without changing frozen manifests/runs. Native kernels and general chat prompt unchanged in this feature release.
+- [Validation](docs/validation-0.13.md) records exact artifacts and measured scope.
+
 ## OSM place-query scope clarification — 2026-09-30
 
 - Clarifies OSM as imported place knowledge for chat: named parks, restaurants around a reference place, museums and other categories.

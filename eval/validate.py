@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Host-only validator for eval/fixtures-v5.json.
+"""Host-only validator for eval/fixtures-v6.json.
 
 Run from the repository root as:  python eval/validate.py
 
@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-MANIFEST_PATH = ROOT / "eval" / "fixtures-v5.json"
+MANIFEST_PATH = ROOT / "eval" / "fixtures-v6.json"
 LIBRARY_PATH = ROOT / "app" / "src" / "androidTest" / "assets" / "library.json"
 MODEL_LOCK_PATH = ROOT / "model-lock.json"
 BONSAI_LOCK_PATH = ROOT / "bonsai-lock.json"
@@ -612,17 +612,20 @@ def check_11_gradle_identity(manifest, gradle_text):
         ("compileSdk", app.get("compileSdk"), gradle_int("compileSdk")),
     ]
     abi_filters = app.get("abiFilters")
-    gradle_abi = gradle_string("abiFilters")
+    abi_declaration = re.search(r"\babiFilters\s+([^}\r\n]+)", gradle_text)
+    gradle_abis = re.findall(r"[\"']([^\"']+)[\"']", abi_declaration.group(1)) if abi_declaration else []
     for name, declared, found in comparisons:
         if found is None:
             problem("check 11: could not find %s in app/build.gradle" % name)
         elif declared != found:
             problem("check 11: manifest %s %r != app/build.gradle %r" % (name, declared, found))
-    if gradle_abi is None:
+    if not gradle_abis:
         problem("check 11: could not find abiFilters in app/build.gradle")
-    elif abi_filters != [gradle_abi]:
+    elif (not isinstance(abi_filters, list) or any(not isinstance(abi,str) for abi in abi_filters)
+          or len(set(abi_filters)) != len(abi_filters)
+          or set(abi_filters) != set(gradle_abis)):
         problem("check 11: manifest abiFilters %r != app/build.gradle abiFilters %r"
-                % (abi_filters, gradle_abi))
+                % (abi_filters, gradle_abis))
 
 
 def check_12_observed_assessments(manifest):
@@ -726,7 +729,7 @@ def main():
     global MANIFEST_PATH
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--manifest", default="eval/fixtures-v5.json")
+    parser.add_argument("--manifest", default="eval/fixtures-v6.json")
     args = parser.parse_args()
     MANIFEST_PATH = ROOT / args.manifest
     manifest = load_json(MANIFEST_PATH, str(MANIFEST_PATH.relative_to(ROOT)))
@@ -771,7 +774,7 @@ def main():
     check_network_permission_claim(manifest, android_manifest_text)
 
     if PROBLEMS:
-        print("FAILED: eval/fixtures-v5.json has %d problem(s):" % len(PROBLEMS))
+        print("FAILED: eval/fixtures-v6.json has %d problem(s):" % len(PROBLEMS))
         for index, message in enumerate(PROBLEMS, start=1):
             print("%3d. %s" % (index, message))
         for message in WARNINGS:
@@ -782,7 +785,7 @@ def main():
     tier_counts = {}
     for fixture in fixtures:
         tier_counts[fixture.get("tier")] = tier_counts.get(fixture.get("tier"), 0) + 1
-    print("OK: eval/fixtures-v5.json is internally consistent with the pinned lock files "
+    print("OK: eval/fixtures-v6.json is internally consistent with the pinned lock files "
           "and application sources.")
     print("Fixtures: %d total (%s)" % (len(fixtures), ", ".join(
         "%s: %d" % (tier, tier_counts[tier]) for tier in sorted(tier_counts))))

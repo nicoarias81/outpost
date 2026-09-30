@@ -1,6 +1,6 @@
 # Knowledge domain and source contracts
 
-Implementation reference for **Outpost 0.12.0**, library schema 5. Public reference material, regional data and personal documents are complementary inputs. The product starts empty and imports through **Settings → Add file / Add folder**. It neither downloads a knowledge base nor scans all phone storage.
+Implementation reference for **Outpost 0.13.0**, library schema 5. Public reference material, regional data and personal documents are complementary inputs. The product starts empty and imports through **Settings → Add file / Add folder**. It neither downloads a knowledge base nor scans all phone storage.
 
 ## Formats and current limits
 
@@ -47,11 +47,11 @@ Knowledge-pack v1 uses exact manifest-text identity, atomic validate/index/activ
 | 3 → 4 | `imported_files` origin bindings; older imports remain without retroactively invented identities |
 | 4 → 5 | Separate `osm_features` payload/text rows and element locators |
 
-Migrations are transactional, without wiping/reseeding user data. `chat.db` has its own schema and lifetime. PDF/OSM originals are retained privately and removed with their document; robust orphan-file/process-death/storage-pressure recovery remains open. See [current validation](validation-0.12.md) for exact regression scopes.
+Migrations are transactional, without wiping/reseeding user data. `chat.db` has its own schema and lifetime. PDF/OSM originals are retained privately and removed with their document; robust orphan-file/process-death/storage-pressure recovery remains open. See [current validation](validation-0.13.md) for exact regression scopes.
 
 ## Place questions from imported OSM
 
-The adopted scope is name lookup and category/proximity questions, such as locating a park or finding restaurants near a stated landmark. Structured entity resolution/filtering/distance ordering belongs in the knowledge domain; the generator receives actual records and locators to explain. A map, route graph and GPS are not dependencies for named-reference questions. [Scope and acceptance](osm-place-queries.md) distinguish the existing lexical importer from these pending query operations.
+The adopted scope is name lookup and category/proximity questions, such as locating a park or finding restaurants near a stated landmark. Structured entity resolution/filtering/distance ordering belongs in the knowledge domain; the generator receives actual records and locators to explain. Outpost 0.13 answers these bounded requests directly using `PlaceQueries`, without generator execution or a schema change. A map, route graph and GPS are not dependencies for named-reference questions. [Scope and acceptance](osm-place-queries.md) define the implemented exact-name/alias, recorded-locality, radius, ordering and collection bounds. Arbitrary language/filters and persistent spatial indexing remain pending.
 
 ## Retrieval and remaining contracts
 

@@ -1,6 +1,6 @@
 # Architecture
 
-Implementation reference for **Outpost 0.12.0 / code 14**, checked on 2026-09-30. One Android process owns the UI, local databases and JNI inference session. There is no inference server or cloud fallback. Inference and knowledge are separate responsibilities within one application module, not separate Gradle modules.
+Implementation reference for **Outpost 0.13.0 / code 15**, checked on 2026-09-30. One Android process owns the UI, local databases and JNI inference session. There is no inference server or cloud fallback. Inference and knowledge are separate responsibilities within one application module, not separate Gradle modules.
 
 ## Current application flow
 
@@ -45,7 +45,11 @@ Java files are under [app/src/main/java/dev/outpost/app](../app/src/main/java/de
 | `ResearchPrompt`, `JudgeStore`, `EvidenceReview` | Evidence-only evaluation and optional Kev research; no reviewer/speculation product controls |
 | `CMakeLists.txt` | Pinned unmodified backend, ABI configuration and linker wrappers |
 
-### Chat request
+### Direct place questions
+
+`MainActivity` first calls synchronized `Library.answerPlaces`. `PlaceQueries` parses bounded named/category/radius intent, uses only prior user requests for short follow-ups, scans source features with row/character limits, detects global positive-ID conflicts, and computes spherical straight-line distances locally. It returns at most five source-backed results or explicit clarification/absence/constraint/limit outcomes. Identical records across extracts collapse for this answer only; original snapshots and locators remain unchanged. No schema or generator is needed for this path. Cancellation is checked during scans and complete answers/sources persist in the existing ChatStore.
+
+### General chat request
 
 1. Sending saves a pending turn and retrieves against the current message. `Library.search` bounds the query to 1,000 characters and 20 normalized terms, reads up to 500 FTS candidates and returns up to eight ranked fragments. It is lexical retrieval, not semantic or spatial ranking. Follow-up conversation is supplied to generation; there is no implemented history-based query rewrite.
 2. `ChatPrompt` v1.1 includes the last two completed/length-limited turns (240 question and 400 answer characters each), up to three current excerpts of 600 characters, titles of 100 characters and the current question bounded to 600 characters. Excerpts are query-centered. Earlier numeric citations are stripped; failed/canceled/interrupted drafts are excluded.
@@ -71,6 +75,6 @@ Native sessions have a per-session lock; a global `execution_mutex` serializes g
 
 ## Extensions still proposed
 
-The coordinator may eventually own editable mission context, typed arithmetic/units, structured applicability checks and a tool allowlist. ZIM and Office/OCR need their own adapters and evidence. The next OSM knowledge operations are named-place resolution and structured category/proximity queries, feeding selected entity records and exact locators to chat; see [scope](osm-place-queries.md). Map rendering, navigation and routing are outside this feature. Named-reference queries do not require GPS. Stored coordinates do not supply the device's current position or prove polygon containment.
+The coordinator may eventually own editable mission context, typed arithmetic/units, structured applicability checks and a tool allowlist. ZIM and Office/OCR need their own adapters and evidence. The bounded OSM operations now resolve exact recorded names and category/proximity queries directly in chat; broader language, spatial indexes and polygon applicability remain future work; see [scope](osm-place-queries.md). Map rendering, navigation and routing are outside this feature. Named-reference queries do not require GPS. Stored coordinates do not supply the device's current position or prove polygon containment.
 
 Discovery proposals for equipment transport, an action ledger and reflection-specific retention are not implemented. Source text/model output cannot authorize actions. Reconnection alone cannot authorize delivery. Future request categories such as `no_coverage`, `missing_context` and `unsupported_capability` are design ideas, not current public error enums. See [decisions](decisions.md), [discovery](discovery-2026-09-29.md) and [roadmap](roadmap.md).

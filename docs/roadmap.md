@@ -1,6 +1,6 @@
 # Roadmap and actionable backlog
 
-Baseline: Outpost 0.12.0; [current validation](validation-0.12.md). Chat/Settings, seed removal, bounded PDF extraction and ARM64 packaging are implemented; quality and physical-device acceptance remain separate. R-01 through R-04 are implemented and validated in the [0.8.1 report](validation-0.8.1.md). Field-answer quality remains separate open work. All other tasks below are **open** unless explicitly labeled otherwise. Priorities express sequence and dependencies, not dates or committed effort estimates. Owner is unassigned. The [current-state inventory](current-state.md) lists already implemented features.
+Baseline: Outpost 0.13.0; [current validation](validation-0.13.md). Chat/Settings, seed removal, bounded PDF extraction and ARM64 packaging are implemented; quality and physical-device acceptance remain separate. R-01 through R-04 are implemented and validated in the [0.8.1 report](validation-0.8.1.md). Field-answer quality remains separate open work. All other tasks below are **open** unless explicitly labeled otherwise. Priorities express sequence and dependencies, not dates or committed effort estimates. Owner is unassigned. The [current-state inventory](current-state.md) lists already implemented features.
 
 ## Milestones
 
@@ -16,7 +16,7 @@ Performance work can continue alongside M1/M2, but no speed result substitutes f
 
 ## P0 — Project foundation and quality baseline
 
-E-01/W-01 definitions and an executable evidence-only runner exist; the current manifest is v5 (schema 2, app 0.12). V1 baseline/candidate and v2 baseline/diagnostic runs have attributed assistant reviews; see [0.9 validation](validation-0.9.md). V5 has 12 runnable and 3 blocked fixtures. Product chat uses a different prompt; no new broad v5/chat quality score is claimed. A validator PASS establishes internal consistency; reviewed development outcomes are not general task accuracy.
+E-01/W-01 definitions and an executable evidence-only runner exist; the current manifest is v6 (schema 2, app 0.12). V1 baseline/candidate and v2 baseline/diagnostic runs have attributed assistant reviews; see [0.9 validation](validation-0.9.md). V6 has 12 runnable and 3 blocked fixtures. Product chat uses a different prompt; no new broad v6/chat quality score is claimed. A validator PASS establishes internal consistency; reviewed development outcomes are not general task accuracy.
 
 | ID | Task | Depends on | Acceptance criteria |
 |---|---|---|---|
@@ -61,7 +61,7 @@ The restaurant and issue-list questions are illustrative fixtures, not product-d
 | ID | Task | Depends on | Acceptance criteria |
 |---|---|---|---|
 | K-05 | ZIM reader/search spike | K-02 | Read an explicitly licensed bounded archive; preserve entry locators; measure binary/index/storage cost; record archives without search indexes |
-| K-06 — partial | Answer offline place questions from imported OSM | K-01, K-03 | Import/lexical lookup/exact sources exist. Implement named-place resolution, category queries and deterministic proximity around a named/confirmed reference; return actual names, available addresses, approximate straight-line distances and locators. Test parks/restaurants/museums, ambiguity, missing coordinates and coverage, then a frozen real-area corpus. No map renderer, routing graph, GPS or pack manager required; [scope](osm-place-queries.md) |
+| K-06 — bounded slice delivered; broader coverage partial | Answer offline place questions from imported OSM | K-01, K-03 | Implemented exact names/aliases, recorded-locality categories, deterministic proximity/radii/order, source-backed no-model chat and clarification/conflict handling. 63 checks include synthetic edge cases and a frozen public OSM subset. Broader language/constraints, geographic applicability and persistent indexes remain pending. No map/routing/GPS dependency; [scope](osm-place-queries.md) |
 | K-07 — deferred, outside current scope | Map display and routing feasibility | Separate future user request | Retained as a historical candidate. Not a prerequisite for K-06/W-02 or named/category/proximity place answers. Reopen only if the user requests a map/navigation capability; no map SDK or route graph is required by the current OSM feature |
 | K-08 | Investigate OCR | K-04, mission need | Page image remains inspectable; uncertain numbers/units flagged; extraction evaluation and size/cost recorded |
 | P-01 — build complete; runtime pending | Build complete ARM64 app/backend | R-03 | JNI/llama ARM64 link and APK packaging now complete. ARM emulator/phone startup, model execution and fallback remain unverified; physical-device execution still requires expanded scope |
@@ -109,8 +109,8 @@ Recursive selected-folder import and bounded OSM XML/Overpass JSON are implement
 
 | ID | Task / current status | Dependencies / acceptance |
 |---|---|---|
-| E-06 — open | Correct complete ABI identity validation | `eval/validate.py` currently parses only the first Gradle ABI and v5 omits ARM64. Compare the full declared set, distinguish test target from packaging, issue a new manifest revision, and demonstrate missing/extra ABI failures without rewriting frozen evidence. In that revision also reconcile the regional fixture with ADR-028: remove K-07/map-routing as a place-query blocker and retain only actual query/corpus/executor requirements. Current APK packaging is established separately in 0.12 release evidence. |
+| E-06 — done in 0.13 | Correct complete ABI identity validation | Full literal ABI-set comparison; six valid/reordered/missing/extra/duplicate/malformed controls pass. V6 declares both ABIs and removes the obsolete K-07 regional blocker while preserving old manifests/runs. |
 | U-03 — partial | Prepare chat for representative mobile user tests | Chat/Settings/ingestion exist. Validate provisioning instructions, follow-up retrieval, source/conflict handling, interruption and no-model reading with realistic tasks; expose useful limitations. Signing/license/distribution depend on R-05; physical trials depend on X-06. |
 | K-09 — open | Harden file recovery and snapshot management | K-03/K-04/K-06; test process death during copy/index, storage exhaustion, orphan cleanup and coherent retry without deleting valid imports; define user-visible old/new snapshot management before automatic freshness selection. |
 
-Recommended sequence: fix E-06, improve U-03/E-02 using observed source/conversation failures, harden K-09, then expand real-region K-06/W-02 and document E-04/W-03 workflows. Choose runtime experiments from measured bottlenecks. Do not close blocked PDF/OSM evaluation fixtures merely because their low-level importers exist. None of this sequence authorizes phone execution or public release.
+Recommended sequence: improve U-03/E-02 using observed source/conversation failures, harden K-09, then expand real-region K-06/W-02 and document E-04/W-03 workflows. Choose runtime experiments from measured bottlenecks. Do not close blocked PDF/OSM evaluation fixtures merely because their low-level importers exist. None of this sequence authorizes phone execution or public release.
