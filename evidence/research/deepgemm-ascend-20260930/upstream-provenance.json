@@ -1,0 +1,440 @@
+{
+  "repository": "https://github.com/deepseek-ai/DeepGEMM-Ascend",
+  "commit": "8491bbb4b8c02a094a2318965f50c70438a3e73c",
+  "commitUtc": "2026-09-30T01:07:52Z",
+  "fetchedUtc": "2026-09-30T18:22:59.415201+00:00",
+  "archiveSha256": "59959810bb8554df4ae8ad856e6a6a72477501c5386d3a8818da5bdd645e8714",
+  "files": [
+    {
+      "path": ".clang-tidy",
+      "bytes": 3199,
+      "sha256": "983ef9c4c36caaf127809a59fdba7b0ffc37ee9cb413d660ca0b03c6e7603d20"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 286,
+      "sha256": "7b43e34789e35bdd49e9a69aa68f0a148039621cc0afa63b616d2d4850ba10be"
+    },
+    {
+      "path": ".gitmodules",
+      "bytes": 362,
+      "sha256": "20497618ea9a4f5e8ce2626186bebec4d287d75450e777c67d228d96abf9c3ef"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "bytes": 2976,
+      "sha256": "6ed149a8a8aaef0728f78ae7755004a03481a2cabc1e4f2f7864d335b08ddb4f"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1065,
+      "sha256": "ebb4f09972aee8608be255debaf78451a68e95c290f55c240dec2ecfa16ea6be"
+    },
+    {
+      "path": "README.md",
+      "bytes": 11569,
+      "sha256": "c75e9101ed2d429573ec727f4cdac15ba9bdc568ff3c1fac85a1dc131d774a53"
+    },
+    {
+      "path": "build.sh",
+      "bytes": 328,
+      "sha256": "ff91369de4b47c8f4bcf64f94f46c3ced1d7649f67f8cad00b3a59337773c14f"
+    },
+    {
+      "path": "csrc/apis/aclnn.hpp",
+      "bytes": 14268,
+      "sha256": "86d7f329495e59667ec6c7a89435e47509bd355ba4e43fa6ec6a24d0804991fa"
+    },
+    {
+      "path": "csrc/apis/attention.hpp",
+      "bytes": 11808,
+      "sha256": "018818fb3539bd6f11dd99ee642c4f56e0f8de080107bdc604cbfa3dcb54fb6a"
+    },
+    {
+      "path": "csrc/apis/einsum.hpp",
+      "bytes": 10736,
+      "sha256": "95a21005ab8d72fa72586a213c9194a48f4e07ab30dcc60329a1ee54cdbd9eea"
+    },
+    {
+      "path": "csrc/apis/epilogue_class.hpp",
+      "bytes": 944,
+      "sha256": "ebc17e0eae100ac848976a78f83181a07345087627e315d2571ab4b20c95eb2a"
+    },
+    {
+      "path": "csrc/apis/gemm.hpp",
+      "bytes": 31932,
+      "sha256": "a1406ad28ade42d4d793c9ab21ad6f8811bd65b4f13f61f377ec5011e0d29483"
+    },
+    {
+      "path": "csrc/apis/layout.hpp",
+      "bytes": 5580,
+      "sha256": "6f0de50e035764fb5a0f4ee3beadf9c423b5d724a0f53c1b0ab897f59b58308d"
+    },
+    {
+      "path": "csrc/apis/mega_moe.hpp",
+      "bytes": 14037,
+      "sha256": "b2b6a536a98be3b5a4b8dc0e57c4be870bdc2da9a8c4a3d75938193230863e50"
+    },
+    {
+      "path": "csrc/apis/runtime.hpp",
+      "bytes": 2498,
+      "sha256": "c6d31cb371d39b14f8ffa34245a8702e62a962d392de337509640d6fb9dedc17"
+    },
+    {
+      "path": "csrc/backends/hccl.hpp",
+      "bytes": 7962,
+      "sha256": "373aa33b0aa94c4908131adfa9b09f4fe6f39e24254bee8136432540afcd4686"
+    },
+    {
+      "path": "csrc/indexing/main.cpp",
+      "bytes": 410,
+      "sha256": "8a7806283d97c0016301f8ac825bad11a00b18a6fd68176106d417c43597317a"
+    },
+    {
+      "path": "csrc/jit/jit.hpp",
+      "bytes": 2734,
+      "sha256": "041811f794a17e2d9672997f116216dd1b270d2cbaff59f138f9b8c5fa440487"
+    },
+    {
+      "path": "csrc/jit_kernels/bf16_gemm.hpp",
+      "bytes": 2583,
+      "sha256": "05ec0f0d1b4712c8d6ce3ed7bbac08bc658a1e3fd008e9899598744f8d2cd85d"
+    },
+    {
+      "path": "csrc/jit_kernels/epilogue_class.hpp",
+      "bytes": 3831,
+      "sha256": "986eea5f95ebd9f3d20eb850b69ee5c92fff85c17db9f70b61c102ddf4ad1bec"
+    },
+    {
+      "path": "csrc/jit_kernels/fp8_dequant_gemm.hpp",
+      "bytes": 3271,
+      "sha256": "7be77b030b7cd5e83e9cff4da9590195ac7629f017c0165e6d80b091e0ae4ae2"
+    },
+    {
+      "path": "csrc/jit_kernels/fp8_gemm.hpp",
+      "bytes": 5138,
+      "sha256": "c68b77f41a33d058d4e25172bcbd700ea2c89bbfd3b081e4622284737e565ce3"
+    },
+    {
+      "path": "csrc/jit_kernels/gemm_config.hpp",
+      "bytes": 8159,
+      "sha256": "9e7c293f04d6e5c9e0c5f1ac8785c4aeed2a46afc18b5eb671f891832163911d"
+    },
+    {
+      "path": "csrc/jit_kernels/heuristics.hpp",
+      "bytes": 46326,
+      "sha256": "e6cce352eb2a76d8f3db4276c2e9872e6f584e10acca83fb7f92deedffe6db4c"
+    },
+    {
+      "path": "csrc/jit_kernels/mega_moe.hpp",
+      "bytes": 1720,
+      "sha256": "15abd6372ddc8340658dfc5df2765debb23b5515712df75193af0bf01294deab"
+    },
+    {
+      "path": "csrc/jit_kernels/mqa_logits.hpp",
+      "bytes": 6587,
+      "sha256": "159d891a9447d8b9bc457d1e500997bf1fb1595a0d18d789dea3ea416cf806f8"
+    },
+    {
+      "path": "csrc/jit_kernels/transform_sf.hpp",
+      "bytes": 4587,
+      "sha256": "de0049de38af56247b645b83560169ab679b6ffa22ec458840dea2350af31f5f"
+    },
+    {
+      "path": "csrc/python_api.cpp",
+      "bytes": 1282,
+      "sha256": "0d50ace68c55d4e39013a59f8a16b08e27982ca0cd2727d8cb3b16349d800273"
+    },
+    {
+      "path": "csrc/utils/aclnn.hpp",
+      "bytes": 3028,
+      "sha256": "7b798e43266f42c1c015b653161183ffa72ebe011462608e2818ba0d9237f383"
+    },
+    {
+      "path": "csrc/utils/dtype.hpp",
+      "bytes": 215,
+      "sha256": "5690ec567489ad5db3a96fbe1c03b6a45b186afa9ba7c6fc75c7cf9c57d68146"
+    },
+    {
+      "path": "csrc/utils/format.hpp",
+      "bytes": 539,
+      "sha256": "f524a8a206b27f1f6373695ad8f20dd31be796c96c90056a7e189d7b83096e72"
+    },
+    {
+      "path": "csrc/utils/layout.hpp",
+      "bytes": 6974,
+      "sha256": "49a408ceb1890769d075c432b622025195a866cf34f79ed85c63522f18e36956"
+    },
+    {
+      "path": "csrc/utils/math.hpp",
+      "bytes": 208,
+      "sha256": "18afc0d426cb44d3a093954c9a899620813ae78cd1ebe6b66bae59d9d1e3f30b"
+    },
+    {
+      "path": "deep_gemm/__init__.py",
+      "bytes": 2720,
+      "sha256": "462e2bc79c4e5a30a68ea9f9226a0bf74b9a871b90556bd7f645da5b8f62f0a2"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/ascend.hpp",
+      "bytes": 483,
+      "sha256": "3044ca8c0186d61a18e408c754f411eb88ae6e5c3081eba6b96d3a85c8fe27b1"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/ascend/copy.hpp",
+      "bytes": 17795,
+      "sha256": "9796820113aa3efbb5dc2079436d21105341046df1c72d52491c6d8e6025768f"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/ascend/sync.hpp",
+      "bytes": 3246,
+      "sha256": "4076d98cd1f406950c3185cf6a6ce24647b449aa1ed687b0747458e533604c86"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/ascend/tile_ptr.hpp",
+      "bytes": 4617,
+      "sha256": "c161d41dc84356c24f9aad2da77f826d2833245255025389ebf59d2d7a039a4f"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/bf16_gemm.hpp",
+      "bytes": 10261,
+      "sha256": "b56df1c84cbc2242bbcb6234c5a377b9c1ffdbfda4c57f045b14230fc56ab044"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/comm/mega_moe.hpp",
+      "bytes": 15577,
+      "sha256": "162429d8f0d019e5cdad8904a9d229635a50e421ae6196596c794b0caabe572d"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/common.hpp",
+      "bytes": 5949,
+      "sha256": "eaa1f5488f6b252e50b30bf2b3ca31601f2eb81939c3d852a9e07e6949c42729"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/epilogue.hpp",
+      "bytes": 5852,
+      "sha256": "203c09b220a6691b74a3cd06977a7b894ba1d4e95c7ac67a7db6ecb6f19a9659"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/epilogue/operators.hpp",
+      "bytes": 7062,
+      "sha256": "8b81c965d0497d7d9d6942f2b31d69c68801abad1388b43635e351c4cbf8ed82"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/fp8_dequant_gemm.hpp",
+      "bytes": 27357,
+      "sha256": "aebde0853318e3b3053e9f62661704a8659b6450630390644962c57db18f51fd"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/fp8_gemm.hpp",
+      "bytes": 17876,
+      "sha256": "6313aac39d988c9c1106647df96c6bee9b8400e69a37f64bf453af3bcf3ed180"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/layout/mega_moe.hpp",
+      "bytes": 11781,
+      "sha256": "c0051e3d721c36f6e542d46122a5615b2320e399d0894196054bac46b9a0a840"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/layout/sym_buffer.hpp",
+      "bytes": 1669,
+      "sha256": "23d323f677eba7fa22884ae3769aa28fed89f84ed721a096feb133ede4afc12f"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/mega_moe.hpp",
+      "bytes": 69461,
+      "sha256": "356d7374dd272c534ca9540aa7988d5af9e8a54ae5f39c01dbf00cfce6459569"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/mqa_logits.hpp",
+      "bytes": 43090,
+      "sha256": "5fd4e5f8b288b366a74b1799c057c5e85589bbdb6ba599af21ea2f51b719e4ae"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/scheduler.hpp",
+      "bytes": 13303,
+      "sha256": "c895f58f7f47679cd9ca7d186fbf350b9dc1a5a72efe99b7253bfa9114f9a5e2"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/scheduler/mega_moe.hpp",
+      "bytes": 5566,
+      "sha256": "795f1264a319e9971359df014da00a0b0433e1371fe812571df7fa8f421acb0c"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/scheduler/mqa_logits.hpp",
+      "bytes": 2906,
+      "sha256": "7f068ee69b44a71f918ffb0db24563ff753fa9904490cf91081ed0abf32e5fa0"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/scheduler/paged_mqa_logits.hpp",
+      "bytes": 6307,
+      "sha256": "45d8d33ec93a9b093075be43ea0b91a48cda12ca954a0e9605c3d858801b62a5"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/scheduler/paged_mqa_logits_metadata.hpp",
+      "bytes": 9430,
+      "sha256": "6aae862a5cee972044436309946ce71bf43f57fc566f01f59e2f5a6abac5e006"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/simd/mega_moe.hpp",
+      "bytes": 10931,
+      "sha256": "4cb53e633cbf97c7fcc85ada3e2a9e38d25600c2069e739e4df089937dae8092"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/sleep.hpp",
+      "bytes": 352,
+      "sha256": "f4f508bf7df913362a71e03e5b096da7aefb1ec7f7991425475628dbbcecf411"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/transform_sf.hpp",
+      "bytes": 30078,
+      "sha256": "05e4b8754bafad35b48a6819fd4afd85923ed5e36bd5342edfc4ec5bb0e4ae04"
+    },
+    {
+      "path": "deep_gemm/include/deep_gemm/utils/math.hpp",
+      "bytes": 578,
+      "sha256": "ab181cf12143def2fc99abe141e0ef060c9d6b7fdd4443a8819ab68f4001f287"
+    },
+    {
+      "path": "deep_gemm/locality_domain.py",
+      "bytes": 621,
+      "sha256": "186ee668b94eab3225171028a8c248ff89fd156248be6963a54f136ac95c8449"
+    },
+    {
+      "path": "deep_gemm/mega/__init__.py",
+      "bytes": 8530,
+      "sha256": "035c2bb425209b3011e3c7459671d4b79718c4251c7fbcfe48af8f894feb7e21"
+    },
+    {
+      "path": "deep_gemm/testing/__init__.py",
+      "bytes": 20,
+      "sha256": "ea18d59d8ee945ccd4a52f4ee04dc0a6b5f629af57a3229dca24f2cfe69993f0"
+    },
+    {
+      "path": "deep_gemm/testing/bench.py",
+      "bytes": 36348,
+      "sha256": "278ad759130da409d160aea03d1620b69b4ccf78cdb1f85f96a5dd50a9629471"
+    },
+    {
+      "path": "deep_gemm/testing/disable_fallback.py",
+      "bytes": 2182,
+      "sha256": "d549d19cabe86263a06c8e917e57fa066fb6f341121940a0b002cedfe25b4890"
+    },
+    {
+      "path": "deep_gemm/testing/envs.py",
+      "bytes": 1487,
+      "sha256": "e2fcd614216783a758d55e35cd2b1f089ae119c266dd682a52403fa4ac1692a1"
+    },
+    {
+      "path": "deep_gemm/testing/par_compile.py",
+      "bytes": 1111,
+      "sha256": "2b63db3149c63ae544f94d6ddf02dc3883df7c61ad01ab5335ddf597befd4c5f"
+    },
+    {
+      "path": "deep_gemm/tilelang_ops/__init__.py",
+      "bytes": 45,
+      "sha256": "98d2c0b238375b9011f49ea2965f9ad4ca8dc7482e47e4ce34c264ffa81d621f"
+    },
+    {
+      "path": "deep_gemm/tilelang_ops/hc_prenorm.py",
+      "bytes": 19010,
+      "sha256": "cd31f79d515b06f2e24f8c8b3f1455ddd108f017170a6adf0d04bda07e462fab"
+    },
+    {
+      "path": "develop.sh",
+      "bytes": 729,
+      "sha256": "7d001595b11b8ccbcda16d058915c0bb83c919b2d1bf10fe63bfeee81ca00064"
+    },
+    {
+      "path": "scripts/generate_pyi.py",
+      "bytes": 14003,
+      "sha256": "aa149615a6e6c1a9a9d066145283a18bbb788788ee6c18c7c8ec1580425a6354"
+    },
+    {
+      "path": "scripts/profiling/msprof_mega_moe.py",
+      "bytes": 9749,
+      "sha256": "40fe66ac287431134c084e4837d72a878a78311c8419a32174d35763058b15d0"
+    },
+    {
+      "path": "setup.py",
+      "bytes": 5394,
+      "sha256": "200ab9fa8522ff4f18d8c511e4144b79db3c7d2af13980c77908e4ba8e2d5536"
+    },
+    {
+      "path": "tests/common.py",
+      "bytes": 9019,
+      "sha256": "98c3ff60d3acebd6c5b6df365c3cafeaa6511f94c4a3b5127041aee02e7227fc"
+    },
+    {
+      "path": "tests/generators.py",
+      "bytes": 31858,
+      "sha256": "1f4ec5aafef52601fbfdd2e97154705d8d41d68a8ab84100a9d20e220ea7f539"
+    },
+    {
+      "path": "tests/test_attention.py",
+      "bytes": 26037,
+      "sha256": "973d3bf6de50b31d680c6d8f16000ebec6687d5052bea8ade2b864af6cb795cd"
+    },
+    {
+      "path": "tests/test_bf16_gemm.py",
+      "bytes": 2076,
+      "sha256": "e1b7dc78f52bde225d2bb3c924c803ee279b5cde7f018d036eb81be1f44d53d6"
+    },
+    {
+      "path": "tests/test_einsum.py",
+      "bytes": 5434,
+      "sha256": "fe68b56c32a3a7b21b6ff18963fe9bfef1998599d43ad325faec74388269e8f9"
+    },
+    {
+      "path": "tests/test_fp4_gemm.py",
+      "bytes": 2254,
+      "sha256": "fe6d54bbb8f3204933f4ed2d6229cc6d6a35bb839503f47d61da745e8994690f"
+    },
+    {
+      "path": "tests/test_fp8_dequant_gemm.py",
+      "bytes": 2456,
+      "sha256": "8807f94f24ae3177ea647830c3b6d7607377a27cb9c186a898f6755af524f56c"
+    },
+    {
+      "path": "tests/test_fp8_gemm.py",
+      "bytes": 2256,
+      "sha256": "aebbc764ae1077abcb454ec55a5f80858e8b20fa28eb6f923b74aa990fb31b97"
+    },
+    {
+      "path": "tests/test_hyperconnection.py",
+      "bytes": 4841,
+      "sha256": "4efa05e16f49756e10e4beabb9bd33b6110949965ef19761bd20ad89aa9f164a"
+    },
+    {
+      "path": "tests/test_layout.py",
+      "bytes": 7876,
+      "sha256": "72ee693ba90448d8d4e7d501f08db9f69258af97f2dc432d0f898af55d44bdd6"
+    },
+    {
+      "path": "tests/test_lazy_init.py",
+      "bytes": 906,
+      "sha256": "9720a952bfc07d0557cb156a1753b2b6538523e3f4d0697b14b0c0e7d79f3bc0"
+    },
+    {
+      "path": "tests/test_mega_moe.py",
+      "bytes": 18766,
+      "sha256": "a06775c7afd80344dd1986a44d8f5e7a4e8799fa3e01aa2c6e31677722528f16"
+    },
+    {
+      "path": "tests/utils.py",
+      "bytes": 2122,
+      "sha256": "e3bc3bb1f837f1d0b5989e0f636956aca8c103fe90e75150177fa69836f3bd08"
+    },
+    {
+      "path": "third-party/tilelang_ops/swiglu_apply_weight_to_fp8.py",
+      "bytes": 23488,
+      "sha256": "a2ad925045462dd036096f1f675270dae4256ba440413bbd7aaed28509e1ab75"
+    },
+    {
+      "path": "third-party/tilelang_ops/utils.py",
+      "bytes": 845,
+      "sha256": "ff88fee4eb49c62f7e080ce26b3b24c35609e34d7980385c669c7c7f160e0a75"
+    }
+  ],
+  "scope": "Static source review only; no upstream code executed, dependencies installed or submodules downloaded."
+}

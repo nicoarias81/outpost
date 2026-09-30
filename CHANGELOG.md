@@ -2,6 +2,12 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## DeepGEMM-Ascend research — 2026-09-30
+
+- Pins and reviews the initial upstream Ascend source against the current Q2 runtime, separating hardware-specific implementation from transferable ideas.
+- Records static Bonsai4 tensor shapes and P-05/P-06 experiment gates for shape/phase measurement and output-row activation reuse.
+- No app/model/backend/dependency change, benchmark run or new speedup claim. See [review](docs/deepgemm-ascend-review.md).
+
 ## Documentation consolidation — 2026-09-30
 
 - Reconciles maintained English documentation with 0.12: chat/Settings, recursive snapshots, PDF/OSM sources, schema 5, packaging and current test-provider lifecycle.

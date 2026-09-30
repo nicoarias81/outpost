@@ -48,6 +48,10 @@ Follow [roadmap](roadmap.md), preserving existing task IDs. Immediate technical 
 
 Prioritize realistic user tasks and source/answer failures; model provisioning and bounded-chat UX; original-file/process-death/storage recovery; complex PDF and real-region OSM evaluation. Typed arithmetic, editable mission context, Office/OCR/ZIM and broader geographic tools remain pending. Phone trials require explicit scope expansion. No field-quality, peak-RAM, phone-speed, battery/thermal or bounty-compliance claim follows from current checks.
 
+## New optimization reference
+
+The [DeepGEMM-Ascend review](deepgemm-ascend-review.md) pins upstream commit `8491bbb4b8c02a094a2318965f50c70438a3e73c` and compares it with Outpost `c9181ec`. This is static research, not an integrated backend or measured improvement. P-05 proposes a current operation/shape baseline; P-06 proposes activation reuse across output rows, including decode. Actual Bonsai matrix shapes and source provenance are saved as static inspection records. Do not convert the model to FP4, adopt server cache constants or enable speculation on the strength of this review. All execution constraints remain active.
+
 ## Historical provenance
 
 0.9 implementation `c51c73f`, evidence integration `449bca6`, line-ending protection `c4deeb9`; 0.10 implementation `aca6d97`, evidence `6091111`; 0.11 implementation `b0f944a`, evidence `acbff0c`. The earlier permission-review quota interruption was resolved before 0.10. Never restore stale staging over this checkout.

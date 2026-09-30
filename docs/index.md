@@ -14,6 +14,7 @@
 | Import geographic facts | [OSM preparation/formats/limits](osm-import.md) |
 | Change ingestion or storage | [Knowledge contracts](knowledge-base.md), [developer pack v1](knowledge-packs-v1.md), [data boundaries](security-and-data.md) |
 | Build or run tests | [Development](development.md), [emulator operating guide](emulator-runbook.md), [dependencies](../THIRD_PARTY.md) |
+| Review new kernel ideas | [DeepGEMM-Ascend static review and prioritized experiments](deepgemm-ascend-review.md) |
 | Improve inference | [Runtime](inference-runtime.md), [measured optimizations](optimizations.md), [speculation/MTP](speculation.md) |
 | Define/score outcomes | [Evaluation protocol](evaluation.md), [runner/review guide](../eval/README.md), [v5 fixtures](../eval/fixtures-v5.json), [rubric v2](../eval/rubric-v2.md) |
 | Verify current delivery | [0.12 validation](validation-0.12.md), [frozen release manifest](../evidence/releases/0.12.0/manifest.json) |

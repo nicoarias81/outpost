@@ -51,6 +51,12 @@ The transferable lesson is to measure the dominant cost on the actual execution 
 - Grouping wider than 8 was not pursued: the measured 4 -> 8 step returned 3.5% to 5.6% of prefill against 8.1% for 2 -> 4, a clearly diminishing return once the weight unpack is already amortised across four columns, and its total-time gain never cleared the working threshold in three sweeps.
 - Promoting context speculation to a default was rejected on the representative workload. A synthetic verbatim-copy control showed 1.215x decode speedup (17.73% less decode time) with 53 of 54 drafts accepted, but the five field fixtures show 0.80x, 0.95x, 1.00x, 1.00x and 1.03x, an aggregate 0.8% regression. A copy task is the best possible case for suffix drafting and is not a proxy for field answers. Historical 0.7 evidence and native research controls remain; the product toggle was removed in 0.10 and chat forces speculation off.
 
+## DeepGEMM-Ascend review — 2026-09-30
+
+The [pinned source review](deepgemm-ascend-review.md) identifies transferable approaches to shape-dependent selection, activation/weight reuse, bounded layouts and cache-aware measurement. Ascend950/CANN code is not an Android CPU backend and its FP4 is not Bonsai Q2. No dependency, model, kernel or runtime policy changed, and no new speedup was measured.
+
+Prioritize an operation/shape baseline (P-05), then a guarded multi-row Q2 candidate including single-token decode (P-06). Existing grouping reuses a weight row across tokens; the proposed tile also reuses activations/correction work across output rows. Model header inspection provides actual matrix shapes for the experiment. Keep tile-local unpack/prefetch and graph fusion conditional on that profile; avoid full-model dequantization and copying server hardware constants. This extends the open activation-correction hypothesis from Strata rather than claiming it was already benchmarked.
+
 ## Next optimization experiments
 
 | Hypothesis | Required experiment | Adoption criterion |

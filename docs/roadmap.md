@@ -68,6 +68,8 @@ The restaurant and issue-list questions are illustrative fixtures, not product-d
 | P-02 | Implement ARM Q2 kernels | P-01 | Reference equivalence/guard/tail tests, supported feature dispatch, whole-model timing and memory; no unsupported-instruction execution |
 | P-03 | Prototype VNNI candidates separately | Existing dispatch, compatible emulator | Signedness/overflow/packing tests; CPU/OS gates; paired dot, prefill and generation measurements; retain fallback |
 | P-04 | Measure peak memory and pressure recovery | E-03 | Defined sampling cadence, peak vs post-run distinction, cancellation/model-switch/process-recovery behavior; no battery inference from PSS |
+| P-05 — open | Profile operation shapes and establish current cache/phase baselines | E-03 | [DeepGEMM-Ascend review](deepgemm-ascend-review.md), DG-01/DG-03: low-overhead test-only shape/path/quantization/kernel accounting, actual Bonsai matrices, hot/streaming and prefill/decode controls; explicit current profile, no inherited speedup claim or product profiling overhead |
+| P-06 — proposed | Reuse Q8 activations/correction across output rows | P-05 | Review DG-02: small R×T Q2 tile including T=1 decode; no unchecked scratch extension, preserved arithmetic/reference guards, real-shape/tail/worker/lifecycle/logit tests and repeated end-to-end benefit before adoption. Finer-grained selection, unpack/prefetch or fusion only if measurement justifies it |
 | E-05 — partial | Compare generators and optional reviewer on missions | E-01, E-04 | Four problem-case Qwen diagnostics and Bonsai baselines recorded; complete representative paired generator/reviewer comparison with fixed evidence/budgets and qualified review; Kev not ground truth |
 
 ## P3 — Conditional research

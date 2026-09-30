@@ -14,6 +14,8 @@ Current app: Outpost 0.12.0. Runtime/model identities remain pinned; PDF extract
 - Since 0.7, own `speculation.cpp` proposes same-request token continuations and controls their cost. JNI verifies them using decode, logits, sampler, and memory APIs. No DSpark/EAGLE implementation or auxiliary speculative weights were imported.
 - CPU/x86_64 and ARM64 are packaged; runtime validation remains x86_64 emulator-only. HTTP server, tools, OpenSSL, and web interfaces are not built.
 
+[DeepGEMM-Ascend](docs/deepgemm-ascend-review.md) was inspected at a pinned revision as an optimization reference; no code, dependency or model from that project was integrated.
+
 [Strata](https://github.com/Niko1221/Strata) was a conceptual reference. Its engine, ActQ layout, and kernel code were not imported. The custom wrappers still depend on backend internals; this is not a stable upstream extension ABI.
 
 ## Qwen2.5 1.5B Instruct

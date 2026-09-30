@@ -1,0 +1,91 @@
+{
+  "scope": "Static header metadata only; no inference or tensor-data scan. Lock hash not freshly recomputed.",
+  "modelFile": "Ternary-Bonsai-4B-Q2_0_g64.gguf",
+  "actualBytes": 1137806656,
+  "modelSha256FromLock": "9d968b04a3c9a794897bcc744c8072fb6a061c0e42efd03c989401ddf8baef0c",
+  "tensorCount": 398,
+  "headerBytesReadOrSkipped": 5950481,
+  "tensorTypes": {
+    "0": 145,
+    "42": 253
+  },
+  "q2MatrixShapes": [
+    {
+      "ggmlDimensions": [
+        2560,
+        1024
+      ],
+      "count": 72,
+      "packedBytesEach": 737280,
+      "examples": [
+        "blk.0.attn_k.weight",
+        "blk.0.attn_v.weight",
+        "blk.1.attn_k.weight"
+      ]
+    },
+    {
+      "ggmlDimensions": [
+        2560,
+        4096
+      ],
+      "count": 36,
+      "packedBytesEach": 2949120,
+      "examples": [
+        "blk.0.attn_q.weight",
+        "blk.1.attn_q.weight",
+        "blk.2.attn_q.weight"
+      ]
+    },
+    {
+      "ggmlDimensions": [
+        2560,
+        9728
+      ],
+      "count": 72,
+      "packedBytesEach": 7004160,
+      "examples": [
+        "blk.0.ffn_gate.weight",
+        "blk.0.ffn_up.weight",
+        "blk.1.ffn_gate.weight"
+      ]
+    },
+    {
+      "ggmlDimensions": [
+        2560,
+        151669
+      ],
+      "count": 1,
+      "packedBytesEach": 109201680,
+      "examples": [
+        "token_embd.weight"
+      ]
+    },
+    {
+      "ggmlDimensions": [
+        4096,
+        2560
+      ],
+      "count": 36,
+      "packedBytesEach": 2949120,
+      "examples": [
+        "blk.0.attn_output.weight",
+        "blk.1.attn_output.weight",
+        "blk.2.attn_output.weight"
+      ]
+    },
+    {
+      "ggmlDimensions": [
+        9728,
+        2560
+      ],
+      "count": 36,
+      "packedBytesEach": 7004160,
+      "examples": [
+        "blk.0.ffn_down.weight",
+        "blk.1.ffn_down.weight",
+        "blk.2.ffn_down.weight"
+      ]
+    }
+  ],
+  "q2MatrixPayloadBytes": 1131071760
+}
