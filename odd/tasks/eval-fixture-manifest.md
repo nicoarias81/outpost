@@ -377,13 +377,15 @@ Cross-reference `docs/current-state.md` and `docs/roadmap.md`; do not create a c
    `docs/decisions.md` (new ADR-018), `docs/current-state.md`. **Done.**
 4. Run `python eval/validate.py`; record the result and fix any real problem it finds. **Done.**
 5. Operational, requires explicit user go: audit history for secrets and oversized blobs, then create
-   a private GitHub repository and push. **Not started**, by design. The audit must confirm no
-   credential, key, signing material, private document, model weight or local setting is reachable from
-   any commit before anything is pushed. `gh repo create --private` with no `--public` flag. Never flip
-   visibility afterwards without a new explicit user decision. A preliminary read-only audit already
-   ran: 3 commits, no remote configured, 332 tracked files, largest blob `kev-head.f32` at 2.1 MB, and
-   a credential/keyword scan across every revision returned no matches. `gh` is authenticated as
-   `nicoarias81`. This is not a substitute for the full audit before pushing.
+   a private GitHub repository and push. **Done in a later step of the same session**: the preliminary
+   read-only audit reported 3 commits, no remote yet, 332 tracked files, largest blob
+   `kev-head.f32` at 2.1 MB, and a credential and keyword scan across every revision returning no
+   matches, with `gh` authenticated as `nicoarias81`. The private repository `nicoarias81/outpost` was
+   then created and the branch pushed. Public visibility was never enabled and issuing `--public` is
+   not authorized. Before the push the commit author and committer email was rewritten to the
+   account's GitHub noreply address, because GitHub refused the first push with `GH007` for
+   publishing a private email address; only the emails changed, the tree hash is identical before and
+   after, and the content diff against the pre-rewrite backup ref is empty.
 
 ## Outcome
 

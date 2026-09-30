@@ -10,7 +10,7 @@ Consolidated: 2026-09-29. Application baseline: **Outpost 0.8.1 / version code 1
 4. Select a bounded task from the [roadmap](roadmap.md), retaining its acceptance criteria. Read [evaluation](evaluation.md) to distinguish runtime correctness from task quality. Before proposing evaluation work, read [eval/README.md](../eval/README.md), the fixture manifest [eval/fixtures-v1.json](../eval/fixtures-v1.json) and the rubric [eval/rubric-v1.md](../eval/rubric-v1.md).
 5. Before any runtime test, follow the [emulator operating guide](emulator-runbook.md) and [development](development.md), verify the AVD name as well as serial, matching installed APKs/models, and offline state. Archive evidence that a script would overwrite.
 
-Canonical repository: `E:\projects\outpost`; documented working branch: `codex/outpost`; Android/Java identity: `dev.outpost.app`; native library: `outpost_engine`. No remote or public release is configured. The original `brujula-android` source/AVD is preserved; continue work in Outpost.
+Canonical repository: `E:\projects\outpost`; documented working branch: `codex/outpost`; Android/Java identity: `dev.outpost.app`; native library: `outpost_engine`. A private GitHub remote exists at `nicoarias81/outpost`; no public release is configured and public visibility is deferred. The original `brujula-android` source/AVD is preserved; continue work in Outpost.
 
 ## Product intent and latest corrections
 

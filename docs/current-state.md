@@ -22,7 +22,7 @@ Current implementation: Outpost 0.8.1 / version code 10. Current checks are reco
 | Knowledge package manager | Proposed | No versioned package installation or typed adapter contract yet |
 | PDF, ZIM, OSM, routing, GPS | Proposed | No corresponding adapter or user workflow |
 | English product baseline | Implemented | UI, main prompts, seed notes, retrieval and primary generation fixtures translated; historical bilingual reviewer probes retained |
-| Standalone Git repository | Implemented | Independent local repository at `E:\projects\outpost`; no remote configured |
+| Standalone Git repository | Implemented | Independent local repository at `E:\projects\outpost` with a private GitHub remote at `nicoarias81/outpost`; public visibility is deferred |
 
 ## Runtime limits and defaults
 
@@ -65,4 +65,4 @@ The 0.8 mission run preserves text across baseline/grouped paths, but source cop
 
 ## Release identity
 
-The current debug APK is `dist/outpost-0.8.1-emulator-debug.apk`, SHA-256 `5551f8047b1746b74e8e04ab0f7778d6c3e08457cc9134000b1c783bd8511676`; its validation is linked from the [README](../README.md). The retained `dist/outpost-0.8.0-emulator-debug.apk` remains the previous historical build, and the historical Brújula 0.7 artifact remains separate. Project code license, release signing, remote hosting, and public distribution remain open.
+The current debug APK is `dist/outpost-0.8.1-emulator-debug.apk`, SHA-256 `5551f8047b1746b74e8e04ab0f7778d6c3e08457cc9134000b1c783bd8511676`; its validation is linked from the [README](../README.md). The retained `dist/outpost-0.8.0-emulator-debug.apk` remains the previous historical build, and the historical Brújula 0.7 artifact remains separate. Project code license, release signing and public distribution remain open; the GitHub remote is private and publication is deferred to a final usable version.

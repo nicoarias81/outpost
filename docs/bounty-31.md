@@ -133,7 +133,7 @@ can verify, not what has been verified.
 | R-NOGMS | No Google Play Services for core offline functionality. | yes | AOSP system image on the emulator; no GMS dependency in the build files. Source of truth: [decisions.md](decisions.md) ADR-002. |
 | R-BEYOND-RECALL | Handle explanation, comparison, synthesis and reasoning beyond simple factual recall. | partial | Fifteen fixtures across seven question families are defined in the manifest; none has been executed as a scored benchmark. Source of truth: [../eval/fixtures-v1.json](../eval/fixtures-v1.json). |
 | R-SPEED | Usable lookup speed on a phone. | no | Emulator timing is recorded but is explicitly not a phone prediction (ADR-003, known-failure P-01). Source of truth: [current-state.md](current-state.md). |
-| R-PUBLIC-REPO | Published in a public GitHub repository, reproducible and documented. | partial | A private GitHub remote is authorized by the user (2026-09-29); no remote is configured yet, and public visibility is deferred to the final usable version. Source of truth: [current-state.md](current-state.md). |
+| R-PUBLIC-REPO | Published in a public GitHub repository, reproducible and documented. | partial | A private GitHub remote exists at `nicoarias81/outpost`, authorized by the user (2026-09-29); public visibility is deferred to the final usable version and has not happened. Source of truth: [current-state.md](current-state.md). |
 | R-REAL-DEVICE | Must work on real Android hardware at the time of submission. | no | Physical-device validation is deferred by user decision; the emulator remains the only execution target (ADR-003). Source of truth: [decisions.md](decisions.md) ADR-003. |
 | R-PROOF | Public demo on X or Farcaster plus a poidh screenshot. | no | Out of scope: no public demo exists or is planned inside the repository's current scope. Source of truth: [../odd/tasks/eval-fixture-manifest.md](../odd/tasks/eval-fixture-manifest.md) scope boundary. |
 | R-BAR-50PCT | More than 50% as good as internet search plus frontier AI models. | no | A comparison protocol is defined in [../eval/rubric-v1.md](../eval/rubric-v1.md), marked **proposed, not measured**; nothing in the repository currently scores this bar. Source of truth: [../eval/rubric-v1.md](../eval/rubric-v1.md). |
@@ -145,8 +145,9 @@ These are decisions, not proposals:
 
 - Physical device execution stays out of scope, and the emulator remains the only execution target.
   ADR-003 stays active.
-- A **private** GitHub repository is authorized. Public visibility is deferred until a final usable
-  version exists. No remote, no release, and no licence selection happen as part of this.
+- A **private** GitHub repository exists at `nicoarias81/outpost`, authorized by the user. Public
+  visibility is deferred until a final usable version exists. No release is published and no code
+  licence has been selected.
 - The bounty requirements about real device, GrapheneOS, RAM, storage, real-device latency, public
   repository and public proof are **recorded and traced but cannot be verified in the current
   scope**. They must never be reported as met.

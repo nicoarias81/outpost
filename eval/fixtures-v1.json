@@ -352,8 +352,8 @@
       "id": "R-PUBLIC-REPO",
       "text": "The submission must be published in a public GitHub repository that is reproducible and documented.",
       "verifiable_in_current_scope": "partial",
-      "verification_route": "roadmap task 5: a private GitHub remote is authorized; public visibility is deferred to the final usable version",
-      "scope_note": "A private GitHub repository is authorized by the user (2026-09-29); public visibility has not happened."
+      "verification_route": "roadmap task 5: a private GitHub remote exists at nicoarias81/outpost; public visibility is deferred to the final usable version",
+      "scope_note": "A private GitHub repository exists at nicoarias81/outpost, authorized by the user (2026-09-29); public visibility has not happened."
     },
     {
       "id": "R-REAL-DEVICE",

@@ -59,4 +59,4 @@ Renaming does not justify deleting historical evidence or altering its app/model
 
 ## Open decisions
 
-Project code license, remote hosting, release signing, large-evidence distribution, package catalog format, and whether to add Spanish as a supported UI locale remain open. Outpost naming is settled; the remaining choices are not implied by a local repository. Acceptance tasks are R-01 through R-05 in the [roadmap](roadmap.md).
+Project code license, release signing, large-evidence distribution, package catalog format, and whether to add Spanish as a supported UI locale remain open. A private GitHub remote exists; public visibility is deferred to a final usable version. Outpost naming is settled; the remaining choices are not implied by a local repository. Acceptance tasks are R-01 through R-05 in the [roadmap](roadmap.md).
