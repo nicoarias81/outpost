@@ -79,6 +79,17 @@ A native review of these changes approved the candidate and raised non-blocking 
 
 One finding stays open: `R3-width-report-coupling` at `RuntimeChecks.java:122-123`. The controller exposed an identifier and a location for each finding but not the reviewer's reasoning, and this identifier is not specific enough to justify changing the calibration's reporting behaviour on inference alone.
 
+The reviewed candidates, each closed with its authority burned:
+
+| Candidate | Lineage | Scope | Outcome |
+|---|---|---|---|
+| `97dc1dc..cfb02f2` | `review-358b962a849f719b` | 35 paths, 844 changed lines, tier medium, one consolidated lens | approved, 4 findings |
+| `097d7ca` | `review-700829cb73c64c68` | the seven test scripts, 16 lines, correction budget 8 | approved, 2 findings |
+| `5f25fee` | `review-e0bf88f0165dc893` | the Explore screen, 23 lines, correction budget 12 | approved, 1 finding |
+| `e84c3a0` | `review-0aa86989573b1560` | the grouped-prefill change, 474 lines, correction budget 200 | approved on the second capture, 2 findings |
+
+`a52f2b3`, the commit that closes the findings above, is **not reviewed**. Two capture attempts on its range returned `reviewer-empty-output` with `stopReason: length` after 369 s and 352 s, lineage `review-23f0130e0b141df6`, and mutated nothing, so no reviewed authority exists for it and it must not be described as reviewed. Retry it on a reoffered one-slot binding, or review it under a different reviewer configuration.
+
 ## Remaining scope
 
 Field workflows on real hardware, larger knowledge packages, OSM/ZIM/PDF adapters, ARM APK execution, real memory pressure, physical phone performance, thermal behaviour, and battery use remain unvalidated or unimplemented as described in the [roadmap](roadmap.md).

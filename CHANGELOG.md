@@ -10,6 +10,9 @@ This history is reconstructed from saved validation reports. Version dates are o
 - The seven `test-*.ps1` scripts retrieve evidence portably, fixing the PowerShell 5.1 `InvokeMethodOnNull` failure that lost run results.
 - Calibration phases no longer overwrite runtime dimensions they did not measure.
 - Context speculation was re-measured on the field missions and stays opt-in, off by default.
+- The seven test scripts build their evidence-retrieval arguments through a shared quoting helper, so a value containing a space can no longer split into two arguments. `publish-artifact.ps1` refuses to publish an APK older than any source or build file, and its `-Verify` mode reports a missing checksum sidecar instead of failing with a raw read error.
+- The functional suite asserts that the question input opens empty and that none of the removed preset questions reappears, and reports 53 checks.
+- Calibration re-confirms the stored matrix width at the threads and batch it just chose, so a saved profile is a combination measured as a whole rather than a merge of separately measured dimensions.
 - Validation is recorded in [the 0.8.1 report](docs/validation-0.8.1.md); the artifact is published reproducibly with [publish-artifact.ps1](scripts/publish-artifact.ps1).
 
 ## Emulator operating handoff — 2026-09-29
