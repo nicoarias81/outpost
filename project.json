@@ -4,7 +4,7 @@
   "applicationId": "dev.outpost.app",
   "nativeLibrary": "outpost_engine",
   "defaultLanguage": "en",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "executionScope": "emulator-only",
   "previousIdentity": {
     "name": "Br\u00fajula",

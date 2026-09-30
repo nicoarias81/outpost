@@ -27,7 +27,7 @@ import java.util.function.BooleanSupplier;
 /** Local retrieval, immutable source locators, and transactional text/CSV packs. */
 public final class Library extends SQLiteOpenHelper {
     public static final int MAX_IMPORT_BYTES = 1_048_576;
-    static final int SCHEMA_VERSION = 3;
+    static final int SCHEMA_VERSION = 4;
     private static final String ACTIVE = "(d.package_id IS NULL OR EXISTS (SELECT 1 FROM knowledge_packs k "
         + "WHERE k.id=d.package_id AND k.version=d.package_version AND k.active=1))";
     private static final Set<String> STOP = new HashSet<>(Arrays.asList(
@@ -52,6 +52,7 @@ public final class Library extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE documents (id TEXT PRIMARY KEY, title TEXT NOT NULL, category TEXT NOT NULL, source TEXT NOT NULL, url TEXT NOT NULL, date TEXT NOT NULL, body TEXT NOT NULL)");
         db.execSQL("CREATE VIRTUAL TABLE passages USING fts4(doc_id, part, content, search_text, notindexed=doc_id, notindexed=part, notindexed=content)");
         addMetadataSchema(db);
+        addImportSchema(db);
     }
 
     private static void addMetadataSchema(SQLiteDatabase db) {
@@ -82,11 +83,41 @@ public final class Library extends SQLiteOpenHelper {
             }
             oldVersion = 2;
         }
-        if (oldVersion == 2 && newVersion == 3) {
+        if (oldVersion == 2 && newVersion >= 3) {
             removeLegacyDemo(db);
+            oldVersion = 3;
+        }
+        if (oldVersion == 3 && newVersion == 4) {
+            addImportSchema(db);
             return;
         }
         throw new IllegalStateException("Unsupported library schema migration");
+    }
+
+    private static void addImportSchema(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE imported_files (source_key TEXT NOT NULL,raw_sha256 TEXT NOT NULL,document_id TEXT NOT NULL UNIQUE,PRIMARY KEY(source_key,raw_sha256))");
+    }
+    synchronized Document importedFile(String key,String sha) {
+        try(Cursor c=getReadableDatabase().rawQuery("SELECT d.id FROM imported_files i JOIN documents d ON d.id=i.document_id WHERE i.source_key=? AND i.raw_sha256=?",new String[]{key,sha})) {
+            return c.moveToFirst()?load(c.getString(0)):null;
+        }
+    }
+    synchronized DocumentImporter.Result importFileSnapshot(String name,String format,String body,List<String> pages,
+            java.io.File original,String key,String sha,BooleanSupplier canceled)throws Exception {
+        SQLiteDatabase db=getWritableDatabase();db.beginTransaction();Document created=null;boolean complete=false;
+        try {
+            Document existing=importedFile(key,sha);
+            if(existing!=null){db.setTransactionSuccessful();complete=true;return new DocumentImporter.Result(existing,false);}
+            cancellation(canceled);
+            created=format.equals("pdf")?importPdf(name,pages,original):format.equals("csv")?importCsv(name,body):importText(name,body);
+            ContentValues origin=new ContentValues();origin.put("source_key",key);origin.put("raw_sha256",sha);origin.put("document_id",created.id());db.insertOrThrow("imported_files",null,origin);
+            ContentValues source=new ContentValues();source.put("source","Imported file · "+name);db.update("documents",source,"id=?",new String[]{created.id()});
+            cancellation(canceled);db.setTransactionSuccessful();complete=true;
+            return new DocumentImporter.Result(load(created.id()),true);
+        } finally {
+            try{db.endTransaction();}catch(Exception failure){complete=false;throw failure;}
+            finally{if(!complete&&created!=null&&format.equals("pdf"))pdfFile(created.id()).delete();}
+        }
     }
 
     private static void removeLegacyDemo(SQLiteDatabase db) {
@@ -131,7 +162,7 @@ public final class Library extends SQLiteOpenHelper {
         Metadata m=metadata(id);
         if(m.packageId()!=null)throw new IllegalArgumentException("Remove the containing pack instead.");
         SQLiteDatabase db=getWritableDatabase();db.beginTransaction();
-        try{db.delete("passages","doc_id=?",new String[]{id});db.delete("documents","id=?",new String[]{id});db.setTransactionSuccessful();}
+        try{db.delete("imported_files","document_id=?",new String[]{id});db.delete("passages","doc_id=?",new String[]{id});db.delete("documents","id=?",new String[]{id});db.setTransactionSuccessful();}
         finally{db.endTransaction();}
         if(m.format().equals("pdf"))pdfFile(id).delete();
     }

@@ -35,3 +35,8 @@ PDF extraction is not a proof of correct reading order or table recognition. Ori
 `scripts/test-chat.ps1` checks empty startup, precise seed cleanup, existing-data preservation, conversation persistence, Settings, actual TXT/CSV/PDF import paths, PDF rejection and original page rendering. `-Generate` adds actual Bonsai 4B multi-turn, imported-source, stop and restart checks. Both use unique evidence directories and matching build/APK identities; no physical phones are targeted.
 
 `scripts/test-knowledge.ps1` retains migration, CSV, locator, transaction, package and policy regression coverage. Evidence-only comparison fixtures use the explicit test corpus in v3. Old search/reviewer UI phases were retired; use chat checks for the product, native runtime/cache tests for exact-prefix controls, and native Kev tests for classifier research. Do not interpret the old 0.9 quality scores as evaluations of the new chat prompt.
+
+
+## 0.11 document-preparation update
+
+Settings/Documents offer Add file and Add folder. Recursive folder import, progress/cancel/retry, summaries, source paths and unchanged-file identity are described in [folder-import](folder-import.md). Schema4 adds origin bindings without deleting current content. While the library worker imports a batch, chat displays progress access and disables send; the conversation/model protocol is unchanged.

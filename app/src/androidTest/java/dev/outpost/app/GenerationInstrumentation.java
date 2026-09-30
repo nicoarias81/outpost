@@ -23,6 +23,7 @@ import org.json.JSONObject;
 public final class GenerationInstrumentation extends OfflineInstrumentation {
     private boolean generationSuite;
     private Bundle chatArgs;
+    private String folderRun;
     private Bundle evaluationArgs;
     private boolean knowledgeSuite;
     private String knowledgeRun;
@@ -40,6 +41,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         checks++;
     }
     @Override public void onCreate(Bundle arguments) {
+        folderRun=arguments==null?null:arguments.getString("folder_run");
         chatArgs=arguments!=null&&arguments.containsKey("chat_run")?new Bundle(arguments):null;
         knowledgeRun = arguments == null ? "" : arguments.getString("knowledge_run", "");
         knowledgeSuite = arguments != null && "true".equals(arguments.getString("knowledge"));
@@ -53,6 +55,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         super.onCreate(arguments);
     }
     @Override public void onStart() {
+        if(folderRun!=null){new FolderChecks(this,folderRun).run();return;}
         if(chatArgs!=null){new ChatChecks(this,chatArgs.getString("chat_run"),"true".equals(chatArgs.getString("chat_generate"))).run();return;}
         if(knowledgeSuite) { new KnowledgeChecks(this, knowledgeRun).run(); return; }
         if(evaluationArgs != null) { new EvaluationChecks(this, evaluationArgs).run(); return; }

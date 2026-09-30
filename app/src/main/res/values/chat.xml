@@ -18,7 +18,7 @@
   <string name="chat_stop">Stop response</string>
   <string name="chat_no_answer">I could not produce an answer. Please try rephrasing your question.</string>
   <string name="chat_settings_help">Your conversation and documents stay on this device.</string>
-  <string name="chat_import">Add documents</string>
+  <string name="chat_import">Add file</string>
   <string name="chat_import_help">PDF, TXT, Markdown or CSV. Text files up to 1 MiB; PDFs up to 10 MiB and 100 pages. Scanned PDFs need OCR first.</string>
   <string name="chat_model">Offline model</string>
   <string name="chat_model_ready">Ready to use offline</string>
@@ -47,7 +47,6 @@
   <string name="chat_pdf_page">Page %1$d of %2$d</string>
   <string name="chat_pdf_no_text">No extracted text on this page. Read the original above.</string>
   <string name="chat_pdf_preview_missing">The original page preview is unavailable. Extracted text is shown below.</string>
-  <string name="chat_supported_files">Choose a PDF, UTF-8 TXT, Markdown or CSV file.</string>
   <string name="chat_imported">Document saved for offline use</string>
   <string name="chat_import_error">Could not import this file. Check that it is readable, supported and stored on your device.</string>
   <string name="chat_model_error">Could not import the model. Check the file and available storage.</string>

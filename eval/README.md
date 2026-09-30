@@ -66,3 +66,8 @@ The frozen v1 identity intentionally targets the earlier app; validating it agai
 ## 0.10 update
 
 The current default is `fixtures-v3.json` (same schema2 execution shape, new manifest revision). The demo corpus now exists only in the instrumented test APK under `app/src/androidTest/assets/library.json`; `TestLibrary` seeds isolated evaluation databases explicitly. Product libraries start empty. These fixtures continue to evaluate evidence-only `ResearchPrompt`, while the chat product uses `ChatPrompt`. Use `scripts/test-chat.ps1 -Generate` for actual conversational integration; neither suite establishes general model quality. V1/v2 manifests and their runs remain historical.
+
+
+## 0.11 update
+
+The default evidence-only manifest is now `fixtures-v4.json`, preserving the prior matrix with 0.11 app identity. Recursive import uses separate no-model `test-folders.ps1` integration checks. The product's chat prompt and native model/runtime code did not change; previous answer-quality results are not rerun or relabeled by these import checks.

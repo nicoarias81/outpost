@@ -2,6 +2,14 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## 0.11.0 — Recursive folder import — 2026-09-30
+
+- Adds Settings/Documents → Add folder using Android's selected-tree picker; recursively imports supported PDF/TXT/Markdown/CSV.
+- Shows progress, stop control and persistent summary, with per-item skips/errors; keeps successful files when a sibling fails.
+- Preserves relative paths and adds schema4 source/format/raw-byte identity for unchanged-file deduplication and safe retry. Changed files remain new snapshots.
+- Shares the single-file parser/limits with folder ingestion and adds dedicated real-provider tests without shipping fixtures in the user APK.
+- No model/prompt/kernel change, source write, automatic sync or physical-device execution.
+
 ## 0.10.0 — Chat and personal documents — 2026-09-30
 
 - Opens directly on a persistent local conversation with streaming send/stop and bounded follow-up context.

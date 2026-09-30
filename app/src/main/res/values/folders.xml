@@ -1,0 +1,19 @@
+<resources>
+  <string name="folder_add">Add folder</string>
+  <string name="folder_help">Includes supported files in every subfolder. Imports a copy; the folder is not kept in sync.</string>
+  <string name="folder_scanning">Scanning your folder…</string>
+  <string name="folder_cancel">Stop import</string>
+  <string name="folder_stopping">Stopping import…</string>
+  <string name="folder_last_report">Last folder import</string>
+  <string name="folder_summary_title">Folder import summary</string>
+  <string name="folder_progress">Scanned: %1$d · Imported: %2$d · Already added: %3$d · Skipped: %4$d · Failed: %5$d\n%6$s</string>
+  <string name="folder_counts">Imported: %1$d\nAlready added: %2$d\nSkipped items: %3$d\nCould not import: %4$d\nItems scanned: %5$d</string>
+  <string name="folder_canceled">Import stopped. Completed documents are kept. Choose the folder again to continue; unchanged files will not be duplicated.</string>
+  <string name="folder_limited">The folder could not be fully scanned because a traversal limit was reached. See details below and import smaller subfolders.</string>
+  <string name="folder_more_issues">Additional issues not listed: %1$d</string>
+  <string name="folder_interrupted">The previous folder import was interrupted. Documents already saved are kept. Choose the folder again to continue.</string>
+  <string name="folder_open_error">Could not read the selected folder. Choose it again and check that its files are available on this device. Any documents already imported are kept.</string>
+  <string name="folder_file_unchanged">This file is already available offline.</string>
+  <string name="folder_chat_busy">Import in progress · View details</string>
+  <string name="folder_document_page">Documents: %1$d–%2$d / %3$d</string>
+</resources>

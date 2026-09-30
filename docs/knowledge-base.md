@@ -1,6 +1,6 @@
 # Knowledge domain and source contracts
 
-Outpost 0.10 implements text/Markdown/CSV/PDF, typed passage/record/page locators and schema-3 migration with an empty product library. Bounded JSON pack APIs remain available for existing data and developer tooling; the product imports individual documents through Settings. The authoritative implemented format is [knowledge-pack v1](knowledge-packs-v1.md). Broader contracts below remain design direction.
+Outpost 0.11 implements text/Markdown/CSV/PDF, typed passage/record/page locators and schema-3 migration with an empty product library. Bounded JSON pack APIs remain available for existing data and developer tooling; the product imports individual documents through Settings. The authoritative implemented format is [knowledge-pack v1](knowledge-packs-v1.md). Broader contracts below remain design direction.
 
 ## Complementary content layers
 
@@ -44,3 +44,8 @@ Apply hard applicability constraints before relevance ranking; preserve exact ID
 ## Integration references to revisit before adapters
 
 [libzim](https://github.com/openzim/libzim) remains a candidate requiring Android build, storage/index and dependency review. Regional OSM extracts need source attribution and declared coverage; standard raster tiles are not an offline bulk package backend ([OSMF policy](https://operations.osmfoundation.org/policies/tiles/)). Google Maps offline caches have no demonstrated supported import contract here. These are historical feasibility references, not newly verified integration guarantees; recheck upstream terms and capabilities before implementation.
+
+
+## Folder ingestion in 0.11
+
+Individual and recursive imports share source-format/raw-byte identity through schema4 `imported_files`. A folder is a selected input scope, not a package or synchronized mount. Relative paths are stored as provenance; equally named files in different directories remain distinct. Changed files create another source snapshot; old references are not rebound or deleted. See [folder import](folder-import.md).

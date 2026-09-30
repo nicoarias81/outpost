@@ -98,3 +98,8 @@ D-02 and the earlier manual example share evidence identity, provenance, import 
 ## Definition of done
 
 A task closes when its acceptance criteria have evidence, relevant documentation/decisions are updated, failure modes are covered, and limitations are explicit. Do not close a task because a harness printed PASS if the required product outcome failed. A runtime optimization also needs baseline comparison and an assessed quality/resource tradeoff. A docs-only task needs link, source-consistency, and language checks; it does not require rerunning multi-GB model tests.
+
+
+## 0.11 delivered slice
+
+Recursive selected-folder import is implemented, including path provenance, per-item results, stop/retry and unchanged-file deduplication. This advances document preparation; it does not close K-02's broader package lifecycle/coverage/storage requirements, add Office/OCR support, or implement continuous sync. Full restart/resume scheduling and PDF orphan-file recovery remain pending.

@@ -57,10 +57,10 @@ final class ChatChecks {
             String kept;
             try(Library old=TestLibrary.seeded(test.getTargetContext(),migration)) {
                 kept=old.importText("user-note.txt","User-owned ZX-42 record.").id();
-                old.getWritableDatabase().execSQL("UPDATE documents SET body='Edited source to preserve' WHERE id='gps'");old.getWritableDatabase().setVersion(2);
+                old.getWritableDatabase().execSQL("UPDATE documents SET body='Edited source to preserve' WHERE id='gps'");old.getWritableDatabase().execSQL("DROP TABLE imported_files");old.getWritableDatabase().setVersion(2);
             }
             try(Library updated=new Library(test.getTargetContext(),migration)) {
-                check(updated.getReadableDatabase().getVersion()==3,"Existing schema-2 database upgrades to schema 3");
+                check(updated.getReadableDatabase().getVersion()==4,"Existing schema-2 database upgrades to schema 4");
                 check(updated.documents().size()==2,"Upgrade removes only the five unchanged demo notes");
                 check(updated.load(kept).body().contains("ZX-42"),"Upgrade preserves imported document identity/content");
                 check(updated.load("gps").body().equals("Edited source to preserve"),"Upgrade preserves an edited record even with a former demo ID");

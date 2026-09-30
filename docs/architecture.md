@@ -1,6 +1,6 @@
 # Architecture
 
-Status: current implementation plus explicitly proposed module boundaries. Current code: Outpost 0.10.0. The product opens on chat; see [current flow](chat-beta.md). The rename and English baseline preserve the 0.7 runtime architecture.
+Status: current implementation plus explicitly proposed module boundaries. Current code: Outpost 0.11.0. The product opens on chat; see [current flow](chat-beta.md). The rename and English baseline preserve the 0.7 runtime architecture.
 
 ## Current application
 
@@ -95,7 +95,7 @@ The current no-INTERNET manifest remains unchanged. Any IP or remote executor ne
 
 ## Data and failure boundaries
 
-Database schema 3 stores source metadata, document revisions and active/retained package versions alongside FTS4 fragments. The transactional schema-1 upgrade preserves imported IDs/content and rolls back failed alterations. CSV fragments retain record/header relationships; exact locators resolve archived source versions. Pack activation is atomic. See [knowledge-pack v1](knowledge-packs-v1.md). Persistent mission state, structured geographic entities and local tools remain proposed.
+Database schema 4 stores source metadata, document revisions and active/retained package versions alongside FTS4 fragments. The transactional schema-1 upgrade preserves imported IDs/content and rolls back failed alterations. CSV fragments retain record/header relationships; exact locators resolve archived source versions. Pack activation is atomic. See [knowledge-pack v1](knowledge-packs-v1.md). Persistent mission state, structured geographic entities and local tools remain proposed.
 
 Proposed request failures should distinguish `no_coverage`, `no_relevant_evidence`, `missing_context`, `unsupported_capability`, `cancelled`, `deadline`, and `resource_limit`. These are design categories, not existing public error enums. A missing package must not silently trigger unsupported model-memory claims or a network fallback.
 
@@ -104,3 +104,8 @@ The [knowledge contract](knowledge-base.md), [decision register](decisions.md), 
 ## Chat and page-aware documents in 0.10
 
 `ChatStore` persists the conversation separately from the knowledge DB. `ChatPrompt` builds bounded recent context and current evidence; the main send action retrieves then streams an answer. Settings owns import/model/document management. Product startup never loads the test corpus. Schema3 removes only known unchanged legacy seeds. `PdfImporter` extracts bounded page text; Library preserves original page locators plus a private original file, rendered by Android PdfRenderer. See [chat-beta](chat-beta.md) for lifecycle and failure boundaries.
+
+
+## Recursive ingestion in 0.11
+
+`FolderImporter` iteratively enumerates the selected SAF tree with cycle/size/depth guards. `DocumentImporter` copies and hashes one bounded file at a time, sharing parsers with Add file. `Library.importFileSnapshot` commits source rows, FTS and schema4 origin bindings together; unchanged source/format/byte identities skip reimport. UI progress is coalesced on the main thread; each file succeeds/fails independently and cancellation keeps already committed documents. [Folder design](folder-import.md) defines snapshot and recovery boundaries.

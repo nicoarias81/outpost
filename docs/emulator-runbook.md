@@ -248,3 +248,8 @@ Knowledge/evaluation runs now have unique host and app directories. Other script
 ## 0.10 workflow supersedes the old screen names
 
 The launcher is Chat. Settings contains documents and offline-model setup. There is no Status/Explore screen or speculation switch. Product chat forces speculation off. Use `test-chat.ps1` for current UI/import checks, optionally `-Generate` for real Bonsai conversation; it checks build receipt and installed hashes before executing. `test-knowledge.ps1` retains migration/locator/CSV/package checks. A newly compiled ARM64 library is packaged, but all these runners remain restricted to the x86_64 Outpost35 emulator. See [current handoff](handoff.md) and [validation](validation-0.10.md).
+
+
+## 0.11 folder tests
+
+`pwsh -File scripts/test-folders.ps1` validates the selected-tree import using a real test-only DocumentsProvider. It checks the build receipt, APK hashes, dedicated AVD and offline state first. Its owner-grant Activity handles fixture URI permissions after instrumentation starts; do not use shell component-state changes or broad product permissions. The wrapper revokes grants and hides the provider after testing. Fixture data and import-summary state are cleaned/restored, and unique host run folders retain outcomes.

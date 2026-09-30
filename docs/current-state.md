@@ -1,12 +1,13 @@
 # Current implementation and known gaps
 
-**Outpost 0.10.0 / version code 12.** The current product is chat-first, in English, with an empty knowledge library. [Chat/document behavior](chat-beta.md) describes the implementation; [validation](validation-0.10.md) owns current run identities, results and limitations.
+**Outpost 0.11.0 / version code 13.** The current product is chat-first, in English, with an empty knowledge library. [Chat/document behavior](chat-beta.md) describes the implementation; [validation](validation-0.11.md) owns current run identities, results and limitations.
 
 | Area | Current state |
 |---|---|
 | Home | Persistent local conversation, streaming replies, bottom composer, Settings icon; no demo tabs or benchmark/reviewer UI |
+| Folder import | Implemented: recursive SAF traversal, per-file failure isolation, progress, stop/retry, unchanged-file deduplication and retained paths; one-time copy, no sync |
 | Documents | Settings import/manage for TXT, Markdown, CSV and text-bearing PDF; originals/source locators inspectable |
-| Seed removal | Schema-3 migration removes exact unchanged built-in notes only; fresh library empty; imports/edited records preserved |
+| Seed removal | Schema-3 cleanup plus schema-4 import identity migration removes exact unchanged built-in notes only; fresh library empty; imports/edited records preserved |
 | PDF | Bounded page-aware extraction, original private file, original page rendering; encrypted/scanned-only PDFs rejected; no OCR |
 | Conversation | Local turn persistence, bounded recent context, stop/interruption status, confirmed deletion independent of documents |
 | Generation | Pinned Bonsai 4B/1.7B and Qwen 1.5B, local JNI; document sources where relevant, general model knowledge otherwise |

@@ -105,3 +105,8 @@ Add a new numbered decision when a material tradeoff changes. Include status, pr
 ## ADR-025 — Add bounded PDF extraction and prepare ARM64 without device execution
 
 **Status: implemented build/import slice.** PDF is an explicitly requested user input. Pin PdfBox-Android plus its transitive dependency byte identities, preserve original PDF/page locators, reject unsupported encrypted/scanned-only input, and expose extracted text alongside original rendering. OCR and robust layout/table interpretation remain separate. ARM64 is linked and packaged using the existing backend/reference path to prepare mobile testing; custom ARM kernels and device execution/performance are not established. The prior emulator-only execution constraint stays active.
+
+
+## ADR-026 — Import a selected directory as resumable snapshots
+
+**Status: user-requested, implemented in 0.11.** The owner requested choosing a directory and loading supported files recursively. Use ACTION_OPEN_DOCUMENT_TREE and the existing offline parsers through one shared bounded importer. Process files sequentially with independent transactions, preserve paths, report skips/errors and allow cancellation. Schema4 binds provider/document identity, format and raw-byte hash so reselecting an unchanged tree does not duplicate completed work. Changed files create new snapshots and retain older references. Automatic sync, background watchers and source writes are outside this request. Android access restrictions and traversal bounds remain explicit. Revisit for a separate refresh/version-management workflow if user tests justify it.

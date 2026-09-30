@@ -13,8 +13,11 @@ import java.util.List;
 
 /** Offline text extraction with page identity. Scans are not silently treated as searchable text. */
 final class PdfImporter {
+    private static void checkCancellation(java.util.function.BooleanSupplier canceled){if(canceled.getAsBoolean()||Thread.currentThread().isInterrupted())throw new java.util.concurrent.CancellationException("Import canceled.");}
     static final int MAX_BYTES=10*1024*1024, MAX_PAGES=100, MAX_TEXT=750_000;
-    static List<String> extract(Context context,File file) throws IOException {
+    static List<String> extract(Context context,File file) throws IOException {return extract(context,file,()->false);}
+    static List<String> extract(Context context,File file,java.util.function.BooleanSupplier canceled) throws IOException {
+        checkCancellation(canceled);
         if(file.length()==0 || file.length()>MAX_BYTES) throw new IllegalArgumentException("Choose a PDF up to 10 MiB.");
         PDFBoxResourceLoader.init(context.getApplicationContext());
         MemoryUsageSetting memory=MemoryUsageSetting.setupMixed(4*1024*1024,32*1024*1024).setTempDir(context.getCacheDir());
@@ -25,11 +28,12 @@ final class PdfImporter {
             PDFTextStripper stripper=new PDFTextStripper(); stripper.setSortByPosition(true);
             List<String> pages=new ArrayList<>(); int total=0; boolean anyText=false;
             for(int page=1;page<=pdf.getNumberOfPages();page++) {
-                if(Thread.currentThread().isInterrupted()) throw new IOException("Import interrupted.");
+                checkCancellation(canceled);
                 stripper.setStartPage(page); stripper.setEndPage(page);
                 final int remaining=MAX_TEXT-total; StringBuilder body=new StringBuilder();
                 stripper.writeText(pdf,new Writer() {
                     @Override public void write(char[] chars,int offset,int length) throws IOException {
+                        checkCancellation(canceled);
                         if(body.length()+length>remaining) throw new IOException("PDF text exceeds the supported size. Import a shorter document.");
                         body.append(chars,offset,length);
                     }

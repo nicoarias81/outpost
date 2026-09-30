@@ -48,3 +48,8 @@ JSON packs contain bounded inline text/CSV, not arbitrary path archives. Validat
 Conversation rows are private local data, distinct from document storage. New chat confirms deletion of the conversation without removing imports. Stop/interruption states survive recovery. Model history is context rather than independently verified evidence, and no generated instruction authorizes an action. No network permission was added.
 
 PDF parsing introduces a pinned local dependency and stores an original private file beside bounded extracted text. Encrypted/scanned-only/malformed inputs are rejected. Rendering and extraction do not execute document actions. Full crash/orphan-file cleanup and storage-pressure guarantees remain pending; do not claim loss-free import recovery. Synthetic test corpus and checks moved out of the production assets/UI.
+
+
+## Selected-folder boundary
+
+0.11 reads only the tree chosen through Android's picker. There is no broad storage permission, source write/delete, background watcher or automatic synchronization. Imports become app-private copies. Provider identity, detected format and original-byte SHA-256 distinguish repeated snapshots; they do not authenticate content truth. Item failures and traversal limits are visible. Cancellation/process interruption preserve committed files; reselecting the folder resumes by skipping existing unchanged snapshots. The fixture provider belongs only to the test APK, with temporary owner-issued read grants.

@@ -1,6 +1,6 @@
 # Documentation index
 
-Outpost 0.10.0, version code 12. Maintained English documentation, updated on 2026-09-30. The standalone local repository is `E:\projects\outpost`; historical Brújula evidence is archived separately. Start with the [current validation record](validation-0.10.md) for the current build.
+Outpost 0.11.0, version code 13. Maintained English documentation, updated on 2026-09-30. The standalone local repository is `E:\projects\outpost`; historical Brújula evidence is archived separately. Start with the [current validation record](validation-0.11.md) for the current build.
 
 ## Start here when taking over
 
@@ -14,13 +14,14 @@ Read [AGENTS.md](../AGENTS.md) and [the engineering handoff](handoff.md). The la
 | Understand the project | [Overview](project-overview.md), [current state](current-state.md), [roadmap](roadmap.md) |
 | Define the questions Outpost should answer | [Contextual question families](offline-world-knowledge.md) |
 | Trace the external acceptance bar | [Bounty record (poidh #31)](bounty-31.md) — verbatim bounty text, provenance and requirement trace; the bar is external and not under project control |
-| Define or score the evaluation | [Evaluation protocol](evaluation.md), [v3 evidence-only fixtures](../eval/fixtures-v3.json) (15 defined: 12 runnable, 3 blocked), [rubric v2](../eval/rubric-v2.md), [runner/review guide](../eval/README.md); attributed development reviews are linked from validation and do not establish general accuracy |
+| Define or score the evaluation | [Evaluation protocol](evaluation.md), [v4 evidence-only fixtures](../eval/fixtures-v4.json) (15 defined: 12 runnable, 3 blocked), [rubric v2](../eval/rubric-v2.md), [runner/review guide](../eval/README.md); attributed development reviews are linked from validation and do not establish general accuracy |
 | Review new user input | [Personal knowledge and field-work discovery](discovery-2026-09-29.md) |
 | Change the architecture | [Architecture](architecture.md), [knowledge contracts](knowledge-base.md), [implemented pack format](knowledge-packs-v1.md), [decisions](decisions.md) |
 | Work on performance | [Runtime](inference-runtime.md), [optimizations](optimizations.md), [speculation](speculation.md), [evaluation](evaluation.md) |
 | Operate the emulator | [Emulator runbook](emulator-runbook.md): bootstrap, preflight, models, evidence and recovery |
 | Build or reproduce results | [Development](development.md), [evaluation](evaluation.md), [dependencies](../THIRD_PARTY.md) |
 | Prepare a standalone repository | [Migration and English baseline](repository-migration.md), [handoff](handoff.md) |
+| Import a directory tree | [Folder import](folder-import.md), [current validation](validation-0.11.md) |
 | Handle local data | [Security and data](security-and-data.md), [knowledge contracts](knowledge-base.md) |
 | Decode terminology or release history | [Glossary](glossary.md), [changelog](../CHANGELOG.md) |
 

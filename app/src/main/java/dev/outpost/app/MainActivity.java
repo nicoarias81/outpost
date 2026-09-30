@@ -64,12 +64,23 @@ public final class MainActivity extends Activity {
     private Button send;
     private String screen="chat", draft="";
     private List<Library.Document> documents=List.of();
+    private int documentPage;
+    private static final int DOCUMENT_PAGE_SIZE=50;
     private final List<ChatStore.Turn> turns=new ArrayList<>();
     private final Map<String,TextView> replyViews=new HashMap<>();
     private boolean ready;
     private volatile boolean importing;
     boolean importInProgress(){return importing;}
     private long activeRun;
+    private volatile DocumentImporter.Cancellation folderCancellation;
+    volatile FolderImporter.Report lastFolderReport;
+    private FolderImporter.Progress folderProgress;
+    private TextView folderProgressView;
+    private String folderSummary="";
+    private final java.util.concurrent.atomic.AtomicReference<FolderImporter.Progress> pendingFolderProgress=new java.util.concurrent.atomic.AtomicReference<>();
+    private final java.util.concurrent.atomic.AtomicBoolean folderUpdateQueued=new java.util.concurrent.atomic.AtomicBoolean();
+    boolean folderImportInProgress(){return folderCancellation!=null;}
+
     private volatile boolean closed;
     private volatile boolean stopRequested;
     volatile boolean answerDone=true, searchDone=true, documentOpen;
@@ -81,6 +92,7 @@ public final class MainActivity extends Activity {
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
         library=new Library(this); chats=new ChatStore(this); models=new ModelStore(this); engine=new NativeEngine();
+        folderSummary=getPreferences(MODE_PRIVATE).getBoolean("folder_running",false)?getString(R.string.folder_interrupted):getPreferences(MODE_PRIVATE).getString("folder_summary","");
         draft=state==null ? getPreferences(MODE_PRIVATE).getString("draft","") : state.getString("draft","");
         root=column(); root.setBackgroundColor(BG);
         root.setOnApplyWindowInsetsListener((v,insets)->{
@@ -106,7 +118,7 @@ public final class MainActivity extends Activity {
         stopAnswer();cacheReleaseRequests++;if(!inference.isShutdown())inference.execute(engine::clearCache);super.onStop();
     }
     @Override protected void onDestroy() {
-        closed=true;stopAnswer();
+        closed=true;stopAnswer();if(folderCancellation!=null)folderCancellation.cancel();
         // Drain retrieval before closing inference; its final reply must be saved before DB close.
         worker.execute(()->{inference.execute(()->{engine.close();worker.execute(()->{library.close();chats.close();});worker.shutdown();});inference.shutdown();});
         super.onDestroy();
@@ -124,7 +136,7 @@ public final class MainActivity extends Activity {
     void showDocuments(){rememberDraft();hideKeyboard();screen="documents";render();}
     private void render() {
         if(!ready||closed)return;
-        root.removeAllViews();query=null;replyViews.clear();
+        root.removeAllViews();query=null;replyViews.clear();folderProgressView=null;
         LinearLayout header=row();header.setGravity(Gravity.CENTER_VERTICAL);header.setPadding(dp(16),dp(8),dp(16),dp(8));
         if(!screen.equals("chat")) {
             Button back=icon("back",R.string.chat_back);back.setOnClickListener(v->showChat());header.addView(back,new LinearLayout.LayoutParams(dp(48),dp(48)));
@@ -171,13 +183,14 @@ public final class MainActivity extends Activity {
         View spacer=new View(this);add(messages,spacer,12,8);
     }
     private void composer() {
+        if(importing){Button progress=button(getString(R.string.folder_chat_busy),BG,GREEN);progress.setOnClickListener(v->showSettings());root.addView(progress,new LinearLayout.LayoutParams(-1,dp(44)));}
         LinearLayout bar=row();bar.setGravity(Gravity.BOTTOM);bar.setPadding(dp(16),dp(8),dp(16),dp(12));bar.setBackgroundColor(BG);
         query=new EditText(this);query.setId(QUERY_ID);query.setHint(R.string.chat_message);query.setContentDescription(getString(R.string.chat_message));
         query.setTextSize(16);query.setTextColor(INK);query.setHintTextColor(MUTED);query.setMaxLines(4);query.setMinHeight(dp(52));
         query.setInputType(android.text.InputType.TYPE_CLASS_TEXT|android.text.InputType.TYPE_TEXT_FLAG_CAP_SENTENCES|android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         query.setImeOptions(EditorInfo.IME_ACTION_SEND);query.setFilters(new InputFilter[]{new InputFilter.LengthFilter(600)});query.setText(draft);
         query.setPadding(dp(16),dp(12),dp(16),dp(12));query.setBackground(shape(PAPER,24,LINE));bar.addView(query,new LinearLayout.LayoutParams(0,-2,1));
-        send=icon(answerDone?"send":"stop",answerDone?R.string.chat_send:R.string.chat_stop);send.setId(SEARCH_ID);
+        send=icon(answerDone?"send":"stop",answerDone?R.string.chat_send:R.string.chat_stop);send.setId(SEARCH_ID);send.setEnabled(!importing);send.setAlpha(importing?.45f:1f);
         LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(dp(52),dp(52));p.leftMargin=dp(8);bar.addView(send,p);
         send.setOnClickListener(v->{if(!answerDone)stopAnswer();else sendMessage(query.getText().toString());});
         query.setOnEditorActionListener((v,action,event)->{if(action==EditorInfo.IME_ACTION_SEND&&answerDone){sendMessage(query.getText().toString());return true;}return false;});
@@ -227,6 +240,7 @@ public final class MainActivity extends Activity {
     private void settingsPage() {
         TextView intro=text(getString(R.string.chat_settings_help),14,MUTED);add(content,intro,0,0);
         Button imports=button(getString(R.string.chat_import),GREEN,Color.WHITE);imports.setId(R.id.chat_import);imports.setEnabled(answerDone&&!importing);imports.setOnClickListener(v->pickDocument());add(content,imports,24,52);
+        folderControls(content);
         add(content,text(getString(R.string.chat_import_help),12,MUTED),8,0);
         Button files=button(getResources().getQuantityString(R.plurals.chat_document_count,documents.size(),documents.size()),PAPER,INK);files.setId(R.id.chat_documents);files.setOnClickListener(v->showDocuments());add(content,files,12,52);
         label(content,getString(R.string.chat_model));
@@ -236,7 +250,7 @@ public final class MainActivity extends Activity {
         Button clear=button(getString(R.string.chat_new),PAPER,INK);clear.setId(R.id.chat_new);clear.setEnabled(answerDone&&!importing);
         clear.setOnClickListener(v->new AlertDialog.Builder(this).setTitle(R.string.chat_new).setMessage(R.string.chat_clear_confirm)
             .setNegativeButton(R.string.cancel_action,null).setPositiveButton(R.string.chat_clear,(d,w)->worker.execute(()->{chats.clear();runOnUiThread(()->{if(!closed){turns.clear();draft="";showChat();}});})).show());add(content,clear,12,48);
-        if(importing)add(content,text(getString(R.string.chat_importing),14,GREEN),16,0);
+        if(importing&&folderCancellation==null)add(content,text(getString(R.string.chat_importing),14,GREEN),16,0);
         if(!answerDone)add(content,text(getString(R.string.chat_wait_reply),13,MUTED),16,0);
     }
     private static String modelName(ModelStore.Spec spec){return spec==ModelStore.BONSAI4?"Bonsai 4B":spec==ModelStore.BONSAI17?"Bonsai 1.7B":"Qwen 1.5B";}
@@ -252,11 +266,21 @@ public final class MainActivity extends Activity {
     private void documentsPage() {
         if(documents.isEmpty()){add(content,text(getString(R.string.chat_no_documents),22,INK),16,0);add(content,text(getString(R.string.chat_no_documents_help),14,MUTED),12,0);}
         Button addFile=button(getString(R.string.chat_import),GREEN,Color.WHITE);addFile.setEnabled(answerDone&&!importing);addFile.setOnClickListener(v->pickDocument());add(content,addFile,16,50);
-        for(Library.Document document:documents) {
+        folderControls(content);
+        int lastPage=Math.max(0,(documents.size()-1)/DOCUMENT_PAGE_SIZE);documentPage=Math.min(documentPage,lastPage);
+        int first=documentPage*DOCUMENT_PAGE_SIZE,end=Math.min(first+DOCUMENT_PAGE_SIZE,documents.size());
+        if(!documents.isEmpty())add(content,text(getString(R.string.folder_document_page,first+1,end,documents.size()),12,MUTED),16,0);
+        for(Library.Document document:documents.subList(first,end)) {
             LinearLayout card=column();card.setPadding(dp(16),dp(12),dp(16),dp(12));card.setBackground(shape(PAPER,16,LINE));
             add(card,text(document.title(),17,INK),0,0);
             Button open=button(getString(R.string.chat_open),PAPER,GREEN);open.setOnClickListener(v->openDocument(document,null));add(card,open,8,44);
             Button remove=button(getString(R.string.chat_remove),PAPER,MUTED);remove.setEnabled(answerDone&&!importing);remove.setOnClickListener(v->confirmRemove(document));add(card,remove,0,44);add(content,card,16,0);
+        }
+        if(lastPage>0){
+            LinearLayout pages=row();Button previous=button(getString(R.string.chat_previous),PAPER,GREEN),next=button(getString(R.string.chat_next),PAPER,GREEN);
+            previous.setId(R.id.documents_previous);next.setId(R.id.documents_next);previous.setEnabled(documentPage>0);next.setEnabled(documentPage<lastPage);
+            previous.setOnClickListener(v->{documentPage--;render();});next.setOnClickListener(v->{documentPage++;render();});
+            pages.addView(previous,new LinearLayout.LayoutParams(0,dp(48),1));pages.addView(next,new LinearLayout.LayoutParams(0,dp(48),1));add(content,pages,16,0);
         }
     }
     private void confirmRemove(Library.Document document) {
@@ -322,7 +346,57 @@ public final class MainActivity extends Activity {
             dialog.setOnDismissListener(d->{revision[0]++;image.setImageDrawable(null);if(shown[0]!=null)shown[0].recycle();});dialog.show();display.run();documentOpen=true;
         }catch(Exception e){error(getString(R.string.chat_source_removed));}
     }
+    static Intent folderPickerIntent(){return new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);}
     private void pickDocument(){pick(10);}
+    private void folderControls(LinearLayout parent) {
+        Button folder=button(getString(R.string.folder_add),PAPER,GREEN);folder.setId(R.id.folder_import);folder.setEnabled(answerDone&&!importing);folder.setOnClickListener(v->startActivityForResult(folderPickerIntent(),14));add(parent,folder,10,50);
+        add(parent,text(getString(R.string.folder_help),12,MUTED),8,0);
+        if(folderCancellation!=null) {
+            folderProgressView=text(folderProgress==null?getString(R.string.folder_scanning):folderProgressText(folderProgress),13,GREEN);add(parent,folderProgressView,12,0);
+            Button cancel=button(getString(R.string.folder_cancel),PAPER,GREEN);cancel.setId(R.id.folder_cancel);cancel.setOnClickListener(v->{DocumentImporter.Cancellation current=folderCancellation;if(current!=null)current.cancel();cancel.setEnabled(false);cancel.setText(R.string.folder_stopping);});add(parent,cancel,8,48);
+        } else if(!folderSummary.isEmpty()) {
+            Button summary=button(getString(R.string.folder_last_report),PAPER,GREEN);summary.setId(R.id.folder_report);summary.setOnClickListener(v->showFolderSummary());add(parent,summary,10,48);
+        }
+    }
+    private String folderProgressText(FolderImporter.Progress p){return getString(R.string.folder_progress,p.scanned(),p.imported(),p.unchanged(),p.skipped(),p.failed(),p.current());}
+    private void showFolderSummary() {
+        TextView message=text(folderSummary,14,INK);message.setTextIsSelectable(true);message.setPadding(dp(20),dp(16),dp(20),dp(16));ScrollView view=new ScrollView(this);view.addView(message);
+        new AlertDialog.Builder(this).setTitle(R.string.folder_summary_title).setView(view).setPositiveButton(R.string.chat_done,null).show();
+    }
+    private String folderReportText(FolderImporter.Report report) {
+        FolderImporter.Progress p=report.progress();StringBuilder text=new StringBuilder(getString(R.string.folder_counts,p.imported(),p.unchanged(),p.skipped(),p.failed(),p.scanned()));
+        if(report.canceled())text.append("\n\n").append(getString(R.string.folder_canceled));
+        if(report.limited())text.append("\n\n").append(getString(R.string.folder_limited));
+        for(FolderImporter.Issue issue:report.issues())text.append("\n\n").append(issue.path()).append("\n").append(issue.reason());
+        if(report.omittedDetails()>0)text.append("\n\n").append(getString(R.string.folder_more_issues,report.omittedDetails()));
+        return text.toString();
+    }
+    void importFolder(Uri tree) {
+        if(importing||!answerDone)return;
+        importing=true;lastFolderReport=null;folderProgress=null;folderSummary="";
+        DocumentImporter.Cancellation cancel=new DocumentImporter.Cancellation();folderCancellation=cancel;
+        String operation=UUID.randomUUID().toString();getPreferences(MODE_PRIVATE).edit().putString("folder_operation",operation).putBoolean("folder_running",true).apply();render();
+        worker.execute(()->{
+            String summary;
+            try {
+                FolderImporter.Report report=new FolderImporter(getContentResolver(),new DocumentImporter(this,library)).run(tree,cancel,p->{
+                    pendingFolderProgress.set(p);
+                    if(folderUpdateQueued.compareAndSet(false,true))runOnUiThread(()->{
+                        folderUpdateQueued.set(false);FolderImporter.Progress latest=pendingFolderProgress.get();
+                        if(!closed&&folderCancellation==cancel){folderProgress=latest;if(folderProgressView!=null)folderProgressView.setText(folderProgressText(latest));}
+                    });
+                });
+                lastFolderReport=report;summary=folderReportText(report);
+            }catch(Exception error){summary=getString(R.string.folder_open_error);}
+            String finished=summary;
+            if(operation.equals(getPreferences(MODE_PRIVATE).getString("folder_operation","")))getPreferences(MODE_PRIVATE).edit().putBoolean("folder_running",false).putString("folder_summary",finished).apply();
+            List<Library.Document> refreshed;
+            try{refreshed=library.documents();}catch(Exception error){refreshed=documents;}
+            List<Library.Document> updated=refreshed;
+            runOnUiThread(()->{folderCancellation=null;importing=false;folderSummary=finished;documents=updated;if(!closed){render();showFolderSummary();}});
+        });
+    }
+
     private void pick(int request) {
         Intent intent=new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*");
         if(request==10)intent.putExtra(Intent.EXTRA_MIME_TYPES,new String[]{"text/plain","text/csv","text/markdown","application/pdf","application/octet-stream"});
@@ -330,29 +404,19 @@ public final class MainActivity extends Activity {
     }
     @Override protected void onActivityResult(int request,int result,Intent data) {
         super.onActivityResult(request,result,data);if(result!=RESULT_OK||data==null||data.getData()==null)return;
-        if(request==10)importDocument(data.getData());else if(request==11)importModel(data.getData());
+        if(request==10)importDocument(data.getData());else if(request==11)importModel(data.getData());else if(request==14)importFolder(data.getData());
     }
     void importDocument(Uri uri) {
         if(importing||!answerDone)return;importing=true;render();
         worker.execute(()->{
-            File staged=null;
             try {
-                String name="document";try(Cursor c=getContentResolver().query(uri,new String[]{OpenableColumns.DISPLAY_NAME},null,null,null)){if(c!=null&&c.moveToFirst()&&!c.isNull(0))name=c.getString(0);}
-                if(uri.getScheme()!=null&&uri.getScheme().equals("file"))name=new File(uri.getPath()).getName();
-                String ext=name.toLowerCase(Locale.ROOT);boolean pdf=ext.endsWith(".pdf");
-                if(!pdf&&!ext.endsWith(".txt")&&!ext.endsWith(".md")&&!ext.endsWith(".markdown")&&!ext.endsWith(".csv"))throw new IllegalArgumentException(getString(R.string.chat_supported_files));
-                if(pdf) {
-                    staged=File.createTempFile("outpost-import-",".pdf",getCacheDir());
-                    try(InputStream input=getContentResolver().openInputStream(uri);FileOutputStream output=new FileOutputStream(staged)) {copyBounded(input,output,PdfImporter.MAX_BYTES);}
-                    List<String> pages=PdfImporter.extract(this,staged);library.importPdf(name,pages,staged);
-                } else {
-                    ByteArrayOutputStream bytes=new ByteArrayOutputStream();try(InputStream input=getContentResolver().openInputStream(uri)){copyBounded(input,bytes,Library.MAX_IMPORT_BYTES);}
-                    String body=StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT).onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes.toByteArray())).toString();
-                    if(ext.endsWith(".csv"))library.importCsv(name,body);else library.importText(name,body);
-                }
-                refreshDocuments();runOnUiThread(()->{if(!closed)Toast.makeText(this,R.string.chat_imported,Toast.LENGTH_SHORT).show();});
+                String name="document";
+                if("file".equals(uri.getScheme()))name=new File(uri.getPath()).getName();
+                else try(Cursor c=getContentResolver().query(uri,new String[]{OpenableColumns.DISPLAY_NAME},null,null,null)){if(c!=null&&c.moveToFirst()&&!c.isNull(0))name=c.getString(0);}
+                DocumentImporter.Result result=new DocumentImporter(this,library).importFile(uri,name,name,-1,new DocumentImporter.Cancellation());
+                refreshDocuments();runOnUiThread(()->{if(!closed)Toast.makeText(this,result.added()?R.string.chat_imported:R.string.folder_file_unchanged,Toast.LENGTH_SHORT).show();});
             }catch(Exception e){error(e instanceof IllegalArgumentException?e.getMessage():getString(R.string.chat_import_error));}
-            finally{if(staged!=null&&staged.exists())staged.delete();runOnUiThread(()->{importing=false;if(!closed)render();});}
+            finally{runOnUiThread(()->{importing=false;if(!closed)render();});}
         });
     }
     static void copyBounded(InputStream input,java.io.OutputStream output,int max)throws Exception {

@@ -131,3 +131,8 @@ Set `$env:PYTHONUTF8='1'` when running Python tools on Windows. The recorded arg
 The current product opens on chat, with documents/models under Settings. Use `scripts/test-chat.ps1` for no-model UI/import/persistence checks and `-Generate` for actual Bonsai 4B conversation. It verifies the successful build receipt, offline Outpost35 identity and app/test APK hashes, and creates a unique run folder. `test-bonsai.ps1 -UiOnly -UiProfile bonsai4` routes to this check; retired search/regenerate UI cache comparisons are replaced by native `test-runtime.ps1 -Phase cache`. Kev and speculation controls are no longer product UI.
 
 The build packages ARM64 and x86_64. No ARM runtime is implied. `pdfbox-lock.json` records PDFBox/BouncyCastle artifact hashes; the helper checks resolved dependency bytes and carries the lock in input fingerprints. Licenses are packaged under assets/licenses. Lint currently reports three warnings in the unused networking helper classes inside upstream BouncyCastle; the application has no INTERNET permission and does not use those helpers. Record actual lint counts rather than claiming a clean report.
+
+
+## Folder regression
+
+Use `scripts/test-folders.ps1` against Outpost35. The instrumented provider and grant Activity exist only in the test APK. Android's instrumentation startup clears earlier transient grants, so the test requests fixture-owner read grants afterward. The wrapper revokes grants and disables the fixture provider on completion. Runs and setup failures are preserved under `evidence/runs/folders-*`. Follow with `test-chat.ps1 -SkipInstall` and `test-knowledge.ps1 -SkipInstall` for ingestion/schema regressions; no model generation is required for this feature.
