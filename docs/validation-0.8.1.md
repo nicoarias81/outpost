@@ -32,11 +32,11 @@ Status: maintained validation record for **Outpost 0.8.1 / version code 10**. Th
 | Speculation on field missions | Adaptive depth 3 vs baseline; identical text on all five | [Report](../evidence/speculation/speculation-missions.json) |
 | Verbatim-copy control | Median decode speedup 1.215, 53 of 54 drafts accepted | [Report](../evidence/speculation/speculation-benchmark.json) |
 | Bonsai 4B end-to-end UI generation | Completed with a sourced answer under the calibrated width-8 profile; fast path used | [Report](../evidence/bonsai-ui-bonsai4.json) |
-| Calibration | Kept threads 4, prompt threads 4 and batch 128 with a 4.0% confirmation gain, below the 5% adoption threshold; the width re-confirmation at that combination kept width 4, which beat width 1 by 14.1% of total time with identical text | [Report](../evidence/strata/runtime-calibrate.json) |
+| Calibration | Kept threads 4, prompt threads 4 and batch 128 with a 4.0% confirmation gain, below the 5% adoption threshold; the width re-confirmation at that combination kept width 4, which achieved 1.141x speedup (12.34% less total time) versus width 1 with identical text | [Report](../evidence/strata/runtime-calibrate.json) |
 
 The previous grouped-kernel ceiling of 7,932 comparisons covered only widths up to 4; the current guard doubles the covered widths and raises the comparison count to 10,023.
 
-**Evidence provenance.** Every JSON file cited above except `checks.json` records `version` 0.8.0, because that field is the identity of the build that produced the run and these measurements were taken before the version was raised. `evidence/checks.json` is the only file cited here that the 0.8.1 build produced. Read the `version` field as run provenance, never as a statement about the current release, and do not "refresh" the older evidence to match 0.8.1: re-running a phase would replace a preserved measurement, and the recorded build identity would then be a claim rather than a fact.
+**Evidence provenance.** The latest `checks.json`, `strata/runtime-batch.json` and `strata/runtime-calibrate.json` declare 0.8.1. The cited kernel guards, teacher-forced audit, runtime field comparison and speculative measurements declare 0.8.0. The retained `bonsai-ui-bonsai4.json` has neither an app-version field nor a matrix-width field; its width-8 attribution below is historical run context, not a value independently recoverable from that JSON alone. Read each file's identity separately. Do not edit old run identities to make them match a current release; a new run should receive its own preserved artifact and explicit build/prompt/configuration identity. See the [independent status review](status-review-2026-09-30.md).
 
 ## Measured runtime observations
 
@@ -46,7 +46,7 @@ The previous grouped-kernel ceiling of 7,932 comparisons covered only widths up 
 
 **End-to-end UI generation.** Real generation with Bonsai 4B under the calibrated width-8 profile completed with a sourced answer: 114 tokens, first token at 17,650 ms, 39,446 ms total, fast path used. This is one emulator observation, not a benchmark.
 
-**Calibration re-confirmation.** Re-confirmation on this target kept threads 4, prompt threads 4 and batch 128 with a confirmation gain of 4.0%, below the 5% adoption threshold, so it kept the incumbent threads and batch rather than chasing noise. It then re-confirmed the matrix width at that combination: width 4 beat width 1 by 14.1% of total time with identical text, and the saved profile is `{threads 4, promptThreads 4, batch 128, width 4}`. A measured profile is keyed by build identity, so raising the version to 0.8.1 retired the 0.8.0 profile and this measurement establishes the 0.8.1 one.
+**Calibration re-confirmation.** Re-confirmation on this target kept threads 4, prompt threads 4 and batch 128 with a confirmation gain of 4.0%, below the 5% adoption threshold, so it kept the incumbent threads and batch rather than chasing noise. It then re-confirmed the matrix width at that combination: width 4 achieved 1.141x speedup (26.623 -> 23.338 s median total, or 12.34% less elapsed time) versus width 1 with identical text, and the saved profile is `{threads 4, promptThreads 4, batch 128, width 4}`. A measured profile is keyed by build identity, so raising the version to 0.8.1 retired the 0.8.0 profile and this measurement establishes the 0.8.1 one.
 
 ## Artifact and publication
 

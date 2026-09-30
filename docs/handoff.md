@@ -5,7 +5,7 @@ Consolidated: 2026-09-29. Application baseline: **Outpost 0.8.1 / version code 1
 ## First five minutes
 
 1. Read [AGENTS.md](../AGENTS.md), this handoff, and [current state](current-state.md).
-2. Check `git status --short` and the latest log before editing. Do not overwrite another contributor's uncommitted work. The implementation baseline is commit `f2811ac`; subsequent handoff/discovery commits are documentation changes unless their diffs say otherwise.
+2. Check `git status --short` and the latest log before editing. Do not overwrite another contributor's uncommitted work. The initial implementation was replayed into active history as `63d9e85`; the earlier handoff commit `d9ddeb8` is not an ancestor of the current branch. Inspect actual diffs: later commits include code, tests, evidence and documentation. The status review inspected HEAD `68f9fe3` before its documentation corrections.
 3. Read [contextual question families](offline-world-knowledge.md) before changing product priorities. Read [architecture](architecture.md) and the relevant domain guide before implementation.
 4. Select a bounded task from the [roadmap](roadmap.md), retaining its acceptance criteria. Read [evaluation](evaluation.md) to distinguish runtime correctness from task quality. Before proposing evaluation work, read [eval/README.md](../eval/README.md), the fixture manifest [eval/fixtures-v1.json](../eval/fixtures-v1.json) and the rubric [eval/rubric-v1.md](../eval/rubric-v1.md).
 5. Before any runtime test, follow the [emulator operating guide](emulator-runbook.md) and [development](development.md), verify the AVD name as well as serial, matching installed APKs/models, and offline state. Archive evidence that a script would overwrite.
@@ -66,6 +66,10 @@ The last recorded Outpost AVD is `Outpost35` / `emulator-5582`: four logical CPU
 The debug APK is `dist/outpost-0.8.1-emulator-debug.apk`, 8,973,271 bytes, SHA-256 `5551f8047b1746b74e8e04ab0f7778d6c3e08457cc9134000b1c783bd8511676`; the retained `dist/outpost-0.8.0-emulator-debug.apk` is the previous historical build. `dist/` is ignored and is not guaranteed to exist in a fresh clone. Native/model/tool caches live under ignored `.local`; SDK/JDK/Gradle configuration is in ignored `.local/developer-settings.json` or explicit environment/parameters. See [developer settings example](../developer-settings.example.json) and [development](development.md).
 
 Historical 0.7 evidence is preserved in `evidence/0.7-before-outpost`. Do not relabel it as current English performance. Some scripts overwrite fixed output paths; run identity and immutable snapshots remain backlog work E-03. Build activity and two emulators were present during parts of migration, so its timing values are diagnostic.
+
+## Independent status review
+
+The [2026-09-30 status review](status-review-2026-09-30.md) checked current source/history, live emulator/APK identity and raw metrics, and reran the manifest validator. It corrected provenance and percentage descriptions without changing runtime code or raw evidence. Width 4 remains selected; the recorded marginal 4-to-8 total-time reduction is 1.48%. It also identifies different prompt/harness outcomes as an E-02 lead. The separate controller review of `a52f2b3` and the open R3 finding remain pending.
 
 ## Recommended next bounded work
 

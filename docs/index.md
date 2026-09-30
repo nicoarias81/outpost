@@ -10,6 +10,7 @@ Read [AGENTS.md](../AGENTS.md) and [the engineering handoff](handoff.md). The la
 
 | Purpose | Read in this order |
 |---|---|
+| Review progress since the handoff | [Independent status review, 2026-09-30](status-review-2026-09-30.md): verified state, recomputed performance, provenance corrections and next work |
 | Understand the project | [Overview](project-overview.md), [current state](current-state.md), [roadmap](roadmap.md) |
 | Define the questions Outpost should answer | [Contextual question families](offline-world-knowledge.md) |
 | Trace the external acceptance bar | [Bounty record (poidh #31)](bounty-31.md) — verbatim bounty text, provenance and requirement trace; the bar is external and not under project control |
