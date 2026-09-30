@@ -19,6 +19,8 @@ import org.json.JSONObject;
 
 /** Model comparisons, not a scored benchmark; all generation runs on Android. */
 final class TernaryChecks {
+    static final String SAMPLED_POLICY = "top_k20 top_p0.8 temp0.7 seed42; compact prompt v2; 2048 context; 192 output tokens; 120s deadline; 4 CPU threads; fixed official non-thinking suffix for Bonsai";
+    static final String GREEDY_POLICY = "greedy; compact prompt v2; 2048 context; 192 output tokens; 120s deadline; 4 CPU threads; fixed official non-thinking suffix for Bonsai";
     private final Instrumentation test;
     private record Probe(String id,String query,String retrieval) {}
     private static final Probe[] PROBES={
@@ -129,7 +131,7 @@ final class TernaryChecks {
     }
     private JSONObject report(ModelStore.Spec spec,JSONArray results,long start,int pss) throws Exception {
         return new JSONObject().put("version",test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",0).versionName).put("model",spec.name()).put("id",spec.id()).put("bytes",spec.bytes()).put("sha256",spec.sha256()).put("cases",results).put("elapsedMs",SystemClock.elapsedRealtime()-start).put("maximumOfPostCasePssKiB",pss)
-            .put("policy",(spec.sampled() ? "top_k20 top_p0.8 temp0.7 seed42" : "greedy")+"; compact prompt v2; 2048 context; 192 output tokens; 120s deadline; 4 CPU threads; fixed official non-thinking suffix for Bonsai")
+            .put("policy",(spec.sampled() ? SAMPLED_POLICY : GREEDY_POLICY))
             .put("limits","Four development probes. Not an independent benchmark. PSS values sampled after cases, not peak RAM. Android emulator only.");
     }
     private void status(String text) { Bundle b=new Bundle(); b.putString("stream","\n"+text+"\n"); test.sendStatus(0,b); }

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "outpost-demo",
+  "version": 1,
+  "title": "Synthetic field kit",
+  "source": "Outpost original synthetic examples",
+  "license": "Internal demonstration; redistribution rights not assigned",
+  "language": "en",
+  "contentDate": "2026-09-20",
+  "documents": [
+    {
+      "id": "document-1",
+      "title": "field-note.md",
+      "category": "Imported knowledge",
+      "format": "text",
+      "body": "# Synthetic inspection note\n\nThis is an original demonstration record, not a real equipment procedure.\n\nAsset: Pump M7.\nRecord revision: 1.\nThe listed replacement is filter F-28.\nNo current electrical state or authorization to intervene is recorded.\n\nMissing authorization records do not establish that authorization exists or that it does not exist.\n",
+      "sha256": "8062b4fa2df235b8a26026c1562912ccacfa503b01eef2dd2d3c512d22e982b1",
+      "contentDate": "2026-09-20"
+    },
+    {
+      "id": "document-2",
+      "title": "issues.csv",
+      "category": "Imported knowledge",
+      "format": "csv",
+      "body": "issue_id,status,owner,recorded_date,observed_date,description\nOP-101,open,Ada,2026-09-20,2026-09-18,\"Synthetic record, missing diagram\"\nOP-102,closed,Lee,2026-09-21,2026-09-19,\"Synthetic record with \"\"quoted\"\" text\"\nOP-103,open,Sam,2026-09-22,2026-09-17,\"Keep recorded date separate from observation date\"\n",
+      "sha256": "84a62c7c668955e5721fb52f6f7647dd6f66e736dd3943f0394d235364caa90e",
+      "contentDate": "2026-09-20"
+    }
+  ]
+}

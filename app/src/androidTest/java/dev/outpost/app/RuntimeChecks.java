@@ -120,11 +120,11 @@ final class RuntimeChecks {
             }
             double widthGain=(double)median(narrowTimes)/median(wideTimes)-1;
             if(!widthParity || widthGain<=0.05) width=1;
-            report.put("widthConfirmationGain",widthGain).put("widthConfirmationParity",widthParity).put("widthAfterConfirmation",width);
+            report.put("widthConfirmationSpeedup",1+widthGain).put("widthConfirmationTimeReductionPercent",100*(1-(double)median(wideTimes)/median(narrowTimes))).put("widthConfirmationGain",widthGain).put("widthConfirmationParity",widthParity).put("widthAfterConfirmation",width);
         }
         RuntimeSettings.Profile chosen=p(measured.threads(),measured.promptThreads(),measured.batch(),width);
         RuntimeSettings.save(test.getTargetContext(),model.spec(),chosen);
-        report.put("confirmationGain",gain).put("confirmationTextParity",parity).put("chosen",profile(chosen)).put("acceptanceRule","Identical text and >5% median total-time gain, three alternating comparisons.");
+        report.put("confirmationSpeedup",1+gain).put("confirmationTimeReductionPercent",100*(1-(double)median(candidateTimes)/median(baseTimes))).put("confirmationGain",gain).put("confirmationTextParity",parity).put("chosen",profile(chosen)).put("acceptanceRule","Identical text and baseline/candidate median time > 1.05, three alternating comparisons. Speedup is distinct from percent time saved.");
     }
     private void batch(NativeEngine e) throws Exception {
         RuntimeSettings.Profile base=RuntimeSettings.load(test.getTargetContext(),model.spec());
@@ -143,18 +143,16 @@ final class RuntimeChecks {
             if(width>1) require(NativeEngine.kernelBatchUsed(),"Full model did not use batch kernel");
             totals.get(index).add(r.totalMs()); prompts.get(index).add(r.prefillMs());
         }
-        int fastest=0; for(int i=1;i<widths.length;i++) if(median(totals.get(i))<median(totals.get(fastest))) fastest=i;
-        // Prefer the narrowest grouping within 5% of the fastest one, so a near tie does not select a
-        // wider width for no measured benefit.
-        int best=fastest;
-        for(int i=0;i<fastest;i++) if((double)median(totals.get(i))/median(totals.get(fastest))-1<=0.05) { best=i; break; }
-        double gain=(double)median(totals.get(0))/median(totals.get(best))-1;
-        int width=parity && gain>0.05 ? widths[best] : 1;
+        long[] medianValues=new long[4]; for(int i=0;i<4;i++) medianValues[i]=median(totals.get(i));
+        RuntimePolicy.Choice selection=RuntimePolicy.choose(medianValues,parity);
+        int width=selection.selectedWidth();
+        double gain=selection.speedup()-1;
         RuntimeSettings.Profile chosen=p(base.threads(),base.promptThreads(),base.batch(),width);
         RuntimeSettings.save(test.getTargetContext(),model.spec(),chosen);
         report.put("exactFirstLogitsAndTextParity",parity).put("medianTotalsMs",new JSONArray(List.of(median(totals.get(0)),median(totals.get(1)),median(totals.get(2)),median(totals.get(3)))))
             .put("medianPrefillMs",new JSONArray(List.of(median(prompts.get(0)),median(prompts.get(1)),median(prompts.get(2)),median(prompts.get(3)))))
-            .put("gain",gain).put("chosen",profile(chosen));
+            .put("gain",gain).put("gainDefinition","selectedSpeedup - 1; not elapsed-time reduction")
+            .put("selection",selection.toJson()).put("chosen",profile(chosen));
         require(parity,"Batched model changed first-token logits or generated text");
     }
     private void cache(NativeEngine e) throws Exception {

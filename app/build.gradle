@@ -8,8 +8,8 @@ android {
         applicationId 'dev.outpost.app'
         minSdk 28
         targetSdk 35
-        versionCode 10
-        versionName '0.8.1'
+        versionCode 11
+        versionName '0.9.0'
         ndk { abiFilters 'x86_64' }
         externalNativeBuild {
             cmake { arguments '-DCMAKE_BUILD_TYPE=Release', '-DANDROID_STL=c++_shared' }

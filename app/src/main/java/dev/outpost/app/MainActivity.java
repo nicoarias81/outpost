@@ -52,6 +52,10 @@ public final class MainActivity extends Activity {
     private final ExecutorService worker = Executors.newSingleThreadExecutor();
     private final ExecutorService inference = Executors.newSingleThreadExecutor();
     private Library library;
+    private List<Library.Pack> knowledgePacks = List.of();
+    private java.util.concurrent.atomic.AtomicBoolean packCancellation;
+    volatile boolean packImportDone = true;
+    volatile String packImportError = "";
     private ModelStore models;
     private JudgeStore judgeModels;
     private NativeEngine engine;
@@ -93,6 +97,7 @@ public final class MainActivity extends Activity {
             try {
                 judgeModels.prepareHead();
                 documents = library.documents();
+                knowledgePacks = library.packs();
                 runOnUiThread(() -> { if (!isDestroyed()) { ready = true; render(); if (!currentQuery.isEmpty() && tab == 0) search(currentQuery); } });
             } catch (Exception e) { runOnUiThread(() -> loading.setText(R.string.library_error)); }
         });
@@ -102,6 +107,7 @@ public final class MainActivity extends Activity {
         out.putString("query", currentQuery); out.putInt("tab", tab); super.onSaveInstanceState(out);
     }
     @Override protected void onDestroy() {
+        if (packCancellation != null) packCancellation.set(true);
         cancelAnswer();
         generation++;
         inference.execute(engine::close); inference.shutdown();
@@ -200,7 +206,7 @@ public final class MainActivity extends Activity {
             TextView title = text(hit.document().title(), 19, INK); title.setTypeface(Typeface.create("serif", Typeface.BOLD)); add(card, title, 8, 0);
             TextView passage = text(hit.passage(), 14, INK); passage.setMaxLines(5); passage.setEllipsize(android.text.TextUtils.TruncateAt.END); add(card, passage, 8, 0);
             add(card, text(hit.document().source() + getString(R.string.ui_read_passage) + hit.number() + getString(R.string.ui_and_context), 11, MUTED), 12, 0);
-            card.setFocusable(true); card.setOnClickListener(v -> openDocument(hit.document(), hit.passage())); add(results, card, 12, 0);
+            card.setFocusable(true); card.setOnClickListener(v -> openDocument(hit.document(), hit.passage(), hit.number())); add(results, card, 12, 0);
         }
     }
     private void answerCard(List<Library.Hit> hits) {
@@ -284,10 +290,42 @@ public final class MainActivity extends Activity {
         add(content, text(getString(R.string.ui_sources_you_can_read_even_without_coverage), 15, MUTED), 8, 0);
         Button importButton = button(getString(R.string.ui_import_text_or_markdown), GREEN, Color.WHITE); add(content, importButton, 20, dp(52));
         importButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT); intent.setType("text/*"); intent.addCategory(Intent.CATEGORY_OPENABLE);
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT); intent.setType("*/*"); intent.addCategory(Intent.CATEGORY_OPENABLE);
             startActivityForResult(intent, 10);
         });
         add(content, text(getString(R.string.ui_utf_8_txt_and_md_files_up_to_1_mib_choose_a_file_stored_on_your_d), 12, MUTED), 8, 0);
+        Button importPack = button(getString(R.string.import_knowledge_pack), GREEN, Color.WHITE);
+        importPack.setId(R.id.import_knowledge_pack); add(content, importPack, 12, dp(52));
+        importPack.setEnabled(packCancellation == null);
+        importPack.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT); intent.setType("*/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE); startActivityForResult(intent, 13);
+        });
+        add(content, text(getString(R.string.knowledge_pack_help), 12, MUTED), 8, 0);
+        if (packCancellation != null) {
+            Button stop = button(getString(R.string.cancel_pack_import), PAPER, GREEN);
+            stop.setId(R.id.cancel_pack_import); add(content, stop, 8, dp(48));
+            stop.setOnClickListener(v -> { if (packCancellation != null) packCancellation.set(true); stop.setEnabled(false); });
+        }
+        for (Library.Pack pack : knowledgePacks) {
+            status(pack.title(), getResources().getQuantityString(R.plurals.pack_details, pack.documents(), pack.version(), pack.documents(), pack.language(), pack.source(), pack.license()));
+            Button remove = button(getString(R.string.remove_pack), PAPER, GREEN); add(content, remove, 8, dp(48));
+            remove.setOnClickListener(v -> new AlertDialog.Builder(this).setTitle(getString(R.string.remove_pack))
+                .setMessage(getString(R.string.remove_pack_confirmation, pack.title()))
+                .setNegativeButton(R.string.cancel_action, null)
+                .setPositiveButton(R.string.remove_pack, (dialog, which) -> {
+                    cancelAnswer(); generation++;
+                    worker.execute(() -> {
+                        try {
+                            library.removePack(pack.id());
+                            List<Library.Document> updated = library.documents(); List<Library.Pack> packs = library.packs();
+                            runOnUiThread(() -> { if (!isDestroyed()) { documents=updated; knowledgePacks=packs; render(); } });
+                        } catch (Exception error) { runOnUiThread(() -> {
+                            if (!isDestroyed()) Toast.makeText(this, R.string.pack_remove_error, Toast.LENGTH_LONG).show();
+                        }); }
+                    });
+                }).show());
+        }
         for (Library.Document d : documents) {
             LinearLayout card = column(); card.setBackground(shape(PAPER, 14, LINE)); card.setPadding(dp(16), dp(16), dp(16), dp(16));
             label(card, d.category().toUpperCase(Locale.ROOT));
@@ -296,19 +334,35 @@ public final class MainActivity extends Activity {
         }
         add(content, text(getString(R.string.ui_the_six_included_notes_are_educational_demo_summaries_with_refere), 12, MUTED), 20, 0);
     }
-    void openDocument(Library.Document d, String passage) {
+    void openDocument(Library.Document d, String passage) { openDocument(d, passage, 0); }
+    void openDocument(Library.Document d, String passage, int ordinal) {
         documentOpen = false;
         worker.execute(() -> {
             try {
                 Library.Document full = d.body().isEmpty() ? library.load(d.id()) : d;
-                runOnUiThread(() -> { if (!isDestroyed()) { showDocument(full, passage); documentOpen = true; } });
+                Library.Metadata metadata = library.metadata(full.id());
+                Evidence selected = ordinal > 0 ? library.evidence(new Library.Hit(full, passage, ordinal, 0)) : null;
+                runOnUiThread(() -> { if (!isDestroyed()) { showDocument(full, passage, metadata, selected); documentOpen = true; } });
             } catch (Exception e) { runOnUiThread(() -> { if (!isDestroyed()) Toast.makeText(this, getString(R.string.ui_could_not_open_the_document), Toast.LENGTH_SHORT).show(); }); }
         });
     }
-    private void showDocument(Library.Document d, String passage) {
+    private void showDocument(Library.Document d, String passage, Library.Metadata metadata, Evidence selected) {
         ScrollView scroll = new ScrollView(this); LinearLayout body = column(); body.setPadding(dp(24), dp(16), dp(24), dp(24)); scroll.addView(body);
         body.addView(text(d.source(), 13, GREEN)); add(body, text(getString(R.string.ui_added) + d.date(), 12, MUTED), 6, 0);
         if (!d.url().isEmpty()) add(body, text(getString(R.string.ui_demo_note_written_from_the_reference_the_date_records_incorporati), 12, MUTED), 10, 0);
+        add(body, text(getString(R.string.source_identity, metadata.revision(), metadata.language(),
+            metadata.sha256().substring(0, 12)), 12, MUTED), 8, 0);
+        add(body, text(getString(R.string.source_content_date,
+            metadata.contentDate().isEmpty() ? getString(R.string.unknown_value) : metadata.contentDate()), 12, MUTED), 6, 0);
+        if (!metadata.active()) add(body, text(getString(R.string.archived_source_version), 12, MUTED), 6, 0);
+        if (selected != null) {
+            add(body, text(selected.locator().label(), 12, GREEN), 8, 0);
+            if (metadata.format().equals("csv")) {
+                TextView record = text(selected.content(), 14, INK); record.setTextIsSelectable(true);
+                record.setBackgroundColor(PALE); add(body, record, 10, 0);
+                add(body, text(getString(R.string.original_csv_below), 12, MUTED), 8, 0);
+            }
+        }
         SpannableString fullText = new SpannableString(d.body());
         if (passage != null) {
             int offset = d.body().indexOf(passage);
@@ -377,6 +431,7 @@ public final class MainActivity extends Activity {
     }
     @Override protected void onActivityResult(int request, int result, Intent data) {
         super.onActivityResult(request, result, data);
+        if (request == 13 && result == RESULT_OK && data != null && data.getData() != null) { importPack(data.getData()); return; }
         if (request == 12 && result == RESULT_OK && data != null && data.getData() != null) { importJudge(data.getData()); return; }
         if (request == 11 && result == RESULT_OK && data != null && data.getData() != null) { importModel(data.getData()); return; }
         if (request != 10 || result != RESULT_OK || data == null || data.getData() == null) return;
@@ -388,7 +443,7 @@ public final class MainActivity extends Activity {
                     if (c != null && c.moveToFirst()) name = c.getString(0);
                 }
                 String lowerName = name == null ? "" : name.toLowerCase(Locale.ROOT);
-                if (!lowerName.endsWith(".txt") && !lowerName.endsWith(".md") && !lowerName.endsWith(".markdown")) throw new IllegalArgumentException(getString(R.string.ui_choose_a_utf_8_txt_or_md_file));
+                if (!lowerName.endsWith(".txt") && !lowerName.endsWith(".md") && !lowerName.endsWith(".markdown") && !lowerName.endsWith(".csv")) throw new IllegalArgumentException(getString(R.string.ui_choose_a_utf_8_txt_or_md_file));
                 byte[] bytes;
                 try (InputStream in = getContentResolver().openInputStream(uri); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
                     if (in == null) throw new IllegalArgumentException(getString(R.string.ui_could_not_open_the_file));
@@ -400,9 +455,46 @@ public final class MainActivity extends Activity {
                     bytes = out.toByteArray();
                 }
                 String text = StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT).onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes)).toString();
-                Library.Document d = library.importText(name, text); List<Library.Document> updated = library.documents();
+                Library.Document d = lowerName.endsWith(".csv") ? library.importCsv(name, text) : library.importText(name, text); List<Library.Document> updated = library.documents();
                 runOnUiThread(() -> { if (!isDestroyed()) { documents = updated; tab = 1; generation++; render(); Toast.makeText(this, getString(R.string.ui_saved) + d.title(), Toast.LENGTH_SHORT).show(); } });
             } catch (Exception e) { runOnUiThread(() -> { if (!isDestroyed()) new AlertDialog.Builder(this).setTitle(getString(R.string.ui_could_not_import)).setMessage(e instanceof IllegalArgumentException ? e.getMessage() : getString(R.string.ui_check_that_it_is_a_utf_8_text_file_accessible_on_the_device)).setPositiveButton(getString(R.string.ui_ok), null).show(); }); }
+        });
+    }
+    void importPack(Uri uri) {
+        if (packCancellation != null) return;
+        cancelAnswer(); generation++;
+        java.util.concurrent.atomic.AtomicBoolean canceled = new java.util.concurrent.atomic.AtomicBoolean();
+        packCancellation = canceled; packImportDone = false; packImportError = ""; tab = 1; render();
+        worker.execute(() -> {
+            try (InputStream input = getContentResolver().openInputStream(uri); ByteArrayOutputStream output = new ByteArrayOutputStream()) {
+                if (input == null) throw new IllegalArgumentException(getString(R.string.ui_could_not_open_the_file));
+                byte[] buffer = new byte[8192]; int count;
+                while ((count = input.read(buffer)) != -1) {
+                    if (canceled.get()) throw new java.util.concurrent.CancellationException();
+                    if (output.size() + count > KnowledgePack.MAX_BYTES) throw new IllegalArgumentException(getString(R.string.pack_too_large));
+                    output.write(buffer, 0, count);
+                }
+                String json = StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
+                    .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(output.toByteArray())).toString();
+                Library.InstallResult installed = library.installPack(json, canceled::get);
+                List<Library.Document> updated = library.documents(); List<Library.Pack> packs = library.packs();
+                runOnUiThread(() -> {
+                    packCancellation = null; packImportDone = true;
+                    if (!isDestroyed()) {
+                        documents = updated; knowledgePacks = packs; generation++; render();
+                        Toast.makeText(this, getResources().getQuantityString(R.plurals.pack_import_success, installed.documents(), installed.documents()), Toast.LENGTH_LONG).show();
+                    }
+                });
+            } catch (Exception error) {
+                runOnUiThread(() -> {
+                    packCancellation = null; packImportDone = true;
+                    packImportError = error instanceof java.util.concurrent.CancellationException
+                        ? getString(R.string.pack_import_canceled) : (error instanceof IllegalArgumentException
+                        ? error.getMessage() : getString(R.string.pack_import_error));
+                    if (!isDestroyed()) { render(); new AlertDialog.Builder(this).setTitle(R.string.pack_import_title)
+                        .setMessage(packImportError).setPositiveButton(R.string.ui_ok, null).show(); }
+                });
+            }
         });
     }
     private void importModel(Uri uri) {

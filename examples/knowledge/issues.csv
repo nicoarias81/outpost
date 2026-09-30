@@ -1,0 +1,4 @@
+issue_id,status,owner,recorded_date,observed_date,description
+OP-101,open,Ada,2026-09-20,2026-09-18,"Synthetic record, missing diagram"
+OP-102,closed,Lee,2026-09-21,2026-09-19,"Synthetic record with ""quoted"" text"
+OP-103,open,Sam,2026-09-22,2026-09-17,"Keep recorded date separate from observation date"

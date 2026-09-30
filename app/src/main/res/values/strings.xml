@@ -60,8 +60,8 @@
   <string name="ui_first_token_1f_s">"first token: %.1f s"</string>
   <string name="ui_your_local_collection">"YOUR LOCAL COLLECTION"</string>
   <string name="ui_sources_you_can_read_even_without_coverage">"Sources you can read even without coverage."</string>
-  <string name="ui_import_text_or_markdown">"+  Import text or Markdown"</string>
-  <string name="ui_utf_8_txt_and_md_files_up_to_1_mib_choose_a_file_stored_on_your_d">"UTF-8 .txt and .md files · up to 1 MiB.\nChoose a file stored on your device."</string>
+  <string name="ui_import_text_or_markdown">+  Import text, Markdown or CSV</string>
+  <string name="ui_utf_8_txt_and_md_files_up_to_1_mib_choose_a_file_stored_on_your_d">UTF-8 text, Markdown and CSV · up to 1 MiB.\nChoose a file stored on your device.</string>
   <string name="ui_the_six_included_notes_are_educational_demo_summaries_with_refere">"The six included notes are educational demo summaries with references. They are not complete copies of the sources or an encyclopedia."</string>
   <string name="ui_could_not_open_the_document">"Could not open the document."</string>
   <string name="ui_added">"Added: "</string>
@@ -110,7 +110,7 @@
   <string name="ui_functional_check_only_not_an_ai_benchmark">"\n\nFunctional check only; not an AI benchmark."</string>
   <string name="ui_importing_document">"Importing document…"</string>
   <string name="ui_document_txt">"Document.txt"</string>
-  <string name="ui_choose_a_utf_8_txt_or_md_file">"Choose a UTF-8 .txt or .md file."</string>
+  <string name="ui_choose_a_utf_8_txt_or_md_file">Choose a UTF-8 .txt, .md, .markdown or .csv file.</string>
   <string name="ui_could_not_open_the_file">"Could not open the file."</string>
   <string name="ui_the_file_exceeds_the_1_mib_limit">"The file exceeds the 1 MiB limit."</string>
   <string name="ui_saved">"Saved: "</string>
@@ -126,4 +126,28 @@
   <string name="ui_reviewer_installed">"Reviewer installed."</string>
   <string name="ui_could_not_import_kev">"Could not import Kev"</string>
   <string name="local_ai_draft">LOCAL AI DRAFT</string>
+  <string name="import_knowledge_pack">+  Import knowledge pack</string>
+  <string name="knowledge_pack_help">Versioned text and CSV packs (.json), up to 4 MiB. Content integrity is checked before activation; facts are not independently verified.</string>
+  <string name="cancel_pack_import">Cancel pack import</string>
+  <string name="remove_pack">Remove pack</string>
+  <string name="remove_pack_confirmation">Remove %1$s and all its stored versions? Saved references to this pack will no longer open.</string>
+  <string name="cancel_action">Cancel</string>
+  <string name="pack_remove_error">Could not remove the knowledge pack.</string>
+  <string name="source_identity">Revision %1$d · language %2$s · SHA-256 %3$s…</string>
+  <string name="source_content_date">Content date: %1$s</string>
+  <string name="unknown_value">Unknown</string>
+  <string name="archived_source_version">Archived package version. Search uses the active version.</string>
+  <string name="original_csv_below">Original CSV below. Record numbers include the header; quoted multi-line cells stay in one record.</string>
+  <string name="pack_too_large">Knowledge pack exceeds the 4 MiB limit.</string>
+  <string name="pack_import_canceled">Knowledge pack import canceled.</string>
+  <string name="pack_import_error">Could not import the pack. Check its format, local availability and available storage.</string>
+  <string name="pack_import_title">Knowledge pack import</string>
+  <plurals name="pack_details">
+    <item quantity="one">Version %1$d · %2$d document · %3$s\nDeclared source: %4$s\nDeclared license: %5$s</item>
+    <item quantity="other">Version %1$d · %2$d documents · %3$s\nDeclared source: %4$s\nDeclared license: %5$s</item>
+  </plurals>
+  <plurals name="pack_import_success">
+    <item quantity="one">Knowledge pack available offline: %1$d document.</item>
+    <item quantity="other">Knowledge pack available offline: %1$d documents.</item>
+  </plurals>
 </resources>

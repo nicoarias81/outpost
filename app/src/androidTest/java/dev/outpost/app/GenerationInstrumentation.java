@@ -22,6 +22,9 @@ import org.json.JSONObject;
 /** Functional LLM tests run inside the emulator's target application process. */
 public final class GenerationInstrumentation extends OfflineInstrumentation {
     private boolean generationSuite;
+    private Bundle evaluationArgs;
+    private boolean knowledgeSuite;
+    private String knowledgeRun;
     private boolean reviewSuite;
     private String ternaryOperation = "";
     private String kernelPhase = "";
@@ -36,6 +39,9 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         checks++;
     }
     @Override public void onCreate(Bundle arguments) {
+        knowledgeRun = arguments == null ? "" : arguments.getString("knowledge_run", "");
+        knowledgeSuite = arguments != null && "true".equals(arguments.getString("knowledge"));
+        evaluationArgs = arguments != null && arguments.containsKey("eval_run") ? new Bundle(arguments) : null;
         generationSuite = arguments != null && "true".equals(arguments.getString("generation"));
         reviewSuite = arguments != null && "true".equals(arguments.getString("review"));
         ternaryOperation = arguments == null ? "" : arguments.getString("ternary","");
@@ -45,6 +51,8 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         super.onCreate(arguments);
     }
     @Override public void onStart() {
+        if(knowledgeSuite) { new KnowledgeChecks(this, knowledgeRun).run(); return; }
+        if(evaluationArgs != null) { new EvaluationChecks(this, evaluationArgs).run(); return; }
         if(!speculationPhase.isEmpty()) { new SpeculationChecks(this).run(speculationPhase); return; }
         if(!runtimePhase.isEmpty()) { new RuntimeChecks(this).run(runtimePhase); return; }
         if (!kernelPhase.isEmpty()) { new KernelChecks(this).run(kernelPhase); return; }

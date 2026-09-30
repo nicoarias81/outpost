@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Host-only validator for eval/fixtures-v1.json.
+"""Host-only validator for eval/fixtures-v2.json.
 
 Run from the repository root as:  python eval/validate.py
 
@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-MANIFEST_PATH = ROOT / "eval" / "fixtures-v1.json"
+MANIFEST_PATH = ROOT / "eval" / "fixtures-v2.json"
 LIBRARY_PATH = ROOT / "app" / "src" / "main" / "assets" / "library.json"
 MODEL_LOCK_PATH = ROOT / "model-lock.json"
 BONSAI_LOCK_PATH = ROOT / "bonsai-lock.json"
@@ -31,7 +31,7 @@ LLAMA_REVISION_PATH = ROOT / "llama-revision.txt"
 GRADLE_PATH = ROOT / "app" / "build.gradle"
 ANDROID_MANIFEST_PATH = ROOT / "app" / "src" / "main" / "AndroidManifest.xml"
 
-KNOWN_SCHEMA_VERSIONS = {"1"}
+KNOWN_SCHEMA_VERSIONS = {"1", "2"}
 
 # Fixed rubric dimension ids from docs/evaluation.md (binding for the manifest).
 RUBRIC_DIMENSIONS = {
@@ -173,6 +173,8 @@ def check_04_fixture_keys(manifest):
     if manifest is None:
         return
     required = set(FIXTURE_REQUIRED_KEYS)
+    if str(manifest.get("manifest_schema_version")) == "2":
+        required.add("execution")
     for fixture in manifest.get("fixtures", []):
         fixture_id = fixture.get("id", "<missing id>")
         keys = set(fixture.keys())
@@ -721,7 +723,17 @@ def check_network_permission_claim(manifest, android_manifest_text):
 
 
 def main():
-    manifest = load_json(MANIFEST_PATH, "eval/fixtures-v1.json")
+    global MANIFEST_PATH
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--manifest", default="eval/fixtures-v2.json")
+    args = parser.parse_args()
+    MANIFEST_PATH = ROOT / args.manifest
+    manifest = load_json(MANIFEST_PATH, str(MANIFEST_PATH.relative_to(ROOT)))
+    if manifest and int(manifest.get("manifest_version", 0)) >= 2:
+        for fixture in manifest.get("fixtures", []):
+            if fixture.get("execution", {}).get("evidenceMode") not in {"retrieval", "fixed-evidence"}:
+                problem("Missing/invalid explicit execution mode: " + fixture.get("id", "unknown"))
     library = load_json(LIBRARY_PATH, "app/src/main/assets/library.json")
     model_lock = load_json(MODEL_LOCK_PATH, "model-lock.json")
     bonsai_lock = load_json(BONSAI_LOCK_PATH, "bonsai-lock.json")
@@ -759,7 +771,7 @@ def main():
     check_network_permission_claim(manifest, android_manifest_text)
 
     if PROBLEMS:
-        print("FAILED: eval/fixtures-v1.json has %d problem(s):" % len(PROBLEMS))
+        print("FAILED: eval/fixtures-v2.json has %d problem(s):" % len(PROBLEMS))
         for index, message in enumerate(PROBLEMS, start=1):
             print("%3d. %s" % (index, message))
         for message in WARNINGS:
@@ -770,7 +782,7 @@ def main():
     tier_counts = {}
     for fixture in fixtures:
         tier_counts[fixture.get("tier")] = tier_counts.get(fixture.get("tier"), 0) + 1
-    print("OK: eval/fixtures-v1.json is internally consistent with the pinned lock files "
+    print("OK: eval/fixtures-v2.json is internally consistent with the pinned lock files "
           "and application sources.")
     print("Fixtures: %d total (%s)" % (len(fixtures), ", ".join(
         "%s: %d" % (tier, tier_counts[tier]) for tier in sorted(tier_counts))))

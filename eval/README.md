@@ -1,120 +1,64 @@
-# eval/ — evaluation definition artifacts for Outpost
+# Executable evaluation and attributed review
 
-This directory holds the machine-readable definition of the Outpost offline
-question-answering benchmark: a versioned fixture manifest, a host-only
-validator for that manifest, and the scoring rubric. It defines the
-benchmark; it does not measure it. Nothing in this directory runs the emulator,
-runs model inference, or touches the network.
+Outpost 0.9 uses [fixtures-v2.json](fixtures-v2.json), manifest schema 2. The original [fixtures-v1.json](fixtures-v1.json) remains frozen as the 0.8.1 definition. Version 2 adds explicit execution modes and makes the CSV record case concrete and runnable: 15 defined fixtures, 12 runnable, 3 blocked.
 
-## Files
+## Validate, run and review
 
-- `fixtures-v1.json` — the versioned fixture manifest. It declares the pinned
-  application and model identity (cross-checked against `model-lock.json`,
-  `bonsai-lock.json`, `judge-lock.json` and `llama-revision.txt`), the question
-  families and evidence conditions from `docs/offline-world-knowledge.md`, the
-  bounty requirements traced from poidh #31, and fifteen concrete fixtures:
-  five field cases already exercised by the instrumentation tests, six new
-  runnable fixtures (including two deliberate holdouts), and four fixtures
-  blocked on roadmap capabilities (K-01, K-04, K-06, K-07, plus one seed
-  fixture blocked on the missing typed arithmetic tool T-01).
-- `validate.py` — a host-only validator (Python 3.9+, standard library only)
-  that cross-checks the manifest against the pinned lock files, the seed
-  library, `app/build.gradle` and `app/src/main/AndroidManifest.xml`. See
-  "Running the validator" below.
-- `rubric-v1.md` — the scoring rubric. It defines the eight review dimensions
-  with 0-3 anchors, the critical-failure policy, the authority table, the
-  language rule, and the bounty-relative protocol for `R-BAR-50PCT` (marked
-  *proposed, not measured*). The fixture definitions live in `fixtures-v1.json`
-  and are deliberately not duplicated here.
-- A score sheet (per-run reviewed outcomes) — to be added when fixtures are
-  first executed under the rubric.
-
-## Running the validator
-
-From the repository root:
-
-```
-python eval/validate.py
+```powershell
+. ./scripts/environment.ps1
+$OutpostPython = (Get-OutpostSettings).pythonExecutable
+& $OutpostPython eval/validate.py
+pwsh -File scripts/test-evaluation.ps1 -Phase baseline -Model bonsai4
 ```
 
-Exit code 0 means the manifest is internally consistent and matches the pinned
-identity sources. Exit code 1 prints a numbered problem list. Warnings
-(declared question families or evidence conditions that no fixture uses) are
-reported but never change the exit code. The validator reads only; it never
-writes, mutates, or contacts the network, so running it twice produces
-byte-identical output.
+Run from the project root, with the dedicated `Outpost35` emulator booted and offline and the selected model already verified/imported. The runner refuses physical serials, a different AVD, online network settings, incompatible ABI, a stale build receipt or installed APK mismatches. Initial preparation and build instructions are in [development](../docs/development.md) and the [emulator runbook](../docs/emulator-runbook.md).
 
-## What the validator does and does not prove
+`-SkipInstall` skips reinstalling APKs only after their hashes have been verified against the current local build. `-Fixtures` accepts comma-separated fixture IDs, `-Model` selects an installed profile, and `-Width` fixes the matrix width. Default output budget is 96 tokens. Tests execute model inference only in Android, not in the host Python process.
 
-A passing run proves only:
+`-Phase both` alternates baseline/candidate order by fixture. The longer candidate system is experimental, not the production prompt. The first controlled run did not justify adopting it. Performance comparisons must consider system-token overhead and output length as well as latency.
 
-- that the manifest parses and satisfies its declared schema (ids, required
-  keys, enum references, tier/blocker consistency, runnable fixtures carrying
-  no tool requirements);
-- that the declared application identity matches `app/build.gradle`;
-- that the declared model hashes, byte counts, repositories and revisions
-  match the root lock files exactly for **every** model profile — repositories
-  and revisions are compared against the owning lock file's own top-level
-  values where the per-file entry declares none, which includes the Kev
-  repository declared at the top level of `judge-lock.json`;
-- that the declared llama.cpp revision matches `llama-revision.txt`;
-- that cited evidence documents exist in `app/src/main/assets/library.json`;
-- that cited review assessments point at existing files under `evidence/`;
-- that every string value anywhere in the manifest is literal text (no
-  `TODO`/`FIXME` markers, no template or substitution syntax, no
-  angle-bracket placeholders);
-- that every `identity.prompts` entry whose source constant can be extracted
-  reliably matches that source, and that the remaining entries are reported
-  as named warnings rather than passing silently;
-- that `AndroidManifest.xml` still declares no `android.permission.INTERNET`,
-  which is the factual basis for the `R-NONETWORK` requirement being marked
-  verifiable in the current scope.
+After inspecting every output, add an attributed `review.json` to that run directory and validate it:
 
-It does **not** prove:
+```powershell
+& $OutpostPython eval/review.py evidence/runs/RUN_ID/review.json
+```
 
-- that any answer produced on the emulator is correct, useful, or safe;
-- that any fixture has been executed or scored — `status` is `design`;
-- that any bounty requirement is satisfied;
-- anything about phone latency, real-device behaviour, or peak memory.
+Replace `RUN_ID` with the actual generated directory name. The review validator reads only; it does not create scores or infer answer quality from matching tokens.
 
-## Authority limits
+## Execution semantics
 
-The manifest's `authority` object and `authority_levels` array are binding:
-a deterministic check establishes only the asserted bounded property, a
-reviewed outcome is one human's statement over recorded output, and
-`unmeasured` means declared but never executed. See `ADR-011` and
-`docs/evaluation.md` for the full authority model. No bounty requirement —
-including `R-BAR-50PCT` — is satisfied by anything in this directory.
+Each v2 fixture declares `execution.evidenceMode`:
 
-## Fixture keys: also_run_by, review_only, notes
+- `fixed-evidence`: supply the fixture's exact initial context as a clearly synthetic source.
+- `retrieval`: use an isolated seeded SQLite library plus the manifest's explicit text/CSV import payloads, then call the application's lexical retrieval.
 
-Every fixture declares three keys that keep the review surface honest:
+Expected answers, critical failures and expected evidence IDs are never silently inserted into model input. The production `ResearchPrompt.prepare` builder determines the bounded evidence sent to the model. The complete rendered system/user prompts, actual selected sources, source hashes and typed locators where available are recorded.
 
-| Key | Meaning |
-|---|---|
-| `also_run_by` | Array of `{script, phase}` objects naming every additional harness script and phase that runs the same fixture. The five field cases are also run by `scripts/test-speculation.ps1` phase `missions`, because `SpeculationChecks.missions()` iterates the same `RuntimeChecks.fieldCases()` rows; all other fixtures declare `[]`. |
-| `review_only` | `true` when the fixture carries no deterministic executable check and its outcome can only be established by human review. `review_only` exists because some fixtures are inherently judgement-based (an honest abstention, a clarifying question, an absence converted — or not — into a claim) and must be visible as such rather than appearing to have a deterministic check. |
-| `notes` | Array of per-fixture clarifications, possibly empty. Every fixture without a deterministic check carries a `judgement-only: ...` note plus a one-line reason specific to that fixture; other notes record blocker scoping or vacuous-check history. |
+No retrieved sources means the source-grounded no-evidence path, not an implicit request to answer from model memory. Blocked fixtures are recorded as blocked. A completed execution means outcomes were recorded; it does not mean every model answer completed without truncation or satisfied its task.
 
-## harness_prompt_wrapping
+## Immutable run provenance
 
-The `harness_prompt_wrapping` top-level key records exactly how the
-instrumentation wraps a fixture before it reaches the model: the prefix
-`SOURCE [1] — FICTITIOUS TEST DATA: ` prepended to `initial_context`, the
-`\nQUESTION: ` and `\nANSWER:` delimiters, and the missions-phase cap of 96
-output tokens per generation call. It also states the boundary that matters
-when reading this manifest: a fixture's `initial_context` reproduces the
-`fieldCases()` column and is **not** the live prompt. Each fact names its
-source file and symbol in `RuntimeChecks.java` and `SpeculationChecks.java`.
+Every invocation creates a timestamp-plus-random-ID directory under `evidence/runs/` and a corresponding unique directory inside the debug app. Existing run IDs are rejected. The host preserves:
 
-## Status
+- The exact manifest bytes, input envelope and their hashes.
+- App and test APK hashes, local successful build receipt and source-file hashes.
+- A source snapshot whose members are checked against the recorded hashes, plus Git HEAD when readable, device fingerprint/API, model identity, configuration and offline state.
+- Instrumentation log and original result JSON, including incomplete/failing runs.
 
-The manifest is **not yet consumed** by the instrumentation harness; wiring it
-into `RuntimeChecks`, `RetrievalChecks` and the harness scripts is E-02/E-03
-roadmap scope. Until then the fixtures are definitions, not executable cases.
+The Android report captures actual app/model identity, prompts, selected evidence, source hashes, output text, token counts, stop reason, cache/width settings and engine timings. The host checks the returned envelope/manifest identity against the frozen inputs. Build receipts bind app/test APKs to successfully built source snapshots; they are not a signed reproducible-build attestation.
 
-## Related documents
+Early development runs may lack the later build receipt or source snapshot; inspect the files actually present rather than attributing final-runner capabilities retrospectively. The new runner does not overwrite older runs. Legacy performance scripts still use fixed output names; archive their existing artifacts before rerunning. Host permission to read `.git` may be required; if Git metadata cannot be read, the error is recorded rather than replaced with a guessed commit.
 
-- `docs/evaluation.md` — evaluation protocol and authority model
-- `docs/bounty-31.md` — poidh #31 bounty text, provenance and requirement trace
-- `docs/offline-world-knowledge.md` — question families and corpus layers
+## Bounded checks versus quality review
+
+The runner implements the manifest's substring, citation-range and cited-document checks. Citation-range checks require a citation and reject out-of-range indices; an absent citation cannot pass vacuously. These checks prove only their stated bounded property.
+
+The [rubric](rubric-v2.md) governs review. A review must identify the exact results SHA-256, reviewer kind/name, per-fixture/variant outcome, declared dimensions, critical-failure indices and rationale. Use `null` with an explicit reason for an unmeasured dimension such as first-useful-information latency. Engine first-token time is not automatically that metric.
+
+Human and assistant reviews must be distinguished. The implementation agent's recorded review is not a blinded human/domain-expert study. Critical failures cannot be averaged away. Counts of satisfied development fixtures are not general accuracy, safe field performance or bounty compliance.
+
+## Manifest validator
+
+`eval/validate.py` defaults to v2 and supports `--manifest PATH`. It checks structure, fixture capabilities, root model/tool identities, source document references and extractable prompt constants. Schema 2 requires an explicit evidence mode. Versioned prompt and sampler constants remove the earlier unverified `bonsai_policy_string` warning.
+
+The frozen v1 identity intentionally targets the earlier app; validating it against newer sources may report identity differences. Its historical run copies remain independently inspectable. Passing the validator does not establish that fixtures were executed or answers are correct.

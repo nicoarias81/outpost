@@ -11,9 +11,33 @@ function Resolve-OutpostSdk([string]$Sdk) {
     }
     return (Resolve-Path -LiteralPath $Sdk).Path
 }
-# Windows PowerShell 5.1 has no ProcessStartInfo.ArgumentList, so callers build the argument string.
-# Every argument is quoted, so a value containing a space cannot split into two arguments.
+# Quote Windows argv using the backslash-before-quote and trailing-backslash rules.
 function ConvertTo-OutpostArgumentString([string[]]$Arguments) {
-    $quoted = foreach ($argument in $Arguments) { '"' + ([string]$argument).Replace('"', '\"') + '"' }
+    $quoted = foreach ($argument in $Arguments) {
+        $escaped = [regex]::Replace([string]$argument, '(\\*)"', '$1$1\"')
+        $escaped = [regex]::Replace($escaped, '(\\+)$', '$1$1')
+        '"' + $escaped + '"'
+    }
     return ($quoted -join ' ')
+}
+function Get-OutpostSourceFingerprint([ValidateSet('main','androidTest')][string]$Scope='main') {
+    $root = Split-Path $PSScriptRoot -Parent
+    $files = @(Get-ChildItem -LiteralPath (Join-Path $root "app/src/$Scope") -Recurse -File)
+    foreach ($name in @('app/build.gradle','build.gradle','settings.gradle','gradle.properties',
+        'gradle/wrapper/gradle-wrapper.properties','gradle/wrapper/gradle-wrapper.jar',
+        'llama-revision.txt','toolchain-lock.json','model-lock.json','bonsai-lock.json','judge-lock.json',
+        'scripts/build.ps1','scripts/environment.ps1')) {
+        $path = Join-Path $root $name
+        if (-not (Test-Path -LiteralPath $path)) { throw "Required build input is missing: $name" }
+        $files += Get-Item -LiteralPath $path
+    }
+    $rows = foreach ($file in ($files | Sort-Object FullName -Unique)) {
+        $relative = $file.FullName.Substring($root.Length + 1).Replace('\','/')
+        $hash = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+        "$relative=$hash"
+    }
+    $sha = [System.Security.Cryptography.SHA256]::Create()
+    try {
+        return [BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes(($rows -join [char]10)))).Replace('-','').ToLowerInvariant()
+    } finally { $sha.Dispose() }
 }
