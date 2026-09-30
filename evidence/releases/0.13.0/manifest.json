@@ -1,0 +1,20 @@
+{
+  "versionName": "0.13.0",
+  "versionCode": 15,
+  "bytes": 28963230,
+  "appSha256": "ddf5ac901becaa0e6426e277df73ba2801057b6ebbd7536a97736000f457a5ea",
+  "abis": [
+    "arm64-v8a",
+    "x86_64"
+  ],
+  "testDataInProduct": false,
+  "generatorWeightsBundled": false,
+  "runs": {
+    "places": "places-20260930T190208Z-73ef278c",
+    "osm": "osm-20260930T190651Z-7c1a71c1",
+    "folders": "folders-20260930T190657Z-fc6dabb5",
+    "chat": "chat-20260930T190712Z-167e06ae",
+    "knowledge": "knowledge-20260930T190721Z-432ab319"
+  },
+  "scope": "Local debug candidate; deterministic place answers and model-free regression only; all runtime execution in Outpost35. No kernel/model/phone-performance claim."
+}

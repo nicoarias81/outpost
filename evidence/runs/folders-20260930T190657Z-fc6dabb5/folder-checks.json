@@ -1,0 +1,129 @@
+{
+  "runId": "folders-20260930T190657Z-fc6dabb5",
+  "version": "0.13.0",
+  "passed": true,
+  "checksPassed": 30,
+  "checks": [
+    {
+      "name": "Tests run only in the x86_64 emulator",
+      "passed": true
+    },
+    {
+      "name": "Folder selection adds no broad storage or network permission",
+      "passed": true
+    },
+    {
+      "name": "Folder action uses the system directory picker",
+      "passed": true
+    },
+    {
+      "name": "Folder picker requests read access without source write access",
+      "passed": true
+    },
+    {
+      "name": "Actual schema-3 database migrates to schema 5",
+      "passed": true
+    },
+    {
+      "name": "Schema upgrade preserves existing document bytes and identity",
+      "passed": true
+    },
+    {
+      "name": "Recursively imports TXT, CSV, PDF and Markdown from multiple nested folders",
+      "passed": true
+    },
+    {
+      "name": "Malformed CSV, oversized file and unreadable subfolder are reported independently",
+      "passed": true
+    },
+    {
+      "name": "Unsupported, virtual and repeated provider entries are skipped without looping",
+      "passed": true
+    },
+    {
+      "name": "Finite cyclic provider graph completes without an artificial partial-success claim",
+      "passed": true
+    },
+    {
+      "name": "Equal filenames in different subfolders remain separate documents",
+      "passed": true
+    },
+    {
+      "name": "Full folder provenance is retained in source metadata",
+      "passed": true
+    },
+    {
+      "name": "Supported hidden files are included",
+      "passed": true
+    },
+    {
+      "name": "A missing provider file size is handled with streaming limits",
+      "passed": true
+    },
+    {
+      "name": "Nested PDF remains page-addressable after folder import",
+      "passed": true
+    },
+    {
+      "name": "Repeating the folder does not duplicate unchanged documents",
+      "passed": true
+    },
+    {
+      "name": "Single-file and tree URIs identify the same unchanged provider document",
+      "passed": true
+    },
+    {
+      "name": "A removed document can be imported again without a stale deduplication record",
+      "passed": true
+    },
+    {
+      "name": "Changed source bytes create a new snapshot and preserve older citations",
+      "passed": true
+    },
+    {
+      "name": "Empty directory is a successful zero-file import",
+      "passed": true
+    },
+    {
+      "name": "Cancel keeps completed files and prevents further imports",
+      "passed": true
+    },
+    {
+      "name": "Selecting the folder again continues safely after cancellation",
+      "passed": true
+    },
+    {
+      "name": "Settings exposes Add folder",
+      "passed": true
+    },
+    {
+      "name": "Add folder launches the real picker contract",
+      "passed": true
+    },
+    {
+      "name": "Picker result imports the complete supported tree through the Activity",
+      "passed": true
+    },
+    {
+      "name": "Activity presents an English import summary",
+      "passed": true
+    },
+    {
+      "name": "Last folder report remains accessible from document management",
+      "passed": true
+    },
+    {
+      "name": "A larger folder imports every supported file",
+      "passed": true
+    },
+    {
+      "name": "Document management pages large collections instead of rendering every card",
+      "passed": true
+    },
+    {
+      "name": "Later document pages remain reachable",
+      "passed": true
+    }
+  ],
+  "scope": "Real Android DocumentsProvider, SQLite and Activity checks on Outpost35; synthetic files; no model execution or physical phone."
+}

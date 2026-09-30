@@ -1,0 +1,50 @@
+{
+  "scope": "Host-only validator fault injection; no model/numerical execution.",
+  "passed": true,
+  "checks": [
+    {
+      "case": "complete set",
+      "passed": true,
+      "expectedAccepted": true,
+      "problems": []
+    },
+    {
+      "case": "reordered set",
+      "passed": true,
+      "expectedAccepted": true,
+      "problems": []
+    },
+    {
+      "case": "missing ARM64",
+      "passed": true,
+      "expectedAccepted": false,
+      "problems": [
+        "check 11: manifest abiFilters ['x86_64'] != app/build.gradle abiFilters ['x86_64', 'arm64-v8a']"
+      ]
+    },
+    {
+      "case": "extra ABI",
+      "passed": true,
+      "expectedAccepted": false,
+      "problems": [
+        "check 11: manifest abiFilters ['x86_64', 'arm64-v8a', 'x86'] != app/build.gradle abiFilters ['x86_64', 'arm64-v8a']"
+      ]
+    },
+    {
+      "case": "duplicate ABI",
+      "passed": true,
+      "expectedAccepted": false,
+      "problems": [
+        "check 11: manifest abiFilters ['x86_64', 'arm64-v8a', 'x86_64'] != app/build.gradle abiFilters ['x86_64', 'arm64-v8a']"
+      ]
+    },
+    {
+      "case": "malformed ABI",
+      "passed": true,
+      "expectedAccepted": false,
+      "problems": [
+        "check 11: manifest abiFilters ['x86_64', {}] != app/build.gradle abiFilters ['x86_64', 'arm64-v8a']"
+      ]
+    }
+  ]
+}

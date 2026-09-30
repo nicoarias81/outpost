@@ -1,0 +1,296 @@
+{
+  "runId": "places-20260930T185401Z-b88baa9a",
+  "version": "0.13.0",
+  "passed": true,
+  "checksPassed": 47,
+  "checks": [
+    {
+      "name": "Place checks run inside the x86_64 emulator",
+      "passed": true
+    },
+    {
+      "name": "Place queries need no network, location or storage permission",
+      "passed": true
+    },
+    {
+      "name": "An empty library reports missing imported data",
+      "passed": true
+    },
+    {
+      "name": "Same-name parks ask for disambiguation with real source options",
+      "passed": true
+    },
+    {
+      "name": "Recorded locality resolves the correct named park",
+      "passed": true
+    },
+    {
+      "name": "Named-place response opens the exact OSM source",
+      "passed": true
+    },
+    {
+      "name": "Recorded aliases and accent normalization resolve the same place",
+      "passed": true
+    },
+    {
+      "name": "Absent place is scoped to imported data, not invented from model memory",
+      "passed": true
+    },
+    {
+      "name": "An ambiguous reference cannot silently select a nearby result set",
+      "passed": true
+    },
+    {
+      "name": "Category\/proximity uses the selected reference and explicit radius",
+      "passed": true
+    },
+    {
+      "name": "Response reports computed distance, recorded address and distance semantics",
+      "passed": true
+    },
+    {
+      "name": "Unknown positions are disclosed and distant same-category records are excluded",
+      "passed": true
+    },
+    {
+      "name": "Each nearby result and its reference preserve their own exact citation",
+      "passed": true
+    },
+    {
+      "name": "A boundary-distance record is included and a record 1 m outside is excluded",
+      "passed": true
+    },
+    {
+      "name": "Fractional kilometre units are interpreted locally",
+      "passed": true
+    },
+    {
+      "name": "Miles convert to metres deterministically",
+      "passed": true
+    },
+    {
+      "name": "Zero radius is rejected explicitly",
+      "passed": true
+    },
+    {
+      "name": "Oversized search radius is bounded",
+      "passed": true
+    },
+    {
+      "name": "Travel time is not silently treated as geographic distance",
+      "passed": true
+    },
+    {
+      "name": "Unimplemented preference\/rating filters are not silently dropped",
+      "passed": true
+    },
+    {
+      "name": "Category search without an area requests context without assuming GPS",
+      "passed": true
+    },
+    {
+      "name": "Area lookup uses declared locality rather than inventing polygon containment",
+      "passed": true
+    },
+    {
+      "name": "Missing area coverage produces a scoped empty result",
+      "passed": true
+    },
+    {
+      "name": "The phone position is never inferred for near-me input",
+      "passed": true
+    },
+    {
+      "name": "An anchor without coordinates cannot generate distances",
+      "passed": true
+    },
+    {
+      "name": "Distance lookup works across the antimeridian",
+      "passed": true
+    },
+    {
+      "name": "Distance arithmetic handles coincident and antipodal coordinates",
+      "passed": true
+    },
+    {
+      "name": "A locality follow-up resolves the previous named-place question",
+      "passed": true
+    },
+    {
+      "name": "A radius follow-up retains only the user's previous reference and category",
+      "passed": true
+    },
+    {
+      "name": "General explanations and personal-file questions remain on the chat\/document path",
+      "passed": true
+    },
+    {
+      "name": "Place scanning honors request cancellation",
+      "passed": true
+    },
+    {
+      "name": "Identical places in overlapping extracts do not duplicate results",
+      "passed": true
+    },
+    {
+      "name": "Conflicting source snapshots prevent unqualified ranking or newest-version guesses",
+      "passed": true
+    },
+    {
+      "name": "Negative local IDs in different extracts are not merged as global identities",
+      "passed": true
+    },
+    {
+      "name": "Removing source data leaves prior place citations unavailable rather than rebound",
+      "passed": true
+    },
+    {
+      "name": "Isolated model context has no installed generator",
+      "passed": true
+    },
+    {
+      "name": "Place response settles without native generation: Where is Test Riverside Park in Test North?",
+      "passed": true
+    },
+    {
+      "name": "Production chat answers a named park without a loaded model",
+      "passed": true
+    },
+    {
+      "name": "Place response settles without native generation: Which restaurants are around Test Central Station in Test North within 150 m?",
+      "passed": true
+    },
+    {
+      "name": "Production chat answers restaurant proximity from actual imported rows",
+      "passed": true
+    },
+    {
+      "name": "Place response settles without native generation: Where can I find a museum?",
+      "passed": true
+    },
+    {
+      "name": "Production chat asks for the missing area",
+      "passed": true
+    },
+    {
+      "name": "Place response settles without native generation: In Test North",
+      "passed": true
+    },
+    {
+      "name": "Production chat resolves the museum-area follow-up",
+      "passed": true
+    },
+    {
+      "name": "Chat source reference resolves the requested museum",
+      "passed": true
+    },
+    {
+      "name": "Exact OSM source is inspectable from a place answer",
+      "passed": true
+    },
+    {
+      "name": "Computed place answers and exact references survive Activity restart",
+      "passed": true
+    }
+  ],
+  "answers": [
+    {
+      "question": "Which restaurants are around Test Central Station in Test North within 150 m?",
+      "status": "found",
+      "text": "Within 150 m of the recorded position of Test Central Station [1] (approximate straight-line distance):\n• Test Oak Restaurant [2] — 111 m\n  12 Sample Avenue, Test North\n  0.001000, 0.000000\n1 imported restaurants lack coordinates and could not be checked for distance.\nSaved OSM information; coverage may be incomplete and current conditions are not checked.",
+      "sources": [
+        {
+          "documentId": "4a8d1d5c-e527-4d1f-a85c-d9a38330a69d",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 3,
+          "contentSha256": "a66154b5fb539f89c92e68a905d3f669dd27eeb465d8f43eecfbe47b1fa6103c"
+        },
+        {
+          "documentId": "4a8d1d5c-e527-4d1f-a85c-d9a38330a69d",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 5,
+          "contentSha256": "a66154b5fb539f89c92e68a905d3f669dd27eeb465d8f43eecfbe47b1fa6103c"
+        }
+      ],
+      "matched": 1,
+      "radiusMeters": 150,
+      "elapsedMs": 35,
+      "modelExecution": false
+    },
+    {
+      "question": "Where is Test Riverside Park in Test North?",
+      "status": "found",
+      "text": "From the imported place data:\n• Test Riverside Park [1]\n  Test North\n  0.000000, 0.000000\n\nSaved OSM information; current conditions are not checked.",
+      "sources": [
+        {
+          "documentId": "8d421912-7605-4d87-a92e-4f1d5e349647",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 1,
+          "contentSha256": "a66154b5fb539f89c92e68a905d3f669dd27eeb465d8f43eecfbe47b1fa6103c"
+        }
+      ],
+      "matched": 1,
+      "radiusMeters": 0,
+      "elapsedMs": 265,
+      "modelExecution": false
+    },
+    {
+      "question": "Which restaurants are around Test Central Station in Test North within 150 m?",
+      "status": "found",
+      "text": "Within 150 m of the recorded position of Test Central Station [1] (approximate straight-line distance):\n• Test Oak Restaurant [2] — 111 m\n  12 Sample Avenue, Test North\n  0.001000, 0.000000\n1 imported restaurants lack coordinates and could not be checked for distance.\nSaved OSM information; coverage may be incomplete and current conditions are not checked.",
+      "sources": [
+        {
+          "documentId": "8d421912-7605-4d87-a92e-4f1d5e349647",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 3,
+          "contentSha256": "a66154b5fb539f89c92e68a905d3f669dd27eeb465d8f43eecfbe47b1fa6103c"
+        },
+        {
+          "documentId": "8d421912-7605-4d87-a92e-4f1d5e349647",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 5,
+          "contentSha256": "a66154b5fb539f89c92e68a905d3f669dd27eeb465d8f43eecfbe47b1fa6103c"
+        }
+      ],
+      "matched": 1,
+      "radiusMeters": 150,
+      "elapsedMs": 531,
+      "modelExecution": false
+    },
+    {
+      "question": "Where can I find a museum?",
+      "status": "clarify",
+      "text": "Which city or reference place should I search? For example, 'museums near Central Station' or 'museums in Madrid'.",
+      "sources": [],
+      "matched": 0,
+      "radiusMeters": 0,
+      "elapsedMs": 432,
+      "modelExecution": false
+    },
+    {
+      "question": "In Test North",
+      "status": "found",
+      "text": "Imported museums with a recorded locality of 'Test North' (alphabetical order):\n• Test Copper Museum [1]\n  Test North\n  0.000500, 0.000000\nSaved OSM information; coverage may be incomplete and current conditions are not checked.",
+      "sources": [
+        {
+          "documentId": "8d421912-7605-4d87-a92e-4f1d5e349647",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 9,
+          "contentSha256": "a66154b5fb539f89c92e68a905d3f669dd27eeb465d8f43eecfbe47b1fa6103c"
+        }
+      ],
+      "matched": 1,
+      "radiusMeters": 0,
+      "elapsedMs": 452,
+      "modelExecution": false
+    }
+  ],
+  "modelExecution": false,
+  "scope": "Synthetic actual import\/SQLite\/chat\/source checks in Outpost35, with an isolated absent-model context. No physical-device or broad real-place accuracy claim."
+}

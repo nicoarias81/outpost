@@ -1,0 +1,63 @@
+{
+  "sourceUrl": "https://api.openstreetmap.org/api/0.6/map?bbox=-3.698,40.410,-3.686,40.418",
+  "fetchedUtc": "2026-09-30T18:58:00.106753+00:00",
+  "rawSha256": "fe2c25df5d97b04060c69934181731e5638a0928c2763337aae7a9c5decf53c8",
+  "rawBytes": 5488771,
+  "objects": 20173,
+  "scope": "Public Madrid-area engineering fixture; not the user location or a live recommendation. Raw contributor account attributes are not intended for repository distribution.",
+  "preparedSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5",
+  "preparedBytes": 74492,
+  "taggedFeatures": 100,
+  "attribution": "© OpenStreetMap contributors · ODbL 1.0",
+  "licenseUrl": "https://www.openstreetmap.org/copyright",
+  "preparation": "Selected named restaurant/museum/urban-park objects and available way-node geometry; removed contributor user/uid/changeset attributes; no place facts or missing coordinates added. Original extract date remains unknown; fetchedUtc is retrieval time.",
+  "fixturePath": "app/src/androidTest/assets/places/madrid-named-places.osm",
+  "cases": [
+    {
+      "question": "Where is Plaza de la Lealtad?",
+      "expectedKeys": [
+        "way/29489645"
+      ],
+      "matched": 1,
+      "referenceKey": null
+    },
+    {
+      "question": "restaurants near Museo de Colecciones ICO within 500 m",
+      "expectedKeys": [
+        "node/13231613801",
+        "node/167302928",
+        "node/4802367221",
+        "node/167302888",
+        "node/3597242732"
+      ],
+      "matched": 47,
+      "referenceKey": "node/1474148142",
+      "distancesMeters": [
+        17.106097,
+        49.422901,
+        91.071973,
+        97.17296,
+        101.525981
+      ]
+    },
+    {
+      "question": "museums near Plaza de la Lealtad within 1000 m",
+      "expectedKeys": [
+        "way/292649859",
+        "way/85817355",
+        "node/1474148142",
+        "way/319609029",
+        "way/286816147"
+      ],
+      "matched": 6,
+      "referenceKey": "way/29489645",
+      "distancesMeters": [
+        133.449917,
+        306.915181,
+        414.538174,
+        441.097912,
+        589.720309
+      ]
+    }
+  ]
+}
