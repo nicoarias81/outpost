@@ -1,0 +1,228 @@
+{
+  "scope": "Static source/config arithmetic only; no inference or allocation measurement",
+  "baseline_commit": "511d6af",
+  "backend_commit": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+  "source": [
+    {
+      "file": ".local/llama.cpp/src/llama-arch.cpp",
+      "sha256": "4940cb857da9d9e0e12e9365ca6674370a3300cb51350f6902684ae7ba7defa6",
+      "matching_lines": [
+        {
+          "line": 36,
+          "text": "{ LLM_ARCH_QWEN3,            \"qwen3\"            },"
+        },
+        {
+          "line": 41,
+          "text": "{ LLM_ARCH_QWEN35,           \"qwen35\"           },"
+        },
+        {
+          "line": 45,
+          "text": "{ LLM_ARCH_PHI3,             \"phi3\"             },"
+        },
+        {
+          "line": 59,
+          "text": "{ LLM_ARCH_GEMMA4,           \"gemma4\"           },"
+        },
+        {
+          "line": 60,
+          "text": "{ LLM_ARCH_GEMMA4_ASSISTANT, \"gemma4-assistant\" },"
+        },
+        {
+          "line": 88,
+          "text": "{ LLM_ARCH_BITNET,           \"bitnet\"           },"
+        },
+        {
+          "line": 126,
+          "text": "{ LLM_ARCH_SMOLLM3,          \"smollm3\"          },"
+        },
+        {
+          "line": 128,
+          "text": "{ LLM_ARCH_LFM2,             \"lfm2\"             },"
+        }
+      ]
+    },
+    {
+      "file": ".local/llama.cpp/src/llama-model.cpp",
+      "sha256": "1d5ca76dff826368d56eb2774f5e5f9c6281291a154e830e2cab94cbd9606309",
+      "matching_lines": [
+        {
+          "line": 112,
+          "text": "return new llama_model_qwen3(params);"
+        },
+        {
+          "line": 126,
+          "text": "return new llama_model_phi3(params);"
+        },
+        {
+          "line": 154,
+          "text": "return new llama_model_gemma4(params);"
+        },
+        {
+          "line": 156,
+          "text": "return new llama_model_gemma4_assistant(params);"
+        },
+        {
+          "line": 216,
+          "text": "return new llama_model_bitnet(params);"
+        },
+        {
+          "line": 296,
+          "text": "return new llama_model_smollm3(params);"
+        },
+        {
+          "line": 302,
+          "text": "return new llama_model_lfm2(params);"
+        },
+        {
+          "line": 326,
+          "text": "return new llama_model_qwen35(params);"
+        }
+      ]
+    },
+    {
+      "file": ".local/llama.cpp/ggml/include/ggml.h",
+      "sha256": "62e4d28730f96924bfc3ec46771b38c30a8d4397584769fd636d6327354d5430",
+      "matching_lines": [
+        {
+          "line": 424,
+          "text": "GGML_TYPE_TQ1_0   = 34,"
+        },
+        {
+          "line": 425,
+          "text": "GGML_TYPE_TQ2_0   = 35,"
+        },
+        {
+          "line": 432,
+          "text": "GGML_TYPE_Q2_0    = 42,"
+        }
+      ]
+    },
+    {
+      "file": "app/src/main/cpp/engine.cpp",
+      "sha256": "e8c84de905a5ac882568f1ec7ecceaf972852faa4921495384c64da1992bb838",
+      "matching_lines": [
+        {
+          "line": 216,
+          "text": "int needed = llama_chat_apply_template(tmpl, messages, 2, true, nullptr, 0);"
+        },
+        {
+          "line": 219,
+          "text": "int length = llama_chat_apply_template(tmpl, messages, 2, true, prompt.data(), prompt.size());"
+        },
+        {
+          "line": 222,
+          "text": "// The built-in ChatML formatter omits Bonsai's fixed non-thinking suffix."
+        },
+        {
+          "line": 237,
+          "text": "params.n_ctx = 2048; params.n_batch = batch_size; params.n_ubatch = batch_size;"
+        },
+        {
+          "line": 255,
+          "text": "if (!llama_memory_seq_rm(llama_get_memory(context),0,(llama_pos)reused,-1)) {"
+        },
+        {
+          "line": 353,
+          "text": "if(!llama_memory_seq_rm(llama_get_memory(context),0,position+1+result.accepted,-1)) throw std::runtime_error(\"Speculation requires partial KV removal\");"
+        },
+        {
+          "line": 452,
+          "text": "params.n_ctx = 2048; params.n_batch = 1536; params.n_ubatch = 128;"
+        },
+        {
+          "line": 565,
+          "text": "auto reset=[&]{if(!llama_memory_seq_rm(llama_get_memory(ctx),0,prefix,-1))throw std::runtime_error(\"Cannot reset row audit KV\");};"
+        },
+        {
+          "line": 638,
+          "text": "auto reset=[&] { if(!llama_memory_seq_rm(llama_get_memory(ctx),0,prefix,-1)) throw std::runtime_error(\"Cannot reset audit KV\"); };"
+        }
+      ]
+    },
+    {
+      "file": "app/src/main/java/dev/outpost/app/ModelStore.java",
+      "sha256": "14f2d0c1f02aacffd7dfccda297fe81a46e2a5ddd291fe6e45f0f496c8cef273",
+      "matching_lines": [
+        {
+          "line": 22,
+          "text": "static final java.util.List<Spec> PROFILES = java.util.List.of(QWEN,BONSAI17,BONSAI4);"
+        }
+      ]
+    },
+    {
+      "file": ".local/llama.cpp/src/models/lfm2.cpp",
+      "bytes": 14734,
+      "sha256": "71d7d87dcad13bfa9433f81455998d0431c8b0c26674d6a8794373338baf09eb"
+    },
+    {
+      "file": ".local/llama.cpp/src/models/qwen35.cpp",
+      "bytes": 28749,
+      "sha256": "c277c0fbef003f268f4ebd539e08afbf3bbd539aa713f29c33319960d98abf4c"
+    },
+    {
+      "file": ".local/llama.cpp/src/models/gemma4.cpp",
+      "bytes": 23965,
+      "sha256": "2fe2f6dec4c0d07d00ca942c7a335e5efefa1b3e113a20d46817c436f9dd707e"
+    },
+    {
+      "file": ".local/llama.cpp/src/models/gemma4-assistant.cpp",
+      "bytes": 8750,
+      "sha256": "ec5271dbeb476339977b2291b663325e5905a4c91d2921834fece9afaebb69db"
+    },
+    {
+      "file": ".local/llama.cpp/src/models/bitnet.cpp",
+      "bytes": 6653,
+      "sha256": "9e792fe6e399b171c88ee07b6e88be0bbb592934840b8a2a2f0813ce2a57dd14"
+    },
+    {
+      "file": ".local/llama.cpp/src/models/smollm3.cpp",
+      "bytes": 5600,
+      "sha256": "0e31886d7c5b8d265ddbfa0421c8efee85dec14aa823663f713efe5188449360"
+    },
+    {
+      "file": ".local/llama.cpp/src/models/phi3.cpp",
+      "bytes": 7564,
+      "sha256": "e34642f52bf140a361e042e110b69289e3d66e9d6b9d9eec1a6ebcb23e9c041d"
+    },
+    {
+      "file": ".local/llama.cpp/src/models/qwen3.cpp",
+      "bytes": 6031,
+      "sha256": "737aee124c5f47705b28f1fa7989dfa23bea72ddd2860797e0ae14e49085eafe"
+    }
+  ],
+  "kv_estimates": [
+    {
+      "model": "Bonsai4/Qwen3-4B",
+      "layers": 36,
+      "kv_heads": 8,
+      "head_dim": 128,
+      "bytes_f16_k_and_v_at_2048": 301989888,
+      "MiB": 288.0
+    },
+    {
+      "model": "LFM2.5-1.2B attention portion",
+      "layers": 6,
+      "kv_heads": 8,
+      "head_dim": 64,
+      "bytes_f16_k_and_v_at_2048": 25165824,
+      "MiB": 24.0
+    },
+    {
+      "model": "Qwen3.5-2B full-attention portion",
+      "layers": 6,
+      "kv_heads": 2,
+      "head_dim": 256,
+      "bytes_f16_k_and_v_at_2048": 25165824,
+      "MiB": 24.0
+    }
+  ],
+  "kv_exclusions": "Recurrent/convolution state, padding, allocator policy, scratch, logits, weights and app/native heaps. Not measured peak memory.",
+  "engram_demo_lower_bound": {
+    "table_parameters": 1323827200,
+    "fp16_bytes": 2647654400,
+    "fp32_bytes": 5295308800,
+    "retrieved_vector_bytes_per_token_fp16": 4096,
+    "illustrative_32_distinct_4KiB_pages_bytes": 131072,
+    "assumptions": "Prime increments excluded; 16/32-bit storage scenarios. No trained checkpoint or benchmark implied."
+  }
+}

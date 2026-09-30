@@ -1,0 +1,2743 @@
+{
+  "captured_utc": "2026-09-30T20:48:21.234691+00:00",
+  "scope": "Public metadata only; no weights fetched, no upstream code/model execution. API artifact hashes are publisher metadata, not locally verified weight hashes.",
+  "models": [
+    {
+      "repo": "LiquidAI/LFM2.5-1.2B-Instruct",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/LiquidAI/LFM2.5-1.2B-Instruct?blobs=true",
+        "bytes": 9635,
+        "sha256": "f8bc946c324f7655ebad2775e7ad53d4ff14dd69f8365d558b55d7b952bb7a0e"
+      },
+      "revision": "0f604ada3f766f9f257460c4c9f0b5d6f69d431b",
+      "license": "other",
+      "gated": false,
+      "parameter_metadata": {
+        "parameters": {
+          "BF16": 1170340608
+        },
+        "total": 1170340608
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct/resolve/0f604ada3f766f9f257460c4c9f0b5d6f69d431b/README.md",
+          "bytes": 16291,
+          "sha256": "682de876c2d172eaeffff775ad8422b5fd7ada701543916e62129e3be8eab077",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct/resolve/0f604ada3f766f9f257460c4c9f0b5d6f69d431b/config.json",
+          "bytes": 1224,
+          "sha256": "15d6157fb6df3f8272e2fe90e18f57727ccf02a125c94469198b0f3281510185",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct/resolve/0f604ada3f766f9f257460c4c9f0b5d6f69d431b/generation_config.json",
+          "bytes": 132,
+          "sha256": "5ffd97da1dec4308543894569662d96e923ed01f7a9d8c7ff5aea7f800738cbd",
+          "file": "generation_config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct/resolve/0f604ada3f766f9f257460c4c9f0b5d6f69d431b/LICENSE",
+          "bytes": 10644,
+          "sha256": "61d7e939a05911c765b7e98ffaa1ab5ca6c0174a65350766c25cb10197d19fc8",
+          "file": "LICENSE"
+        }
+      ],
+      "text_config": {
+        "model_type": "lfm2",
+        "architectures": [
+          "Lfm2ForCausalLM"
+        ],
+        "hidden_size": 2048,
+        "intermediate_size": 12288,
+        "num_hidden_layers": 16,
+        "num_attention_heads": 32,
+        "num_key_value_heads": 8,
+        "vocab_size": 65536,
+        "max_position_embeddings": 128000,
+        "layer_types": [
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "full_attention",
+          "conv",
+          "full_attention",
+          "conv",
+          "full_attention",
+          "conv"
+        ],
+        "num_heads": 32,
+        "conv_L_cache": 3,
+        "dtype": "bfloat16"
+      },
+      "outer_model_type": "lfm2"
+    },
+    {
+      "repo": "LiquidAI/LFM2.5-1.2B-Instruct-GGUF",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/LiquidAI/LFM2.5-1.2B-Instruct-GGUF?blobs=true",
+        "bytes": 7123,
+        "sha256": "030be9fc8b53561672279118e9523ebae1b92edcc914f12671b5c115d71fb5dc"
+      },
+      "revision": "8ed288026e23958ad9dfa92d53ed773a8eee7125",
+      "license": "other",
+      "gated": false,
+      "parameter_metadata": null,
+      "artifacts": [
+        {
+          "rfilename": "LFM2.5-1.2B-Instruct-BF16.gguf",
+          "blobId": "b97a74899d7f7ac866950f15d48fd4edc30f57a8",
+          "size": 2343326528,
+          "lfs": {
+            "sha256": "3d80914b903cd6f3cc041208cf20ec46a3224f840c732e5fd7698832b4743d1b",
+            "size": 2343326528,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2.5-1.2B-Instruct-F16.gguf",
+          "blobId": "e4971ef4b945d2fb55d7ee28d3b4bf4521a5a0da",
+          "size": 2343326528,
+          "lfs": {
+            "sha256": "1e1d8a5ca01c0f1ee51a6fd729c80efd626f54812a1241358bea20824fea790d",
+            "size": 2343326528,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2.5-1.2B-Instruct-Q4_0.gguf",
+          "blobId": "1eaa36ea1f0bfbe6cd053480a8977cc60e510849",
+          "size": 695751488,
+          "lfs": {
+            "sha256": "2ea801949d760cdf1a2cc04a54262c22c3c0c54f0769d57760c9adeb0e59233f",
+            "size": 695751488,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "LFM2.5-1.2B-Instruct-Q4_K_M.gguf",
+          "blobId": "98e92dac403a4753fe75d30990cdea453d38273e",
+          "size": 730895168,
+          "lfs": {
+            "sha256": "b1b3de114215d9507409a662a501a631095a479a419584e8a2ded6304b19b4f5",
+            "size": 730895168,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "LFM2.5-1.2B-Instruct-Q5_K_M.gguf",
+          "blobId": "931254d7e25c290ed1bf0beb0d0a366f78f3d870",
+          "size": 843354944,
+          "lfs": {
+            "sha256": "fa03f3ac4da941a53a0cd4450aacf6a80804c6a1ff885d2fdcbe9406c03215c4",
+            "size": 843354944,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "LFM2.5-1.2B-Instruct-Q6_K.gguf",
+          "blobId": "2a6a7d031d91477d0c23558dfde05d3002dff966",
+          "size": 962843456,
+          "lfs": {
+            "sha256": "c5e895c191a066f6b26a8f09f10e94cdb799e579216f87df61a7e27beacd9a2b",
+            "size": 962843456,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "LFM2.5-1.2B-Instruct-Q8_0.gguf",
+          "blobId": "f35eb989e16aeb44729ca2904e7e9f1a98bf26c4",
+          "size": 1246253888,
+          "lfs": {
+            "sha256": "f6b981dcb86917fa463f78a362320bd5e2dc45445df147287eedb85e5a30d26a",
+            "size": 1246253888,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2.5-1.2B-Instruct-QAD-Q4_0.gguf",
+          "blobId": "a4df0d757cfe8eb5f4d3500c8b88a8390981296d",
+          "size": 695755488,
+          "lfs": {
+            "sha256": "bb741ebb106d543e9de114b843a3d3d73d51c74b5801e69da2abde821a0cb3e1",
+            "size": 695755488,
+            "pointerSize": 134
+          }
+        }
+      ],
+      "files": [
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/README.md",
+          "bytes": 3544,
+          "sha256": "f89d69dd107c19936b98ff981456302bc59255cce34b216ecc489d7bafa782e9",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/LICENSE",
+          "bytes": 10596,
+          "sha256": "5188f2b355da20647257a3156db5834c794e5fb5e6d8dc4d4cdbb3180e75b85b",
+          "file": "LICENSE"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/qad/config.json",
+          "bytes": 1310,
+          "sha256": "af503f0efc44e1e3fa9d8f0f4e3695d840db9f1e2a41f5c8e11cd63732910aec",
+          "file": "qad/config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/qad/generation_config.json",
+          "bytes": 132,
+          "sha256": "5ffd97da1dec4308543894569662d96e923ed01f7a9d8c7ff5aea7f800738cbd",
+          "file": "qad/generation_config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/qad/README.md",
+          "bytes": 3170,
+          "sha256": "acd6c5deaba23bbcfaa655e39c84f6cd2390f1efee1537cdcf8d6264cc138779",
+          "file": "qad/README.md"
+        }
+      ]
+    },
+    {
+      "repo": "LiquidAI/LFM2-2.6B",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/LiquidAI/LFM2-2.6B?blobs=true",
+        "bytes": 6266,
+        "sha256": "51aff8c8ffa6cfc93ee0d075fefaaff398e3af995352683a583b5ce01ab6f5c2"
+      },
+      "revision": "36ed799f7024ef169ba92ffe184821835e15cc66",
+      "license": "other",
+      "gated": false,
+      "parameter_metadata": {
+        "parameters": {
+          "BF16": 2569272320
+        },
+        "total": 2569272320
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2-2.6B/resolve/36ed799f7024ef169ba92ffe184821835e15cc66/README.md",
+          "bytes": 12432,
+          "sha256": "ec44a56c33f8de6965b64db383edf1b41d1cc545f64d4f852cb1ba3fecbacfc7",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2-2.6B/resolve/36ed799f7024ef169ba92ffe184821835e15cc66/config.json",
+          "bytes": 1470,
+          "sha256": "68695d4ae8c0db817eec056380741d3e74886c7be310168dfa1f07592653e517",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2-2.6B/resolve/36ed799f7024ef169ba92ffe184821835e15cc66/generation_config.json",
+          "bytes": 137,
+          "sha256": "93a20028b6fb1f83d8ab33bcad0dd3878f74975dd4881e5435bc6d5dd21915bc",
+          "file": "generation_config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2-2.6B/resolve/36ed799f7024ef169ba92ffe184821835e15cc66/LICENSE",
+          "bytes": 10574,
+          "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c",
+          "file": "LICENSE"
+        }
+      ],
+      "text_config": {
+        "model_type": "lfm2",
+        "architectures": [
+          "Lfm2ForCausalLM"
+        ],
+        "hidden_size": 2048,
+        "intermediate_size": 10752,
+        "num_hidden_layers": 30,
+        "num_attention_heads": 32,
+        "num_key_value_heads": 8,
+        "vocab_size": 65536,
+        "max_position_embeddings": 128000,
+        "layer_types": [
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv"
+        ],
+        "num_heads": 32,
+        "conv_L_cache": 3,
+        "torch_dtype": "bfloat16"
+      },
+      "outer_model_type": "lfm2"
+    },
+    {
+      "repo": "LiquidAI/LFM2-2.6B-GGUF",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/LiquidAI/LFM2-2.6B-GGUF?blobs=true",
+        "bytes": 4948,
+        "sha256": "58af2e5fdd2bdaff228c3ddbb2bcdca03c0bf71eb18e27d806cdc59cf2981bb5"
+      },
+      "revision": "a759abdc5955d4ca97763e5cb7ff3940589ba898",
+      "license": "other",
+      "gated": false,
+      "parameter_metadata": null,
+      "artifacts": [
+        {
+          "rfilename": "LFM2-2.6B-F16.gguf",
+          "blobId": "d65158c4cb6c92e6a4b135a1f49307560385f82c",
+          "size": 5141459168,
+          "lfs": {
+            "sha256": "12507543514f81c538142ee2c63fe424316d135b4991d621f035eff88deadc19",
+            "size": 5141459168,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2-2.6B-Q4_0.gguf",
+          "blobId": "667c791ad8191506bad648fad04dc7992e78301e",
+          "size": 1483108576,
+          "lfs": {
+            "sha256": "86fb0b123880b078b84c81a65882dccba28e6c0069c3da6ab4f713e6918956ba",
+            "size": 1483108576,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2-2.6B-Q4_K_M-hip-optimized.gguf",
+          "blobId": "d08444d990eb95dc00ab89e03a0a85ab9ab72d48",
+          "size": 1671852256,
+          "lfs": {
+            "sha256": "bb72b115a4ae7a3c6e23da4f18c39f46817288ae1a6e08277d440864c4c3276b",
+            "size": 1671852256,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2-2.6B-Q4_K_M.gguf",
+          "blobId": "88540c7cd7fa1a8b362fc8d23a99ac41a56d5bcc",
+          "size": 1563668704,
+          "lfs": {
+            "sha256": "384bc877b6c37064982f96885bef69e4475919f5969218ed4e3b9399ae0340df",
+            "size": 1563668704,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2-2.6B-Q5_K_M.gguf",
+          "blobId": "817510fd35e5d5adfc756d013d741303c3aae654",
+          "size": 1828958432,
+          "lfs": {
+            "sha256": "1f1d46904e25f1b67b538bd658ee4e11ed311864e5e8247b22ea5ab7488c83ee",
+            "size": 1828958432,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2-2.6B-Q6_K.gguf",
+          "blobId": "5335d56be59aa86b177ef6bf1fb5d7c5f592d177",
+          "size": 2110828768,
+          "lfs": {
+            "sha256": "9de6f14a0dc6be851d0a1ca60acc76fc98ae59ba92921c6da90dea95159a8f85",
+            "size": 2110828768,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2-2.6B-Q8_0.gguf",
+          "blobId": "e498c32038a78a10f3b509f5e762bbe63a2d4800",
+          "size": 2733011168,
+          "lfs": {
+            "sha256": "36bddde1745f1330872b7c2acfd011663ba30477b049bc01c77c81d0e3241685",
+            "size": 2733011168,
+            "pointerSize": 135
+          }
+        }
+      ],
+      "files": [
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2-2.6B-GGUF/resolve/a759abdc5955d4ca97763e5cb7ff3940589ba898/README.md",
+          "bytes": 1670,
+          "sha256": "b8ac00c9db93ee0226371ccb8831fb9fb37e8ab462b5bf9b05546b8268debbb0",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2-2.6B-GGUF/resolve/a759abdc5955d4ca97763e5cb7ff3940589ba898/LICENSE",
+          "bytes": 10644,
+          "sha256": "61d7e939a05911c765b7e98ffaa1ab5ca6c0174a65350766c25cb10197d19fc8",
+          "file": "LICENSE"
+        }
+      ]
+    },
+    {
+      "repo": "Qwen/Qwen3.5-2B",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/Qwen/Qwen3.5-2B?blobs=true",
+        "bytes": 21848,
+        "sha256": "37a04654c41af7cf360c39549314532a0813be1652a855296b9b4a92e7d4ea29"
+      },
+      "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+      "license": "apache-2.0",
+      "gated": false,
+      "parameter_metadata": {
+        "parameters": {
+          "F32": 2592,
+          "BF16": 2274067232
+        },
+        "total": 2274069824
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/Qwen/Qwen3.5-2B/resolve/15852e8c16360a2fea060d615a32b45270f8a8fc/README.md",
+          "bytes": 62814,
+          "sha256": "c0e83a849c776e6fa843d011f023132d942a0f0140d903205bf1c363adad2275",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/Qwen/Qwen3.5-2B/resolve/15852e8c16360a2fea060d615a32b45270f8a8fc/config.json",
+          "bytes": 2908,
+          "sha256": "ed1c1723241f23f7f4e23430759cbd7dcfb4103cbdfe052bfe7626b57c2615b4",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/Qwen/Qwen3.5-2B/resolve/15852e8c16360a2fea060d615a32b45270f8a8fc/LICENSE",
+          "bytes": 11544,
+          "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+          "file": "LICENSE"
+        }
+      ],
+      "text_config": {
+        "model_type": "qwen3_5_text",
+        "hidden_size": 2048,
+        "intermediate_size": 6144,
+        "num_hidden_layers": 24,
+        "num_attention_heads": 8,
+        "num_key_value_heads": 2,
+        "head_dim": 256,
+        "vocab_size": 248320,
+        "max_position_embeddings": 262144,
+        "layer_types": [
+          "linear_attention",
+          "linear_attention",
+          "linear_attention",
+          "full_attention",
+          "linear_attention",
+          "linear_attention",
+          "linear_attention",
+          "full_attention",
+          "linear_attention",
+          "linear_attention",
+          "linear_attention",
+          "full_attention",
+          "linear_attention",
+          "linear_attention",
+          "linear_attention",
+          "full_attention",
+          "linear_attention",
+          "linear_attention",
+          "linear_attention",
+          "full_attention",
+          "linear_attention",
+          "linear_attention",
+          "linear_attention",
+          "full_attention"
+        ],
+        "full_attention_interval": 4,
+        "linear_num_key_heads": 16,
+        "linear_num_value_heads": 16,
+        "linear_key_head_dim": 128,
+        "linear_value_head_dim": 128,
+        "linear_conv_kernel_dim": 4,
+        "dtype": "bfloat16",
+        "tie_word_embeddings": true,
+        "rope_parameters": {
+          "mrope_interleaved": true,
+          "mrope_section": [
+            11,
+            11,
+            10
+          ],
+          "rope_type": "default",
+          "rope_theta": 10000000,
+          "partial_rotary_factor": 0.25
+        }
+      },
+      "outer_model_type": "qwen3_5"
+    },
+    {
+      "repo": "Qwen/Qwen3.5-4B",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/Qwen/Qwen3.5-4B?blobs=true",
+        "bytes": 22081,
+        "sha256": "6dfbcaa66297d87c49388306eb40ce238ee5d076f840429321abde0b267478ff"
+      },
+      "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+      "license": "apache-2.0",
+      "gated": false,
+      "parameter_metadata": {
+        "parameters": {
+          "BF16": 4659861248,
+          "F32": 3840
+        },
+        "total": 4659865088
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/Qwen/Qwen3.5-4B/resolve/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a/README.md",
+          "bytes": 77661,
+          "sha256": "1406be1b6b8fd8a6545870da516912804756593628a1d0fb0a7965211e82a7bb",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/Qwen/Qwen3.5-4B/resolve/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a/config.json",
+          "bytes": 3161,
+          "sha256": "ddc63e1c717afa86c865bb5e01313d89d72bb53b97ad4a8a03ba8510c0621670",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/Qwen/Qwen3.5-4B/resolve/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a/LICENSE",
+          "bytes": 11544,
+          "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+          "file": "LICENSE"
+        }
+      ],
+      "text_config": {
+        "model_type": "qwen3_5_text",
+        "hidden_size": 2560,
+        "intermediate_size": 9216,
+        "num_hidden_layers": 32,
+        "num_attention_heads": 16,
+        "num_key_value_heads": 4,
+        "head_dim": 256,
+        "vocab_size": 248320,
+        "max_position_embeddings": 262144,
+        "layer_types": [
+          "linear_attention",
+          "linear_attention",
+          "linear_attention",
+          "full_attention",
+          "linear_attention",
+          "linear_attention",
+          "linear_attention",
+          "full_attention",
+          "linear_attention",
+          "linear_attention",
+          "linear_attention",
+          "full_attention",
+          "linear_attention",
+          "linear_attention",
+          "linear_attention",
+          "full_attention",
+          "linear_attention",
+          "linear_attention",
+          "linear_attention",
+          "full_attention",
+          "linear_attention",
+          "linear_attention",
+          "linear_attention",
+          "full_attention",
+          "linear_attention",
+          "linear_attention",
+          "linear_attention",
+          "full_attention",
+          "linear_attention",
+          "linear_attention",
+          "linear_attention",
+          "full_attention"
+        ],
+        "full_attention_interval": 4,
+        "linear_num_key_heads": 16,
+        "linear_num_value_heads": 32,
+        "linear_key_head_dim": 128,
+        "linear_value_head_dim": 128,
+        "linear_conv_kernel_dim": 4,
+        "dtype": "bfloat16",
+        "tie_word_embeddings": true,
+        "rope_parameters": {
+          "mrope_interleaved": true,
+          "mrope_section": [
+            11,
+            11,
+            10
+          ],
+          "rope_type": "default",
+          "rope_theta": 10000000,
+          "partial_rotary_factor": 0.25
+        }
+      },
+      "outer_model_type": "qwen3_5"
+    },
+    {
+      "repo": "Qwen/Qwen3-4B-Instruct-2507",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/Qwen/Qwen3-4B-Instruct-2507?blobs=true",
+        "bytes": 8919,
+        "sha256": "e28938e555f6082a56c72b558ac614474d9c39de9f62643f018be4794efa63ad"
+      },
+      "revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+      "license": "apache-2.0",
+      "gated": false,
+      "parameter_metadata": {
+        "parameters": {
+          "BF16": 4022468096
+        },
+        "total": 4022468096
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/README.md",
+          "bytes": 8168,
+          "sha256": "8e3dd0c3b5b11897cc71092ccfe517bb7a9783479baa3665aad73c8d1a2041cd",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/config.json",
+          "bytes": 727,
+          "sha256": "5beea1a4a34c62782bfb2f911c606741a3bab8f92d80a118fa053c28af12e8ba",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/generation_config.json",
+          "bytes": 238,
+          "sha256": "835fffe355c9438e7a25be099b3fccaa98350b83451f9fd2d99512e74f1ade48",
+          "file": "generation_config.json"
+        },
+        {
+          "url": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/LICENSE",
+          "bytes": 11343,
+          "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+          "file": "LICENSE"
+        }
+      ],
+      "text_config": {
+        "model_type": "qwen3",
+        "architectures": [
+          "Qwen3ForCausalLM"
+        ],
+        "hidden_size": 2560,
+        "intermediate_size": 9728,
+        "num_hidden_layers": 36,
+        "num_attention_heads": 32,
+        "num_key_value_heads": 8,
+        "head_dim": 128,
+        "vocab_size": 151936,
+        "max_position_embeddings": 262144,
+        "sliding_window": null,
+        "torch_dtype": "bfloat16",
+        "tie_word_embeddings": true
+      },
+      "outer_model_type": "qwen3"
+    },
+    {
+      "repo": "Qwen/Qwen3-4B-Instruct-2507-GGUF",
+      "error": "HTTP Error 401: Unauthorized"
+    },
+    {
+      "repo": "google/gemma-4-E2B-it",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/google/gemma-4-E2B-it?blobs=true",
+        "bytes": 24463,
+        "sha256": "9e543b3d884e0a69dfa46970bf0a418248b271b9247a3db0b5ab173c7f832626"
+      },
+      "revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+      "license": "apache-2.0",
+      "gated": false,
+      "parameter_metadata": {
+        "parameters": {
+          "BF16": 5123178051
+        },
+        "total": 5123178051
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/google/gemma-4-E2B-it/resolve/3e22461f65e89153144f8adb70e3b8c2cc9845a7/README.md",
+          "bytes": 27955,
+          "sha256": "3e0608a6be80e3eb040a5aa6c76707809503deb85be6360184a118fb6156526c",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/google/gemma-4-E2B-it/resolve/3e22461f65e89153144f8adb70e3b8c2cc9845a7/config.json",
+          "bytes": 4954,
+          "sha256": "1b28f3d2c3100f6c594754b81107428bd7b822a7f48272ca681dae9d2ec38330",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/google/gemma-4-E2B-it/resolve/3e22461f65e89153144f8adb70e3b8c2cc9845a7/generation_config.json",
+          "bytes": 208,
+          "sha256": "d4226bbe3117d2d253ba4609720ba82c6c4ce4627a9a6ae05387c78983ac03de",
+          "file": "generation_config.json"
+        }
+      ],
+      "text_config": {
+        "model_type": "gemma4_text",
+        "hidden_size": 1536,
+        "intermediate_size": 6144,
+        "num_hidden_layers": 35,
+        "num_attention_heads": 8,
+        "num_key_value_heads": 1,
+        "head_dim": 256,
+        "vocab_size": 262144,
+        "max_position_embeddings": 131072,
+        "layer_types": [
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention"
+        ],
+        "hidden_size_per_layer_input": 256,
+        "num_global_key_value_heads": null,
+        "global_head_dim": 512,
+        "sliding_window": 512,
+        "dtype": "bfloat16",
+        "tie_word_embeddings": true,
+        "rope_parameters": {
+          "full_attention": {
+            "partial_rotary_factor": 0.25,
+            "rope_theta": 1000000.0,
+            "rope_type": "proportional"
+          },
+          "sliding_attention": {
+            "rope_theta": 10000.0,
+            "rope_type": "default"
+          }
+        }
+      },
+      "outer_model_type": "gemma4"
+    },
+    {
+      "repo": "google/gemma-4-E4B-it",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/google/gemma-4-E4B-it?blobs=true",
+        "bytes": 24424,
+        "sha256": "e425cad794d921a2d827b21ae3f1416c4b6b6faf484a5f8a9cbc3380cda2cc09"
+      },
+      "revision": "ee0ef6023621cff504d758262d4e04895a5af4a2",
+      "license": "apache-2.0",
+      "gated": false,
+      "parameter_metadata": {
+        "parameters": {
+          "BF16": 7996156490
+        },
+        "total": 7996156490
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/google/gemma-4-E4B-it/resolve/ee0ef6023621cff504d758262d4e04895a5af4a2/README.md",
+          "bytes": 27956,
+          "sha256": "b21e4f69614ccd77baa2f3797d05311040dee07b989cb9f0d25111aa4b605b2c",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/google/gemma-4-E4B-it/resolve/ee0ef6023621cff504d758262d4e04895a5af4a2/config.json",
+          "bytes": 5145,
+          "sha256": "33b10c02df3c2e8536cf323d29d53262aaa2f4d11dbe19bc729373fbe90295d4",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/google/gemma-4-E4B-it/resolve/ee0ef6023621cff504d758262d4e04895a5af4a2/generation_config.json",
+          "bytes": 208,
+          "sha256": "d4226bbe3117d2d253ba4609720ba82c6c4ce4627a9a6ae05387c78983ac03de",
+          "file": "generation_config.json"
+        }
+      ],
+      "text_config": {
+        "model_type": "gemma4_text",
+        "hidden_size": 2560,
+        "intermediate_size": 10240,
+        "num_hidden_layers": 42,
+        "num_attention_heads": 8,
+        "num_key_value_heads": 2,
+        "head_dim": 256,
+        "vocab_size": 262144,
+        "max_position_embeddings": 131072,
+        "layer_types": [
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention"
+        ],
+        "hidden_size_per_layer_input": 256,
+        "num_global_key_value_heads": null,
+        "global_head_dim": 512,
+        "sliding_window": 512,
+        "dtype": "bfloat16",
+        "tie_word_embeddings": true,
+        "rope_parameters": {
+          "full_attention": {
+            "partial_rotary_factor": 0.25,
+            "rope_theta": 1000000.0,
+            "rope_type": "proportional"
+          },
+          "sliding_attention": {
+            "rope_theta": 10000.0,
+            "rope_type": "default"
+          }
+        }
+      },
+      "outer_model_type": "gemma4"
+    },
+    {
+      "repo": "microsoft/bitnet-b1.58-2B-4T",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/microsoft/bitnet-b1.58-2B-4T?blobs=true",
+        "bytes": 4329,
+        "sha256": "e9914ff6fd2f8139a9fe1d46d43519a8b3bd41efec6f895360f5a336047bde1c"
+      },
+      "revision": "04c3b9ad9361b824064a1f25ea60a8be9599b127",
+      "license": "mit",
+      "gated": false,
+      "parameter_metadata": {
+        "parameters": {
+          "BF16": 328775890,
+          "U8": 521011200
+        },
+        "total": 849787090
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/microsoft/bitnet-b1.58-2B-4T/resolve/04c3b9ad9361b824064a1f25ea60a8be9599b127/README.md",
+          "bytes": 9647,
+          "sha256": "d945337057d24807958449cadead36fb57bf38ab259f3dc8d75c07e2fe7188c2",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/microsoft/bitnet-b1.58-2B-4T/resolve/04c3b9ad9361b824064a1f25ea60a8be9599b127/config.json",
+          "bytes": 844,
+          "sha256": "2b43e80788972e6d53967b01ac3609d7df23cf0aabb0c866e51be694a59c1149",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/microsoft/bitnet-b1.58-2B-4T/resolve/04c3b9ad9361b824064a1f25ea60a8be9599b127/generation_config.json",
+          "bytes": 199,
+          "sha256": "af34a37cd006fd230106fcefc6bfdc1f775503aee05a80c174ccc5c6594f7054",
+          "file": "generation_config.json"
+        },
+        {
+          "url": "https://huggingface.co/microsoft/bitnet-b1.58-2B-4T/resolve/04c3b9ad9361b824064a1f25ea60a8be9599b127/LICENSE",
+          "bytes": 1073,
+          "sha256": "646f8936b8ddcd14e13e578ff6857e368780b0d1a4f6066bee89211923a373e2",
+          "file": "LICENSE"
+        }
+      ],
+      "text_config": {
+        "model_type": "bitnet",
+        "architectures": [
+          "BitNetForCausalLM"
+        ],
+        "hidden_size": 2560,
+        "intermediate_size": 6912,
+        "num_hidden_layers": 30,
+        "num_attention_heads": 20,
+        "num_key_value_heads": 5,
+        "vocab_size": 128256,
+        "max_position_embeddings": 4096,
+        "torch_dtype": "bfloat16",
+        "tie_word_embeddings": true
+      },
+      "outer_model_type": "bitnet"
+    },
+    {
+      "repo": "microsoft/bitnet-b1.58-2B-4T-gguf",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/microsoft/bitnet-b1.58-2B-4T-gguf?blobs=true",
+        "bytes": 2357,
+        "sha256": "2907641dab6fb2cb9be136d2ab13d79d846c78e8f458fa29616da569ba1eb177"
+      },
+      "revision": "a1f2f1c765812aa8af3f6eda4a313707064bba15",
+      "license": "mit",
+      "gated": false,
+      "parameter_metadata": null,
+      "artifacts": [
+        {
+          "rfilename": "ggml-model-i2_s.gguf",
+          "blobId": "8d171ffc5a08694f6cff1c4c4f926787f2831604",
+          "size": 1187801280,
+          "lfs": {
+            "sha256": "4221b252fdd5fd25e15847adfeb5ee88886506ba50b8a34548374492884c2162",
+            "size": 1187801280,
+            "pointerSize": 135
+          }
+        }
+      ],
+      "files": [
+        {
+          "url": "https://huggingface.co/microsoft/bitnet-b1.58-2B-4T-gguf/resolve/a1f2f1c765812aa8af3f6eda4a313707064bba15/README.md",
+          "bytes": 8935,
+          "sha256": "e1349711c3be1e2f72719ea01ae03639caa008818e1fb4740c2f344ad5c0cd2c",
+          "file": "README.md"
+        }
+      ]
+    },
+    {
+      "repo": "microsoft/Phi-4-mini-instruct",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/microsoft/Phi-4-mini-instruct?blobs=true",
+        "bytes": 7557,
+        "sha256": "78dbff1dd6ef906aefc5b8f48903876fc09e8d19d73ff8e60e884ef97a862e04"
+      },
+      "revision": "cfbefacb99257ffa30c83adab238a50856ac3083",
+      "license": "mit",
+      "gated": false,
+      "parameter_metadata": {
+        "parameters": {
+          "BF16": 3836021760
+        },
+        "total": 3836021760
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/cfbefacb99257ffa30c83adab238a50856ac3083/README.md",
+          "bytes": 29246,
+          "sha256": "c4f34916182a3ee87d95d00c92847cfa687ab21dc338a577275f0c34cf0e1dfd",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/cfbefacb99257ffa30c83adab238a50856ac3083/config.json",
+          "bytes": 2504,
+          "sha256": "ac65d86061d3d0d704ee2511fd0eb8713ef19eb6eedba17c3080a4165d5b933b",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/cfbefacb99257ffa30c83adab238a50856ac3083/generation_config.json",
+          "bytes": 168,
+          "sha256": "3e3f48753753f92d2b958679151861d4fd7bf26e4dfc41fd47056116c4914dcd",
+          "file": "generation_config.json"
+        },
+        {
+          "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/cfbefacb99257ffa30c83adab238a50856ac3083/LICENSE",
+          "bytes": 1084,
+          "sha256": "fa8235e5b48faca34e3ca98cf4f694ef08bd216d28b58071a1f85b1d50cb814d",
+          "file": "LICENSE"
+        }
+      ],
+      "text_config": {
+        "model_type": "phi3",
+        "architectures": [
+          "Phi3ForCausalLM"
+        ],
+        "hidden_size": 3072,
+        "intermediate_size": 8192,
+        "num_hidden_layers": 32,
+        "num_attention_heads": 24,
+        "num_key_value_heads": 8,
+        "vocab_size": 200064,
+        "max_position_embeddings": 131072,
+        "sliding_window": 262144,
+        "torch_dtype": "bfloat16",
+        "tie_word_embeddings": true
+      },
+      "outer_model_type": "phi3"
+    },
+    {
+      "repo": "HuggingFaceTB/SmolLM3-3B",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/HuggingFaceTB/SmolLM3-3B?blobs=true",
+        "bytes": 12172,
+        "sha256": "cd6c1b358493661cb5acc7d3fb2ae9ec22323c057c0559a71025ab9113245a33"
+      },
+      "revision": "a07cc9a04f16550a088caea529712d1d335b0ac1",
+      "license": "apache-2.0",
+      "gated": false,
+      "parameter_metadata": {
+        "parameters": {
+          "BF16": 3075098624
+        },
+        "total": 3075098624
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/HuggingFaceTB/SmolLM3-3B/resolve/a07cc9a04f16550a088caea529712d1d335b0ac1/README.md",
+          "bytes": 17452,
+          "sha256": "24f16f90b883af3618425a589783a944356a7fc2e3cfa69b579c9ff06963e178",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/HuggingFaceTB/SmolLM3-3B/resolve/a07cc9a04f16550a088caea529712d1d335b0ac1/config.json",
+          "bytes": 1915,
+          "sha256": "c72b1031274ff4626e434d0019e88e95a767460135db9ee492eb80652b786af1",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/HuggingFaceTB/SmolLM3-3B/resolve/a07cc9a04f16550a088caea529712d1d335b0ac1/generation_config.json",
+          "bytes": 182,
+          "sha256": "3458d62b3f9654f4bbe285223b0f4e5a1e67cae61c92bb6aeaadf04468bf9e01",
+          "file": "generation_config.json"
+        }
+      ],
+      "text_config": {
+        "model_type": "smollm3",
+        "architectures": [
+          "SmolLM3ForCausalLM"
+        ],
+        "hidden_size": 2048,
+        "intermediate_size": 11008,
+        "num_hidden_layers": 36,
+        "num_attention_heads": 16,
+        "num_key_value_heads": 4,
+        "vocab_size": 128256,
+        "max_position_embeddings": 65536,
+        "layer_types": [
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention"
+        ],
+        "sliding_window": null,
+        "torch_dtype": "bfloat16",
+        "tie_word_embeddings": true
+      },
+      "outer_model_type": "smollm3"
+    },
+    {
+      "repo": "HuggingFaceTB/SmolLM3-3B-GGUF",
+      "error": "HTTP Error 401: Unauthorized"
+    },
+    {
+      "repo": "LiquidAI/LFM2.5-2.6B",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/LiquidAI/LFM2.5-2.6B?blobs=true",
+        "bytes": 9090,
+        "sha256": "83366bafad92e86b6dafccd1e1d18afd07f4ad2a716b6410eb9138ebfe464a46"
+      },
+      "revision": "654f9463ce32b05d0429d76fe1f580b27d4c1ac0",
+      "license": "other",
+      "gated": false,
+      "parameter_metadata": {
+        "parameters": {
+          "BF16": 2697198592
+        },
+        "total": 2697198592
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-2.6B/resolve/654f9463ce32b05d0429d76fe1f580b27d4c1ac0/README.md",
+          "bytes": 18337,
+          "sha256": "003ceb63ec63a5b06b17f5e7b7a7d907695f037ad18720cabbcf8d8d68813f24",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-2.6B/resolve/654f9463ce32b05d0429d76fe1f580b27d4c1ac0/config.json",
+          "bytes": 1467,
+          "sha256": "480f63fa8e1efa534ae8b92774b3b53b8d6812d62a726e9ecfc866933662f273",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-2.6B/resolve/654f9463ce32b05d0429d76fe1f580b27d4c1ac0/generation_config.json",
+          "bytes": 327,
+          "sha256": "7366b93f26f8830e7a94441a3d2b9f344ceb9e1e31a808e0656df40720075874",
+          "file": "generation_config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-2.6B/resolve/654f9463ce32b05d0429d76fe1f580b27d4c1ac0/LICENSE",
+          "bytes": 10574,
+          "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c",
+          "file": "LICENSE"
+        }
+      ],
+      "text_config": {
+        "model_type": "lfm2",
+        "architectures": [
+          "Lfm2ForCausalLM"
+        ],
+        "hidden_size": 2048,
+        "intermediate_size": 10752,
+        "num_hidden_layers": 30,
+        "num_attention_heads": 32,
+        "num_key_value_heads": 8,
+        "vocab_size": 128000,
+        "max_position_embeddings": 131072,
+        "layer_types": [
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv"
+        ],
+        "num_heads": 32,
+        "conv_L_cache": 3,
+        "dtype": "bfloat16",
+        "tie_word_embeddings": true,
+        "rope_parameters": {
+          "rope_theta": 10000000.0,
+          "rope_type": "default"
+        }
+      },
+      "outer_model_type": "lfm2"
+    },
+    {
+      "repo": "LiquidAI/LFM2.5-2.6B-GGUF",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/LiquidAI/LFM2.5-2.6B-GGUF?blobs=true",
+        "bytes": 10691,
+        "sha256": "73db0a6e3daac9346ae7d3a9410968ad8ff829b72845a1459d8317147f2b311a"
+      },
+      "revision": "e7caca5d835a3901a8e0d63e94009429bafafdfc",
+      "license": "other",
+      "gated": false,
+      "parameter_metadata": null,
+      "artifacts": [
+        {
+          "rfilename": "LFM2.5-2.6B-BF16.gguf",
+          "blobId": "13c7a9884259a59377675c1acefa0c160adbb01b",
+          "size": 5403158528,
+          "lfs": {
+            "sha256": "590b1534d5ec57dbddb750d25468d7ba4df0d1976531a731590418efa360edb5",
+            "size": 5403158528,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2.5-2.6B-F16.gguf",
+          "blobId": "fdfd19939b01abef0bd0b58664f5a3be2242cbdb",
+          "size": 5403158528,
+          "lfs": {
+            "sha256": "e041c231351185eb390f9c417d3bfd1815869a50a8589f3f86e5b9add3c529f1",
+            "size": 5403158528,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2.5-2.6B-Q4_0.gguf",
+          "blobId": "ddb3bc36891058c87dc295bf3da3ff3fa2441ac2",
+          "size": 1593894912,
+          "lfs": {
+            "sha256": "e1a61bf937bc60726e18626e97f7ee9bfd2574d95744c2ed909de98b78006fbe",
+            "size": 1593894912,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2.5-2.6B-Q4_K_M.gguf",
+          "blobId": "80142ef3a1217a3a018104d59cdae7241e60f48a",
+          "size": 1674455040,
+          "lfs": {
+            "sha256": "02a8b7e17487d326e46d68ce0ba24211e1b80a14c4cd0597fa73c1cd697f52ed",
+            "size": 1674455040,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2.5-2.6B-Q5_K_M.gguf",
+          "blobId": "5fcd7fc7a1ebae57c1e01f51545ff39b38b5551e",
+          "size": 1939744768,
+          "lfs": {
+            "sha256": "17ce54cc676e15e572adebfeeed8da6abd12b0f68d595be19b59e662476c21b3",
+            "size": 1939744768,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2.5-2.6B-Q6_K.gguf",
+          "blobId": "cd0e883346259299236dfb0b199d1d55aad02f05",
+          "size": 2221615104,
+          "lfs": {
+            "sha256": "2e74b1a0979a4a1936a408445147d103b8f15b2e2ec31c65fa0166f9069c250d",
+            "size": 2221615104,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2.5-2.6B-Q8_0.gguf",
+          "blobId": "024ac277f386ae966a524c1e0a24472ff7a10a27",
+          "size": 2874779648,
+          "lfs": {
+            "sha256": "1e22128dfa128bdfb684da167e74e072d0a056baa7d06d9f280291e2839b0fc9",
+            "size": 2874779648,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "LFM2.5-2.6B-QAD-Q4_0.gguf",
+          "blobId": "3cdcbecb998334643d88c28b8fa36f107026bde3",
+          "size": 1593894944,
+          "lfs": {
+            "sha256": "a247afd6414918eac8e520a9e6137dc271235461ecbe1180462221d5b8d40b03",
+            "size": 1593894944,
+            "pointerSize": 135
+          }
+        }
+      ],
+      "files": [
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-2.6B-GGUF/resolve/e7caca5d835a3901a8e0d63e94009429bafafdfc/README.md",
+          "bytes": 3068,
+          "sha256": "d08b79260b3998e96792777085e4175b730667568f3a953ad4ac9099cfa27056",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-2.6B-GGUF/resolve/e7caca5d835a3901a8e0d63e94009429bafafdfc/LICENSE",
+          "bytes": 10574,
+          "sha256": "30adf9d6478191fb87f2424f63ba0728598335aaf99cd2848ef17e8e545fe94b",
+          "file": "LICENSE"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-2.6B-GGUF/resolve/e7caca5d835a3901a8e0d63e94009429bafafdfc/qad/config.json",
+          "bytes": 1553,
+          "sha256": "dca7a2076cb78662bf9cde4c20808079aa751357f291f45a72bff7f0dcfbc223",
+          "file": "qad/config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-2.6B-GGUF/resolve/e7caca5d835a3901a8e0d63e94009429bafafdfc/qad/generation_config.json",
+          "bytes": 327,
+          "sha256": "7366b93f26f8830e7a94441a3d2b9f344ceb9e1e31a808e0656df40720075874",
+          "file": "qad/generation_config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-2.6B-GGUF/resolve/e7caca5d835a3901a8e0d63e94009429bafafdfc/qad/README.md",
+          "bytes": 3098,
+          "sha256": "a505a2cb6e1c55117bc3a63cd6b95da167445d4bcfb700cde2ed618db2882185",
+          "file": "qad/README.md"
+        }
+      ]
+    },
+    {
+      "repo": "LiquidAI/LFM2.5-350M",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/LiquidAI/LFM2.5-350M?blobs=true",
+        "bytes": 9397,
+        "sha256": "eae7a61caf0c79f98c203bbefb136c2f40cfc060b9af4c02d5e9e9fe4500b66f"
+      },
+      "revision": "9e6c6ccf47cd318696e137d381a7ded8fe4df09f",
+      "license": "other",
+      "gated": false,
+      "parameter_metadata": {
+        "parameters": {
+          "BF16": 354483968
+        },
+        "total": 354483968
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-350M/resolve/9e6c6ccf47cd318696e137d381a7ded8fe4df09f/README.md",
+          "bytes": 14508,
+          "sha256": "a2bb9f40aca96e21d0e2c497af58f459a4b1f92c9d459dc0ece67ec63f7480b5",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-350M/resolve/9e6c6ccf47cd318696e137d381a7ded8fe4df09f/config.json",
+          "bytes": 1281,
+          "sha256": "720b43d6ddc2ed25be23eed355aefcf342434a176dedad23dbe0a5e3ac24bbb8",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-350M/resolve/9e6c6ccf47cd318696e137d381a7ded8fe4df09f/generation_config.json",
+          "bytes": 134,
+          "sha256": "0ec7d228c4de7e3453e98bf6910c7eb7841e87fede63ea11c0f75a5c64e1c3c3",
+          "file": "generation_config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-350M/resolve/9e6c6ccf47cd318696e137d381a7ded8fe4df09f/LICENSE",
+          "bytes": 10574,
+          "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c",
+          "file": "LICENSE"
+        }
+      ],
+      "text_config": {
+        "model_type": "lfm2",
+        "architectures": [
+          "Lfm2ForCausalLM"
+        ],
+        "hidden_size": 1024,
+        "intermediate_size": 6656,
+        "num_hidden_layers": 16,
+        "num_attention_heads": 16,
+        "num_key_value_heads": 8,
+        "vocab_size": 65536,
+        "max_position_embeddings": 128000,
+        "layer_types": [
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "full_attention",
+          "conv",
+          "full_attention",
+          "conv",
+          "full_attention",
+          "conv"
+        ],
+        "num_heads": 16,
+        "conv_L_cache": 3,
+        "dtype": "bfloat16",
+        "rope_parameters": {
+          "rope_theta": 1000000.0,
+          "rope_type": "default"
+        }
+      },
+      "outer_model_type": "lfm2"
+    },
+    {
+      "repo": "LiquidAI/LFM2.5-350M-GGUF",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/LiquidAI/LFM2.5-350M-GGUF?blobs=true",
+        "bytes": 7603,
+        "sha256": "fddcf744fa8f3488e894f4aeea735ded32280d8e77022efd11a07edffa458200"
+      },
+      "revision": "657e078c94084481950a2d555a941481f715536b",
+      "license": "other",
+      "gated": false,
+      "parameter_metadata": null,
+      "artifacts": [
+        {
+          "rfilename": "LFM2.5-350M-BF16.gguf",
+          "blobId": "dea5bb326fbf5a31493c342df677d1e5bd16bc5c",
+          "size": 711485152,
+          "lfs": {
+            "sha256": "8da576155e67ae093f49e4ebf638c025a04c0d28d5ec42bd28617ca18a52539d",
+            "size": 711485152,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "LFM2.5-350M-F16.gguf",
+          "blobId": "9fe7bd04f2bee811e6a7e055a00c5bcec7ab7f98",
+          "size": 711485152,
+          "lfs": {
+            "sha256": "18e2f6b61045bed8c3e8575c01fa7898b2df5ae884964322dcf49e5d12f6eb79",
+            "size": 711485152,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "LFM2.5-350M-Q4_0.gguf",
+          "blobId": "ac0fa5b48712836834f86d94462f4a756fc2603a",
+          "size": 219309792,
+          "lfs": {
+            "sha256": "85e32858daafad55b7bcd6b97a1343ee0661188e8036f9862d14d6b563142f50",
+            "size": 219309792,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "LFM2.5-350M-Q4_K_M.gguf",
+          "blobId": "bdbc79b3f36ce3828f89fd15557da48bce324128",
+          "size": 229312224,
+          "lfs": {
+            "sha256": "7e6f72643caafc9a68256686638c4d7916f2cec76d1df478d4c3ddcd95a6aed4",
+            "size": 229312224,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "LFM2.5-350M-Q5_K_M.gguf",
+          "blobId": "cca75c3baffacaebb9e50514e25e9fc3fda5be5c",
+          "size": 260376288,
+          "lfs": {
+            "sha256": "e8985a31d95fab69e894216ce1712b57a55f1561093ec7cf408b781834eb8435",
+            "size": 260376288,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "LFM2.5-350M-Q6_K.gguf",
+          "blobId": "4378d68d8bd5134233d6f1b2722c73c4a3c29a34",
+          "size": 293381856,
+          "lfs": {
+            "sha256": "3ed48149a87dd9a0b04688780828854fc0c607d8c241af2b1100045e0d6b45c7",
+            "size": 293381856,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "LFM2.5-350M-Q8_0.gguf",
+          "blobId": "03b4e3159538185977f75bc7806c3a1076e64b5a",
+          "size": 379217632,
+          "lfs": {
+            "sha256": "be036a757295e550098b85e13f6af2735d0fa73b41e1156a40c7d8e8e32a5766",
+            "size": 379217632,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "LFM2.5-350M-QAD-Q4_0.gguf",
+          "blobId": "2acf9261ca12dac80f61386de9bb379f73ebe76e",
+          "size": 219312832,
+          "lfs": {
+            "sha256": "3d10b6ab8fc91a919534b9558e266255aca0bbc7f6d015963599aa9e74e05b1d",
+            "size": 219312832,
+            "pointerSize": 134
+          }
+        }
+      ],
+      "files": [
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/README.md",
+          "bytes": 3277,
+          "sha256": "4773739eb49540664b16566dc655d03a51df3937639e9dbf28d48a15d01b2436",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/LICENSE",
+          "bytes": 10596,
+          "sha256": "5188f2b355da20647257a3156db5834c794e5fb5e6d8dc4d4cdbb3180e75b85b",
+          "file": "LICENSE"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/qad/config.json",
+          "bytes": 1308,
+          "sha256": "884c7b2b936f296dd448bfca18a14fd9bc903be7d3bff1303ac62bbb43f641d6",
+          "file": "qad/config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/qad/generation_config.json",
+          "bytes": 134,
+          "sha256": "0ec7d228c4de7e3453e98bf6910c7eb7841e87fede63ea11c0f75a5c64e1c3c3",
+          "file": "qad/generation_config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/qad/README.md",
+          "bytes": 3098,
+          "sha256": "d007385cd630a1102185bc14f32a91cd0c8e3fac94740d49eb43627400e83402",
+          "file": "qad/README.md"
+        }
+      ]
+    },
+    {
+      "repo": "LiquidAI/LFM2.5-1.2B-Instruct-DSpark",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/LiquidAI/LFM2.5-1.2B-Instruct-DSpark?blobs=true",
+        "bytes": 1882,
+        "sha256": "b5c0b71f4a3c139609a9ee4285843c25b92c06f0caa9b8758c3a9534282c8f6f"
+      },
+      "revision": "4876d04848e15a6fd48d7c1481110e7cf5d62621",
+      "license": "other",
+      "gated": false,
+      "parameter_metadata": {
+        "parameters": {
+          "BF16": 295725953
+        },
+        "total": 295725953
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-DSpark/resolve/4876d04848e15a6fd48d7c1481110e7cf5d62621/README.md",
+          "bytes": 5416,
+          "sha256": "f008fa3bda1bdb2599e60ae19b08128603521c95575ed19311046dce1cca2095",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-DSpark/resolve/4876d04848e15a6fd48d7c1481110e7cf5d62621/config.json",
+          "bytes": 826,
+          "sha256": "d04283d20690bc6903bea6b371d34d172897abc94b4ae87b70efb981cadd07bf",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-DSpark/resolve/4876d04848e15a6fd48d7c1481110e7cf5d62621/LICENSE",
+          "bytes": 10572,
+          "sha256": "9953509cbd8c1c6ce7b06ddf74fcc204a892692316201dd8f7400a84790d4120",
+          "file": "LICENSE"
+        }
+      ],
+      "text_config": {
+        "model_type": "qwen3",
+        "architectures": [
+          "Lfm2DSparkDraftModel"
+        ],
+        "hidden_size": 2048,
+        "intermediate_size": 6144,
+        "num_hidden_layers": 5,
+        "num_attention_heads": 32,
+        "num_key_value_heads": 8,
+        "head_dim": 64,
+        "vocab_size": 65536,
+        "max_position_embeddings": 128000,
+        "layer_types": [
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention",
+          "full_attention"
+        ],
+        "dtype": "bfloat16"
+      },
+      "outer_model_type": "qwen3"
+    },
+    {
+      "repo": "LiquidAI/LFM2.5-Embedding-350M",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/LiquidAI/LFM2.5-Embedding-350M?blobs=true",
+        "bytes": 4808,
+        "sha256": "a145ea9cde03f3924aa43dce4d4c5ebe0ff922763bfe1855cc63bfe20252b44e"
+      },
+      "revision": "f35ae2c91d687658dbf1f2b449382f0b019b9808",
+      "license": "other",
+      "gated": false,
+      "parameter_metadata": {
+        "parameters": {
+          "BF16": 354483968
+        },
+        "total": 354483968
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-Embedding-350M/resolve/f35ae2c91d687658dbf1f2b449382f0b019b9808/README.md",
+          "bytes": 14240,
+          "sha256": "43a6de0333ad52e4f360e8ba72f48693e8719e59d585645518ca34e759eeb8ad",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-Embedding-350M/resolve/f35ae2c91d687658dbf1f2b449382f0b019b9808/config.json",
+          "bytes": 1404,
+          "sha256": "c44923b7d8e728cfd1293628355889c3c037bd8d0b13093747d595b06fa591ee",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-Embedding-350M/resolve/f35ae2c91d687658dbf1f2b449382f0b019b9808/LICENSE",
+          "bytes": 10574,
+          "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c",
+          "file": "LICENSE"
+        }
+      ],
+      "text_config": {
+        "model_type": "lfm2",
+        "architectures": [
+          "Lfm2BidirectionalModel"
+        ],
+        "hidden_size": 1024,
+        "intermediate_size": 6656,
+        "num_hidden_layers": 16,
+        "num_attention_heads": 16,
+        "num_key_value_heads": 8,
+        "vocab_size": 65536,
+        "max_position_embeddings": 128000,
+        "layer_types": [
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "conv",
+          "full_attention",
+          "conv",
+          "full_attention",
+          "conv",
+          "full_attention",
+          "conv",
+          "full_attention",
+          "conv"
+        ],
+        "num_heads": 16,
+        "conv_L_cache": 3,
+        "dtype": "bfloat16",
+        "rope_parameters": {
+          "rope_theta": 1000000.0,
+          "rope_type": "default"
+        }
+      },
+      "outer_model_type": "lfm2"
+    },
+    {
+      "repo": "google/gemma-4-E2B-it-qat-q4_0-gguf",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/google/gemma-4-E2B-it-qat-q4_0-gguf?blobs=true",
+        "bytes": 20938,
+        "sha256": "b959fd94497355d721d6318d2741a14cae9326817d2f4e2a50ae2c9bdadccdf6"
+      },
+      "revision": "675cff42a74c774d6cb76f76d8eacb49b48c9b93",
+      "license": "apache-2.0",
+      "gated": false,
+      "parameter_metadata": null,
+      "artifacts": [
+        {
+          "rfilename": "gemma-4-E2B-it-mmproj.gguf",
+          "blobId": "c6b5e3ec6ca5695172d0e81e77eecf7e25ebc1de",
+          "size": 986833664,
+          "lfs": {
+            "sha256": "021059cce659fe7f9170d5599761d7bbaf644b798dab9503aca30dc43e6beb14",
+            "size": 986833664,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "gemma-4-E2B_q4_0-it.gguf",
+          "blobId": "d969b6a3c1bde3dca81b450aa57a46622f7aa4f9",
+          "size": 3349516256,
+          "lfs": {
+            "sha256": "fa401b55b07ee70a54c6dae3903c783a6e65064312529ea57175cb5f8dec6634",
+            "size": 3349516256,
+            "pointerSize": 135
+          }
+        }
+      ],
+      "files": [
+        {
+          "url": "https://huggingface.co/google/gemma-4-E2B-it-qat-q4_0-gguf/resolve/675cff42a74c774d6cb76f76d8eacb49b48c9b93/README.md",
+          "bytes": 29260,
+          "sha256": "942e93b96c2f7f2b5fdd8d5578f0f1215e4a354f12e202999b4fbc864bb02ef5",
+          "file": "README.md"
+        }
+      ]
+    },
+    {
+      "repo": "google/gemma-4-E4B-it-qat-q4_0-gguf",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/google/gemma-4-E4B-it-qat-q4_0-gguf?blobs=true",
+        "bytes": 20729,
+        "sha256": "9e476cf0de7adbd52ad476a546532d75c11959ffbc192c47dad59b2c8e20cab9"
+      },
+      "revision": "4b4a2c1d584be7264f87aac328a1bc739ce81b6c",
+      "license": "apache-2.0",
+      "gated": false,
+      "parameter_metadata": null,
+      "artifacts": [
+        {
+          "rfilename": "gemma-4-E4B-it-mmproj.gguf",
+          "blobId": "e337066d4a2e048189401940d37163aff883c190",
+          "size": 991552256,
+          "lfs": {
+            "sha256": "7498a37cb619e55f2fcf87eb931f56e99389ed6d432e4c5c66110694c0d65578",
+            "size": 991552256,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "gemma-4-E4B_q4_0-it.gguf",
+          "blobId": "f739fb42e113642738b1ec2c372dc712b3be3532",
+          "size": 5154941280,
+          "lfs": {
+            "sha256": "676c35070db6dbe52f93e9c864ee0fba4eddea94b9c875d9cb10daff453fbaee",
+            "size": 5154941280,
+            "pointerSize": 135
+          }
+        }
+      ],
+      "files": [
+        {
+          "url": "https://huggingface.co/google/gemma-4-E4B-it-qat-q4_0-gguf/resolve/4b4a2c1d584be7264f87aac328a1bc739ce81b6c/README.md",
+          "bytes": 29233,
+          "sha256": "6c8dbc23d482d76d6a02e6804941fae6dccdcd20e6372c26e4dec35e21348607",
+          "file": "README.md"
+        }
+      ]
+    },
+    {
+      "repo": "google/gemma-4-E2B-it-assistant",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/google/gemma-4-E2B-it-assistant?blobs=true",
+        "bytes": 2189,
+        "sha256": "746ed6a43fa165ea5426700d3b7729a25ec2ddef4de84aeeae15cc61d4099dbf"
+      },
+      "revision": "2d874ef7d29f9a30599a1e4b3c1cbc9595f005df",
+      "license": "apache-2.0",
+      "gated": false,
+      "parameter_metadata": {
+        "parameters": {
+          "I64": 262144,
+          "BF16": 77731332
+        },
+        "total": 77993476
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/google/gemma-4-E2B-it-assistant/resolve/2d874ef7d29f9a30599a1e4b3c1cbc9595f005df/README.md",
+          "bytes": 29768,
+          "sha256": "6d6e15f44732a1984951b0d6e258f84b0e97f3399707aada2c9b0b6c0b4ca3eb",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/google/gemma-4-E2B-it-assistant/resolve/2d874ef7d29f9a30599a1e4b3c1cbc9595f005df/config.json",
+          "bytes": 2315,
+          "sha256": "7f42f559a6a69ffaeaf6b61a1ece3a562a2ed5ad00b8d30f16917ba5ab1bcbe9",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/google/gemma-4-E2B-it-assistant/resolve/2d874ef7d29f9a30599a1e4b3c1cbc9595f005df/generation_config.json",
+          "bytes": 307,
+          "sha256": "8e58004dc0e2407b63410b190bb8470efbdcfeb71533f1770e09c20abe193a6f",
+          "file": "generation_config.json"
+        }
+      ],
+      "text_config": {
+        "model_type": "gemma4_text",
+        "architectures": null,
+        "hidden_size": 256,
+        "intermediate_size": 2048,
+        "num_hidden_layers": 4,
+        "num_attention_heads": 4,
+        "num_key_value_heads": 1,
+        "head_dim": 256,
+        "vocab_size": 262144,
+        "max_position_embeddings": 131072,
+        "layer_types": [
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention"
+        ],
+        "hidden_size_per_layer_input": 0,
+        "num_global_key_value_heads": null,
+        "global_head_dim": 512,
+        "sliding_window": 512,
+        "dtype": "bfloat16",
+        "tie_word_embeddings": true,
+        "rope_parameters": {
+          "full_attention": {
+            "partial_rotary_factor": 0.25,
+            "rope_theta": 1000000.0,
+            "rope_type": "proportional"
+          },
+          "sliding_attention": {
+            "rope_theta": 10000.0,
+            "rope_type": "default"
+          }
+        }
+      },
+      "outer_model_type": "gemma4_assistant"
+    },
+    {
+      "repo": "ggml-org/Qwen3.5-2B-GGUF",
+      "error": "HTTP Error 401: Unauthorized"
+    },
+    {
+      "repo": "ggml-org/Qwen3.5-4B-GGUF",
+      "error": "HTTP Error 401: Unauthorized"
+    },
+    {
+      "repo": "unsloth/Qwen3.5-2B-GGUF",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/unsloth/Qwen3.5-2B-GGUF?blobs=true",
+        "bytes": 16127,
+        "sha256": "546a1ff046ce997d5c462bfca08e675a2616e5fd1a374348e31b4cf56aaf5c43"
+      },
+      "revision": "f6d5376be1edb4d416d56da11e5397a961aca8ae",
+      "license": "apache-2.0",
+      "gated": false,
+      "parameter_metadata": null,
+      "artifacts": [
+        {
+          "rfilename": "Qwen3.5-2B-BF16.gguf",
+          "blobId": "a9052ff3141c2a5d319b661c41e4946c408f6997",
+          "size": 3775709216,
+          "lfs": {
+            "sha256": "dc11be2ca4519954a3e4b013ef59497b5522209987d67891851113eda89619f1",
+            "size": 3775709216,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-IQ4_NL.gguf",
+          "blobId": "308ab71e7250b0b28706baa24daea2dacdaa7de2",
+          "size": 1213300992,
+          "lfs": {
+            "sha256": "e430d87ebc5abbb269c2e2461f1a49b9c5dc79847c13c786dc3615d0b116c4ba",
+            "size": 1213300992,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-IQ4_XS.gguf",
+          "blobId": "fe98b1ed8ae269904452b178aada543df9682391",
+          "size": 1172996352,
+          "lfs": {
+            "sha256": "3639f34b5ca22aa1c51f3616566eae8c355111554f6924ad97ee2652ed11c1cd",
+            "size": 1172996352,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-Q3_K_M.gguf",
+          "blobId": "5aceef72ad92098b3a8d2fc29f2a95a7974c4bde",
+          "size": 1107149056,
+          "lfs": {
+            "sha256": "8b049f98461020b7e15797e13413fc63b9b500ffa883c74618b618ecbc2bfccf",
+            "size": 1107149056,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-Q3_K_S.gguf",
+          "blobId": "332a5eaac59550950d29ff4dd58624f6ac2ce51a",
+          "size": 1030947072,
+          "lfs": {
+            "sha256": "21026bce70a757887bce861047c26966109206ebe2adeb7b662de9a179952d28",
+            "size": 1030947072,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-Q4_0.gguf",
+          "blobId": "70420b8356f1c0ae442b2c55c7e717cce2090ea5",
+          "size": 1214873856,
+          "lfs": {
+            "sha256": "cd70221bebaee0503e0f6717e174250cd7825aa88438b3aabec9ad55731d9bb1",
+            "size": 1214873856,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-Q4_1.gguf",
+          "blobId": "ba39cf14b20b84c32d8e0485d02c1d1fe3cb14cf",
+          "size": 1293517056,
+          "lfs": {
+            "sha256": "93a49bfdb0619305584b81608a2d8c931fdcfc0bd4b0d75f25ac2d8988199278",
+            "size": 1293517056,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-Q4_K_M.gguf",
+          "blobId": "2dd42a93d110e1a333c7464693e3c38b979a940e",
+          "size": 1280835840,
+          "lfs": {
+            "sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+            "size": 1280835840,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-Q4_K_S.gguf",
+          "blobId": "e669187e2b14a686ed62eb6ce3e8a9da39c8ad5b",
+          "size": 1217757440,
+          "lfs": {
+            "sha256": "56eee7b85a2023ba393c5f9a5a5e372e3645e7925a13adb4d13723fc5bc14124",
+            "size": 1217757440,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-Q5_K_M.gguf",
+          "blobId": "a3fada179bafcdad75ceeb4e08f3b2b9acfe50c7",
+          "size": 1435238656,
+          "lfs": {
+            "sha256": "1885b3a9195f8cc09da9a7a7a75afdc1e8d5cbf9fc4a499c3961dddea37098ac",
+            "size": 1435238656,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-Q5_K_S.gguf",
+          "blobId": "dd95ed5e4f69297f79cf87b8b19aa102b6065701",
+          "size": 1384546560,
+          "lfs": {
+            "sha256": "5503c57f038bd201e0583d64d50d4aebba2f628004834cb4d32abb141eb1bfda",
+            "size": 1384546560,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-Q6_K.gguf",
+          "blobId": "0a9bb4c65cbe48505704ac7f2d06f1ec6f08b44b",
+          "size": 1574961408,
+          "lfs": {
+            "sha256": "fc90339420b4298887aafb307a4291c55440b730133bbffe6ba9630503dcb548",
+            "size": 1574961408,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-Q8_0.gguf",
+          "blobId": "e9b5735a49b5bab7e33f98d13fba439d85dff6bd",
+          "size": 2012012800,
+          "lfs": {
+            "sha256": "1b04acba824817554f4ce23639bc8495ff70453b8fcb047900c731521021f2c1",
+            "size": 2012012800,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-UD-IQ2_M.gguf",
+          "blobId": "ca9848c7cf793033f95c6b3e8d3814177a8ecddd",
+          "size": 859857152,
+          "lfs": {
+            "sha256": "7df5673b6c1a8efb3b5f5988a506d991ab936b3e00ad29f94e0f75cfbf8599da",
+            "size": 859857152,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-UD-IQ2_XXS.gguf",
+          "blobId": "2a0251f1bb6f5fe6e64eee68957f209c999a082e",
+          "size": 768270592,
+          "lfs": {
+            "sha256": "43aedbd2b03a3c2cc39f49ccf74fcd3c394ed0b2a1ede8a30ee652ee9cfc27ef",
+            "size": 768270592,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-UD-IQ3_XXS.gguf",
+          "blobId": "5f8073353df36c68c9b2ebe52a4de3fd064d3ff1",
+          "size": 931823872,
+          "lfs": {
+            "sha256": "36347f47f9eab7d433c7c37be1f87ac2253378c3d530da3cb25fb5f71f8f1a58",
+            "size": 931823872,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-UD-Q2_K_XL.gguf",
+          "blobId": "d9eef9c08b0b355bebb03755fd6d97d87c2173de",
+          "size": 966533376,
+          "lfs": {
+            "sha256": "dbcf28421dece9c86884f9da5a2291c8214be7920623f1fcb663ed8f58b38ccb",
+            "size": 966533376,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-UD-Q3_K_XL.gguf",
+          "blobId": "5fcaa4da95c67c1047a3acf655e0d3cce0677236",
+          "size": 1159274752,
+          "lfs": {
+            "sha256": "d34e1271b7ca784d739b2b7e804bac391d7b6471e695d88e8c79eae0df032263",
+            "size": 1159274752,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-UD-Q4_K_XL.gguf",
+          "blobId": "d7499601142920a9c54616762be8de4426a64215",
+          "size": 1339752704,
+          "lfs": {
+            "sha256": "0af96165ea615bea39a04118d63f0b6d35908aea850ee4a51aa6151d851b8b35",
+            "size": 1339752704,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-UD-Q5_K_XL.gguf",
+          "blobId": "41b154b37bae1b41e9dace0d2393dcecdb9ae275",
+          "size": 1466687744,
+          "lfs": {
+            "sha256": "67bff9774bc55e44af2eee3c448dc054478b45c0607858fc6df5b336b55f36f4",
+            "size": 1466687744,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-UD-Q6_K_XL.gguf",
+          "blobId": "e4ba64360226608493e1a13c05b11b5d06044e63",
+          "size": 1864483072,
+          "lfs": {
+            "sha256": "2f956e57c27b3f257916825d9d3bc174269f3df9c6fcf87a64da666c0e7a518a",
+            "size": 1864483072,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-2B-UD-Q8_K_XL.gguf",
+          "blobId": "f2c725d061363924944f2dbd678b170753531d5f",
+          "size": 2834940160,
+          "lfs": {
+            "sha256": "a53988df91157d78acaf3c95e22db179d13f6236061bdb86576494dc99b1bc3b",
+            "size": 2834940160,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "mmproj-BF16.gguf",
+          "blobId": "4930d4a798b18080d9cf8153f8651634bb6744ab",
+          "size": 671372992,
+          "lfs": {
+            "sha256": "f17196c0d8fc756bc65be60075bd4a359917eee8a438505639511727c585d3c2",
+            "size": 671372992,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "mmproj-F16.gguf",
+          "blobId": "5c87505c54bca9ebdb1e4db0c45b8a09b019c464",
+          "size": 668227264,
+          "lfs": {
+            "sha256": "7035e9cb8d7c6a9681d07eef9a364783e86ea4cd73faab2eabb4f43a101830c7",
+            "size": 668227264,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "mmproj-F32.gguf",
+          "blobId": "39556a509dad6d5222003d536906af8b4cdb4b86",
+          "size": 1325684416,
+          "lfs": {
+            "sha256": "d23b0e7bd6fe4416151838434f6a33a1d5f116a82b35565a11579e37dc80ad78",
+            "size": 1325684416,
+            "pointerSize": 135
+          }
+        }
+      ],
+      "files": [
+        {
+          "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/README.md",
+          "bytes": 64059,
+          "sha256": "d6507c9243588d5526ceb08840ebd759b0d05aeb96c8aeb42e59f4727df0143a",
+          "file": "README.md"
+        }
+      ]
+    },
+    {
+      "repo": "unsloth/Qwen3.5-4B-GGUF",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/unsloth/Qwen3.5-4B-GGUF?blobs=true",
+        "bytes": 15927,
+        "sha256": "deaa8b6e9acec44af3e050f252e523fad159d9c481cac48d46250c244c95ff5c"
+      },
+      "revision": "e87f176479d0855a907a41277aca2f8ee7a09523",
+      "license": "apache-2.0",
+      "gated": false,
+      "parameter_metadata": null,
+      "artifacts": [
+        {
+          "rfilename": "Qwen3.5-4B-BF16.gguf",
+          "blobId": "60d6faa77f0534c585542c7b845a93e394ede42c",
+          "size": 8424393632,
+          "lfs": {
+            "sha256": "9e6e2841a75f503ccb330831832fd7861266e187e0dbf149a954219ccb8c197a",
+            "size": 8424393632,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-IQ4_NL.gguf",
+          "blobId": "b72e76b9a262e679f41f6f01ead031b3fbd52cfa",
+          "size": 2579944608,
+          "lfs": {
+            "sha256": "ff5c3e9740a5aa53f04fdf3b0b8cc75da556bf8948cdb19d61c512d3a43465d9",
+            "size": 2579944608,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-IQ4_XS.gguf",
+          "blobId": "09d5aae9fc0b42b0a475e3827b09399a714029f8",
+          "size": 2477053088,
+          "lfs": {
+            "sha256": "658a9e7e406deb06d0179755e3c14f6a82915a4be4962a2f92a64d948d2e572f",
+            "size": 2477053088,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-Q3_K_M.gguf",
+          "blobId": "dcf0727ddb539ad33338782905646da6be8efb9d",
+          "size": 2293388448,
+          "lfs": {
+            "sha256": "d6981ab4d77ba712b48ef69d69042d75b5e39b9dce5fb5a5b054fd08e06afb95",
+            "size": 2293388448,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-Q3_K_S.gguf",
+          "blobId": "300c9c72af94f6ce42249290b56dc74a85a07abc",
+          "size": 2105791648,
+          "lfs": {
+            "sha256": "7e2dd96b6141226b62fa88c775db06e0e9ff0aa84130805d7091a768868a3353",
+            "size": 2105791648,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-Q4_0.gguf",
+          "blobId": "74d884178d928595eee50a590ef778cd97f09bc4",
+          "size": 2583221408,
+          "lfs": {
+            "sha256": "298fcb5fe7a77ccc79745ae24751560c5ac56874caff4bb39b1f2055bd72b8bb",
+            "size": 2583221408,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-Q4_1.gguf",
+          "blobId": "2a286c165e21bc32e775e92951b934bca8636ff8",
+          "size": 2784416928,
+          "lfs": {
+            "sha256": "af1fa652b5c78980b105a2ffef954bfa724bc4d69d2d44463e27c4f3c2953bbd",
+            "size": 2784416928,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-Q4_K_M.gguf",
+          "blobId": "4ca59aa028e499c9351f394e844f5e27056e5846",
+          "size": 2740937888,
+          "lfs": {
+            "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+            "size": 2740937888,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-Q4_K_S.gguf",
+          "blobId": "fa4da4a0fb5c0d8ea9b790fd4ab440fee0932642",
+          "size": 2590430368,
+          "lfs": {
+            "sha256": "27caeb0e4b999d92ce0a9fdbdd1a7ba5112908d9de125645883732274be2ea77",
+            "size": 2590430368,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-Q5_K_M.gguf",
+          "blobId": "70e40ee1a3b4a6ab98839781accccfc2187348cf",
+          "size": 3143656608,
+          "lfs": {
+            "sha256": "8814232b85594dcd46c50e5b8b29324a7efe9e746edbe8a3d1df3d3fce7aad39",
+            "size": 3143656608,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-Q5_K_S.gguf",
+          "blobId": "88f3e622d934a54ccb42168ae8dfd19add022b45",
+          "size": 3024934048,
+          "lfs": {
+            "sha256": "161be121617c45ea247eae0fd4477d26f287a368b52702e3fc99c9bc52f23061",
+            "size": 3024934048,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-Q6_K.gguf",
+          "blobId": "8b46ce5a77cd55feaa51a05c649176784a2b034f",
+          "size": 3525956768,
+          "lfs": {
+            "sha256": "fdedd781c9ce676ab66b018ca247ff78e8a33c98098a822c1e2d5075e7718f66",
+            "size": 3525956768,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-Q8_0.gguf",
+          "blobId": "871df22fc125cd971cc5c8aaee7d16b1e9ef9c68",
+          "size": 4482403488,
+          "lfs": {
+            "sha256": "10cc391b403021dd11c614679d2fd92f611c3681d29e29651b717316965d61e1",
+            "size": 4482403488,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-UD-IQ2_M.gguf",
+          "blobId": "12b299eac42398b29defe48ef99a11497eee9af3",
+          "size": 1759997088,
+          "lfs": {
+            "sha256": "cb4c45ca42c0d7777667e94e3963f8e59e939b3665098328ce601feb5be129c1",
+            "size": 1759997088,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-UD-IQ2_XXS.gguf",
+          "blobId": "1acab0ccc8460ef4b900e9b2dc718e13d2858b10",
+          "size": 1520217248,
+          "lfs": {
+            "sha256": "4c1ba794e8d6098f4fb6482b4db6e880c80b5ee0b4c64d8668afaf9541163677",
+            "size": 1520217248,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-UD-IQ3_XXS.gguf",
+          "blobId": "a7689b79e1bea2cfc86cec8c287f9ebafc66255d",
+          "size": 1949047968,
+          "lfs": {
+            "sha256": "00aab66a2359a9afc52f0ab757e61f9be1656e6fcaba8468bd95579a8b2cbc40",
+            "size": 1949047968,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-UD-Q2_K_XL.gguf",
+          "blobId": "2bcb744472a4bc6f9ad13b78d5152788ae649e36",
+          "size": 1940825248,
+          "lfs": {
+            "sha256": "79aa0b583c888976013002f66b9f617070d91cf8de6a09dc775983640ac59463",
+            "size": 1940825248,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-UD-Q3_K_XL.gguf",
+          "blobId": "9c8883680f7af72792dc49cd3ff3de93c6c656e3",
+          "size": 2436420768,
+          "lfs": {
+            "sha256": "1874727e4bb6ac23fd0cd134ac6562d2759fe44f37fa68c55197b36526da4e37",
+            "size": 2436420768,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-UD-Q4_K_XL.gguf",
+          "blobId": "5896df429fa8a782f02d97a61fc6368e00abac76",
+          "size": 2912109728,
+          "lfs": {
+            "sha256": "b252c5610a42ca82d20fe2a12813e9d069eed89292907e26c783eeb0bc961bc7",
+            "size": 2912109728,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-UD-Q5_K_XL.gguf",
+          "blobId": "23867ba06ac09b1328da976f7d7b9a825a3e008b",
+          "size": 3250869408,
+          "lfs": {
+            "sha256": "b4c36a8e14a80c21bcab5a067ce342b2e70e28f60b4aa95ad12203fa17b87426",
+            "size": 3250869408,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-UD-Q6_K_XL.gguf",
+          "blobId": "bb88c43e04870443a5a459e9d1df9e13f0f7a23a",
+          "size": 4145548448,
+          "lfs": {
+            "sha256": "87f58d94410b81429268d8389a3d686e6c6bffecf7852772720fbea059cbbb9d",
+            "size": 4145548448,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3.5-4B-UD-Q8_K_XL.gguf",
+          "blobId": "44ede2300530708d78e52868e70c50981cf2270e",
+          "size": 5952048288,
+          "lfs": {
+            "sha256": "e786a3c6570474c3885199bfb5adc54325aa7521a314e10b0aaefe16a54ba42f",
+            "size": 5952048288,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "mmproj-BF16.gguf",
+          "blobId": "463d1078fc2d0285190d031551c25d08fc28d568",
+          "size": 675569344,
+          "lfs": {
+            "sha256": "302b92d565080b9cc0281186979ae75a7429ec23d14f6f7607a035539b21f3a6",
+            "size": 675569344,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "mmproj-F16.gguf",
+          "blobId": "df5eff16338bf924865eb98723fc7ef20eb54e7f",
+          "size": 672423616,
+          "lfs": {
+            "sha256": "cd88edcf8d031894960bb0c9c5b9b7e1fea6ebee02b9f7ce925a00d12891f864",
+            "size": 672423616,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "mmproj-F32.gguf",
+          "blobId": "b31ec78c6d346b63be1343f159597e50bb3104bd",
+          "size": 1334075072,
+          "lfs": {
+            "sha256": "758b74e604c5374577c21026c5bdc3aec75560eccb4c67844c8f585d6ec74804",
+            "size": 1334075072,
+            "pointerSize": 135
+          }
+        }
+      ],
+      "files": [
+        {
+          "url": "https://huggingface.co/unsloth/Qwen3.5-4B-GGUF/resolve/e87f176479d0855a907a41277aca2f8ee7a09523/README.md",
+          "bytes": 78906,
+          "sha256": "28546f5fc4f22ee1b3f17b908957f17fcfa66174032136265bdb27f404bc1e6c",
+          "file": "README.md"
+        }
+      ]
+    },
+    {
+      "repo": "unsloth/Qwen3-4B-Instruct-2507-GGUF",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/unsloth/Qwen3-4B-Instruct-2507-GGUF?blobs=true",
+        "bytes": 12771,
+        "sha256": "354b4abf7c67ac42d6d17a12c794c1620ef2d57d9dce264c2915997fec32eef5"
+      },
+      "revision": "a06e946bb6b655725eafa393f4a9745d460374c9",
+      "license": "apache-2.0",
+      "gated": false,
+      "parameter_metadata": null,
+      "artifacts": [
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-F16.gguf",
+          "blobId": "6bd0c162dbd3da683ce4533fd0b3cb19af1672ca",
+          "size": 8051285344,
+          "lfs": {
+            "sha256": "336228a2810f17724ecd6e9e2e40e8381eee81e886316fee311ade2899c31030",
+            "size": 8051285344,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-IQ4_NL.gguf",
+          "blobId": "054ad6569bcf9b42cb1f8669cc9faab4bfda639f",
+          "size": 2381343840,
+          "lfs": {
+            "sha256": "89bf2f9ba70b4a5ee8411244ae89dcd012ed59e386124bb096287feb09f4f25e",
+            "size": 2381343840,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-IQ4_XS.gguf",
+          "blobId": "3760dace47d8a401d3500b04ee4e0fea0c853b5a",
+          "size": 2270751840,
+          "lfs": {
+            "sha256": "cfd15a69e4801abfa16f0263b77ffbf97cbb8af67782a70cc95cf627b3dfa27d",
+            "size": 2270751840,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-Q2_K.gguf",
+          "blobId": "a9dd3ea6c65cd908be753429b0da9a5ab39e1fbe",
+          "size": 1669500000,
+          "lfs": {
+            "sha256": "f7ed2f57713ad29e1a4ec093be0cdf3d7fd31e137e8fd4fc3edcfd04a5267862",
+            "size": 1669500000,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-Q2_K_L.gguf",
+          "blobId": "a9dd3ea6c65cd908be753429b0da9a5ab39e1fbe",
+          "size": 1669500000,
+          "lfs": {
+            "sha256": "f7ed2f57713ad29e1a4ec093be0cdf3d7fd31e137e8fd4fc3edcfd04a5267862",
+            "size": 1669500000,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-Q3_K_M.gguf",
+          "blobId": "14cab3ec948c4449ab866635dd84e0fda7474998",
+          "size": 2075618400,
+          "lfs": {
+            "sha256": "9c6e0763577125a994a9bea0bbd7a737ac4498b8a6a4e0f788727553af1806c9",
+            "size": 2075618400,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-Q3_K_S.gguf",
+          "blobId": "d509fe4b81163466bf89df3727f4b438ce39750a",
+          "size": 1886997600,
+          "lfs": {
+            "sha256": "0ce20058cc0ed6b6c9213bb383589327e458c12ffce0842fc96867042d669c75",
+            "size": 1886997600,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-Q4_0.gguf",
+          "blobId": "ef627f3923a45fd0982ef8356ae75edbeb2cf5f6",
+          "size": 2375773280,
+          "lfs": {
+            "sha256": "e0ba675d86ab277c61701c6793659b2ae801d95e3be791464c321e6fbf613be2",
+            "size": 2375773280,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-Q4_1.gguf",
+          "blobId": "c4081ec3df4eea5762aae1b0d89647e284acbd27",
+          "size": 2596629600,
+          "lfs": {
+            "sha256": "6e37bc9a4533bae81deefd9081fda514171e8485bbbef86d63ec7407e756eb3f",
+            "size": 2596629600,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+          "blobId": "681d7d0d2c24530e22ca6c3f2ef14fbe254f17ae",
+          "size": 2497281120,
+          "lfs": {
+            "sha256": "3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597",
+            "size": 2497281120,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-Q4_K_S.gguf",
+          "blobId": "62a8b0d9dd76dcae2e24bb02ea9d9bb1ab888cc1",
+          "size": 2383309920,
+          "lfs": {
+            "sha256": "90bc7227557ed8a417696b6ed8a94b2c351ad1d94de39bf2889ad8778366c68a",
+            "size": 2383309920,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-Q5_K_M.gguf",
+          "blobId": "4871019e743ef1a9a34c4e44a70c11dacd145fd9",
+          "size": 2889514080,
+          "lfs": {
+            "sha256": "5bde5e9d883622acb02bf77fe7dcbc56a8b9a9ad4be78a72ca23a532658b4ecb",
+            "size": 2889514080,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-Q5_K_S.gguf",
+          "blobId": "2e20e8b3ecb05b132655520246e3de039b913f70",
+          "size": 2823711840,
+          "lfs": {
+            "sha256": "e252a2bb39e90c163ba83524ea833ee73d36f9c5e50d157651c82995e7e72e60",
+            "size": 2823711840,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-Q6_K.gguf",
+          "blobId": "080a2b3eef6081f78bc7a7167e39088e2ba8b038",
+          "size": 3306261600,
+          "lfs": {
+            "sha256": "cd7b21b38b3e71400587c184b6a9b04d3beb4d13fdae6464d4075dee4f1bc5ad",
+            "size": 3306261600,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-Q8_0.gguf",
+          "blobId": "d88b2a185add0ebcdee100a278fca9afa325d298",
+          "size": 4280405600,
+          "lfs": {
+            "sha256": "391c1e410fd9f4cf2de2b510273b56a84c19ce18f4fa3bfb3774031dac4ef068",
+            "size": 4280405600,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-UD-IQ1_M.gguf",
+          "blobId": "97fd35755a3ac4ae00832d21eae0a1c4965ccf05",
+          "size": 1143484000,
+          "lfs": {
+            "sha256": "415ed538d93b9f00f7d2cacdf8cf427bc1b05f20ae30e5a3f015fd6b04ba09d1",
+            "size": 1143484000,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-UD-IQ1_S.gguf",
+          "blobId": "fc3f2e6ce9ff7db2f1f4326ba6324559121381b8",
+          "size": 1083149920,
+          "lfs": {
+            "sha256": "48e00f29635f0eb1db72d3a3c65ff1a9552676dc15f810b7074be690fbcea59e",
+            "size": 1083149920,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-UD-IQ2_M.gguf",
+          "blobId": "300e38b1721997e232342c1092f842859eadf040",
+          "size": 1530402400,
+          "lfs": {
+            "sha256": "6711372517e0e2d6dd1c008a22203299d1ba5d44f894a95fdc40a136815d4fe3",
+            "size": 1530402400,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-UD-IQ2_XXS.gguf",
+          "blobId": "53345c6994a0e00f7b91adf72bf639fc8b29fb86",
+          "size": 1255345760,
+          "lfs": {
+            "sha256": "b4fb089163ef6c0e32f5edb3e6ef5ca860da23e8fc2c7b8fd53da5a3ce25a17d",
+            "size": 1255345760,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-UD-IQ3_XXS.gguf",
+          "blobId": "e342c49e5cf2b1aa2121e60a781d58c0dc894ff1",
+          "size": 1674376800,
+          "lfs": {
+            "sha256": "c886effc2f09e63bbf9419a8136fab49dba22a578c24885f63c5f483de75ad3e",
+            "size": 1674376800,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-UD-Q2_K_XL.gguf",
+          "blobId": "91c0eb11937c2bbf9af1a406cd74e46b3eb8ae93",
+          "size": 1695724640,
+          "lfs": {
+            "sha256": "b7675a5b61a3e7fec4c2f138ba50504ede76c737c478029ea30510e1ee09976c",
+            "size": 1695724640,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-UD-Q3_K_XL.gguf",
+          "blobId": "13d6cd5921be347660a11dbe22016632737fd1fe",
+          "size": 2128385120,
+          "lfs": {
+            "sha256": "6aa5c26f5624cf8820f6f0207479445da5a33c4db73a2e097cf6f91f9ce0550e",
+            "size": 2128385120,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-UD-Q4_K_XL.gguf",
+          "blobId": "9cbda64e51517b5e26698ac7358df1cf720f0bf1",
+          "size": 2546340960,
+          "lfs": {
+            "sha256": "4bbe1f2f8ebe69fad3be8e15d69f220b06448a9dd26f82d7d81cce88ebfc39fd",
+            "size": 2546340960,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-UD-Q5_K_XL.gguf",
+          "blobId": "ee115008b9450fe8820550fd7930dea2d5e50a4e",
+          "size": 2899221600,
+          "lfs": {
+            "sha256": "7040e21aa2b43d56735b0e4f9c89210ad21b8282f668d6897f5d1dadf71aa9f2",
+            "size": 2899221600,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-UD-Q6_K_XL.gguf",
+          "blobId": "4449b11fc4b047adc21695fad077f9716f1a76c4",
+          "size": 3658223200,
+          "lfs": {
+            "sha256": "8d5b9304db7e2c419d05f5f3cbb04890b8fa0dd434a72bc3ef448b564ba8b88e",
+            "size": 3658223200,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Qwen3-4B-Instruct-2507-UD-Q8_K_XL.gguf",
+          "blobId": "84193f8156787a8b4b1de8e2f89aad73679247d8",
+          "size": 5056700000,
+          "lfs": {
+            "sha256": "0aae4ff27faba8903685f3e3aad97e2004ac6e21f15eeb806e20dec90bb480be",
+            "size": 5056700000,
+            "pointerSize": 135
+          }
+        }
+      ],
+      "files": [
+        {
+          "url": "https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF/resolve/a06e946bb6b655725eafa393f4a9745d460374c9/README.md",
+          "bytes": 11207,
+          "sha256": "c18c2d01645e709fcc0bfd593291d3dc43e51873f5af170a082c36ccd95988c3",
+          "file": "README.md"
+        }
+      ]
+    }
+  ],
+  "engram": {
+    "commit_source": {
+      "url": "https://api.github.com/repos/deepseek-ai/Engram/commits/main",
+      "bytes": 5940,
+      "sha256": "35654a8f129815e5c5e856b28e48b89f025760882aa882864e29cb29f7205119"
+    },
+    "commit": "fb7f84a21f91223715394a33a1dc24bbfb7f788e",
+    "tree_source": {
+      "url": "https://api.github.com/repos/deepseek-ai/Engram/git/trees/fb7f84a21f91223715394a33a1dc24bbfb7f788e?recursive=1",
+      "bytes": 2891,
+      "sha256": "28f7537cd66166008e3a454cc4508180e077d76dd8fdda42c79c8fc4bf8b3de8"
+    },
+    "tree": [
+      "Engram_paper.pdf",
+      "LICENSE",
+      "README.md",
+      "drawio/Engram.drawio",
+      "engram_demo_v1.py",
+      "figures/27b_exp_results.png",
+      "figures/arch.png",
+      "figures/case.png",
+      "figures/long_context_results.png",
+      "figures/scaling_law.png"
+    ],
+    "files": [
+      {
+        "url": "https://raw.githubusercontent.com/deepseek-ai/Engram/fb7f84a21f91223715394a33a1dc24bbfb7f788e/README.md",
+        "bytes": 4460,
+        "sha256": "add722a04bae899360017a6e12a8fac3e93135857e20325e464a2b586dbefda8",
+        "file": "README.md"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/deepseek-ai/Engram/fb7f84a21f91223715394a33a1dc24bbfb7f788e/engram_demo_v1.py",
+        "bytes": 15017,
+        "sha256": "9d082070654df217e21bbca9926a4267bdf2cce7777aa6739747c24de30d2044",
+        "file": "engram_demo_v1.py"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/deepseek-ai/Engram/fb7f84a21f91223715394a33a1dc24bbfb7f788e/LICENSE",
+        "bytes": 11342,
+        "sha256": "9debfe045c2a2755a52d0ae1087605d15770fe6636798c09efd93c1dc732ef28",
+        "file": "LICENSE"
+      }
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 # Roadmap and actionable backlog
 
-Baseline: Outpost 0.14.0; [current validation](validation-0.13.md). Chat/Settings, seed removal, bounded PDF extraction and ARM64 packaging are implemented; quality and physical-device acceptance remain separate. R-01 through R-04 are implemented and validated in the [0.8.1 report](validation-0.8.1.md). Field-answer quality remains separate open work. All other tasks below are **open** unless explicitly labeled otherwise. Priorities express sequence and dependencies, not dates or committed effort estimates. Owner is unassigned. The [current-state inventory](current-state.md) lists already implemented features.
+Baseline: Outpost 0.14.0; [current validation](validation-0.14.md). Chat/Settings, seed removal, bounded PDF extraction and ARM64 packaging are implemented; quality and physical-device acceptance remain separate. R-01 through R-04 are implemented and validated in the [0.8.1 report](validation-0.8.1.md). Field-answer quality remains separate open work. All other tasks below are **open** unless explicitly labeled otherwise. Priorities express sequence and dependencies, not dates or committed effort estimates. Owner is unassigned. The [current-state inventory](current-state.md) lists already implemented features.
 
 ## Milestones
 
@@ -16,7 +16,7 @@ Performance work can continue alongside M1/M2, but no speed result substitutes f
 
 ## P0 — Project foundation and quality baseline
 
-E-01/W-01 definitions and an executable evidence-only runner exist; the current manifest is v7 (schema 2, app 0.12). V1 baseline/candidate and v2 baseline/diagnostic runs have attributed assistant reviews; see [0.9 validation](validation-0.9.md). V7 has 12 runnable and 3 blocked fixtures. Product chat uses a different prompt; no new broad v6/chat quality score is claimed. A validator PASS establishes internal consistency; reviewed development outcomes are not general task accuracy.
+E-01/W-01 definitions and an executable evidence-only runner exist; the current manifest is v7 (schema 2, app 0.14). V1 baseline/candidate and v2 baseline/diagnostic runs have attributed assistant reviews; see [0.9 validation](validation-0.9.md). V7 has 12 runnable and 3 blocked fixtures. Product chat uses a different prompt; no new broad v7/chat quality score is claimed. A validator PASS establishes internal consistency; reviewed development outcomes are not general task accuracy.
 
 | ID | Task | Depends on | Acceptance criteria |
 |---|---|---|---|
@@ -25,7 +25,7 @@ E-01/W-01 definitions and an executable evidence-only runner exist; the current 
 | R-03 — done | Remove sibling toolchain assumptions | R-02 | SDK/JDK/cache can be configured explicitly; missing prerequisites have actionable errors; build from new location |
 | R-04 — done | Establish English application baseline | R-01 | Resource-backed UI strings, English prompts and demo content, locale-aware formatting, reviewed screenshots and mission results; no stale JNI/test/appId references |
 | R-05 | Choose code license and distribution policy | Before public distribution | Root license and contribution/release terms chosen; dependency notices retained; no accidental relicensing of upstream assets |
-| E-01 — done | Create a versioned mission fixture manifest and rubric — recorded in [current fixtures v5](../eval/fixtures-v5.json) and [rubric v2](../eval/rubric-v2.md), with the original v1 definitions preserved, checked by `eval/validate.py` | None | Five contexts, expected evidence, successful outcome, critical failures, package/model/prompt identities; executable checks distinct from reviewed quality (runner and development review are implemented; broader end-to-end acceptance remains E-02, E-04 and E-05) |
+| E-01 — done | Create a versioned mission fixture manifest and rubric — recorded in [current fixtures v7](../eval/fixtures-v7.json) and [rubric v2](../eval/rubric-v2.md), with the original v1 definitions preserved, checked by `eval/validate.py` | None | Five contexts, expected evidence, successful outcome, critical failures, package/model/prompt identities; executable checks distinct from reviewed quality (runner and development review are implemented; broader end-to-end acceptance remains E-02, E-04 and E-05) |
 | E-02 — partial | Reproduce traveler and mountaineer failures under controlled prompts | E-01 | Controlled prompt/budget diagnostics executed; longer candidate rejected and source/citation/date failures recorded. Continue causal isolation and resolve quality failures without weakening the rubric |
 | E-03 — partial | Preserve run identity and evidence snapshots | None | Current chat/folder/OSM/knowledge/evaluation runs have unique directories and identity checks; evaluation captures frozen inputs/source snapshots. Extend this convention to legacy fixed-path scripts and retain failed setup/execution outputs |
 
@@ -50,7 +50,7 @@ The user clarified that [Vitalik's example](offline-world-knowledge.md) identifi
 
 | ID | Task | Dependencies / acceptance |
 |---|---|---|
-| W-01 — done | Define a varied question-family benchmark — declared in [current fixtures v5](../eval/fixtures-v5.json) and judged per [rubric v2](../eval/rubric-v2.md), with historical runs retained | E-01; varied domains, contextual constraints, held-out questions/entities, public/personal/mixed evidence, missing/ambiguous/conflicting data and inspectable locators (definition, execution and attributed development scores exist; failed outcomes and broader quality work remain E-02, E-04 and E-05) |
+| W-01 — done | Define a varied question-family benchmark — declared in [current fixtures v7](../eval/fixtures-v7.json) and judged per [rubric v2](../eval/rubric-v2.md), with historical runs retained | E-01; varied domains, contextual constraints, held-out questions/entities, public/personal/mixed evidence, missing/ambiguous/conflicting data and inspectable locators (definition, execution and attributed development scores exist; failed outcomes and broader quality work remain E-02, E-04 and E-05) |
 | W-02 | Demonstrate contextual retrieval and recommendations | K-01 and source-specific adapters; K-02 only when a versioned pack is used. OSM place questions use K-06 without K-07; preserve applicable entities/constraints, explain ranking criteria, show useful results before long generation, and avoid unsupported current-state claims |
 | W-03 | Demonstrate comparison, synthesis and supported explanations | K-01, W-01 and suitable reference material; combine relevant sources, preserve specifications/units, distinguish evidence from inference, and clarify material gaps |
 
@@ -70,18 +70,20 @@ The restaurant and issue-list questions are illustrative fixtures, not product-d
 | P-04 | Measure peak memory and pressure recovery | E-03 | Defined sampling cadence, peak vs post-run distinction, cancellation/model-switch/process-recovery behavior; no battery inference from PSS |
 | P-05 — partial, measured in 0.14 | Profile operation shapes and establish current cache/phase baselines | E-03 | [DeepGEMM-Ascend review](deepgemm-ascend-review.md), DG-01/DG-03: Implemented opt-in shape/path counts, actual-shape cache/pressure controls and paired generation timing. Detailed quantization/barrier attribution, profiler-overhead study, peak memory and wider devices remain open; [results](kernel-rows-0.14.md) |
 | P-06 — bounded prefill slice adopted in 0.14 | Reuse Q8 activations/correction across output rows | P-05 | Two-row reuse adopted for eligible multi-column matrices in the measured Bonsai 4B emulator profile, with unchanged weights/scratch contract and exact numerical/output checks. Single-column two/four-row alternatives remain research-only after regressions; finer shape selection and ARM require new evidence; [record](kernel-rows-0.14.md) |
-| E-05 — partial | Compare generators and optional reviewer on missions | E-01, E-04 | Four problem-case Qwen diagnostics and Bonsai baselines recorded; complete representative paired generator/reviewer comparison with fixed evidence/budgets and qualified review; Kev not ground truth |
+| E-05 — partial | Compare generators and optional reviewer on missions | E-01, E-04, E-07 for new profiles | Four problem-case Qwen diagnostics and Bonsai baselines recorded; complete representative paired generator/reviewer comparison with fixed evidence/budgets and qualified review; Kev not ground truth. [Model study](model-alternatives.md) defines the new comparison; no new candidate runs yet |
+| E-07 — researched, admission pending | Admit alternative models to a research-only comparison | Pinned backend, E-03 | Pin/verify artifact and conversion provenance, template/stops/no-thinking/sampler; validate load, cancellation, prefix/recurrent-state behavior and model switching on Outpost35. Start LFM2.5-1.2B QAD and Qwen3.5-2B; preserve production allowlist and model-specific profiles. [Candidate evidence](../evidence/research/model-survey-20260930/candidates.json) is metadata-only, not runtime support |
 
 ## P3 — Conditional research
 
 | ID | Task | Trigger / exit evidence |
 |---|---|---|
-| X-01 | Native MTP or cheaper trained drafter | Exact compatible weights become available; measured cost/acceptance and memory beat baseline |
+| X-01 — candidate weights identified, integration pending | Native MTP or cheaper trained drafter | [Survey](model-alternatives.md) pins LFM DSpark and Gemma E2B assistants for their own targets; none is a Bonsai head. Baseline target first; validate state/quantized-target compatibility and acceptance, then full-answer cost and memory. No Android gain established |
 | X-02 | GPU/NPU backend | Specific supported backend and mission workload justify integration; account for transfers and fallbacks |
 | X-03 | Semantic retrieval | Lexical/entity retrieval misses documented mission evidence; evaluate encoder and index cost separately from generator |
 | X-04 | Voice and vision | A mission requires them; local models and consent/permissions designed; text workflow still works |
 | X-05 | Field notebook and controlled export | User workflow requires persistent observations; explicit save/export behavior, provenance, deletion, and private-data review |
 | X-06 | Physical Pixel and GrapheneOS validation | User explicitly lifts emulator-only execution restriction; define device-specific latency, peak RAM, thermal and battery protocol first |
+| X-07 — researched, conditional | Trained Engram-style conditional memory | Suitable licensed small trained checkpoint and emulator implementation, or separately scoped training research. Control storage/compute/quality; cold/warm lookup and full-answer memory/latency. Official demo is not ready weights; no host/GPU training implied. [Review](engram-review.md) |
 
 ## Discovery candidates — not yet scheduled for implementation
 

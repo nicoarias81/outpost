@@ -1,6 +1,6 @@
 # Context speculation and MTP
 
-Status in Outpost 0.12: context speculation exists only as native research functionality; product chat forces depth 0 and has no toggle. Native MTP and a dual-model drafter are not implemented. Measurements below are historical Bonsai 4B emulator experiments, not current phone/product benchmarks.
+Status in Outpost 0.14: context speculation exists only as native research functionality; product chat forces depth 0 and has no toggle. Native MTP and a dual-model drafter are not implemented. Measurements below are historical Bonsai 4B emulator experiments, not current phone/product benchmarks.
 
 ## Implemented algorithm
 
@@ -51,3 +51,7 @@ This is a [cost estimate](../evidence/0.7-before-outpost/speculation/speculation
 ## Reconsideration gate
 
 Require compatible trained weights, a numerical/acceptance audit, EOS and KV rollback tests, cancellation/recovery tests, paired mission measurements, and peak-memory accounting. Keep product speculation disabled. Reintroducing a control or enabling it requires representative end-to-end benefit without unacceptable quality/memory regression, plus a new decision; old copy controls alone do not meet that gate.
+
+## New trained-drafter candidates — 2026-09-30 research
+
+The [model survey](model-alternatives.md) pins LFM2.5-1.2B-Instruct-DSpark (about 296M parameters) and Gemma 4 E2B assistant (about 78M). They depend on their corresponding targets and state/activation interfaces; neither supplies the missing Bonsai MTP heads. Baseline new targets before testing drafting, and separately verify quantized/QAD pairing, rollback, sampling correctness and draft/verify/cancellation costs. A theoretical target-distribution guarantee is not necessarily identical sampled text for an identical seed. No weights were downloaded, no drafter was integrated, and product depth remains zero. X-01 is now actionable research for those families, not a measured speedup.

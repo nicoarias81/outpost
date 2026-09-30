@@ -44,6 +44,12 @@ Latest recorded cleanup left synthetic imports/turns removed and Bonsai 4B selec
 
 The test-only `FolderDocumentsProvider` stays registered and protected by MANAGE_DOCUMENTS. `FixtureGrantReceiver` synchronously acknowledges ordered read-grant/revoke broadcasts, and `FixtureGrants` requests grants after instrumentation starts and checks readiness. Cleanup revokes grants and hides roots using its active flag. **Do not disable/re-enable the component between suites or use the removed grant Activity**: re-registration caused a provider-unavailable timeout. No production permission expansion is needed. The failed/interrupted runs and final fix are preserved in [validation](validation-0.14.md).
 
+## Model-selection research checkpoint
+
+The owner requested alternatives to Bonsai and exploration of Engram. The [model survey](model-alternatives.md) prioritizes LFM2.5-1.2B QAD and Qwen3.5-2B, then LFM2.5-2.6B and Gemma 4 E2B. Public revisions/artifact metadata and pinned-backend static compatibility are recorded; no candidate weights were downloaded or executed. E-07 covers research admission; E-05 remains the answer comparison. New profiles need template/sampler and hybrid-state lifecycle validation despite backend architecture support. Production pins, selected model, APK and emulator state were not changed by this research.
+
+[Engram](engram-review.md) is trained conditional memory, distinct from imported evidence and mission memory. The inspected official demo is not a small trained checkpoint; X-07 is conditional. Published LFM DSpark and Gemma assistants make X-01 more concrete for those targets, without providing a Bonsai MTP head or Android speed evidence. Preserve the emulator-only constraint.
+
 ## Next work and known gaps
 
 Follow [roadmap](roadmap.md), preserving task IDs. E-06 is fixed and v7 declares both packaged ABIs. Six host-only identity controls cover valid/reordered and missing/extra/duplicate/malformed sets. The obsolete K-07 dependency is removed from the regional fixture; its broader time/preference recommendation task remains blocked. P-05/P-06 now have shape/graph/model evidence and a bounded prefill-only adoption. Further timing/pressure/ARM work remains. Do not infer a kernel gain from deterministic place replies or extrapolate the emulator profile to a phone.

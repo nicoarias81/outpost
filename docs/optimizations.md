@@ -83,3 +83,7 @@ The [0.9 width sweep](../evidence/archive/0.9.0/strata/runtime-batch.json) retai
 ## Adopted row-reuse slice in 0.14
 
 The original decode-only two/four-row candidates passed numerical checks but did not justify adoption. Extending two-row reuse to multi-column work improved prompt evaluation; complete-answer controls then exposed a decode tradeoff, so the policies were separated. The final measured profile keeps the old single-token decoder and enables two-row reuse only for eligible multi-column matrices. Exact results, source/APK identities, rejected/partial controls and timing interpretation live in [the experiment record](kernel-rows-0.14.md). Do not apply server Ascend constants or emulator timings to phones.
+
+## Model and trained-memory alternatives
+
+The [model survey](model-alternatives.md) expands optimization beyond Bonsai Q2 kernels: compact QAD checkpoints, hybrid models, lookup-heavy Gemma variants and target-specific trained drafters. These are source/config research findings, not performance results. Preserve per-model/kernel profiles and compare full task completion plus memory before promotion. [Engram](engram-review.md) requires trained weights; its server offload results are not an Android optimization claim.

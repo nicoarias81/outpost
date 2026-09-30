@@ -71,3 +71,7 @@ The two-row kernel reuses Q8 loads/corrections across adjacent output rows and r
 `RuntimeSettings` uses kernel identity `q2-row-v3-phase` and persists both dimensions. Unmatched hardware/model/build keys retain the conservative width 1 / row 1 / decode 1 default. Legacy thread/batch/width calibration preserves the row dimensions it did not measure. The validated Outpost35 Bonsai 4B profile is 4/4 threads, batch 128, matrixWidth 4, rowTile 2 and decodeRows 1. It is a local measured profile, not a universal phone default or automatic startup benchmark.
 
 The selected policy improves prompt-oriented work while retaining the old decoder. Combined two/four-row decode experiments did not justify product adoption. [Measurement and decisions](kernel-rows-0.14.md) records the paired controls, cancellation/cache/model-switch checks and limitations.
+
+## Alternative-model research
+
+The [2026-09-30 model survey](model-alternatives.md) records available LFM2.5, Qwen3.5, Gemma 4, BitNet, SmolLM3 and Phi candidates. Architectural support in the pinned backend does not mean admission by ModelStore or validated template/sampler/recurrent-state handling. No new profile, backend revision, model weight or production setting changed. E-07 owns integration checks; E-05 owns comparison. [Engram](engram-review.md) remains a separate trained-architecture investigation.

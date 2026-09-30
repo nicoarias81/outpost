@@ -1,0 +1,21 @@
+{
+  "date": "2026-09-30",
+  "scope": "Documentation, public metadata and static source review only",
+  "checks": {
+    "documentation_audit": {"documents": 62, "local_links": 718, "issues": 0},
+    "existing_v7_fixture_validator": {"result": "pass", "fixtures": 15, "runnable": 12, "blocked": 3, "warnings": 0},
+    "candidate_manifest": {"result": "pass", "unique_candidates": 11, "sizes_revisions_hashes_match_captured_publisher_metadata": true},
+    "static_source_hashes": "match current local backend and app source",
+    "metadata_collector": "AST syntax check and --help passed; metadata collection completed before required --output CLI was added",
+    "build_receipt": "matches current production/test inputs and APK bytes",
+    "artifact": "outpost-0.14.0-user-test.apk",
+    "artifact_sha256": "9d3506d7ee8103bbf213b95a69392ad6ea1130a3e86679b53630e831843f01a9",
+    "backend_revision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "backend_working_tree": "clean"
+  },
+  "new_weight_downloads": 0,
+  "new_model_runs": 0,
+  "emulator_mutations": 0,
+  "phone_runs": 0,
+  "quality_or_performance_claim": "none for candidate models; published findings and static estimates only"
+}

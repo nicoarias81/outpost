@@ -39,3 +39,7 @@ Peak memory, pressure recovery, thermal/battery behavior, physical phone perform
 ## Execution boundary
 
 Use **Outpost35 / emulator-5582**, AOSP API 35 x86_64, four virtual CPUs and 4 GiB configured RAM. Preserve Brújula's emulator-5580. Recheck live AVD identity, boot/offline state, installed APK hashes and model readiness before runtime work. ARM compilation does not lift the user's emulator-only restriction. [Handoff](handoff.md) gives the resumption sequence.
+
+## Model exploration checkpoint
+
+The [model alternatives](model-alternatives.md) and [Engram study](engram-review.md) capture public artifact/config metadata and current-backend static compatibility as of 2026-09-30. They change the research backlog, not shipped capabilities: no new model, memory layer, drafter, download flow or runtime measurement is included. The admitted generator set and 0.14 delivery remain unchanged.
