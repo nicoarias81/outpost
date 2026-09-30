@@ -1,6 +1,6 @@
 # Outpost 0.11.0 validation — 2026-09-30
 
-Version code13 adds recursive selected-folder import and shared one-file validation. Existing chat/model/prompt/kernel behavior is unchanged. All execution was in the offline Outpost35 x86_64 emulator; no model inference or physical-phone test was performed for this feature.
+Implementation commit `b0f944a`; evidence commit `acbff0c`. Version code13 adds recursive selected-folder import and shared one-file validation. Existing chat/model/prompt/kernel behavior is unchanged. All execution was in the offline Outpost35 x86_64 emulator; no model inference or physical-phone test was performed for this feature.
 
 ## Artifact identity
 

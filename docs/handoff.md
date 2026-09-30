@@ -1,6 +1,6 @@
 # Engineering handoff — start here
 
-Updated 2026-09-30. **Outpost 0.11.0 / code13**, moving toward mobile user tests. Previous 0.10 implementation: `aca6d97`; prior evidence: `6091111`. The current folder-import work is described below. Read [current state](current-state.md), [chat/document design](chat-beta.md), [validation](validation-0.11.md), then the relevant domain guide. The user now wants the app to open on chat, import files through Settings, and remove mock/demo/prototype UI.
+Updated 2026-09-30. **Outpost 0.11.0 / code13**, moving toward mobile user tests. Previous 0.10 implementation: `aca6d97`; prior evidence: `6091111`. Current implementation: `b0f944a`; current evidence: `acbff0c`. The folder-import work is described below. Read [current state](current-state.md), [chat/document design](chat-beta.md), [validation](validation-0.11.md), then the relevant domain guide. The user now wants the app to open on chat, import files through Settings, and remove mock/demo/prototype UI.
 
 ## Canonical work and constraints
 
