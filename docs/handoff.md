@@ -4,6 +4,8 @@ Updated **2026-09-30**, baseline **Outpost 0.14.0 / code 16**. The 0.13 place-qu
 
 ## Scope and persistent constraints
 
+Delivery checkpoints: OSM implementation `a804044`, evidence `9f3d36c`; kernel implementation `a1019a3`, evidence `37f009c`. The local0.14 artifact is checksum-verified and installed on Outpost35 with the measured Bonsai4 profile. All synthetic/public test imports and test turns are cleaned by their suites; no phone execution or remote publication occurred.
+
 - Work in `E:/projects/outpost`, branch `codex/outpost`, app `dev.outpost.app`, native `outpost_engine`. Check Git state and ongoing work first; older C-workspace delivery/staging folders are historical, not current source.
 - English UI, maintained docs/comments and primary fixtures. Preserve original imported/historical language and deliberate multilingual probes.
 - Execute models/numerical/runtime tests only in **Outpost35 / emulator-5582**. Host build/static/header/hash checks are allowed. Preserve old Brújula and emulator-5580. Physical Pixels remain unauthorized; ARM64 is packaged but not runtime-validated.

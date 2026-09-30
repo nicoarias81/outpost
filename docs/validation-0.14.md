@@ -4,6 +4,8 @@ Version code 16 preserves the 0.13 offline place feature and adds a guarded mult
 
 ## Exact artifact
 
+Implementation commit: `a1019a3`; evidence commit: `37f009c`. The prior place-feature checkpoints are `a804044` and `9f3d36c`.
+
 - Local debug candidate: `dist/outpost-0.14.0-user-test.apk`, **34,136,262 bytes**.
 - App SHA-256: `9d3506d7ee8103bbf213b95a69392ad6ea1130a3e86679b53630e831843f01a9`.
 - Final test APK SHA-256: `8e8b2284dd6e30f448180d65cf1b95444a8c94c3ca21a145d0100598460c9317`.
