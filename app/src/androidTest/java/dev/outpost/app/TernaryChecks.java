@@ -58,54 +58,16 @@ final class TernaryChecks {
                 if(!ModelStore.selected(test.getTargetContext()).id().equals(spec.id())) throw new AssertionError("Profile selection did not persist");
                 MainActivity activity=(MainActivity)test.startActivitySync(new Intent(test.getTargetContext(),MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 for(int i=0;i<100 && activity.findViewById(MainActivity.QUERY_ID)==null;i++) SystemClock.sleep(100);
-                test.waitForIdleSync(); test.runOnMainSync(() -> clickButton(activity,activity.getString(R.string.ui_status))); test.waitForIdleSync(); screenshot("models.png");
+                test.waitForIdleSync(); test.runOnMainSync(activity::showSettings); test.waitForIdleSync(); screenshot("models.png");
                 out.putString("stream","\nPASS selected "+spec.id()+"\n"); test.finish(Activity.RESULT_OK,out); return;
             }
             if(action[0].equals("ui") || action[0].equals("ui-use")) {
-                ModelStore.select(test.getTargetContext(),spec);
-                MainActivity activity=(MainActivity)test.startActivitySync(new Intent(test.getTargetContext(),MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                for(int i=0;i<100 && activity.findViewById(MainActivity.QUERY_ID)==null;i++) SystemClock.sleep(100);
-                test.waitForIdleSync();
-                test.runOnMainSync(() -> { ((EditText)activity.findViewById(MainActivity.QUERY_ID)).setText(PROBES[0].query()); activity.findViewById(MainActivity.SEARCH_ID).performClick(); });
-                for(int i=0;i<100 && !activity.searchDone;i++) SystemClock.sleep(100);
-                test.waitForIdleSync(); test.runOnMainSync(() -> activity.findViewById(MainActivity.GENERATE_ID).performClick());
-                for(int i=0;i<1300 && !activity.answerDone;i++) SystemClock.sleep(100);
-                if(activity.lastAnswer==null || !ResearchPrompt.hasAnswerContent(activity.lastAnswer.text()) || activity.lastAnswer.reason()!=0) throw new AssertionError("UI did not complete a substantive response");
-                test.waitForIdleSync(); screenshot("bonsai-"+spec.id()+".png");
-                write("bonsai-ui-"+spec.id()+".json",new JSONObject().put("model",spec.name()).put("text",activity.lastAnswer.text()).put("tokens",activity.lastAnswer.tokens()).put("firstTokenMs",activity.lastAnswer.firstTokenMs()).put("totalMs",activity.lastAnswer.totalMs()).put("stopReason",activity.lastAnswer.reason()).put("kernel",NativeEngine.kernelName()).put("fastPathUsed",NativeEngine.kernelWasUsed()).toString(2));
-                if(action[0].equals("ui-use") && spec.id().equals("bonsai4")) {
-                    NativeEngine.Result cold=activity.lastAnswer;
-                    String coldText=cold.text();
-                    int releases=activity.cacheReleaseRequests;
-                    test.runOnMainSync(() -> activity.findViewById(MainActivity.GENERATE_ID).performClick());
-                    for(int i=0;i<1300 && !activity.answerDone;i++) SystemClock.sleep(100);
-                    NativeEngine.Result warm=activity.lastAnswer;
-                    if(warm==null) throw new AssertionError("Warm UI generation failed");
-                    test.waitForIdleSync(); screenshot("bonsai-warm-"+spec.id()+".png");
-                    write("bonsai-warm-"+spec.id()+".json",new JSONObject().put("text",warm.text()).put("coldText",coldText).put("tokens",warm.tokens()).put("firstTokenMs",warm.firstTokenMs()).put("totalMs",warm.totalMs()).put("prefillMs",warm.prefillMs()).put("decodeMs",warm.decodeMs()).put("cachedTokens",warm.cachedTokens()).put("promptTokens",warm.promptTokens()).put("reason",warm.reason()).put("coldLogitsHash",Long.toUnsignedString(cold.firstLogitsHash(),16)).put("warmLogitsHash",Long.toUnsignedString(warm.firstLogitsHash(),16)).put("releaseRequestsDuringRepeat",activity.cacheReleaseRequests-releases).toString(2));
-                    if(warm.reason()!=0 || warm.cachedTokens()<=0 || !warm.text().equals(coldText)) throw new AssertionError("Warm UI generation did not preserve the answer/prefix; diagnostic saved");
-                    test.runOnMainSync(() -> activity.onTrimMemory(android.content.ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW));
-                    test.runOnMainSync(() -> activity.findViewById(MainActivity.GENERATE_ID).performClick());
-                    for(int i=0;i<1300 && !activity.answerDone;i++) SystemClock.sleep(100);
-                    NativeEngine.Result released=activity.lastAnswer;
-                    if(released==null || released.reason()!=0 || released.cachedTokens()!=0 || !released.text().equals(coldText)) throw new AssertionError("Memory callback did not release cached context");
-                    write("bonsai-trim-"+spec.id()+".json",new JSONObject().put("callbackSimulated",true).put("cachedTokens",released.cachedTokens()).put("textPreserved",true).put("firstTokenMs",released.firstTokenMs()).put("totalMs",released.totalMs()).toString(2));
-                }
-                // Exercise the visible selector and return to the previous default generator.
-                test.runOnMainSync(() -> clickButton(activity,activity.getString(R.string.ui_status))); test.waitForIdleSync();
-                test.runOnMainSync(() -> clickButton(activity,ModelStore.QWEN.name())); test.waitForIdleSync();
-                if(!ModelStore.selected(test.getTargetContext()).id().equals(ModelStore.QWEN.id())) throw new AssertionError("Visible profile selector did not persist selection");
-                if(action[0].equals("ui-use")) {
-                    test.runOnMainSync(() -> clickButton(activity,spec.name())); test.waitForIdleSync();
-                    if(!ModelStore.selected(test.getTargetContext()).id().equals(spec.id())) throw new AssertionError("Requested profile did not persist");
-                }
-                screenshot("models.png");
-                out.putString("stream","\nPASS UI "+spec.id()+"\n"); test.finish(Activity.RESULT_OK,out); return;
+                throw new IllegalArgumentException("The old search/reviewer UI was retired. Run scripts/test-chat.ps1 -Generate for current chat UI checks; use test-runtime.ps1 -Phase cache for exact-prefix controls.");
             }
             if(!action[0].equals("compare")) throw new IllegalArgumentException("Unknown operation");
             JSONArray results=new JSONArray(); long started=SystemClock.elapsedRealtime();
             int pss=0;
-            try(Library library=new Library(test.getTargetContext(),null); NativeEngine engine=new NativeEngine()) {
+            try(Library library=TestLibrary.seeded(test.getTargetContext()); NativeEngine engine=new NativeEngine()) {
                 for(Probe probe:PROBES) {
                     ResearchPrompt.Prepared prompt=ResearchPrompt.prepare(probe.query(),library.search(probe.retrieval()));
                     JSONArray sources=new JSONArray(); for(Library.Hit h:prompt.sources()) sources.put(new JSONObject().put("id",h.document().id()).put("passage",h.passage()));

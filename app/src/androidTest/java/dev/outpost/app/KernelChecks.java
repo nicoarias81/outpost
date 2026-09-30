@@ -68,7 +68,7 @@ final class KernelChecks {
             } else if(phase.equals("sampling")) {
                 ModelStore model=new ModelStore(test.getTargetContext(),ModelStore.BONSAI4);
                 org.json.JSONArray probes=new org.json.JSONArray();
-                try(Library library=new Library(test.getTargetContext(),null)) {
+                try(Library library=TestLibrary.seeded(test.getTargetContext())) {
                     ResearchPrompt.Prepared prompt=ResearchPrompt.prepare("What is the difference between kW and kWh?",library.search("kW kWh"));
                     NativeEngine.Result sampled=engine.generateWithSampling(engine.request(),model.file(),ResearchPrompt.SYSTEM,prompt.user(),192,true,(s,n)->{});
                     probes.put(result(sampled).put("case","same-prompt-sampled")); status("Same prompt with sampling: "+sampled.tokens()+" tokens");

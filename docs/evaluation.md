@@ -1,6 +1,6 @@
 # Evaluation and evidence protocol
 
-Status: existing test inventory plus proposed mission evaluation protocol. Historical Brújula results remain archived under `evidence/0.7-before-outpost`. Fresh English migration checks are described in [validation-0.8.md](validation-0.8.md); they are not substitutes for controlled optimization benchmarks.
+Status: executable development evaluation and attributed review in Outpost 0.9; broader field/held-out validation remains pending. Historical Brújula results remain archived under `evidence/0.7-before-outpost`. Fresh English migration checks are described in [validation-0.8.md](validation-0.8.md); they are not substitutes for controlled optimization benchmarks.
 
 ## Separate the questions
 
@@ -29,11 +29,13 @@ Use a held-out set after development fixtures are stable. Domain-specific operat
 
 Rubric dimensions: task completion; evidence applicability; supported claims; citation resolution; context handling; deterministic result correctness; handling of unknown conditions; and time to useful information. Keep critical failures separate from an averaged score. Refusing a supported simple calculation is also a quality failure.
 
-### Implementation status (2026-09-29)
+### Implementation status (2026-09-30)
 
-The manifest and rubric now exist: [eval/fixtures-v1.json](../eval/fixtures-v1.json) declares 15 fixtures (11 runnable, 4 blocked) and [eval/rubric-v1.md](../eval/rubric-v1.md) defines the scoring rules. The manifest shape is enforced by the host-only validator (`python eval/validate.py`, exits 0); see [eval/README.md](../eval/README.md) for what a passing run does and does not prove. The rubric dimensions are therefore no longer merely proposed: the eight review dimensions, the separation of deterministic checks from reviewed quality, and per-fixture critical failures kept outside the averaged score are now concrete declarations in the manifest and rubric. The rubric itself is not restated here.
+[Fixtures v2](../eval/fixtures-v2.json) defines 15 fixtures, 12 runnable and 3 blocked, with explicit retrieval/fixed-evidence modes. [Rubric v2](../eval/rubric-v2.md) and [the runner guide](../eval/README.md) define attributed review and immutable provenance. The production prompt builder selects actual supplied evidence; expected answers are not model context. V1 remains frozen for historical comparison.
 
-The external acceptance bar for this evaluation is recorded in [bounty-31.md](bounty-31.md); its proposed comparison protocol lives in [eval/rubric-v1.md](../eval/rubric-v1.md) and has not been run.
+The v1 prompt comparison and v2 baseline/diagnostics were executed and reviewed by the implementation assistant. Exact run links, budgets, build identities, outcomes and limits are in [validation-0.9](validation-0.9.md). The longer prompt was rejected; citation and conflict errors remain. Complete execution and bounded assertions are separate from reviewed quality. Unmeasured time-to-useful-information remains null with a reason.
+
+The external bar remains in [bounty-31](bounty-31.md); no blinded/qualified study or bounty acceptance is established by development review.
 
 ## Performance protocol
 
@@ -51,6 +53,8 @@ Do not infer battery life, thermal sustainability, real-phone latency, or peak m
 
 | Area | Entry point | Evidence |
 |---|---|---|
+| Knowledge/migration/CSV/packs | `test-knowledge.ps1` | [Final 61 checks](../evidence/runs/knowledge-20260930T122749Z-f6084045/knowledge-checks.json) |
+| Contextual fixture execution | `test-evaluation.ps1`, `eval/review.py` | [0.9 outcomes and provenance](validation-0.9.md) |
 | Library/import/UI | `test-emulator.ps1` | [checks.json](../evidence/0.7-before-outpost/checks.json), UI screenshots |
 | Qwen generation/cancel/recovery | `test-generation.ps1` | [generation-checks.json](../evidence/0.7-before-outpost/generation-checks.json) |
 | Kev controls | `test-review.ps1` | [review-checks.json](../evidence/0.7-before-outpost/review-checks.json), [0.3 interpretation](validation-0.3.md) |
@@ -65,7 +69,7 @@ Do not infer battery life, thermal sustainability, real-phone latency, or peak m
 
 The 0.7 report records 48 functional checks and 17 Qwen generation checks passing, plus the specific kernel/speculation checks above. These counts describe different scopes and should not be combined into a claim of overall product accuracy.
 
-Some scripts overwrite fixed evidence filenames. Archive a run before repeating it if it is the only release record. A run-manifest and immutable output-directory convention is backlog item E-03, not a feature already implemented.
+Some scripts overwrite fixed evidence filenames. Archive a run before repeating it if it is the only release record. The 0.9 evaluation and knowledge runners use immutable run directories; evaluation additionally snapshots input/source/build metadata. Applying this convention to legacy scripts remains E-03.
 
 ## Preserved adverse findings
 
@@ -76,3 +80,7 @@ Some scripts overwrite fixed evidence filenames. Archive a run before repeating 
 - [Optimistic auxiliary-drafter cost estimate](../evidence/0.7-before-outpost/speculation/speculation-draft-cost.json).
 
 The final mission harness may report successful execution and parity while the content review records failures. Both records are required. The result of a classifier, a keyword match, and a correct mission outcome are different observations.
+
+## 0.10 split between product checks and historical evidence controls
+
+Current chat behavior is verified by `scripts/test-chat.ps1`, including optional genuine multi-turn/source/cancel/restart generation. Those are plumbing/regression controls with synthetic files, not the broad contextual-quality benchmark. [Fixtures v3](../eval/fixtures-v3.json) keeps the earlier evidence-only matrix with explicit test-APK corpus provenance and current app identity. `ResearchPrompt` and `ChatPrompt` are different protocols; no old fixture score transfers automatically to product chat. Long/complex documents and representative human user tasks remain open.

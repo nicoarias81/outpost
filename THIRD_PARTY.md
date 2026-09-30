@@ -1,6 +1,6 @@
 # Third-party dependencies and model provenance
 
-Current app: Outpost 0.8.1. Dependency and weight identities are unchanged from 0.7.0 and remain unchanged in 0.8.1. Model and dependency identities refer to the locked files used by this prototype, not automatically to newer upstream releases. This file preserves dependency notices; it does not select a license for this project's own code.
+Current app: Outpost 0.10.0. Runtime/model identities remain pinned; PDF extraction adds the dependencies listed below. Model and dependency identities refer to the locked files used by this prototype, not automatically to newer upstream releases. This file preserves dependency notices; it does not select a license for this project's own code.
 
 ## llama.cpp
 
@@ -12,7 +12,7 @@ Current app: Outpost 0.8.1. Dependency and weight identities are unchanged from 
 - `cpu_caps.c` separates CPUID/XCR0 and HWCAP/HWCAP2 detection from `q2_dispatch.c` policy. VNNI and ARM candidates currently have requirement descriptors, not new optimized implementations.
 - `q2_batch.c` also wraps `ggml_compute_forward_mul_mat_tiled` for supported Q2 g64 operations. It uses GGML activation quantization and barriers with an own grouped-token kernel. Context reuse and saved-logit sampling use llama.cpp memory and sampler APIs.
 - Since 0.7, own `speculation.cpp` proposes same-request token continuations and controls their cost. JNI verifies them using decode, logits, sampler, and memory APIs. No DSpark/EAGLE implementation or auxiliary speculative weights were imported.
-- CPU/x86_64 is packaged. HTTP server, tools, OpenSSL, and web interfaces are not built.
+- CPU/x86_64 and ARM64 are packaged; runtime validation remains x86_64 emulator-only. HTTP server, tools, OpenSSL, and web interfaces are not built.
 
 [Strata](https://github.com/Niko1221/Strata) was a conceptual reference. Its engine, ActQ layout, and kernel code were not imported. The custom wrappers still depend on backend internals; this is not a stable upstream extension ABI.
 
@@ -62,3 +62,14 @@ Downloaded native tooling is kept in ignored `.local/`. Preparation and compilat
 [The seed library](app/src/main/assets/library.json) contains original short demonstration summaries with source references and incorporation dates. It does not bundle full web pages. Imported documents are labeled unverified, and their rights remain with their respective owners.
 
 Before public distribution, choose the project code license, review all redistributed assets and notices, and define release/evidence storage. Future ZIM, geographic, PDF, or OCR dependencies and datasets need their own recorded versions and attribution. No current dependency list implies those integrations are already installed.
+
+## Knowledge-pack examples in 0.9
+
+Files under `examples/knowledge` are synthetic project demonstration material. Pack parsing and CSV support add no third-party parser library. Imported `source` and `license` fields are declared metadata, not verified provenance or a redistribution grant. Keep each actual source's attribution and rights when preparing packs; no encyclopedia/map/Office adapter dependency was added.
+
+## PDF extraction in 0.10
+
+- [PdfBox-Android](https://github.com/TomRoush/PdfBox-Android), `com.tom-roush:pdfbox-android:2.0.27.0`, pinned from Maven Central. Apache-2.0; upstream tag `v2.0.27.0` LICENSE and NOTICE are included in assets/licenses.
+- Its pinned transitive BouncyCastle artifacts are `bcprov-jdk15to18`, `bcpkix-jdk15to18` and `bcutil-jdk15to18`, version1.72. The official `r1rv72` license is included in assets/licenses.
+- [pdfbox-lock.json](pdfbox-lock.json) records resolved AAR/JAR/POM sizes/hashes and notice-source hashes. These are pinned resolved inputs, not a claim of independent security certification or the latest upstream versions.
+- No optional JPEG2000 library, OCR engine, network service or cloud parser is added. Android PdfRenderer displays stored original pages. Original files stay in app-private storage.

@@ -77,7 +77,7 @@ final class JudgeChecks {
                 valid(swapped);
                 int mapped=new int[]{2,0,1}[swapped.best()];
                 decisions.put(new JSONObject().put("id","en-energy-options-reordered").put("predicted",mapped).put("expected",1).put("probabilitiesInReorderedOrder",new JSONArray(swapped.probabilities())).put("totalMs",swapped.totalMs()));
-                try(Library library=new Library(test.getTargetContext(),null)) {
+                try(Library library=TestLibrary.seeded(test.getTargetContext())) {
                     String evidence=EvidenceReview.evidence(ResearchPrompt.prepare("kW kWh",library.search("kW kWh")).sources());
                     Case actual=new Case("observed-qwen-0.5b-error","es",evidence,"La potencia y energía se mide en vatios (W) o kilovatios (kW).",1);
                     NativeEngine.Decision result=engine.judge(engine.request(),models.file(),models.head(),evidence,EvidenceReview.instruction(actual.claim()),EvidenceReview.OPTIONS);
@@ -98,26 +98,12 @@ final class JudgeChecks {
                 NativeEngine.Result back=engine.generate(engine.request(),generator.file(),"Answer in English.","Say hello.",8,(s,n)->{});
                 check(back.tokens()>0 && back.reason()!=3,"Same session switches from Kev back to the generator");
             }
-            MainActivity activity=(MainActivity)test.startActivitySync(new Intent(test.getTargetContext(),MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            for(int n=0;n<100 && activity.findViewById(MainActivity.QUERY_ID)==null;n++) SystemClock.sleep(100);
-            test.waitForIdleSync();
-            test.runOnMainSync(() -> { ((EditText)activity.findViewById(MainActivity.QUERY_ID)).setText("What is the difference between kW and kWh?"); activity.findViewById(MainActivity.SEARCH_ID).performClick(); });
-            for(int n=0;n<100 && !activity.searchDone;n++) SystemClock.sleep(100);
-            test.waitForIdleSync();
-            test.runOnMainSync(() -> activity.findViewById(MainActivity.GENERATE_ID).performClick());
-            for(int n=0;n<1300 && !activity.answerDone;n++) SystemClock.sleep(100);
-            check(activity.lastAnswer!=null && activity.lastAnswer.tokens()>0,"Generator still runs before reviewer in same UI");
-            String answer=activity.lastAnswer.text();
-            test.runOnMainSync(() -> activity.findViewById(MainActivity.REVIEW_ID).performClick());
-            for(int n=0;n<1300 && !activity.reviewDone;n++) SystemClock.sleep(100);
-            check(activity.lastReview!=null && activity.lastReview.reason()==0,"UI executes genuine Kev pointer-head review");
-            test.waitForIdleSync(); screenshot("review.png");
             Debug.MemoryInfo memory=new Debug.MemoryInfo(); Debug.getMemoryInfo(memory);
             JSONObject report=new JSONObject().put("version",test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",0).versionName).put("fixtureVersion","bilingual-v1-with-english-library").put("model",JudgeStore.NAME).put("modelSha256",JudgeStore.SHA).put("headSha256",JudgeStore.HEAD_SHA)
                 .put("functionalChecksPassed",checks).put("functionalChecks",functional).put("evaluationCases",decisions)
                 .put("balancedCases",12).put("correct",correct).put("englishCorrect",english).put("spanishCorrect",spanish).put("falseSupport",falseSupport)
                 .put("diagnosticFalseSupport",diagnosticFalseSupport)
-                .put("uiAnswer",answer).put("uiClaim",EvidenceReview.firstClaim(answer)).put("uiReview",new JSONArray(activity.lastReview.probabilities())).put("uiReviewMs",activity.lastReview.totalMs())
+                .put("uiReviewAvailable",false)
                 .put("processPssKiBAtEnd",memory.getTotalPss()).put("elapsedMs",SystemClock.elapsedRealtime()-started)
                 .put("limits","Small bilingual development probe. Not a held-out benchmark or calibration. Same weights evaluated in Android x86_64 only; no physical device or remote inference.");
             write("review-checks.json",report.toString(2));

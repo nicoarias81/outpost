@@ -7,7 +7,7 @@ $text=[IO.File]::ReadAllText($gradle)
 $name=[regex]::Match($text,"versionName\s+'([^']+)'").Groups[1].Value
 $code=[regex]::Match($text,'versionCode\s+(\d+)').Groups[1].Value
 if(-not $name -or -not $code) { throw 'Cannot read the application version.' }
-$artifact="outpost-$name-emulator-debug.apk"
+$artifact="outpost-$name-user-test.apk"
 $dist=Join-Path $project 'dist'
 $target=Join-Path $dist $artifact
 $sidecar="$target.sha256"

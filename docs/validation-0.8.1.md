@@ -23,16 +23,16 @@ Status: maintained validation record for **Outpost 0.8.1 / version code 10**. Th
 | Check | Result | Evidence |
 |---|---|---|
 | Build and Android Lint | `scripts/build.ps1 -Offline`, `BUILD SUCCESSFUL`; `:app:lintDebug` reported no issues | Local Gradle reports |
-| Functional suite | 53 of 53 checks pass, recorded at version 0.8.1, including the added assertions that the question input opens empty and that no removed preset question reappears | [Report](../evidence/checks.json) |
+| Functional suite | 53 of 53 checks pass, recorded at version 0.8.1, including the added assertions that the question input opens empty and that no removed preset question reappears | [Report](../evidence/archive/pre-0.9/checks.json) |
 | Evaluation manifest validator | `python eval/validate.py` exits 0; declared identity matches `app/build.gradle` at 0.8.1 / code 10 | Local validator output |
-| Q2 dot kernel | 16,241 vectors against the reference, zero bit mismatches; guard pages, runtime dispatch and fallback passed; microbenchmark speedup 5.79x (median of three warm-cache rounds, 20,000 dots each) | [Report](../evidence/optimization/kernel-numeric.json) |
-| Grouped prefill guard | 10,023 bitwise comparisons, zero bit mismatches, real GGML graph dispatch confirmed, across widths 1, 2, 4 and 8, column counts 1/2/3/4/5/9/17 and 1/2/4 workers | [Report](../evidence/optimization/kernel-batch.json) |
-| Teacher-forced audit of the batched path | At widths 2, 4 and 8: 24 positions each, `bitIdenticalPositions` 24/24, `sameTop1Positions` 24/24, maximum logit difference 0, mean KL 0 | [Report](../evidence/speculation/speculation-audit.json) |
-| Field fixtures at width 1 vs width 8 | Five fixtures, byte-identical text and identical first-logits hashes per fixture | [Report](../evidence/strata/runtime-missions.json) |
-| Speculation on field missions | Adaptive depth 3 vs baseline; identical text on all five | [Report](../evidence/speculation/speculation-missions.json) |
-| Verbatim-copy control | Median decode speedup 1.215, 53 of 54 drafts accepted | [Report](../evidence/speculation/speculation-benchmark.json) |
-| Bonsai 4B end-to-end UI generation | Completed with a sourced answer under the calibrated width-8 profile; fast path used | [Report](../evidence/bonsai-ui-bonsai4.json) |
-| Calibration | Kept threads 4, prompt threads 4 and batch 128 with a 4.0% confirmation gain, below the 5% adoption threshold; the width re-confirmation at that combination kept width 4, which achieved 1.141x speedup (12.34% less total time) versus width 1 with identical text | [Report](../evidence/strata/runtime-calibrate.json) |
+| Q2 dot kernel | 16,241 vectors against the reference, zero bit mismatches; guard pages, runtime dispatch and fallback passed; microbenchmark speedup 5.79x (median of three warm-cache rounds, 20,000 dots each) | [Report](../evidence/archive/pre-0.9/optimization/kernel-numeric.json) |
+| Grouped prefill guard | 10,023 bitwise comparisons, zero bit mismatches, real GGML graph dispatch confirmed, across widths 1, 2, 4 and 8, column counts 1/2/3/4/5/9/17 and 1/2/4 workers | [Report](../evidence/archive/pre-0.9/optimization/kernel-batch.json) |
+| Teacher-forced audit of the batched path | At widths 2, 4 and 8: 24 positions each, `bitIdenticalPositions` 24/24, `sameTop1Positions` 24/24, maximum logit difference 0, mean KL 0 | [Report](../evidence/archive/pre-0.9/speculation/speculation-audit.json) |
+| Field fixtures at width 1 vs width 8 | Five fixtures, byte-identical text and identical first-logits hashes per fixture | [Report](../evidence/archive/pre-0.9/strata/runtime-missions.json) |
+| Speculation on field missions | Adaptive depth 3 vs baseline; identical text on all five | [Report](../evidence/archive/pre-0.9/speculation/speculation-missions.json) |
+| Verbatim-copy control | Median decode speedup 1.215, 53 of 54 drafts accepted | [Report](../evidence/archive/pre-0.9/speculation/speculation-benchmark.json) |
+| Bonsai 4B end-to-end UI generation | Completed with a sourced answer under the calibrated width-8 profile; fast path used | [Report](../evidence/archive/pre-0.9/bonsai-ui-bonsai4.json) |
+| Calibration | Kept threads 4, prompt threads 4 and batch 128 with a 4.0% confirmation gain, below the 5% adoption threshold; the width re-confirmation at that combination kept width 4, which achieved 1.141x speedup (12.34% less total time) versus width 1 with identical text | [Report](../evidence/archive/pre-0.9/strata/runtime-calibrate.json) |
 
 The previous grouped-kernel ceiling of 7,932 comparisons covered only widths up to 4; the current guard doubles the covered widths and raises the comparison count to 10,023.
 
@@ -40,7 +40,7 @@ The previous grouped-kernel ceiling of 7,932 comparisons covered only widths up 
 
 ## Measured runtime observations
 
-**Width sweep.** Three independent alternating sweeps, three rounds each with rotating order, 222-token prompt and 32-token output. The recorded sweep reports median prefill 19,082 / 18,374 ms and median total 25,259 / 24,884 ms for widths 4 and 8 ([runtime-batch](../evidence/strata/runtime-batch.json)), a total-time gain of 1.5%; the two earlier sweeps of the same control measured 2.2% and 4.6%, with prefill gains of 3.7%, 3.5% and 5.6%. Against width 1 the recorded sweep shows 20.4% less prefill and 15.2% less total. **None of the three 4 -> 8 steps cleared the 5% working threshold**, so the batch phase now prefers the narrowest grouping within 5% of the fastest and the calibrated profile for this target is width 4, not width 8. Every width keeps identical first-logits hashes and identical text, on the farmer-record control in the sweep and on all five field fixtures. These are single-emulator observations, not controlled measurements of physical-phone performance.
+**Width sweep.** Three independent alternating sweeps, three rounds each with rotating order, 222-token prompt and 32-token output. The recorded sweep reports median prefill 19,082 / 18,374 ms and median total 25,259 / 24,884 ms for widths 4 and 8 ([runtime-batch](../evidence/archive/pre-0.9/strata/runtime-batch.json)), a total-time gain of 1.5%; the two earlier sweeps of the same control measured 2.2% and 4.6%, with prefill gains of 3.7%, 3.5% and 5.6%. Against width 1 the recorded sweep shows 20.4% less prefill and 15.2% less total. **None of the three 4 -> 8 steps cleared the 5% working threshold**, so the batch phase now prefers the narrowest grouping within 5% of the fastest and the calibrated profile for this target is width 4, not width 8. Every width keeps identical first-logits hashes and identical text, on the farmer-record control in the sweep and on all five field fixtures. These are single-emulator observations, not controlled measurements of physical-phone performance.
 
 **Speculation on field missions.** Adaptive depth 3 against baseline, decode milliseconds: traveler 7,322 -> 7,118; farmer 2,385 -> 2,508; field engineer 10,426 -> 10,419; mountaineer 11,850 -> 11,897; driver 1,270 -> 1,586. Aggregate decode time is 0.8% slower. Farmer (+5.2%) and driver (+24.9%) regress; traveler improves by 2.8%; field engineer and mountaineer stay within 0.5% of baseline. All five keep identical text. A synthetic verbatim-copy control shows a median decode speedup of 1.215 (12,146 -> 9,993 ms) with 53 of 54 drafts accepted, which is why the synthetic case alone is not sufficient evidence to turn speculation on.
 
@@ -55,13 +55,13 @@ The previous grouped-kernel ceiling of 7,932 comparisons covered only widths up 
 - `dist/` is ignored by Git and is not guaranteed to exist in a fresh clone.
 - Publication is reproducible: [publish-artifact.ps1](../scripts/publish-artifact.ps1) reads the version from `app/build.gradle`, copies the built APK into `dist/` under the versioned name, and writes an LF sidecar; `-Verify` re-checks an existing artifact against its sidecar.
 - Fixed defect: nine earlier sidecars in `dist/` were written with CRLF endings, which made `sha256sum -c` fail on non-Windows hosts even though the recorded hashes were correct. All were normalized to LF, and all ten sidecars now verify.
-- [outpost-0.8.0-emulator-debug.apk](../dist/outpost-0.8.0-emulator-debug.apk) and its sidecar remain in place as the historical 0.8.0 build.
+- `dist/outpost-0.8.0-emulator-debug.apk` and its sidecar remain in place as the historical 0.8.0 build.
 
 ## Explicit non-claims
 
 - All results are emulator measurements on x86_64. They do not establish ARM support, Pixel or GrapheneOS behaviour, battery life, thermal behaviour, or phone latency. The APK contains only x86_64 code.
 - Post-run PSS samples are not peak memory. No peak-memory or memory-pressure claim is made here.
-- A passing harness, a citation index in range, or a favourable reviewer score does not establish answer correctness. The mission fixtures still record the known 0.8 failures — the farmer fixture does not identify F-28, the field engineer answer overstates the absence of authorization records, and the traveler answer is partial ([content review](../evidence/strata/mission-review.json)); this document does not re-review them and does not claim they improved.
+- A passing harness, a citation index in range, or a favourable reviewer score does not establish answer correctness. The mission fixtures still record the known 0.8 failures — the farmer fixture does not identify F-28, the field engineer answer overstates the absence of authorization records, and the traveler answer is partial ([content review](../evidence/archive/pre-0.9/strata/mission-review.json)); this document does not re-review them and does not claim they improved.
 - The width-8 capability is validated for bit-exactness but is not the calibrated choice here: across three sweeps its total-time advantage over width 4 was 4.6%, 2.2% and 1.5%, never clearly above the 5% working threshold, and calibration now prefers the narrower grouping. Its measured status is "no better than width 4 beyond run-to-run noise", not "adopted".
 - No bounty requirement is claimed as met. Device, GrapheneOS, RAM, storage, phone-speed and public-repository requirements cannot be verified in emulator-only, private-repository scope; the trace lives in [bounty-31](bounty-31.md).
 - The 0.8.0 record in [validation-0.8.md](validation-0.8.md) and everything under `evidence/` remain historical and were not rewritten.
@@ -93,3 +93,7 @@ The reviewed candidates, each closed with its authority burned:
 ## Remaining scope
 
 Field workflows on real hardware, larger knowledge packages, OSM/ZIM/PDF adapters, ARM APK execution, real memory pressure, physical phone performance, thermal behaviour, and battery use remain unvalidated or unimplemented as described in the [roadmap](roadmap.md).
+
+## Later status note — 0.9
+
+The historical controller observations above remain unchanged. In 0.9, explicit fastest/candidate/selected reporting and policy tests addressed the actionable width-report ambiguity. Formal controller acknowledgement for `a52f2b3` remains absent. Historical evidence links now target the preserved pre-0.9 archive; current runtime/quality results are in [validation-0.9](validation-0.9.md).

@@ -22,6 +22,7 @@ import org.json.JSONObject;
 /** Functional LLM tests run inside the emulator's target application process. */
 public final class GenerationInstrumentation extends OfflineInstrumentation {
     private boolean generationSuite;
+    private Bundle chatArgs;
     private Bundle evaluationArgs;
     private boolean knowledgeSuite;
     private String knowledgeRun;
@@ -39,6 +40,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         checks++;
     }
     @Override public void onCreate(Bundle arguments) {
+        chatArgs=arguments!=null&&arguments.containsKey("chat_run")?new Bundle(arguments):null;
         knowledgeRun = arguments == null ? "" : arguments.getString("knowledge_run", "");
         knowledgeSuite = arguments != null && "true".equals(arguments.getString("knowledge"));
         evaluationArgs = arguments != null && arguments.containsKey("eval_run") ? new Bundle(arguments) : null;
@@ -51,6 +53,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         super.onCreate(arguments);
     }
     @Override public void onStart() {
+        if(chatArgs!=null){new ChatChecks(this,chatArgs.getString("chat_run"),"true".equals(chatArgs.getString("chat_generate"))).run();return;}
         if(knowledgeSuite) { new KnowledgeChecks(this, knowledgeRun).run(); return; }
         if(evaluationArgs != null) { new EvaluationChecks(this, evaluationArgs).run(); return; }
         if(!speculationPhase.isEmpty()) { new SpeculationChecks(this).run(speculationPhase); return; }
@@ -80,7 +83,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
             check(ResearchPrompt.citationNote("Claim [99]", 3).contains("unavailable"), "Unknown source references are flagged");
             check(ResearchPrompt.citationNote("Claim [1] [9999999999999999]", 3).contains("unavailable"), "Oversized reference numbers cannot bypass validation");
             check(ResearchPrompt.prepare("platypus", List.of()).sources().isEmpty(), "No evidence produces no generation prompt");
-            try (Library library = new Library(getTargetContext(), null); NativeEngine engine = new NativeEngine()) {
+            try (Library library = TestLibrary.seeded(getTargetContext()); NativeEngine engine = new NativeEngine()) {
                 long precancelled = engine.request(); engine.cancel(precancelled);
                 NativeEngine.Result stopped = engine.generate(precancelled, models.file(), ResearchPrompt.SYSTEM, "Do not generate", 64, (s,n) -> { });
                 check(stopped.cancelled() && stopped.tokens() == 0, "Cancellation before queued generation is preserved");
@@ -109,12 +112,11 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
             runOnMainSync(() -> { ((EditText)activity.findViewById(MainActivity.QUERY_ID)).setText("What is the difference between kW and kWh?"); activity.findViewById(MainActivity.SEARCH_ID).performClick(); });
             for (int i = 0; i < 100 && !activity.searchDone; i++) SystemClock.sleep(100);
             waitForIdleSync();
-            check(activity.findViewById(MainActivity.GENERATE_ID) != null, "Generation action visible for retrieved evidence");
-            runOnMainSync(() -> activity.findViewById(MainActivity.GENERATE_ID).performClick());
+            check(activity.findViewById(MainActivity.SEARCH_ID) != null, "Chat send action is visible");
             for (int i = 0; i < 1300 && !activity.answerDone; i++) SystemClock.sleep(100);
             waitForIdleSync();
             check(activity.answerDone && activity.lastAnswer != null && activity.lastAnswer.tokens() > 0, "UI button completes native local generation");
-            record("ui-energy", ResearchPrompt.prepare("What is the difference between kW and kWh?", activity.lastHits), activity.lastAnswer);
+            record("ui-chat-energy", new ResearchPrompt.Prepared("ChatPrompt "+ChatPrompt.VERSION+"; inspect chat evidence for full conversation provenance",activity.lastHits), activity.lastAnswer);
             screenshot("generation.png");
             Debug.MemoryInfo memory = new Debug.MemoryInfo(); Debug.getMemoryInfo(memory);
             JSONObject report = new JSONObject().put("version", getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",0).versionName).put("checksPassed", checks).put("checks", results).put("answers", answers)

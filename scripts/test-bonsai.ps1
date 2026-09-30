@@ -1,5 +1,10 @@
 param([string]$Sdk=$env:ANDROID_HOME,[string]$Serial='emulator-5582',[string[]]$Profiles=@('qwen15','bonsai17','bonsai4'),[string]$UiProfile='',[switch]$SkipInstall,[switch]$UiOnly,[switch]$KeepSelected,[switch]$SelectOnly)
 $ErrorActionPreference='Stop'
+if($UiOnly) {
+    if($UiProfile -and $UiProfile -ne 'bonsai4') { throw 'Current chat smoke uses Bonsai 4B; use native compare for other profiles.' }
+    & (Join-Path $PSScriptRoot 'test-chat.ps1') -Sdk $Sdk -Serial $Serial -Generate
+    exit $LASTEXITCODE
+}
 if($Serial -notmatch '^emulator-\d+$') { throw 'Only emulator targets are permitted.' }
 $project=Split-Path $PSScriptRoot -Parent
 . (Join-Path $PSScriptRoot 'environment.ps1')

@@ -60,7 +60,7 @@ public class OfflineInstrumentation extends Instrumentation {
                 check(ModelStore.selected(getTargetContext()).id().equals(ModelStore.QWEN.id()),"Unknown saved profile falls back without becoming a path");
             } finally { ModelStore.select(getTargetContext(),previous); }
             String importedId;
-            try (Library library = new Library(getTargetContext(), database)) {
+            try (Library library = TestLibrary.seeded(getTargetContext(), database)) {
                 check(library.documents().size() == 6, "Six attributed demo documents installed");
                 for (RetrievalChecks.Case c : RetrievalChecks.CASES) {
                     List<Library.Hit> hits = library.search(c.query());
@@ -95,7 +95,7 @@ public class OfflineInstrumentation extends Instrumentation {
                 check(library.documents().stream().allMatch(d -> d.body().isEmpty()), "Library list loads metadata only");
                 check(library.load(big.id()).body().length() == big.body().length(), "Full source can be loaded on demand");
             }
-            try (Library reopened = new Library(getTargetContext(), database)) {
+            try (Library reopened = TestLibrary.seeded(getTargetContext(), database)) {
                 check(reopened.search("mineralogicaunica").get(0).document().id().equals(importedId), "Imported source and index survive reopening database");
                 check(reopened.documents().size() == 9, "Database reopening does not duplicate seeds");
             }
@@ -110,16 +110,10 @@ public class OfflineInstrumentation extends Instrumentation {
             check(openingQuery[0].isEmpty(), "Question input opens empty");
             for (String removed : REMOVED_PRESET_TEXT) check(openingTexts.stream().noneMatch(t -> t.contains(removed)), "Opening screen shows no removed preset text: " + removed);
             screenshot("home.png");
-            runOnMainSync(() -> { ((EditText)activity.findViewById(MainActivity.QUERY_ID)).setText("What is the difference between kW and kWh?"); activity.findViewById(MainActivity.SEARCH_ID).performClick(); });
-            for (int i = 0; i < 100 && !activity.searchDone; i++) SystemClock.sleep(100);
-            waitForIdleSync();
-            check(activity.searchDone && activity.lastHits.stream().anyMatch(h -> h.document().id().equals("energy")), "Search button executes real local query");
-            screenshot("search.png");
-            Library.Hit hit = activity.lastHits.get(0);
-            runOnMainSync(() -> activity.openDocument(hit.document(), hit.passage()));
-            for (int i = 0; i < 100 && !activity.documentOpen; i++) SystemClock.sleep(100);
-            check(activity.documentOpen, "Source reader opens asynchronously");
-            waitForIdleSync(); screenshot("source.png");
+            runOnMainSync(activity::showSettings);waitForIdleSync();
+            check(activity.findViewById(R.id.chat_import)!=null,"Settings exposes document import");screenshot("search.png");
+            runOnMainSync(activity::showDocuments);waitForIdleSync();
+            check(activity.findViewById(MainActivity.GENERATE_ID)==null,"Document management contains no prototype generate control");screenshot("source.png");
             JSONObject report = new JSONObject().put("version", getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",0).versionName).put("checksPassed", checks).put("results", results)
                 .put("elapsedMs", SystemClock.elapsedRealtime() - started).put("device", android.os.Build.MODEL)
                 .put("androidApi", android.os.Build.VERSION.SDK_INT).put("scope", "Functional retrieval and Activity checks; this suite does not run LLM generation; no physical-device measurement");

@@ -27,7 +27,7 @@ import java.util.function.BooleanSupplier;
 /** Local retrieval, immutable source locators, and transactional text/CSV packs. */
 public final class Library extends SQLiteOpenHelper {
     public static final int MAX_IMPORT_BYTES = 1_048_576;
-    static final int SCHEMA_VERSION = 2;
+    static final int SCHEMA_VERSION = 3;
     private static final String ACTIVE = "(d.package_id IS NULL OR EXISTS (SELECT 1 FROM knowledge_packs k "
         + "WHERE k.id=d.package_id AND k.version=d.package_version AND k.active=1))";
     private static final Set<String> STOP = new HashSet<>(Arrays.asList(
@@ -52,18 +52,8 @@ public final class Library extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE documents (id TEXT PRIMARY KEY, title TEXT NOT NULL, category TEXT NOT NULL, source TEXT NOT NULL, url TEXT NOT NULL, date TEXT NOT NULL, body TEXT NOT NULL)");
         db.execSQL("CREATE VIRTUAL TABLE passages USING fts4(doc_id, part, content, search_text, notindexed=doc_id, notindexed=part, notindexed=content)");
         addMetadataSchema(db);
-        try (InputStream in = context.getAssets().open("library.json"); ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
-            byte[] buffer = new byte[8192]; int size;
-            while ((size = in.read(buffer)) != -1) bytes.write(buffer, 0, size);
-            JSONArray seed = new JSONArray(bytes.toString(StandardCharsets.UTF_8.name()));
-            for (int i = 0; i < seed.length(); i++) {
-                JSONObject d = seed.getJSONObject(i);
-                Document item = new Document(d.getString("id"), d.getString("title"), d.getString("category"),
-                    d.getString("source"), d.getString("url"), d.getString("date"), d.getString("body"));
-                insert(db, item, "text", "en", "", null, 0);
-            }
-        } catch (Exception e) { throw new IllegalStateException("Could not prepare the library", e); }
     }
+
     private static void addMetadataSchema(SQLiteDatabase db) {
         db.execSQL("ALTER TABLE documents ADD COLUMN revision INTEGER NOT NULL DEFAULT 1");
         db.execSQL("ALTER TABLE documents ADD COLUMN content_sha256 TEXT NOT NULL DEFAULT ''");
@@ -80,7 +70,7 @@ public final class Library extends SQLiteOpenHelper {
     }
     @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // SQLiteOpenHelper executes this upgrade in a transaction. Never drop/reseed user data.
-        if (oldVersion == 1 && newVersion == 2) {
+        if (oldVersion == 1 && newVersion >= 2) {
             addMetadataSchema(db);
             try (Cursor c = db.rawQuery("SELECT id,body,date FROM documents", null)) {
                 while (c.moveToNext()) {
@@ -90,13 +80,69 @@ public final class Library extends SQLiteOpenHelper {
                     db.update("documents", v, "id=?", new String[]{c.getString(0)});
                 }
             }
+            oldVersion = 2;
+        }
+        if (oldVersion == 2 && newVersion == 3) {
+            removeLegacyDemo(db);
             return;
         }
         throw new IllegalStateException("Unsupported library schema migration");
     }
+
+    private static void removeLegacyDemo(SQLiteDatabase db) {
+        // Exact historical seed identities only. User imports and edited records are preserved.
+        Map<String,String> seeds=Map.of(
+            "gps", "011506adcd9a7f676332fd2e417e41e4fcbf53d6d420b7de5a5ffdfb07a2525b",
+            "gps-accuracy", "7d6bad650882da83d9db0271e870c50868730960fc724827dad440676d053f8b",
+            "compass", "bfccc6303ee1376976c6b3aba2544c104303c08eef50bf5ca386b58f0ad21be7",
+            "energy", "b54e53702ff396bcf3991e255b3c474a2471fa007d412625e0e5330f8f88027c",
+            "solar", "3f69af575f0e8c8b6f34593836f2c2ca1e6eae2fdac0cc056fe1c96ac2c46902",
+            "solar-efficiency", "cd008f456bdf32548803ca09021e60d7822f243e4163efd656d60870c619335e");
+        for(Map.Entry<String,String> seed:seeds.entrySet()) {
+            try(Cursor c=db.rawQuery("SELECT body FROM documents WHERE id=? AND package_id IS NULL",new String[]{seed.getKey()})) {
+                if(c.moveToFirst() && Evidence.sha256(c.getString(0)).equals(seed.getValue())) {
+                    db.delete("passages","doc_id=?",new String[]{seed.getKey()});
+                    db.delete("documents","id=?",new String[]{seed.getKey()});
+                }
+            }
+        }
+    }
+    public synchronized Document importPdf(String name,List<String> pages,java.io.File original) throws Exception {
+        if(pages.isEmpty() || pages.size()>PdfImporter.MAX_PAGES || pages.stream().allMatch(String::isBlank))
+            throw new IllegalArgumentException("The PDF contains no readable text.");
+        String body=new JSONArray(pages).toString();
+        if(body.getBytes(StandardCharsets.UTF_8).length>MAX_IMPORT_BYTES)
+            throw new IllegalArgumentException("PDF text is too large. Import a shorter document.");
+        if(original.length()==0 || original.length()>PdfImporter.MAX_BYTES)throw new IllegalArgumentException("Choose a PDF up to 10 MiB.");
+        String id=UUID.randomUUID().toString();
+        Document d=new Document(id,name.length()>160?name.substring(0,160):name,"My documents","Imported PDF","",java.time.Instant.now().toString(),body);
+        java.io.File saved=pdfFile(id);saved.getParentFile().mkdirs();
+        java.nio.file.Files.copy(original.toPath(),saved.toPath());
+        boolean committed=false;SQLiteDatabase db=getWritableDatabase();db.beginTransaction();
+        try{insert(db,d,"pdf","und","",null,0);db.setTransactionSuccessful();committed=true;}
+        finally{try{db.endTransaction();}finally{if(!committed)saved.delete();}}
+        return d;
+    }
+    java.io.File pdfFile(String id) {
+        if(!id.matches("[a-f0-9-]{36}"))throw new IllegalArgumentException("Invalid PDF identity");
+        return new java.io.File(new java.io.File(context.getFilesDir(),"documents"),id+".pdf");
+    }
+    public synchronized void removeDocument(String id) {
+        Metadata m=metadata(id);
+        if(m.packageId()!=null)throw new IllegalArgumentException("Remove the containing pack instead.");
+        SQLiteDatabase db=getWritableDatabase();db.beginTransaction();
+        try{db.delete("passages","doc_id=?",new String[]{id});db.delete("documents","id=?",new String[]{id});db.setTransactionSuccessful();}
+        finally{db.endTransaction();}
+        if(m.format().equals("pdf"))pdfFile(id).delete();
+    }
+    private static String fragmentKind(String format) {return format.equals("pdf")?"page":format.equals("csv")?"row":"passage";}
+
     private static List<Fragment> fragments(String body, String format) {
         List<Fragment> result = new ArrayList<>();
-        if (format.equals("csv")) {
+        if (format.equals("pdf")) {
+            try { JSONArray pages=new JSONArray(body);for(int i=0;i<pages.length();i++)if(!pages.getString(i).isBlank())result.add(new Fragment(i+1,pages.getString(i))); }
+            catch(org.json.JSONException error){throw new IllegalArgumentException("Invalid PDF text",error);}
+        } else if (format.equals("csv")) {
             CsvTable.Table table = CsvTable.parse(body);
             for (CsvTable.Row row : table.rows()) result.add(new Fragment(row.number(), table.passage(row)));
         } else {
@@ -226,12 +272,12 @@ public final class Library extends SQLiteOpenHelper {
     }
     public synchronized Evidence evidence(Hit hit) {
         Metadata m = metadata(hit.document().id());
-        return resolve(new Evidence.Locator(hit.document().id(), m.revision(), m.format().equals("csv") ? "row" : "passage", hit.number(), m.sha256()));
+        return resolve(new Evidence.Locator(hit.document().id(), m.revision(), fragmentKind(m.format()), hit.number(), m.sha256()));
     }
     public synchronized Evidence resolve(Evidence.Locator locator) {
         Metadata m = metadata(locator.documentId());
         if (m.revision() != locator.revision() || !m.sha256().equals(locator.contentSha256())
-            || !locator.kind().equals(m.format().equals("csv") ? "row" : "passage"))
+            || !locator.kind().equals(fragmentKind(m.format())))
             throw new IllegalArgumentException("Evidence locator no longer matches its source");
         Document d = load(locator.documentId());
         for (Fragment f : fragments(d.body(), m.format())) if (f.ordinal() == locator.ordinal())

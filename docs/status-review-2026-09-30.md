@@ -18,7 +18,7 @@ Product breadth is still limited by the six-note text library and missing knowle
 
 ## Performance from the stored paired controls
 
-The latest [width sweep](../evidence/strata/runtime-batch.json) records version 0.8.1, a 222-token prompt and a 32-token output budget, with three rounds per width:
+The latest [width sweep](../evidence/archive/pre-0.9/strata/runtime-batch.json) records version 0.8.1, a 222-token prompt and a 32-token output budget, with three rounds per width:
 
 | Group width | Median prefill | Median total | Interpretation |
 |---|---:|---:|---|
@@ -29,11 +29,11 @@ The latest [width sweep](../evidence/strata/runtime-batch.json) records version 
 
 Width 4 was already available in the prior release. Therefore, the marginal benefit of the newly added width 8 in this sweep is **1.48%**, not the entire improvement over width 1. The wider capability remains useful to test on other supported environments, but the current evidence does not justify selecting it by default here. Three sweeps are described in the optimization record, one of which is retained only as ignored local output; the table above is independently recomputed from the committed latest JSON.
 
-The separate [calibration confirmation](../evidence/strata/runtime-calibrate.json) gives median totals 26.623 s for width 1 and 23.338 s for width 4. That is **1.14076x speedup and 12.34% less elapsed time**. The code's `widthConfirmationGain` is `baseline / candidate - 1`; its 14.08% value is a speedup increment, not a percentage of baseline time saved. The saved profile remains 4 decode threads, 4 prompt threads, batch 128, width 4.
+The separate [calibration confirmation](../evidence/archive/pre-0.9/strata/runtime-calibrate.json) gives median totals 26.623 s for width 1 and 23.338 s for width 4. That is **1.14076x speedup and 12.34% less elapsed time**. The code's `widthConfirmationGain` is `baseline / candidate - 1`; its 14.08% value is a speedup increment, not a percentage of baseline time saved. The saved profile remains 4 decode threads, 4 prompt threads, batch 128, width 4.
 
-The [synthetic copy control](../evidence/speculation/speculation-benchmark.json) gives 12.146 -> 9.993 s median decode: **1.21545x speedup, or 17.73% less time**. Each adaptive copy run accepted 53/54 draft tokens. That is a favorable output shape for context matching, not a general field-work estimate.
+The [synthetic copy control](../evidence/archive/pre-0.9/speculation/speculation-benchmark.json) gives 12.146 -> 9.993 s median decode: **1.21545x speedup, or 17.73% less time**. Each adaptive copy run accepted 53/54 draft tokens. That is a favorable output shape for context matching, not a general field-work estimate.
 
-The [five speculative mission pairs](../evidence/speculation/speculation-missions.json) total 33.253 s baseline decode versus 33.528 s speculative decode: **0.83% slower**, with 2 of 11 proposals accepted. Driver decode increases 1.270 -> 1.586 s; farmer increases 2.385 -> 2.508 s. The traveler row launched zero proposals, so its lower elapsed time cannot be attributed to speculative acceptance. These are a small fixed-order set, not a powered statistical comparison.
+The [five speculative mission pairs](../evidence/archive/pre-0.9/speculation/speculation-missions.json) total 33.253 s baseline decode versus 33.528 s speculative decode: **0.83% slower**, with 2 of 11 proposals accepted. Driver decode increases 1.270 -> 1.586 s; farmer increases 2.385 -> 2.508 s. The traveler row launched zero proposals, so its lower elapsed time cannot be attributed to speculative acceptance. These are a small fixed-order set, not a powered statistical comparison.
 
 The recorded 5.79x dot-product microbenchmark remains relative to the scalar dot implementation, not a new 5.79x improvement over Outpost 0.8.0 or an end-to-end phone speedup. Recorded numerical checks include 16,241 dot vectors, 10,023 grouped comparisons and a 24-position teacher-forced audit at each width 2/4/8. These measurements were not rerun during this review.
 
@@ -51,7 +51,7 @@ Bonsai 4B is selected. The current build's recorded calibration uses width 4; th
 
 The matrix now represents seven question families and several evidence conditions. It remains `status: design`, and the manifest is not consumed by the instrumentation harness. The next work is to wire and execute it, record complete build/prompt/fixture identities, and score outputs against the rubric.
 
-Existing [runtime mission outputs](../evidence/strata/runtime-missions.json) still contain the known farmer/traveler truncation and the engineering overstatement. An important lead is that [the speculation harness's baseline](../evidence/speculation/speculation-missions.json) answers the farmer with F-28 and gives a complete traveler response. These harnesses differ in system/prompt wrapping and execution context; this is not proof of a quality gain from speculation. It motivates a controlled E-02 comparison of complete prompts, sampler, width and cache state before attributing failures to model capacity.
+Existing [runtime mission outputs](../evidence/archive/pre-0.9/strata/runtime-missions.json) still contain the known farmer/traveler truncation and the engineering overstatement. An important lead is that [the speculation harness's baseline](../evidence/archive/pre-0.9/speculation/speculation-missions.json) answers the farmer with F-28 and gives a complete traveler response. These harnesses differ in system/prompt wrapping and execution context; this is not proof of a quality gain from speculation. It motivates a controlled E-02 comparison of complete prompts, sampler, width and cache state before attributing failures to model capacity.
 
 ## Findings and corrections from this review
 

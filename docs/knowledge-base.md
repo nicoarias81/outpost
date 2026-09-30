@@ -1,83 +1,46 @@
-# Knowledge domain and proposed contracts
+# Knowledge domain and source contracts
 
-Status: TXT/Markdown library implemented; typed contracts and all additional adapters proposed. This is a design specification, not an API already exposed by the app.
+Outpost 0.10 implements text/Markdown/CSV/PDF, typed passage/record/page locators and schema-3 migration with an empty product library. Bounded JSON pack APIs remain available for existing data and developer tooling; the product imports individual documents through Settings. The authoritative implemented format is [knowledge-pack v1](knowledge-packs-v1.md). Broader contracts below remain design direction.
 
 ## Complementary content layers
 
-World/reference knowledge, regional/activity packages, and personal documents are complementary layers of the same knowledge domain. The [contextual-question requirement](offline-world-knowledge.md) evaluates retrieval, recommendations and synthesis across these layers. Choose adapters for the evidence each task needs; neither a document-only workflow nor a geographic catalog defines the full product.
+World/reference knowledge, regional/activity packages and personal documents are complementary sources. [Contextual question families](offline-world-knowledge.md) evaluate retrieval, recommendations and synthesis across them. Choose adapters for required evidence; neither a file finder nor a POI catalog defines the product.
 
-## Storage by capability
-
-| Source | Proposed storage and query strategy | Current status |
-|---|---|---|
-| Text / Markdown | Original text, document metadata, lexical passage index | Implemented in `Library`, without versioned packages |
-| PDF manuals and drawings | Original file, page/section locators, extracted text; separate OCR provenance where needed | Pending |
-| DOCX and XLSX personal documents | Preserve document structure or sheet/row/cell relationships; retain original file, version and optional receipt/download metadata | Proposed discovery scope; legacy DOC/XLS not implied |
-| Wikipedia / Wikivoyage ZIM | Read archive through a ZIM adapter; use available archive indexes; avoid duplicating the entire corpus | Pending |
-| OSM regions | Entity and geometry indexes; display layers and route graph as distinct capabilities | Pending |
-| User observations | Typed values, units, timestamps, asset identity, and user provenance | Pending |
-| Semantic index | Optional encoder-specific index, paired with lexical/entity filters | Deferred until mission retrieval demonstrates a need |
-
-Source reading, text search, place lookup, map rendering, elevation, and routing must be declared separately. A visible map is not proof that the app has a searchable place database or a navigable graph.
-
-## Evidence contract, draft v0
-
-Each result should contain the following fields. IDs are stable within a package version; prompt citation numbers are temporary mappings to those IDs.
-
-| Field | Meaning |
+| Source | Current behavior / remaining design |
 |---|---|
-| `id`, `kind` | Stable identity; passage, place, table, route, or observation |
-| `packageId`, `packageVersion` | Exact prepared source revision |
-| `content` or typed `fields` | Human-readable passage or structured values with units |
-| `locator` | Document/page/section, archive entry, or entity ID needed to open the original |
-| `provenance` | Publisher or user, source URL when available, license reference |
-| `contentDate`, `importedAt` | Distinct content and incorporation dates; unknown values stay null |
-| `language`, `scope` | Language, region, asset/model/revision applicability |
-| `limitations` | Missing coverage, stale or unknown date, extraction uncertainty, conflict |
+| Text/Markdown | Original text, metadata, lexical passages and exact versioned locators implemented |
+| CSV records | Header/value relationships and record locators implemented; literal cells, no formulas/type inference; limits in format guide |
+| PDF manuals/drawings | Bounded text extraction, original page locators and rendering implemented; OCR, robust table/layout interpretation and broad document evaluation remain pending |
+| DOCX/XLSX | Pending document structure or sheet/row/cell relationships; CSV support does not imply Office support |
+| Wikipedia/Wikivoyage ZIM | Pending bounded archive-reader/search spike, archive-specific locators and index/storage measurements |
+| OSM regions | Pending entity/geometry lookup; map rendering and route graphs are separate capabilities |
+| User observations | Pending typed units/time/equipment identity and explicit user provenance |
+| Semantic index | Deferred until lexical/entity retrieval misses justify encoder/index cost |
 
-A locator must resolve without internet to the exact installed version. Conflicting results remain separate evidence items. Retrieval score indicates relevance, not factual confidence. Record the bounded subset actually sent to inference so an answer can be audited.
+## Implemented evidence identity
 
-## Proposed personal-file provenance extension
+`Evidence.Locator` binds document ID, revision, fragment kind (`passage`, `row` or `page`), ordinal and SHA-256 of the original text. `Library.evidence`, `metadata` and `resolve` expose exact local source identity. Prompt citation numbers are temporary mappings, not stable evidence IDs or confidence scores. Source/version retention prevents a package update from silently rebinding an existing locator; removal makes it unavailable.
 
-The [issue-list discovery case](discovery-2026-09-29.md) requires more than passage similarity. Add optional filename/display name, user-confirmed project/equipment, receipt/download timestamps when actually provided, and structured sheet/row/cell locators. Keep file modification, source revision and Outpost import times separate. Unknown dates remain unknown, and a vague relative date is a retrieval clue rather than permission to discard all files with missing metadata.
+Stored metadata separates known content date from incorporation time and retains format/language/source/license labels. Unknown content dates remain unknown during migration. Declared labels are not publisher authentication; hashes identify bytes, not truth. Malformed Unicode, oversized/structurally excessive JSON and expanding CSV inputs are rejected within documented bounds.
 
-Preserve table row relationships and exact IDs before generating prose. Represent formulas and cached values distinctly when spreadsheet support is evaluated; do not assume formula recalculation or execute embedded macros. Imported files do not imply access to their originating email account or all files on the phone. These are proposed contract additions, not fields in the current schema.
+The reader shows original text, revision/hash and the selected CSV record. Row numbers count the header as record 1; quoted newlines remain within one record. This enables verification independently of generation. It does not guarantee complete retrieval of every matching record or correct model interpretation.
 
-## Package manifest, draft v0
+## Bounded package lifecycle
 
-A future machine-readable schema should require:
+Schema v1 is a local JSON file containing text/CSV bodies and their hashes. Validation and indexing precede atomic activation. Identical version imports are idempotent; conflicting same-version manifests and downgrades are rejected. Failed validation/cancellation retains the old active version. Archived versions are excluded from ordinary search but remain resolvable until removal. The manifest's exact JSON text defines identity; reformatting changes that identity.
 
-- Schema version, package ID, package version, display title, publisher, and language.
-- Content date or an explicit unknown value; package build date and import date separately.
-- Geographic/subject coverage, exclusions, and declared capabilities.
-- Every asset's relative path, byte count, SHA-256, media type, and source/license reference.
-- Index format version and, if applicable, encoder identity/hash/dimension.
-- Minimum reader compatibility and estimates for installed and temporary storage.
+This slice replaces the earlier proposed text-plus-PDF first step with text-plus-CSV because record identity and date distinctions had a concrete runnable fixture. A bounded page-aware PDF slice was added in 0.10; broader K-04 quality acceptance remains open. The [61-check run](../evidence/runs/knowledge-20260930T122749Z-f6084045/knowledge-checks.json) covers persistence, migration rollback, parsing limits, lifecycle and source inspection.
 
-An unsigned hash manifest provides integrity against accidental corruption but is not publisher authentication. A trust/signature mechanism, if added, needs a separate decision. The current model lock files are not a general knowledge-package manifest.
+K-02 remains partial: no catalog, signatures, geographic/asset coverage, storage estimates, resumable downloader, background updates or rollback UI. Process-death/resume behavior is not comprehensively validated. Retained versions consume storage until removal. Future archive extraction must reject escaping paths; current JSON packs extract no filesystem paths.
 
-## Package lifecycle
+## Proposed contract extensions
 
-Proposed states: `staged -> validated -> indexed -> active`, with explicit failure cleanup and an intact previous active version. Uninstall is separate from update. A document's annotations or observations should not disappear just because a regional package is replaced.
+Source-specific adapters should expose declared capabilities, asset/model/revision applicability, coverage/exclusions, stale/unknown-date limitations and inspectable original locators. Future packages need reader/index compatibility, original/index/temporary byte costs, build dates, and encoder identity where relevant. A signed publisher identity is separate from a content hash.
 
-Installation must reject unsupported schema versions, escaping paths, missing assets, incorrect hashes, and insufficient capacity before activation. Budget for original files, indexes, model weights, old/new update versions, extraction workspace, and rollback space. Indexing should be cancelable and recoverable after process death.
+Personal-file recall may add filenames, user-confirmed project/equipment and actually supplied receipt/download dates. File modification, source date, measurement date and Outpost import time are different. A relative-date query must not invent dates or silently discard undated files. No email/account access is implied by importing a local file.
 
-First implementation: wrap the existing text library behind a small adapter and add one page-aware document adapter. Prove package lifecycle and source opening with these two before generalizing to a large encyclopedia or region.
+Apply hard applicability constraints before relevance ranking; preserve exact IDs and units. The current lexical system does not implement every such structured constraint. Typed arithmetic/unit tools remain proposed and must expose inputs, assumptions and evidence independently of generated prose. No arbitrary shell, source-triggered action or web executor is implemented.
 
-## Retrieval and local tools
+## Integration references to revisit before adapters
 
-Apply hard constraints first: equipment model/revision, document identity, language, geographic coverage, and required capability. Then rank passages or entities. Preserve exact codes and numbers; a semantic similarity score must not override a mismatched asset model.
-
-Local tools should take explicit typed inputs and return structured results with units, assumptions, and evidence IDs. Begin with arithmetic and unit conversion. Straight-line distance, route distance, elevation difference, and accumulated ascent are different operations and must have distinct outputs. No general shell, arbitrary code executor, or web request interface is proposed.
-
-## Integration references
-
-[libzim](https://github.com/openzim/libzim) is the upstream candidate for ZIM reading/search; Android build footprint, dependencies, licensing compatibility, and actual archive indexing must be assessed in a spike.
-
-For OSM, use regional extracts or a provider explicitly supporting offline packages. The standard raster tile service prohibits offline bulk downloading; it is not the package backend. See the [OSMF tile policy](https://operations.osmfoundation.org/policies/tiles/). Attribution and dataset obligations need to be preserved per source and reviewed when choosing a distribution strategy.
-
-Google Maps' own offline downloads are not an established integration contract for this project. No supported cache-import path has been demonstrated here. Treat Google Maps integration as an open feasibility question, not an available interchangeable adapter. The [earlier source review](two-domain-design.md) records references to revisit before implementation.
-
-## Acceptance for the first package slice
-
-Install, cancel, resume/retry, replace, and remove a test package in the emulator. A corrupted or incompatible update must leave the prior package readable. Search must work with no model loaded. Opening a citation must show the exact source revision and page/section. Existing user text imports must survive the schema migration. Unsupported capabilities and missing coverage must be visible before a generated answer suggests otherwise.
+[libzim](https://github.com/openzim/libzim) remains a candidate requiring Android build, storage/index and dependency review. Regional OSM extracts need source attribution and declared coverage; standard raster tiles are not an offline bulk package backend ([OSMF policy](https://operations.osmfoundation.org/policies/tiles/)). Google Maps offline caches have no demonstrated supported import contract here. These are historical feasibility references, not newly verified integration guarantees; recheck upstream terms and capabilities before implementation.

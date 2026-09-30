@@ -1,63 +1,35 @@
 # Outpost
 
-*Knowledge beyond coverage.*
+An offline Android assistant. Open the app to chat; add your own documents through **Settings → Add documents**. The interface and maintained documentation are in English.
 
-An Android prototype for consulting local knowledge and generating answers without connectivity. It is intended for travelers, farmers, field engineers, mountaineers, and people traveling through areas without signal.
+**Current version: 0.10.0, user-test candidate.** The app starts with an empty document library. There are no sample notes, Explore/Library/Status tabs, benchmark buttons, reviewer controls or runtime metrics in the product interface.
 
-**Current build: 0.8.1, emulator only.** Outpost is an independent local Git repository at `E:\projects\outpost`, with Android application ID `dev.outpost.app` and native library `outpost_engine`. The original Brújula 0.7 working copy remains preserved.
+## Current experience
 
-The interface, seed library, main prompts, and maintained documentation are in English. Historical reports and raw experimental outputs preserve their original language; explicitly labeled bilingual reviewer probes remain in the tests.
+- Send a message once to retrieve relevant local material and generate a streaming reply. With no matching document, chat can use model knowledge without claiming access to personal files or live information.
+- Recent completed messages provide bounded follow-up context. The conversation is saved locally; **New chat** deletes it without deleting documents.
+- Import UTF-8 TXT, Markdown or CSV, or a text-bearing PDF. Open original PDF pages or inspect exact text/CSV source records from replies.
+- Manage local documents and the installed offline model from Settings. Models are separate verified files; the APK does not download or bundle generator weights.
 
-Current validation: [0.8.1 report](docs/validation-0.8.1.md). The [0.8 migration report](docs/validation-0.8.md) remains the historical 0.8.0 baseline. Earlier performance measurements remain historical controls and have not been relabeled as English results.
+PDFs are limited to 10 MiB and 100 pages, with bounded extracted text. Text/CSV files are limited to 1 MiB. Scans without readable text, encrypted PDFs and invalid files receive explicit errors; no OCR is implemented. Source references enable inspection, not automatic verification of claims.
 
-## Start here
+## Engineering and validation
 
-For agents continuing the project, begin with [AGENTS.md](AGENTS.md) and the [engineering handoff](docs/handoff.md). They include the latest scope corrections, current state, constraints, known failures, and suggested next tasks.
+Start with [AGENTS.md](AGENTS.md), the [handoff](docs/handoff.md), [current state](docs/current-state.md), [chat and document design](docs/chat-beta.md), and [latest validation](docs/validation-0.10.md). The [roadmap](docs/roadmap.md) separates implementation from remaining quality/device work.
 
-- [Documentation index](docs/index.md): reading paths and document ownership.
-- [Product scope](docs/project-overview.md): users, field workflows, and success criteria.
-- [Current status](docs/current-state.md): implemented capabilities, gaps, and known failures.
-- [Architecture](docs/architecture.md): current code and intended separation of inference from knowledge.
-- [Roadmap](docs/roadmap.md): prioritized tasks, dependencies, and acceptance criteria.
-- [Decision register](docs/decisions.md): adopted choices, proposals, and deferred options.
-- [Developer guide](docs/development.md): preparation, builds, emulator tests, and troubleshooting.
+The APK now packages **arm64-v8a and x86_64**. ARM64 compilation/linking is preparation for phone testing; all runtime validation still occurs in Outpost35, the x86_64 Android emulator. No physical-device latency, compatibility, peak memory, battery, thermal or GrapheneOS claim follows from the build.
 
-## What works today
-
-The app searches six attributed demonstration notes and imported UTF-8 text/Markdown documents using SQLite FTS4. Users can open the full source and inspect a retrieved passage. Local generation runs inside the Android process through JNI and pinned llama.cpp, using Qwen2.5 1.5B or Ternary Bonsai 1.7B/4B. An optional Kev classifier reviews the first sentence of a draft.
-
-Bonsai 4B has a custom AVX2/F16C dot kernel, grouped prefill, device-specific runtime profiles, prefix caching, and optional context speculation. Speculation is experimental and off by default. See [measured optimizations](docs/optimizations.md) and [speculation and MTP](docs/speculation.md).
-
-The APK has no network permission and no Google Play Services dependency. Model and dependency preparation happens on the development computer; model execution stays inside the emulator.
-
-## What is not ready
-
-There are no OSM, ZIM, PDF/OCR, routing, GPS, voice, or vision adapters. Complete field missions are not implemented. The recorded traveler and mountaineer fixtures include incorrect answers. A valid citation number or a favorable Kev score does not establish factual correctness.
-
-The APK contains only x86_64 code. ARM object compilation and CPU capability detection do not establish ARM app support, Pixel performance, battery life, or GrapheneOS compatibility. Physical phone execution remains outside the authorized test scope.
-
-## Build and verify
-
-Requirements: JDK 17–23 (tested with 21), Python 3.9+, Git, Android SDK platform 35 and Build Tools 35.0.0. The Windows preparation scripts obtain pinned NDK r28b, CMake 3.22.1, llama.cpp, and model files. The Gradle wrapper pins 8.11.1; AGP is 8.9.2.
-
-After configuring `JAVA_HOME`, `ANDROID_HOME`, and a local `sdk.dir`, run:
+Configure the external SDK/JDK/Gradle paths using [development](docs/development.md), then:
 
 ```powershell
-python scripts/prepare-native.py
-python scripts/prepare-judge.py
-python scripts/prepare-bonsai.py
-.\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug
-pwsh -File scripts/start-emulator.ps1
+pwsh -File scripts/build.ps1 -Offline
+pwsh -File scripts/test-chat.ps1
+pwsh -File scripts/test-chat.ps1 -SkipInstall -Generate
+pwsh -File scripts/test-knowledge.ps1 -SkipInstall
 ```
 
-Wait for the emulator to finish booting. Then run the applicable tests in the [developer guide](docs/development.md). First-time preparation needs internet access on the host and several GB of storage. `--offline` builds require an already populated dependency cache. Models are imported separately from the APK.
+The offline flag requires cached dependencies. Read the [emulator runbook](docs/emulator-runbook.md) before any runtime work. Test commands explicitly reject phones; model execution never runs on the host. Tests install synthetic content only for isolated checks and clean up their own inputs.
 
-## Evidence and release
+Publish the local debug artifact with `scripts/publish-artifact.ps1`, then verify it with `-Verify`. See [validation](docs/validation-0.10.md) for the exact filename, hash, checked build and limits. A debug candidate is not a signed production release. Project license, release signing, public distribution and phone trials remain separate work; the existing GitHub remote is private.
 
-The local [Outpost 0.8.1 debug APK](dist/outpost-0.8.1-emulator-debug.apk) has SHA-256 `5551f8047b1746b74e8e04ab0f7778d6c3e08457cc9134000b1c783bd8511676` and a [sidecar](dist/outpost-0.8.1-emulator-debug.apk.sha256). Publication is reproducible with `pwsh -File scripts/publish-artifact.ps1`, which copies the built APK into `dist/` under the version read from `app/build.gradle`, writes an LF sidecar, and supports `-Verify` to re-check an existing artifact against its sidecar. The retained [0.8.0 artifact](dist/outpost-0.8.0-emulator-debug.apk) remains the previous historical build, and the [0.7.0 artifact](dist/brujula-0.7.0-emulator-debug.apk) remains a separate historical build.
-
-`dist/` is ignored by Git; these local artifact links will need a release destination when the repository is published. Current measurements are recorded in the [0.8.1 validation record](docs/validation-0.8.1.md); historical measurements are linked from the [evaluation guide](docs/evaluation.md). The migration report distinguishes fresh English functional checks from historical performance claims.
-
-Dependency provenance is recorded in [THIRD_PARTY.md](THIRD_PARTY.md) and the model/toolchain lock files. The project code license remains to be selected before public distribution. The [historical Spanish README](README.legacy-es.md) is retained for traceability.
-
-The original motivation includes [poidh bounty #31](https://poidh.xyz/mainnet/bounty/31). A **private** GitHub repository exists at `nicoarias81/outpost`; no public repository has been created, no bounty claim has been submitted, and the prototype does not demonstrate that the bounty requirements are met.
+[Dependency notices](THIRD_PARTY.md) and lock files identify the pinned runtime, models, PDF library and toolchain. Historical failed results and the original Brújula implementation remain preserved. [Bounty #31](docs/bounty-31.md) is background motivation; no bounty acceptance or public submission is claimed.

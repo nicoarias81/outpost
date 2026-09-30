@@ -1,6 +1,6 @@
 # Architecture
 
-Status: current implementation plus explicitly proposed module boundaries. Current code: Outpost 0.8.1. The rename and English baseline preserve the 0.7 runtime architecture.
+Status: current implementation plus explicitly proposed module boundaries. Current code: Outpost 0.10.0. The product opens on chat; see [current flow](chat-beta.md). The rename and English baseline preserve the 0.7 runtime architecture.
 
 ## Current application
 
@@ -32,7 +32,8 @@ All Java paths below are under `app/src/main/java/dev/outpost/app/`; all native 
 | File | Responsibility |
 |---|---|
 | [MainActivity.java](../app/src/main/java/dev/outpost/app/MainActivity.java) | UI, document/model selection, worker queues, streaming, lifecycle and memory callbacks |
-| [Library.java](../app/src/main/java/dev/outpost/app/Library.java) | Database, seed notes, imported documents, chunking, normalized lexical retrieval |
+| [Library.java](../app/src/main/java/dev/outpost/app/Library.java) | Schema-3 database/migration, active package versions, imported documents, chunking, lexical retrieval and exact source resolution |
+| `Evidence.java`, `CsvTable.java`, `KnowledgePack.java` | Typed locators, bounded CSV parsing and versioned JSON pack validation |
 | [ResearchPrompt.java](../app/src/main/java/dev/outpost/app/ResearchPrompt.java) | Select up to three passages, bound prompt text, sanitize role delimiters, inspect numeric citations |
 | [ModelStore.java](../app/src/main/java/dev/outpost/app/ModelStore.java) / [JudgeStore.java](../app/src/main/java/dev/outpost/app/JudgeStore.java) | Locked model identity, file import/verification, private model storage |
 | [RuntimeSettings.java](../app/src/main/java/dev/outpost/app/RuntimeSettings.java) | Persist measured runtime settings and the speculation preference |
@@ -48,7 +49,7 @@ All Java paths below are under `app/src/main/java/dev/outpost/app/`; all native 
 
 1. `Library.search()` bounds the question to 1,000 characters and at most 20 normalized terms. It reads at most 500 FTS candidates, ranks them, and returns at most eight passages. Full document bodies are loaded only for selected results and reused per document.
 2. `ResearchPrompt.prepare()` takes up to three hits. Titles are bounded to 140 characters, passages to 850, and the question to 600. These are character limits, not a guarantee of token fit; native context validation remains necessary.
-3. The UI resolves the selected model and its device-specific runtime profile, sets a new request ID, and submits inference on its separate queue. No-hit results do not offer generation.
+3. The UI resolves the selected model and its device-specific runtime profile, sets a new request ID, and submits inference on its separate queue. The evidence-only research path stops on no hits. Product chat uses `ChatPrompt` and may answer from model knowledge without fabricated source claims.
 4. JNI serializes graph execution, selects or loads the model, configures the context, prepares tokens, and reuses only compatible cached prefixes.
 5. The engine emits confirmed text through a callback. Cancellation, deadline, token budget, and EOS bound the request.
 6. The UI checks citation indices against the supplied passages and keeps those passages inspectable. Optional Kev review is another inference operation that switches the session's loaded model.
@@ -94,8 +95,12 @@ The current no-INTERNET manifest remains unchanged. Any IP or remote executor ne
 
 ## Data and failure boundaries
 
-Current database schema version 1 has `documents` and an FTS4 `passages` table. It does not yet have package versions, structured entities, a persistent mission state, or a database upgrade path. The next schema must migrate existing imports rather than reseed and erase them.
+Database schema 3 stores source metadata, document revisions and active/retained package versions alongside FTS4 fragments. The transactional schema-1 upgrade preserves imported IDs/content and rolls back failed alterations. CSV fragments retain record/header relationships; exact locators resolve archived source versions. Pack activation is atomic. See [knowledge-pack v1](knowledge-packs-v1.md). Persistent mission state, structured geographic entities and local tools remain proposed.
 
 Proposed request failures should distinguish `no_coverage`, `no_relevant_evidence`, `missing_context`, `unsupported_capability`, `cancelled`, `deadline`, and `resource_limit`. These are design categories, not existing public error enums. A missing package must not silently trigger unsupported model-memory claims or a network fallback.
 
 The [knowledge contract](knowledge-base.md), [decision register](decisions.md), and [roadmap](roadmap.md) specify the next implementation steps.
+
+## Chat and page-aware documents in 0.10
+
+`ChatStore` persists the conversation separately from the knowledge DB. `ChatPrompt` builds bounded recent context and current evidence; the main send action retrieves then streams an answer. Settings owns import/model/document management. Product startup never loads the test corpus. Schema3 removes only known unchanged legacy seeds. `PdfImporter` extracts bounded page text; Library preserves original page locators plus a private original file, rendered by Android PdfRenderer. See [chat-beta](chat-beta.md) for lifecycle and failure boundaries.

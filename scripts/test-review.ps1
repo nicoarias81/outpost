@@ -20,7 +20,7 @@ Invoke-Adb shell mkdir -p /sdcard/Android/data/dev.outpost.app/files
 Invoke-Adb push $path /sdcard/Android/data/dev.outpost.app/files/test-kev.gguf
 $result = Invoke-Adb shell am instrument -w -e review true dev.outpost.app.test/dev.outpost.app.GenerationInstrumentation | ForEach-Object { Write-Host $_; $_ }
 if (-not ($result -match 'PASS:')) { throw 'Review tests failed; inspect review-failure.json and logcat.' }
-foreach ($name in @('review.png','review-checks.json')) {
+foreach ($name in @('review-checks.json')) {
     $psi=[System.Diagnostics.ProcessStartInfo]::new($adb); $psi.UseShellExecute=$false; $psi.RedirectStandardOutput=$true
     $psi.Arguments = ConvertTo-OutpostArgumentString @('-s',$Serial,'exec-out','run-as','dev.outpost.app','cat',"files/evidence/$name")
     $p=[System.Diagnostics.Process]::Start($psi); $file=[System.IO.File]::Create((Join-Path $project "evidence\$name"))

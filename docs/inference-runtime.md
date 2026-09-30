@@ -1,6 +1,6 @@
 # Inference runtime
 
-Status: implementation reference for Outpost 0.8.1. See [architecture](architecture.md) for the application flow and [optimizations](optimizations.md) for measurements.
+Status: implementation reference for Outpost 0.10.0; native numerical implementation unchanged from 0.8.1. See [architecture](architecture.md) for the application flow and [optimizations](optimizations.md) for measurements.
 
 ## Model identities
 
@@ -33,7 +33,7 @@ One model is loaded in the native session at a time. Selecting another generator
 | AVX-512 VNNI | CPU extensions plus required OS extended-state support | Descriptor only |
 | ARM NEON / DotProd / I8MM | Android ARM HWCAP/HWCAP2 as applicable | Descriptors; custom optimized kernels pending |
 
-The registry separately reports CPU compatibility, compiled implementation, enabled policy, and selected path. Detection never makes a missing implementation executable. Synthetic dispatch checks test policy; they do not exercise unsupported instructions. The actual emulator APK remains x86_64.
+The registry separately reports CPU compatibility, compiled implementation, enabled policy, and selected path. Detection never makes a missing implementation executable. Synthetic dispatch checks test policy; they do not exercise unsupported instructions. The current APK packages both x86_64 and ARM64, with only x86_64 emulator execution verified. ARM uses the available backend/reference paths; custom ARM kernels remain pending.
 
 The measured profile key includes Android fingerprint/API, ABI, feature mask, online CPU count, app version, kernel identifier, and model SHA-256. A different key returns a conservative default. Calibration is a developer action, not an automatic startup benchmark. A future public settings UI needs to expose unsupported or unmeasured states honestly.
 
@@ -55,3 +55,9 @@ The context limit is 2,048 tokens. Normal UI output is bounded to 192 tokens and
 `NativeEngine.Result` records prompt/output tokens; load, preparation, prefill, decode, first-token and total milliseconds; reused tokens and first-logits fingerprint; stop reason; proposed/accepted tokens; verification/rejection windows; plain steps; verification/proposal microseconds; and cost-controller disablement. The JNI result array has 19 numeric slots plus text delivered through callbacks. Any schema change must update both sides and the instrumented consumers.
 
 First token, complete answer, and first useful source are different latency metrics. Current engine timing does not implement the full product metric of time to a useful field outcome. Post-run PSS does not establish peak memory or energy consumption.
+
+## Calibration report semantics in 0.9
+
+`RuntimePolicy` (instrumented-test support) reports `fastestWidth`, `candidateWidth` and `selectedWidth` separately. It selects the narrowest candidate within 5% of the fastest and adopts it only with parity and baseline/selected speedup >1.05. A rejected candidate reports the actual baseline selection, not the candidate's gain. `selectedSpeedup = baselineMedianMs / selectedMedianMs`; time reduction is `100 * (1 - selectedMedianMs / baselineMedianMs)`.
+
+Boundary cases are covered in the knowledge suite. The fresh [width control](../evidence/archive/0.9.0/strata/runtime-batch.json) selects width4 at 1.149x / 12.98% less elapsed time. This improves reporting precision; it is not a newly optimized kernel in 0.9. Formal controller review status is recorded separately in the [handoff](handoff.md).

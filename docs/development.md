@@ -22,14 +22,14 @@ Configure `JAVA_HOME` and `ANDROID_HOME` to installed prerequisites. Create an u
 python scripts/prepare-native.py
 python scripts/prepare-judge.py
 python scripts/prepare-bonsai.py
-.\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug
+pwsh -File scripts/build.ps1
 ```
 
 `prepare-native.py` obtains the pinned backend, NDK/CMake, and Qwen file. `prepare-judge.py` obtains Kev and copies its small head/config assets into the app. `prepare-bonsai.py` obtains both Bonsai profiles. Initial downloads total several GB; extraction, build caches, staged imports, and emulator disks require additional space. These scripts do not install the base SDK/JDK. Inspect [lock files and provenance](../THIRD_PARTY.md) before changing any dependency.
 
 For a populated local cache, append `--offline` to Gradle or use `pwsh -File scripts/build.ps1 -Offline`. The helper reads explicit parameters/environment settings or ignored `.local/developer-settings.json`. Copy [developer-settings.example.json](../developer-settings.example.json) and fill in actual `sdk`, `javaHome`, and optional `gradleHome` paths. An optional `gradleExecutable` can select an already installed Gradle; otherwise the pinned wrapper is used. No sibling-folder fallback exists. The optional `pythonExecutable` records an interpreter when Python is not on PATH; invoke it explicitly for preparation scripts. Python preparation may still access the network; an offline Gradle flag does not make first-time preparation offline.
 
-After a successful build, `pwsh -File scripts/publish-artifact.ps1` copies the built APK into `dist/` under the versioned name read from `app/build.gradle` and writes an LF-terminated `.sha256` sidecar; `pwsh -File scripts/publish-artifact.ps1 -Verify` re-checks an existing artifact against its sidecar. `dist/` is ignored by Git.
+`scripts/build.ps1` verifies the pinned, tracked-clean backend and unchanged production/test inputs across build/lint, then writes ignored `.local/build-receipt.json` with source/APK hashes. Direct Gradle builds do not create that receipt. Publication requires the receipt, matching production inputs and app bytes, and refuses a differing artifact with the same version. After a successful helper build, `pwsh -File scripts/publish-artifact.ps1` copies the built APK into `dist/` under the versioned name read from `app/build.gradle` and writes an LF-terminated `.sha256` sidecar; `pwsh -File scripts/publish-artifact.ps1 -Verify` re-checks an existing artifact against its sidecar. `-Verify` does not require the build APK. `dist/` is ignored by Git. The earlier quota block has been resolved; current publication targets the 0.10 candidate. See [validation](validation-0.10.md).
 
 ## Emulator setup
 
@@ -74,6 +74,8 @@ For `test-runtime.ps1` and `test-speculation.ps1`, `-SkipInstall` skips APK inst
 
 | Change | Commands / phases |
 |---|---|
+| Knowledge/migration/pack/CSV | `test-knowledge.ps1`; unique evidence directory, no LLM required |
+| Contextual evaluation | `test-evaluation.ps1 -Phase baseline -Model bonsai4`; see [runner guide](../eval/README.md) and review results separately |
 | Dot kernel | `test-kernel.ps1 -Phase numeric`, then `-Phase decoder4` |
 | Dispatch | `test-kernel.ps1 -Phase dispatch` plus portability compile |
 | Grouped matrix path | `test-kernel.ps1 -Phase batch`, `test-runtime.ps1 -Phase batch` |
@@ -91,7 +93,7 @@ The English UI exposes model selection/import and speculation in **Status**. Sel
 
 ## Keep regenerated evidence out of behaviour commits
 
-The test scripts rewrite tracked evidence under `evidence/` on every run. Commit that regenerated
+Legacy test scripts rewrite fixed tracked evidence under `evidence/`. New evaluation and knowledge scripts create unique run folders; both new and legacy evidence still require deliberate staging. Commit that regenerated
 evidence separately, as its own `chore(evidence)` commit, and keep it out of the commit that changes
 behaviour.
 
@@ -100,7 +102,7 @@ Mixing thousands of lines of regenerated JSON into a behaviour commit makes the 
 reviewer context budget, and then no review authority is created at all and the range cannot be
 reviewed: the controller never truncates frozen candidate evidence. One behaviour commit plus one
 evidence commit keeps each candidate reviewable. `dist/` and `.local/` are ignored, so published
-artifacts and run archives are unaffected.
+artifacts are ignored, while `evidence/runs` and historical evidence archives are intentionally versioned separately.
 
 ## Troubleshooting
 
@@ -117,3 +119,15 @@ artifacts and run archives are unaffected.
 | Test PASS but answer wrong | Review mission outcome and truncation; execution success is not answer correctness |
 
 See [evaluation](evaluation.md) for evidence interpretation and [migration](repository-migration.md) before moving toolchains, AVDs, or app identifiers.
+
+## Knowledge preparation and English UI
+
+The Library exposes text/Markdown/CSV import and local knowledge-pack import, cooperative cancellation and confirmed removal. Inspect revision/hash/content date and exact record in the source reader. [Format v1](knowledge-packs-v1.md) includes the host pack-builder command, limits and supported lifecycle. Pack metadata does not authenticate its publisher.
+
+Set `$env:PYTHONUTF8='1'` when running Python tools on Windows. The recorded argv round-trip was executed on PowerShell 7; do not attribute it to a tested PS5.1 runtime. Run focused checks sequentially against the dedicated emulator and preserve prior legacy outputs before rerunning.
+
+## 0.10 product workflow and packaging
+
+The current product opens on chat, with documents/models under Settings. Use `scripts/test-chat.ps1` for no-model UI/import/persistence checks and `-Generate` for actual Bonsai 4B conversation. It verifies the successful build receipt, offline Outpost35 identity and app/test APK hashes, and creates a unique run folder. `test-bonsai.ps1 -UiOnly -UiProfile bonsai4` routes to this check; retired search/regenerate UI cache comparisons are replaced by native `test-runtime.ps1 -Phase cache`. Kev and speculation controls are no longer product UI.
+
+The build packages ARM64 and x86_64. No ARM runtime is implied. `pdfbox-lock.json` records PDFBox/BouncyCastle artifact hashes; the helper checks resolved dependency bytes and carries the lock in input fingerprints. Licenses are packaged under assets/licenses. Lint currently reports three warnings in the unused networking helper classes inside upstream BouncyCastle; the application has no INTERNET permission and does not use those helpers. Record actual lint counts rather than claiming a clean report.

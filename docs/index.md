@@ -1,6 +1,6 @@
 # Documentation index
 
-Outpost 0.8.1, version code 10. Maintained English documentation, updated on 2026-09-30. The standalone local repository is `E:\projects\outpost`; historical Brújula evidence is archived separately. Start with the [current validation record](validation-0.8.1.md) for the current build.
+Outpost 0.10.0, version code 12. Maintained English documentation, updated on 2026-09-30. The standalone local repository is `E:\projects\outpost`; historical Brújula evidence is archived separately. Start with the [current validation record](validation-0.10.md) for the current build.
 
 ## Start here when taking over
 
@@ -10,13 +10,13 @@ Read [AGENTS.md](../AGENTS.md) and [the engineering handoff](handoff.md). The la
 
 | Purpose | Read in this order |
 |---|---|
-| Review progress since the handoff | [Independent status review, 2026-09-30](status-review-2026-09-30.md): verified state, recomputed performance, provenance corrections and next work |
+| Review progress since the handoff | [0.10 validation](validation-0.10.md): chat, PDF, packaging and current checks; [0.9 validation](validation-0.9.md): prior implementation and evidence; [earlier independent status review](status-review-2026-09-30.md): pre-0.9 baseline |
 | Understand the project | [Overview](project-overview.md), [current state](current-state.md), [roadmap](roadmap.md) |
 | Define the questions Outpost should answer | [Contextual question families](offline-world-knowledge.md) |
 | Trace the external acceptance bar | [Bounty record (poidh #31)](bounty-31.md) — verbatim bounty text, provenance and requirement trace; the bar is external and not under project control |
-| Define or score the evaluation | [Evaluation protocol](evaluation.md), [fixture manifest](../eval/fixtures-v1.json) (15 fixtures: 11 runnable, 4 blocked), [rubric](../eval/rubric-v1.md), [validator guide](../eval/README.md) — the manifest and rubric define the benchmark; no fixture has been executed as a scored run, and the validator exiting 0 proves internal consistency only |
+| Define or score the evaluation | [Evaluation protocol](evaluation.md), [v3 evidence-only fixtures](../eval/fixtures-v3.json) (15 defined: 12 runnable, 3 blocked), [rubric v2](../eval/rubric-v2.md), [runner/review guide](../eval/README.md); attributed development reviews are linked from validation and do not establish general accuracy |
 | Review new user input | [Personal knowledge and field-work discovery](discovery-2026-09-29.md) |
-| Change the architecture | [Architecture](architecture.md), [knowledge contracts](knowledge-base.md), [decisions](decisions.md) |
+| Change the architecture | [Architecture](architecture.md), [knowledge contracts](knowledge-base.md), [implemented pack format](knowledge-packs-v1.md), [decisions](decisions.md) |
 | Work on performance | [Runtime](inference-runtime.md), [optimizations](optimizations.md), [speculation](speculation.md), [evaluation](evaluation.md) |
 | Operate the emulator | [Emulator runbook](emulator-runbook.md): bootstrap, preflight, models, evidence and recovery |
 | Build or reproduce results | [Development](development.md), [evaluation](evaluation.md), [dependencies](../THIRD_PARTY.md) |
@@ -46,6 +46,7 @@ The following reports remain in their original Spanish to preserve the experimen
 | [0.4](validation-0.4.md) | Bonsai model integration |
 | [0.5](validation-0.5.md) | Ternary dot kernel and prompt/sampling work |
 | [0.6](validation-0.6.md) | Grouped prefill, calibration, and cache |
+| [0.8.1](validation-0.8.1.md) | Grouped width/calibration and source-provenance corrections |
 | [0.8](validation-0.8.md) | 0.8.0 baseline: Outpost rename, English migration, and fresh validation |
 | [0.7](validation-0.7.md) | Context speculation and MTP feasibility |
 | [Two domains](two-domain-design.md), [field use cases](field-use-cases.md), [travel evaluation](travel-evaluation.md) | Earlier product and knowledge design |

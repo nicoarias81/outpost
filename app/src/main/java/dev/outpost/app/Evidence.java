@@ -11,7 +11,7 @@ public record Evidence(Locator locator, String title, String content, String sou
     public record Locator(String documentId, int revision, String kind, int ordinal, String contentSha256) {
         public Locator {
             if (documentId == null || documentId.isBlank() || revision < 1 || ordinal < 1
-                || !(kind.equals("passage") || kind.equals("row"))
+                || !(kind.equals("passage") || kind.equals("row") || kind.equals("page"))
                 || contentSha256 == null || !contentSha256.matches("[0-9a-f]{64}"))
                 throw new IllegalArgumentException("Invalid evidence locator");
         }
@@ -21,7 +21,7 @@ public record Evidence(Locator locator, String title, String content, String sou
                     .put("kind", kind).put("ordinal", ordinal).put("contentSha256", contentSha256);
             } catch (org.json.JSONException error) { throw new IllegalStateException(error); }
         }
-        public String label() { return (kind.equals("row") ? "CSV record " : "Passage ") + ordinal + " · revision " + revision; }
+        public String label() { return (kind.equals("page") ? "Page " : kind.equals("row") ? "CSV record " : "Passage ") + ordinal + " · revision " + revision; }
     }
     static String sha256(String text) {
         try {

@@ -6,19 +6,18 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.pdf.PdfRenderer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.SystemClock;
+import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
 import android.text.InputFilter;
-import android.text.SpannableString;
-import android.text.style.BackgroundColorSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowInsets;
@@ -26,516 +25,368 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.CodingErrorAction;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.json.JSONArray;
 
+/** Chat is the home screen. Local files and model setup live in Settings. */
 public final class MainActivity extends Activity {
-    volatile int cacheReleaseRequests;
-    static final int QUERY_ID = 1001, SEARCH_ID = 1002;
-    static final int GENERATE_ID = 1003, CANCEL_ID = 1004;
-    static final int REVIEW_ID = 1005;
-    static final int SPECULATION_ID=R.id.speculation_toggle;
-    static final int BG = 0xFFF5F3EB, INK = 0xFF223B32, GREEN = 0xFF275D4B;
-    static final int MUTED = 0xFF65716A, LINE = 0xFFDFE3D7, PAPER = 0xFFFFFEF9, PALE = 0xFFE9EEDC;
-    private final ExecutorService worker = Executors.newSingleThreadExecutor();
-    private final ExecutorService inference = Executors.newSingleThreadExecutor();
+    static final int QUERY_ID=1001, SEARCH_ID=1002, GENERATE_ID=1003;
+    static final int BG=0xFFF8F8F3, PAPER=0xFFFFFFFF, INK=0xFF203E34, GREEN=0xFF285F4D,
+        MUTED=0xFF67776F, LINE=0xFFDFE6DD, PALE=0xFFE8F0E6;
+    private final ExecutorService worker=Executors.newSingleThreadExecutor();
+    private final ExecutorService inference=Executors.newSingleThreadExecutor();
     private Library library;
-    private List<Library.Pack> knowledgePacks = List.of();
-    private java.util.concurrent.atomic.AtomicBoolean packCancellation;
-    volatile boolean packImportDone = true;
-    volatile String packImportError = "";
+    private ChatStore chats;
     private ModelStore models;
-    private JudgeStore judgeModels;
     private NativeEngine engine;
-    private long activeRun;
-    private ScrollView pageScroll;
-    volatile boolean answerDone = true;
-    volatile NativeEngine.Result lastAnswer;
-    volatile NativeEngine.Decision lastReview;
-    volatile boolean reviewDone = true;
-    private LinearLayout root, content, nav, results;
+    private LinearLayout root, content, messages;
+    private ScrollView scroll;
     private EditText query;
-    private int tab = 0, generation = 0;
-    private String currentQuery = "";
-    private List<Library.Document> documents = new ArrayList<>();
-    volatile List<Library.Hit> lastHits = List.of();
-    volatile boolean searchDone = false;
-    volatile boolean documentOpen = false;
+    private Button send;
+    private String screen="chat", draft="";
+    private List<Library.Document> documents=List.of();
+    private final List<ChatStore.Turn> turns=new ArrayList<>();
+    private final Map<String,TextView> replyViews=new HashMap<>();
     private boolean ready;
+    private volatile boolean importing;
+    boolean importInProgress(){return importing;}
+    private long activeRun;
+    private volatile boolean closed;
+    private volatile boolean stopRequested;
+    volatile boolean answerDone=true, searchDone=true, documentOpen;
+    volatile int cacheReleaseRequests;
+    volatile NativeEngine.Result lastAnswer;
+    volatile ChatPrompt.Prepared lastPrepared;
+    volatile List<Library.Hit> lastHits=List.of();
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
-        library = new Library(this);
-        models = new ModelStore(this);
-        judgeModels = new JudgeStore(this);
-        engine = new NativeEngine();
-        if (state != null) { currentQuery = state.getString("query", ""); tab = state.getInt("tab", 0); }
-        root = column(); root.setBackgroundColor(BG);
-        root.setOnApplyWindowInsetsListener((v, insets) -> {
-            if (android.os.Build.VERSION.SDK_INT >= 30) {
-                android.graphics.Insets i = insets.getInsets(WindowInsets.Type.systemBars() | WindowInsets.Type.ime());
-                v.setPadding(i.left, i.top, i.right, i.bottom);
-            } else v.setPadding(insets.getSystemWindowInsetLeft(), insets.getSystemWindowInsetTop(), insets.getSystemWindowInsetRight(), insets.getSystemWindowInsetBottom());
+        library=new Library(this); chats=new ChatStore(this); models=new ModelStore(this); engine=new NativeEngine();
+        draft=state==null ? getPreferences(MODE_PRIVATE).getString("draft","") : state.getString("draft","");
+        root=column(); root.setBackgroundColor(BG);
+        root.setOnApplyWindowInsetsListener((v,insets)->{
+            if(android.os.Build.VERSION.SDK_INT>=30) {
+                android.graphics.Insets i=insets.getInsets(WindowInsets.Type.systemBars()|WindowInsets.Type.ime());
+                v.setPadding(i.left,i.top,i.right,i.bottom);
+            } else v.setPadding(insets.getSystemWindowInsetLeft(),insets.getSystemWindowInsetTop(),insets.getSystemWindowInsetRight(),insets.getSystemWindowInsetBottom());
             return insets;
         });
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
-        setContentView(root);
-        TextView loading = text(getString(R.string.ui_preparing_your_library), 20, INK); loading.setPadding(dp(24), dp(48), dp(24), dp(24)); root.addView(loading);
-        worker.execute(() -> {
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR|View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+        setContentView(root); root.addView(text(getString(R.string.chat_loading),16,MUTED));
+        worker.execute(()->{
             try {
-                judgeModels.prepareHead();
-                documents = library.documents();
-                knowledgePacks = library.packs();
-                runOnUiThread(() -> { if (!isDestroyed()) { ready = true; render(); if (!currentQuery.isEmpty() && tab == 0) search(currentQuery); } });
-            } catch (Exception e) { runOnUiThread(() -> loading.setText(R.string.library_error)); }
+                documents=library.documents(); chats.recover(); List<ChatStore.Turn> saved=chats.turns();
+                runOnUiThread(()->{if(!closed){turns.addAll(saved);ready=true;render();}});
+            } catch(Exception e){runOnUiThread(()->{if(!closed){root.removeAllViews();root.addView(text(getString(R.string.chat_load_error),16,INK));}});}
         });
     }
-    @Override protected void onSaveInstanceState(Bundle out) {
-        if (query != null && tab == 0) currentQuery = query.getText().toString();
-        out.putString("query", currentQuery); out.putInt("tab", tab); super.onSaveInstanceState(out);
+    private void rememberDraft() { if(query!=null && screen.equals("chat")) draft=query.getText().toString(); }
+    @Override protected void onSaveInstanceState(Bundle state) {rememberDraft();state.putString("draft",draft);super.onSaveInstanceState(state);}
+    @Override protected void onStop() {
+        rememberDraft();getPreferences(MODE_PRIVATE).edit().putString("draft",draft).apply();
+        stopAnswer();cacheReleaseRequests++;if(!inference.isShutdown())inference.execute(engine::clearCache);super.onStop();
     }
     @Override protected void onDestroy() {
-        if (packCancellation != null) packCancellation.set(true);
-        cancelAnswer();
-        generation++;
-        inference.execute(engine::close); inference.shutdown();
-        worker.execute(library::close); worker.shutdown(); super.onDestroy();
-    }
-    @Override protected void onStop() {
-        cancelAnswer();
-        cacheReleaseRequests++;
-        if(engine!=null && !inference.isShutdown()) inference.execute(engine::clearCache);
-        super.onStop();
+        closed=true;stopAnswer();
+        // Drain retrieval before closing inference; its final reply must be saved before DB close.
+        worker.execute(()->{inference.execute(()->{engine.close();worker.execute(()->{library.close();chats.close();});worker.shutdown();});inference.shutdown();});
+        super.onDestroy();
     }
     @Override public void onTrimMemory(int level) {
         super.onTrimMemory(level);
-        if(level>=TRIM_MEMORY_RUNNING_LOW && engine!=null && !inference.isShutdown()) {
-            cacheReleaseRequests++;
-            cancelAnswer(); inference.execute(engine::clearCache);
-        }
+        if(level>=TRIM_MEMORY_RUNNING_LOW&&!inference.isShutdown()){stopAnswer();cacheReleaseRequests++;inference.execute(engine::clearCache);}
     }
-    private void cancelAnswer() { if (engine != null && activeRun > 0) engine.cancel(activeRun); }
+    private void stopAnswer() {if(activeRun>0){stopRequested=true;engine.cancel(activeRun);}}
+    @Override public void onBackPressed() {
+        if(!screen.equals("chat")){showChat();return;}super.onBackPressed();
+    }
+    void showChat(){screen="chat";render();}
+    void showSettings(){rememberDraft();hideKeyboard();screen="settings";render();}
+    void showDocuments(){rememberDraft();hideKeyboard();screen="documents";render();}
     private void render() {
-        if (!ready || isDestroyed()) return;
-        root.removeAllViews();
-        LinearLayout header = row(); header.setGravity(Gravity.CENTER_VERTICAL); header.setPadding(dp(24), dp(16), dp(24), dp(12));
-        Compass compass = new Compass(this); header.addView(compass, new LinearLayout.LayoutParams(dp(32), dp(32)));
-        TextView name = text(getString(R.string.app_name), 22, INK); name.setTypeface(Typeface.create("serif", Typeface.BOLD));
-        LinearLayout.LayoutParams nameParams = new LinearLayout.LayoutParams(0, -2, 1); nameParams.leftMargin = dp(10); header.addView(name, nameParams);
-        TextView offline = text(getString(R.string.ui_offline), 10, GREEN); offline.setTypeface(null, Typeface.BOLD); offline.setPadding(dp(10), dp(8), dp(10), dp(8)); offline.setBackground(shape(PALE, 20, 0)); header.addView(offline);
+        if(!ready||closed)return;
+        root.removeAllViews();query=null;replyViews.clear();
+        LinearLayout header=row();header.setGravity(Gravity.CENTER_VERTICAL);header.setPadding(dp(16),dp(8),dp(16),dp(8));
+        if(!screen.equals("chat")) {
+            Button back=icon("back",R.string.chat_back);back.setOnClickListener(v->showChat());header.addView(back,new LinearLayout.LayoutParams(dp(48),dp(48)));
+        }
+        LinearLayout name=column();TextView title=text(getString(screen.equals("chat")?R.string.app_name:screen.equals("settings")?R.string.chat_settings:R.string.chat_documents),22,INK);
+        title.setTypeface(Typeface.create("sans-serif",Typeface.BOLD));name.addView(title);
+        if(screen.equals("chat"))name.addView(text(getString(R.string.chat_offline),11,MUTED));
+        header.addView(name,new LinearLayout.LayoutParams(0,-2,1));
+        if(screen.equals("chat")) {
+            Button settings=icon("settings",R.string.chat_settings);settings.setId(R.id.chat_settings);settings.setOnClickListener(v->showSettings());header.addView(settings,new LinearLayout.LayoutParams(dp(48),dp(48)));
+        }
         root.addView(header);
-        ScrollView scroll = new ScrollView(this); scroll.setFillViewport(true); scroll.setClipToPadding(false);
-        pageScroll = scroll;
-        content = column(); content.setPadding(dp(24), dp(12), dp(24), dp(24)); scroll.addView(content);
-        root.addView(scroll, new LinearLayout.LayoutParams(-1, 0, 1));
-        if (tab == 0) explore(); else if (tab == 1) libraryPage(); else statusPage();
-        nav = row(); nav.setPadding(dp(16), dp(8), dp(16), dp(8)); nav.setBackgroundColor(PAPER);
-        String[] labels = {getString(R.string.ui_explore), getString(R.string.ui_library), getString(R.string.ui_status)};
-        for (int i = 0; i < labels.length; i++) {
-            int page = i;
-            Button b = button(labels[i], i == tab ? GREEN : PAPER, i == tab ? Color.WHITE : MUTED);
-            b.setContentDescription(labels[i] + (i == tab ? getString(R.string.ui_selected) : ""));
-            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(0, dp(48), 1); p.setMargins(dp(3), 0, dp(3), 0); nav.addView(b, p);
-            b.setOnClickListener(v -> {
-                if (query != null && tab == 0) currentQuery = query.getText().toString();
-                hideKeyboard(); cancelAnswer(); generation++; tab = page; render();
-                if (tab == 0 && !currentQuery.isEmpty()) search(currentQuery);
-            });
+        scroll=new ScrollView(this);scroll.setFillViewport(true);content=column();content.setPadding(dp(20),dp(16),dp(20),dp(20));scroll.addView(content);root.addView(scroll,new LinearLayout.LayoutParams(-1,0,1));
+        if(screen.equals("chat")){chatPage();composer();}else if(screen.equals("settings"))settingsPage();else documentsPage();
+    }
+    private void chatPage() {
+        messages=content;
+        if(turns.isEmpty()) {
+            LinearLayout empty=column();empty.setGravity(Gravity.CENTER);empty.setPadding(dp(22),dp(60),dp(22),dp(40));
+            TextView title=text(getString(R.string.chat_welcome),26,INK);title.setGravity(Gravity.CENTER);empty.addView(title);
+            TextView hint=text(getString(R.string.chat_welcome_help),14,MUTED);hint.setGravity(Gravity.CENTER);add(empty,hint,14,0);
+            messages.addView(empty,new LinearLayout.LayoutParams(-1,-1));
+        } else for(ChatStore.Turn turn:turns) renderTurn(turn);
+        if(!models.ready()) {
+            Button setup=button(getString(R.string.chat_setup_model),GREEN,Color.WHITE);setup.setOnClickListener(v->showSettings());add(messages,setup,20,48);
         }
-        root.addView(nav);
+        scrollBottom();
     }
-    private void explore() {
-        // Opens directly on the question surface: no landing block and no preset questions.
-        LinearLayout searchCard = column(); searchCard.setPadding(dp(18), dp(18), dp(18), dp(18)); searchCard.setBackground(shape(GREEN, 20, 0)); add(content, searchCard, 24, 0);
-        TextView searchLabel = text(getString(R.string.ui_what_do_you_want_to_understand), 17, Color.WHITE); searchLabel.setTypeface(null, Typeface.BOLD); searchCard.addView(searchLabel);
-        query = new EditText(this); query.setId(QUERY_ID); query.setSingleLine(false); query.setMaxLines(3); query.setTextSize(16); query.setTextColor(INK); query.setHintTextColor(MUTED); query.setHint(getString(R.string.ui_enter_a_question_or_topic)); query.setContentDescription(getString(R.string.ui_question_to_search_in_your_library));
-        query.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
-        query.setImeOptions(EditorInfo.IME_ACTION_SEARCH); query.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1000)});
-        query.setPadding(dp(14), dp(12), dp(14), dp(12)); query.setMinHeight(dp(72)); query.setBackground(shape(PAPER, 12, 0)); query.setText(currentQuery); add(searchCard, query, 14, 0);
-        Button searchButton = button(getString(R.string.ui_search_my_library), 0xFFD8E7AD, INK); searchButton.setId(SEARCH_ID); add(searchCard, searchButton, 12, dp(50));
-        searchButton.setOnClickListener(v -> search(query.getText().toString()));
-        query.setOnEditorActionListener((v, action, event) -> { if (action == EditorInfo.IME_ACTION_SEARCH) { search(query.getText().toString()); return true; } return false; });
-        results = column(); add(content, results, 20, 0);
-        LinearLayout note = column(); note.setPadding(dp(16), dp(16), dp(16), dp(16)); note.setBackground(shape(PALE, 14, 0)); add(content, note, 20, 0);
-        TextView title = text(documents.size() + getString(R.string.ui_documents_available_offline), 14, INK); title.setTypeface(null, Typeface.BOLD); note.addView(title);
-        add(note, text(models.ready() ? getString(R.string.ui_local_experimental_ai_installed_search_for_a_topic_and_draft_an_a) : getString(R.string.ui_search_without_installing_anything_else_to_draft_with_ai_import_a), 12, MUTED), 6, 0);
+    private void renderTurn(ChatStore.Turn turn) {
+        TextView question=text(turn.question(),16,INK);question.setTextIsSelectable(true);question.setPadding(dp(16),dp(12),dp(16),dp(12));question.setBackground(shape(PALE,18,0));
+        LinearLayout.LayoutParams questionParams=new LinearLayout.LayoutParams(-2,-2);questionParams.gravity=Gravity.END;questionParams.leftMargin=dp(28);questionParams.topMargin=dp(16);messages.addView(question,questionParams);
+        TextView answer=text(turn.answer().isBlank()&&turn.status().equals("pending")?getString(R.string.chat_thinking):turn.answer(),16,INK);
+        answer.setTextIsSelectable(true);answer.setPadding(0,dp(8),dp(12),0);add(messages,answer,8,0);replyViews.put(turn.id(),answer);
+        String note=switch(turn.status()) {
+            case "interrupted","canceled"->getString(R.string.chat_stopped);
+            case "limit"->getString(R.string.chat_limit);
+            case "error"->getString(R.string.chat_failed);
+            default->"";
+        };
+        if(!note.isEmpty())add(messages,text(note,12,MUTED),8,0);
+        if(!turn.sources().isEmpty()) {
+            Button sources=button(getString(R.string.chat_sources),BG,GREEN);sources.setOnClickListener(v->showSources(turn.sources()));add(messages,sources,6,44);
+        }
+        View spacer=new View(this);add(messages,spacer,12,8);
     }
-    void search(String question) {
-        if (!ready) return;
-        cancelAnswer();
-        currentQuery = question.trim(); hideKeyboard();
-        if (Library.terms(currentQuery).isEmpty()) { query.setError(getString(R.string.ui_enter_a_topic_for_example_solar_energy)); return; }
-        query.setError(null); int request = ++generation; String requestedQuery = currentQuery;
-        searchDone = false; results.removeAllViews(); results.addView(text(getString(R.string.ui_searching_on_your_device), 14, MUTED));
-        worker.execute(() -> {
-            long start = SystemClock.elapsedRealtime();
+    private void composer() {
+        LinearLayout bar=row();bar.setGravity(Gravity.BOTTOM);bar.setPadding(dp(16),dp(8),dp(16),dp(12));bar.setBackgroundColor(BG);
+        query=new EditText(this);query.setId(QUERY_ID);query.setHint(R.string.chat_message);query.setContentDescription(getString(R.string.chat_message));
+        query.setTextSize(16);query.setTextColor(INK);query.setHintTextColor(MUTED);query.setMaxLines(4);query.setMinHeight(dp(52));
+        query.setInputType(android.text.InputType.TYPE_CLASS_TEXT|android.text.InputType.TYPE_TEXT_FLAG_CAP_SENTENCES|android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        query.setImeOptions(EditorInfo.IME_ACTION_SEND);query.setFilters(new InputFilter[]{new InputFilter.LengthFilter(600)});query.setText(draft);
+        query.setPadding(dp(16),dp(12),dp(16),dp(12));query.setBackground(shape(PAPER,24,LINE));bar.addView(query,new LinearLayout.LayoutParams(0,-2,1));
+        send=icon(answerDone?"send":"stop",answerDone?R.string.chat_send:R.string.chat_stop);send.setId(SEARCH_ID);
+        LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(dp(52),dp(52));p.leftMargin=dp(8);bar.addView(send,p);
+        send.setOnClickListener(v->{if(!answerDone)stopAnswer();else sendMessage(query.getText().toString());});
+        query.setOnEditorActionListener((v,action,event)->{if(action==EditorInfo.IME_ACTION_SEND&&answerDone){sendMessage(query.getText().toString());return true;}return false;});
+        root.addView(bar);
+    }
+    void sendMessage(String question) {
+        question=question.trim();if(!ready||!answerDone||importing||question.isEmpty())return;
+        if(!models.ready()){rememberDraft();showSettings();Toast.makeText(this,R.string.chat_setup_model,Toast.LENGTH_LONG).show();return;}
+        hideKeyboard();draft="";getPreferences(MODE_PRIVATE).edit().remove("draft").apply();
+        long request=engine.request();activeRun=request;stopRequested=false;answerDone=false;searchDone=false;lastAnswer=null;
+        ChatStore.Turn pending=new ChatStore.Turn(UUID.randomUUID().toString(),question,"","pending",List.of());
+        List<ChatStore.Turn> history=List.copyOf(turns);turns.add(pending);render();ModelStore model=models;
+        worker.execute(()->{
             try {
-                List<Library.Hit> hits = library.search(requestedQuery); long millis = SystemClock.elapsedRealtime() - start;
-                runOnUiThread(() -> {
-                    if (isDestroyed() || tab != 0 || request != generation) return;
-                    lastHits = hits; searchDone = true; showHits(hits, millis);
+                chats.save(pending);List<Library.Hit> found=library.search(pending.question());
+                if(found.isEmpty()&&!history.isEmpty())found=library.search(pending.question()+" "+history.get(history.size()-1).question());
+                ChatPrompt.Prepared prepared=ChatPrompt.prepare(pending.question(),history,found);lastPrepared=prepared;
+                List<ChatStore.Source> sources=new ArrayList<>();
+                for(Library.Hit hit:prepared.sources())sources.add(new ChatStore.Source(hit.document().title(),library.evidence(hit).locator()));
+                ChatStore.Turn withSources=new ChatStore.Turn(pending.id(),pending.question(),"","pending",List.copyOf(sources));chats.save(withSources);
+                lastHits=prepared.sources();searchDone=true;
+                if(closed||stopRequested){finishTurn(withSources.withAnswer("","canceled"),null,request);return;}
+                runOnUiThread(()->replaceTurn(withSources));
+                inference.execute(()->{
+                    try {
+                        RuntimeSettings.Profile p=RuntimeSettings.load(this,model.spec());
+                        ActivityManager.MemoryInfo m=new ActivityManager.MemoryInfo();((ActivityManager)getSystemService(ACTIVITY_SERVICE)).getMemoryInfo(m);
+                        engine.configure(new NativeEngine.Configuration(p.threads(),p.promptThreads(),p.batch(),!m.lowMemory,p.width(),0,true));
+                        NativeEngine.Result result=engine.generateWithSampling(request,model.file(),ChatPrompt.SYSTEM,prepared.user(),192,model.spec().sampled(),(value,count)->runOnUiThread(()->{
+                            if(!closed&&activeRun==request){ChatStore.Turn streaming=withSources.withAnswer(value,"pending");replaceTurn(streaming);TextView view=replyViews.get(pending.id());if(view!=null){view.setText(value);scrollBottom();}}
+                        }));
+                        String answer=ResearchPrompt.hasAnswerContent(result.text())?result.text():getString(R.string.chat_no_answer);
+                        String status=result.reason()==2?"canceled":result.reason()==1||result.reason()==3?"limit":"complete";
+                        finishTurn(withSources.withAnswer(answer,status),result,request);
+                    }catch(Exception error){finishTurn(withSources.withAnswer("","error"),null,request);}
                 });
-            } catch (Exception e) { runOnUiThread(() -> { if (!isDestroyed() && tab == 0 && request == generation) { searchDone = true; results.removeAllViews(); results.addView(text(getString(R.string.ui_could_not_complete_the_search_try_again), 14, MUTED)); } }); }
+            }catch(Exception error){searchDone=true;finishTurn(pending.withAnswer("","error"),null,request);}
         });
     }
-    private void showHits(List<Library.Hit> hits, long millis) {
-        results.removeAllViews();
-        label(results, hits.isEmpty() ? getString(R.string.ui_no_matches) : getString(R.string.ui_passages_found) + millis + getString(R.string.ui_ms));
-        if (hits.isEmpty()) {
-            add(results, text(getString(R.string.ui_your_library_does_not_cover_this_topic_yet), 23, INK), 12, 0);
-            add(results, text(getString(R.string.ui_try_more_specific_words_or_import_a_document_in_library_no_answer), 14, MUTED), 10, 0); return;
-        }
-        add(results, text(getString(R.string.ui_read_the_passages_or_draft_an_answer_from_the_first_three_always_), 12, MUTED), 8, 0);
-        answerCard(hits);
-        for (int i = 0; i < hits.size(); i++) {
-            Library.Hit hit = hits.get(i);
-            LinearLayout card = column(); card.setPadding(dp(16), dp(16), dp(16), dp(16)); card.setBackground(shape(PAPER, 14, LINE));
-            TextView caption = text("[" + (i + 1) + "]  " + hit.document().category().toUpperCase(Locale.ROOT), 10, GREEN); caption.setTypeface(null, Typeface.BOLD); card.addView(caption);
-            TextView title = text(hit.document().title(), 19, INK); title.setTypeface(Typeface.create("serif", Typeface.BOLD)); add(card, title, 8, 0);
-            TextView passage = text(hit.passage(), 14, INK); passage.setMaxLines(5); passage.setEllipsize(android.text.TextUtils.TruncateAt.END); add(card, passage, 8, 0);
-            add(card, text(hit.document().source() + getString(R.string.ui_read_passage) + hit.number() + getString(R.string.ui_and_context), 11, MUTED), 12, 0);
-            card.setFocusable(true); card.setOnClickListener(v -> openDocument(hit.document(), hit.passage(), hit.number())); add(results, card, 12, 0);
-        }
-    }
-    private void answerCard(List<Library.Hit> hits) {
-        LinearLayout card = column(); card.setPadding(dp(16), dp(16), dp(16), dp(16)); card.setBackground(shape(PALE, 14, 0)); add(results, card, 14, 0);
-        label(card, getString(R.string.local_ai_draft));
-        add(card,text(models.spec().name(),11,MUTED),6,0);
-        TextView output = text(models.ready() ? getString(R.string.ui_the_test_model_can_make_mistakes_drafting_happens_here_offline) : getString(R.string.ui_the_test_model_is_missing_import_it_in_status_the_passages_remain), 14, INK); add(card, output, 10, 0);
-        TextView metrics = text("", 11, MUTED); add(card, metrics, 8, 0);
-        Button generate = button(models.ready() ? getString(R.string.ui_draft_from_sources) : getString(R.string.ui_open_status_to_import_a_model), GREEN, Color.WHITE); generate.setId(GENERATE_ID); add(card, generate, 12, dp(50));
-        Button cancel = button(getString(R.string.stop_generation), PAPER, GREEN); cancel.setId(CANCEL_ID); cancel.setVisibility(View.GONE); add(card, cancel, 8, dp(48));
-        TextView reviewOutput = text("", 12, MUTED); add(card, reviewOutput, 10, 0);
-        Button review = button(getString(R.string.review_first), PAPER, GREEN); review.setId(REVIEW_ID); review.setVisibility(View.GONE); add(card, review, 8, dp(52));
-        review.setOnClickListener(v -> {
-            if (!judgeModels.ready()) { generation++; tab = 2; render(); return; }
-            if (lastAnswer == null || lastAnswer.text().isEmpty()) return;
-            String claim = EvidenceReview.firstClaim(lastAnswer.text());
-            String evidence = EvidenceReview.evidence(ResearchPrompt.prepare(currentQuery, hits).sources());
-            int screen = generation; long request = engine.request(); activeRun = request;
-            reviewDone = false; lastReview = null; review.setEnabled(false); generate.setEnabled(false);
-            reviewOutput.setText(getString(R.string.review_working, claim));
-            cancel.setVisibility(View.VISIBLE); cancel.setEnabled(true); cancel.setText(R.string.stop_review);
-            cancel.setOnClickListener(stop -> { engine.cancel(request); cancel.setEnabled(false); cancel.setText(R.string.stopping); });
-            inference.execute(() -> {
-                try {
-                    NativeEngine.Decision result = engine.judge(request, judgeModels.file(), judgeModels.head(), evidence, EvidenceReview.instruction(claim), EvidenceReview.OPTIONS);
-                    runOnUiThread(() -> {
-                        if(isDestroyed() || generation!=screen || activeRun!=request) return;
-                        lastReview=result; reviewDone=true; activeRun=0;
-                        reviewOutput.setText(getString(R.string.review_result, claim, EvidenceReview.display(result)));
-                        review.setEnabled(true); generate.setEnabled(true); cancel.setVisibility(View.GONE);
-                    });
-                } catch(Exception e) { runOnUiThread(() -> {
-                    if(isDestroyed() || generation!=screen || activeRun!=request) return;
-                    reviewDone=true; activeRun=0; reviewOutput.setText(R.string.review_error);
-                    review.setEnabled(true); generate.setEnabled(true); cancel.setVisibility(View.GONE);
-                }); }
-            });
-        });
-        generate.setOnClickListener(v -> {
-            if (!models.ready()) { cancelAnswer(); generation++; tab = 2; render(); return; }
-            ResearchPrompt.Prepared prepared = ResearchPrompt.prepare(currentQuery, hits);
-            if (prepared.sources().isEmpty()) return;
-            cancelAnswer();
-            int screen = generation; long request = engine.request(); activeRun = request;
-            answerDone = false; lastAnswer = null;
-            ModelStore generationModel = models;
-            review.setVisibility(View.GONE); reviewOutput.setText("");
-            generate.setEnabled(false); cancel.setEnabled(true); cancel.setVisibility(View.VISIBLE); cancel.setText(R.string.stop_generation);
-            output.setText(R.string.preparing_model); metrics.setText("");
-            pageScroll.post(() -> pageScroll.smoothScrollTo(0, results.getTop()));
-            cancel.setOnClickListener(stop -> { engine.cancel(request); cancel.setEnabled(false); cancel.setText(R.string.stopping); });
-            inference.execute(() -> {
-                try {
-                    RuntimeSettings.Profile profile=RuntimeSettings.load(this,generationModel.spec());
-                    ActivityManager.MemoryInfo memory=new ActivityManager.MemoryInfo();
-                    ((ActivityManager)getSystemService(ACTIVITY_SERVICE)).getMemoryInfo(memory);
-                    boolean speculative=RuntimeSettings.speculationEnabled(this,generationModel.spec());
-                    engine.configure(new NativeEngine.Configuration(profile.threads(),profile.promptThreads(),profile.batch(),!memory.lowMemory,profile.width(),speculative ? 3:0,true));
-                    NativeEngine.Result result = engine.generateWithSampling(request, generationModel.file(), ResearchPrompt.SYSTEM, prepared.user(), 192, generationModel.spec().sampled(), (value, count) -> runOnUiThread(() -> {
-                        if (!isDestroyed() && generation == screen && activeRun == request) { output.setText(value); metrics.setText(getResources().getQuantityString(R.plurals.generated_tokens, count, count)); }
-                    }));
-                    runOnUiThread(() -> {
-                        if (isDestroyed() || generation != screen || activeRun != request) return;
-                        lastAnswer = result; answerDone = true; activeRun = 0;
-                        output.setText(ResearchPrompt.hasAnswerContent(result.text()) ? result.text() : getString(R.string.no_explanation));
-                        String ending = result.reason() == 2 ? getString(R.string.ui_canceled) : result.reason() == 3 ? getString(R.string.ui_time_limit_reached) : result.reason() == 1 ? getString(R.string.ui_length_limit_reached) : getString(R.string.ui_generation_complete);
-                        String first = result.firstTokenMs() < 0 ? getString(R.string.ui_no_first_token) : String.format(Locale.getDefault(), getString(R.string.ui_first_token_1f_s), result.firstTokenMs()/1000.0);
-                        metrics.setText(getResources().getQuantityString(R.plurals.generation_metrics, (int)result.tokens(), ending, result.tokens(), first, result.totalMs()/1000.0, ResearchPrompt.citationNote(result.text(), prepared.sources().size())));
-                        generate.setEnabled(true); generate.setText(R.string.regenerate); cancel.setVisibility(View.GONE);
-                        if(result.reason()==0 && ResearchPrompt.hasAnswerContent(result.text())) { review.setText(judgeModels.ready() ? R.string.review_first : R.string.import_reviewer); review.setVisibility(View.VISIBLE); }
-                    });
-                } catch (Exception e) { runOnUiThread(() -> {
-                    if (isDestroyed() || generation != screen || activeRun != request) return;
-                    answerDone = true; activeRun = 0; output.setText(R.string.generation_error); generate.setEnabled(true); cancel.setVisibility(View.GONE);
-                }); }
-            });
+    private void finishTurn(ChatStore.Turn turn,NativeEngine.Result result,long request) {
+        worker.execute(()->{
+            try{chats.save(turn);}catch(Exception e){android.util.Log.e("Outpost","Could not save response",e);}
+            runOnUiThread(()->{if(!closed&&activeRun==request){rememberDraft();replaceTurn(turn);lastAnswer=result;answerDone=true;activeRun=0;render();}});
         });
     }
-    private void libraryPage() {
-        label(content, getString(R.string.ui_your_local_collection)); heading(getString(R.string.ui_library));
-        add(content, text(getString(R.string.ui_sources_you_can_read_even_without_coverage), 15, MUTED), 8, 0);
-        Button importButton = button(getString(R.string.ui_import_text_or_markdown), GREEN, Color.WHITE); add(content, importButton, 20, dp(52));
-        importButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT); intent.setType("*/*"); intent.addCategory(Intent.CATEGORY_OPENABLE);
-            startActivityForResult(intent, 10);
-        });
-        add(content, text(getString(R.string.ui_utf_8_txt_and_md_files_up_to_1_mib_choose_a_file_stored_on_your_d), 12, MUTED), 8, 0);
-        Button importPack = button(getString(R.string.import_knowledge_pack), GREEN, Color.WHITE);
-        importPack.setId(R.id.import_knowledge_pack); add(content, importPack, 12, dp(52));
-        importPack.setEnabled(packCancellation == null);
-        importPack.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT); intent.setType("*/*");
-            intent.addCategory(Intent.CATEGORY_OPENABLE); startActivityForResult(intent, 13);
-        });
-        add(content, text(getString(R.string.knowledge_pack_help), 12, MUTED), 8, 0);
-        if (packCancellation != null) {
-            Button stop = button(getString(R.string.cancel_pack_import), PAPER, GREEN);
-            stop.setId(R.id.cancel_pack_import); add(content, stop, 8, dp(48));
-            stop.setOnClickListener(v -> { if (packCancellation != null) packCancellation.set(true); stop.setEnabled(false); });
-        }
-        for (Library.Pack pack : knowledgePacks) {
-            status(pack.title(), getResources().getQuantityString(R.plurals.pack_details, pack.documents(), pack.version(), pack.documents(), pack.language(), pack.source(), pack.license()));
-            Button remove = button(getString(R.string.remove_pack), PAPER, GREEN); add(content, remove, 8, dp(48));
-            remove.setOnClickListener(v -> new AlertDialog.Builder(this).setTitle(getString(R.string.remove_pack))
-                .setMessage(getString(R.string.remove_pack_confirmation, pack.title()))
-                .setNegativeButton(R.string.cancel_action, null)
-                .setPositiveButton(R.string.remove_pack, (dialog, which) -> {
-                    cancelAnswer(); generation++;
-                    worker.execute(() -> {
-                        try {
-                            library.removePack(pack.id());
-                            List<Library.Document> updated = library.documents(); List<Library.Pack> packs = library.packs();
-                            runOnUiThread(() -> { if (!isDestroyed()) { documents=updated; knowledgePacks=packs; render(); } });
-                        } catch (Exception error) { runOnUiThread(() -> {
-                            if (!isDestroyed()) Toast.makeText(this, R.string.pack_remove_error, Toast.LENGTH_LONG).show();
-                        }); }
-                    });
-                }).show());
-        }
-        for (Library.Document d : documents) {
-            LinearLayout card = column(); card.setBackground(shape(PAPER, 14, LINE)); card.setPadding(dp(16), dp(16), dp(16), dp(16));
-            label(card, d.category().toUpperCase(Locale.ROOT));
-            TextView title = text(d.title(), 19, INK); title.setTypeface(Typeface.create("serif", Typeface.BOLD)); add(card, title, 7, 0);
-            add(card, text(d.source(), 11, MUTED), 8, 0); card.setFocusable(true); card.setOnClickListener(v -> openDocument(d, null)); add(content, card, 14, 0);
-        }
-        add(content, text(getString(R.string.ui_the_six_included_notes_are_educational_demo_summaries_with_refere), 12, MUTED), 20, 0);
+    private void replaceTurn(ChatStore.Turn value){for(int i=0;i<turns.size();i++)if(turns.get(i).id().equals(value.id())){turns.set(i,value);break;}}
+    private void settingsPage() {
+        TextView intro=text(getString(R.string.chat_settings_help),14,MUTED);add(content,intro,0,0);
+        Button imports=button(getString(R.string.chat_import),GREEN,Color.WHITE);imports.setId(R.id.chat_import);imports.setEnabled(answerDone&&!importing);imports.setOnClickListener(v->pickDocument());add(content,imports,24,52);
+        add(content,text(getString(R.string.chat_import_help),12,MUTED),8,0);
+        Button files=button(getResources().getQuantityString(R.plurals.chat_document_count,documents.size(),documents.size()),PAPER,INK);files.setId(R.id.chat_documents);files.setOnClickListener(v->showDocuments());add(content,files,12,52);
+        label(content,getString(R.string.chat_model));
+        add(content,text(modelName(models.spec()),17,INK),8,0);add(content,text(getString(models.ready()?R.string.chat_model_ready:R.string.chat_model_missing),13,MUTED),6,0);
+        Button model=button(getString(R.string.chat_manage_model),PAPER,GREEN);model.setId(R.id.chat_model);model.setEnabled(answerDone&&!importing);model.setOnClickListener(v->manageModel());add(content,model,12,48);
+        label(content,getString(R.string.chat_conversation));
+        Button clear=button(getString(R.string.chat_new),PAPER,INK);clear.setId(R.id.chat_new);clear.setEnabled(answerDone&&!importing);
+        clear.setOnClickListener(v->new AlertDialog.Builder(this).setTitle(R.string.chat_new).setMessage(R.string.chat_clear_confirm)
+            .setNegativeButton(R.string.cancel_action,null).setPositiveButton(R.string.chat_clear,(d,w)->worker.execute(()->{chats.clear();runOnUiThread(()->{if(!closed){turns.clear();draft="";showChat();}});})).show());add(content,clear,12,48);
+        if(importing)add(content,text(getString(R.string.chat_importing),14,GREEN),16,0);
+        if(!answerDone)add(content,text(getString(R.string.chat_wait_reply),13,MUTED),16,0);
     }
-    void openDocument(Library.Document d, String passage) { openDocument(d, passage, 0); }
-    void openDocument(Library.Document d, String passage, int ordinal) {
-        documentOpen = false;
-        worker.execute(() -> {
+    private static String modelName(ModelStore.Spec spec){return spec==ModelStore.BONSAI4?"Bonsai 4B":spec==ModelStore.BONSAI17?"Bonsai 1.7B":"Qwen 1.5B";}
+    private void manageModel() {
+        String[] names=ModelStore.PROFILES.stream().map(MainActivity::modelName).toArray(String[]::new);int selected=ModelStore.PROFILES.indexOf(models.spec());
+        new AlertDialog.Builder(this).setTitle(R.string.chat_choose_model).setSingleChoiceItems(names,selected,(dialog,index)->{
+            ModelStore.Spec spec=ModelStore.PROFILES.get(index);ModelStore.select(this,spec);models=new ModelStore(this,spec);dialog.dismiss();render();
+        }).setNeutralButton(R.string.chat_import_model,(d,w)->{
+            new AlertDialog.Builder(this).setTitle(R.string.chat_import_model).setMessage(getString(R.string.chat_model_file,models.spec().filename()))
+                .setNegativeButton(R.string.cancel_action,null).setPositiveButton(R.string.chat_choose_file,(dialog,which)->pick(11)).show();
+        }).setNegativeButton(R.string.chat_done,null).show();
+    }
+    private void documentsPage() {
+        if(documents.isEmpty()){add(content,text(getString(R.string.chat_no_documents),22,INK),16,0);add(content,text(getString(R.string.chat_no_documents_help),14,MUTED),12,0);}
+        Button addFile=button(getString(R.string.chat_import),GREEN,Color.WHITE);addFile.setEnabled(answerDone&&!importing);addFile.setOnClickListener(v->pickDocument());add(content,addFile,16,50);
+        for(Library.Document document:documents) {
+            LinearLayout card=column();card.setPadding(dp(16),dp(12),dp(16),dp(12));card.setBackground(shape(PAPER,16,LINE));
+            add(card,text(document.title(),17,INK),0,0);
+            Button open=button(getString(R.string.chat_open),PAPER,GREEN);open.setOnClickListener(v->openDocument(document,null));add(card,open,8,44);
+            Button remove=button(getString(R.string.chat_remove),PAPER,MUTED);remove.setEnabled(answerDone&&!importing);remove.setOnClickListener(v->confirmRemove(document));add(card,remove,0,44);add(content,card,16,0);
+        }
+    }
+    private void confirmRemove(Library.Document document) {
+        worker.execute(()->{
             try {
-                Library.Document full = d.body().isEmpty() ? library.load(d.id()) : d;
-                Library.Metadata metadata = library.metadata(full.id());
-                Evidence selected = ordinal > 0 ? library.evidence(new Library.Hit(full, passage, ordinal, 0)) : null;
-                runOnUiThread(() -> { if (!isDestroyed()) { showDocument(full, passage, metadata, selected); documentOpen = true; } });
-            } catch (Exception e) { runOnUiThread(() -> { if (!isDestroyed()) Toast.makeText(this, getString(R.string.ui_could_not_open_the_document), Toast.LENGTH_SHORT).show(); }); }
+                Library.Metadata metadata=library.metadata(document.id());
+                String message=getString(metadata.packageId()==null?R.string.chat_remove_confirm:R.string.chat_remove_pack_confirm,document.title());
+                runOnUiThread(()->{if(!closed)new AlertDialog.Builder(this).setTitle(R.string.chat_remove).setMessage(message)
+                    .setNegativeButton(R.string.cancel_action,null).setPositiveButton(R.string.chat_remove,(d,w)->worker.execute(()->{
+                        try{if(metadata.packageId()!=null)library.removePack(metadata.packageId());else library.removeDocument(document.id());refreshDocuments();}
+                        catch(Exception e){error(getString(R.string.chat_remove_error));}
+                    })).show();});
+            }catch(Exception e){error(getString(R.string.chat_remove_error));}
         });
     }
-    private void showDocument(Library.Document d, String passage, Library.Metadata metadata, Evidence selected) {
-        ScrollView scroll = new ScrollView(this); LinearLayout body = column(); body.setPadding(dp(24), dp(16), dp(24), dp(24)); scroll.addView(body);
-        body.addView(text(d.source(), 13, GREEN)); add(body, text(getString(R.string.ui_added) + d.date(), 12, MUTED), 6, 0);
-        if (!d.url().isEmpty()) add(body, text(getString(R.string.ui_demo_note_written_from_the_reference_the_date_records_incorporati), 12, MUTED), 10, 0);
-        add(body, text(getString(R.string.source_identity, metadata.revision(), metadata.language(),
-            metadata.sha256().substring(0, 12)), 12, MUTED), 8, 0);
-        add(body, text(getString(R.string.source_content_date,
-            metadata.contentDate().isEmpty() ? getString(R.string.unknown_value) : metadata.contentDate()), 12, MUTED), 6, 0);
-        if (!metadata.active()) add(body, text(getString(R.string.archived_source_version), 12, MUTED), 6, 0);
-        if (selected != null) {
-            add(body, text(selected.locator().label(), 12, GREEN), 8, 0);
-            if (metadata.format().equals("csv")) {
-                TextView record = text(selected.content(), 14, INK); record.setTextIsSelectable(true);
-                record.setBackgroundColor(PALE); add(body, record, 10, 0);
-                add(body, text(getString(R.string.original_csv_below), 12, MUTED), 8, 0);
-            }
-        }
-        SpannableString fullText = new SpannableString(d.body());
-        if (passage != null) {
-            int offset = d.body().indexOf(passage);
-            if (offset >= 0) fullText.setSpan(new BackgroundColorSpan(PALE), offset, offset + passage.length(), 0);
-        }
-        TextView documentText = text("", 16, INK); documentText.setText(fullText); documentText.setTextIsSelectable(true); documentText.setLineSpacing(dp(4), 1); add(body, documentText, 20, 0);
-        if (!d.url().isEmpty()) { TextView url = text(getString(R.string.ui_original_reference_requires_internet_outside_this_app) + d.url(), 11, MUTED); url.setTextIsSelectable(true); add(body, url, 20, 0); }
-        new AlertDialog.Builder(this).setTitle(d.title()).setView(scroll).setPositiveButton(getString(R.string.ui_back), null).show();
-    }
-    private void statusPage() {
-        label(content, getString(R.string.ui_on_this_device)); heading(getString(R.string.ui_prototype_status));
-        status(getString(R.string.ui_connection), getString(R.string.ui_the_app_does_not_request_internet_permission_local_search_and_rea));
-        status(getString(R.string.ui_library), documents.size() + getString(R.string.ui_documents_sqlite_fts4_index_with_word_and_prefix_search));
-        status(getString(R.string.ui_local_compute),NativeEngine.hardwareSummary()+getString(R.string.ui_selection_combines_cpu_operating_system_and_included_kernels_emul));
-        RuntimeSettings.Profile runtime=RuntimeSettings.load(this,models.spec());
-        status(getString(R.string.ui_runtime_profile),(runtime.measured() ? getString(R.string.ui_measured_on_this_device) : getString(R.string.ui_initial_configuration))+" · "+runtime.promptThreads()+getString(R.string.ui_prompt_threads)+runtime.threads()+getString(R.string.ui_decode_threads_prompt_batch)+runtime.batch()+getString(R.string.ui_groups_of)+runtime.width()+getString(R.string.ui_token_s_prefix_cache_while_the_app_is_visible));
-        if(models.spec()==ModelStore.BONSAI4) {
-            boolean speculative=RuntimeSettings.speculationEnabled(this,models.spec());
-            status(getString(R.string.ui_experimental_speculation),getString(R.string.ui_may_speed_up_text_that_repeats_sources_and_slow_down_other_answer));
-            Button toggle=button(speculative ? getString(R.string.ui_disable_context_speculation) : getString(R.string.ui_enable_context_speculation),PAPER,GREEN);
-            toggle.setId(SPECULATION_ID); add(content,toggle,8,dp(56));
-            toggle.setOnClickListener(v->{ cancelAnswer(); generation++; RuntimeSettings.setSpeculation(this,models.spec(),!speculative); render(); });
-        }
-        status(getString(R.string.ui_ai_engine), models.spec().name() + "\n" + (models.ready() ? getString(R.string.ui_model_verified_and_installed_experimental_local_drafting_with_lla) : String.format(Locale.getDefault(),getString(R.string.ui_model_awaiting_import_0f_mb_its_sha_256_is_verified_before_use),models.spec().bytes()/1000000.0)) + getString(R.string.ui_this_model_tests_the_integration_it_does_not_establish_that_the_b));
-        for(ModelStore.Spec profile:ModelStore.PROFILES) {
-            ModelStore candidate=new ModelStore(this,profile);
-            Button choose=button((profile.id().equals(models.spec().id()) ? "✓ " : "")+profile.name(),PAPER,GREEN); add(content,choose,8,dp(52));
-            choose.setOnClickListener(v -> { cancelAnswer(); generation++; ModelStore.select(this,profile); models=candidate; render(); });
-        }
-        Button importModel = button(models.ready() ? getString(R.string.ui_reimport_test_model) : getString(R.string.ui_import_test_model_gguf), GREEN, Color.WHITE); add(content, importModel, 12, dp(52));
-        importModel.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT); intent.setType("*/*"); intent.addCategory(Intent.CATEGORY_OPENABLE); startActivityForResult(intent, 11);
-        });
-        add(content, text(getString(R.string.ui_exact_file) + models.spec().filename() + getString(R.string.ui_download_it_beforehand_as_described_in_the_readme_this_app_does_n), 12, MUTED), 8, 0);
-        status(getString(R.string.ui_evidence_reviewer), JudgeStore.NAME + "\n" + (judgeModels.ready() ? getString(R.string.ui_installed_and_verified_classifies_one_claim_against_the_retrieved) : getString(R.string.ui_awaiting_import_812_mb_the_auxiliary_classifier_is_included_in_th)) + getString(R.string.ui_optional_first_claim_review_it_does_not_verify_the_full_draft_or_));
-        Button importJudge = button(getString(R.string.ui_import_kev_reviewer_gguf), GREEN, Color.WHITE); add(content, importJudge, 12, dp(52));
-        importJudge.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT); intent.setType("*/*"); intent.addCategory(Intent.CATEGORY_OPENABLE); startActivityForResult(intent, 12);
-        });
-        add(content, text(getString(R.string.ui_exact_file) + JudgeStore.FILENAME + getString(R.string.ui_community_alternative_inspired_by_jev_evaluated_locally_without_c), 12, MUTED), 8, 0);
-        ActivityManager.MemoryInfo memory = new ActivityManager.MemoryInfo();
-        ((ActivityManager)getSystemService(ACTIVITY_SERVICE)).getMemoryInfo(memory);
-        status(getString(R.string.ui_environment), android.os.Build.MODEL + " · Android " + android.os.Build.VERSION.RELEASE + getString(R.string.ui_system_ram) + String.format(Locale.getDefault(), "%.1f GiB", memory.totalMem / 1073741824.0) + getString(R.string.ui_the_emulator_does_not_represent_pixel_speed_or_power_consumption));
-        Button check = button(getString(R.string.ui_run_20_checks), GREEN, Color.WHITE); add(content, check, 20, dp(52));
-        TextView output = text(getString(R.string.ui_retrieval_checks_on_the_demo_collection_they_do_not_measure_ai_qu), 13, MUTED); add(content, output, 10, 0);
-        check.setOnClickListener(v -> {
-            check.setEnabled(false); output.setText(R.string.checking);
-            worker.execute(() -> {
-                int passed = 0; long start = SystemClock.elapsedRealtime(); StringBuilder failures = new StringBuilder();
-                // Isolated in-memory fixture so user imports cannot change the baseline.
-                try (Library fixture = new Library(this, null)) {
-                    for (RetrievalChecks.Case c : RetrievalChecks.CASES) {
-                        List<Library.Hit> found = fixture.search(c.query());
-                        boolean ok = c.expectedId() == null ? found.isEmpty() : found.stream().limit(3).anyMatch(h -> h.document().id().equals(c.expectedId()));
-                        if (ok) passed++; else failures.append("\n• ").append(c.query());
-                    }
-                    String message = passed + getString(R.string.ui_20_checks_passed) + (SystemClock.elapsedRealtime() - start) + getString(R.string.ui_ms_expected_match_among_the_first_three_passages) + failures + getString(R.string.ui_functional_check_only_not_an_ai_benchmark);
-                    runOnUiThread(() -> { if (!isDestroyed()) { output.setText(message); check.setEnabled(true); } });
-                } catch (Exception e) { runOnUiThread(() -> { if (!isDestroyed()) { output.setText(R.string.check_error); check.setEnabled(true); } }); }
+    private void showSources(List<ChatStore.Source> sources) {
+        String[] labels=new String[sources.size()];for(int i=0;i<labels.length;i++)labels[i]="["+(i+1)+"] "+sources.get(i).title();
+        new AlertDialog.Builder(this).setTitle(R.string.chat_sources).setItems(labels,(d,index)->{
+            Evidence.Locator locator=sources.get(index).locator();worker.execute(()->{
+                try{Evidence evidence=library.resolve(locator);Library.Document document=library.load(locator.documentId());Library.Metadata metadata=library.metadata(document.id());runOnUiThread(()->{if(!closed)showDocument(document,evidence.content(),metadata,locator.ordinal());});}
+                catch(Exception e){error(getString(R.string.chat_source_removed));}
             });
-        });
+        }).setNegativeButton(R.string.chat_done,null).show();
     }
-    private void status(String title, String description) {
-        LinearLayout card = column(); card.setPadding(dp(16), dp(16), dp(16), dp(16)); card.setBackground(shape(PAPER, 14, LINE));
-        TextView t = text(title, 16, INK); t.setTypeface(null, Typeface.BOLD); card.addView(t); add(card, text(description, 13, MUTED), 8, 0); add(content, card, 14, 0);
+    void openDocument(Library.Document document,String passage){openDocument(document,passage,0);}
+    void openDocument(Library.Document document,String passage,int ordinal) {
+        documentOpen=false;worker.execute(()->{try{Library.Document full=library.load(document.id());Library.Metadata metadata=library.metadata(full.id());runOnUiThread(()->{if(!closed){showDocument(full,passage,metadata,ordinal);documentOpen=true;}});}catch(Exception e){error(getString(R.string.chat_source_removed));}});
     }
-    @Override protected void onActivityResult(int request, int result, Intent data) {
-        super.onActivityResult(request, result, data);
-        if (request == 13 && result == RESULT_OK && data != null && data.getData() != null) { importPack(data.getData()); return; }
-        if (request == 12 && result == RESULT_OK && data != null && data.getData() != null) { importJudge(data.getData()); return; }
-        if (request == 11 && result == RESULT_OK && data != null && data.getData() != null) { importModel(data.getData()); return; }
-        if (request != 10 || result != RESULT_OK || data == null || data.getData() == null) return;
-        Uri uri = data.getData(); Toast.makeText(this, getString(R.string.ui_importing_document), Toast.LENGTH_SHORT).show();
-        worker.execute(() -> {
+    private void showDocument(Library.Document document,String passage,Library.Metadata metadata,int ordinal) {
+        if(metadata.format().equals("pdf")){showPdf(document,Math.max(1,ordinal));return;}
+        ScrollView view=new ScrollView(this);LinearLayout body=column();body.setPadding(dp(20),dp(12),dp(20),dp(20));view.addView(body);
+        add(body,text(document.source(),12,MUTED),0,0);
+        if(!metadata.active())add(body,text(getString(R.string.chat_archived_source),12,MUTED),8,0);
+        if(ordinal>0){String label=(metadata.format().equals("csv")?"CSV record ":"Passage ")+ordinal;add(body,text(label,13,GREEN),12,0);if(passage!=null)add(body,text(passage,16,INK),8,0);}
+        add(body,text(getString(R.string.source_content_date,metadata.contentDate().isEmpty()?getString(R.string.unknown_value):metadata.contentDate()),12,MUTED),12,0);
+        TextView original=text(document.body(),15,INK);original.setTextIsSelectable(true);add(body,original,18,0);
+        add(body,text(getString(R.string.source_identity,metadata.revision(),metadata.language(),metadata.sha256().substring(0,12)),11,MUTED),18,0);
+        new AlertDialog.Builder(this).setTitle(document.title()).setView(view).setPositiveButton(R.string.chat_done,null).show();
+    }
+    private void showPdf(Library.Document document,int requestedPage) {
+        try {
+            JSONArray pages=new JSONArray(document.body());int[] page={Math.min(requestedPage,pages.length())};
+            LinearLayout body=column();body.setPadding(dp(16),dp(8),dp(16),dp(12));LinearLayout controls=row();
+            Button prev=button(getString(R.string.chat_previous),PAPER,GREEN),next=button(getString(R.string.chat_next),PAPER,GREEN);TextView number=text("",13,INK);number.setGravity(Gravity.CENTER);
+            controls.addView(prev,new LinearLayout.LayoutParams(0,dp(48),1));controls.addView(number,new LinearLayout.LayoutParams(0,dp(48),1));controls.addView(next,new LinearLayout.LayoutParams(0,dp(48),1));body.addView(controls);
+            ScrollView viewport=new ScrollView(this);LinearLayout pageBody=column();viewport.addView(pageBody);body.addView(viewport,new LinearLayout.LayoutParams(-1,dp(390)));
+            ImageView image=new ImageView(this);image.setId(R.id.chat_pdf_image);image.setAdjustViewBounds(true);pageBody.addView(image,new LinearLayout.LayoutParams(-1,-2));TextView previewState=text(getString(R.string.chat_pdf_loading),12,MUTED);add(pageBody,previewState,8,0);TextView extracted=text("",14,INK);extracted.setTextIsSelectable(true);add(pageBody,extracted,12,0);
+            AlertDialog dialog=new AlertDialog.Builder(this).setTitle(document.title()).setView(body).setPositiveButton(R.string.chat_done,null).create();
+            Bitmap[] shown={null};int[] revision={0};
+            Runnable display=()->{
+                int target=page[0],request=++revision[0];number.setText(getString(R.string.chat_pdf_page,target,pages.length()));prev.setEnabled(target>1);next.setEnabled(target<pages.length());
+                String value=pages.optString(target-1,"");extracted.setText(value.isBlank()?getString(R.string.chat_pdf_no_text):value);image.setImageDrawable(null);previewState.setText(R.string.chat_pdf_loading);
+                if(shown[0]!=null){shown[0].recycle();shown[0]=null;}
+                worker.execute(()->{
+                    try(ParcelFileDescriptor fd=ParcelFileDescriptor.open(library.pdfFile(document.id()),ParcelFileDescriptor.MODE_READ_ONLY);PdfRenderer renderer=new PdfRenderer(fd);PdfRenderer.Page pdfPage=renderer.openPage(target-1)) {
+                        int width=900,height=Math.max(1,Math.min(1800,Math.round(width*(float)pdfPage.getHeight()/pdfPage.getWidth())));
+                        Bitmap bitmap=Bitmap.createBitmap(width,height,Bitmap.Config.ARGB_8888);bitmap.eraseColor(Color.WHITE);pdfPage.render(bitmap,null,null,PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+                        runOnUiThread(()->{if(!closed&&dialog.isShowing()&&revision[0]==request){shown[0]=bitmap;image.setImageBitmap(bitmap);previewState.setText("");}else bitmap.recycle();});
+                    }catch(Exception e){android.util.Log.e("Outpost","PDF preview failed",e);runOnUiThread(()->{if(dialog.isShowing()&&revision[0]==request)previewState.setText(R.string.chat_pdf_preview_missing);});}
+                });
+            };
+            prev.setOnClickListener(v->{page[0]--;display.run();});next.setOnClickListener(v->{page[0]++;display.run();});
+            dialog.setOnDismissListener(d->{revision[0]++;image.setImageDrawable(null);if(shown[0]!=null)shown[0].recycle();});dialog.show();display.run();documentOpen=true;
+        }catch(Exception e){error(getString(R.string.chat_source_removed));}
+    }
+    private void pickDocument(){pick(10);}
+    private void pick(int request) {
+        Intent intent=new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*");
+        if(request==10)intent.putExtra(Intent.EXTRA_MIME_TYPES,new String[]{"text/plain","text/csv","text/markdown","application/pdf","application/octet-stream"});
+        startActivityForResult(intent,request);
+    }
+    @Override protected void onActivityResult(int request,int result,Intent data) {
+        super.onActivityResult(request,result,data);if(result!=RESULT_OK||data==null||data.getData()==null)return;
+        if(request==10)importDocument(data.getData());else if(request==11)importModel(data.getData());
+    }
+    void importDocument(Uri uri) {
+        if(importing||!answerDone)return;importing=true;render();
+        worker.execute(()->{
+            File staged=null;
             try {
-                String name = getString(R.string.ui_document_txt);
-                try (Cursor c = getContentResolver().query(uri, new String[]{OpenableColumns.DISPLAY_NAME}, null, null, null)) {
-                    if (c != null && c.moveToFirst()) name = c.getString(0);
+                String name="document";try(Cursor c=getContentResolver().query(uri,new String[]{OpenableColumns.DISPLAY_NAME},null,null,null)){if(c!=null&&c.moveToFirst()&&!c.isNull(0))name=c.getString(0);}
+                if(uri.getScheme()!=null&&uri.getScheme().equals("file"))name=new File(uri.getPath()).getName();
+                String ext=name.toLowerCase(Locale.ROOT);boolean pdf=ext.endsWith(".pdf");
+                if(!pdf&&!ext.endsWith(".txt")&&!ext.endsWith(".md")&&!ext.endsWith(".markdown")&&!ext.endsWith(".csv"))throw new IllegalArgumentException(getString(R.string.chat_supported_files));
+                if(pdf) {
+                    staged=File.createTempFile("outpost-import-",".pdf",getCacheDir());
+                    try(InputStream input=getContentResolver().openInputStream(uri);FileOutputStream output=new FileOutputStream(staged)) {copyBounded(input,output,PdfImporter.MAX_BYTES);}
+                    List<String> pages=PdfImporter.extract(this,staged);library.importPdf(name,pages,staged);
+                } else {
+                    ByteArrayOutputStream bytes=new ByteArrayOutputStream();try(InputStream input=getContentResolver().openInputStream(uri)){copyBounded(input,bytes,Library.MAX_IMPORT_BYTES);}
+                    String body=StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT).onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes.toByteArray())).toString();
+                    if(ext.endsWith(".csv"))library.importCsv(name,body);else library.importText(name,body);
                 }
-                String lowerName = name == null ? "" : name.toLowerCase(Locale.ROOT);
-                if (!lowerName.endsWith(".txt") && !lowerName.endsWith(".md") && !lowerName.endsWith(".markdown") && !lowerName.endsWith(".csv")) throw new IllegalArgumentException(getString(R.string.ui_choose_a_utf_8_txt_or_md_file));
-                byte[] bytes;
-                try (InputStream in = getContentResolver().openInputStream(uri); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-                    if (in == null) throw new IllegalArgumentException(getString(R.string.ui_could_not_open_the_file));
-                    byte[] buffer = new byte[8192]; int n;
-                    while ((n = in.read(buffer)) != -1) {
-                        if (out.size() + n > Library.MAX_IMPORT_BYTES) throw new IllegalArgumentException(getString(R.string.ui_the_file_exceeds_the_1_mib_limit));
-                        out.write(buffer, 0, n);
-                    }
-                    bytes = out.toByteArray();
-                }
-                String text = StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT).onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes)).toString();
-                Library.Document d = lowerName.endsWith(".csv") ? library.importCsv(name, text) : library.importText(name, text); List<Library.Document> updated = library.documents();
-                runOnUiThread(() -> { if (!isDestroyed()) { documents = updated; tab = 1; generation++; render(); Toast.makeText(this, getString(R.string.ui_saved) + d.title(), Toast.LENGTH_SHORT).show(); } });
-            } catch (Exception e) { runOnUiThread(() -> { if (!isDestroyed()) new AlertDialog.Builder(this).setTitle(getString(R.string.ui_could_not_import)).setMessage(e instanceof IllegalArgumentException ? e.getMessage() : getString(R.string.ui_check_that_it_is_a_utf_8_text_file_accessible_on_the_device)).setPositiveButton(getString(R.string.ui_ok), null).show(); }); }
+                refreshDocuments();runOnUiThread(()->{if(!closed)Toast.makeText(this,R.string.chat_imported,Toast.LENGTH_SHORT).show();});
+            }catch(Exception e){error(e instanceof IllegalArgumentException?e.getMessage():getString(R.string.chat_import_error));}
+            finally{if(staged!=null&&staged.exists())staged.delete();runOnUiThread(()->{importing=false;if(!closed)render();});}
         });
     }
-    void importPack(Uri uri) {
-        if (packCancellation != null) return;
-        cancelAnswer(); generation++;
-        java.util.concurrent.atomic.AtomicBoolean canceled = new java.util.concurrent.atomic.AtomicBoolean();
-        packCancellation = canceled; packImportDone = false; packImportError = ""; tab = 1; render();
-        worker.execute(() -> {
-            try (InputStream input = getContentResolver().openInputStream(uri); ByteArrayOutputStream output = new ByteArrayOutputStream()) {
-                if (input == null) throw new IllegalArgumentException(getString(R.string.ui_could_not_open_the_file));
-                byte[] buffer = new byte[8192]; int count;
-                while ((count = input.read(buffer)) != -1) {
-                    if (canceled.get()) throw new java.util.concurrent.CancellationException();
-                    if (output.size() + count > KnowledgePack.MAX_BYTES) throw new IllegalArgumentException(getString(R.string.pack_too_large));
-                    output.write(buffer, 0, count);
-                }
-                String json = StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
-                    .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(output.toByteArray())).toString();
-                Library.InstallResult installed = library.installPack(json, canceled::get);
-                List<Library.Document> updated = library.documents(); List<Library.Pack> packs = library.packs();
-                runOnUiThread(() -> {
-                    packCancellation = null; packImportDone = true;
-                    if (!isDestroyed()) {
-                        documents = updated; knowledgePacks = packs; generation++; render();
-                        Toast.makeText(this, getResources().getQuantityString(R.plurals.pack_import_success, installed.documents(), installed.documents()), Toast.LENGTH_LONG).show();
-                    }
-                });
-            } catch (Exception error) {
-                runOnUiThread(() -> {
-                    packCancellation = null; packImportDone = true;
-                    packImportError = error instanceof java.util.concurrent.CancellationException
-                        ? getString(R.string.pack_import_canceled) : (error instanceof IllegalArgumentException
-                        ? error.getMessage() : getString(R.string.pack_import_error));
-                    if (!isDestroyed()) { render(); new AlertDialog.Builder(this).setTitle(R.string.pack_import_title)
-                        .setMessage(packImportError).setPositiveButton(R.string.ui_ok, null).show(); }
-                });
-            }
-        });
+    static void copyBounded(InputStream input,java.io.OutputStream output,int max)throws Exception {
+        if(input==null)throw new IllegalArgumentException("The file could not be opened.");byte[] buffer=new byte[8192];int n,total=0;
+        while((n=input.read(buffer))!=-1){if(n>max-total)throw new IllegalArgumentException("This file exceeds the import size limit.");output.write(buffer,0,n);total+=n;}
     }
     private void importModel(Uri uri) {
-        ModelStore destination = models;
-        Toast.makeText(this, getString(R.string.ui_copying_and_verifying_the_model), Toast.LENGTH_LONG).show();
-        worker.execute(() -> {
-            try (InputStream input = getContentResolver().openInputStream(uri)) {
-                if (input == null) throw new IllegalArgumentException(getString(R.string.ui_could_not_open_the_model));
-                destination.install(input, bytes -> { });
-                runOnUiThread(() -> { if (!isDestroyed()) { generation++; tab = 2; render(); Toast.makeText(this, getString(R.string.ui_model_verified_you_can_now_draft_from_sources), Toast.LENGTH_LONG).show(); } });
-            } catch (Exception e) { runOnUiThread(() -> { if (!isDestroyed()) new AlertDialog.Builder(this).setTitle(getString(R.string.ui_could_not_import_the_model)).setMessage(e instanceof IllegalArgumentException ? e.getMessage() : getString(R.string.ui_check_the_file_and_available_storage)).setPositiveButton(getString(R.string.ui_ok), null).show(); }); }
-        });
+        if(importing||!answerDone)return;importing=true;ModelStore destination=models;render();
+        worker.execute(()->{try(InputStream input=getContentResolver().openInputStream(uri)){if(input==null)throw new IllegalArgumentException(getString(R.string.chat_import_error));destination.install(input,n->{});runOnUiThread(()->{if(!closed)Toast.makeText(this,R.string.chat_model_ready,Toast.LENGTH_LONG).show();});}
+            catch(Exception e){error(e instanceof IllegalArgumentException?e.getMessage():getString(R.string.chat_model_error));}
+            finally{runOnUiThread(()->{importing=false;if(!closed)render();});}});
     }
-    private void importJudge(Uri uri) {
-        Toast.makeText(this,getString(R.string.ui_copying_and_verifying_kev),Toast.LENGTH_LONG).show();
-        worker.execute(() -> {
-            try(InputStream input=getContentResolver().openInputStream(uri)) {
-                if(input==null) throw new IllegalArgumentException(getString(R.string.ui_could_not_open_the_file));
-                judgeModels.install(input);
-                runOnUiThread(() -> { if(!isDestroyed()) { generation++; tab=2; render(); Toast.makeText(this,getString(R.string.ui_reviewer_installed),Toast.LENGTH_SHORT).show(); } });
-            } catch(Exception e) { runOnUiThread(() -> { if(!isDestroyed()) new AlertDialog.Builder(this).setTitle(getString(R.string.ui_could_not_import_kev)).setMessage(e instanceof IllegalArgumentException ? e.getMessage() : getString(R.string.ui_check_the_file_and_available_storage)).setPositiveButton(getString(R.string.ui_ok),null).show(); }); }
-        });
-    }
-    private void hideKeyboard() { View f = getCurrentFocus(); if (f != null) ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(f.getWindowToken(), 0); }
-    private void heading(String title) { TextView h = text(title, 32, INK); h.setTypeface(Typeface.create("serif", Typeface.NORMAL)); add(content, h, 10, 0); }
-    private void label(LinearLayout parent, String title) { TextView t = text(title, 10, GREEN); t.setLetterSpacing(.1f); t.setTypeface(null, Typeface.BOLD); parent.addView(t); }
-    private LinearLayout column() { LinearLayout l = new LinearLayout(this); l.setOrientation(LinearLayout.VERTICAL); return l; }
-    private LinearLayout row() { LinearLayout l = new LinearLayout(this); l.setOrientation(LinearLayout.HORIZONTAL); return l; }
-    private TextView text(String value, int size, int color) { TextView t = new TextView(this); t.setText(value); t.setTextSize(size); t.setTextColor(color); t.setLineSpacing(dp(2), 1); return t; }
-    private Button button(String value, int bg, int fg) { Button b = new Button(this); b.setText(value); b.setTextSize(13); b.setAllCaps(false); b.setTextColor(fg); b.setTypeface(null, Typeface.BOLD); b.setMinHeight(dp(48)); b.setPadding(dp(10), 0, dp(10), 0); b.setBackground(shape(bg, 12, 0)); b.setStateListAnimator(null); return b; }
-    private GradientDrawable shape(int color, int radius, int stroke) { GradientDrawable d = new GradientDrawable(); d.setColor(color); d.setCornerRadius(dp(radius)); if (stroke != 0) d.setStroke(dp(1), stroke); return d; }
-    private void add(LinearLayout parent, View view, int top, int height) { LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-1, height > 0 ? height : -2); p.topMargin = dp(top); parent.addView(view, p); }
-    private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
-
-    private static final class Compass extends View {
-        private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        private final Path p = new Path();
-        Compass(Context context) { super(context); setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO); }
-        @Override protected void onDraw(Canvas c) {
-            float w = getWidth(), h = getHeight(); paint.setColor(GREEN); c.drawCircle(w/2, h/2, w/2, paint);
-            p.reset(); p.moveTo(w*.5f,h*.15f); p.lineTo(w*.62f,h*.42f); p.lineTo(w*.85f,h*.5f); p.lineTo(w*.58f,h*.62f); p.lineTo(w*.5f,h*.85f); p.lineTo(w*.38f,h*.58f); p.lineTo(w*.15f,h*.5f); p.lineTo(w*.42f,h*.38f); p.close(); paint.setColor(PAPER); c.drawPath(p,paint);
+    private void refreshDocuments(){List<Library.Document> updated=library.documents();runOnUiThread(()->{if(!closed){documents=updated;render();}});}
+    private void error(String value){runOnUiThread(()->{if(!closed)new AlertDialog.Builder(this).setTitle(R.string.chat_could_not_complete).setMessage(value).setPositiveButton(R.string.chat_done,null).show();});}
+    private void hideKeyboard(){View view=getCurrentFocus();if(view!=null)((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(),0);}
+    private void scrollBottom(){if(scroll!=null&&screen.equals("chat"))scroll.post(()->scroll.fullScroll(View.FOCUS_DOWN));}
+    private LinearLayout column(){LinearLayout layout=new LinearLayout(this);layout.setOrientation(LinearLayout.VERTICAL);return layout;}
+    private LinearLayout row(){LinearLayout layout=new LinearLayout(this);layout.setOrientation(LinearLayout.HORIZONTAL);return layout;}
+    private TextView text(String value,int size,int color){TextView view=new TextView(this);view.setText(value);view.setTextSize(size);view.setTextColor(color);view.setLineSpacing(dp(3),1);return view;}
+    private Button button(String value,int bg,int fg){Button b=new Button(this);b.setText(value);b.setTextSize(14);b.setAllCaps(false);b.setTextColor(fg);b.setMinHeight(dp(48));b.setPadding(dp(12),0,dp(12),0);b.setBackground(shape(bg,14,0));return b;}
+    private Button icon(String kind,int description){Button button=new IconButton(this,kind);button.setContentDescription(getString(description));button.setBackground(shape(kind.equals("settings")||kind.equals("back")?BG:GREEN,26,0));return button;}
+    private void label(LinearLayout parent,String value){TextView label=text(value,13,MUTED);label.setTypeface(null,Typeface.BOLD);add(parent,label,28,0);}
+    private GradientDrawable shape(int color,int radius,int border){GradientDrawable shape=new GradientDrawable();shape.setColor(color);shape.setCornerRadius(dp(radius));if(border!=0)shape.setStroke(dp(1),border);return shape;}
+    private void add(LinearLayout parent,View view,int top,int height){LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,height>0?dp(height):-2);p.topMargin=dp(top);parent.addView(view,p);}
+    private int dp(int value){return Math.round(value*getResources().getDisplayMetrics().density);}
+    private static final class IconButton extends Button {
+        private final String kind;private final Paint paint=new Paint(Paint.ANTI_ALIAS_FLAG);
+        IconButton(Context context,String kind){super(context);this.kind=kind;setMinWidth(0);setMinHeight(0);setPadding(0,0,0,0);}
+        @Override protected void onDraw(Canvas canvas){super.onDraw(canvas);float x=getWidth()/2f,y=getHeight()/2f,s=getWidth()/4f;paint.setColor(kind.equals("settings")||kind.equals("back")?GREEN:Color.WHITE);paint.setStrokeWidth(getWidth()/24f);paint.setStyle(Paint.Style.STROKE);paint.setStrokeCap(Paint.Cap.ROUND);
+            if(kind.equals("settings")){canvas.drawCircle(x,y,s*.7f,paint);canvas.drawCircle(x,y,s*.22f,paint);for(int i=0;i<8;i++){double a=i*Math.PI/4;canvas.drawLine(x+(float)Math.cos(a)*s*.72f,y+(float)Math.sin(a)*s*.72f,x+(float)Math.cos(a)*s,y+(float)Math.sin(a)*s,paint);}}
+            else if(kind.equals("back")){canvas.drawLine(x+s*.6f,y,x-s*.6f,y,paint);canvas.drawLine(x-s*.6f,y,x,y-s*.6f,paint);canvas.drawLine(x-s*.6f,y,x,y+s*.6f,paint);}
+            else if(kind.equals("stop")){paint.setStyle(Paint.Style.FILL);canvas.drawRoundRect(x-s*.5f,y-s*.5f,x+s*.5f,y+s*.5f,s*.1f,s*.1f,paint);}
+            else{canvas.drawLine(x,y+s*.7f,x,y-s*.7f,paint);canvas.drawLine(x,y-s*.7f,x-s*.6f,y-s*.1f,paint);canvas.drawLine(x,y-s*.7f,x+s*.6f,y-s*.1f,paint);}
         }
+        @Override public boolean performClick(){return super.performClick();}
     }
 }

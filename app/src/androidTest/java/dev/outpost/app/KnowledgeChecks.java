@@ -84,7 +84,7 @@ final class KnowledgeChecks {
                 old.setVersion(1);
             }
             try (Library migrated = new Library(test.getTargetContext(), legacyName)) {
-                check(migrated.getReadableDatabase().getVersion() == 2, "Schema 1 upgrades to 2");
+                check(migrated.getReadableDatabase().getVersion() == 3, "Schema 1 upgrades to 3");
                 check(migrated.documents().size() == 1, "Migration does not reseed or duplicate user data");
                 check(migrated.load("user-kept").body().equals(retained), "Migration preserves source bytes and document identity");
                 check(migrated.search("PX-77").size() == 1, "Legacy FTS rows survive migration");
@@ -130,7 +130,7 @@ final class KnowledgeChecks {
             rejects(() -> CsvTable.parse("id,value\nA,\"x\"tail"), "Characters after closing quote rejected");
             try (Library library = new Library(test.getTargetContext(), null)) {
                 rejects(() -> library.importText("invalid-unicode.txt", new String(new char[]{(char)0xD800})), "Malformed Unicode cannot hash as replacement text");
-                check(library.documents().size()==6, "Invalid Unicode import leaves the library unchanged");
+                check(library.documents().isEmpty(), "Invalid Unicode import leaves the library unchanged");
                 Library.Document csv = library.importCsv("records.csv", quoted);
                 List<Library.Hit> rowHits = library.search("line two");
                 Library.Hit row = rowHits.stream().filter(h -> h.document().id().equals(csv.id())).findFirst().orElseThrow();
@@ -142,8 +142,8 @@ final class KnowledgeChecks {
                 String v1 = pack("test-pack", 1, "F-28"), v2 = pack("test-pack", 2, "F-91");
                 Library.InstallResult first = library.installPack(v1, () -> false);
                 check(first.changed() && library.packs().size() == 1, "Pack is activated after validation");
-                check(library.documents().size() == 9, "Pack documents coexist with seed and user imports");
-                check(!library.installPack(v1, () -> false).changed() && library.documents().size() == 9, "Identical version import is idempotent");
+                check(library.documents().size() == 3, "Pack documents coexist with user imports in an otherwise empty library");
+                check(!library.installPack(v1, () -> false).changed() && library.documents().size() == 3, "Identical version import is idempotent");
                 Library.Hit oldHit = library.search("F-28").get(0);
                 Evidence old = library.evidence(oldHit);
                 check(old.contentDate().equals("2026-09-20") && old.language().equals("en"), "Source date and language are explicit metadata");
@@ -166,7 +166,7 @@ final class KnowledgeChecks {
 
                 rejects(() -> KnowledgePack.parse(v1.replace("\"id\":\"test-pack\"", "\"id\":\"../escape\"")), "Unsafe-looking package IDs rejected");
                 library.removePack("test-pack");
-                check(library.packs().isEmpty() && library.documents().size() == 7, "Removing a pack preserves unrelated documents");
+                check(library.packs().isEmpty() && library.documents().size() == 1, "Removing a pack preserves unrelated documents");
                 rejects(() -> library.resolve(old.locator()), "Removed source is unavailable, not rebound to another version");
             }
             // Exercise the real Activity import path and reader without running a model.
@@ -174,29 +174,20 @@ final class KnowledgeChecks {
             activity = launched;
             for (int i=0;i<100 && launched.findViewById(MainActivity.QUERY_ID)==null;i++) SystemClock.sleep(100);
             test.waitForIdleSync();
-            File input = new File(test.getTargetContext().getCacheDir(), uiId + ".json");
-            Files.write(input.toPath(), pack(uiId, 1, "ZX-904").getBytes(StandardCharsets.UTF_8));
-            test.runOnMainSync(() -> launched.importPack(Uri.fromFile(input)));
-            for (int i=0;i<200 && !launched.packImportDone;i++) SystemClock.sleep(50);
-            test.waitForIdleSync();
-            check(launched.packImportDone && launched.packImportError.isEmpty(), "Activity imports a verified knowledge pack");
-            check(launched.findViewById(R.id.import_knowledge_pack) != null, "English pack import action is visible");
+            try(Library installed=new Library(test.getTargetContext())) { installed.installPack(pack(uiId,1,"ZX-904"),()->false); }
+            test.runOnMainSync(launched::showSettings);test.waitForIdleSync();
+            check(launched.findViewById(R.id.chat_import)!=null,"English document import is reachable through Settings");
             screenshot("knowledge-library.png");
-            test.runOnMainSync(() -> click(launched, launched.getString(R.string.ui_explore)));
-            test.runOnMainSync(() -> { ((EditText)launched.findViewById(MainActivity.QUERY_ID)).setText("ZX-904");
-                launched.findViewById(MainActivity.SEARCH_ID).performClick(); });
-            for (int i=0;i<100 && !launched.searchDone;i++) SystemClock.sleep(50);
-            check(launched.lastHits.stream().anyMatch(h -> h.document().id().contains(uiId)), "UI search retrieves installed pack content");
-            Library.Hit hit = launched.lastHits.stream().filter(h -> h.document().id().contains(uiId)).findFirst().orElseThrow();
+            Library.Hit hit;
+            try(Library installed=new Library(test.getTargetContext())) { hit=installed.search("ZX-904").stream().filter(h->h.document().id().contains(uiId)).findFirst().orElseThrow(); }
+            check(hit.document().id().contains(uiId),"Retrieval resolves installed pack content without a mock product corpus");
             test.runOnMainSync(() -> launched.openDocument(hit.document(), hit.passage(), hit.number()));
             for(int i=0;i<100 && !launched.documentOpen;i++) SystemClock.sleep(50);
             check(launched.documentOpen, "Reader opens exact source locator and metadata");
             screenshot("knowledge-source.png");
             test.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK); test.waitForIdleSync();
-            test.runOnMainSync(() -> { ((EditText)launched.findViewById(MainActivity.QUERY_ID)).setText("OP-1");
-                launched.findViewById(MainActivity.SEARCH_ID).performClick(); });
-            for (int i=0;i<100 && !launched.searchDone;i++) SystemClock.sleep(50);
-            Library.Hit csvHit=launched.lastHits.stream().filter(h -> h.document().id().contains(uiId) && h.document().id().endsWith("/issues") && h.number()==2).findFirst().orElseThrow();
+            Library.Hit csvHit;
+            try(Library installed=new Library(test.getTargetContext())) { csvHit=installed.search("OP-1").stream().filter(h->h.document().id().contains(uiId)&&h.document().id().endsWith("/issues")&&h.number()==2).findFirst().orElseThrow(); }
             test.runOnMainSync(() -> launched.openDocument(csvHit.document(),csvHit.passage(),csvHit.number()));
             for(int i=0;i<100 && !launched.documentOpen;i++) SystemClock.sleep(50);
             check(launched.documentOpen,"CSV source reader opens the selected record");

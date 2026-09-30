@@ -4,7 +4,7 @@ Recorded on 2026-09-29 from the current implementation and project discussion. T
 
 ## ADR-001 — Separate inference from knowledge
 
-**Status: adopted direction, partially implemented.** A generator can change without reimporting documents or maps. Knowledge retains provenance and uses source-appropriate indexes. The application coordinates confirmed context and bounded evidence. A single model-specific knowledge store would couple unrelated changes. Cost: explicit adapters/contracts and migrations still need implementation. Revisit boundaries after a second source type is working, not before.
+**Status: adopted direction, partially implemented.** A generator can change without reimporting documents or maps. Knowledge retains provenance and uses source-appropriate indexes. The application coordinates confirmed context and bounded evidence. A single model-specific knowledge store would couple unrelated changes. Cost: explicit adapters/contracts and migrations require ongoing maintenance. The 0.9 text/CSV locator contract and schema migration are implemented; broader adapters remain pending. Revisit boundaries after a second source type is working, not before.
 
 ## ADR-002 — Execute locally in the Android process
 
@@ -52,7 +52,7 @@ Recorded on 2026-09-29 from the current implementation and project discussion. T
 
 ## ADR-013 — Use source-specific packages and deterministic tools
 
-**Status: proposed implementation.** Preserve originals, versions, coverage, and locators. Text search, geographic lookup, routing, and numerical operations remain distinct capabilities. No commitment has been made to a universal vector store, map SDK, OCR library, or routing engine. Decide each dependency after a measured vertical slice.
+**Status: partially implemented in 0.9.** Text/CSV packs preserve source text, versions and locators. Coverage metadata, broader adapters and deterministic tools remain proposed. Text search, geographic lookup, routing, and numerical operations remain distinct capabilities. No commitment has been made to a universal vector store, map SDK, OCR library, or routing engine. Decide each dependency after a measured vertical slice.
 
 ## ADR-014 — Establish English as the maintained project language
 
@@ -68,7 +68,7 @@ Recorded on 2026-09-29 from the current implementation and project discussion. T
 
 ## ADR-017 — Evaluate contextual question families, not a narrow example
 
-**Status: user-clarified product direction; implementation pending.** Vitalik's example illustrates the kind of specific, contextual question Outpost should answer. It is not a request for a vegan/restaurant app or a mandatory domain-specific benchmark. Evaluate contextual facts, discovery, recommendations, comparisons, explanations, synthesis and bounded troubleshooting across world, regional and personal evidence. Individual examples help construct fixtures; they do not define product verticals or substitute for transfer across topics. See the [corrected specification](offline-world-knowledge.md).
+**Status: user-clarified product direction; development evaluation implemented in 0.9, general quality still open.** Vitalik's example illustrates the kind of specific, contextual question Outpost should answer. It is not a request for a vegan/restaurant app or a mandatory domain-specific benchmark. Evaluate contextual facts, discovery, recommendations, comparisons, explanations, synthesis and bounded troubleshooting across world, regional and personal evidence. Individual examples help construct fixtures; they do not define product verticals or substitute for transfer across topics. See the [corrected specification](offline-world-knowledge.md).
 
 ## ADR-018 — Record the origin bounty and anchor evaluation to its requirements
 
@@ -77,3 +77,31 @@ Recorded on 2026-09-29 from the current implementation and project discussion. T
 ## Updating this register
 
 Add a new numbered decision when a material tradeoff changes. Include status, problem, choice, alternatives, consequences, evidence, and reconsideration condition. Mark superseded decisions rather than erasing the reason an earlier implementation existed.
+
+## ADR-019 — Deliver bounded JSON packs and CSV before larger adapters
+
+**Status: implemented in 0.9.** Problem: source identity and existing-import preservation were prerequisites for trustworthy retrieval, while the personal-record fixture needed row/date relationships. Choice: transactional schema-2 migration, typed version/hash/fragment locators, bounded inline JSON text/CSV packs and exact CSV records. PDF-first and a universal adapter framework were deferred in favor of this tested slice. Consequences: atomic updates and inspectable retained versions are available, but no Office/PDF/OSM/ZIM, catalog/signatures, coverage/storage display or resumable downloader is implied. Revisit with larger licensed source requirements and storage measurements. See [format](knowledge-packs-v1.md) and [validation](validation-0.9.md).
+
+## ADR-020 — Separate execution assertions from attributed answer review
+
+**Status: implemented in 0.9.** Problem: parity/substring/citation-range PASS can hide an unhelpful or unsupported answer. Choice: explicit retrieval/fixed-evidence execution, frozen inputs/results, actual source selection and attributed rubric-v2 records bound to result hashes. Unknown useful-information timing stays unscored with a reason. Keyword PASS and Kev-as-ground-truth were rejected. Consequences: implementation-agent review remains limited development evidence; held-out qualified review is still required. Preserve failures and early runs with incomplete provenance rather than backfilling invented metadata.
+
+## ADR-021 — Retain the production prompt and generator after diagnostics
+
+**Status: adopted after the 0.9 experiments.** A longer system prompt increased critical failures in the controlled v1 comparison and generally added latency. Four Qwen problem-case probes improved authorization wording but exposed citation loops, unsupported conflict synthesis and CSV date errors. Retain production system text, named `evidence-v1`, and do not globally switch the generator on those observations. Reconsider after representative paired evidence at the UI budget resolves citation/source alignment and supported outcomes. The [review records](validation-0.9.md) retain rejected candidates.
+
+## ADR-022 — Bind local publication to built input and output identities
+
+**Status: implemented tooling, final 0.9 publication pending permission review.** Modification times alone can miss stale or concurrently changed inputs. Build/lint records source fingerprints and app/test APK hashes only after unchanged-input verification; publication requires matching production inputs and bytes and refuses a different same-version artifact. Standalone `-Verify` remains usable without the build APK. This is a local integrity check, not signing or independent reproducible-build proof. Revisit signed release provenance when distribution is approved.
+
+## ADR-023 — Make chat the product home and move preparation into Settings
+
+**Status: user-directed, implemented in 0.10.** The owner requested a clean chat-first app moving toward mobile user tests. Sending now retrieves and generates in one action; documents/model setup and conversation deletion live in Settings. Prototype diagnostics, demo content, reviewer/speculation UI and the three-tab layout are removed. Existing imports remain protected by precise seed cleanup. The earlier evidence-only home was replaced, while its native/research controls remain available outside product flows. Revisit based on user observations, not internal benchmark convenience.
+
+## ADR-024 — Allow bounded general chat with explicit document provenance
+
+**Status: implemented in 0.10, quality still under evaluation.** An empty library must not make the main chat unusable. General replies may use model knowledge while document-specific/current facts require appropriate evidence or an explicit gap. Recent turns provide bounded follow-up context; source numbers are per-turn and stripped from prior assistant text. This is not full-history memory or a factuality guarantee. Reconsider context budgets, retrieval and prompt policy against held-out practical tasks and preserved failures.
+
+## ADR-025 — Add bounded PDF extraction and prepare ARM64 without device execution
+
+**Status: implemented build/import slice.** PDF is an explicitly requested user input. Pin PdfBox-Android plus its transitive dependency byte identities, preserve original PDF/page locators, reject unsupported encrypted/scanned-only input, and expose extracted text alongside original rendering. OCR and robust layout/table interpretation remain separate. ARM64 is linked and packaged using the existing backend/reference path to prepare mobile testing; custom ARM kernels and device execution/performance are not established. The prior emulator-only execution constraint stays active.

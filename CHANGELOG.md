@@ -2,6 +2,26 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## 0.10.0 — Chat and personal documents — 2026-09-30
+
+- Opens directly on a persistent local conversation with streaming send/stop and bounded follow-up context.
+- Moves document/model setup to Settings; removes prototype tabs, metrics, reviewer/speculation UI and unused demo resources.
+- Starts with an empty library and removes only exact unchanged historical seeds on schema-3 upgrade; imports and edited records survive.
+- Adds bounded PDF page extraction, exact original copies and original-page viewing alongside TXT/Markdown/CSV.
+- Moves synthetic corpora into the test APK; adds current chat/import/migration checks and preserves failed outcomes.
+- Packages linked ARM64 and x86_64 libraries; runtime validation remains emulator-only. No phone-performance or production-release claim.
+- See [validation](docs/validation-0.10.md) for final run/build identities and remaining limits.
+
+## 0.9.0 — Outpost — 2026-09-30
+
+- Added schema-2 migration preserving imports and typed exact source/revision/hash locators.
+- Added bounded UTF-8 CSV records and local JSON knowledge packs with atomic version activation, cancellation, retention and removal; English import/source UI.
+- Added executable contextual evaluation v2, immutable runs, source/input snapshots and attributed review validation; preserved failed answers and rejected the longer prompt candidate.
+- Clarified runtime selection/speedup/time-reduction reporting and tested policy boundaries; retained existing numerical kernels and width4 profile on this emulator.
+- Hardened Windows argument quoting and build/publication provenance with source fingerprints and build receipts.
+- Final build/lint, 61 knowledge checks and 53 functional checks passed; detailed run/build scopes and quality gaps are in [validation](docs/validation-0.9.md).
+- Implementation committed as `c51c73f`. Final docs/evidence commits and canonical local artifact publication remain pending an automatic permission-review service quota failure. A verified delivery copy and review patch are recorded in the handoff; no public release implied.
+
 ## 0.8.1 — Outpost
 
 - The launcher label is resource-backed again (`@string/app_name`); the double-encoded hardcoded literal is gone, and the app drawer shows `Outpost`.

@@ -142,7 +142,7 @@ foreach ($OutpostApk in $OutpostApks) {
 }
 ```
 
-Both matched when this guide was prepared. The current app hash is recorded in the [0.8.1 validation record](validation-0.8.1.md). These checks read files only and do not prove model quality.
+Both matched when this guide was prepared. The current 0.9 app/test identities and finalization status are recorded in [validation](validation-0.9.md). These checks read files only and do not prove model quality.
 
 ## 5. Understand model installation before copying GB of data
 
@@ -181,6 +181,8 @@ On a fresh AVD, run the [initial functional sequence](development.md) to import 
 
 | Intent | Entry point / prerequisite |
 |---|---|
+| Knowledge/CSV/packs/schema migration | `test-knowledge.ps1`; unique run folder, no model generation; `-SkipInstall` checks current APK hashes |
+| Fixture evaluation | `test-evaluation.ps1 -Phase baseline -Model bonsai4`; requires matching successful build receipt, installed hashes and model; see [runner guide](../eval/README.md) |
 | Library, import and UI | `test-emulator.ps1`; no LLM run required |
 | Qwen generation/cancellation | `test-generation.ps1`; verifies host file, stages Qwen and performs generation |
 | Kev integration/UI | `test-review.ps1`; Qwen must already be installed; stages Kev and runs probes |
@@ -196,6 +198,7 @@ Scripts should receive `-Serial $OutpostSerial -Sdk $OutpostSdk` when resuming. 
 
 **`-SkipInstall` has different meanings:**
 
+- In `test-knowledge.ps1` and `test-evaluation.ps1`, it skips APK installation while enforcing local/installed hash agreement. Evaluation also validates its successful build receipt.
 - In `test-runtime.ps1` and `test-speculation.ps1`, it skips APK installation. Use it only after the installed/local APK comparison above and model-readiness checks.
 - In `test-bonsai.ps1`, it skips Bonsai GGUF staging/import inside the model loop. The script always reinstalls both APKs, including with `-UiOnly` or `-SelectOnly`.
 - Functional/generation/review/kernel scripts have their own installation steps and do not accept this switch.
@@ -235,3 +238,13 @@ Before rerunning a phase, preserve the evidence files it overwrites. Use a separ
 - **Permission or port problem:** use the required host/filesystem permission path and report the actual limitation. Do not bypass emulator guards or substitute a physical phone.
 
 The guide's read-only bootstrap/preflight and APK comparisons were checked against the existing emulator. This documentation task did not restart, install, generate, change connectivity, or rerun performance suites. Startup/install/recovery procedures reflect the checked project scripts and remain actions to perform only when needed.
+
+## Latest delivery checkpoint — 0.9.0
+
+Final app/test APKs were installed on Outpost35; last read-only check confirmed version 0.9.0/code11, boot complete, airplane mode on and Wi-Fi off. Earlier final preflight also checked mobile data off and restored Bonsai 4B, width4, 4/4 threads, batch128, speculation off. These observations expire: repeat preflight before runtime work.
+
+Knowledge/evaluation runs now have unique host and app directories. Other scripts retain fixed outputs. Final 0.9 evidence/docs commits and canonical `dist/` publication are pending an automatic permission-review quota failure; the [handoff](handoff.md) points to a verified local delivery and review patch. No failed permission operation should be treated as executed.
+
+## 0.10 workflow supersedes the old screen names
+
+The launcher is Chat. Settings contains documents and offline-model setup. There is no Status/Explore screen or speculation switch. Product chat forces speculation off. Use `test-chat.ps1` for current UI/import checks, optionally `-Generate` for real Bonsai conversation; it checks build receipt and installed hashes before executing. `test-knowledge.ps1` retains migration/locator/CSV/package checks. A newly compiled ARM64 library is packaged, but all these runners remain restricted to the x86_64 Outpost35 emulator. See [current handoff](handoff.md) and [validation](validation-0.10.md).

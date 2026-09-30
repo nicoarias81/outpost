@@ -26,7 +26,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--sdk", required=True)
     parser.add_argument("--serial", default="emulator-5582")
-    parser.add_argument("--manifest", default="eval/fixtures-v2.json")
+    parser.add_argument("--manifest", default="eval/fixtures-v3.json")
     parser.add_argument("--model", choices=["qwen15", "bonsai17", "bonsai4"], default="bonsai4")
     parser.add_argument("--variants", default="baseline,candidate")
     parser.add_argument("--fixtures", default="")
@@ -84,7 +84,7 @@ def main():
         for path in (ROOT / parent).rglob("*"):
             if path.is_file() and "__pycache__" not in path.parts:
                 source_hashes[path.relative_to(ROOT).as_posix()] = digest(path)
-    for name in ["app/build.gradle", "build.gradle", "settings.gradle", "gradle.properties", "gradlew", "gradlew.bat", "gradle/wrapper/gradle-wrapper.properties", "gradle/wrapper/gradle-wrapper.jar", "toolchain-lock.json", "project.json", "model-lock.json", "bonsai-lock.json", "judge-lock.json", "llama-revision.txt"]:
+    for name in ["app/build.gradle", "build.gradle", "settings.gradle", "gradle.properties", "gradlew", "gradlew.bat", "gradle/wrapper/gradle-wrapper.properties", "gradle/wrapper/gradle-wrapper.jar", "pdfbox-lock.json", "toolchain-lock.json", "project.json", "model-lock.json", "bonsai-lock.json", "judge-lock.json", "llama-revision.txt"]:
         source_hashes[name] = digest(ROOT / name)
     metadata = {
         "runId": run_id, "startedAtUtc": datetime.datetime.now(datetime.timezone.utc).isoformat(),

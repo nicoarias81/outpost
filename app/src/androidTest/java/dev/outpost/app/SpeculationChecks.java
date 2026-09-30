@@ -54,7 +54,7 @@ final class SpeculationChecks {
             else if(phase.equals("guard")) guard(e);
             else if(phase.equals("profile")) profile(e);
             else if(phase.equals("missions")) missions(e);
-            else if(phase.equals("ui")) ui();
+            else if(phase.equals("ui")) throw new IllegalArgumentException("The experimental speculation toggle is no longer exposed in the product. Use native lifecycle/guard/audit checks.");
             else if(phase.equals("audit")) audit(e);
             else if(phase.equals("energy-audit")) energyAudit(e);
             else throw new IllegalArgumentException("Unknown speculation phase");
@@ -210,7 +210,7 @@ final class SpeculationChecks {
         report.put("teacherForcedAudits",checks);
     }
     private void energyAudit(NativeEngine e) throws Exception {
-        try(Library library=new Library(test.getTargetContext(),null)) {
+        try(Library library=TestLibrary.seeded(test.getTargetContext())) {
             ResearchPrompt.Prepared p=ResearchPrompt.prepare("What is the difference between kW and kWh?",library.search("kW kWh"));
             e.configure(config(0,false));
             NativeEngine.Result base=e.generateWithSampling(e.request(),model.file(),ResearchPrompt.SYSTEM,p.user(),128,true,(s,n)->{});
@@ -239,57 +239,6 @@ final class SpeculationChecks {
                 .put("expectedMarker",c[3]).put("markerPresent",c[3].isEmpty() ? JSONObject.NULL : b.text().contains(c[3])));
         }
         report.put("comparisons",comparisons).put("qualityLimits","These are fictitious field controls. Marker presence and text parity are not factual verification or real mission success.");
-    }
-    private void ui() throws Exception {
-        ModelStore.select(test.getTargetContext(),ModelStore.BONSAI4);
-        boolean previous=RuntimeSettings.speculationEnabled(test.getTargetContext(),ModelStore.BONSAI4);
-        RuntimeSettings.setSpeculation(test.getTargetContext(),ModelStore.BONSAI4,false);
-        MainActivity activity=(MainActivity)test.startActivitySync(new Intent(test.getTargetContext(),MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        try {
-            for(int i=0;i<100 && activity.findViewById(MainActivity.QUERY_ID)==null;i++) SystemClock.sleep(100);
-            search(activity);
-            NativeEngine.Result baseline=generateUi(activity);
-            test.runOnMainSync(()->clickButton(activity,activity.getString(R.string.ui_status))); test.waitForIdleSync();
-            test.runOnMainSync(()->activity.findViewById(MainActivity.SPECULATION_ID).performClick()); test.waitForIdleSync();
-            require(RuntimeSettings.speculationEnabled(test.getTargetContext(),ModelStore.BONSAI4),"UI did not enable speculation");
-            test.runOnMainSync(()->{
-                View toggle=activity.findViewById(MainActivity.SPECULATION_ID); android.view.ViewParent p=toggle.getParent();
-                while(p!=null && !(p instanceof ScrollView)) p=p.getParent();
-                if(p instanceof ScrollView scroll) scroll.scrollTo(0,Math.max(0,toggle.getTop()-scroll.getHeight()/2));
-            });
-            screenshot("speculation-state.png");
-            test.runOnMainSync(()->clickButton(activity,activity.getString(R.string.ui_explore))); test.waitForIdleSync(); search(activity);
-            NativeEngine.Result speculative=generateUi(activity);
-            report.put("uiBaseline",uiResult(baseline)).put("uiSpeculative",uiResult(speculative)).put("textParity",baseline.text().equals(speculative.text())); write();
-            require(speculative.verifyPasses()>0,"UI option did not activate speculative verification");
-            require(baseline.text().equals(speculative.text()),"Speculation changed this UI response");
-            screenshot("speculation-answer.png");
-        } finally {
-            RuntimeSettings.setSpeculation(test.getTargetContext(),ModelStore.BONSAI4,previous);
-            test.runOnMainSync(activity::finish); test.waitForIdleSync();
-        }
-    }
-    private void search(MainActivity activity) throws Exception {
-        test.runOnMainSync(()->{ ((EditText)activity.findViewById(MainActivity.QUERY_ID)).setText("What is the difference between kW and kWh?"); activity.findViewById(MainActivity.SEARCH_ID).performClick(); });
-        for(int i=0;i<100 && !activity.searchDone;i++) SystemClock.sleep(100); test.waitForIdleSync();
-    }
-    private NativeEngine.Result generateUi(MainActivity activity) throws Exception {
-        test.runOnMainSync(()->activity.findViewById(MainActivity.GENERATE_ID).performClick());
-        for(int i=0;i<1300 && !activity.answerDone;i++) SystemClock.sleep(100);
-        require(activity.lastAnswer!=null && activity.lastAnswer.reason()==0,"UI generation did not finish"); test.waitForIdleSync(); return activity.lastAnswer;
-    }
-    private JSONObject uiResult(NativeEngine.Result r) throws Exception {
-        return new JSONObject().put("text",r.text()).put("tokens",r.tokens()).put("firstTokenMs",r.firstTokenMs()).put("decodeMs",r.decodeMs()).put("totalMs",r.totalMs())
-            .put("cachedTokens",r.cachedTokens()).put("drafted",r.drafted()).put("accepted",r.accepted()).put("verifyPasses",r.verifyPasses()).put("disabledByCost",r.speculationDisabled());
-    }
-    private void clickButton(MainActivity activity,String name) {
-        ArrayList<View> found=new ArrayList<>(); activity.getWindow().getDecorView().findViewsWithText(found,name,View.FIND_VIEWS_WITH_TEXT);
-        for(View v:found) if(v instanceof Button b && b.getText().toString().equals(name)) { v.performClick(); return; }
-        throw new AssertionError("Button not found: "+name);
-    }
-    private void screenshot(String name) throws Exception {
-        SystemClock.sleep(300); Bitmap bitmap=test.getUiAutomation().takeScreenshot(); if(bitmap==null) throw new IllegalStateException("Screenshot unavailable");
-        try(FileOutputStream out=new FileOutputStream(new File(test.getTargetContext().getFilesDir(),"evidence/"+name))) {bitmap.compress(Bitmap.CompressFormat.PNG,100,out);} bitmap.recycle();
     }
     private long median(List<Long> x) { var v=new ArrayList<>(x); v.sort(Long::compare); return v.get(v.size()/2); }
     private void require(boolean ok,String message) { if(!ok) throw new AssertionError(message); }

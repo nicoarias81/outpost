@@ -1,68 +1,26 @@
 # Current implementation and known gaps
 
-Current implementation: Outpost 0.8.1 / version code 10. Current checks are recorded in [validation-0.8.1.md](validation-0.8.1.md); the optimization and quality-failure examples below remain explicitly historical 0.7 evidence.
+**Outpost 0.10.0 / version code 12.** The current product is chat-first, in English, with an empty knowledge library. [Chat/document behavior](chat-beta.md) describes the implementation; [validation](validation-0.10.md) owns current run identities, results and limitations.
 
-## Capability inventory
+| Area | Current state |
+|---|---|
+| Home | Persistent local conversation, streaming replies, bottom composer, Settings icon; no demo tabs or benchmark/reviewer UI |
+| Documents | Settings import/manage for TXT, Markdown, CSV and text-bearing PDF; originals/source locators inspectable |
+| Seed removal | Schema-3 migration removes exact unchanged built-in notes only; fresh library empty; imports/edited records preserved |
+| PDF | Bounded page-aware extraction, original private file, original page rendering; encrypted/scanned-only PDFs rejected; no OCR |
+| Conversation | Local turn persistence, bounded recent context, stop/interruption status, confirmed deletion independent of documents |
+| Generation | Pinned Bonsai 4B/1.7B and Qwen 1.5B, local JNI; document sources where relevant, general model knowledge otherwise |
+| Native runtime | Existing x86 optimized kernel/reference fallback, cache and per-build/model/device profiles; no numerical kernel change |
+| Experimental controls | Removed from product UI; native research tests retained; chat forces speculation off |
+| Packages | Existing local versioned packs remain readable/removable; lifecycle API retained, no pack-import UI in this user flow |
+| Evaluation | New chat/import checks plus explicit test-only evidence corpus; previous quality results remain historical |
+| ABI packaging | Complete ARM64 and x86_64 build; runtime validation only in x86_64 emulator |
+| Network/GMS | No INTERNET permission or Google Play Services dependency |
 
-| Area | State | Boundary |
-|---|---|---|
-| Android UI and source reader | Implemented | Java 17, API 28 minimum / 35 target; English UI and resource-backed labels |
-| Text knowledge library | Implemented | Six attributed demo notes; SQLite FTS4 lexical passage search |
-| User document import | Implemented | UTF-8 `.txt`, `.md`, `.markdown`; maximum 1,048,576 bytes per document |
-| Local generation | Implemented and measured | Pinned Qwen 1.5B and Bonsai 1.7B/4B; Android process through JNI |
-| Model import | Implemented | Exact size and SHA-256 allowlist; separate files per profile |
-| Kev review | Experimental | First sentence against up to three passages; false positives recorded |
-| Q2 dot kernel | Implemented and measured | Custom x86 AVX2/F16C; original reference fallback |
-| Grouped prefill | Implemented and measured | Widths 1, 2, 4, 8; validated Q2 g64 paths only |
-| Runtime calibration | Implemented | Developer scripts persist a device/build/model-specific profile |
-| Prompt cache | Implemented and measured | Exact tokens and compatible configuration; complete batch boundaries |
-| Context speculation | Experimental | Bonsai 4B only in UI; opt-in, default off; no extra model |
-| VNNI and ARM capability reporting | Implemented | Detects candidates; custom VNNI/ARM kernels not implemented |
-| ARM portability | Compile check only | Ten native object builds; no complete ARM APK or execution |
-| Knowledge package manager | Proposed | No versioned package installation or typed adapter contract yet |
-| PDF, ZIM, OSM, routing, GPS | Proposed | No corresponding adapter or user workflow |
-| English product baseline | Implemented | UI, main prompts, seed notes, retrieval and primary generation fixtures translated; historical bilingual reviewer probes retained |
-| Standalone Git repository | Implemented | Independent local repository at `E:\projects\outpost` with a private GitHub remote at `nicoarias81/outpost`; public visibility is deferred |
+The existing model-quality gaps still matter: unsupported synthesis, wrong citation alignment, incorrect interpretation and truncation are possible after successful retrieval. A source reference or successful harness is not proof of correctness. Small multi-turn smoke checks do not establish field usefulness or broad conversational quality.
 
-## Runtime limits and defaults
+Pending: representative user-task review; long/complex PDF and table extraction quality; OCR/Office/ZIM/OSM; typed arithmetic; persistent editable mission context; storage-pressure/process-death import recovery; broader conversation navigation; model provisioning UX; release signing/license/public distribution. Phone performance, peak memory, thermal/battery behavior and GrapheneOS remain unmeasured.
 
-- Context: 2,048 tokens. UI generation: at most 192 output tokens and a 120-second native deadline, including model load and prompt evaluation.
-- Bonsai sampler: top-k 20, top-p 0.8, temperature 0.7, seed 42. Qwen uses greedy decoding.
-- Runtime settings validate 1–8 decode/prompt threads, batch size 16–512, and matrix width 1, 2, 4 or 8.
-- Uncalibrated UI profile: up to four available CPU threads, batch 128, width 1. The last saved emulator profile was 4/4 threads, batch 128, width 4.
-- The previous 0.7 emulator remains preserved. Outpost uses a separate AVD on port 5582; delivered state and fresh checks are recorded in the 0.8 report.
+Dedicated runtime target: Outpost35 / `emulator-5582`, AOSP API35, x86_64, four CPUs, 4 GiB configured RAM. Preserve Brújula's `emulator-5580`. Recheck live identity/offline state/installed hashes before testing. ARM compilation does not lift the user's emulator-only execution restriction.
 
-## Known failures and missing guarantees
-
-| ID | Finding | Evidence / next work |
-|---|---|---|
-| Q-01 | Traveler fixture answers around irrelevant restaurant information, misses the luggage task, and truncates | [Review](../evidence/0.7-before-outpost/speculation/mission-review.json); task-oriented evaluation and prompt/retrieval work |
-| Q-02 | Mountaineer fixture incorrectly refuses `1450 - 1200 = 250 m` under the 0.7 fixture prompt | [Review](../evidence/0.7-before-outpost/speculation/mission-review.json); deterministic calculation and prompt comparison |
-| Q-03 | Numeric citation checks detect missing/out-of-range references, not claim support | [ResearchPrompt](../app/src/main/java/dev/outpost/app/ResearchPrompt.java); provenance and claim-level evaluation |
-| Q-04 | Kev can approve incorrect generated content | [0.3 report](validation-0.3.md); never use Kev as evaluation ground truth |
-| N-01 | Serial and batched model logits can differ; the same seed does not ensure identical speculative text | [Audit](../evidence/0.7-before-outpost/speculation/speculation-energy-audit.json) |
-| M-01 | Cache retains about 305 MiB additional post-run PSS in one control | [0.6 report](validation-0.6.md); peak memory and real pressure behavior remain unknown |
-| K-01 | Lexical retrieval and tiny seed corpus do not cover real field missions | [Library](../app/src/main/java/dev/outpost/app/Library.java); packages and mission fixtures |
-| K-02 | Database version upgrades currently throw instead of migrating | [Library](../app/src/main/java/dev/outpost/app/Library.java); migration path needed before schema changes |
-| P-01 | No physical phone latency, thermal, battery, or peak-memory evidence | Emulator constraint remains active |
-| R-01 | Resolved in 0.8: scripts use explicit settings and Outpost identifiers | [Migration record](repository-migration.md) |
-
-The 0.6 mountaineer fixture did calculate 250 m, while the 0.7 fixture did not. Their system prompts differ; this is not proof that speculation introduced a numerical-reasoning regression. Compare controlled inputs before assigning a cause.
-
-## External acceptance bar
-
-Outpost originates from an external bounty (poidh #31). The full bounty text, provenance and requirement trace are owned by [bounty-31.md](bounty-31.md); capability status stays owned by this document.
-
-- Satisfied today: R-NONETWORK — the application manifest declares no INTERNET permission, so no network requests are possible during use; R-NOGMS — AOSP system image with no Google Play Services dependency (ADR-002).
-- Unmeasured rather than unmet: R-RAM-12GB (no peak-memory measurement exists; P-04) and R-SPEED (no phone timing exists; emulator timing is not a phone prediction, P-01).
-- Outside the current authorized scope by user decision: R-REAL-DEVICE and R-GRAPHENEOS (the emulator remains the only execution target, ADR-003) and R-PUBLIC-REPO (a private GitHub remote is authorized; public visibility is deferred to a final usable version).
-
-No bounty requirement is claimed as met: a passing harness, a citation index or a reviewer score does not establish the bounty's quality bar.
-
-## Fresh English quality observations
-
-The 0.8 mission run preserves text across baseline/grouped paths, but source copying and truncation remain problems. The traveler response is partial; the farmer response fails to identify F-28; the engineering answer overstates the absence of authorization records. The mountaineer arithmetic and driver manual-page lookup work in these fixtures. See the [fresh content review](../evidence/strata/mission-review.json). Historical 0.7 failures above are not silently rewritten.
-
-## Release identity
-
-The current debug APK is `dist/outpost-0.8.1-emulator-debug.apk`, SHA-256 `5551f8047b1746b74e8e04ab0f7778d6c3e08457cc9134000b1c783bd8511676`; its validation is linked from the [README](../README.md). The retained `dist/outpost-0.8.0-emulator-debug.apk` remains the previous historical build, and the historical Brújula 0.7 artifact remains separate. Project code license, release signing and public distribution remain open; the GitHub remote is private and publication is deferred to a final usable version.
+The canonical repository is `E:/projects/outpost`, branch `codex/outpost`, with an existing private remote. The earlier permission-review quota failure was resolved in this session: 0.9 evidence and the prepared documentation were integrated before the 0.10 changes. No public push/release or physical-device execution is implied.

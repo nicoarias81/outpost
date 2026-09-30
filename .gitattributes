@@ -20,3 +20,6 @@ gradlew.bat text eol=crlf
 # Immutable evidence hashes refer to exact bytes, including line endings.
 /evidence/runs/** -text
 /evidence/archive/** -text
+
+/app/src/main/assets/licenses/* -text
+/evidence/releases/** -text

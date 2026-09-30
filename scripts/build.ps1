@@ -16,12 +16,22 @@ $revision=(& git -C $vendor rev-parse HEAD)
 if($LASTEXITCODE -ne 0 -or $revision.Trim() -ne (Get-Content -LiteralPath (Join-Path $project 'llama-revision.txt') -Raw).Trim()) { throw 'Pinned backend revision mismatch or unreadable vendor repository.' }
 & git -C $vendor diff --quiet HEAD --
 if($LASTEXITCODE -ne 0) { throw 'Vendor source changes must be reviewed explicitly before building.' }
+$pdfLock=Get-Content -Raw -LiteralPath (Join-Path $project 'pdfbox-lock.json') | ConvertFrom-Json
+function Confirm-PdfDependencies {
+    $cacheRoot=if($GradleHome){$GradleHome}else{Join-Path ([Environment]::GetFolderPath('UserProfile')) '.gradle'}
+    foreach($artifact in $pdfLock.artifacts) {
+        $cache=Join-Path $cacheRoot "caches/modules-2/files-2.1/$($artifact.group)/$($artifact.artifact)/$($artifact.version)"
+        $matches=@(Get-ChildItem -LiteralPath $cache -Recurse -File | Where-Object { $_.Name -eq $artifact.file -and $_.Length -eq $artifact.bytes })
+        if(-not($matches | Where-Object { (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() -eq $artifact.sha256 })) { throw "Pinned PDF dependency mismatch: $($artifact.file)" }
+    }
+}
 $beforeMain=Get-OutpostSourceFingerprint main
 $beforeTest=Get-OutpostSourceFingerprint androidTest
 $arguments=@('-p',$project,'--no-daemon',':app:assembleDebug',':app:assembleDebugAndroidTest',':app:lintDebug')
 if($Offline) { $arguments+='--offline' }
 & $gradle @arguments
 if($LASTEXITCODE -ne 0) { throw "Gradle failed with exit code $LASTEXITCODE" }
+Confirm-PdfDependencies
 if($beforeMain -ne (Get-OutpostSourceFingerprint main) -or $beforeTest -ne (Get-OutpostSourceFingerprint androidTest)) {
     throw 'Sources changed during the build; no fresh build receipt was issued.'
 }

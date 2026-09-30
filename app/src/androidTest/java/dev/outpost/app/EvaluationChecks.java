@@ -85,7 +85,7 @@ final class EvaluationChecks {
                         write(); continue;
                     }
                     // One isolated library per fixture; both variants see the same evidence and ordering.
-                    try (Library library = new Library(test.getTargetContext(), null)) {
+                    try (Library library = TestLibrary.seeded(test.getTargetContext())) {
                         JSONArray payloads = fixture.getJSONArray("import_payloads");
                         for (int p = 0; p < payloads.length(); p++) {
                             JSONObject data = payloads.getJSONObject(p);

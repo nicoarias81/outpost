@@ -62,3 +62,7 @@ Human and assistant reviews must be distinguished. The implementation agent's re
 `eval/validate.py` defaults to v2 and supports `--manifest PATH`. It checks structure, fixture capabilities, root model/tool identities, source document references and extractable prompt constants. Schema 2 requires an explicit evidence mode. Versioned prompt and sampler constants remove the earlier unverified `bonsai_policy_string` warning.
 
 The frozen v1 identity intentionally targets the earlier app; validating it against newer sources may report identity differences. Its historical run copies remain independently inspectable. Passing the validator does not establish that fixtures were executed or answers are correct.
+
+## 0.10 update
+
+The current default is `fixtures-v3.json` (same schema2 execution shape, new manifest revision). The demo corpus now exists only in the instrumented test APK under `app/src/androidTest/assets/library.json`; `TestLibrary` seeds isolated evaluation databases explicitly. Product libraries start empty. These fixtures continue to evaluate evidence-only `ResearchPrompt`, while the chat product uses `ChatPrompt`. Use `scripts/test-chat.ps1 -Generate` for actual conversational integration; neither suite establishes general model quality. V1/v2 manifests and their runs remain historical.

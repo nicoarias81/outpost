@@ -25,7 +25,7 @@ function Get-OutpostSourceFingerprint([ValidateSet('main','androidTest')][string
     $files = @(Get-ChildItem -LiteralPath (Join-Path $root "app/src/$Scope") -Recurse -File)
     foreach ($name in @('app/build.gradle','build.gradle','settings.gradle','gradle.properties',
         'gradle/wrapper/gradle-wrapper.properties','gradle/wrapper/gradle-wrapper.jar',
-        'llama-revision.txt','toolchain-lock.json','model-lock.json','bonsai-lock.json','judge-lock.json',
+        'pdfbox-lock.json','llama-revision.txt','toolchain-lock.json','model-lock.json','bonsai-lock.json','judge-lock.json',
         'scripts/build.ps1','scripts/environment.ps1')) {
         $path = Join-Path $root $name
         if (-not (Test-Path -LiteralPath $path)) { throw "Required build input is missing: $name" }
