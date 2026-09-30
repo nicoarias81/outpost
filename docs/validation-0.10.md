@@ -1,6 +1,6 @@
 # Outpost 0.10.0 validation — 2026-09-30
 
-Version code12. This is the chat-first user-test candidate requested by the owner. The product UI is English; source imports and conversation content retain their original text. Runtime execution stayed inside Outpost35, the x86_64 AOSP Android emulator. The APK additionally compiles/links/packages ARM64 for future phone trials.
+Implementation commit `aca6d97`; evidence commit `6091111`. Version code12. This is the chat-first user-test candidate requested by the owner. The product UI is English; source imports and conversation content retain their original text. Runtime execution stayed inside Outpost35, the x86_64 AOSP Android emulator. The APK additionally compiles/links/packages ARM64 for future phone trials.
 
 ## Artifact
 

@@ -1,6 +1,6 @@
 # Engineering handoff — start here
 
-Updated 2026-09-30. **Outpost 0.10.0 / code12**, moving toward mobile user tests. Read [current state](current-state.md), [chat/document design](chat-beta.md), [validation](validation-0.10.md), then the relevant domain guide. The user now wants the app to open on chat, import files through Settings, and remove mock/demo/prototype UI.
+Updated 2026-09-30. **Outpost 0.10.0 / code12**, moving toward mobile user tests. Implementation: `aca6d97`; final evidence: `6091111`. Read [current state](current-state.md), [chat/document design](chat-beta.md), [validation](validation-0.10.md), then the relevant domain guide. The user now wants the app to open on chat, import files through Settings, and remove mock/demo/prototype UI.
 
 ## Canonical work and constraints
 
