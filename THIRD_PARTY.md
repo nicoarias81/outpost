@@ -46,7 +46,7 @@ The initial comparison also used Qwen2.5 0.5B Instruct Q4_K_M. Its identity is p
 - Port used as reference/adapted: [DreamBlooms/dohnuts.cpp](https://github.com/DreamBlooms/dohnuts.cpp), revision `63374ff55a66c50b266adfef422e1fc4b0ee5717`, specifically `src/side/kev.cpp` and `src/side/runner.cpp`.
 - Model/head and port license: Apache-2.0; the port notice is retained in [APK assets](app/src/main/assets/licenses/dohnuts-Apache-2.0.txt).
 - The JNI adaptation handles one textual question per call, with no HTTP server, remote tools, or vision. The head/config assets are redistributed without modification; GGUF weights are obtained from the publisher and remain separate.
-- Published temperature: `2.406050072164233`; pointer-head dimension 256; hidden dimension 1024. Scores have not been calibrated for this application or its Spanish tasks.
+- Published temperature: `2.406050072164233`; pointer-head dimension 256; hidden dimension 1024. Scores have not been calibrated for the current application; historical probes include Spanish and English tasks. Kev remains a research classifier with recorded false positives, without a product reviewer control.
 - Kev is a community project inspired by Jev. It is not TypeSafe AI's Jev and does not call that service.
 
 ## Android build dependencies
@@ -59,18 +59,18 @@ Downloaded native tooling is kept in ignored `.local/`. Preparation and compilat
 
 ## Demonstration content and future distribution
 
-[The seed library](app/src/main/assets/library.json) contains original short demonstration summaries with source references and incorporation dates. It does not bundle full web pages. Imported documents are labeled unverified, and their rights remain with their respective owners.
+[The test corpus](app/src/androidTest/assets/library.json) contains original short synthetic demonstration summaries with source references and incorporation dates. It is packaged only in the test APK and explicitly seeded into isolated test databases. The user APK has no seed library or bundled real geographic dataset. Imported documents are labeled unverified, and their rights remain with their respective owners.
 
-Before public distribution, choose the project code license, review all redistributed assets and notices, and define release/evidence storage. Future ZIM, geographic, PDF, or OCR dependencies and datasets need their own recorded versions and attribution. No current dependency list implies those integrations are already installed.
+Before public distribution, choose the project code license, review all redistributed assets and notices, and define release/evidence storage. Future ZIM, map-rendering/routing, OCR and other dependencies/datasets need their own recorded versions and attribution. Current PDF and bounded OSM integration are described below; neither implies the broader adapters exist.
 
 ## Knowledge-pack examples in 0.9
 
-Files under `examples/knowledge` are synthetic project demonstration material. Pack parsing and CSV support add no third-party parser library. Imported `source` and `license` fields are declared metadata, not verified provenance or a redistribution grant. Keep each actual source's attribution and rights when preparing packs; no encyclopedia/map/Office adapter dependency was added.
+Files under `examples/knowledge` are synthetic project demonstration material. Pack parsing and CSV support add no third-party parser library. Imported `source` and `license` fields are declared metadata, not verified provenance or a redistribution grant. Keep each actual source's attribution and rights when preparing packs; the pack slice added no encyclopedia/map/Office adapter dependency. Later OSM import uses platform parsers and is separate from the pack format.
 
 ## PDF extraction in 0.10
 
 - [PdfBox-Android](https://github.com/TomRoush/PdfBox-Android), `com.tom-roush:pdfbox-android:2.0.27.0`, pinned from Maven Central. Apache-2.0; upstream tag `v2.0.27.0` LICENSE and NOTICE are included in assets/licenses.
-- Its pinned transitive BouncyCastle artifacts are `bcprov-jdk15to18`, `bcpkix-jdk15to18` and `bcutil-jdk15to18`, version1.72. The official `r1rv72` license is included in assets/licenses.
+- Its pinned transitive BouncyCastle artifacts are `bcprov-jdk15to18`, `bcpkix-jdk15to18` and `bcutil-jdk15to18`, version 1.72. The official `r1rv72` license is included in assets/licenses.
 - [pdfbox-lock.json](pdfbox-lock.json) records resolved AAR/JAR/POM sizes/hashes and notice-source hashes. These are pinned resolved inputs, not a claim of independent security certification or the latest upstream versions.
 - No optional JPEG2000 library, OCR engine, network service or cloud parser is added. Android PdfRenderer displays stored original pages. Original files stay in app-private storage.
 

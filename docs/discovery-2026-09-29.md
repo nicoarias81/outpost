@@ -1,5 +1,7 @@
 # Discovery note: personal knowledge and field work
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 Date: 2026-09-29. Status: **qualitative input and proposed experiments**, not validated demand or an approved feature expansion. Source: a short group discussion pasted by the project owner. This note paraphrases the relevant ideas; names, phone numbers, and the raw chat are not retained.
 
 ## What the discussion actually contributes

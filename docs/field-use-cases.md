@@ -1,5 +1,7 @@
 # Brújula: resolver situaciones en el terreno sin conexión
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 ## Decisión de producto
 
 La orientación principal procede de los cinco contextos indicados por el usuario: viaje, trabajo agrícola, inspección de infraestructura eléctrica, montaña y desplazamiento por carretera. Las preguntas enciclopédicas usadas hasta ahora son comprobaciones técnicas de integración. Las recomendaciones de restaurantes son un subcaso de viaje, no el objetivo central.

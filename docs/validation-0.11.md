@@ -1,5 +1,9 @@
 # Outpost 0.11.0 validation — 2026-09-30
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
+> Harness update in 0.12: the grant Activity/component-disable lifecycle below was replaced by an ordered receiver and hidden inactive roots; use the current runbook between sequential suites. The 0.11 evidence still describes its original test APK.
+
 Implementation commit `b0f944a`; evidence commit `acbff0c`. Version code13 adds recursive selected-folder import and shared one-file validation. Existing chat/model/prompt/kernel behavior is unchanged. All execution was in the offline Outpost35 x86_64 emulator; no model inference or physical-phone test was performed for this feature.
 
 ## Artifact identity

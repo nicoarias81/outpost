@@ -1,5 +1,7 @@
 # Evaluation rubric v1
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](../docs/current-state.md), [handoff](../docs/handoff.md) and [current validation](../docs/validation-0.12.md). Original results and language are preserved.
+
 Version: 1. Date: 2026-09-29. This file defines how Outpost answers are scored against the
 fixtures declared in [fixtures-v1.json](fixtures-v1.json): the rubric dimensions, the
 critical-failure policy, what each evidence type proves, the language rule, a bounty-relative

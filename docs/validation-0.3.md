@@ -1,5 +1,7 @@
 # Brújula 0.3 · revisión local con Kev · 29 de septiembre de 2026
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 ## Qué aporta un modelo tipo Jev
 
 La [documentación oficial de TypeSafe](https://docs.typesafe.ai/introduction) describe Jev como un modelo de decisiones estructuradas: elegir, puntuar o evaluar proposiciones. Su integración pública es una API remota, que no sirve para el funcionamiento offline exigido aquí.

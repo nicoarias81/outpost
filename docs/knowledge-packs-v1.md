@@ -1,10 +1,10 @@
 # Knowledge packs, CSV and source identity
 
-Implemented in Outpost 0.9.0. This is a bounded first format for local text and CSV; PDF, Office files, ZIM and map archives are not supported by this importer.
+Format introduced in 0.9 and retained in 0.12 as a developer/backend contract for inline text and CSV. PDF and OSM are separate file-import adapters, not supported pack payloads. Office and ZIM remain pending.
 
 ## Import and inspect
 
-In **Library**, import a UTF-8 text/Markdown/CSV file (up to 1 MiB), or choose **Import knowledge pack** for a JSON pack (up to 4 MiB). A pack contains 1–32 documents, each up to 1 MiB. The example [field kit](../examples/knowledge/field-kit-v1.json) contains only synthetic demonstration material.
+The current product has no Library tab or pack-import button. Settings → Add file/Add folder imports ordinary documents; a `.json` there must be an Overpass export. Existing packs can be read and removed as a whole. Developers can prepare packs with the host builder and exercise `KnowledgePack`/`Library.installPack` through instrumented tests. A JSON pack is at most 4 MiB and contains 1–32 documents, each at most 1 MiB. The example [field kit](../examples/knowledge/field-kit-v1.json) contains only synthetic demonstration material.
 
 Import bounds JSON nesting/structure before parsing, then validates schema, identifiers, declared formats, content hashes and CSV structure before activation. Package documents and the active-version switch are committed together in SQLite. Failed validation or cooperative cancellation leaves the previous active package intact. Retrying an identical package version is idempotent; a different file with the same package ID/version is rejected. Older versions cannot silently replace a newer installed version.
 
@@ -12,11 +12,11 @@ Source and license labels are declared metadata, not independent verification or
 
 ## Versioned source locators
 
-Every stored document now has a revision, SHA-256 of its original text, format, language, content date when supplied, and incorporation time. An evidence locator combines document ID, revision, fragment kind, ordinal and content hash. It identifies a passage or CSV record, not a confidence score.
+Every pack document has a revision, SHA-256 of its exact UTF-8 body, format, language, content date when supplied, and incorporation time. Other adapters have different [hash/locator semantics](knowledge-base.md), especially PDF and OSM. An evidence locator combines document ID, revision, fragment kind, ordinal and content hash. It identifies a passage or CSV record, not a confidence score.
 
-Opening a search result resolves that exact locator. Package updates retain older source versions for existing references, while search and Library display only the active version. The reader labels archived versions. Removing a pack removes all its retained versions, so references to those sources become unavailable rather than rebinding to another document.
+Opening a search result resolves that exact locator. Package updates retain older source versions for existing references, while ordinary search and document management display only the active pack version. This differs from individual-file snapshots, whose old versions remain searchable. The reader labels archived versions. Removing a pack removes all its retained versions, so references to those sources become unavailable rather than rebinding to another document.
 
-Legacy version-1 databases upgrade transactionally to schema 2 without deleting/reseeding imports or changing their IDs. Original incorporation dates are retained; missing content dates are not invented. Migration tests cover both success and a deliberately failing intermediate ALTER TABLE with rollback of schema changes and preservation of the old rows/version.
+The schema 1→2 migration introduced this contract; the current database is schema 5. Legacy databases upgrade transactionally through the steps described in [knowledge contracts](knowledge-base.md), including schema 2 without deleting/reseeding imports or changing their IDs. Original incorporation dates are retained; missing content dates are not invented. Migration tests cover both success and a deliberately failing intermediate ALTER TABLE with rollback of schema changes and preservation of the old rows/version.
 
 ## CSV semantics and bounds
 

@@ -1,5 +1,7 @@
 # Brújula 0.5 · Bonsai 4B con kernel optimizado · solo emulador
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 Bonsai 4B completa ahora las cuatro consultas de control en **36,9–50,5 segundos**, con primer token en **21,2–33,7 segundos**. En 0.4 las cuatro agotaban 120 segundos antes del primer token. Se mantienen el archivo de pesos de 1.137.806.656 bytes, su SHA-256, contexto de 2048 tokens, máximo de 192 tokens, cuatro hilos y plazo de 120 segundos.
 
 Toda inferencia se ejecutó en el proceso Android del emulador AOSP API 35 x86_64, con 4 GiB configurados, modo avión y Wi-Fi/datos desactivados. No se probó ningún teléfono ni se ejecutó el modelo en un servidor del ordenador. Las consultas anteriores se conservan como controles de rendimiento y regresión; **no sustituyen las misiones de viajero, granjero, ingeniero, montañero y conductor** definidas en [casos de campo](field-use-cases.md).

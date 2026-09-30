@@ -1,60 +1,46 @@
-# Local data, provenance, and trust boundaries
+# Local data, provenance and trust boundaries
 
-Status: description of current controls and concrete requirements for the planned knowledge workflows. This is not a security certification.
+Current controls in **Outpost 0.12.0**, checked against the implementation. This is not a security certification.
 
-## Current boundary
+## Application boundary
 
-The [manifest](../app/src/main/AndroidManifest.xml) requests no permissions, has no network SDK/service, and disables application backup with extraction rules. Source documents and models are imported through Android's picker and stored in application-owned storage. There is no analytics, account, synchronization, arbitrary tool execution, or cloud inference feature.
+The [product manifest](../app/src/main/AndroidManifest.xml) declares no permissions, disables application backup and has no service, analytics, account, cloud inference, synchronization or arbitrary tool executor. The launcher Activity is exported for normal app launch. Documents/models enter through Android's picker and become app-private copies. External document providers may use their own network connection; offline availability requires their bytes to be locally readable at import time.
 
-An external document provider may use its own network connection. Offline testing must select genuinely local files. Disabling application backup does not imply a fully audited data-loss or device-compromise protection model.
+The user candidate is debug-signed. Test instrumentation is a separate APK, not a component bundled into the user candidate. Production signing, debug-surface review and public distribution remain open. Backup settings are not a promise of protection against device compromise or all data loss.
 
-## Inputs and controls
+## Input controls
 
-| Input / risk | Current control | Remaining work |
+| Input / risk | Current boundary | Remaining limitation |
 |---|---|---|
-| Incorrect model or quantization layout | Exact profile size/hash allowlist before loading | Review parser exposure when updating backend or generalizing model support |
-| Oversized or invalid text/CSV/pack | 1 MiB document / 4 MiB pack bounds, strict Unicode, JSON depth/structure preflight and CSV cell/record/expansion limits | Broader file types need format-specific limits and extraction recovery |
-| Search syntax injection | Only normalized letters/digits form FTS terms; parameterized database queries | Reassess any future query language or structured filter layer |
-| Instructions embedded in sources | Sources framed as data; role-delimiter sanitization; no tool/network executor | Prompt adherence is not guaranteed; future tools need independent allowlist/input validation |
-| Unsupported claim with a plausible citation | Source reader and numeric reference checks | Claim-level support evaluation remains incomplete |
-| Rejected speculative continuation | Target verification and KV rollback; only confirmed text emitted | Numerical differences can still change target sampling |
-| Stale source or incorrect revision | Exact revision/hash locators, retained pack versions, distinct content/import dates visible | Structured applicability and explicit coverage metadata remain pending |
-| Native runtime failure / memory retention | Request limits, cancellation, context invalidation and lifecycle cleanup | Peak-memory/pressure/process-death evaluation |
+| Incorrect model/layout | Exact size/hash allowlist for pinned profiles before use | Backend/parser updates still require compatibility review |
+| Text/CSV/pack expansion | Strict Unicode, byte/record/cell/JSON structure limits; literal CSV cells | No arbitrary Office/archive support |
+| PDF | Bounded original/page/text/scratch sizes; pinned extraction; original page inspection | No OCR or guaranteed reading order; initial parsing may delay cancel |
+| OSM XML/JSON | Bounded bytes/objects/tags/references/text/depth; DTD/entity rejection; ID/coordinate/date validation | Imported source is not authenticated; bounded extract does not guarantee completeness |
+| Search syntax | Normalized letters/digits form terms; parameterized SQL | Future structured filtering/query syntax needs its own validation |
+| Source prompt injection | Sources framed as data and role delimiters sanitized; no tool/network executor | Model adherence and claim support are not guaranteed |
+| Stale/wrong source | Exact locators, content/import date distinction, source reader | No automatic revision applicability or freshest-snapshot selection |
+| Native lifetime | Token/time limits, cancellation, invalidation, lifecycle cache release | Peak RAM and storage/memory-pressure recovery are unmeasured |
 
-Model verification pins content identity; it does not certify the truth of model output. A source's hash likewise does not guarantee its accuracy or timeliness.
+Source URLs, PDF actions and OSM tags do not trigger a network fetch. OSM import requests no location access. Recorded coordinates, opening hours or equipment instructions do not establish current conditions or authorization. Full bounds and hash meanings live in [knowledge contracts](knowledge-base.md).
 
-## Planned package and tool boundary
+## Import and retention
 
-Keep content files read-only from the perspective of inference. A retrieved instruction cannot enable an action, network access, or a permission. The coordinator must validate tool name, typed parameters, budgets, and applicability against user-confirmed context.
+Selected-folder access is read-only; sources are never changed/deleted. There is no broad storage permission, watcher or background sync. URI/format/raw-byte identity skips unchanged files. Changed files create additional searchable snapshots. Per-file transactions retain completed work after a sibling fails or the user cancels; a retry rereads/hashes files and skips completed unchanged imports.
 
-Package extraction must reject path escapes and invalid manifests and activate only a fully validated installation. Updates must preserve the old readable package until the new one succeeds. Per-source licenses and attribution travel with exported or redistributed content. Publisher authentication, if introduced, is separate from checksums.
+JSON knowledge packs contain bounded inline text/CSV, not filesystem paths to extract. Validate/index/activate is atomic; failed/canceled/conflicting updates retain the previous active version. Archived versions remain resolvable until whole-pack removal, and consume storage. Declared source/license fields and checksums do not authenticate a publisher.
 
-PDF/OCR and geographic inputs introduce new parsing dependencies and uncertainty. Preserve originals for inspection, including page imagery where extraction may misread a number or unit. Do not infer live electrical status, road safety, or current availability from a stored record.
+Conversation rows live in private `chat.db`, independently of the knowledge library. Completed, limited, canceled and interrupted states remain distinguishable. **New chat** confirms deletion of that conversation and leaves documents intact. Removing a document clears its index/metadata/origin bindings and any private PDF/OSM original; removing a pack clears all its versions. Existing source references then become unavailable. There is no chat export, multi-conversation manager, field notebook or retention scheduler.
 
-## Data retention and evidence
+File copies and database transactions are not crash-atomic together. Process death can leave orphaned private originals/staging files; comprehensive cleanup and storage-pressure handling remain pending. Do not claim loss-free automatic import resume. The folder summary explains interruption and asks the user to select the folder again.
 
-Debug builds and test harnesses contain diagnostic interfaces and export JSON/screenshots. They are development artifacts. Production signing, removal/restriction of test surfaces, and a release review are pending.
+## Test-only provider and evidence
 
-Tests currently use demonstration or fictitious field content. Before publishing any evidence, inspect it for imported personal documents, location/asset identifiers, local paths, or sensitive operational details. Legacy runtime scripts may overwrite fixed evidence filenames; preserve them before rerunning. New evaluation/knowledge runs use unique directories. Review records are explicitly attributed and tied to exact results bytes.
+`FolderDocumentsProvider` belongs to the test APK, is protected by `android.permission.MANAGE_DOCUMENTS`, and serves synthetic fixture data only. It remains registered. An ordered `FixtureGrantReceiver` broadcast grants/revokes read access to the app and toggles root visibility; inactive roots are hidden. `FixtureGrants` obtains grants after instrumentation starts and checks readability. Repeated provider component disable/enable is obsolete and caused the documented sequential-suite failure. No fixture Activity is used in the current harness.
 
-Do not commit GGUF weights, AVD disks, private app data, signing keys, SDKs, build caches, or unrelated workspace files. The [migration plan](repository-migration.md) defines preservation and staging boundaries. A user-facing export/delete/retention workflow is future work; document its exact behavior when implemented rather than claiming it exists now.
+Test wrappers revoke fixture grants and hide roots afterward. They clean their own imported records and restore the previous import-summary state. Do not add broad product permissions to repair a fixture problem. Exact lifecycle/failure evidence is in [0.12 validation](validation-0.12.md).
 
-## Implemented local pack boundary
+JSON/screenshots can contain personal text, locations, asset IDs or local paths. Inspect evidence before committing/sharing. Current product/data/evaluation suites use unique run folders; legacy runtime scripts still overwrite fixed files and require archival first. Keep GGUFs, AVD disks, private app data, signing material, SDKs and caches out of Git. Review records must remain attributed and bound to exact result bytes.
 
-JSON packs contain bounded inline text/CSV, not arbitrary path archives. Validate/index/activate is transactional; corrupt, conflicting or canceled imports leave the old active version intact. CSV formulas stay literal. Historical source versions remain until confirmed removal of the pack, which removes all of its versions; this is not a general user-data retention/export UI. Hashes protect identity, not publisher authentication. Process-death/resume and storage-pressure behavior need further work.
+## Proposed tools and connected work
 
-## Chat/PDF boundary in 0.10
-
-Conversation rows are private local data, distinct from document storage. New chat confirms deletion of the conversation without removing imports. Stop/interruption states survive recovery. Model history is context rather than independently verified evidence, and no generated instruction authorizes an action. No network permission was added.
-
-PDF parsing introduces a pinned local dependency and stores an original private file beside bounded extracted text. Encrypted/scanned-only/malformed inputs are rejected. Rendering and extraction do not execute document actions. Full crash/orphan-file cleanup and storage-pressure guarantees remain pending; do not claim loss-free import recovery. Synthetic test corpus and checks moved out of the production assets/UI.
-
-
-## Selected-folder boundary
-
-0.11 reads only the tree chosen through Android's picker. There is no broad storage permission, source write/delete, background watcher or automatic synchronization. Imports become app-private copies. Provider identity, detected format and original-byte SHA-256 distinguish repeated snapshots; they do not authenticate content truth. Item failures and traversal limits are visible. Cancellation/process interruption preserve committed files; reselecting the folder resumes by skipping existing unchanged snapshots. The fixture provider belongs only to the test APK, with temporary owner-issued read grants.
-
-
-## OSM source boundary
-
-OSM XML and Overpass JSON are local unverified inputs. DTD/entity declarations and oversized/nested fields are rejected before parsing, and feature IDs, coordinates and timestamps are validated. No source URL, tag or XML reference triggers a network fetch. The import does not request location access. Attribution and hashes preserve provenance/identity; neither certifies that a mapped feature is current or operational. Original files and rows remain app-private until removed by the user.
+Inference must treat content as read-only. Future local tools need an independent allowlist, typed parameters, budgets and applicability checks against confirmed context. Equipment transports, account connectors and an action ledger are proposals, not present features or authorization. A reconnect event cannot approve a destination/payload or retry an unknown non-idempotent result. Public distribution and source-license review remain separate decisions in the [roadmap](roadmap.md).

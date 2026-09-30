@@ -2,10 +2,17 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## Documentation consolidation — 2026-09-30
+
+- Reconciles maintained English documentation with 0.12: chat/Settings, recursive snapshots, PDF/OSM sources, schema 5, packaging and current test-provider lifecycle.
+- Separates historical measurements/reviews from current product behavior and marks old operational reports as historical.
+- Records the evaluation validator's incomplete ABI comparison as E-06 and clarifies recovery/user-test readiness tasks.
+- Documentation only: no app version, source, model, fixture, raw evidence or runtime change; see [audit](docs/documentation-audit-2026-09-30.md).
+
 ## 0.12.0 — OpenStreetMap knowledge import — 2026-09-30
 
 - Adds bounded OSM XML and Overpass JSON import through Add file/Add folder, retaining tags, IDs, dates, coordinates and attribution.
-- Adds schema5 feature rows and exact element source locators; stores the original file and preserves prior snapshots on rejected updates.
+- Adds schema 5 feature rows and exact element source locators; stores the original file and preserves prior snapshots on rejected updates.
 - Adds a paginated feature/source browser and integrates feature identities into chat retrieval/citations.
 - Distinguishes node positions, exported/derived centers and unknown geometry; retains missing tags as unknown and opening hours as recorded data.
 - Adds OSM parsing/storage/SAF/UI and optional generation checks; stabilizes sequential fixture tests with ordered grants and hidden inactive roots.
@@ -15,7 +22,7 @@ This history is reconstructed from saved validation reports. Version dates are o
 
 - Adds Settings/Documents → Add folder using Android's selected-tree picker; recursively imports supported PDF/TXT/Markdown/CSV.
 - Shows progress, stop control and persistent summary, with per-item skips/errors; keeps successful files when a sibling fails.
-- Preserves relative paths and adds schema4 source/format/raw-byte identity for unchanged-file deduplication and safe retry. Changed files remain new snapshots.
+- Preserves relative paths and adds schema 4 source/format/raw-byte identity for unchanged-file deduplication and safe retry. Changed files remain new snapshots.
 - Shares the single-file parser/limits with folder ingestion and adds dedicated real-provider tests without shipping fixtures in the user APK.
 - No model/prompt/kernel change, source write, automatic sync or physical-device execution.
 
@@ -34,10 +41,10 @@ This history is reconstructed from saved validation reports. Version dates are o
 - Added schema-2 migration preserving imports and typed exact source/revision/hash locators.
 - Added bounded UTF-8 CSV records and local JSON knowledge packs with atomic version activation, cancellation, retention and removal; English import/source UI.
 - Added executable contextual evaluation v2, immutable runs, source/input snapshots and attributed review validation; preserved failed answers and rejected the longer prompt candidate.
-- Clarified runtime selection/speedup/time-reduction reporting and tested policy boundaries; retained existing numerical kernels and width4 profile on this emulator.
+- Clarified runtime selection/speedup/time-reduction reporting and tested policy boundaries; retained existing numerical kernels and width 4 profile on this emulator.
 - Hardened Windows argument quoting and build/publication provenance with source fingerprints and build receipts.
 - Final build/lint, 61 knowledge checks and 53 functional checks passed; detailed run/build scopes and quality gaps are in [validation](docs/validation-0.9.md).
-- Implementation committed as `c51c73f`. Final docs/evidence commits and canonical local artifact publication remain pending an automatic permission-review service quota failure. A verified delivery copy and review patch are recorded in the handoff; no public release implied.
+- Implementation committed as `c51c73f`. Final docs/evidence integration initially paused on an automatic permission-review quota failure; it was resolved before 0.10, with evidence in `449bca6` and line-ending protection in `c4deeb9`. No public release is implied.
 
 ## 0.8.1 — Outpost
 

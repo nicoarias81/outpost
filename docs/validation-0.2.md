@@ -1,5 +1,7 @@
 # Validación 0.2.0 · solo emulador · 29 de septiembre de 2026
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 ## Implementación
 
 Motor llama.cpp compilado desde la revisión fijada en `llama-revision.txt`, enlazado en la app mediante JNI. Inferencia CPU dentro del proceso Android: no hay servidor de inferencia en el ordenador ni API remota.

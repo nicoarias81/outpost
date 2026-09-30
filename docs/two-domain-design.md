@@ -1,5 +1,7 @@
 # Dos dominios: inferencia y conocimiento local
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 Estado: propuesta de arquitectura para discutir y desarrollar. No añade integraciones ni cambia el APK 0.4. Conserva los cinco [casos de uso en el terreno](field-use-cases.md) y la restricción de ejecutar las pruebas en el emulador.
 
 ## Principio

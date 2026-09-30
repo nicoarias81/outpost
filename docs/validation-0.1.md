@@ -1,5 +1,7 @@
 # Validación 0.1.0 · 29 de septiembre de 2026
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 ## Entorno
 
 Emulador propio `Brujula35`, serial `emulator-5580`, AOSP Android 15/API 35, x86_64, 4 GiB configurados. No es una emulación del procesador Tensor G5. Imagen sin Google APIs. Datos propios en `.local/avd`.

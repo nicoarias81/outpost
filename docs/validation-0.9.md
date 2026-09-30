@@ -1,5 +1,9 @@
 # Outpost 0.9.0 validation — 2026-09-30
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
+> Later status: the integration/publication quota interruption described below was resolved before 0.10 (evidence integration `449bca6`, line-ending preservation `c4deeb9`). Its former pending state is historical, not a current blocker.
+
 Implementation commit: `c51c73f` (`Add versioned knowledge packs, CSV evidence and executable evaluation`). Version code 11. Native numerical code, pinned backend and model weights are unchanged. Execution stayed inside Outpost35, the x86_64 Android emulator. The app and maintained project language are English.
 
 ## Delivery status and artifact identity

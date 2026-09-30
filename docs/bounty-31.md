@@ -19,7 +19,7 @@ The bounty text below is served by the poidh application. It is **not** a signed
 on-chain-verified artefact. It must be re-fetched from the tRPC endpoint above before any
 submission decision is made against it.
 
-## Bounty metadata
+## Bounty metadata at retrieval (2026-09-29)
 
 | Field | Value |
 |---|---|
@@ -117,7 +117,7 @@ Submissions that are fraudulent, malicious, plagiarized, materially different fr
 ## Requirements trace
 
 The fourteen requirement ids below are declared in
-[../eval/fixtures-v1.json](../eval/fixtures-v1.json) (`bounty_requirements`). The state column
+[current fixtures-v5.json](../eval/fixtures-v5.json) (`bounty_requirements`), originating in frozen v1. The repository trace below was refreshed for 0.12 on 2026-09-30; the external bounty record was not re-fetched. The state column
 describes this repository against each requirement. **No requirement is claimed as met.** The
 `verifiable_in_current_scope` value comes from the manifest; it describes what the current scope
 can verify, not what has been verified.
@@ -126,17 +126,17 @@ can verify, not what has been verified.
 |---|---|---|---|
 | R-ANDROID | The submission must run on Android. | partial | Runs on the x86_64 AOSP emulator only; no real-device behaviour observed. Source of truth: [current-state.md](current-state.md) capability inventory. |
 | R-GRAPHENEOS | The submission must run on compatible GrapheneOS hardware. | no | Not verifiable: physical device execution is out of scope by user decision (ADR-003). Source of truth: [decisions.md](decisions.md) ADR-003. |
-| R-RAM-12GB | The submission must work in an environment with at most 12 GB of RAM. | partial | No peak-memory measurement exists; a post-run PSS sample is not peak memory (P-04 pending). Source of truth: [current-state.md](current-state.md) known-failure table. |
-| R-STORAGE-50GB | The submission must fit within 50 GB total for the app, weights, indexes and databases. | partial | Pinned host-side model sizes are recorded in the manifest and are far below the cap; the on-device installed footprint is not measured. Source of truth: [../eval/fixtures-v1.json](../eval/fixtures-v1.json) `identity.models`. |
-| R-OFFLINE | The submission must work completely offline once installed. | partial | Emulator airplane mode is enforced by scripts; no instrumented proof of full offline behaviour exists. Source of truth: [current-state.md](current-state.md). |
-| R-NONETWORK | No API calls, remote inference, web searches or other network requests during use. | yes | The application manifest declares no INTERNET permission, so the installed application cannot open sockets; verified structurally, not yet by a scored offline run. Source of truth: [../app/src/main/AndroidManifest.xml](../app/src/main/AndroidManifest.xml). |
+| R-RAM-12GB | The submission must work in an environment with at most 12 GB of RAM. | partial | No peak-memory measurement exists; a post-run PSS sample is not peak memory (P-04 pending). Source of truth: [current-state.md](current-state.md) open engineering work. |
+| R-STORAGE-50GB | The submission must fit within 50 GB total for the app, weights, indexes and databases. | partial | Pinned host-side model sizes are recorded in the manifest and are far below the cap; the on-device installed footprint is not measured. Source of truth: [current model identities](inference-runtime.md) and root lock files. |
+| R-OFFLINE | The submission must work completely offline once installed. | partial | Offline emulator import/chat/generation checks exist, with the latest bounded scope in [0.12 validation](validation-0.12.md); this is not comprehensive field or real-device acceptance. Source of truth: [current-state.md](current-state.md). |
+| R-NONETWORK | No API calls, remote inference, web searches or other network requests during use. | yes | The application manifest declares no INTERNET permission; runtime checks use offline AOSP. External picker providers remain a separate process/data-preparation boundary. This is not a complete network audit of every future workflow. Source of truth: [../app/src/main/AndroidManifest.xml](../app/src/main/AndroidManifest.xml). |
 | R-NOGMS | No Google Play Services for core offline functionality. | yes | AOSP system image on the emulator; no GMS dependency in the build files. Source of truth: [decisions.md](decisions.md) ADR-002. |
-| R-BEYOND-RECALL | Handle explanation, comparison, synthesis and reasoning beyond simple factual recall. | partial | Fifteen fixtures across seven question families are defined in the manifest; none has been executed as a scored benchmark. Source of truth: [../eval/fixtures-v1.json](../eval/fixtures-v1.json). |
-| R-SPEED | Usable lookup speed on a phone. | no | Emulator timing is recorded but is explicitly not a phone prediction (ADR-003, known-failure P-01). Source of truth: [current-state.md](current-state.md). |
+| R-BEYOND-RECALL | Handle explanation, comparison, synthesis and reasoning beyond simple factual recall. | partial | Fifteen fixtures are defined; historical 0.9 runs have attributed assistant reviews with unresolved quality failures. Current product chat and real-region usefulness still need broader review. Source of truth: [evaluation](evaluation.md). |
+| R-SPEED | Usable lookup speed on a phone. | no | Emulator timing is recorded but is explicitly not a phone prediction (ADR-003, roadmap X-06). Source of truth: [current-state.md](current-state.md). |
 | R-PUBLIC-REPO | Published in a public GitHub repository, reproducible and documented. | partial | A private GitHub remote exists at `nicoarias81/outpost`, authorized by the user (2026-09-29); public visibility is deferred to the final usable version and has not happened. Source of truth: [current-state.md](current-state.md). |
 | R-REAL-DEVICE | Must work on real Android hardware at the time of submission. | no | Physical-device validation is deferred by user decision; the emulator remains the only execution target (ADR-003). Source of truth: [decisions.md](decisions.md) ADR-003. |
-| R-PROOF | Public demo on X or Farcaster plus a poidh screenshot. | no | Out of scope: no public demo exists or is planned inside the repository's current scope. Source of truth: [../odd/tasks/eval-fixture-manifest.md](../odd/tasks/eval-fixture-manifest.md) scope boundary. |
-| R-BAR-50PCT | More than 50% as good as internet search plus frontier AI models. | no | A comparison protocol is defined in [../eval/rubric-v1.md](../eval/rubric-v1.md), marked **proposed, not measured**; nothing in the repository currently scores this bar. Source of truth: [../eval/rubric-v1.md](../eval/rubric-v1.md). |
+| R-PROOF | Public demo on X or Farcaster plus a poidh screenshot. | no | Out of scope: no public demo exists or is planned inside the repository's current scope. Source of truth: [handoff](handoff.md) and distribution scope. |
+| R-BAR-50PCT | More than 50% as good as internet search plus frontier AI models. | no | A comparison protocol is defined in [rubric v2](../eval/rubric-v2.md), marked **proposed, not measured**; nothing in the repository currently scores this bar. Source of truth: [rubric v2](../eval/rubric-v2.md). |
 | R-ARCH-OPEN | Architecture open, no parameter-count limit. | informational | The architecture is documented as open and layered across world, regional and personal evidence; no single verification exists. Source of truth: [architecture.md](architecture.md). |
 
 ## Scope boundary — user decisions, 2026-09-29

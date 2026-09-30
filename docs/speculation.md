@@ -1,6 +1,6 @@
 # Context speculation and MTP
 
-Status: context speculation implemented experimentally; native MTP and a dual-model drafter are not implemented. Default UI state is off. Scope: Bonsai 4B in the emulator.
+Status in Outpost 0.12: context speculation exists only as native research functionality; product chat forces depth 0 and has no toggle. Native MTP and a dual-model drafter are not implemented. Measurements below are historical Bonsai 4B emulator experiments, not current phone/product benchmarks.
 
 ## Implemented algorithm
 
@@ -14,13 +14,13 @@ The adaptive controller estimates normal-step cost and actual verification-windo
 
 Diagnostic modes permit suffixes/depths outside the production policy and an oracle continuation. Oracle mode reads a known target answer for testing; it is not a deployable predictor.
 
-## Final versus initial policy
+## Historical final versus initial research policy
 
 | Workload | Final baseline / speculation | Interpretation |
 |---|---|---|
 | Long repeated-text control, three pairs | 21.664 / 19.818 s median decode | 8.5% less decode time; identical text in all three pairs |
 | Short 16-token answer | 3.445 / 3.034 s median decode | No proposals were launched; difference is not speculative acceleration |
-| Final UI case | 105 tokens in both modes; 7 of 9 proposals accepted in 3 windows | Confirms UI integration for that case, not universal equality |
+| Final UI case | 105 tokens in both modes; 7 of 9 proposals accepted in 3 windows | Confirmed the old 0.7 UI integration for that case; that product control has since been removed |
 
 The initial four-token-suffix policy showed about 20% less decode time in the long control and about 6% more in a short control; it also changed one UI answer. It was replaced by the more conservative policy. Keep [initial results](../evidence/0.7-before-outpost/speculation/initial-v1/speculation-benchmark.json) distinct from [final results](../evidence/0.7-before-outpost/speculation/speculation-benchmark.json).
 
@@ -50,4 +50,4 @@ This is a [cost estimate](../evidence/0.7-before-outpost/speculation/speculation
 
 ## Reconsideration gate
 
-Require compatible trained weights, a numerical/acceptance audit, EOS and KV rollback tests, cancellation/recovery tests, paired mission measurements, and peak-memory accounting. Keep the default off until a representative workload demonstrates a durable end-to-end benefit without unacceptable quality or memory regression.
+Require compatible trained weights, a numerical/acceptance audit, EOS and KV rollback tests, cancellation/recovery tests, paired mission measurements, and peak-memory accounting. Keep product speculation disabled. Reintroducing a control or enabling it requires representative end-to-end benefit without unacceptable quality/memory regression, plus a new decision; old copy controls alone do not meet that gate.

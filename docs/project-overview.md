@@ -1,10 +1,10 @@
 # Product overview
 
-Status: product direction adopted; complete field workflows remain proposed.
+Status: product direction adopted; Outpost 0.12 implements chat, local document/folder preparation and bounded OSM lookup. Complete reviewed field workflows remain pending.
 
 ## Purpose
 
-Help a person retrieve, understand, and apply information already on their phone when connectivity is unavailable. The primary result is a useful next step supported by inspectable information, rather than an unconstrained conversation or a benchmark score.
+Help a person retrieve, understand, and apply information already on their phone when connectivity is unavailable. The intended result is a useful answer or next step, with inspectable sources when supplied and clear limits on personal or current information. Chat is the main interface.
 
 The user identified five equally relevant contexts:
 
@@ -24,17 +24,19 @@ A [small group discussion](discovery-2026-09-29.md) suggests personal document r
 
 The issue-list demo is one personal-recall fixture within a broader question-family evaluation. Restaurant recommendations are another illustrative fixture; neither alone defines acceptance. Read-only diagnosis against a simulated device is an additional candidate. Reflection and connected execution would require distinct interaction/permission designs; neither is implemented. The five original contexts remain in scope.
 
-## User journey
+## Intended user journey and delivered subset
 
 **Prepare:** choose a region or activity, add documents, inspect coverage and dates, verify storage requirements, and test access in airplane mode. A package download date must not be presented as the date its content was last verified.
 
 **Use:** describe the situation; confirm important context such as equipment model, location, and units; retrieve the applicable information; show the source before waiting for long generation; calculate deterministically where appropriate; explain the result and any material uncertainty.
 
-**Continue:** correct context without retaining invalid assumptions; reopen the original passage; optionally save a local observation or report. Saving is separate from sending. A field notebook and multi-turn mission context are not implemented yet.
+**Continue:** correct context without retaining invalid assumptions; reopen the original passage; optionally save a local observation or report. Saving is separate from sending. Bounded recent-turn context and local chat persistence are implemented. An editable mission record, typed observations, deterministic tools and a field notebook are not.
+
+The current UI implements chat, file/folder import, model preparation and source reading. Region selection, coverage/storage planning, route guidance, typed tools and explicit mission context in this journey remain goals, not present controls. See [current state](current-state.md).
 
 ## Product principles
 
-1. Reading and searching remain useful without a loaded model.
+1. Source reading remains useful without a loaded model; fast useful retrieval is an evaluation goal. Current search is integrated into chat, without a separate search screen.
 2. Inference and knowledge can evolve independently.
 3. A source stays inspectable through a stable locator, version, and provenance record.
 4. Unknown current conditions stay unknown: a saved road, business, or asset record is not a live status service.
@@ -44,7 +46,7 @@ The issue-list demo is one personal-recall fixture within a broader question-fam
 
 ## Scope and constraints
 
-Current implementation targets Android and CPU inference in an x86_64 AOSP emulator. Execution must remain in the emulator. Pixel 3 XL and Pixel 10 Pro are future devices of interest, not validated targets. AOSP and the absence of Google dependencies support the intended deployment direction, but GrapheneOS operation has not been tested.
+The APK packages x86_64 and ARM64 CPU backends; current runtime evidence comes from the x86_64 AOSP emulator. Execution must remain in the emulator. Pixel 3 XL and Pixel 10 Pro are future devices of interest, not validated targets. AOSP and the absence of Google dependencies support the intended deployment direction, but GrapheneOS operation has not been tested.
 
 Earlier planning used a 12 GB RAM environment and a 50 GB total resource budget as bounty constraints. Those are planning references, not measured compliance or a substitute for checking the active submission rules before a submission. Current emulator configuration is 4 GiB; real peak RAM, battery use, and thermal behavior remain unmeasured.
 

@@ -1,11 +1,11 @@
 # Evaluation rubric v2
 
 Version: 2. Date: 2026-09-30. This file defines how Outpost answers are scored against the
-fixtures declared in [fixtures-v2.json](fixtures-v2.json): the rubric dimensions, the
+fixtures frozen with each run (current default: [fixtures-v5.json](fixtures-v5.json); original executable definition: [fixtures-v2.json](fixtures-v2.json)): the rubric dimensions, the
 critical-failure policy, what each evidence type proves, the language rule, a bounty-relative
 comparison protocol, and the minimum shape of a recorded score.
 
-The **fixture definitions live in the manifest** ([fixtures-v2.json](fixtures-v2.json)). This file
+The **fixture definitions live in the manifest** captured with the run. This rubric remains version 2 for revisions 2–5; navigation was refreshed on 2026-09-30 without changing scoring semantics. Product chat is a separate protocol; see [the runner guide](README.md). This file
 must not duplicate them: per-fixture critical failures, evidence conditions, and expected outcomes
 are declared there, and this file only defines how they are judged. The evaluation protocol and
 performance-measurement rules it builds on live in

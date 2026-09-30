@@ -1,5 +1,7 @@
 # Brújula 0.6 · experimentos derivados de Strata
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 Se probaron las tres hipótesis prioritarias del [análisis de Strata](strata-review.md): calibración, cálculo de varios tokens y caché de prefijos. En este emulador se conservan cuatro hilos y lotes de 128, se activa el kernel de hasta cuatro tokens de entrada y se reutilizan contextos compatibles. No se cambiaron los pesos, el prompt de la app, su muestreo ni el plazo de 120 segundos.
 
 Toda inferencia y prueba numérica se ejecutó en Android AOSP API 35 x86_64, con cuatro CPU lógicas y 4 GiB configurados, modo avión y Wi-Fi/datos desactivados. No se ejecutaron modelos en el host ni en teléfonos físicos. El APK sigue siendo x86_64; compilar objetos ARM64 no valida su ejecución en ARM.

@@ -1,5 +1,7 @@
 # Subcaso de viaje: recomendaciones locales sin internet
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 Este caso queda subordinado a la [visión de uso en el terreno](field-use-cases.md), revisada tras la aclaración del usuario. No es la prioridad global del producto. Viaje, campo, inspección de infraestructura, montaña y carretera definen ahora la evaluación principal.
 
 ## Contexto y estado

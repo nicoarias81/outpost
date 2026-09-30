@@ -1,5 +1,9 @@
 # Feature: eval-fixture-manifest
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](../../docs/current-state.md), [handoff](../../docs/handoff.md) and [current validation](../../docs/validation-0.12.md). Original results and language are preserved.
+
+> Archived task specification/outcome log: early plan and later completion sections intentionally coexist. Its stale instructions and original v1 warnings are not the active backlog or current validator behavior. No formal native review completion is implied.
+
 Status: implemented, verified and committed as three work-unit commits; native review to be redone per
 work unit
 Created: 2026-09-29

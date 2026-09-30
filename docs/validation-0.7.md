@@ -1,5 +1,7 @@
 # Brújula 0.7 · especulación de contexto y evaluación de MTP
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 Se implementó decodificación especulativa mediante coincidencias de tokens en el contexto, sin descargar otro modelo. Es una opción **experimental, desactivada por defecto**, disponible en Estado para Bonsai 4B. Toda inferencia y prueba de muestreo se ejecuta en el emulador AOSP Android 15 x86_64, cuatro CPU lógicas y 4 GiB configurados. No se utilizó un teléfono ni se ejecutaron modelos en el ordenador anfitrión.
 
 ## Qué ocurre con MTP

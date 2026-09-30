@@ -1,5 +1,7 @@
 # Brújula 0.4 · generadores ternarios · solo emulador
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 ## Hipótesis y compatibilidad
 
 Los modelos [Ternary Bonsai de PrismML](https://prismml.com/news/ternary-bonsai) usan valores de peso escalados con tres estados. Esto reduce el tamaño de los pesos y permite considerar más parámetros bajo un presupuesto de memoria, pero no garantiza por sí solo menor latencia o mejores respuestas.

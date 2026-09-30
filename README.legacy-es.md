@@ -1,5 +1,7 @@
 <!-- Historical Spanish snapshot of the 0.7.0 README. Current documentation: README.md and docs/index.md. -->
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](docs/current-state.md), [handoff](docs/handoff.md) and [current validation](docs/validation-0.12.md). Original results and language are preserved.
+
 # Brújula · prototipo Android offline
 
 Nombre provisional. Primera etapa de una app de investigación local para la convocatoria [poidh #31](https://poidh.xyz/mainnet/bounty/31).

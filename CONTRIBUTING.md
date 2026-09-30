@@ -6,8 +6,8 @@ Use English for maintained code comments, documentation, user-facing default res
 
 Keep model execution inside the Android emulator until the project owner expands the execution scope. Select kernels by real CPU/OS capability and compiled support, and retain a tested reference fallback. Pin dependencies and models; changes to backend internals require appropriate numerical and lifecycle checks.
 
-Use focused tests for the behavior being changed. Record input/model/build identity, output, timing scope, and limitations. Preserve failed experiments and distinguish execution success from reviewed task quality. Avoid rerunning every model suite for a documentation-only edit.
+Use focused tests for the behavior being changed. Record input/model/build identity, output, timing scope, and limitations. Preserve failed experiments and distinguish execution success from reviewed task quality. For a documentation-only edit, check local links/source consistency, fixture definitions and unchanged build/artifact identities; no model or numerical suite rerun is needed. Use the [documentation index](docs/index.md) to update the owning guide instead of appending conflicting release notes.
 
 Keep weights, AVD disks, SDKs, private documents, signing material, and machine paths out of source control. Configure the developer environment through ignored local settings. Before staging evidence, review it for private data and preserve the release record instead of overwriting it.
 
-The project currently has no configured remote or selected code license. This local repository does not itself authorize public redistribution or upstream submissions. Publication and licensing are separate project decisions.
+The project has an existing private GitHub remote and no selected code license. This local repository does not itself authorize public redistribution or upstream submissions. Publication and licensing are separate project decisions.

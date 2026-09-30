@@ -1,5 +1,7 @@
 # Selección de cálculo según el dispositivo · 0.5.1
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 Evolución posterior: [0.6 incorpora perfiles medidos, agrupación del prefill y caché con liberación de contexto](validation-0.6.md). Los requisitos de CPU y la distinción entre candidato e implementación de esta nota siguen vigentes. Las referencias de resultados históricos describen 0.5.1; los registros operativos pueden incluir comprobaciones posteriores.
 
 El motor debe trabajar con capacidades comprobadas en ejecución y con implementaciones incluidas en cada compilación. El nombre comercial del teléfono no decide qué instrucciones se ejecutan. La configuración que resulta rápida en un emulador x86 no se considera óptima para un teléfono ARM.

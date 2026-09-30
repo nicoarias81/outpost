@@ -1,58 +1,55 @@
 # Engineering handoff — start here
 
-Updated 2026-09-30. **Outpost 0.12.0 / code14**, moving toward mobile user tests. Previous 0.10 implementation: `aca6d97`; prior evidence: `6091111`. Previous 0.11 implementation: `b0f944a`; evidence: `acbff0c`. Current 0.12 implementation: `1d311c7`; evidence: `dbdd0b6`. The current work is described below. Read [current state](current-state.md), [chat/document design](chat-beta.md), [validation](validation-0.12.md), then the relevant domain guide. The user now wants the app to open on chat, import files through Settings, and remove mock/demo/prototype UI.
+Updated **2026-09-30**, baseline **Outpost 0.12.0 / code 14**. Implementation `1d311c7`; evidence `dbdd0b6`; release handoff `23231b3`. The latest documentation consolidation changes no app/runtime/model/fixture bytes. Read [current state](current-state.md), [validation](validation-0.12.md), then the owning domain guide in [the index](index.md).
 
-## Canonical work and constraints
+## Scope and persistent constraints
 
-- Work in `E:/projects/outpost`, branch `codex/outpost`; app `dev.outpost.app`, native `outpost_engine`. Check actual Git status/history and other work before editing. Preserve old Brújula and its emulator.
-- English product UI, maintained docs/comments and primary fixtures. Historical and deliberately bilingual evidence retains its original language.
-- All model/numerical execution stays in Outpost35 / `emulator-5582`. Host build/static inspection is allowed; physical Pixel execution remains outside scope. ARM64 is now compiled and packaged, not runtime-validated.
-- Preserve dependency/model hashes, fallback and failed evidence. Public/reference, regional and personal content are complementary sources; inference and knowledge remain the two technical domains.
-- Vitalik's example describes contextual question types, not a vegan/restaurant vertical. Original contexts remain traveler, farmer, field engineer, mountaineer and driver. Discovery suggestions about reflection/actions/equipment are not external-action authorization.
-- Do not push, publish publicly, operate equipment/accounts or erase user data based on this handoff. Existing remote is private. Code license, release signing and broader user/device distribution remain separate decisions.
+- Work in `E:/projects/outpost`, branch `codex/outpost`, app `dev.outpost.app`, native `outpost_engine`. Check Git state and ongoing work first; older C-workspace delivery/staging folders are historical, not current source.
+- English UI, maintained docs/comments and primary fixtures. Preserve original imported/historical language and deliberate multilingual probes.
+- Execute models/numerical/runtime tests only in **Outpost35 / emulator-5582**. Host build/static/header/hash checks are allowed. Preserve old Brújula and emulator-5580. Physical Pixels remain unauthorized; ARM64 is packaged but not runtime-validated.
+- The product serves traveler, farmer, field engineer, mountaineer and driver question types. Vitalik's restaurant example is not a vegan/restaurant specialization. Public, regional and personal knowledge are complementary; inference and knowledge remain separate technical domains.
+- Discovery about reflection, reconnect tasks and equipment is not authorization to send, connect or operate external systems. Preserve pinned dependencies, reference fallback, private data and failed evidence. Public distribution/license/signing remain separate; the existing remote is private.
 
-## OSM import added in 0.12
+## Product baseline
 
-Individual/folder import now accepts bounded UTF-8 OSM XML and Overpass JSON. `OsmImporter` validates metadata/tags and distinguishes node positions, exported centers, derived complete-way bounding-box centers and unknown geometry. `OsmStorage`/schema5 store feature rows separately from the document summary and expose exact `element` evidence locators. The source browser is paginated and retains OSM attribution. Chat retrieval/citation labels use the feature identity. The original file is retained privately; updates remain distinct snapshots under the existing policy.
+Chat is home. One send retrieves and streams; the local conversation persists, with two bounded recent completed/limited turns as model context. `ChatPrompt` v1.1 permits general knowledge without fabricating personal/live sources; `ResearchPrompt` remains an independent evidence-only evaluation protocol. Product chat always sets speculation depth 0.
 
-Read [OSM import](osm-import.md) for formats, limits, preparation and source-trust boundaries. PBF/GeoJSON, map rendering, GPS, nearest-neighbor/routing and live availability remain absent. One actual Bonsai source-answer check was recorded; no broad real-place accuracy or phone-performance claim follows. Use `test-osm.ps1`, with `-Generate` only when a genuine answer check is needed.
+Settings owns Add file/Add folder, document reading/removal, locked offline-model import/selection and confirmed New chat. No prototype tabs, mock knowledge, benchmark metrics, Kev or speculation controls remain in the product. New chat deletes the conversation, not documents. Generator weights are separate from the APK.
 
-The test provider lifecycle changed: `FixtureGrantReceiver` acknowledges ordered grant/revoke broadcasts; `FixtureGrants` waits for readability. Keep the provider registered between suites, hide its roots and revoke fixture grants afterward. Repeated component disabling/re-registration caused an unavailable-provider regression. None of this fixture code is in the user APK; do not add broad permissions to the product.
+Supported files: strict UTF-8 text/Markdown/CSV, bounded text-bearing PDF, OSM XML/Overpass JSON. Folders recurse through readable subdirectories with progress, stop/retry, per-item outcomes and retained paths. Unchanged source/format/raw-byte identity skips duplicates; changed snapshots remain **separately searchable**, without automatic newest-version selection. Current `.json` picker input means Overpass, not a knowledge pack. Existing developer packs retain their distinct atomic activation/version-retention contract.
 
-## Folder import added in 0.11
+Library schema 5 adds `osm_features` after metadata/packs (2), precise seed cleanup (3) and import origins (4). Upgrades preserve imported/edited data. PDF originals/page text and OSM exact files/features remain inspectable. The PDF locator hash is extracted-page serialization; the separate import binding stores raw PDF bytes' hash. OSM locators use the original extract hash. See [knowledge](knowledge-base.md), [chat/PDF](chat-beta.md), [folders](folder-import.md) and [OSM](osm-import.md).
 
-Settings and Documents now offer **Add folder** using Android's native directory picker. `FolderImporter` traverses subdirectories, isolates per-item failures, reports progress/results and supports stop/retry. `DocumentImporter` shares validation with single-file import. Schema4 preserves existing rows and adds transactional source/format/original-byte identity bindings, preventing duplicate unchanged imports. Changed bytes create another snapshot; this is not sync. Relative paths distinguish equally named files. Read [folder-import](folder-import.md) for limits, cancellation/recovery and exact semantics.
+OSM supports lexical feature/tag lookup and recorded coordinates/dates/attribution. PBF/GeoJSON, geographic filtering/ranking, full relation topology, GPS, maps, routes and live hours remain absent. Approximate centers and declared bounds do not establish an entrance, route or complete coverage.
 
-Use `scripts/test-folders.ps1`, then the no-generation chat/import and knowledge regression suites. The test-only DocumentsProvider needs genuine grants after instrumentation starts; the script/test lifecycle revokes them and hides its roots afterward. Do not add MANAGE_DOCUMENTS or broad storage permissions to the product APK. No native/prompt change or new phone/model performance claim is part of this feature.
+## Evidence and runtime state
 
-## Existing chat baseline
+The local artifact is `dist/outpost-0.12.0-user-test.apk` with checksum sidecar; exact app/test hashes and build fingerprints are in [validation](validation-0.12.md). Final model-free suites: OSM 39, folders 30, chat 35, knowledge 60. One real synthetic-source OSM answer used identical app bytes and an earlier test APK; do not claim a final-test-APK model rerun. Lint: 0 errors, 3 existing upstream BouncyCastle warnings. The user APK contains neither fixture provider/receiver nor mock library/data.
 
-The home screen is now a real local conversation: one send action performs retrieval and streaming generation; recent turns provide bounded follow-up context, and history persists privately. Settings owns TXT/CSV/Markdown/PDF import, document opening/removal, verified offline-model setup and New chat. There is no Explore/Library/Status bottom navigation, mock corpus, reviewer/speculation control or performance dashboard in the product UI. Unused prototype resources were removed.
+Native kernels and locked models remain unchanged since the recorded optimization baseline. A runtime-profile key includes Android/device/CPU, app version, kernel identifier and model hash, not arbitrary same-version source changes. An unmatched key falls back to at most 4 threads, batch 128, width 1. The measured 0.9 width 4 result is historical, not current calibration. No custom VNNI/ARM kernel, trained MTP head or dual-model drafter has been integrated.
 
-Library schema3 removes exact unchanged historical seed IDs/hashes while preserving imports, packs and edited records. Fresh databases start empty. Seed JSON and retrieval controls moved to the test APK. PdfBox-Android extracts page text; exact originals are copied privately and rendered with Android PdfRenderer. Scanned-only/encrypted/invalid PDFs receive import errors. Limits and recovery gaps are explicit in [chat-beta](chat-beta.md).
+Latest recorded cleanup left synthetic imports/turns removed and Bonsai 4B selected. This is a checkpoint, not a live guarantee: recheck before work. Do not reimport GB of weights merely to resume.
 
-The native kernel implementation and locked weights are unchanged. Chat uses `ChatPrompt`; evidence-only research retains `ResearchPrompt`. Sources are optional in general chat and remain inspectable when supplied. The chat always disables experimental speculation. New builds have independent runtime-profile keys; do not silently reuse an old profile or infer ARM timings from x86.
+## Resume checklist
 
-## Resume and validate
+1. Inspect Git status/diff and relevant source. For docs-only changes, verify links/source/receipt; do not build or run models.
+2. For runtime work read the [emulator runbook](emulator-runbook.md): confirm AVD name and serial, boot, offline state, installed APK hashes and model readiness. Only one test/install workflow owns the emulator at a time.
+3. Resolve tools from ignored `.local/developer-settings.json`. Existing host SDK: `C:/Users/nicoa/Documents/ChatGPT/muna 7/work/bug-hunter-toolchain/sdk`. Python: `C:/Users/nicoa/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe`; set `PYTHONUTF8=1`. Reconfigure actual paths on a new host; caches/AVD/models are not in Git.
+4. After code changes use `scripts/build.ps1 -Offline` with populated caches. It builds both ABIs/test APK and checks dependency bytes/source fingerprints. `eval/check-build.ps1` verifies current receipt; local publication requires matching production inputs and bytes.
+5. Choose focused checks in [development](development.md). OSM/folder/chat/knowledge suites default to no model and use unique runs; `-Generate` is explicit for OSM/chat. Archive fixed-output legacy research evidence before rerunning. Keep behavior and evidence commits separate.
 
-1. Read [validation](validation-0.12.md) for exact artifact hashes, passed/failing runs, prompt identities and scope. Historical 0.9 scores do not score the new chat prompt.
-2. Read [emulator runbook](emulator-runbook.md). Verify AVD name as well as serial, completed boot, offline settings, installed app/test hashes and model readiness. The old `emulator-5580` must remain untouched.
-3. For UI/import/migration use `scripts/test-chat.ps1`; add `-Generate` only when actual conversation behavior changed. Use `scripts/test-knowledge.ps1` for locator/CSV/transaction regressions. New run folders are unique; archive fixed-output legacy tests before rerunning.
-4. SDK/JDK/Gradle/Python are configured in ignored `.local/developer-settings.json`. On this host the SDK is `C:/Users/nicoa/Documents/ChatGPT/muna 7/work/bug-hunter-toolchain/sdk`. Python is `C:/Users/nicoa/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe`; set `PYTHONUTF8=1` for host scripts. Do not reimport several GB of already verified model files unnecessarily.
-5. `scripts/build.ps1 -Offline` requires populated caches and checks source fingerprints plus PDF dependency byte identities. Local publication requires the successful build receipt. Commit behavior and regenerated evidence separately.
+## Test provider recovery
 
-## Source entry points
+The test-only `FolderDocumentsProvider` stays registered and protected by MANAGE_DOCUMENTS. `FixtureGrantReceiver` synchronously acknowledges ordered read-grant/revoke broadcasts, and `FixtureGrants` requests grants after instrumentation starts and checks readiness. Cleanup revokes grants and hides roots using its active flag. **Do not disable/re-enable the component between suites or use the removed grant Activity**: re-registration caused a provider-unavailable timeout. No production permission expansion is needed. The failed/interrupted runs and final fix are preserved in [validation](validation-0.12.md).
 
-`MainActivity`: chat/Settings/documents and lifecycle. `FolderImporter`/`DocumentImporter`: bounded SAF traversal and shared one-file ingestion. `OsmImporter`/`OsmStorage`: OSM validation, feature storage and typed evidence. `ChatStore`: private conversation DB. `ChatPrompt`: bounded follow-up/source request. `Library`/`Evidence`/`CsvTable`: source identities, schema migration, retrieval and removal. `PdfImporter`: bounded extraction. `ChatChecks`/`KnowledgeChecks`: current product and data regression. `TestLibrary`: explicit isolated mock corpus for historical research; never seed product storage.
+## Next work and known gaps
 
-The old search/reviewer/speculation UI tests are retired or routed to current chat checks. Native generation, Kev, kernel/cache/speculation controls remain separate developer tests. Full ARM compilation is new, but custom ARM/VNNI kernels and device execution still need work. Locked Bonsai 4B has zero MTP heads.
+Follow [roadmap](roadmap.md), preserving existing task IDs. Immediate technical follow-up E-06: fixture v5 declares only x86_64 and the validator reads only the first Gradle ABI string; repair the check and issue a new manifest revision without altering frozen runs. Its current PASS is not complete ABI verification.
 
-## Provenance and review history
+Prioritize realistic user tasks and source/answer failures; model provisioning and bounded-chat UX; original-file/process-death/storage recovery; complex PDF and real-region OSM evaluation. Typed arithmetic, editable mission context, Office/OCR/ZIM and broader geographic tools remain pending. Phone trials require explicit scope expansion. No field-quality, peak-RAM, phone-speed, battery/thermal or bounty-compliance claim follows from current checks.
 
-0.9 implementation: `c51c73f`. Its evidence was preserved in `449bca6`; exact evidence line endings are protected by `c4deeb9`. The prior automatic-review quota block was resolved before this work. Prepared 0.9 docs were applied; the old C-workspace delivery remains a historical snapshot, not the current working source. Do not copy old staging folders over E.
+## Historical provenance
 
-The earlier native-controller review of `a52f2b3` remains unacknowledged after `reviewer-empty-output` failures. 0.9 fixed practical width-report ambiguity with tested explicit metrics, but that does not retroactively grant formal controller authority. Keep behavior and generated evidence commits separate to avoid the previous review-context overflow.
+0.9 implementation `c51c73f`, evidence integration `449bca6`, line-ending protection `c4deeb9`; 0.10 implementation `aca6d97`, evidence `6091111`; 0.11 implementation `b0f944a`, evidence `acbff0c`. The earlier permission-review quota interruption was resolved before 0.10. Never restore stale staging over this checkout.
 
-## Next work
-
-Prioritize observed conversation/source failures and realistic user tasks, then model provisioning and mobile-device validation when explicitly authorized. Evaluate long/complex PDF extraction, claim-to-source alignment, missing/conflicting information, bounded context and recovery. OCR/Office/ZIM and broader OSM/geographic workflows, arithmetic tools and editable mission context remain pending. Record facts and failures, not just green harness counts. No field-quality, peak-RAM, battery, thermal, phone-speed or bounty compliance claim is established.
+The native-controller review of `a52f2b3` remains unacknowledged after empty/length-limited reviewer output. Tested 0.9 width-report corrections do not retroactively grant formal review authority. Historical reports/failed outputs retain their original identities and language, with navigation notices where their old instructions differ from current practice.

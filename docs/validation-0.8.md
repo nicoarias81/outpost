@@ -1,5 +1,7 @@
 # Outpost 0.8 — Repository and English baseline
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 Status: repository migration, application build, and English validation completed. Remaining answer-quality failures are documented below. Execution is restricted to the dedicated AOSP Android 15 x86_64 emulator.
 
 ## Identity and preservation

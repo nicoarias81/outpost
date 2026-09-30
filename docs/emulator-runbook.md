@@ -4,7 +4,7 @@ Use this with the [agent handoff](handoff.md) and [developer guide](development.
 
 ## Identity and last observed state
 
-Read-only inspection on 2026-09-29 confirmed:
+Configured target and latest recorded checkpoint. This documentation pass did not inspect or mutate the running emulator; repeat preflight before use:
 
 | Item | Outpost value |
 |---|---|
@@ -13,14 +13,15 @@ Read-only inspection on 2026-09-29 confirmed:
 | AVD storage | `.local/avd/Outpost35.avd` with companion `.local/avd/Outpost35.ini` |
 | System image | AOSP Android 15 / API 35, `default;x86_64`; no Google APIs |
 | CPU / memory / display | Four virtual CPUs, 4 GiB configured RAM, 1080×2400 at density 420 |
-| Data partition | 10 GB configured; about 4.1 GB available when inspected, not a permanent guarantee |
+| Data partition | 10 GB configured; check current free space before staging models/imports |
 | App / test package | `dev.outpost.app` / `dev.outpost.app.test` |
 | Instrumentation | `dev.outpost.app.test/dev.outpost.app.GenerationInstrumentation` |
-| Selected model / profile | Bonsai 4B; 4 decode + 4 prompt threads, batch 128, width 4 |
-| Speculation / connectivity | Default off; airplane mode 1, Wi-Fi 0, mobile data 0 |
+| Last recorded app/model | Outpost 0.12.0/code 14; Bonsai 4B selected after test cleanup; recheck live state |
+| Runtime profile | Keyed by device/OS/app version/model; unmeasured fallback ≤4 threads, batch 128, width 1; old width 4 measurements are historical |
+| Product speculation / required test connectivity | Forced depth 0; airplane mode 1, Wi-Fi 0, mobile data 0 |
 | Separate preserved emulator | `emulator-5580` belongs to the old Brújula setup; leave it alone |
 
-Both emulators were running when checked. Check live state before doing work. Serial alone is insufficient: confirm the AVD name before mutations. Only one test/benchmark workflow should own Outpost's emulator at a time; a second instrumentation run or APK install can interrupt the first.
+Check live state before doing work; old observations do not establish current readiness. Serial alone is insufficient: confirm the AVD name before mutations. Only one test/benchmark workflow should own Outpost's emulator at a time; a second instrumentation run or APK install can interrupt the first.
 
 ## 1. Resolve tools on this host
 
@@ -82,7 +83,7 @@ if ((Invoke-OutpostAdb shell getprop ro.boot.qemu.avd_name).Trim() -ne 'Outpost3
     throw 'Wrong or unverifiable AVD; do not mutate this target.'
 }
 if ((Invoke-OutpostAdb shell getprop ro.product.cpu.abi).Trim() -ne 'x86_64') {
-    throw 'This APK is x86_64 only.'
+    throw 'This runbook validates the x86_64 Outpost35 test target.'
 }
 ```
 
@@ -106,7 +107,7 @@ Invoke-OutpostAdb shell svc wifi disable
 Invoke-OutpostAdb shell svc data disable
 ```
 
-The existing test scripts perform these network changes on their selected emulator. Offline Gradle means using the host dependency cache; it is a separate condition from the emulator's connectivity. Initial dependency/model downloads may require host connectivity, while no model inference runs on the host.
+The current chat/folder/OSM/knowledge/evaluation wrappers require this offline state and reject online targets. Legacy generation/runtime scripts set connectivity themselves; never assume every wrapper does so. Offline Gradle means using the host dependency cache; it is a separate condition from the emulator's connectivity. Initial dependency/model downloads may require host connectivity, while no model inference runs on the host.
 
 ## 4. Build and verify the installed artifacts
 
@@ -142,11 +143,11 @@ foreach ($OutpostApk in $OutpostApks) {
 }
 ```
 
-Both matched when this guide was prepared. The current 0.9 app/test identities and finalization status are recorded in [validation](validation-0.9.md). These checks read files only and do not prove model quality.
+Exact 0.12 app/test identities are in [validation](validation-0.12.md). Run `pwsh -File eval/check-build.ps1` to check the current source/build receipt as well. Byte identity is stronger than a version label, but does not prove model quality.
 
 ## 5. Understand model installation before copying GB of data
 
-All three generators and Kev were installed in the existing Outpost AVD. Host caches and installed app-private copies are distinct:
+All three generators and Kev were installed in the existing AVD at earlier checkpoints; verify availability before using them. Host caches and installed app-private copies are distinct:
 
 | Profile | Host cache under project | Installed path relative to app-private root |
 |---|---|---|
@@ -167,43 +168,48 @@ Invoke-OutpostAdb shell run-as dev.outpost.app ls shared_prefs
 Invoke-OutpostAdb shell df -h /data
 ```
 
-An absent `speculative-context.xml` means the current code uses its default false setting; do not create preference files by hand. The developer selector restores Bonsai 4B:
+Product chat ignores research speculation preferences and always sets depth 0. Do not create preference files by hand. The developer selector restores Bonsai 4B:
 
 ```powershell
 pwsh -File scripts/test-bonsai.ps1 -SelectOnly -UiProfile bonsai4 -SkipInstall -Serial $OutpostSerial -Sdk $OutpostSdk
 ```
 
-That command still installs APKs and captures `models.png`; it is not a read-only inspection. Use the English Status UI to change the speculation setting when a test explicitly needs it.
+That command still installs APKs and captures `models.png`; it is not a read-only inspection. Product model selection/import is under Settings → Offline model; no Status screen or speculation switch exists. Native research phases select speculation explicitly.
 
-On a fresh AVD, run the [initial functional sequence](development.md) to import Qwen, Kev, and Bonsai through application verification. Model files go through staging and app-private storage, requiring temporary extra capacity. Do not hand-copy directly into private model locations, bypass hashes, uninstall, or clear app data as routine setup. Those operations can destroy imports and evidence.
+On a fresh AVD, use the [model provisioning instructions](development.md) to import the needed locked model through application verification; normal chat does not require Kev or all generator profiles. Model files go through staging and app-private storage, requiring temporary extra capacity. Do not hand-copy directly into private model locations, bypass hashes, uninstall, or clear app data as routine setup. Those operations can destroy imports and evidence.
 
 ## 6. Choose the smallest relevant test
 
-| Intent | Entry point / prerequisite |
+| Intent | Current entry point |
 |---|---|
-| Knowledge/CSV/packs/schema migration | `test-knowledge.ps1`; unique run folder, no model generation; `-SkipInstall` checks current APK hashes |
-| Fixture evaluation | `test-evaluation.ps1 -Phase baseline -Model bonsai4`; requires matching successful build receipt, installed hashes and model; see [runner guide](../eval/README.md) |
-| Library, import and UI | `test-emulator.ps1`; no LLM run required |
-| Qwen generation/cancellation | `test-generation.ps1`; verifies host file, stages Qwen and performs generation |
-| Kev integration/UI | `test-review.ps1`; Qwen must already be installed; stages Kev and runs probes |
-| Bonsai compare | `test-bonsai.ps1`; default compares all three, so Qwen must be installed first |
-| Bonsai 4B UI/cache/trim | `test-bonsai.ps1 -UiOnly -UiProfile bonsai4 -SkipInstall -KeepSelected` |
-| Dispatch / dot / grouped kernel | `test-kernel.ps1 -Phase dispatch`, `numeric`, or `batch` |
-| Whole-model kernel checks | `test-kernel.ps1 -Phase decoder4` (installed 4B), `decoder` (1.7B), or `sampling` |
-| Calibration / cache / missions | `test-runtime.ps1 -Phase calibrate`, `batch`, `cache`, or `missions`; Bonsai 4B installed |
-| Speculation units/runtime | `test-speculation.ps1 -Phase unit` or the relevant documented phase; its runner requires installed 4B even for unit mode |
-| Drafter-cost diagnostic | `test-speculation.ps1 -Phase draft-cost`; both Bonsai models installed |
+| Chat/files/PDF/persistence | `test-chat.ps1`, no model by default; `-Generate` explicitly adds real Bonsai 4B conversation checks |
+| Recursive selected-folder import | `test-folders.ps1`, no model |
+| OSM parser/storage/SAF/source reader | `test-osm.ps1`, no model by default; `-Generate` adds one synthetic source answer |
+| Migrations/CSV/packs/locators/policy | `test-knowledge.ps1`, no model |
+| Evidence-only matrix | `test-evaluation.ps1 -Phase baseline -Model bonsai4`; see [runner guide](../eval/README.md) |
+| Calibration/cache/kernels/speculation/Kev research | Explicit native phases in [development](development.md); archive fixed-output evidence first |
 
-Scripts should receive `-Serial $OutpostSerial -Sdk $OutpostSdk` when resuming. Do not run phases concurrently. Check `$LASTEXITCODE` after each script rather than letting a later successful command mask a failure. A phase can take minutes; inspect ongoing session output without launching a competing run.
+Pass `-Serial $OutpostSerial -Sdk $OutpostSdk` when resuming. Run one phase at a time and check `$LASTEXITCODE` after each. Modern product/data suites require the successful build receipt and compare installed app/test hashes. `-SkipInstall` only skips their APK installation. Model generation is never implied by the default chat/folder/OSM/knowledge checks.
 
-**`-SkipInstall` has different meanings:**
+Flag differences in legacy wrappers matter:
 
-- In `test-knowledge.ps1` and `test-evaluation.ps1`, it skips APK installation while enforcing local/installed hash agreement. Evaluation also validates its successful build receipt.
-- In `test-runtime.ps1` and `test-speculation.ps1`, it skips APK installation. Use it only after the installed/local APK comparison above and model-readiness checks.
-- In `test-bonsai.ps1`, it skips Bonsai GGUF staging/import inside the model loop. The script always reinstalls both APKs, including with `-UiOnly` or `-SelectOnly`.
-- Functional/generation/review/kernel scripts have their own installation steps and do not accept this switch.
+- Runtime/speculation `-SkipInstall` skips APK installation, but does not independently enforce the modern receipt/hash guard. Perform those checks first.
+- Non-UI Bonsai `-SkipInstall` skips weight staging/import, while both APKs are still installed. `-SelectOnly` also installs/captures a screenshot.
+- Bonsai `-UiOnly` delegates immediately to `test-chat.ps1 -Generate`; outer `-SkipInstall` and `-KeepSelected` are not forwarded. Prefer calling the current chat wrapper directly.
+- The old speculation UI phase and direct Bonsai search/reviewer UI paths are retired. There is no product experimental toggle.
 
-Qwen tests change the selected profile. Restore the desired model at the end of a session. A fresh app version/device/model key does not inherit the old measured runtime profile; read Status or run the appropriate calibration rather than manually copying a preference key.
+Qwen tests change the selected profile. Restore the intended model after tests. Runtime profile keys include app version, not arbitrary same-version source changes; changing the version invalidates an older measured profile. Inspect developer reports or calibrate when needed rather than copying preferences. Do not run a new calibration merely for a docs edit.
+
+### Fixture provider lifecycle
+
+The synthetic DocumentsProvider and `FixtureGrantReceiver` exist only in the test APK. Android instrumentation startup clears earlier transient grants, so `FixtureGrants` requests owner-issued grants afterward and checks root readability. The wrapper uses an ordered explicit broadcast and checks the acknowledgement:
+
+```text
+am broadcast --include-stopped-packages -n dev.outpost.app.test/dev.outpost.app.FixtureGrantReceiver --es run_id RUN_ID --es operation grant
+am broadcast --include-stopped-packages -n dev.outpost.app.test/dev.outpost.app.FixtureGrantReceiver --es run_id RUN_ID --es operation revoke
+```
+
+These are the test protocol, not product setup commands. Use the wrappers rather than issuing ad hoc grants. Successful owner broadcasts return result code -1 with granted/revoked data. Cleanup revokes grants and sets the fixture-provider active flag false, making `queryRoots` empty while leaving the component registered. Do not disable/re-enable it between suites or use the old grant Activity. Those obsolete patterns caused provider-unavailable stalls. See [preserved failures](validation-0.12.md). No product permission change is needed.
 
 ## 7. Inspect UI and retrieve evidence
 
@@ -226,7 +232,7 @@ Invoke-OutpostAdb pull $OutpostRemotePng "$OutpostCaptureDir/outpost-$OutpostSta
 
 For a failed test, inspect its console output, corresponding failure JSON in app-private `files/evidence`, and `adb -s emulator-5582 logcat -d -t 200`. Source-reading commands such as `run-as dev.outpost.app cat files/evidence/generation-failure.json` apply only when that file exists. Do not publish private document content accidentally captured in logs/screenshots.
 
-Before rerunning a phase, preserve the evidence files it overwrites. Use a separate run/archive directory; record app and test APK hashes, model/profile, prompt/fixture and sampling settings, timestamps, and output. Existing historical `evidence/0.7-before-outpost` must remain intact. A harness PASS is not a field-quality score.
+Before rerunning a phase, preserve the evidence files it overwrites. Use a separate run/archive directory; record app and test APK hashes, model/profile, prompt/fixture and sampling settings, timestamps, and output. Existing historical archives, `evidence/0.7-before-outpost` and release/run snapshots must remain intact. A harness PASS is not a field-quality score.
 
 ## 8. Recovery and visibility
 
@@ -237,19 +243,4 @@ Before rerunning a phase, preserve the evidence files it overwrites. Use a separ
 - **Out of storage:** distinguish host cache, external staging and installed private models; preserve data and inspect known temporary files before cleanup. Avoid blanket deletion, `pm clear`, uninstall, `-wipe-data`, and `adb kill-server` as routine fixes.
 - **Permission or port problem:** use the required host/filesystem permission path and report the actual limitation. Do not bypass emulator guards or substitute a physical phone.
 
-The guide's read-only bootstrap/preflight and APK comparisons were checked against the existing emulator. This documentation task did not restart, install, generate, change connectivity, or rerun performance suites. Startup/install/recovery procedures reflect the checked project scripts and remain actions to perform only when needed.
-
-## Latest delivery checkpoint — 0.9.0
-
-Final app/test APKs were installed on Outpost35; last read-only check confirmed version 0.9.0/code11, boot complete, airplane mode on and Wi-Fi off. Earlier final preflight also checked mobile data off and restored Bonsai 4B, width4, 4/4 threads, batch128, speculation off. These observations expire: repeat preflight before runtime work.
-
-Knowledge/evaluation runs now have unique host and app directories. Other scripts retain fixed outputs. Final 0.9 evidence/docs commits and canonical `dist/` publication are pending an automatic permission-review quota failure; the [handoff](handoff.md) points to a verified local delivery and review patch. No failed permission operation should be treated as executed.
-
-## 0.10 workflow supersedes the old screen names
-
-The launcher is Chat. Settings contains documents and offline-model setup. There is no Status/Explore screen or speculation switch. Product chat forces speculation off. Use `test-chat.ps1` for current UI/import checks, optionally `-Generate` for real Bonsai conversation; it checks build receipt and installed hashes before executing. `test-knowledge.ps1` retains migration/locator/CSV/package checks. A newly compiled ARM64 library is packaged, but all these runners remain restricted to the x86_64 Outpost35 emulator. See [current handoff](handoff.md) and [validation](validation-0.10.md).
-
-
-## 0.11 folder tests
-
-`pwsh -File scripts/test-folders.ps1` validates the selected-tree import using a real test-only DocumentsProvider. It checks the build receipt, APK hashes, dedicated AVD and offline state first. Its owner-ordered grant receiver handles fixture URI permissions after instrumentation starts; do not use shell component-state changes or broad product permissions. The wrapper revokes grants and hides the provider after testing. Fixture data and import-summary state are cleaned/restored, and unique host run folders retain outcomes.
+These procedures were checked against current scripts; the earlier live observations remain release evidence, not a new live preflight. This documentation task did not restart, install, generate or change emulator connectivity. If an owned test stalls, preserve its run/logs first. A targeted `am force-stop dev.outpost.app` on the verified Outpost emulator interrupts the app without clearing its files, but must not interrupt another workflow. Recheck fixture cleanup before retrying; never use `pm clear` as a routine recovery step.

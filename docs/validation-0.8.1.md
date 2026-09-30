@@ -1,5 +1,7 @@
 # Outpost 0.8.1 — Validation record
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 Status: maintained validation record for **Outpost 0.8.1 / version code 10**. This replaces [Outpost 0.8](validation-0.8.md) as the current record; that document remains the historical 0.8.0 baseline and was not rewritten. All execution below is on the dedicated AOSP Android 15 x86_64 emulator. No physical device, ARM runtime, or network access was involved.
 
 ## Identity and execution scope

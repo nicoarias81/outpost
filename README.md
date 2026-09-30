@@ -1,12 +1,12 @@
 # Outpost
 
-An offline Android assistant. Open the app to chat; add your own documents through **Settings → Add documents**. The interface and maintained documentation are in English.
+An offline Android assistant. Open the app to chat; add your own documents through **Settings → Add file / Add folder**. The interface and maintained documentation are in English.
 
 **Current version: 0.12.0, user-test candidate.** The app starts with an empty document library. There are no sample notes, Explore/Library/Status tabs, benchmark buttons, reviewer controls or runtime metrics in the product interface.
 
 ## Current experience
 
-- Send a message once to retrieve relevant local material and generate a streaming reply. With no matching document, chat can use model knowledge without claiming access to personal files or live information.
+- Send a message once to retrieve relevant local material and generate a streaming reply. With no matching document, chat is instructed to use model knowledge without claiming access to personal files or live information; answer correctness still requires review.
 - Recent completed messages provide bounded follow-up context. The conversation is saved locally; **New chat** deletes it without deleting documents.
 - **Settings → Add folder** recursively imports supported files from a chosen directory and all readable subdirectories, with progress, cancellation and a summary. Unchanged repeated imports are skipped; sources are never edited. See [folder import](docs/folder-import.md).
 - Import UTF-8 TXT, Markdown or CSV, or a text-bearing PDF individually with **Add file**. Open original PDF pages or inspect exact text/CSV source records from replies.
@@ -32,8 +32,10 @@ pwsh -File scripts/test-chat.ps1 -SkipInstall -Generate
 pwsh -File scripts/test-knowledge.ps1 -SkipInstall
 ```
 
-The offline flag requires cached dependencies. Read the [emulator runbook](docs/emulator-runbook.md) before any runtime work. Test commands explicitly reject phones; model execution never runs on the host. Tests install synthetic content only for isolated checks and clean up their own inputs.
+The offline flag requires cached dependencies. Read the [emulator runbook](docs/emulator-runbook.md) before any runtime work. Test commands explicitly reject phones; model execution never runs on the host. Tests install synthetic content only for isolated checks and clean up their own inputs. Run the listed checks sequentially and stop on any nonzero exit code; `-Generate` is optional and requires an installed verified Bonsai 4B model.
 
 Publish the local debug artifact with `scripts/publish-artifact.ps1`, then verify it with `-Verify`. See [validation](docs/validation-0.12.md) for the exact filename, hash, checked build and limits. A debug candidate is not a signed production release. Project license, release signing, public distribution and phone trials remain separate work; the existing GitHub remote is private.
+
+Use the [documentation index](docs/index.md) to find architecture, decisions, source contracts, test procedures and remaining work.
 
 [Dependency notices](THIRD_PARTY.md) and lock files identify the pinned runtime, models, PDF library and toolchain. Historical failed results and the original Brújula implementation remain preserved. [Bounty #31](docs/bounty-31.md) is background motivation; no bounty acceptance or public submission is claimed.

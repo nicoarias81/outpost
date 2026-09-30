@@ -1,6 +1,6 @@
 # Contextual questions about the world
 
-Status: product direction clarified by the user on 2026-09-29; implementation and evaluation remain proposed. This correction replaces the previous interpretation that made the restaurant example a mandatory standalone benchmark.
+Status: product direction clarified by the user on 2026-09-29; bounded chat/document/OSM implementation and development evaluation now exist; broad question-family quality remains open. This correction replaces the previous interpretation that made the restaurant example a mandatory standalone benchmark.
 
 ## What the example means
 
@@ -66,4 +66,4 @@ Keep knowledge-coverage, retrieval, fixed-evidence inference, and end-to-end fai
 
 The product goal is a general offline knowledge assistant that understands practical, contextual questions and uses available knowledge to answer them usefully. The next evaluation should cover several question families and subjects. Individual examples guide test construction; they do not imply a diet-specific product, an exclusive travel app, a fixed catalog, or an unbounded promise to know every fact offline.
 
-Outpost 0.8 still lacks the broader knowledge adapters and complete workflows described here. This document changes the proposal and evaluation direction only.
+Outpost 0.12 supplies persistent bounded chat, TXT/Markdown/CSV/PDF and recursive imports, exact sources and basic OSM feature lookup. The v5 evidence-only matrix defines 15 cases (12 runnable, 3 blocked), with historical attributed0.9 reviews. Semantic/spatial retrieval, tools, complete prepared missions and held-out product-chat quality remain pending. The current three-source prompt is an implementation budget, not the general solution to every question family. See [current state](current-state.md) and [evaluation](evaluation.md).

@@ -1,5 +1,7 @@
 # Independent status review — 2026-09-30
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 Reviewed implementation HEAD: `68f9fe3450715b2583a2d3b1cc327ea2a558e202`, branch `codex/outpost`, clean at inspection. Application: Outpost 0.8.1 / version code 10. This review inspected history, source changes, raw evidence and live emulator state, reran the read-only evaluation validator, and recomputed timing summaries. It did not rebuild, run model inference, rerun benchmarks, or modify application behavior.
 
 ## Assessment

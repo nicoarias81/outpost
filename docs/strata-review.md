@@ -1,5 +1,7 @@
 # Ideas de Strata para Bonsai 4B y Brújula
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 Revisión de código y documentación del 29 de septiembre de 2026. Referencia fijada: [Niko1221/Strata, `3ce2523c2823687de5372be3af58534f56cbf286`](https://github.com/Niko1221/Strata/tree/3ce2523c2823687de5372be3af58534f56cbf286). Se consultaron archivos públicos; no se ejecutaron instaladores, modelos ni benchmarks de Strata. No se cambió el APK 0.5 ni la selección de Bonsai 4B en el emulador.
 
 Actualización: las tres hipótesis principales se implementaron y probaron posteriormente en [Brújula 0.6](validation-0.6.md). Esta nota conserva el análisis inicial; el informe enlazado contiene los resultados aceptados, descartados y los fallos encontrados.

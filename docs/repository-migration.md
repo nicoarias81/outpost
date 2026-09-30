@@ -1,5 +1,7 @@
 # Standalone repository and English migration
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 Status: Outpost selected and the independent local repository created at `E:\projects\outpost`. This document retains the migration checklist and records the adopted identity. See [0.8 validation](validation-0.8.md) for execution results.
 
 ## Adopted identity and preservation
@@ -11,7 +13,7 @@ Status: Outpost selected and the independent local repository created at `E:\pro
 | Android namespace and applicationId | `dev.outpost.app` |
 | Native library and own symbol prefix | `outpost_engine` / `outpost_` |
 | Default product language | English |
-| App version | 0.8.0 / version code 9 as established by this migration; current version 0.8.1 / version code 10 |
+| App version | 0.8.0 / version code 9 as established by this migration; subsequent releases are listed in [current state](current-state.md) |
 | Dedicated AVD | Outpost35, `emulator-5582`, 4 GiB RAM, 10 GB data partition |
 
 The original `C:\Users\nicoa\Documents\ChatGPT\muna 7\brujula-android` working copy and `emulator-5580` are preserved. Source and verified local caches were copied; the running old AVD was not moved or copied. The new AVD has an independent application installation. SDK/JDK/Gradle remain explicit external prerequisites, configured in ignored local settings. Historical evidence is preserved under `evidence/0.7-before-outpost`; old APKs remain in ignored `dist`.

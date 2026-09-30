@@ -1,5 +1,7 @@
 # Outpost 0.10.0 validation — 2026-09-30
 
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](current-state.md), [handoff](handoff.md) and [current validation](validation-0.12.md). Original results and language are preserved.
+
 Implementation commit `aca6d97`; evidence commit `6091111`. Version code12. This is the chat-first user-test candidate requested by the owner. The product UI is English; source imports and conversation content retain their original text. Runtime execution stayed inside Outpost35, the x86_64 AOSP Android emulator. The APK additionally compiles/links/packages ARM64 for future phone trials.
 
 ## Artifact
