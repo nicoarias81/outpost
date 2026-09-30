@@ -1,0 +1,6 @@
+{
+  "stage": "test fixture setup",
+  "testsExecuted": false,
+  "error": "Android shell could not enable/disable the test-package provider component (SecurityException). No folder instrumentation ran.",
+  "correction": "The test package now grants and revokes its own synthetic URIs through FolderGrantActivity and protects DocumentsProvider with MANAGE_DOCUMENTS. Product permissions are unchanged."
+}

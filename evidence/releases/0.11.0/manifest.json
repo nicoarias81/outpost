@@ -1,0 +1,33 @@
+{
+  "capturedAtUtc": "2026-09-30T14:45:15.098970+00:00",
+  "appSha256": "13a4af10de9dbc71a7bb1f3a706ed176362c051df9b63b41272aa7c1620b472d",
+  "appBytes": 28832902,
+  "abis": [
+    "arm64-v8a",
+    "x86_64"
+  ],
+  "testFixturesInUserApk": false,
+  "modelExecution": false,
+  "runs": {
+    "folders": {
+      "id": "folders-20260930T144058Z-b881b76a",
+      "report": "folder-checks.json",
+      "checks": 30
+    },
+    "chat": {
+      "id": "chat-20260930T144112Z-69024c36",
+      "report": "chat-checks.json",
+      "checks": 35
+    },
+    "knowledge": {
+      "id": "knowledge-20260930T144121Z-2880e058",
+      "report": "knowledge-checks.json",
+      "checks": 60
+    }
+  },
+  "files": {
+    "build-receipt.json": "377261e3fe8851b0b8ee5f2f34bab17abd9bad35085884ee04855a96c66fb590",
+    "lint-results-debug.txt": "072b7c54f391cf9534b12815250ca32de083eb11ee9c22ca8e1240236068667e"
+  },
+  "scope": "Final local debug candidate; runtime/import validation only on Outpost35 x86_64. ARM64 packaging is not physical-device validation."
+}

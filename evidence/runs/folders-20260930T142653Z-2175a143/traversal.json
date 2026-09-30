@@ -1,0 +1,11 @@
+{
+  "imported": 0,
+  "failed": 1,
+  "skipped": 0,
+  "issues": [
+    {
+      "path": "",
+      "reason": "Permission denied. Choose the folder again or make the file available locally."
+    }
+  ]
+}

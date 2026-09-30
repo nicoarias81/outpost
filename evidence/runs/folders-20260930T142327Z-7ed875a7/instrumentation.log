@@ -1,0 +1,7 @@
+
+FAIL folders: java.lang.AssertionError: Recursively imports TXT, CSV, PDF and Markdown from multiple nested folders
+	at dev.outpost.app.FolderChecks.check(FolderChecks.java:28)
+	at dev.outpost.app.FolderChecks.run(FolderChecks.java:52)
+	at dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:58)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2594)
+
