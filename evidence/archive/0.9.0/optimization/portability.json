@@ -1,0 +1,56 @@
+{
+  "compiler": "Android NDK r28b Clang",
+  "checks": [
+    {
+      "target": "x86_64-linux-android28",
+      "source": "cpu_caps.c",
+      "compiled": true
+    },
+    {
+      "target": "x86_64-linux-android28",
+      "source": "q2_dispatch.c",
+      "compiled": true
+    },
+    {
+      "target": "x86_64-linux-android28",
+      "source": "q2_kernel.c",
+      "compiled": true
+    },
+    {
+      "target": "x86_64-linux-android28",
+      "source": "q2_batch.c",
+      "compiled": true
+    },
+    {
+      "target": "x86_64-linux-android28",
+      "source": "speculation.cpp",
+      "compiled": true
+    },
+    {
+      "target": "aarch64-linux-android28",
+      "source": "cpu_caps.c",
+      "compiled": true
+    },
+    {
+      "target": "aarch64-linux-android28",
+      "source": "q2_dispatch.c",
+      "compiled": true
+    },
+    {
+      "target": "aarch64-linux-android28",
+      "source": "q2_kernel.c",
+      "compiled": true
+    },
+    {
+      "target": "aarch64-linux-android28",
+      "source": "q2_batch.c",
+      "compiled": true
+    },
+    {
+      "target": "aarch64-linux-android28",
+      "source": "speculation.cpp",
+      "compiled": true
+    }
+  ],
+  "limits": "Object compilation only. No ARM execution, complete ARM library build, physical phone test, or VNNI kernel validation."
+}

@@ -1,0 +1,10 @@
+{
+  "runId": "chat-20260930T133832Z-d8f7b238",
+  "serial": "emulator-5582",
+  "modelExecution": true,
+  "appSha256": "3f94863f902321740fe6872b986fdb51ff43a84cdaa25ed08feee09a7ab6b9b2",
+  "testApkSha256": "2849d9acf4334d17d20f24a3c89654750e7815edf6d1741c72eb60a80323dc20",
+  "mainSourcesSha256": "f0467da0648d6fb8a8a6e7fc2975f38e491462180f289ab7e55f2cb1444ff5cc",
+  "testSourcesSha256": "37d3cf4e54a92625830e55706cf3b10891b9b334b6f0381961354ba56ae75c1a",
+  "scope": "Emulator chat/import/migration checks. ARM packaging is a compile claim only."
+}

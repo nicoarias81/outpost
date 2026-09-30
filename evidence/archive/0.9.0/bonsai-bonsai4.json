@@ -1,0 +1,125 @@
+{
+  "version": "0.5.0",
+  "model": "Ternary Bonsai 4B · Q2_0 g64",
+  "id": "bonsai4",
+  "bytes": 1137806656,
+  "sha256": "9d968b04a3c9a794897bcc744c8072fb6a061c0e42efd03c989401ddf8baef0c",
+  "cases": [
+    {
+      "id": "energy",
+      "question": "¿Qué diferencia hay entre kW y kWh?",
+      "sources": [
+        {
+          "id": "energy",
+          "passage": "La potencia expresa el ritmo al que se consume o produce energía. Se mide en vatios (W) o kilovatios (kW): un kilovatio equivale a mil vatios. La energía consumida durante un intervalo se puede expresar en vatios hora (Wh) o kilovatios hora (kWh)."
+        },
+        {
+          "id": "energy",
+          "passage": "Si la potencia permanece constante, la energía es potencia multiplicada por tiempo. Por ejemplo, un aparato de 100 W funcionando durante tres horas consume 300 Wh, es decir, 0,3 kWh. Este ejemplo calculado ilustra por qué kW y kWh no son intercambiables."
+        }
+      ],
+      "text": "La potencia (en kW) mide la tasa a la que se consume o produce energía, mientras que la energía (en kWh) es el total consumido o producido durante un período de tiempo. Si la potencia permanece constante, la energía se calcula como potencia multiplicada por tiempo, lo que demuestra que kW y kWh no son intercambiables; por ejemplo, un aparato de 100 W durante tres horas consume 0,3 kWh [1].",
+      "inputTokens": 268,
+      "outputTokens": 105,
+      "firstTokenMs": 21151,
+      "loadMs": 463,
+      "totalMs": 36852,
+      "stopReason": 0,
+      "pssKiBAfterCase": 1182030,
+      "hasReasoningTags": false,
+      "kernel": "Q2_0 AVX2\/F16C (runtime dispatch)",
+      "q2FastPathUsed": true
+    },
+    {
+      "id": "gps",
+      "question": "¿Cómo calcula el GPS su posición?",
+      "sources": [
+        {
+          "id": "gps",
+          "passage": "Un receptor GPS calcula su posición a partir de señales de radio enviadas por satélites. El tiempo que tarda en llegar cada señal permite estimar la distancia al satélite. Al combinar varias señales se obtiene la posición del receptor y se corrige su reloj."
+        },
+        {
+          "id": "gps-accuracy",
+          "passage": "La precisión de una posición GPS depende de la geometría de los satélites, los obstáculos que bloquean las señales, las condiciones atmosféricas y las características del receptor. La precisión de la señal emitida no garantiza la misma precisión en el teléfono."
+        },
+        {
+          "id": "gps",
+          "passage": "Recibir las señales de los satélites es distinto de descargar un mapa por internet. Como consecuencia de este funcionamiento, un receptor puede calcular coordenadas sin una conexión de datos. Para ver esas coordenadas sobre una cartografía, la aplicación necesita disponer también del mapa. Esta distinción es una explicación didáctica; no constituye una prueba del funcionamiento de una app concreta."
+        }
+      ],
+      "text": "El GPS calcula su posición combinando las señales de radio enviadas por satélites, utilizando el tiempo que tarda en llegar cada señal para estimar la distancia. Al procesar múltiples señales de distintos satélites, el receptor puede determinar su posición exacta en el espacio, corrigiendo así su reloj para obtener una lectura precisa [1].",
+      "inputTokens": 345,
+      "outputTokens": 81,
+      "firstTokenMs": 27993,
+      "loadMs": 0,
+      "totalMs": 43541,
+      "stopReason": 0,
+      "pssKiBAfterCase": 1185074,
+      "hasReasoningTags": false,
+      "kernel": "Q2_0 AVX2\/F16C (runtime dispatch)",
+      "q2FastPathUsed": true
+    },
+    {
+      "id": "comparison",
+      "question": "Compara qué indica una brújula con lo que calcula el GPS.",
+      "sources": [
+        {
+          "id": "compass",
+          "passage": "La orientación y la posición son magnitudes diferentes: una brújula indica una dirección, mientras que el GPS estima unas coordenadas. El norte magnético no coincide necesariamente con el norte geográfico. Android ofrece herramientas para calcular la declinación magnética, que depende de la ubicación y del tiempo."
+        },
+        {
+          "id": "compass",
+          "passage": "El sensor de campo geomagnético mide la intensidad del campo magnético en tres ejes. Android puede combinar esa información con el acelerómetro para estimar la orientación del dispositivo respecto al norte magnético."
+        },
+        {
+          "id": "gps",
+          "passage": "Un receptor GPS calcula su posición a partir de señales de radio enviadas por satélites. El tiempo que tarda en llegar cada señal permite estimar la distancia al satélite. Al combinar varias señales se obtiene la posición del receptor y se corrige su reloj."
+        }
+      ],
+      "text": "[1] Una brújula indica una dirección (norte magnético), mientras que el GPS calcula coordenadas geográficas (latitud y longitud). Aunque ambos sistemas proporcionan información sobre la orientación del dispositivo, la brújula da la dirección del campo magnético, que puede variar según la ubicación, mientras que el GPS determina la posición en el plano terrestre usando señales de satélites.",
+      "inputTokens": 329,
+      "outputTokens": 92,
+      "firstTokenMs": 33704,
+      "loadMs": 0,
+      "totalMs": 50510,
+      "stopReason": 0,
+      "pssKiBAfterCase": 1185637,
+      "hasReasoningTags": false,
+      "kernel": "Q2_0 AVX2\/F16C (runtime dispatch)",
+      "q2FastPathUsed": true
+    },
+    {
+      "id": "insufficient",
+      "question": "¿Qué eficiencia exacta, en porcentaje, tienen los paneles solares de estas fuentes?",
+      "sources": [
+        {
+          "id": "solar-efficiency",
+          "passage": "La eficiencia fotovoltaica es la proporción de energía solar que recibe un dispositivo y que se convierte en electricidad utilizable. No toda la radiación incidente se transforma en energía eléctrica."
+        },
+        {
+          "id": "solar-efficiency",
+          "passage": "Comparar eficiencia requiere considerar las condiciones de medida. La temperatura y la luz recibida influyen en el rendimiento. Una cifra de eficiencia describe una conversión; por sí sola no dice cuánta energía producirá una instalación durante todo un día."
+        },
+        {
+          "id": "solar",
+          "passage": "Los materiales fotovoltaicos convierten la luz solar en energía eléctrica. Las células se conectan para formar módulos o paneles, que a su vez pueden agruparse en sistemas de mayor tamaño."
+        }
+      ],
+      "text": "Las fuentes no proporcionan una eficiencia exacta en porcentaje para los paneles solares. Se menciona que la eficiencia fotovoltaica es la proporción de energía solar que se convierte en electricidad, pero sin especificar valores numéricos. Por tanto, no se puede determinar una cifra exacta en porcentaje. [1]",
+      "inputTokens": 305,
+      "outputTokens": 78,
+      "firstTokenMs": 33371,
+      "loadMs": 0,
+      "totalMs": 48037,
+      "stopReason": 0,
+      "pssKiBAfterCase": 1186065,
+      "hasReasoningTags": false,
+      "kernel": "Q2_0 AVX2\/F16C (runtime dispatch)",
+      "q2FastPathUsed": true
+    }
+  ],
+  "elapsedMs": 179170,
+  "maximumOfPostCasePssKiB": 1186065,
+  "policy": "top_k20 top_p0.8 temp0.7 seed42; compact prompt v2; 2048 context; 192 output tokens; 120s deadline; 4 CPU threads; fixed official non-thinking suffix for Bonsai",
+  "limits": "Four development probes. Not an independent benchmark. PSS values sampled after cases, not peak RAM. Android emulator only."
+}

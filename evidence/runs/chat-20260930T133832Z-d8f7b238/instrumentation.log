@@ -1,0 +1,7 @@
+
+FAIL chat: java.lang.AssertionError: One-tap chat retrieves a real imported file and generates its exact identifier
+	at dev.outpost.app.ChatChecks.check(ChatChecks.java:41)
+	at dev.outpost.app.ChatChecks.run(ChatChecks.java:142)
+	at dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:56)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2594)
+

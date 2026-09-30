@@ -1,0 +1,18 @@
+{
+  "capturedAtUtc": "2026-09-30T13:54:48.809951+00:00",
+  "appSha256": "cef2473ca5acfc2bcc93b94507719d6f243504178b7073cbe8c3a6717da2d2fe",
+  "files": {
+    "apk-inspection.json": "866ec3a85e400ea547cb1eec2dbab552e3b68346089ce5bee337b571a1fc357b",
+    "build-receipt.json": "3f35475db7d7acd2c3a2f55a660f8257af45f2a209437f81d51c58011cceebc5",
+    "checks.json": "47e771fe3077e5c40b250b68b35371c3b31e4003b948cd2714a31423881efa07",
+    "home.png": "c3c76b4674f95b5134994493ae15c6f5101f69c167a75b92ed8d2d0e5d571272",
+    "lint-results-debug.txt": "072b7c54f391cf9534b12815250ca32de083eb11ee9c22ca8e1240236068667e",
+    "search.png": "24a1a00ef3740cdebf1e3007cb4daa649150ff57b4f2bdc251d121705d4e2af9",
+    "source.png": "2342d77601026ebdf3425711892a53334a3548329fda290f997dc7b46a082317"
+  },
+  "chatRun": "chat-20260930T134747Z-ada02691",
+  "knowledgeRun": "knowledge-20260930T135044Z-1051c357",
+  "zipAlignment16KiB": true,
+  "arm64EngineLoadAlignment": "0x4000",
+  "scope": "Final local debug build. ARM64 compiled/linked/packaged only; runtime checks use Outpost35 x86_64. No physical device used."
+}

@@ -1,0 +1,5 @@
+{
+  "scope": "Fixed-path root JSON/PNG and strata/speculation/optimization outputs copied before 0.10 functional scripts overwrote root evidence. Mixed historical run versions are preserved, not relabeled.",
+  "priorEvidenceCommit": "449bca6",
+  "capturedDuring": "0.10 chat development on 2026-09-30"
+}

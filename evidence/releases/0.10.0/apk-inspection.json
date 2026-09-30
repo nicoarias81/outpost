@@ -1,0 +1,10 @@
+{
+  "appSha256": "cef2473ca5acfc2bcc93b94507719d6f243504178b7073cbe8c3a6717da2d2fe",
+  "bytes": 28777650,
+  "abis": [
+    "arm64-v8a",
+    "x86_64"
+  ],
+  "mockCorpusInProduct": false,
+  "pdfLicensesPresent": true
+}

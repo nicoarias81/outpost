@@ -1,0 +1,110 @@
+[
+  {
+    "model": "Qwen2.5 1.5B Instruct · Q4_K_M",
+    "id": "qwen15",
+    "bytes": 1117320736,
+    "postCasePssKiB": 1167278,
+    "firstTokenMs": [
+      23369,
+      25437,
+      25486,
+      18576
+    ],
+    "totalMs": [
+      31154,
+      28318,
+      27722,
+      28918
+    ],
+    "tokens": [
+      73,
+      23,
+      21,
+      117
+    ],
+    "stop": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "reasoningTags": [
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "model": "Ternary Bonsai 1.7B · Q2_0 g64",
+    "id": "bonsai17",
+    "bytes": 490163968,
+    "postCasePssKiB": 558598,
+    "firstTokenMs": [
+      54762,
+      85211,
+      87542,
+      80008
+    ],
+    "totalMs": [
+      83513,
+      114971,
+      118655,
+      116367
+    ],
+    "tokens": [
+      120,
+      89,
+      94,
+      112
+    ],
+    "stop": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "reasoningTags": [
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "model": "Ternary Bonsai 4B · Q2_0 g64",
+    "id": "bonsai4",
+    "bytes": 1137806656,
+    "postCasePssKiB": 1185947,
+    "firstTokenMs": [
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "totalMs": [
+      120040,
+      120018,
+      120194,
+      120182
+    ],
+    "tokens": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "stop": [
+      3,
+      3,
+      3,
+      3
+    ],
+    "reasoningTags": [
+      false,
+      false,
+      false,
+      false
+    ]
+  }
+]

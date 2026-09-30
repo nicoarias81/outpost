@@ -1,5 +1,5 @@
 {
-  "version": "0.10.0",
+  "version": "0.9.0",
   "checksPassed": 53,
   "results": [
     {
@@ -207,15 +207,15 @@
       "passed": true
     },
     {
-      "check": "Settings exposes document import",
+      "check": "Search button executes real local query",
       "passed": true
     },
     {
-      "check": "Document management contains no prototype generate control",
+      "check": "Source reader opens asynchronously",
       "passed": true
     }
   ],
-  "elapsedMs": 5163,
+  "elapsedMs": 5330,
   "device": "Android SDK built for x86_64",
   "androidApi": 35,
   "scope": "Functional retrieval and Activity checks; this suite does not run LLM generation; no physical-device measurement"

@@ -1,0 +1,7 @@
+{
+  "runId": "knowledge-20260930T133740Z-111c5369",
+  "serial": "emulator-5582",
+  "scope": "SQLite/package/CSV/UI checks; no model execution",
+  "appSha256": "3f94863f902321740fe6872b986fdb51ff43a84cdaa25ed08feee09a7ab6b9b2",
+  "testApkSha256": "2849d9acf4334d17d20f24a3c89654750e7815edf6d1741c72eb60a80323dc20"
+}

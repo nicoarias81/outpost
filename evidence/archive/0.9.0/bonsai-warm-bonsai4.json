@@ -1,0 +1,15 @@
+{
+  "text": "[1] Power (measured in kW) expresses the rate at which energy is consumed or produced, while energy (measured in kWh) refers to the total amount of energy consumed or produced over a period of time. kW and kWh are not interchangeable because kW is a rate (power) and kWh is a unit of energy, which depends on both power and time. For instance, a 100 W appliance running for three hours consumes 300 Wh or 0.3 kWh, showing that energy is power multiplied by time. [1]",
+  "coldText": "[1] Power (measured in kW) expresses the rate at which energy is consumed or produced, while energy (measured in kWh) refers to the total amount of energy consumed or produced over a period of time. kW and kWh are not interchangeable because kW is a rate (power) and kWh is a unit of energy, which depends on both power and time. For instance, a 100 W appliance running for three hours consumes 300 Wh or 0.3 kWh, showing that energy is power multiplied by time. [1]",
+  "tokens": 114,
+  "firstTokenMs": 4,
+  "totalMs": 24255,
+  "prefillMs": 0,
+  "decodeMs": 24253,
+  "cachedTokens": 211,
+  "promptTokens": 211,
+  "reason": 0,
+  "coldLogitsHash": "a96e5d7125d94f2a",
+  "warmLogitsHash": "a96e5d7125d94f2a",
+  "releaseRequestsDuringRepeat": 0
+}

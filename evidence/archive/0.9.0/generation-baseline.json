@@ -1,0 +1,164 @@
+{
+  "version": "0.2.0",
+  "checksPassed": 16,
+  "checks": [
+    {
+      "name": "Tests restricted to x86_64 emulator artifact",
+      "passed": true
+    },
+    {
+      "name": "Native inference APK still has no INTERNET permission",
+      "passed": true
+    },
+    {
+      "name": "Pinned model imported and hash verified",
+      "passed": true
+    },
+    {
+      "name": "Invalid GGUF rejected without replacing installed model",
+      "passed": true
+    },
+    {
+      "name": "Model control-token delimiters neutralized in source text",
+      "passed": true
+    },
+    {
+      "name": "Unknown source references are flagged",
+      "passed": true
+    },
+    {
+      "name": "No evidence produces no generation prompt",
+      "passed": true
+    },
+    {
+      "name": "Cancellation before queued generation is preserved",
+      "passed": true
+    },
+    {
+      "name": "Real GGUF generation emits streamed text",
+      "passed": true
+    },
+    {
+      "name": "Measured first token and elapsed time available",
+      "passed": true
+    },
+    {
+      "name": "Generation completes within 120-second cap",
+      "passed": true
+    },
+    {
+      "name": "Streaming preserves complete UTF-8 text",
+      "passed": true
+    },
+    {
+      "name": "In-flight cancellation aborts decoding",
+      "passed": true
+    },
+    {
+      "name": "Next request works after cancellation with fresh context",
+      "passed": true
+    },
+    {
+      "name": "Generation action visible for retrieved evidence",
+      "passed": true
+    },
+    {
+      "name": "UI button completes native local generation",
+      "passed": true
+    }
+  ],
+  "answers": [
+    {
+      "case": "energy",
+      "text": "La potencia y energía se mide en vatios (W) o kilovatios (kW). kW es la unidad de potencia, mientras que kWh es la unidad de energía.",
+      "tokens": 40,
+      "promptTokens": 329,
+      "firstTokenMs": 11279,
+      "totalMs": 13774,
+      "loadMs": 455,
+      "stopReason": 0,
+      "sources": [
+        {
+          "title": "Potencia y energía: kW frente a kWh",
+          "passage": "La potencia expresa el ritmo al que se consume o produce energía. Se mide en vatios (W) o kilovatios (kW): un kilovatio equivale a mil vatios. La energía consumida durante un intervalo se puede expresar en vatios hora (Wh) o kilovatios hora (kWh)."
+        },
+        {
+          "title": "Potencia y energía: kW frente a kWh",
+          "passage": "Si la potencia permanece constante, la energía es potencia multiplicada por tiempo. Por ejemplo, un aparato de 100 W funcionando durante tres horas consume 300 Wh, es decir, 0,3 kWh. Este ejemplo calculado ilustra por qué kW y kWh no son intercambiables."
+        }
+      ]
+    },
+    {
+      "case": "cancel-after-three-tokens",
+      "text": "La potencia",
+      "tokens": 3,
+      "promptTokens": 329,
+      "firstTokenMs": 10832,
+      "totalMs": 10958,
+      "loadMs": 0,
+      "stopReason": 2,
+      "sources": [
+        {
+          "title": "Potencia y energía: kW frente a kWh",
+          "passage": "La potencia expresa el ritmo al que se consume o produce energía. Se mide en vatios (W) o kilovatios (kW): un kilovatio equivale a mil vatios. La energía consumida durante un intervalo se puede expresar en vatios hora (Wh) o kilovatios hora (kWh)."
+        },
+        {
+          "title": "Potencia y energía: kW frente a kWh",
+          "passage": "Si la potencia permanece constante, la energía es potencia multiplicada por tiempo. Por ejemplo, un aparato de 100 W funcionando durante tres horas consume 300 Wh, es decir, 0,3 kWh. Este ejemplo calculado ilustra por qué kW y kWh no son intercambiables."
+        }
+      ]
+    },
+    {
+      "case": "gps-after-cancellation",
+      "text": "El GPS calcula su posición a partir de señales de radio enviadas por satélites.",
+      "tokens": 20,
+      "promptTokens": 406,
+      "firstTokenMs": 13424,
+      "totalMs": 14637,
+      "loadMs": 0,
+      "stopReason": 0,
+      "sources": [
+        {
+          "title": "GPS: posición a partir de satélites",
+          "passage": "Un receptor GPS calcula su posición a partir de señales de radio enviadas por satélites. El tiempo que tarda en llegar cada señal permite estimar la distancia al satélite. Al combinar varias señales se obtiene la posición del receptor y se corrige su reloj."
+        },
+        {
+          "title": "Por qué cambia la precisión del GPS",
+          "passage": "La precisión de una posición GPS depende de la geometría de los satélites, los obstáculos que bloquean las señales, las condiciones atmosféricas y las características del receptor. La precisión de la señal emitida no garantiza la misma precisión en el teléfono."
+        },
+        {
+          "title": "GPS: posición a partir de satélites",
+          "passage": "Recibir las señales de los satélites es distinto de descargar un mapa por internet. Como consecuencia de este funcionamiento, un receptor puede calcular coordenadas sin una conexión de datos. Para ver esas coordenadas sobre una cartografía, la aplicación necesita disponer también del mapa. Esta distinción es una explicación didáctica; no constituye una prueba del funcionamiento de una app concreta."
+        }
+      ]
+    },
+    {
+      "case": "ui-energy",
+      "text": "La potencia y energía se mide en vatios (W) o kilovatios (kW). kW es la unidad de potencia, mientras que kWh es la unidad de energía.",
+      "tokens": 40,
+      "promptTokens": 329,
+      "firstTokenMs": 11699,
+      "totalMs": 14812,
+      "loadMs": 455,
+      "stopReason": 0,
+      "sources": [
+        {
+          "title": "Potencia y energía: kW frente a kWh",
+          "passage": "La potencia expresa el ritmo al que se consume o produce energía. Se mide en vatios (W) o kilovatios (kW): un kilovatio equivale a mil vatios. La energía consumida durante un intervalo se puede expresar en vatios hora (Wh) o kilovatios hora (kWh)."
+        },
+        {
+          "title": "Potencia y energía: kW frente a kWh",
+          "passage": "Si la potencia permanece constante, la energía es potencia multiplicada por tiempo. Por ejemplo, un aparato de 100 W funcionando durante tres horas consume 300 Wh, es decir, 0,3 kWh. Este ejemplo calculado ilustra por qué kW y kWh no son intercambiables."
+        }
+      ]
+    }
+  ],
+  "elapsedMs": 59160,
+  "model": "Qwen2.5 0.5B Instruct · Q4_K_M",
+  "modelSha256": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db",
+  "modelBytes": 491400032,
+  "androidApi": 35,
+  "device": "Android SDK built for x86_64",
+  "processPssKiBAtEnd": 559058,
+  "measurementScope": "Emulator only. PSS snapshot is not peak RAM. Functional tests, not research-quality evaluation."
+}
