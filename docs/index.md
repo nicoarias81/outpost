@@ -17,6 +17,7 @@
 | Review new kernel ideas | [DeepGEMM-Ascend static review and prioritized experiments](deepgemm-ascend-review.md) |
 | Compare models and memory designs | [Model alternatives and emulator study](model-alternatives.md), [Engram review](engram-review.md), [pinned research metadata](../evidence/research/model-survey-20260930/survey-metadata.json) |
 | Improve inference | [Runtime](inference-runtime.md), [measured optimizations](optimizations.md), [0.14 row-kernel experiment](kernel-rows-0.14.md), [speculation/MTP](speculation.md) |
+| Inspect answer-pipeline behavior | [NeMo Relay review and proposed local traces](nemo-relay-review.md) |
 | Define/score outcomes | [Evaluation protocol](evaluation.md), [runner/review guide](../eval/README.md), [v7 fixtures](../eval/fixtures-v7.json), [rubric v2](../eval/rubric-v2.md) |
 | Verify current delivery | [0.14 validation](validation-0.14.md), [frozen release manifest](../evidence/releases/0.14.0/manifest.json) |
 | Trace external/product input | [Bounty snapshot and requirement trace](bounty-31.md), [anonymized discovery](discovery-2026-09-29.md) |

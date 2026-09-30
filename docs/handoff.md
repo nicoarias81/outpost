@@ -50,6 +50,10 @@ The owner requested alternatives to Bonsai and exploration of Engram. The [model
 
 [Engram](engram-review.md) is trained conditional memory, distinct from imported evidence and mission memory. The inspected official demo is not a small trained checkpoint; X-07 is conditional. Published LFM DSpark and Gemma assistants make X-01 more concrete for those targets, without providing a Bonsai MTP head or Android speed evidence. Preserve the emulator-only constraint.
 
+## Answer-pipeline observability research
+
+The [NeMo Relay review](nemo-relay-review.md) pins upstream source at `872972c600599a6e9085c4e1799d07b980a1dab5` and maps its lifecycle-tracing method onto Outpost. E-08 proposes local correlated traces for route selection, retrieval fallback, source clipping, native generation, persistence and visible completion, with separate quality review. No Relay SDK, exporter, new trace implementation or network endpoint was added. Existing native timings/run identities remain intact; E-07 model admission can proceed independently.
+
 ## Next work and known gaps
 
 Follow [roadmap](roadmap.md), preserving task IDs. E-06 is fixed and v7 declares both packaged ABIs. Six host-only identity controls cover valid/reordered and missing/extra/duplicate/malformed sets. The obsolete K-07 dependency is removed from the regional fixture; its broader time/preference recommendation task remains blocked. P-05/P-06 now have shape/graph/model evidence and a bounded prefill-only adoption. Further timing/pressure/ARM work remains. Do not infer a kernel gain from deterministic place replies or extrapolate the emulator profile to a phone.

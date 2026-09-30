@@ -1,0 +1,174 @@
+{
+  "captured_utc": "2026-09-30T20:59:35.516137+00:00",
+  "repository": "NVIDIA/NeMo-Relay",
+  "commit": "872972c600599a6e9085c4e1799d07b980a1dab5",
+  "commit_source": {
+    "url": "https://api.github.com/repos/NVIDIA/NeMo-Relay/commits/main",
+    "bytes": 15330,
+    "sha256": "bdb13fa609fa434a7f8fea9e47f6883c318161bddc4569060836b36688490cc0"
+  },
+  "tree_source": {
+    "url": "https://api.github.com/repos/NVIDIA/NeMo-Relay/git/trees/872972c600599a6e9085c4e1799d07b980a1dab5?recursive=1",
+    "bytes": 416327,
+    "sha256": "a9846940a43bef1b4ae0fb0c6191648f316819506a1432e8fef5cb82467fac6e"
+  },
+  "scope": "Static source/document inspection only; no upstream package installed, built, executed or integrated",
+  "files": [
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/Cargo.toml",
+      "bytes": 1993,
+      "sha256": "ddd78e4fcfe2d5b99910a2b0023e684e60fa7e5c4c348749af8bc06ce77bb3c4",
+      "file": "Cargo.toml"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "file": "LICENSE"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/README.md",
+      "bytes": 14970,
+      "sha256": "97579d299d4146853f395fb9e0c50063eeea189e5b902a21b5a5de3181b037e3",
+      "file": "README.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/about-nemo-relay/architecture.mdx",
+      "bytes": 12363,
+      "sha256": "63f1e3df3c1a57df789f24b43e24a8d1e5bdc5e129027bc3f9970502ca3bf60f",
+      "file": "docs/about-nemo-relay/architecture.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/about-nemo-relay/concepts/scopes.mdx",
+      "bytes": 11423,
+      "sha256": "c48b0dafbd412eb935d451887145f3435157dca8fd0242f79d3dc4b688846398",
+      "file": "docs/about-nemo-relay/concepts/scopes.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/build-plugins/native/runtime-events-and-scopes.mdx",
+      "bytes": 9428,
+      "sha256": "9c8d62d41c73beff962f0a17a81e0130fc36db105e6d7ab58572963fbd9ebc4c",
+      "file": "docs/build-plugins/native/runtime-events-and-scopes.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/build-plugins/workers/runtime-events-and-scopes.mdx",
+      "bytes": 13879,
+      "sha256": "fb7cd890e8cab60bcd3592223310247f6d0ef6e5e828e92d6f044f0f62cc0cbe",
+      "file": "docs/build-plugins/workers/runtime-events-and-scopes.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/configure-plugins/observability/about.mdx",
+      "bytes": 9325,
+      "sha256": "f94913c3c501ee1ac677580477de0de9f2706c20ed0ed5ae19f24a98a512455b",
+      "file": "docs/configure-plugins/observability/about.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/configure-plugins/observability/atif.mdx",
+      "bytes": 21784,
+      "sha256": "1081b645df5dd61df2feb81cb8f15765d2d223709a3ed0300a601e0ccc3aedcf",
+      "file": "docs/configure-plugins/observability/atif.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/configure-plugins/observability/atof.mdx",
+      "bytes": 17104,
+      "sha256": "0b222f88c85c620f87a3f4db9882be9ad10b32b7b92fae29bb52d7653ce2787b",
+      "file": "docs/configure-plugins/observability/atof.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/configure-plugins/observability/configuration.mdx",
+      "bytes": 8968,
+      "sha256": "1a79417602db223653d0913140936b9cf8b79ca192d9167cf5dc5179decae06d",
+      "file": "docs/configure-plugins/observability/configuration.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/configure-plugins/observability/openinference.mdx",
+      "bytes": 3908,
+      "sha256": "9d0c1129ff44e2e54a1b9c0d1684f80326ce901d4e54bf65209db6b5b2dab035",
+      "file": "docs/configure-plugins/observability/openinference.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/configure-plugins/observability/opentelemetry.mdx",
+      "bytes": 80486,
+      "sha256": "ff3483d67395f30e9b739d0fb52528c5549e2c7b128ec7a8c29994f9ece72707",
+      "file": "docs/configure-plugins/observability/opentelemetry.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/configure-plugins/pii-redaction/about.mdx",
+      "bytes": 5643,
+      "sha256": "2778813c8289c841e3f2fb122e8ad339d98bb8975ad2ec03e6b0f0b377b3561f",
+      "file": "docs/configure-plugins/pii-redaction/about.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/configure-plugins/pii-redaction/configuration.mdx",
+      "bytes": 25065,
+      "sha256": "61dbf4e7a2e79a743d457b737018a9233b466ff86d2567692d44afdb6ef6b296",
+      "file": "docs/configure-plugins/pii-redaction/configuration.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/daemon/architecture.mdx",
+      "bytes": 6398,
+      "sha256": "50ff5314fae9315b86cd6ce4d569d39aa284244ce7b5a7ba7aa3ee00cd880b30",
+      "file": "docs/daemon/architecture.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/getting-started/installation.mdx",
+      "bytes": 12566,
+      "sha256": "c1b7d251cc5eb05eb53ae15762722ec0a90f51453bc92ae6a08b2e82ec9981ac",
+      "file": "docs/getting-started/installation.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/instrument-applications/adding-scopes-and-marks.mdx",
+      "bytes": 7515,
+      "sha256": "76a1fc76033411821747d4bb177727fcaaa3391e0f7cb87d5d79e22754e41873",
+      "file": "docs/instrument-applications/adding-scopes-and-marks.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/integrate-into-frameworks/adding-scopes.mdx",
+      "bytes": 7120,
+      "sha256": "838364f46fd751c54bc2aeab1fef87efaca2cc2c8db5b9940e6395f62f477004",
+      "file": "docs/integrate-into-frameworks/adding-scopes.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/nemo-relay-cli/plugin-installation.mdx",
+      "bytes": 26497,
+      "sha256": "f361093eac98d288d7332b82171f13c1a62a38ca7dc7a9afcb0e9eff1cca7ec3",
+      "file": "docs/nemo-relay-cli/plugin-installation.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/reference/atof-event-format.mdx",
+      "bytes": 30112,
+      "sha256": "65c2826a93a8339f4d11d1448bd17bdd89daec73c94bfb93f97a5f5a6b02f9e7",
+      "file": "docs/reference/atof-event-format.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/supported-integrations/about.mdx",
+      "bytes": 2201,
+      "sha256": "b26a2c5a98a5cf2da9ddff21ec985b3ce4e9dabda74738831d7e3c5349c4b1d3",
+      "file": "docs/supported-integrations/about.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/supported-integrations/deepagents.mdx",
+      "bytes": 4194,
+      "sha256": "c7a2c7696c8d8e48c48326640e9d50d77b83bbb617ffedb1b0806de39f68bf3d",
+      "file": "docs/supported-integrations/deepagents.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/supported-integrations/langchain.mdx",
+      "bytes": 3211,
+      "sha256": "94f742478ea300e2913ddebe9f7b63ed08a8a9717e0399deca86d76eb3021442",
+      "file": "docs/supported-integrations/langchain.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/supported-integrations/langgraph.mdx",
+      "bytes": 4541,
+      "sha256": "988e17cc6e7d8450671046488a777f5bac68551cea77fc54afc77ed96ac87e9f",
+      "file": "docs/supported-integrations/langgraph.mdx"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NVIDIA/NeMo-Relay/872972c600599a6e9085c4e1799d07b980a1dab5/docs/supported-integrations/openclaw-plugin.mdx",
+      "bytes": 13646,
+      "sha256": "2fb88d0a182187a7396b206a5531428b3d06f3d1c76af429d55ec2964cc1b89c",
+      "file": "docs/supported-integrations/openclaw-plugin.mdx"
+    }
+  ]
+}

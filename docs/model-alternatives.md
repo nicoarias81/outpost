@@ -75,3 +75,7 @@ The inventory found a **296M LFM2.5 1.2B DSpark drafter** and a **roughly 78M Ge
 6. Time at least three alternating paired repetitions of representative short, longer, cold and follow-up workloads. Report first token and completed answer, timeout/truncation frequency, paired medians, variability and sampled memory peaks. Decode tok/s alone is not comparable across tokenizers and answer lengths. No energy or phone extrapolation.
 
 Promote only a candidate with correct lifecycle behavior, acceptable complete-answer latency/headroom and evidence-backed quality gains or a clear resource-saving tradeoff. Any invented source-sensitive procedure/value is a recorded failure, not averaged away by fluent easy answers. If evidence retrieval is the limiting factor, prioritize retrieval/context work instead of declaring that more parameters solved it. No winner threshold, default replacement, new APK or benchmark result is asserted by this research pass.
+
+## Explain model-comparison outcomes
+
+The subsequent [NeMo Relay review](nemo-relay-review.md) proposes E-08: local correlated pipeline events to distinguish retrieval, clipping, queueing, generation and persistence failures/costs. This complements the two evaluation arms above; it does not block candidate admission, supply a quality judge or establish that tracing has zero overhead. No Relay dependency was added.

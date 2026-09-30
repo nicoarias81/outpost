@@ -62,3 +62,7 @@ A documentation audit needs source/link/identity checks, not another model run. 
 ## Row optimization evidence in 0.14
 
 [The row-kernel record](kernel-rows-0.14.md) separates synthetic full-matrix measurements, tuning prompts, an intentionally interrupted combined-policy run and final phase-separated confirmation. Confirmation uses three alternating pairs per case and the product 192-token cap, requires normal EOS and exact output/first-logit parity, and saves a local profile only after lifecycle checks. The confirmation prompts were reused after inspecting combined-policy behavior; they are development controls, not a blinded held-out study. Native generation-call total is not tap-to-answer UI latency. Weight/model quality and OSM answer speed are separate questions.
+
+## Proposed lifecycle trace experiment
+
+The [NeMo Relay review](nemo-relay-review.md) identifies a gap between existing per-run identities/native timings and a correlated trace of the complete answer pipeline. E-08 proposes local events around route selection, retrieval attempts, evidence clipping, generation, persistence and UI completion, while keeping task verification/review separate. Measure tracing overhead and incomplete/canceled runs before using the traces for comparisons. This is a design checkpoint, not a new exporter or result; it does not change current test commands or install external infrastructure.

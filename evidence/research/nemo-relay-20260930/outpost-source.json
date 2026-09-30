@@ -1,0 +1,32 @@
+{
+  "baseline_commit": "5ca14f1",
+  "app_version": "0.14.0",
+  "scope": "Read-only inspection of existing orchestration and evidence; no new runtime execution",
+  "files": [
+    {
+      "path": "app/src/main/java/dev/outpost/app/MainActivity.java",
+      "bytes": 43890,
+      "sha256": "baa716a1bfde3df04bd44731a7bcedc3ffcf719e1912a4a9f7f8726adeb9e533"
+    },
+    {
+      "path": "app/src/main/java/dev/outpost/app/ChatPrompt.java",
+      "bytes": 3726,
+      "sha256": "cb3a459c4fe5026f3be74113c1a1bce4867e31aaa4dece955bbdd392bb138062"
+    },
+    {
+      "path": "app/src/main/java/dev/outpost/app/NativeEngine.java",
+      "bytes": 8887,
+      "sha256": "19681ee1e10102917acf3d02e777cb240fd3360bf57bc21d774b16ac27aa95c0"
+    },
+    {
+      "path": "scripts/test-chat.ps1",
+      "bytes": 3826,
+      "sha256": "d36263ac137e58935e8881b653dbbf7b2d42b47c0ebb3a5300bf6494a82e6b1f"
+    },
+    {
+      "path": "eval/README.md",
+      "bytes": 7110,
+      "sha256": "ddda7a2a8fa3bde95ee99e8ed657bc99ecceb54942be7e95c47eca25373e966c"
+    }
+  ]
+}
