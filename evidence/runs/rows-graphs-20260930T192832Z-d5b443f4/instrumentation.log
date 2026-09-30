@@ -1,0 +1,5 @@
+
+Running exact row arithmetic, strided/tail/worker graphs and actual-shape controls...
+
+PASS rows graphs. Inspect paired results and selection before adoption.
+

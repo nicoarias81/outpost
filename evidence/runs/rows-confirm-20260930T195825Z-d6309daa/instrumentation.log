@@ -1,0 +1,27 @@
+
+confirmation-reservation round 0 rows 1: 26366 ms / prefill 11863 / decode 14321 / 81 tokens
+
+confirmation-reservation round 0 rows 2: 22688 ms / prefill 9672 / decode 12830 / 81 tokens
+
+confirmation-reservation round 1 rows 2: 22742 ms / prefill 9661 / decode 12900 / 81 tokens
+
+confirmation-reservation round 1 rows 1: 25085 ms / prefill 11444 / decode 13467 / 81 tokens
+
+confirmation-reservation round 2 rows 1: 24585 ms / prefill 11426 / decode 12969 / 81 tokens
+
+confirmation-reservation round 2 rows 2: 23124 ms / prefill 9828 / decode 13120 / 81 tokens
+
+confirmation-manual round 0 rows 1: 27235 ms / prefill 14085 / decode 12962 / 78 tokens
+
+confirmation-manual round 0 rows 2: 25683 ms / prefill 12504 / decode 12998 / 78 tokens
+
+confirmation-manual round 1 rows 2: 25470 ms / prefill 12373 / decode 12921 / 78 tokens
+
+confirmation-manual round 1 rows 1: 27834 ms / prefill 14470 / decode 13180 / 78 tokens
+
+confirmation-manual round 2 rows 1: 27246 ms / prefill 14233 / decode 12782 / 78 tokens
+
+confirmation-manual round 2 rows 2: 26027 ms / prefill 12153 / decode 13698 / 78 tokens
+
+PASS rows confirm. Inspect paired results and selection before adoption.
+

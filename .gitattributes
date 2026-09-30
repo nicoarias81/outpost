@@ -19,6 +19,8 @@ gradlew.bat text eol=crlf
 
 # Immutable evidence hashes refer to exact bytes, including line endings.
 /evidence/runs/** -text whitespace=cr-at-eol
+# Instrumentation emits terminal blank lines; keep the raw output exactly.
+/evidence/runs/**/instrumentation.log whitespace=cr-at-eol,-blank-at-eof
 /evidence/archive/** -text whitespace=cr-at-eol
 
 /app/src/main/assets/licenses/* -text

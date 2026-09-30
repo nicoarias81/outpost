@@ -1,0 +1,13 @@
+{
+  "runId": "rows-confirm-20260930T194852Z-d585992f",
+  "serial": "emulator-5582",
+  "modelExecution": true,
+  "numericExecution": true,
+  "phase": "confirm",
+  "applyProfileRequested": true,
+  "appSha256": "d978bb9be79c94ebb3db13930a277167b15a59f3b0fe531a4e80b5616474d837",
+  "testApkSha256": "bef70adefa0e174dbb62cae4b5f969cc66ad67df29264f6f6c17051d77f682b9",
+  "mainSourcesSha256": "3f8c0ce6453898178a8ead313b92e6e4ac76936736860475d3ffb17a6985c16f",
+  "testSourcesSha256": "6a0dd0106cf3c0ead4bbb375ed4909cda023116bfa60e851dc0096c620616bd4",
+  "scope": "Guarded Q2 row-reuse numerical/graph or paired Bonsai4 model experiment; explicit configuration, no phone inference; emulator only."
+}

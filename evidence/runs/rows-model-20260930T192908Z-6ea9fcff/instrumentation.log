@@ -1,0 +1,39 @@
+
+short-record round0 rows1: 6854ms total / 2280ms decode, 15 tokens
+
+short-record round0 rows2: 7058ms total / 2421ms decode, 15 tokens
+
+short-record round0 rows4: 7014ms total / 2339ms decode, 15 tokens
+
+short-record round1 rows2: 6898ms total / 2064ms decode, 15 tokens
+
+short-record round1 rows4: 6891ms total / 2274ms decode, 15 tokens
+
+short-record round1 rows1: 7034ms total / 2403ms decode, 15 tokens
+
+short-record round2 rows4: 7284ms total / 2431ms decode, 15 tokens
+
+short-record round2 rows1: 7189ms total / 2533ms decode, 15 tokens
+
+short-record round2 rows2: 6795ms total / 2175ms decode, 15 tokens
+
+long-record round0 rows1: 18855ms total / 5277ms decode, 32 tokens
+
+long-record round0 rows2: 18917ms total / 5241ms decode, 32 tokens
+
+long-record round0 rows4: 19722ms total / 6007ms decode, 32 tokens
+
+long-record round1 rows2: 18673ms total / 5108ms decode, 32 tokens
+
+long-record round1 rows4: 19190ms total / 5350ms decode, 32 tokens
+
+long-record round1 rows1: 18811ms total / 5274ms decode, 32 tokens
+
+long-record round2 rows4: 19597ms total / 5915ms decode, 32 tokens
+
+long-record round2 rows1: 18595ms total / 4918ms decode, 32 tokens
+
+long-record round2 rows2: 23363ms total / 5516ms decode, 32 tokens
+
+PASS rows model. Inspect paired results and selection before adoption.
+

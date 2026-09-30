@@ -1,0 +1,19 @@
+{
+  "serial": "emulator-5582",
+  "avd": "Outpost35",
+  "api": "35",
+  "fingerprint": "Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys",
+  "airplaneMode": "1",
+  "wifi": "0",
+  "mobileData": "0",
+  "profileKey": "65a0d863a9c7ab18df40d78aa5512ed07426cc7795aa301f7036183380338ba5",
+  "profile": {
+    "threads": 4,
+    "promptThreads": 4,
+    "batch": 128,
+    "width": 4,
+    "rowTile": 2,
+    "decodeRows": 1
+  },
+  "selectedModel": "bonsai4"
+}

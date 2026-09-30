@@ -1,0 +1,25 @@
+{
+  "versionName": "0.14.0",
+  "versionCode": 16,
+  "appBytes": 34136262,
+  "appSha256": "9d3506d7ee8103bbf213b95a69392ad6ea1130a3e86679b53630e831843f01a9",
+  "testApkSha256": "8e8b2284dd6e30f448180d65cf1b95444a8c94c3ca21a145d0100598460c9317",
+  "abis": [
+    "arm64-v8a",
+    "x86_64"
+  ],
+  "fixtureDataInProduct": false,
+  "testOnlyClassesInProduct": false,
+  "generatorWeightsBundled": false,
+  "finalRuns": {
+    "graphs": "rows-graphs-20260930T201235Z-7fb5dec2",
+    "places": "places-20260930T201242Z-7c60846b",
+    "chat": "chat-20260930T201311Z-50362faa",
+    "osm": "osm-20260930T201411Z-0cc9f6a9",
+    "folders": "folders-20260930T201419Z-6a4c5918",
+    "knowledge": "knowledge-20260930T201432Z-c209afab"
+  },
+  "confirmationRun": "rows-confirm-20260930T195825Z-d6309daa",
+  "confirmationTestApkSha256": "65ae5eb3553a402e80b3a6b9c1faa01fa13c16d5010f8a8f150cb4f271c43752",
+  "scope": "Final app identical to timing/lifecycle confirmation; final test APK additionally strengthens grouped-width coverage. Debug local publication, emulator runtime only, no phone/ARM runtime claim."
+}

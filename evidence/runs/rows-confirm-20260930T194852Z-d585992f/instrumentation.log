@@ -1,0 +1,24 @@
+
+heldout-reservation round 0 rows 1: 25524 ms / prefill 11573 / decode 13510 / 81 tokens
+
+heldout-reservation round 0 rows 2: 24138 ms / prefill 9769 / decode 14158 / 81 tokens
+
+heldout-reservation round 1 rows 2: 24591 ms / prefill 10495 / decode 13913 / 81 tokens
+
+heldout-reservation round 1 rows 1: 24615 ms / prefill 11592 / decode 12847 / 81 tokens
+
+heldout-reservation round 2 rows 1: 24483 ms / prefill 11433 / decode 12810 / 81 tokens
+
+heldout-reservation round 2 rows 2: 24598 ms / prefill 9788 / decode 14616 / 81 tokens
+
+heldout-manual round 0 rows 1: 27545 ms / prefill 14248 / decode 13085 / 78 tokens
+
+heldout-manual round 0 rows 2: 26286 ms / prefill 12121 / decode 13963 / 78 tokens
+
+heldout-manual round 1 rows 2: 26146 ms / prefill 12373 / decode 13577 / 78 tokens
+
+heldout-manual round 1 rows 1: 28315 ms / prefill 14333 / decode 13793 / 78 tokens
+
+heldout-manual round 2 rows 1: 27007 ms / prefill 14249 / decode 12534 / 78 tokens
+INSTRUMENTATION_RESULT: shortMsg=Process crashed.
+INSTRUMENTATION_CODE: 0

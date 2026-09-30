@@ -1,0 +1,7 @@
+{
+  "kind": "implementation-assistant-note",
+  "intentionalStop": true,
+  "action": "am force-stop dev.outpost.app on verified emulator-5582/Outpost35 only",
+  "reason": "Complete-answer pairs showed the combined decode policy offsetting prefill benefit. The owned run was stopped before its final pair/lifecycle/profile stage to test separate multi-/single-column policies.",
+  "interpretation": "The instrumentation Process crashed line records the intentional stop, not evidence of an unexplained native crash. Partial results are retained unchanged. No profile was applied from this incomplete run."
+}

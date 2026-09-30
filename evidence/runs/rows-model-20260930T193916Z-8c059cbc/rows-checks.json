@@ -1,0 +1,2287 @@
+{
+  "runId": "rows-model-20260930T193916Z-8c059cbc",
+  "phase": "model",
+  "version": "0.14.0",
+  "runtime": {
+    "abi": "x86_64",
+    "onlineCpus": 4,
+    "featureMask": 15,
+    "selected": "Q2_0 AVX2\/F16C",
+    "candidates": [
+      {
+        "id": 0,
+        "name": "Q2_0 reference",
+        "cpuCompatible": true,
+        "compiled": true,
+        "enabled": true,
+        "selected": false
+      },
+      {
+        "id": 1,
+        "name": "Q2_0 AVX2\/F16C",
+        "cpuCompatible": true,
+        "compiled": true,
+        "enabled": true,
+        "selected": true
+      },
+      {
+        "id": 2,
+        "name": "Q2_0 AVX-VNNI",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 3,
+        "name": "Q2_0 AVX-512 VNNI\/VL",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 4,
+        "name": "Q2_0 NEON",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 5,
+        "name": "Q2_0 NEON DotProd",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 6,
+        "name": "Q2_0 NEON I8MM",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      }
+    ]
+  },
+  "results": [
+    {
+      "text": "The filter listed is F-92. The inspection date is missing.",
+      "tokens": 15,
+      "promptTokens": 69,
+      "firstTokenMs": 6186,
+      "totalMs": 8742,
+      "prefillMs": 6011,
+      "decodeMs": 2557,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -7911089513201283830,
+      "reason": 0,
+      "case": "short-record",
+      "round": 0,
+      "rowTile": 1,
+      "rowKernelUsed": false,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 69,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 69,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 1082,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 541,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 16,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 1080,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 0
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: Sample pump PX-65 uses filter F-92. Its inspection date is unknown. QUESTION: Which filter is listed and what information is missing?"
+    },
+    {
+      "text": "The filter listed is F-92. The inspection date is missing.",
+      "tokens": 15,
+      "promptTokens": 69,
+      "firstTokenMs": 5512,
+      "totalMs": 7967,
+      "prefillMs": 5310,
+      "decodeMs": 2457,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -7911089513201283830,
+      "reason": 0,
+      "case": "short-record",
+      "round": 0,
+      "rowTile": 2,
+      "rowKernelUsed": true,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 69,
+            "calls": 72,
+            "selectedRows": 2
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 69,
+            "calls": 70,
+            "selectedRows": 2
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 35,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 1082,
+            "selectedRows": 2
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 541,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 16,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 1080,
+            "selectedRows": 2
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 2
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: Sample pump PX-65 uses filter F-92. Its inspection date is unknown. QUESTION: Which filter is listed and what information is missing?"
+    },
+    {
+      "text": "The filter listed is F-92. The inspection date is missing.",
+      "tokens": 15,
+      "promptTokens": 69,
+      "firstTokenMs": 6358,
+      "totalMs": 9150,
+      "prefillMs": 6142,
+      "decodeMs": 2793,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -7911089513201283830,
+      "reason": 0,
+      "case": "short-record",
+      "round": 0,
+      "rowTile": 4,
+      "rowKernelUsed": true,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 69,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 69,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 1082,
+            "selectedRows": 4
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 541,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 16,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 1080,
+            "selectedRows": 4
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 4
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: Sample pump PX-65 uses filter F-92. Its inspection date is unknown. QUESTION: Which filter is listed and what information is missing?"
+    },
+    {
+      "text": "The filter listed is F-92. The inspection date is missing.",
+      "tokens": 15,
+      "promptTokens": 69,
+      "firstTokenMs": 5554,
+      "totalMs": 8025,
+      "prefillMs": 5375,
+      "decodeMs": 2472,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -7911089513201283830,
+      "reason": 0,
+      "case": "short-record",
+      "round": 1,
+      "rowTile": 2,
+      "rowKernelUsed": true,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 69,
+            "calls": 72,
+            "selectedRows": 2
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 69,
+            "calls": 70,
+            "selectedRows": 2
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 35,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 1082,
+            "selectedRows": 2
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 541,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 16,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 1080,
+            "selectedRows": 2
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 2
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: Sample pump PX-65 uses filter F-92. Its inspection date is unknown. QUESTION: Which filter is listed and what information is missing?"
+    },
+    {
+      "text": "The filter listed is F-92. The inspection date is missing.",
+      "tokens": 15,
+      "promptTokens": 69,
+      "firstTokenMs": 6406,
+      "totalMs": 9166,
+      "prefillMs": 6215,
+      "decodeMs": 2761,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -7911089513201283830,
+      "reason": 0,
+      "case": "short-record",
+      "round": 1,
+      "rowTile": 4,
+      "rowKernelUsed": true,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 69,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 69,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 1082,
+            "selectedRows": 4
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 541,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 16,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 1080,
+            "selectedRows": 4
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 4
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: Sample pump PX-65 uses filter F-92. Its inspection date is unknown. QUESTION: Which filter is listed and what information is missing?"
+    },
+    {
+      "text": "The filter listed is F-92. The inspection date is missing.",
+      "tokens": 15,
+      "promptTokens": 69,
+      "firstTokenMs": 6443,
+      "totalMs": 8796,
+      "prefillMs": 6255,
+      "decodeMs": 2354,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -7911089513201283830,
+      "reason": 0,
+      "case": "short-record",
+      "round": 1,
+      "rowTile": 1,
+      "rowKernelUsed": false,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 69,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 69,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 1082,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 541,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 16,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 1080,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 0
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: Sample pump PX-65 uses filter F-92. Its inspection date is unknown. QUESTION: Which filter is listed and what information is missing?"
+    },
+    {
+      "text": "The filter listed is F-92. The inspection date is missing.",
+      "tokens": 15,
+      "promptTokens": 69,
+      "firstTokenMs": 6300,
+      "totalMs": 8692,
+      "prefillMs": 6097,
+      "decodeMs": 2393,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -7911089513201283830,
+      "reason": 0,
+      "case": "short-record",
+      "round": 2,
+      "rowTile": 4,
+      "rowKernelUsed": true,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 69,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 69,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 1082,
+            "selectedRows": 4
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 541,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 16,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 1080,
+            "selectedRows": 4
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 4
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: Sample pump PX-65 uses filter F-92. Its inspection date is unknown. QUESTION: Which filter is listed and what information is missing?"
+    },
+    {
+      "text": "The filter listed is F-92. The inspection date is missing.",
+      "tokens": 15,
+      "promptTokens": 69,
+      "firstTokenMs": 6359,
+      "totalMs": 8733,
+      "prefillMs": 6172,
+      "decodeMs": 2376,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -7911089513201283830,
+      "reason": 0,
+      "case": "short-record",
+      "round": 2,
+      "rowTile": 1,
+      "rowKernelUsed": false,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 69,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 69,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 1082,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 541,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 16,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 1080,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 0
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: Sample pump PX-65 uses filter F-92. Its inspection date is unknown. QUESTION: Which filter is listed and what information is missing?"
+    },
+    {
+      "text": "The filter listed is F-92. The inspection date is missing.",
+      "tokens": 15,
+      "promptTokens": 69,
+      "firstTokenMs": 5482,
+      "totalMs": 8382,
+      "prefillMs": 5272,
+      "decodeMs": 2902,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -7911089513201283830,
+      "reason": 0,
+      "case": "short-record",
+      "round": 2,
+      "rowTile": 2,
+      "rowKernelUsed": true,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 69,
+            "calls": 72,
+            "selectedRows": 2
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 69,
+            "calls": 70,
+            "selectedRows": 2
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 69,
+            "calls": 35,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 1082,
+            "selectedRows": 2
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 541,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 16,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 1080,
+            "selectedRows": 2
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 540,
+            "selectedRows": 2
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: Sample pump PX-65 uses filter F-92. Its inspection date is unknown. QUESTION: Which filter is listed and what information is missing?"
+    },
+    {
+      "text": "The filter listed for PX-65 is F-92.  \nBefore deciding what to do, the inspection date of the pump is unknown, and the",
+      "tokens": 32,
+      "promptTokens": 208,
+      "firstTokenMs": 18443,
+      "totalMs": 24163,
+      "prefillMs": 18215,
+      "decodeMs": 5721,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -6485595606950192319,
+      "reason": 1,
+      "case": "long-record",
+      "round": 0,
+      "rowTile": 1,
+      "rowKernelUsed": false,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 128,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 128,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 2236,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1118,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 33,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 80,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 80,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 2232,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 0
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: A fictitious field kit contains a pump PX-65, spare filter F-92, a paper manual revision3 and a spare seal K-17. The pump has an inspection label but the recorded inspection date is unknown. The operator reports reduced flow. The previous owner used filter F-10, which is not listed for PX-65. No live measurements, authorization to intervene, wiring diagram or equipment-isolation status are supplied. A different pump PX-70 uses filter F-11 and those parts must not be confused. The site notebook records a replacement hose H-9, 10metres of cable and a battery charger; those entries do not establish the source of the flow problem. QUESTION: Which filter is listed for PX-65, and what is unknown before deciding what to do?"
+    },
+    {
+      "text": "The filter listed for PX-65 is F-92.  \nBefore deciding what to do, the inspection date of the pump is unknown, and the",
+      "tokens": 32,
+      "promptTokens": 208,
+      "firstTokenMs": 15701,
+      "totalMs": 21406,
+      "prefillMs": 15471,
+      "decodeMs": 5706,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -6485595606950192319,
+      "reason": 1,
+      "case": "long-record",
+      "round": 0,
+      "rowTile": 2,
+      "rowKernelUsed": true,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 128,
+            "calls": 72,
+            "selectedRows": 2
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 128,
+            "calls": 70,
+            "selectedRows": 2
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 35,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 2236,
+            "selectedRows": 2
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1118,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 33,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 80,
+            "calls": 72,
+            "selectedRows": 2
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 80,
+            "calls": 70,
+            "selectedRows": 2
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 35,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 2232,
+            "selectedRows": 2
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 2
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: A fictitious field kit contains a pump PX-65, spare filter F-92, a paper manual revision3 and a spare seal K-17. The pump has an inspection label but the recorded inspection date is unknown. The operator reports reduced flow. The previous owner used filter F-10, which is not listed for PX-65. No live measurements, authorization to intervene, wiring diagram or equipment-isolation status are supplied. A different pump PX-70 uses filter F-11 and those parts must not be confused. The site notebook records a replacement hose H-9, 10metres of cable and a battery charger; those entries do not establish the source of the flow problem. QUESTION: Which filter is listed for PX-65, and what is unknown before deciding what to do?"
+    },
+    {
+      "text": "The filter listed for PX-65 is F-92.  \nBefore deciding what to do, the inspection date of the pump is unknown, and the",
+      "tokens": 32,
+      "promptTokens": 208,
+      "firstTokenMs": 18478,
+      "totalMs": 25748,
+      "prefillMs": 18276,
+      "decodeMs": 7270,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -6485595606950192319,
+      "reason": 1,
+      "case": "long-record",
+      "round": 0,
+      "rowTile": 4,
+      "rowKernelUsed": true,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 128,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 128,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 2236,
+            "selectedRows": 4
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1118,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 33,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 80,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 80,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 2232,
+            "selectedRows": 4
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 4
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: A fictitious field kit contains a pump PX-65, spare filter F-92, a paper manual revision3 and a spare seal K-17. The pump has an inspection label but the recorded inspection date is unknown. The operator reports reduced flow. The previous owner used filter F-10, which is not listed for PX-65. No live measurements, authorization to intervene, wiring diagram or equipment-isolation status are supplied. A different pump PX-70 uses filter F-11 and those parts must not be confused. The site notebook records a replacement hose H-9, 10metres of cable and a battery charger; those entries do not establish the source of the flow problem. QUESTION: Which filter is listed for PX-65, and what is unknown before deciding what to do?"
+    },
+    {
+      "text": "The filter listed for PX-65 is F-92.  \nBefore deciding what to do, the inspection date of the pump is unknown, and the",
+      "tokens": 32,
+      "promptTokens": 208,
+      "firstTokenMs": 17205,
+      "totalMs": 23113,
+      "prefillMs": 17016,
+      "decodeMs": 5910,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -6485595606950192319,
+      "reason": 1,
+      "case": "long-record",
+      "round": 1,
+      "rowTile": 2,
+      "rowKernelUsed": true,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 128,
+            "calls": 72,
+            "selectedRows": 2
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 128,
+            "calls": 70,
+            "selectedRows": 2
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 35,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 2236,
+            "selectedRows": 2
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1118,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 33,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 80,
+            "calls": 72,
+            "selectedRows": 2
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 80,
+            "calls": 70,
+            "selectedRows": 2
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 35,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 2232,
+            "selectedRows": 2
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 2
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: A fictitious field kit contains a pump PX-65, spare filter F-92, a paper manual revision3 and a spare seal K-17. The pump has an inspection label but the recorded inspection date is unknown. The operator reports reduced flow. The previous owner used filter F-10, which is not listed for PX-65. No live measurements, authorization to intervene, wiring diagram or equipment-isolation status are supplied. A different pump PX-70 uses filter F-11 and those parts must not be confused. The site notebook records a replacement hose H-9, 10metres of cable and a battery charger; those entries do not establish the source of the flow problem. QUESTION: Which filter is listed for PX-65, and what is unknown before deciding what to do?"
+    },
+    {
+      "text": "The filter listed for PX-65 is F-92.  \nBefore deciding what to do, the inspection date of the pump is unknown, and the",
+      "tokens": 32,
+      "promptTokens": 208,
+      "firstTokenMs": 18524,
+      "totalMs": 24813,
+      "prefillMs": 18316,
+      "decodeMs": 6291,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -6485595606950192319,
+      "reason": 1,
+      "case": "long-record",
+      "round": 1,
+      "rowTile": 4,
+      "rowKernelUsed": true,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 128,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 128,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 2236,
+            "selectedRows": 4
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1118,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 33,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 80,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 80,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 2232,
+            "selectedRows": 4
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 4
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: A fictitious field kit contains a pump PX-65, spare filter F-92, a paper manual revision3 and a spare seal K-17. The pump has an inspection label but the recorded inspection date is unknown. The operator reports reduced flow. The previous owner used filter F-10, which is not listed for PX-65. No live measurements, authorization to intervene, wiring diagram or equipment-isolation status are supplied. A different pump PX-70 uses filter F-11 and those parts must not be confused. The site notebook records a replacement hose H-9, 10metres of cable and a battery charger; those entries do not establish the source of the flow problem. QUESTION: Which filter is listed for PX-65, and what is unknown before deciding what to do?"
+    },
+    {
+      "text": "The filter listed for PX-65 is F-92.  \nBefore deciding what to do, the inspection date of the pump is unknown, and the",
+      "tokens": 32,
+      "promptTokens": 208,
+      "firstTokenMs": 18504,
+      "totalMs": 24111,
+      "prefillMs": 18147,
+      "decodeMs": 5608,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -6485595606950192319,
+      "reason": 1,
+      "case": "long-record",
+      "round": 1,
+      "rowTile": 1,
+      "rowKernelUsed": false,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 128,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 128,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 2236,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1118,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 33,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 80,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 80,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 2232,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 0
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: A fictitious field kit contains a pump PX-65, spare filter F-92, a paper manual revision3 and a spare seal K-17. The pump has an inspection label but the recorded inspection date is unknown. The operator reports reduced flow. The previous owner used filter F-10, which is not listed for PX-65. No live measurements, authorization to intervene, wiring diagram or equipment-isolation status are supplied. A different pump PX-70 uses filter F-11 and those parts must not be confused. The site notebook records a replacement hose H-9, 10metres of cable and a battery charger; those entries do not establish the source of the flow problem. QUESTION: Which filter is listed for PX-65, and what is unknown before deciding what to do?"
+    },
+    {
+      "text": "The filter listed for PX-65 is F-92.  \nBefore deciding what to do, the inspection date of the pump is unknown, and the",
+      "tokens": 32,
+      "promptTokens": 208,
+      "firstTokenMs": 15403,
+      "totalMs": 21118,
+      "prefillMs": 15211,
+      "decodeMs": 5716,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -6485595606950192319,
+      "reason": 1,
+      "case": "long-record",
+      "round": 2,
+      "rowTile": 4,
+      "rowKernelUsed": true,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 128,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 128,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 2236,
+            "selectedRows": 4
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1118,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 33,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 80,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 80,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 4
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 2232,
+            "selectedRows": 4
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 4
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: A fictitious field kit contains a pump PX-65, spare filter F-92, a paper manual revision3 and a spare seal K-17. The pump has an inspection label but the recorded inspection date is unknown. The operator reports reduced flow. The previous owner used filter F-10, which is not listed for PX-65. No live measurements, authorization to intervene, wiring diagram or equipment-isolation status are supplied. A different pump PX-70 uses filter F-11 and those parts must not be confused. The site notebook records a replacement hose H-9, 10metres of cable and a battery charger; those entries do not establish the source of the flow problem. QUESTION: Which filter is listed for PX-65, and what is unknown before deciding what to do?"
+    },
+    {
+      "text": "The filter listed for PX-65 is F-92.  \nBefore deciding what to do, the inspection date of the pump is unknown, and the",
+      "tokens": 32,
+      "promptTokens": 208,
+      "firstTokenMs": 18406,
+      "totalMs": 23870,
+      "prefillMs": 18234,
+      "decodeMs": 5465,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -6485595606950192319,
+      "reason": 1,
+      "case": "long-record",
+      "round": 2,
+      "rowTile": 1,
+      "rowKernelUsed": false,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 128,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 128,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 2236,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1118,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 33,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 80,
+            "calls": 72,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 80,
+            "calls": 70,
+            "selectedRows": 0
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 35,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 0
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 2232,
+            "selectedRows": 0
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 0
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: A fictitious field kit contains a pump PX-65, spare filter F-92, a paper manual revision3 and a spare seal K-17. The pump has an inspection label but the recorded inspection date is unknown. The operator reports reduced flow. The previous owner used filter F-10, which is not listed for PX-65. No live measurements, authorization to intervene, wiring diagram or equipment-isolation status are supplied. A different pump PX-70 uses filter F-11 and those parts must not be confused. The site notebook records a replacement hose H-9, 10metres of cable and a battery charger; those entries do not establish the source of the flow problem. QUESTION: Which filter is listed for PX-65, and what is unknown before deciding what to do?"
+    },
+    {
+      "text": "The filter listed for PX-65 is F-92.  \nBefore deciding what to do, the inspection date of the pump is unknown, and the",
+      "tokens": 32,
+      "promptTokens": 208,
+      "firstTokenMs": 15782,
+      "totalMs": 21340,
+      "prefillMs": 15566,
+      "decodeMs": 5559,
+      "loadMs": 0,
+      "cachedTokens": 0,
+      "firstLogitsHash": -6485595606950192319,
+      "reason": 1,
+      "case": "long-record",
+      "round": 2,
+      "rowTile": 2,
+      "rowKernelUsed": true,
+      "shapes": {
+        "overflow": 0,
+        "shapes": [
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 128,
+            "calls": 72,
+            "selectedRows": 2
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 128,
+            "calls": 70,
+            "selectedRows": 2
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 128,
+            "calls": 35,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 1,
+            "calls": 2236,
+            "selectedRows": 2
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1118,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 151669,
+            "columns": 1,
+            "calls": 33,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 80,
+            "calls": 72,
+            "selectedRows": 2
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 36,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 9728,
+            "columns": 80,
+            "calls": 70,
+            "selectedRows": 2
+          },
+          {
+            "k": 9728,
+            "rows": 2560,
+            "columns": 80,
+            "calls": 35,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 4096,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 2
+          },
+          {
+            "k": 2560,
+            "rows": 1024,
+            "columns": 1,
+            "calls": 2232,
+            "selectedRows": 2
+          },
+          {
+            "k": 4096,
+            "rows": 2560,
+            "columns": 1,
+            "calls": 1116,
+            "selectedRows": 2
+          }
+        ]
+      },
+      "system": "Answer briefly in English using only the supplied fictitious record. Do not invent missing facts.",
+      "user": "RECORD: A fictitious field kit contains a pump PX-65, spare filter F-92, a paper manual revision3 and a spare seal K-17. The pump has an inspection label but the recorded inspection date is unknown. The operator reports reduced flow. The previous owner used filter F-10, which is not listed for PX-65. No live measurements, authorization to intervene, wiring diagram or equipment-isolation status are supplied. A different pump PX-70 uses filter F-11 and those parts must not be confused. The site notebook records a replacement hose H-9, 10metres of cable and a battery charger; those entries do not establish the source of the flow problem. QUESTION: Which filter is listed for PX-65, and what is unknown before deciding what to do?"
+    }
+  ],
+  "passed": true,
+  "modelSha256": "9d968b04a3c9a794897bcc744c8072fb6a061c0e42efd03c989401ddf8baef0c",
+  "modelExecution": true,
+  "matrixWidth": 4,
+  "cache": false,
+  "threads": 4,
+  "batch": 128,
+  "scope": "Three rotated rounds per case. Warm weights, rebuilt context per request, fixed sampled32-token budget. Model output parity and timing controls, not field-answer quality or phone performance.",
+  "medians": [
+    {
+      "case": "short-record",
+      "rowTile": 1,
+      "totalMs": 8742,
+      "decodeMs": 2376,
+      "totalSpeedup": 1
+    },
+    {
+      "case": "short-record",
+      "rowTile": 2,
+      "totalMs": 8025,
+      "decodeMs": 2472,
+      "totalSpeedup": 1.0893457943925233
+    },
+    {
+      "case": "short-record",
+      "rowTile": 4,
+      "totalMs": 9150,
+      "decodeMs": 2761,
+      "totalSpeedup": 0.9554098360655737
+    },
+    {
+      "case": "long-record",
+      "rowTile": 1,
+      "totalMs": 24111,
+      "decodeMs": 5608,
+      "totalSpeedup": 1
+    },
+    {
+      "case": "long-record",
+      "rowTile": 2,
+      "totalMs": 21406,
+      "decodeMs": 5706,
+      "totalSpeedup": 1.1263664393160795
+    },
+    {
+      "case": "long-record",
+      "rowTile": 4,
+      "totalMs": 24813,
+      "decodeMs": 6291,
+      "totalSpeedup": 0.9717083786724701
+    }
+  ],
+  "selectedCandidateRows": 1,
+  "selectionRule": "Narrowest candidate within5% of fastest, >1.05x total and decode aggregate speedup, no case >5% slower; experimental, not automatic product adoption.",
+  "logitAudits": [
+    {
+      "rows": 2,
+      "positions": 16,
+      "maxAbsoluteLogitDifference": 0,
+      "bitIdenticalPositions": 16,
+      "rowKernelUsed": true
+    },
+    {
+      "rows": 4,
+      "positions": 16,
+      "maxAbsoluteLogitDifference": 0,
+      "bitIdenticalPositions": 16,
+      "rowKernelUsed": true
+    }
+  ],
+  "auditSeed": {
+    "text": "The filter listed for PX-65 is F-92.  \nBefore deciding what to do, the inspection date",
+    "tokens": 24,
+    "promptTokens": 208,
+    "firstTokenMs": 15212,
+    "totalMs": 19293,
+    "prefillMs": 15022,
+    "decodeMs": 4081,
+    "loadMs": 0,
+    "cachedTokens": 0,
+    "firstLogitsHash": -6485595606950192319,
+    "reason": 1
+  }
+}

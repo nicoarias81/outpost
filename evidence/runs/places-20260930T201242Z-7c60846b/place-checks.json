@@ -1,0 +1,608 @@
+{
+  "runId": "places-20260930T201242Z-7c60846b",
+  "version": "0.14.0",
+  "passed": true,
+  "checksPassed": 63,
+  "checks": [
+    {
+      "name": "Place checks run inside the x86_64 emulator",
+      "passed": true
+    },
+    {
+      "name": "Place queries need no network, location or storage permission",
+      "passed": true
+    },
+    {
+      "name": "An empty library reports missing imported data",
+      "passed": true
+    },
+    {
+      "name": "Same-name parks ask for disambiguation with real source options",
+      "passed": true
+    },
+    {
+      "name": "Recorded locality resolves the correct named park",
+      "passed": true
+    },
+    {
+      "name": "Named-place response opens the exact OSM source",
+      "passed": true
+    },
+    {
+      "name": "Recorded aliases and accent normalization resolve the same place",
+      "passed": true
+    },
+    {
+      "name": "Absent place is scoped to imported data, not invented from model memory",
+      "passed": true
+    },
+    {
+      "name": "An ambiguous reference cannot silently select a nearby result set",
+      "passed": true
+    },
+    {
+      "name": "Category\/proximity uses the selected reference and explicit radius",
+      "passed": true
+    },
+    {
+      "name": "Response reports computed distance, recorded address and distance semantics",
+      "passed": true
+    },
+    {
+      "name": "Unknown positions are disclosed and distant same-category records are excluded",
+      "passed": true
+    },
+    {
+      "name": "Each nearby result and its reference preserve their own exact citation",
+      "passed": true
+    },
+    {
+      "name": "A boundary-distance record is included and a record 1 m outside is excluded",
+      "passed": true
+    },
+    {
+      "name": "Fractional kilometre units are interpreted locally",
+      "passed": true
+    },
+    {
+      "name": "Miles convert to metres deterministically",
+      "passed": true
+    },
+    {
+      "name": "Nearby category results exclude the reference place itself",
+      "passed": true
+    },
+    {
+      "name": "Zero radius is rejected explicitly",
+      "passed": true
+    },
+    {
+      "name": "Oversized search radius is bounded",
+      "passed": true
+    },
+    {
+      "name": "Travel time is not silently treated as geographic distance",
+      "passed": true
+    },
+    {
+      "name": "Unimplemented preference\/rating filters are not silently dropped",
+      "passed": true
+    },
+    {
+      "name": "Category search without an area requests context without assuming GPS",
+      "passed": true
+    },
+    {
+      "name": "Area lookup uses declared locality rather than inventing polygon containment",
+      "passed": true
+    },
+    {
+      "name": "Missing area coverage produces a scoped empty result",
+      "passed": true
+    },
+    {
+      "name": "Near-me asks for a reference instead of inventing the phone position",
+      "passed": true
+    },
+    {
+      "name": "An anchor without coordinates cannot generate distances",
+      "passed": true
+    },
+    {
+      "name": "Distance lookup works across the antimeridian",
+      "passed": true
+    },
+    {
+      "name": "Distance arithmetic handles coincident and antipodal coordinates",
+      "passed": true
+    },
+    {
+      "name": "A locality follow-up resolves the previous named-place question",
+      "passed": true
+    },
+    {
+      "name": "A radius follow-up retains only the user's previous reference and category",
+      "passed": true
+    },
+    {
+      "name": "General explanations and personal-file questions remain on the chat\/document path",
+      "passed": true
+    },
+    {
+      "name": "Place scanning honors request cancellation",
+      "passed": true
+    },
+    {
+      "name": "Identical places in overlapping extracts do not duplicate results",
+      "passed": true
+    },
+    {
+      "name": "Conflicting source snapshots prevent unqualified ranking or newest-version guesses",
+      "passed": true
+    },
+    {
+      "name": "Negative local IDs in different extracts are not merged as global identities",
+      "passed": true
+    },
+    {
+      "name": "Large candidate sets return the nearest five in stable order with a visible count",
+      "passed": true
+    },
+    {
+      "name": "Approximate anchor geometry is labeled rather than treated as an entrance",
+      "passed": true
+    },
+    {
+      "name": "Removing source data leaves prior place citations unavailable rather than rebound",
+      "passed": true
+    },
+    {
+      "name": "Over-limit stored collections fail visibly instead of silently truncating search",
+      "passed": true
+    },
+    {
+      "name": "Frozen public OSM subset matches independent candidate count: Where is Plaza de la Lealtad?",
+      "passed": true
+    },
+    {
+      "name": "Frozen public OSM subset matches independent nearest-place identity\/order: Where is Plaza de la Lealtad?",
+      "passed": true
+    },
+    {
+      "name": "Frozen public OSM subset matches independent candidate count: restaurants near Museo de Colecciones ICO within 500 m",
+      "passed": true
+    },
+    {
+      "name": "Frozen public OSM subset matches independent nearest-place identity\/order: restaurants near Museo de Colecciones ICO within 500 m",
+      "passed": true
+    },
+    {
+      "name": "Frozen public OSM subset matches independent candidate count: museums near Plaza de la Lealtad within 1000 m",
+      "passed": true
+    },
+    {
+      "name": "Frozen public OSM subset matches independent nearest-place identity\/order: museums near Plaza de la Lealtad within 1000 m",
+      "passed": true
+    },
+    {
+      "name": "Isolated model context has no installed generator",
+      "passed": true
+    },
+    {
+      "name": "Place response settles without native generation: Where is Test Riverside Park in Test North?",
+      "passed": true
+    },
+    {
+      "name": "Production chat answers a named park without a loaded model",
+      "passed": true
+    },
+    {
+      "name": "Place response settles without native generation: Which restaurants are around Test Central Station in Test North within 150 m?",
+      "passed": true
+    },
+    {
+      "name": "Production chat answers restaurant proximity from actual imported rows",
+      "passed": true
+    },
+    {
+      "name": "Place response settles without native generation: Where can I find a museum?",
+      "passed": true
+    },
+    {
+      "name": "Production chat asks for the missing area",
+      "passed": true
+    },
+    {
+      "name": "Place response settles without native generation: In Test North",
+      "passed": true
+    },
+    {
+      "name": "Production chat resolves the museum-area follow-up",
+      "passed": true
+    },
+    {
+      "name": "Chat source reference resolves the requested museum",
+      "passed": true
+    },
+    {
+      "name": "Exact OSM source is inspectable from a place answer",
+      "passed": true
+    },
+    {
+      "name": "Computed place answers and exact references survive Activity restart",
+      "passed": true
+    },
+    {
+      "name": "Place response settles without native generation: Where is Plaza de la Lealtad?",
+      "passed": true
+    },
+    {
+      "name": "Production chat locates the real imported park without model generation",
+      "passed": true
+    },
+    {
+      "name": "Place response settles without native generation: restaurants near Museo de Colecciones ICO within 500 m",
+      "passed": true
+    },
+    {
+      "name": "Production chat returns five actual nearby restaurants from the frozen real subset",
+      "passed": true
+    },
+    {
+      "name": "Place response settles without native generation: museums near Plaza de la Lealtad within 1000 m",
+      "passed": true
+    },
+    {
+      "name": "Production chat answers a real-data museum query with deterministic source evidence",
+      "passed": true
+    }
+  ],
+  "answers": [
+    {
+      "question": "Which restaurants are around Test Central Station in Test North within 150 m?",
+      "status": "found",
+      "text": "Within 150 m of the recorded position of Test Central Station [1] (approximate straight-line distance):\n• Test Oak Restaurant [2] — 111 m\n  12 Sample Avenue, Test North\n  0.001000, 0.000000\n1 imported matching record has no coordinates and could not be checked for distance.\nSaved OSM information; coverage may be incomplete and current conditions are not checked.",
+      "sources": [
+        {
+          "documentId": "27b73933-be8c-453e-8631-59d3c5563553",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 3,
+          "contentSha256": "a66154b5fb539f89c92e68a905d3f669dd27eeb465d8f43eecfbe47b1fa6103c"
+        },
+        {
+          "documentId": "27b73933-be8c-453e-8631-59d3c5563553",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 5,
+          "contentSha256": "a66154b5fb539f89c92e68a905d3f669dd27eeb465d8f43eecfbe47b1fa6103c"
+        }
+      ],
+      "matched": 1,
+      "radiusMeters": 150,
+      "elapsedMs": 42,
+      "modelExecution": false
+    },
+    {
+      "question": "Where is Plaza de la Lealtad?",
+      "status": "found",
+      "text": "From the imported place data:\n• Plaza de la Lealtad [1]\n  40.416386, -3.692913 (approximate center, not an entrance)\n\nSaved OSM information; current conditions are not checked.",
+      "sources": [
+        {
+          "documentId": "e5f6b869-e40b-4f4e-8f87-13c119e38550",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 90,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        }
+      ],
+      "matched": 1,
+      "radiusMeters": 0,
+      "elapsedMs": 90,
+      "modelExecution": false
+    },
+    {
+      "question": "restaurants near Museo de Colecciones ICO within 500 m",
+      "status": "found",
+      "text": "Within 500 m of the recorded position of Museo de Colecciones ICO [1] (approximate straight-line distance):\n• Restaurante La Ancha [2] — 17 m\n  7 Calle de Zorrilla\n  40.416788, -3.697583\n• Casa Mortero [3] — 49 m\n  9 C. de Zorrilla\n  40.416822, -3.697191\n• Umiko [4] — 91 m\n  40.417546, -3.697237\n• Edelweiss [5] — 97 m\n  40.416923, -3.696632\n• Casa Manolo [6] — 102 m\n  40.417005, -3.696596\nShowing 5 of 47 matching places.\nSaved OSM information; coverage may be incomplete and current conditions are not checked.",
+      "sources": [
+        {
+          "documentId": "e5f6b869-e40b-4f4e-8f87-13c119e38550",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 12,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "e5f6b869-e40b-4f4e-8f87-13c119e38550",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 85,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "e5f6b869-e40b-4f4e-8f87-13c119e38550",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 11,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "e5f6b869-e40b-4f4e-8f87-13c119e38550",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 45,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "e5f6b869-e40b-4f4e-8f87-13c119e38550",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 8,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "e5f6b869-e40b-4f4e-8f87-13c119e38550",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 28,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        }
+      ],
+      "matched": 47,
+      "radiusMeters": 500,
+      "elapsedMs": 116,
+      "modelExecution": false
+    },
+    {
+      "question": "museums near Plaza de la Lealtad within 1000 m",
+      "status": "found",
+      "text": "Within 1.00 km of the recorded position of Plaza de la Lealtad [1] (approximate straight-line distance):\n• Museo Naval de Madrid [2] — 133 m\n  3 Paseo del Prado, Los Jeronimos, Madrid\n  40.417518, -3.692389 (approximate center, not an entrance)\n• Casón del Buen Retiro [3] — 307 m\n  28 Calle de Alfonso XII, Los Jerónimos, Madrid\n  40.415255, -3.689607 (approximate center, not an entrance)\n• Museo de Colecciones ICO [4] — 415 m\n  3 Calle de Zorrilla, Cortes, Madrid\n  40.416836, -3.697774\n• Casa Museo Lope de Vega [5] — 441 m\n  11 Calle de Cervantes, Cortes, Madrid\n  40.414415, -3.697435 (approximate center, not an entrance)\n• CaixaForum Madrid [6] — 590 m\n  36 Paseo del Prado, Madrid\n  40.411107, -3.693569 (approximate center, not an entrance)\nShowing 5 of 6 matching places.\n3 imported matching records have no coordinates and could not be checked for distance.\nThe reference uses an approximate geometry center, not an entrance.\nSaved OSM information; coverage may be incomplete and current conditions are not checked.",
+      "sources": [
+        {
+          "documentId": "e5f6b869-e40b-4f4e-8f87-13c119e38550",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 90,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "e5f6b869-e40b-4f4e-8f87-13c119e38550",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 94,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "e5f6b869-e40b-4f4e-8f87-13c119e38550",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 91,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "e5f6b869-e40b-4f4e-8f87-13c119e38550",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 12,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "e5f6b869-e40b-4f4e-8f87-13c119e38550",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 95,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "e5f6b869-e40b-4f4e-8f87-13c119e38550",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 93,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        }
+      ],
+      "matched": 6,
+      "radiusMeters": 1000,
+      "elapsedMs": 104,
+      "modelExecution": false
+    },
+    {
+      "question": "Where is Test Riverside Park in Test North?",
+      "status": "found",
+      "text": "From the imported place data:\n• Test Riverside Park [1]\n  Test North\n  0.000000, 0.000000\n\nSaved OSM information; current conditions are not checked.",
+      "sources": [
+        {
+          "documentId": "12e53f3b-0649-4a9e-938b-0b415b952f7f",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 1,
+          "contentSha256": "a66154b5fb539f89c92e68a905d3f669dd27eeb465d8f43eecfbe47b1fa6103c"
+        }
+      ],
+      "matched": 1,
+      "radiusMeters": 0,
+      "elapsedMs": 315,
+      "modelExecution": false
+    },
+    {
+      "question": "Which restaurants are around Test Central Station in Test North within 150 m?",
+      "status": "found",
+      "text": "Within 150 m of the recorded position of Test Central Station [1] (approximate straight-line distance):\n• Test Oak Restaurant [2] — 111 m\n  12 Sample Avenue, Test North\n  0.001000, 0.000000\n1 imported matching record has no coordinates and could not be checked for distance.\nSaved OSM information; coverage may be incomplete and current conditions are not checked.",
+      "sources": [
+        {
+          "documentId": "12e53f3b-0649-4a9e-938b-0b415b952f7f",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 3,
+          "contentSha256": "a66154b5fb539f89c92e68a905d3f669dd27eeb465d8f43eecfbe47b1fa6103c"
+        },
+        {
+          "documentId": "12e53f3b-0649-4a9e-938b-0b415b952f7f",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 5,
+          "contentSha256": "a66154b5fb539f89c92e68a905d3f669dd27eeb465d8f43eecfbe47b1fa6103c"
+        }
+      ],
+      "matched": 1,
+      "radiusMeters": 150,
+      "elapsedMs": 471,
+      "modelExecution": false
+    },
+    {
+      "question": "Where can I find a museum?",
+      "status": "clarify",
+      "text": "Which city or reference place should I search? For example, 'museums near Central Station' or 'museums in Madrid'.",
+      "sources": [],
+      "matched": 0,
+      "radiusMeters": 0,
+      "elapsedMs": 445,
+      "modelExecution": false
+    },
+    {
+      "question": "In Test North",
+      "status": "found",
+      "text": "Imported museums with a recorded locality of 'Test North' (alphabetical order):\n• Test Copper Museum [1]\n  Test North\n  0.000500, 0.000000\nSaved OSM information; coverage may be incomplete and current conditions are not checked.",
+      "sources": [
+        {
+          "documentId": "12e53f3b-0649-4a9e-938b-0b415b952f7f",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 9,
+          "contentSha256": "a66154b5fb539f89c92e68a905d3f669dd27eeb465d8f43eecfbe47b1fa6103c"
+        }
+      ],
+      "matched": 1,
+      "radiusMeters": 0,
+      "elapsedMs": 475,
+      "modelExecution": false
+    },
+    {
+      "question": "Where is Plaza de la Lealtad?",
+      "status": "found",
+      "text": "From the imported place data:\n• Plaza de la Lealtad [1]\n  40.416386, -3.692913 (approximate center, not an entrance)\n\nSaved OSM information; current conditions are not checked.",
+      "sources": [
+        {
+          "documentId": "336f3fb8-889d-4310-8142-0a56b5092095",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 90,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        }
+      ],
+      "matched": 1,
+      "radiusMeters": 0,
+      "elapsedMs": 666,
+      "modelExecution": false
+    },
+    {
+      "question": "restaurants near Museo de Colecciones ICO within 500 m",
+      "status": "found",
+      "text": "Within 500 m of the recorded position of Museo de Colecciones ICO [1] (approximate straight-line distance):\n• Restaurante La Ancha [2] — 17 m\n  7 Calle de Zorrilla\n  40.416788, -3.697583\n• Casa Mortero [3] — 49 m\n  9 C. de Zorrilla\n  40.416822, -3.697191\n• Umiko [4] — 91 m\n  40.417546, -3.697237\n• Edelweiss [5] — 97 m\n  40.416923, -3.696632\n• Casa Manolo [6] — 102 m\n  40.417005, -3.696596\nShowing 5 of 47 matching places.\n1 imported matching record has no coordinates and could not be checked for distance.\nSaved OSM information; coverage may be incomplete and current conditions are not checked.",
+      "sources": [
+        {
+          "documentId": "336f3fb8-889d-4310-8142-0a56b5092095",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 12,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "336f3fb8-889d-4310-8142-0a56b5092095",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 85,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "336f3fb8-889d-4310-8142-0a56b5092095",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 11,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "336f3fb8-889d-4310-8142-0a56b5092095",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 45,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "336f3fb8-889d-4310-8142-0a56b5092095",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 8,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "336f3fb8-889d-4310-8142-0a56b5092095",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 28,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        }
+      ],
+      "matched": 47,
+      "radiusMeters": 500,
+      "elapsedMs": 623,
+      "modelExecution": false
+    },
+    {
+      "question": "museums near Plaza de la Lealtad within 1000 m",
+      "status": "found",
+      "text": "Within 1.00 km of the recorded position of Plaza de la Lealtad [1] (approximate straight-line distance):\n• Museo Naval de Madrid [2] — 133 m\n  3 Paseo del Prado, Los Jeronimos, Madrid\n  40.417518, -3.692389 (approximate center, not an entrance)\n• Casón del Buen Retiro [3] — 307 m\n  28 Calle de Alfonso XII, Los Jerónimos, Madrid\n  40.415255, -3.689607 (approximate center, not an entrance)\n• Museo de Colecciones ICO [4] — 415 m\n  3 Calle de Zorrilla, Cortes, Madrid\n  40.416836, -3.697774\n• Casa Museo Lope de Vega [5] — 441 m\n  11 Calle de Cervantes, Cortes, Madrid\n  40.414415, -3.697435 (approximate center, not an entrance)\n• CaixaForum Madrid [6] — 590 m\n  36 Paseo del Prado, Madrid\n  40.411107, -3.693569 (approximate center, not an entrance)\nShowing 5 of 6 matching places.\n3 imported matching records have no coordinates and could not be checked for distance.\nThe reference uses an approximate geometry center, not an entrance.\nSaved OSM information; coverage may be incomplete and current conditions are not checked.",
+      "sources": [
+        {
+          "documentId": "336f3fb8-889d-4310-8142-0a56b5092095",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 90,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "336f3fb8-889d-4310-8142-0a56b5092095",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 94,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "336f3fb8-889d-4310-8142-0a56b5092095",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 91,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "336f3fb8-889d-4310-8142-0a56b5092095",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 12,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "336f3fb8-889d-4310-8142-0a56b5092095",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 95,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        },
+        {
+          "documentId": "336f3fb8-889d-4310-8142-0a56b5092095",
+          "revision": 1,
+          "kind": "element",
+          "ordinal": 93,
+          "contentSha256": "f44958b143cb44b1c23ea15a478a94497e747327df4a0abc7c9ab985f6bd7ec5"
+        }
+      ],
+      "matched": 6,
+      "radiusMeters": 1000,
+      "elapsedMs": 537,
+      "modelExecution": false
+    }
+  ],
+  "modelExecution": false,
+  "scope": "Synthetic import\/SQLite\/chat\/source checks plus a frozen prepared public Madrid OSM subset, with an isolated absent-model context in Outpost35. No live availability, full-area coverage, physical-device or broad accuracy claim."
+}
