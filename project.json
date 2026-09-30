@@ -4,7 +4,7 @@
   "applicationId": "dev.outpost.app",
   "nativeLibrary": "outpost_engine",
   "defaultLanguage": "en",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "executionScope": "emulator-only",
   "previousIdentity": {
     "name": "Brújula",
