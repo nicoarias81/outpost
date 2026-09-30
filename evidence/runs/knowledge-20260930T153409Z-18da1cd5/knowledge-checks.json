@@ -1,0 +1,249 @@
+{
+  "runId": "knowledge-20260930T153409Z-18da1cd5",
+  "appVersion": "0.12.0",
+  "passed": true,
+  "checksPassed": 60,
+  "checks": [
+    {
+      "name": "Near tie chooses width four and reports fastest separately",
+      "passed": true
+    },
+    {
+      "name": "Small gain does not override baseline",
+      "passed": true
+    },
+    {
+      "name": "Clearly faster width eight can be selected",
+      "passed": true
+    },
+    {
+      "name": "Parity failure reports actual fallback gain, not candidate gain",
+      "passed": true
+    },
+    {
+      "name": "Speedup and elapsed-time reduction have explicit distinct semantics",
+      "passed": true
+    },
+    {
+      "name": "Schema 1 upgrades to 5",
+      "passed": true
+    },
+    {
+      "name": "Migration does not reseed or duplicate user data",
+      "passed": true
+    },
+    {
+      "name": "Migration preserves source bytes and document identity",
+      "passed": true
+    },
+    {
+      "name": "Legacy FTS rows survive migration",
+      "passed": true
+    },
+    {
+      "name": "Legacy content hash is backfilled",
+      "passed": true
+    },
+    {
+      "name": "Migration does not invent content dates",
+      "passed": true
+    },
+    {
+      "name": "Migrated source locator resolves",
+      "passed": true
+    },
+    {
+      "name": "Incompatible legacy schema stops without resetting the database",
+      "passed": true
+    },
+    {
+      "name": "Failed migration preserves the old schema version",
+      "passed": true
+    },
+    {
+      "name": "Failed migration preserves user content",
+      "passed": true
+    },
+    {
+      "name": "Failed migration rolls back earlier ALTER TABLE operations",
+      "passed": true
+    },
+    {
+      "name": "Quoted newline stays in one CSV record",
+      "passed": true
+    },
+    {
+      "name": "CSV quotes and commas are preserved",
+      "passed": true
+    },
+    {
+      "name": "CSV formulas remain literal strings",
+      "passed": true
+    },
+    {
+      "name": "CSV leading zeros are preserved",
+      "passed": true
+    },
+    {
+      "name": "Record ordinal counts header, not physical lines",
+      "passed": true
+    },
+    {
+      "name": "UTF-8 BOM is not a header character",
+      "passed": true
+    },
+    {
+      "name": "Oversized CSV header rejected before index expansion",
+      "passed": true
+    },
+    {
+      "name": "Duplicate headers rejected",
+      "passed": true
+    },
+    {
+      "name": "Ragged CSV rejected",
+      "passed": true
+    },
+    {
+      "name": "Unclosed quotes rejected",
+      "passed": true
+    },
+    {
+      "name": "Characters after closing quote rejected",
+      "passed": true
+    },
+    {
+      "name": "Malformed Unicode cannot hash as replacement text",
+      "passed": true
+    },
+    {
+      "name": "Invalid Unicode import leaves the library unchanged",
+      "passed": true
+    },
+    {
+      "name": "CSV evidence has the exact record locator",
+      "passed": true
+    },
+    {
+      "name": "Row evidence preserves header\/value association",
+      "passed": true
+    },
+    {
+      "name": "Original CSV stays inspectable without reserialization",
+      "passed": true
+    },
+    {
+      "name": "Wrong hash cannot resolve a locator",
+      "passed": true
+    },
+    {
+      "name": "Pack is activated after validation",
+      "passed": true
+    },
+    {
+      "name": "Pack documents coexist with user imports in an otherwise empty library",
+      "passed": true
+    },
+    {
+      "name": "Identical version import is idempotent",
+      "passed": true
+    },
+    {
+      "name": "Source date and language are explicit metadata",
+      "passed": true
+    },
+    {
+      "name": "Tampered checksum rejected",
+      "passed": true
+    },
+    {
+      "name": "Corrupt update preserves active data",
+      "passed": true
+    },
+    {
+      "name": "Mid-import cancellation aborts the transaction",
+      "passed": true
+    },
+    {
+      "name": "Canceled import leaves no new searchable rows",
+      "passed": true
+    },
+    {
+      "name": "Canceled import leaves no hidden partial document",
+      "passed": true
+    },
+    {
+      "name": "New version becomes active atomically",
+      "passed": true
+    },
+    {
+      "name": "Search excludes retired pack versions",
+      "passed": true
+    },
+    {
+      "name": "Old citation still opens its archived version",
+      "passed": true
+    },
+    {
+      "name": "Older pack cannot silently replace newer version",
+      "passed": true
+    },
+    {
+      "name": "Same version cannot acquire a different manifest identity",
+      "passed": true
+    },
+    {
+      "name": "Fractional package versions rejected",
+      "passed": true
+    },
+    {
+      "name": "Unsupported schema rejected",
+      "passed": true
+    },
+    {
+      "name": "Deeply nested JSON is rejected before recursive parsing",
+      "passed": true
+    },
+    {
+      "name": "Excessive JSON structure is rejected before allocation",
+      "passed": true
+    },
+    {
+      "name": "Unsafe-looking package IDs rejected",
+      "passed": true
+    },
+    {
+      "name": "Removing a pack preserves unrelated documents",
+      "passed": true
+    },
+    {
+      "name": "Removed source is unavailable, not rebound to another version",
+      "passed": true
+    },
+    {
+      "name": "English document import is reachable through Settings",
+      "passed": true
+    },
+    {
+      "name": "Retrieval resolves installed pack content without a mock product corpus",
+      "passed": true
+    },
+    {
+      "name": "Reader opens exact source locator and metadata",
+      "passed": true
+    },
+    {
+      "name": "CSV source reader opens the selected record",
+      "passed": true
+    },
+    {
+      "name": "Source reader is the active Outpost window",
+      "passed": true
+    },
+    {
+      "name": "Active CSV reader exposes record locator and date field meaning in English",
+      "passed": true
+    }
+  ],
+  "scope": "Emulator SQLite migration\/transaction\/CSV\/source-identity\/UI checks; no model quality or real-world dataset validation."
+}

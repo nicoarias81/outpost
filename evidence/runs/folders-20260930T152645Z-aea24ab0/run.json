@@ -1,0 +1,10 @@
+{
+  "runId": "folders-20260930T152645Z-aea24ab0",
+  "serial": "emulator-5582",
+  "modelExecution": false,
+  "appSha256": "d73f5cc489b74cc1825aeb9ca8daf2b60900cb8fbc1f585a5c3768026f4b6df7",
+  "testApkSha256": "b5e4695cdf93d48648986342db02cba92567e55875725e23dd2b869b0eda9463",
+  "mainSourcesSha256": "8227e453dba9209f7511f31a33929befea25ef844f460177d172e4dcbd2a0d0a",
+  "testSourcesSha256": "748d33dc0c14c545e03c1ee61315da0d6572687a2a99b39d640172a0f08ef21b",
+  "scope": "Real DocumentsProvider recursion/import/cancel/deduplication checks; synthetic data; emulator only."
+}

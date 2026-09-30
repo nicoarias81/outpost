@@ -1,0 +1,40 @@
+{
+  "runId": "folders-20260930T151946Z-3a97b71c",
+  "version": "0.12.0",
+  "passed": false,
+  "checksPassed": 6,
+  "checks": [
+    {
+      "name": "Tests run only in the x86_64 emulator",
+      "passed": true
+    },
+    {
+      "name": "Folder selection adds no broad storage or network permission",
+      "passed": true
+    },
+    {
+      "name": "Folder action uses the system directory picker",
+      "passed": true
+    },
+    {
+      "name": "Folder picker requests read access without source write access",
+      "passed": true
+    },
+    {
+      "name": "Actual schema-3 database migrates to schema 5",
+      "passed": true
+    },
+    {
+      "name": "Schema upgrade preserves existing document bytes and identity",
+      "passed": true
+    },
+    {
+      "name": "Recursively imports TXT, CSV, PDF and Markdown from multiple nested folders",
+      "passed": false
+    },
+    {
+      "error": "java.lang.AssertionError: Recursively imports TXT, CSV, PDF and Markdown from multiple nested folders\n\tat dev.outpost.app.FolderChecks.check(FolderChecks.java:28)\n\tat dev.outpost.app.FolderChecks.run(FolderChecks.java:57)\n\tat dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:61)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2594)\n"
+    }
+  ],
+  "scope": "Real Android DocumentsProvider, SQLite and Activity checks on Outpost35; synthetic files; no model execution or physical phone."
+}

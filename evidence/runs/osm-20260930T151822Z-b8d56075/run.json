@@ -1,0 +1,10 @@
+{
+  "runId": "osm-20260930T151822Z-b8d56075",
+  "serial": "emulator-5582",
+  "modelExecution": true,
+  "appSha256": "d73f5cc489b74cc1825aeb9ca8daf2b60900cb8fbc1f585a5c3768026f4b6df7",
+  "testApkSha256": "bddd890098f9d788b9363cffb119780342c8dbc439699e5c4d2b353cb48ca3a6",
+  "mainSourcesSha256": "8227e453dba9209f7511f31a33929befea25ef844f460177d172e4dcbd2a0d0a",
+  "testSourcesSha256": "2bcb7512427bd0c02563b66c7e6b5dc9be532941cc57341d886e680d49713d98",
+  "scope": "OSM XML/Overpass JSON parsing, typed evidence, SAF and optional local chat; synthetic data; emulator only."
+}

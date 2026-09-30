@@ -1,0 +1,39 @@
+{
+  "capturedAtUtc": "2026-09-30T15:52:44.026023+00:00",
+  "appSha256": "d73f5cc489b74cc1825aeb9ca8daf2b60900cb8fbc1f585a5c3768026f4b6df7",
+  "appBytes": 28899442,
+  "abis": [
+    "arm64-v8a",
+    "x86_64"
+  ],
+  "testFixtureCodeOrMapDataInUserApk": false,
+  "runs": {
+    "osm": {
+      "id": "osm-20260930T153353Z-3889f2fc",
+      "report": "osm-checks.json",
+      "checks": 39
+    },
+    "folders": {
+      "id": "folders-20260930T153339Z-d503ec10",
+      "report": "folder-checks.json",
+      "checks": 30
+    },
+    "chat": {
+      "id": "chat-20260930T153400Z-16e4d9cc",
+      "report": "chat-checks.json",
+      "checks": 35
+    },
+    "knowledge": {
+      "id": "knowledge-20260930T153409Z-18da1cd5",
+      "report": "knowledge-checks.json",
+      "checks": 60
+    }
+  },
+  "generationRun": "osm-20260930T151822Z-b8d56075",
+  "generationTestApkSha256": "bddd890098f9d788b9363cffb119780342c8dbc439699e5c4d2b353cb48ca3a6",
+  "scope": "Final app APK is the same byte identity used for real OSM chat. The final test APK additionally fixes fixture-provider lifecycle; no physical device or host model inference.",
+  "files": {
+    "build-receipt.json": "ad4c7386e7902b36462e9227e13fddff62865fe2e8ca272ce6235bab1bd22f32",
+    "lint-results-debug.txt": "072b7c54f391cf9534b12815250ca32de083eb11ee9c22ca8e1240236068667e"
+  }
+}
