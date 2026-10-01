@@ -25,6 +25,8 @@ long elapsed(Clock::time_point start) {
     return std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now() - start).count();
 }
 
+uint64_t hash_logits(const float *values,size_t count){const auto *raw=reinterpret_cast<const unsigned char *>(values);uint64_t h=14695981039346656037ULL;for(size_t j=0;j<count*sizeof(float);j++){h^=raw[j];h*=1099511628211ULL;}return h;}
+
 struct Session {
     std::mutex inference;
     std::atomic<jlong> cancelledThrough{0};
@@ -37,6 +39,8 @@ struct Session {
     std::vector<float> prefix_logits;
     std::vector<llama_token> last_tokens;
     std::vector<llama_token> last_prompt_tokens;
+    bool capture_logit_trace=false;
+    std::vector<uint64_t> logit_trace;
     int context_template=0;
     long test_generation_deadline_ms=120000;
     bool persistent_threads=false;
@@ -286,6 +290,7 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
         if(session->persistent_threads!=(bool)persistent_threads||session->affinity_mask!=(uint32_t)affinity_mask){session->clear_context();session->free_pools();session->persistent_threads=persistent_threads;session->affinity_mask=affinity_mask;}
         outpost_q2_set_batch_width(matrix_width);
         outpost_q2_set_row_tiles(row_tile,decode_rows);
+        session->logit_trace.clear();
         session->last_tokens.clear();
         session->last_prompt_tokens.clear();
         struct Cleanup {
@@ -441,6 +446,7 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
                     const auto *raw=reinterpret_cast<const unsigned char *>(complete_hit ? session->prefix_logits.data() : llama_get_logits_ith(context,-1));
                     logits_hash=14695981039346656037ULL;
                     for(size_t j=0;j<(size_t)llama_vocab_n_tokens(vocab)*sizeof(float);j++) { logits_hash^=raw[j]; logits_hash*=1099511628211ULL; }
+                    if(session->capture_logit_trace)session->logit_trace.push_back(logits_hash);
                     pending=complete_hit ? sample_saved_logits(sampler.get(),session->prefix_logits) : llama_sampler_sample(sampler.get(),context,-1);
                 }
                 while(generated<max_tokens && !abort_eval(&abort)) {
@@ -469,7 +475,7 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
                         }
                         plain_steps++;
                         controller.observe_plain(std::chrono::duration_cast<std::chrono::microseconds>(Clock::now()-normal_start).count());
-                        if(!abort_eval(&abort)) pending=llama_sampler_sample(sampler.get(),context,-1);
+                        if(!abort_eval(&abort)){if(session->capture_logit_trace)session->logit_trace.push_back(hash_logits(llama_get_logits_ith(context,-1),llama_vocab_n_tokens(vocab)));pending=llama_sampler_sample(sampler.get(),context,-1);}
                         continue;
                     }
                     drafted+=draft.size(); verify_passes++;
@@ -827,4 +833,13 @@ Java_dev_outpost_app_NativeEngine_nativeVerificationAudit(JNIEnv *env,jclass,jlo
         double values[]={(double)count,max_abs,mean_abs/(count*vocab),mean_kl/count,top1_same,bit_same,(double)first_bit_difference,(double)first_top1_difference};
         auto out=env->NewDoubleArray(8); if(out) env->SetDoubleArrayRegion(out,0,8,values); return out;
     } catch(const std::exception &e) { fail(env,e.what()); return nullptr; }
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_dev_outpost_app_NativeEngine_nativeTraceLogitsForTests(JNIEnv *env,jclass,jlong id,jboolean enabled){
+    try{auto s=get(id);std::lock_guard<std::mutex> lock(s->inference);s->capture_logit_trace=enabled;s->logit_trace.clear();}catch(const std::exception &e){fail(env,e.what());}
+}
+extern "C" JNIEXPORT jlongArray JNICALL
+Java_dev_outpost_app_NativeEngine_nativeLogitTrace(JNIEnv *env,jclass,jlong id){
+    try{auto s=get(id);std::lock_guard<std::mutex> lock(s->inference);std::vector<jlong> values;for(auto h:s->logit_trace)values.push_back((jlong)h);auto result=env->NewLongArray(values.size());if(result&&!values.empty())env->SetLongArrayRegion(result,0,values.size(),values.data());return result;}catch(const std::exception &e){fail(env,e.what());return nullptr;}
 }

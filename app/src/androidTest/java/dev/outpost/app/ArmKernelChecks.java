@@ -66,6 +66,7 @@ final class ArmKernelChecks {
                     if(phase.equals("tune"))tune(engine,model);
                     else if(phase.equals("controller"))controller(engine,model);
                     else if(phase.equals("lifecycle"))lifecycle(engine,model);
+                    else if(phase.equals("trace"))trace(engine,model);
                     else if(phase.equals("model")||phase.equals("confirm"))paired(engine,model,phase.equals("confirm"));
                     else throw new IllegalArgumentException("Unknown ARM phase");
                 }
@@ -87,6 +88,7 @@ final class ArmKernelChecks {
         long cpu=android.os.Process.getElapsedCpuTime(),start=SystemClock.elapsedRealtime();NativeEngine.Result r;
         try{r=engine.generateWithSampling(engine.request(),model.file(),system,user,cap,true,(s,n)->{});}catch(Throwable e){row.put("status","error").put("error",e.toString());write();throw e;}
         row.put("status","returned").put("text",r.text()).put("tokens",r.tokens()).put("promptTokens",r.promptTokens()).put("firstTokenMs",r.firstTokenMs()).put("totalMs",r.totalMs()).put("loadMs",r.loadMs()).put("prefillMs",r.prefillMs()).put("decodeMs",r.decodeMs()).put("stopReason",r.reason()).put("firstLogitsHash",Long.toUnsignedString(r.firstLogitsHash())).put("tokenIds",new JSONArray(engine.lastTokens())).put("kernelUsed",NativeEngine.kernelWasUsed()).put("batchUsed",NativeEngine.kernelBatchUsed()).put("rowKernelUsed",NativeEngine.kernelRowsUsed()).put("processCpuMs",android.os.Process.getElapsedCpuTime()-cpu).put("wallMs",SystemClock.elapsedRealtime()-start).put("conditionsAfter",conditions());write();
+        JSONArray trace=new JSONArray();for(long h:engine.logitTrace())trace.put(Long.toUnsignedString(h));row.put("logitTrace",trace);
         JSONObject poolState=new JSONObject(engine.threadpoolAudit());row.put("threadpool",poolState);write();require(poolState.getBoolean("affinityRestored")&&poolState.getInt("affinityBefore")==poolState.getInt("affinityAfter")&&poolState.getBoolean("pausedAfterRequest"),"Caller affinity restored and pools paused: "+id);if(mask!=0)require(poolState.getInt("effectiveMask")==mask&&(poolState.getInt("affinityDuring")&~mask)==0,"Requested application-thread affinity applied");require(NativeEngine.kernelWasUsed()==fast,"Requested kernel actually executed: "+id);status("Completed "+id+": "+r.totalMs()+"ms / first "+r.firstTokenMs()+"ms / "+r.tokens()+" tokens / stop "+r.reason());return r;
     }
     private List<ChatPrompt.Prepared> prompts()throws Exception{
@@ -98,23 +100,23 @@ final class ArmKernelChecks {
         return result;
     }
     private void paired(NativeEngine engine,ModelStore model,boolean confirm)throws Exception{
-        int threads=Integer.parseInt(args.getString("arm_threads","4")),width=Integer.parseInt(args.getString("arm_width","4"));int rounds=confirm?3:1;
-        engine.deadlineForTests(300000);report.put("comparisonThreads",threads).put("comparisonWidth",width).put("referenceThreads",4).put("rounds",rounds).put("researchDeadlineMs",300000).put("productDeadlineMs",120000);write();
+        int threads=Integer.parseInt(args.getString("arm_threads","4")),width=Integer.parseInt(args.getString("arm_width","4"));int rounds=confirm?3:1;int promptThreads=Integer.parseInt(args.getString("arm_prompt_threads",Integer.toString(threads)));engine.traceLogitsForTests(true);
+        engine.deadlineForTests(300000);report.put("comparisonThreads",threads).put("comparisonWidth",width).put("comparisonPromptThreads",promptThreads).put("referenceThreads",4).put("rounds",rounds).put("researchDeadlineMs",300000).put("productDeadlineMs",120000);write();
         ChatPrompt.Prepared shortPrompt=ChatPrompt.prepare("For this conversation my code name is Cedar. Reply with just the code name.",List.of(),List.of());
-        NativeEngine.Result shortReference=call(engine,model,"complete-control/reference",ChatPrompt.SYSTEM,shortPrompt.user(),false,4,width,192);int[] shortTokens=engine.lastTokens();
+        NativeEngine.Result shortReference=call(engine,model,"complete-control/reference",ChatPrompt.SYSTEM,shortPrompt.user(),false,4,width,192);int[] shortTokens=engine.lastTokens();long[] shortTrace=engine.logitTrace();promptThreadsOverride=promptThreads;
         NativeEngine.Result shortFast=call(engine,model,"complete-control/candidate",ChatPrompt.SYSTEM,shortPrompt.user(),true,threads,width,192);
-        require(shortReference.reason()==0&&shortFast.reason()==0&&shortReference.text().equals(shortFast.text())&&shortReference.firstLogitsHash()==shortFast.firstLogitsHash()&&Arrays.equals(shortTokens,engine.lastTokens()),"Complete short chat has identical tokens/text/logits");
+        require(shortReference.reason()==0&&shortFast.reason()==0&&shortReference.text().equals(shortFast.text())&&shortReference.firstLogitsHash()==shortFast.firstLogitsHash()&&Arrays.equals(shortTokens,engine.lastTokens())&&Arrays.equals(shortTrace,engine.logitTrace()),"Complete short chat has identical tokens/text/logits");
         List<ChatPrompt.Prepared> prompts=prompts();
         for(int c=0;c<prompts.size();c++){
-            var prompt=prompts.get(c);String expected=null;long hash=0;int[] tokens=null;int expectedStop=-1;
+            var prompt=prompts.get(c);String expected=null;long hash=0;int[] tokens=null;long[] expectedTrace=null;int expectedStop=-1;
             for(int round=0;round<rounds;round++)for(int order=0;order<2;order++){
-                boolean fast=(c+round+order)%2!=0;
+                boolean fast=(c+round+order)%2!=0;promptThreadsOverride=fast?promptThreads:4;
                 call(engine,model,"case"+c+"/round"+round+"/warmup",ChatPrompt.SYSTEM,prompt.user(),fast,fast?threads:4,width,8);
                 answers.getJSONObject(answers.length()-1).put("warmup",true);write();
                 NativeEngine.Result r=call(engine,model,"case"+c+"/round"+round,ChatPrompt.SYSTEM,prompt.user(),fast,fast?threads:4,width,192);
                 require(r.reason()==0||r.reason()==1,"Request finishes naturally or at unchanged192-token cap within equal300-second research deadline");
-                if(expected==null){expected=r.text();hash=r.firstLogitsHash();tokens=engine.lastTokens();expectedStop=(int)r.reason();}
-                else require(expectedStop==r.reason()&&expected.equals(r.text())&&hash==r.firstLogitsHash()&&Arrays.equals(tokens,engine.lastTokens()),"Full generated sequence, stop reason and initial logits remain identical");
+                if(expected==null){expected=r.text();hash=r.firstLogitsHash();tokens=engine.lastTokens();expectedTrace=engine.logitTrace();expectedStop=(int)r.reason();}
+                else require(expectedStop==r.reason()&&expected.equals(r.text())&&hash==r.firstLogitsHash()&&Arrays.equals(tokens,engine.lastTokens())&&Arrays.equals(expectedTrace,engine.logitTrace()),"Full generated sequence, stop reason and initial logits remain identical");
             }
         }
     }
@@ -134,6 +136,17 @@ final class ArmKernelChecks {
     private boolean equivalent(NativeEngine.Result r,int[] actual,long hash,int[] expected){
         if(r.reason()>1||r.tokens()==0||r.firstLogitsHash()!=hash||actual.length>expected.length)return false;
         for(int i=0;i<actual.length;i++)if(actual[i]!=expected[i])return false;return true;
+    }
+    private void trace(NativeEngine engine,ModelStore model)throws Exception{
+        engine.traceLogitsForTests(true);String user=prompts().get(1).user();promptThreadsOverride=4;
+        NativeEngine.Result reference=call(engine,model,"trace/reference4-4",ChatPrompt.SYSTEM,user,false,4,8,8,false,0);long[] expected=engine.logitTrace();int[] tokens=engine.lastTokens();
+        JSONArray comparisons=new JSONArray();int[][] configs={{6,6},{4,6},{4,4}};
+        for(int[] c:configs){promptThreadsOverride=c[1];NativeEngine.Result r=call(engine,model,"trace/candidate"+c[0]+"-"+c[1],ChatPrompt.SYSTEM,user,true,c[0],8,8,true,0);long[] actual=engine.logitTrace();
+            int first=-1;for(int i=0;i<Math.min(expected.length,actual.length);i++)if(expected[i]!=actual[i]){first=i;break;}
+            boolean same=Arrays.equals(expected,actual)&&Arrays.equals(tokens,engine.lastTokens())&&reference.text().equals(r.text());comparisons.put(new JSONObject().put("threads",c[0]).put("promptThreads",c[1]).put("allLogitsIdentical",same).put("firstDifferentLogitIndex",first));report.put("traceComparison",comparisons);write();
+            if(c[0]==4)require(same,"Four decode workers preserve every sampled distribution");
+        }
+        promptThreadsOverride=0;
     }
     private void lifecycle(NativeEngine engine,ModelStore model)throws Exception{
         NativeEngine.setKernelAutomatic(true);engine.configure(new NativeEngine.Configuration(4,4,128,true,8,0,true,1,4,true,0));

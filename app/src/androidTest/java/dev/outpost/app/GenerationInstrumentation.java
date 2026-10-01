@@ -21,6 +21,13 @@ import org.json.JSONObject;
 
 /** Functional LLM tests run inside the explicitly admitted Android target process. */
 public final class GenerationInstrumentation extends OfflineInstrumentation {
+    @Override public void callActivityOnCreate(Activity activity,Bundle state) {
+        String isolation=chatArgs==null?null:chatArgs.getString("chat_isolation");
+        if(isolation!=null&&isolation.matches("pixel-isolation-[0-9TZ]+-[a-f0-9]{8}")&&new File(getTargetContext().getFilesDir(),isolation+"/active").isFile()){
+            activity.setShowWhenLocked(true);activity.setTurnScreenOn(true);
+        }
+        super.callActivityOnCreate(activity,state);
+    }
     @Override public Activity newActivity(ClassLoader loader,String name,Intent intent)throws InstantiationException,IllegalAccessException,ClassNotFoundException {
         if(armArgs!=null&&name.equals(MainActivity.class.getName()))return new ArmKernelChecks.BenchActivity();
         return super.newActivity(loader,name,intent);
@@ -75,7 +82,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         if(placeRun!=null){new PlaceChecks(this,placeRun).run();return;}
         if(osmArgs!=null){new OsmChecks(this,osmArgs.getString("osm_run"),"true".equals(osmArgs.getString("osm_generate"))).run();return;}
         if(folderRun!=null){new FolderChecks(this,folderRun).run();return;}
-        if(chatArgs!=null){new ChatChecks(this,chatArgs.getString("chat_run"),"true".equals(chatArgs.getString("chat_generate")),chatArgs.getString("chat_target","Outpost35")).run();return;}
+        if(chatArgs!=null){new ChatChecks(this,chatArgs.getString("chat_run"),"true".equals(chatArgs.getString("chat_generate")),chatArgs.getString("chat_target","Outpost35"),chatArgs.getString("chat_isolation")).run();return;}
         if(knowledgeSuite) { new KnowledgeChecks(this, knowledgeRun).run(); return; }
         if(evaluationArgs != null) { new EvaluationChecks(this, evaluationArgs).run(); return; }
         if(!speculationPhase.isEmpty()) { new SpeculationChecks(this).run(speculationPhase); return; }

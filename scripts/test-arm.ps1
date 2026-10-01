@@ -1,4 +1,4 @@
-param([string]$Sdk=$env:ANDROID_HOME,[switch]$SkipInstall,[ValidateSet('numeric','model','tune','confirm','controller','lifecycle')][string]$Phase='numeric',[ValidateRange(1,8)][int]$Threads=4,[ValidateSet(1,2,4,8)][int]$Width=4,[ValidateSet(1,2,4)][int]$DecodeRows=1,[switch]$PersistentThreads,[ValidateSet('none','performance')][string]$Affinity='none')
+param([string]$Sdk=$env:ANDROID_HOME,[switch]$SkipInstall,[ValidateSet('numeric','model','tune','confirm','controller','lifecycle','trace')][string]$Phase='numeric',[ValidateRange(1,8)][int]$Threads=4,[ValidateSet(1,2,4,8)][int]$Width=4,[ValidateSet(1,2,4)][int]$DecodeRows=1,[switch]$PersistentThreads,[ValidateSet('none','performance')][string]$Affinity='none',[ValidateRange(0,8)][int]$PromptThreads=0)
 $ErrorActionPreference='Stop'
 $project=Split-Path $PSScriptRoot -Parent
 . (Join-Path $PSScriptRoot 'environment.ps1')
@@ -23,9 +23,10 @@ $out=Join-Path $project "evidence/runs/$run";New-Item -ItemType Directory -Path 
 foreach($name in @('app/src/main/cpp/q2_kernel.c','app/src/main/cpp/q2_kernel.h','app/src/main/cpp/q2_arm.c','app/src/main/cpp/q2_arm.h','app/src/main/cpp/q2_batch.c','app/src/main/cpp/CMakeLists.txt','app/src/main/cpp/engine.cpp','app/src/main/java/dev/outpost/app/NativeEngine.java','app/src/main/java/dev/outpost/app/ChatPrompt.java','app/src/androidTest/java/dev/outpost/app/ArmKernelChecks.java','app/src/androidTest/java/dev/outpost/app/GenerationInstrumentation.java','scripts/test-arm.ps1')){
     $destination=Join-Path $out "source/$name";New-Item -ItemType Directory -Force -Path (Split-Path $destination -Parent)|Out-Null;Copy-Item -LiteralPath (Join-Path $project $name) -Destination $destination
 }
+if($PromptThreads -eq 0){$PromptThreads=$Threads}
 $poolFlag=if($PersistentThreads){'true'}else{'false'}
 $result=@();$failure=$null
-try{$result=Invoke-ArmAdb shell am instrument -w -e arm_run $run -e arm_phase $Phase -e arm_threads $Threads -e arm_width $Width -e arm_rows $DecodeRows -e arm_pools $poolFlag -e arm_affinity $Affinity dev.outpost.app.test/dev.outpost.app.GenerationInstrumentation | ForEach-Object {Write-Host $_;$_}}
+try{$result=Invoke-ArmAdb shell am instrument -w -e arm_run $run -e arm_phase $Phase -e arm_threads $Threads -e arm_width $Width -e arm_rows $DecodeRows -e arm_pools $poolFlag -e arm_affinity $Affinity -e arm_prompt_threads $PromptThreads dev.outpost.app.test/dev.outpost.app.GenerationInstrumentation | ForEach-Object {Write-Host $_;$_}}
 catch{$failure=$_;$_|Out-String|Set-Content -LiteralPath (Join-Path $out 'execution-error.txt') -Encoding utf8}
 finally {
     $result|Set-Content -LiteralPath (Join-Path $out 'instrumentation.log') -Encoding utf8

@@ -35,10 +35,12 @@ final class ChatChecks {
     private final String runId;
     private final boolean generate;
     private final String target;
+    private final String isolation;
     private final JSONArray checks=new JSONArray(), answers=new JSONArray();
+    private JSONObject runtimeProfile=new JSONObject();
     private int passed;
     private File directory;
-    ChatChecks(Instrumentation test,String id,boolean generate,String target){this.test=test;this.runId=id;this.generate=generate;this.target=target;}
+    ChatChecks(Instrumentation test,String id,boolean generate,String target,String isolation){this.test=test;this.runId=id;this.generate=generate;this.target=target;this.isolation=isolation;}
     private void check(boolean ok,String label)throws Exception {checks.put(new JSONObject().put("name",label).put("passed",ok));if(!ok)throw new AssertionError(label);passed++;}
     private interface Action{void run()throws Exception;}
     private void rejects(Action action,String label)throws Exception{boolean rejected=false;try{action.run();}catch(Exception e){rejected=true;}check(rejected,label);}
@@ -54,11 +56,13 @@ final class ChatChecks {
                 ?android.os.Build.MANUFACTURER.equals("Google")&&android.os.Build.MODEL.equals("Pixel 10 Pro")&&android.os.Build.SUPPORTED_ABIS[0].equals("arm64-v8a")
                 :target.equals("Outpost35")&&android.os.Build.SUPPORTED_ABIS[0].equals("x86_64")&&android.os.Build.MODEL.toLowerCase(java.util.Locale.ROOT).contains("sdk");
             check(identity,"Chat runs on the explicitly admitted target architecture/model");
-            if(target.equals("Pixel10Pro")&&test.getTargetContext().getSystemService(android.app.KeyguardManager.class).isKeyguardLocked())throw new IllegalStateException("Unlock the registered Pixel before visual chat checks");
+            boolean isolated=isolation!=null&&isolation.matches("pixel-isolation-[0-9TZ]+-[a-f0-9]{8}")&&new File(test.getTargetContext().getFilesDir(),isolation+"/active").isFile();
+            if(target.equals("Pixel10Pro")&&test.getTargetContext().getSystemService(android.app.KeyguardManager.class).isKeyguardLocked()&&!isolated)throw new IllegalStateException("Unlock the registered Pixel or use the active isolated visual wrapper");
             if(target.equals("Pixel10Pro")){
                 try(ChatStore chat=new ChatStore(test.getTargetContext());Library library=new Library(test.getTargetContext())){
                     if(!chat.turns().isEmpty()||!library.documents().isEmpty())throw new IllegalStateException("Physical visual suite requires an empty chat/library so captures cannot include personal content; existing data preserved");
                 }
+                if(!test.getTargetContext().getSharedPreferences("MainActivity",0).getAll().isEmpty())throw new IllegalStateException("Isolate existing drafts/import summaries before phone UI captures");
             }
             String[] permissions=test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",android.content.pm.PackageManager.GET_PERMISSIONS).requestedPermissions;
             check(permissions==null||!java.util.Arrays.asList(permissions).contains("android.permission.INTERNET"),"Product APK remains offline without INTERNET permission");
@@ -111,7 +115,7 @@ final class ChatChecks {
             rejects(()->PdfImporter.extract(test.getTargetContext(),broken),"Malformed PDF is rejected");
             try(ChatStore chat=new ChatStore(test.getTargetContext())){for(ChatStore.Turn turn:chat.turns())existingTurns.add(turn.id());}
             capturedTurns=true;
-            if(generate) {ModelStore.select(test.getTargetContext(),ModelStore.BONSAI4);check(new ModelStore(test.getTargetContext()).ready(),"Real Bonsai 4B is already installed and verified");}
+            if(generate) {ModelStore.select(test.getTargetContext(),ModelStore.BONSAI4);check(new ModelStore(test.getTargetContext()).ready(),"Real Bonsai 4B is already installed and verified");RuntimeSettings.Profile p=RuntimeSettings.load(test.getTargetContext(),ModelStore.BONSAI4);runtimeProfile=new JSONObject().put("threads",p.threads()).put("promptThreads",p.promptThreads()).put("batch",p.batch()).put("width",p.width()).put("rowTile",p.rowTile()).put("decodeRows",p.decodeRows()).put("measured",p.measured()).put("persistentThreads",p.configuration(true).persistentThreads()).put("kernel",NativeEngine.kernelName());}
             activity=start();MainActivity app=activity;
             check(app.findViewById(MainActivity.QUERY_ID)!=null&&app.findViewById(R.id.chat_settings)!=null,"Launcher opens directly on chat with composer and Settings icon");
             List<String> home=texts(app);
@@ -167,12 +171,12 @@ final class ChatChecks {
             try(Library library=new Library(test.getTargetContext())){for(String id:imported)library.removeDocument(id);}catch(Exception ignored){}
             if(capturedTurns)try(ChatStore chat=new ChatStore(test.getTargetContext())){for(ChatStore.Turn turn:chat.turns())if(!existingTurns.contains(turn.id()))chat.remove(turn.id());}catch(Exception ignored){}
             ModelStore.select(test.getTargetContext(),previous);test.getTargetContext().deleteDatabase(migration);test.getTargetContext().deleteDatabase(chatDb);for(int i=temporary.size()-1;i>=0;i--)temporary.get(i).delete();
-            try {JSONObject report=new JSONObject().put("runId",runId).put("target",target).put("version",test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",0).versionName).put("passed",complete).put("checksPassed",passed).put("checks",checks).put("answers",answers).put("modelExecution",generate).put("promptVersion",ChatPrompt.VERSION).put("scope","Recorded Android target. Synthetic documents exercise import/chat plumbing, not general answer quality, battery life or field acceptance.");writeText(new File(directory,"chat-checks.json").toPath(),report.toString(2));}catch(Exception ignored){}
+            try {JSONObject report=new JSONObject().put("runId",runId).put("target",target).put("version",test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",0).versionName).put("passed",complete).put("checksPassed",passed).put("checks",checks).put("answers",answers).put("modelExecution",generate).put("promptVersion",ChatPrompt.VERSION).put("runtimeProfile",runtimeProfile).put("scope","Recorded Android target. Synthetic documents exercise import/chat plumbing, not general answer quality, battery life or field acceptance.");writeText(new File(directory,"chat-checks.json").toPath(),report.toString(2));}catch(Exception ignored){}
         }
         test.finish(complete?Activity.RESULT_OK:Activity.RESULT_CANCELED,result);
     }
     private static void writeText(java.nio.file.Path path,String text)throws Exception {Files.write(path,text.getBytes(StandardCharsets.UTF_8));}
-    private MainActivity start(){MainActivity activity=(MainActivity)test.startActivitySync(new Intent(test.getTargetContext(),MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));test.runOnMainSync(()->activity.getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON));for(int i=0;i<100&&activity.findViewById(MainActivity.QUERY_ID)==null;i++)SystemClock.sleep(100);test.waitForIdleSync();return activity;}
+    private MainActivity start(){MainActivity activity=(MainActivity)test.startActivitySync(new Intent(test.getTargetContext(),MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));test.runOnMainSync(()->activity.getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON));for(int i=0;i<100&&activity.findViewById(MainActivity.QUERY_ID)==null;i++)SystemClock.sleep(100);test.waitForIdleSync();return activity;}
     private Library.Document awaitDocument(String name,Set<String> existing)throws Exception {for(int i=0;i<300;i++){try(Library l=new Library(test.getTargetContext())){for(Library.Document d:l.documents())if(d.title().equals(name)&&!existing.contains(d.id()))return d;}SystemClock.sleep(100);}throw new AssertionError("Import did not finish: "+name);}
     private void send(MainActivity app,String message)throws Exception {test.runOnMainSync(()->app.sendMessage(message));waitAnswer(app);}
     private void waitAnswer(MainActivity app)throws Exception{for(int i=0;i<1400&&!app.answerDone;i++)SystemClock.sleep(100);test.waitForIdleSync();check(app.answerDone,"Chat request settles within its bounded deadline");}

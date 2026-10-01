@@ -1,4 +1,4 @@
-param([string]$Sdk=$env:ANDROID_HOME,[switch]$Generate,[switch]$RestoreOnly,[ValidateSet('','numeric','model','tune','confirm','controller','lifecycle')][string]$ArmPhase='',[ValidateRange(1,8)][int]$Threads=4,[ValidateSet(1,2,4,8)][int]$Width=4,[ValidateSet(1,2,4)][int]$DecodeRows=1,[switch]$PersistentThreads,[ValidateSet('none','performance')][string]$Affinity='none')
+param([string]$Sdk=$env:ANDROID_HOME,[switch]$Generate,[switch]$RestoreOnly,[ValidateSet('','numeric','model','tune','confirm','controller','lifecycle','trace')][string]$ArmPhase='',[ValidateRange(1,8)][int]$Threads=4,[ValidateSet(1,2,4,8)][int]$Width=4,[ValidateSet(1,2,4)][int]$DecodeRows=1,[switch]$PersistentThreads,[ValidateSet('none','performance')][string]$Affinity='none',[ValidateRange(0,8)][int]$PromptThreads=0)
 $ErrorActionPreference='Stop'
 $project=Split-Path $PSScriptRoot -Parent
 . (Join-Path $PSScriptRoot 'environment.ps1')
@@ -59,8 +59,9 @@ try {
             if($entry.existed){Invoke-PixelAdb shell run-as dev.outpost.app mv $path "$backup/original-$key"|Out-Null}
         }
         $state.status='isolated';Save-State
-        if($ArmPhase){& (Join-Path $project 'scripts/test-arm.ps1') -Sdk $Sdk -Phase $ArmPhase -SkipInstall -Threads $Threads -Width $Width -DecodeRows $DecodeRows -PersistentThreads:$PersistentThreads -Affinity $Affinity}
-        else {& (Join-Path $project 'scripts/test-chat.ps1') -Sdk $Sdk -Target Pixel10Pro -SkipInstall -Generate:$Generate}
+        Invoke-PixelAdb shell run-as dev.outpost.app touch "$backup/active"|Out-Null
+        if($ArmPhase){& (Join-Path $project 'scripts/test-arm.ps1') -Sdk $Sdk -Phase $ArmPhase -SkipInstall -Threads $Threads -Width $Width -DecodeRows $DecodeRows -PersistentThreads:$PersistentThreads -Affinity $Affinity -PromptThreads $PromptThreads}
+        else {& (Join-Path $project 'scripts/test-chat.ps1') -Sdk $Sdk -Target Pixel10Pro -SkipInstall -Generate:$Generate -Isolation $state.runId}
     }
 } catch { $failure=$_ }
 finally {
@@ -79,6 +80,7 @@ finally {
         if($entry.afterDigest -ne $entry.beforeDigest){throw 'Restored data digest mismatch; preserve the isolation journal'}
         Save-State
     }
+    if(Private-Exists "$backup/active"){Invoke-PixelAdb shell run-as dev.outpost.app rm "$backup/active"|Out-Null}
     $state.status='restored';$state.restoredUtc=[DateTime]::UtcNow.ToString('o');Save-State
     Write-Output "Original app data restored and verified. Isolation evidence: $out"
 }

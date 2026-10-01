@@ -1,4 +1,4 @@
-param([string]$Sdk=$env:ANDROID_HOME,[string]$Serial='',[ValidateSet('Outpost35','Pixel10Pro')][string]$Target='Outpost35',[switch]$SkipInstall,[switch]$Generate)
+param([string]$Sdk=$env:ANDROID_HOME,[string]$Serial='',[ValidateSet('Outpost35','Pixel10Pro')][string]$Target='Outpost35',[switch]$SkipInstall,[switch]$Generate,[string]$Isolation='')
 $ErrorActionPreference='Stop'
 $project=Split-Path $PSScriptRoot -Parent
 . (Join-Path $PSScriptRoot 'environment.ps1')
@@ -25,7 +25,8 @@ $runId='chat-'+(Get-Date).ToUniversalTime().ToString('yyyyMMddTHHmmssZ')+'-'+[gu
 $out=Join-Path $project "evidence/runs/$runId"
 New-Item -ItemType Directory -Path $out | Out-Null
 $generation=if($Generate){'true'}else{'false'}
-$result=Invoke-Adb shell am instrument -w -e chat_run $runId -e chat_generate $generation -e chat_target $Target dev.outpost.app.test/dev.outpost.app.GenerationInstrumentation | ForEach-Object { Write-Host $_; $_ }
+$extras=@();if($Isolation){if($Target -ne 'Pixel10Pro' -or $Isolation -notmatch '^pixel-isolation-[0-9TZ]+-[a-f0-9]{8}$'){throw 'Invalid isolated phone run'};$extras=@('-e','chat_isolation',$Isolation)}
+$result=Invoke-Adb shell am instrument -w -e chat_run $runId -e chat_generate $generation -e chat_target $Target @extras dev.outpost.app.test/dev.outpost.app.GenerationInstrumentation | ForEach-Object { Write-Host $_; $_ }
 $result | Set-Content -LiteralPath (Join-Path $out 'instrumentation.log') -Encoding utf8
 $files=@('chat-checks.json','chat-home.png','chat-settings.png','chat-documents.png','chat-pdf.png')
 if($Generate){$files+=@('chat-conversation.png','chat-sourced.png')}
