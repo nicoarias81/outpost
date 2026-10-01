@@ -105,10 +105,17 @@ final class CandidateChecks {
             String longA=padding+"\nFinal record: the approved spare is K-17. State the final spare code only.";
             NativeEngine.Result a=call(engine,"admit-sliding-base",true,system,longA,16,false,42,true,false);
             require(a.promptTokens()>512&&a.promptTokens()<1800,"Lifecycle crosses the 512-token sliding window");
+            NativeEngine.Result longExact=call(engine,"admit-sliding-exact",true,system,longA,16,false,42,true,false);
+            require(a.text().equals(longExact.text())&&a.firstLogitsHash()==longExact.firstLogitsHash(),"Long exact reuse or cold fallback preserves output");
             String longB=padding+"\nFinal record: the approved spare is J-83. State the final spare code only.";
             NativeEngine.Result partial=call(engine,"admit-sliding-partial",true,system,longB,16,false,42,true,false);
             engine.clearCache();NativeEngine.Result cold=call(engine,"admit-sliding-cold",true,system,longB,16,false,42,true,false);
             require(partial.text().equals(cold.text())&&partial.firstLogitsHash()==cold.firstLogitsHash(),"Sliding partial reuse equals cold changed-source result");
+            String entry="Log entry: the equipment is stored indoors; this line records no spare-part approval. ";
+            String early=entry.repeat(12)+"Changed note: storage moved outdoors. "+entry.repeat(33)+"\nFinal record: the approved spare is J-83. State the final spare code only.";
+            NativeEngine.Result rewind=call(engine,"admit-sliding-evicted-rewind",true,system,early,16,false,42,true,false);
+            engine.clearCache();NativeEngine.Result rewindCold=call(engine,"admit-sliding-rewind-cold",true,system,early,16,false,42,true,false);
+            require(rewind.cachedTokens()==0&&rewind.text().equals(rewindCold.text())&&rewind.firstLogitsHash()==rewindCold.firstLogitsHash(),"Evicted-window rewind falls back cold with parity");
             NativeEngine.Result canceled=call(engine,"admit-cancel",true,system,"Explain three differences between a maintenance log and a manufacturer manual.",96,false,42,true,true);
             require(canceled.cancelled()&&canceled.tokens()==3,"Cancellation stops after confirmed token three");
             NativeEngine.Result recovery=call(engine,"admit-recovery",true,system,user,48,false,42,true,false);

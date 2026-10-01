@@ -331,6 +331,16 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
                 bool complete_hit=reused==count && session->prefix.size()==tokens.size() && session->prefix_logits.size()==(size_t)llama_vocab_n_tokens(vocab);
                 // Keep the same prefill batch boundaries as a cold evaluation. Partial-batch reuse can change rounding.
                 if(!complete_hit) reused=(std::min<long>(reused,count-1)/batch_size)*batch_size;
+                if(template_policy==1 && reused>0) {
+                    // Successful suffix removal does not restore already evicted SWA history.
+                    // The pinned Spark profile has a 512-token window. Require the complete
+                    // preceding window to remain resident before reusing any cached prefix.
+                    auto memory=llama_get_memory(context);
+                    llama_pos first=llama_memory_seq_pos_min(memory,0),last=llama_memory_seq_pos_max(memory,0);
+                    if(first<0 || first>std::max<long>(0,reused-512) || last<reused-1) {
+                        llama_memory_clear(memory,false);reused=0;complete_hit=false;
+                    }
+                }
                 if (!llama_memory_seq_rm(llama_get_memory(context),0,(llama_pos)reused,-1)) {
                     llama_memory_clear(llama_get_memory(context),false); reused=0; complete_hit=false;
                 }
