@@ -1,0 +1,1020 @@
+{
+  "schemaVersion": 1,
+  "appSha256": "509384984532b696e30948fccf992c1433618425e0925caabb5dddb7e53b032b",
+  "traceRun": "arm-spec-trace-20261001T172327Z-3fde5ca0",
+  "curveRun": "arm-spec-curve-20261001T172606Z-51996de8",
+  "traceReportSha256": "1ebb27528210b0ed16c0370762a422c2418ea9bcdc7cdd5c0592814f51aa271f",
+  "curveReportSha256": "08925f59f83a64537f3bcc2d219c96eee3bce7a9baec22d3a90adc07d8ff6172",
+  "executionPassed": true,
+  "speculationParityGatePassed": false,
+  "comparisons": [
+    {
+      "depth": 1,
+      "fullTraceParity": false,
+      "textParity": false,
+      "firstDifferentSample": 1
+    },
+    {
+      "depth": 3,
+      "fullTraceParity": false,
+      "textParity": false,
+      "firstDifferentSample": 1
+    },
+    {
+      "depth": 7,
+      "fullTraceParity": false,
+      "textParity": false,
+      "firstDifferentSample": 1
+    }
+  ],
+  "scope": "Bounded synthetic diagnostic. Forward costs exclude proposal/sampling/emission and do not establish deployable speculation speed. Numerical gates remain separate from execution success.",
+  "curves": [
+    {
+      "prefixTokens": 66,
+      "decodeThreads": 4,
+      "verifyThreads": 6,
+      "conditionsBefore": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 361,
+        "plugged": 2
+      },
+      "conditionsAfter": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 361,
+        "plugged": 2
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUsObservations": [
+            2306736,
+            2352920
+          ],
+          "medianEvaluateUs": 2329828.0,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "bitIdenticalPositions": [
+            16,
+            16
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0
+        },
+        {
+          "rows": 2,
+          "evaluateUsObservations": [
+            1070007,
+            1105202
+          ],
+          "medianEvaluateUs": 1087604.5,
+          "forwardOnlySerialOverBatchRatio": 2.1421647299179067,
+          "bitIdenticalPositions": [
+            16,
+            16
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0
+        },
+        {
+          "rows": 4,
+          "evaluateUsObservations": [
+            840644,
+            851047
+          ],
+          "medianEvaluateUs": 845845.5,
+          "forwardOnlySerialOverBatchRatio": 2.754436832731273,
+          "bitIdenticalPositions": [
+            16,
+            16
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0
+        },
+        {
+          "rows": 8,
+          "evaluateUsObservations": [
+            765574,
+            766616
+          ],
+          "medianEvaluateUs": 766095.0,
+          "forwardOnlySerialOverBatchRatio": 3.0411737447705574,
+          "bitIdenticalPositions": [
+            16,
+            16
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0
+        }
+      ]
+    },
+    {
+      "prefixTokens": 66,
+      "decodeThreads": 4,
+      "verifyThreads": 4,
+      "conditionsBefore": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 361,
+        "plugged": 2
+      },
+      "conditionsAfter": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 361,
+        "plugged": 2
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUsObservations": [
+            2292934,
+            2131432
+          ],
+          "medianEvaluateUs": 2212183.0,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "bitIdenticalPositions": [
+            16,
+            16
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0
+        },
+        {
+          "rows": 2,
+          "evaluateUsObservations": [
+            1444387,
+            1365705
+          ],
+          "medianEvaluateUs": 1405046.0,
+          "forwardOnlySerialOverBatchRatio": 1.5744559252864319,
+          "bitIdenticalPositions": [
+            16,
+            16
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0
+        },
+        {
+          "rows": 4,
+          "evaluateUsObservations": [
+            1086279,
+            1082975
+          ],
+          "medianEvaluateUs": 1084627.0,
+          "forwardOnlySerialOverBatchRatio": 2.039579505212391,
+          "bitIdenticalPositions": [
+            16,
+            16
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0
+        },
+        {
+          "rows": 8,
+          "evaluateUsObservations": [
+            970603,
+            979414
+          ],
+          "medianEvaluateUs": 975008.5,
+          "forwardOnlySerialOverBatchRatio": 2.268885860995058,
+          "bitIdenticalPositions": [
+            16,
+            16
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0
+        }
+      ]
+    },
+    {
+      "prefixTokens": 466,
+      "decodeThreads": 4,
+      "verifyThreads": 4,
+      "conditionsBefore": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 361,
+        "plugged": 2
+      },
+      "conditionsAfter": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 361,
+        "plugged": 2
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUsObservations": [
+            2838722,
+            2771431
+          ],
+          "medianEvaluateUs": 2805076.5,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "bitIdenticalPositions": [
+            16,
+            16
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0
+        },
+        {
+          "rows": 2,
+          "evaluateUsObservations": [
+            1951475,
+            1777465
+          ],
+          "medianEvaluateUs": 1864470.0,
+          "forwardOnlySerialOverBatchRatio": 1.5044900159294599,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.143733
+        },
+        {
+          "rows": 4,
+          "evaluateUsObservations": [
+            1609105,
+            1585380
+          ],
+          "medianEvaluateUs": 1597242.5,
+          "forwardOnlySerialOverBatchRatio": 1.7561995125974923,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.143733
+        },
+        {
+          "rows": 8,
+          "evaluateUsObservations": [
+            1480926,
+            1479068
+          ],
+          "medianEvaluateUs": 1479997.0,
+          "forwardOnlySerialOverBatchRatio": 1.8953258013360839,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.143733
+        }
+      ]
+    },
+    {
+      "prefixTokens": 466,
+      "decodeThreads": 4,
+      "verifyThreads": 6,
+      "conditionsBefore": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 361,
+        "plugged": 2
+      },
+      "conditionsAfter": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 361,
+        "plugged": 2
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUsObservations": [
+            2703854,
+            2709385
+          ],
+          "medianEvaluateUs": 2706619.5,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "bitIdenticalPositions": [
+            16,
+            16
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0
+        },
+        {
+          "rows": 2,
+          "evaluateUsObservations": [
+            1282351,
+            1296785
+          ],
+          "medianEvaluateUs": 1289568.0,
+          "forwardOnlySerialOverBatchRatio": 2.0988575243802576,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.143733
+        },
+        {
+          "rows": 4,
+          "evaluateUsObservations": [
+            1037758,
+            1036735
+          ],
+          "medianEvaluateUs": 1037246.5,
+          "forwardOnlySerialOverBatchRatio": 2.60942746010712,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.143733
+        },
+        {
+          "rows": 8,
+          "evaluateUsObservations": [
+            993878,
+            1002108
+          ],
+          "medianEvaluateUs": 997993.0,
+          "forwardOnlySerialOverBatchRatio": 2.7120626096575826,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.143733
+        }
+      ]
+    },
+    {
+      "prefixTokens": 1066,
+      "decodeThreads": 4,
+      "verifyThreads": 6,
+      "conditionsBefore": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 371,
+        "plugged": 2
+      },
+      "conditionsAfter": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 371,
+        "plugged": 2
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUsObservations": [
+            3554587,
+            3533043
+          ],
+          "medianEvaluateUs": 3543815.0,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "bitIdenticalPositions": [
+            16,
+            16
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0
+        },
+        {
+          "rows": 2,
+          "evaluateUsObservations": [
+            1861287,
+            1837849
+          ],
+          "medianEvaluateUs": 1849568.0,
+          "forwardOnlySerialOverBatchRatio": 1.9160230929600859,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.134994
+        },
+        {
+          "rows": 4,
+          "evaluateUsObservations": [
+            1573203,
+            1559489
+          ],
+          "medianEvaluateUs": 1566346.0,
+          "forwardOnlySerialOverBatchRatio": 2.2624726592974986,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.134994
+        },
+        {
+          "rows": 8,
+          "evaluateUsObservations": [
+            1410268,
+            1402756
+          ],
+          "medianEvaluateUs": 1406512.0,
+          "forwardOnlySerialOverBatchRatio": 2.5195767970696306,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.134994
+        }
+      ]
+    },
+    {
+      "prefixTokens": 1066,
+      "decodeThreads": 4,
+      "verifyThreads": 4,
+      "conditionsBefore": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 371,
+        "plugged": 2
+      },
+      "conditionsAfter": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 371,
+        "plugged": 2
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUsObservations": [
+            3513524,
+            3376799
+          ],
+          "medianEvaluateUs": 3445161.5,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "bitIdenticalPositions": [
+            16,
+            16
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0
+        },
+        {
+          "rows": 2,
+          "evaluateUsObservations": [
+            2538071,
+            2464784
+          ],
+          "medianEvaluateUs": 2501427.5,
+          "forwardOnlySerialOverBatchRatio": 1.3772781741625533,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.134994
+        },
+        {
+          "rows": 4,
+          "evaluateUsObservations": [
+            2157646,
+            2141834
+          ],
+          "medianEvaluateUs": 2149740.0,
+          "forwardOnlySerialOverBatchRatio": 1.6025944997999757,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.134994
+        },
+        {
+          "rows": 8,
+          "evaluateUsObservations": [
+            2021608,
+            2024610
+          ],
+          "medianEvaluateUs": 2023109.0,
+          "forwardOnlySerialOverBatchRatio": 1.7029045394983662,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.134994
+        }
+      ]
+    },
+    {
+      "prefixTokens": 1666,
+      "decodeThreads": 4,
+      "verifyThreads": 4,
+      "conditionsBefore": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 371,
+        "plugged": 2
+      },
+      "conditionsAfter": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 384,
+        "plugged": 2
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUsObservations": [
+            4081213,
+            4059172
+          ],
+          "medianEvaluateUs": 4070192.5,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "bitIdenticalPositions": [
+            16,
+            16
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0
+        },
+        {
+          "rows": 2,
+          "evaluateUsObservations": [
+            3253144,
+            3209225
+          ],
+          "medianEvaluateUs": 3231184.5,
+          "forwardOnlySerialOverBatchRatio": 1.2596595768517707,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.146381
+        },
+        {
+          "rows": 4,
+          "evaluateUsObservations": [
+            2849064,
+            2820126
+          ],
+          "medianEvaluateUs": 2834595.0,
+          "forwardOnlySerialOverBatchRatio": 1.4358991319747618,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.146381
+        },
+        {
+          "rows": 8,
+          "evaluateUsObservations": [
+            2706598,
+            2679512
+          ],
+          "medianEvaluateUs": 2693055.0,
+          "forwardOnlySerialOverBatchRatio": 1.5113662736186226,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.146381
+        }
+      ]
+    },
+    {
+      "prefixTokens": 1666,
+      "decodeThreads": 4,
+      "verifyThreads": 6,
+      "conditionsBefore": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 384,
+        "plugged": 2
+      },
+      "conditionsAfter": {
+        "thermalStatus": 1,
+        "interactive": true,
+        "keyguard": false,
+        "benchmarkResumed": true,
+        "benchmarkHasFocus": true,
+        "batteryTenthsC": 384,
+        "plugged": 2
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUsObservations": [
+            4025533,
+            4014737
+          ],
+          "medianEvaluateUs": 4020135.0,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "bitIdenticalPositions": [
+            16,
+            16
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0
+        },
+        {
+          "rows": 2,
+          "evaluateUsObservations": [
+            2292698,
+            2527941
+          ],
+          "medianEvaluateUs": 2410319.5,
+          "forwardOnlySerialOverBatchRatio": 1.6678846932948102,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.146381
+        },
+        {
+          "rows": 4,
+          "evaluateUsObservations": [
+            1992699,
+            2055564
+          ],
+          "medianEvaluateUs": 2024131.5,
+          "forwardOnlySerialOverBatchRatio": 1.9861036696479453,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.146381
+        },
+        {
+          "rows": 8,
+          "evaluateUsObservations": [
+            1870919,
+            1843972
+          ],
+          "medianEvaluateUs": 1857445.5,
+          "forwardOnlySerialOverBatchRatio": 2.1643353735008644,
+          "bitIdenticalPositions": [
+            0,
+            0
+          ],
+          "top1SamePositions": [
+            16,
+            16
+          ],
+          "maxAbsoluteLogitDifference": 0.146381
+        }
+      ]
+    }
+  ],
+  "generation": [
+    {
+      "id": "spec/plain",
+      "tokens": 64,
+      "reason": 1,
+      "oracle": false,
+      "totalMs": 15706,
+      "decodeMs": 6781,
+      "proposed": 0,
+      "accepted": 0,
+      "sampleEvents": 64,
+      "unemittedSamples": 0,
+      "costsUs": {
+        "totalUs": 6780422,
+        "controllerUs": 6745166,
+        "proposalUs": 0,
+        "evaluateUs": 6731075,
+        "sampleUs": 10681,
+        "rollbackUs": 0,
+        "emitUs": 3233,
+        "traceUs": 35256
+      }
+    },
+    {
+      "id": "spec/oracle1",
+      "tokens": 64,
+      "reason": 1,
+      "oracle": true,
+      "totalMs": 12495,
+      "decodeMs": 3872,
+      "proposed": 36,
+      "accepted": 26,
+      "sampleEvents": 64,
+      "unemittedSamples": 0,
+      "costsUs": {
+        "totalUs": 3871795,
+        "controllerUs": 3830991,
+        "proposalUs": 17,
+        "evaluateUs": 3818892,
+        "sampleUs": 9489,
+        "rollbackUs": 291,
+        "emitUs": 2031,
+        "traceUs": 40804
+      }
+    },
+    {
+      "id": "spec/oracle3",
+      "tokens": 64,
+      "reason": 1,
+      "oracle": true,
+      "totalMs": 12627,
+      "decodeMs": 3861,
+      "proposed": 66,
+      "accepted": 39,
+      "sampleEvents": 64,
+      "unemittedSamples": 0,
+      "costsUs": {
+        "totalUs": 3859796,
+        "controllerUs": 3818032,
+        "proposalUs": 26,
+        "evaluateUs": 3808244,
+        "sampleUs": 7863,
+        "rollbackUs": 252,
+        "emitUs": 1434,
+        "traceUs": 41764
+      }
+    },
+    {
+      "id": "spec/oracle7",
+      "tokens": 64,
+      "reason": 1,
+      "oracle": true,
+      "totalMs": 13362,
+      "decodeMs": 4456,
+      "proposed": 91,
+      "accepted": 46,
+      "sampleEvents": 64,
+      "unemittedSamples": 0,
+      "costsUs": {
+        "totalUs": 4455663,
+        "controllerUs": 4413273,
+        "proposalUs": 19,
+        "evaluateUs": 4403733,
+        "sampleUs": 7691,
+        "rollbackUs": 260,
+        "emitUs": 1373,
+        "traceUs": 42390
+      }
+    },
+    {
+      "id": "spec/request-lookup",
+      "tokens": 64,
+      "reason": 1,
+      "oracle": false,
+      "totalMs": 17130,
+      "decodeMs": 7499,
+      "proposed": 18,
+      "accepted": 10,
+      "sampleEvents": 64,
+      "unemittedSamples": 0,
+      "costsUs": {
+        "totalUs": 7497904,
+        "controllerUs": 7456524,
+        "proposalUs": 547,
+        "evaluateUs": 7443396,
+        "sampleUs": 9424,
+        "rollbackUs": 74,
+        "emitUs": 2873,
+        "traceUs": 41380
+      }
+    },
+    {
+      "id": "spec/wrong-proposals",
+      "tokens": 32,
+      "reason": 1,
+      "oracle": true,
+      "totalMs": 16719,
+      "decodeMs": 6472,
+      "proposed": 87,
+      "accepted": 0,
+      "sampleEvents": 32,
+      "unemittedSamples": 0,
+      "costsUs": {
+        "totalUs": 6471218,
+        "controllerUs": 6447301,
+        "proposalUs": 29,
+        "evaluateUs": 6439138,
+        "sampleUs": 5457,
+        "rollbackUs": 477,
+        "emitUs": 2018,
+        "traceUs": 23917
+      }
+    },
+    {
+      "id": "spec/cancel",
+      "tokens": 3,
+      "reason": 2,
+      "oracle": true,
+      "totalMs": 11283,
+      "decodeMs": 422,
+      "proposed": 7,
+      "accepted": 7,
+      "sampleEvents": 9,
+      "unemittedSamples": 6,
+      "costsUs": {
+        "totalUs": 421050,
+        "controllerUs": 414274,
+        "proposalUs": 2,
+        "evaluateUs": 412876,
+        "sampleUs": 1104,
+        "rollbackUs": 13,
+        "emitUs": 262,
+        "traceUs": 6776
+      }
+    },
+    {
+      "id": "spec/recovery",
+      "tokens": 64,
+      "reason": 1,
+      "oracle": false,
+      "totalMs": 22418,
+      "decodeMs": 10967,
+      "proposed": 0,
+      "accepted": 0,
+      "sampleEvents": 64,
+      "unemittedSamples": 0,
+      "costsUs": {
+        "totalUs": 10966371,
+        "controllerUs": 10906999,
+        "proposalUs": 0,
+        "evaluateUs": 10885588,
+        "sampleUs": 16595,
+        "rollbackUs": 0,
+        "emitUs": 4602,
+        "traceUs": 59372
+      }
+    },
+    {
+      "id": "spec/exact-cache",
+      "tokens": 64,
+      "reason": 1,
+      "oracle": false,
+      "totalMs": 10987,
+      "decodeMs": 10983,
+      "proposed": 0,
+      "accepted": 0,
+      "sampleEvents": 64,
+      "unemittedSamples": 0,
+      "costsUs": {
+        "totalUs": 10981819,
+        "controllerUs": 10916000,
+        "proposalUs": 0,
+        "evaluateUs": 10885784,
+        "sampleUs": 21416,
+        "rollbackUs": 0,
+        "emitUs": 8560,
+        "traceUs": 65819
+      }
+    }
+  ],
+  "edgesRun": "arm-spec-edges-20261001T173720Z-0313bb42",
+  "edgesReportSha256": "9627bf7689ddd93e0ca45e867f57435983c531b83bdfb477a2b7fb68d79ac4a9",
+  "shortEosFullParity": true,
+  "adaptiveCostCheck": {
+    "windows": 3,
+    "disabled": true,
+    "plainEwmaUs": 164553.41942740907,
+    "windowUs": 646898,
+    "windowCommitted": 3
+  },
+  "productAdmissionAllowed": false
+}

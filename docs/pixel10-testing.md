@@ -70,3 +70,7 @@ The [completed Pixel validation](pixel10-results-2026-10-01.md) records 23 admis
 The current ARM wrapper also accepts `-ArmPhase profile` through the Pixel isolation script. Use 4 decode/6 prompt workers, width 8, decodeRows 4 and persistent workers as shown in [the stack audit](inference-stack-audit-2026-10-01.md). It records own-process user CPU samples with Android simpleperf and observed first-text boundaries, then restores personal app data. Run the offline symbol analysis against the exact native build ID. The rejected half-block experiment is retained only in its evidence snapshots.
 
 The retained `profile` phase reproduces the earlier static-row CPU audit. It does not automatically select the 0.16 queued product profile. Current queue execution is verified by `row-confirm`/`row-lifecycle` and the real-chat native node counters.
+
+## Speculation diagnostics after 0.16
+
+Use the isolation wrapper with `-ArmPhase spec-trace`, `spec-curve` or `spec-edges` only after installing a matching research APK pair. [The study](speculation-pixel-2026-10-01.md) records actual hashes, restoration and interpretation: execution PASS does not imply numerical admission, and teacher-forced forward cost is not application throughput. The current Pixel has the frozen 0.16 release restored; its bytes intentionally differ from current research build outputs.

@@ -2,6 +2,12 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## Post-0.16 speculation research - 2026-10-01
+
+- Added complete target-sample traces and consistent whole-round cost accounting, including un-emitted EOS/cancelled decisions.
+- Measured causal batches on the registered Pixel and preserved failed numerical admission: larger contexts change logits and supplied-reference sampled answers.
+- Validated cache, cancellation, EOS, cost fallback and normal x86 decoding; restored the frozen 0.16 phone APKs and private data. No speculative product speedup is enabled.
+
 ## 0.16.0 — 2026-10-01
 
 - Added guarded dynamic matrix-row scheduling using existing threadpool storage; the measured Pixel/Bonsai4 profile uses 32-row prefill chunks and unchanged static decode.

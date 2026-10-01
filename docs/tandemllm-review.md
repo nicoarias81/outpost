@@ -51,7 +51,7 @@ Useful measurement practices include clean/disabled lookup stores, frozen adapti
 
 The code notice identifies AGPL-3.0-only plus a separate commercial offering; documentation is CC BY 4.0. This review attributes the upstream design to Khaled Bakeer/TandemLLM and vendors no executable code. Direct code incorporation would be a separate dependency/distribution decision under R-05. [NOTICE](https://github.com/0xBakeer/TandemLLM/blob/c11aecaa7ba767642409ff51d90d48c79c572d3a/NOTICE), [documentation license](https://github.com/0xBakeer/TandemLLM/blob/c11aecaa7ba767642409ff51d90d48c79c572d3a/docs/LICENSE).
 
-## Concrete gaps found in Outpost
+## Gaps found in the reviewed Outpost baseline
 
 The current [controller](../app/src/main/cpp/speculation.cpp) can disable a fixed-depth proposal policy after three costly windows; it does not choose a depth from a calibrated cost curve. In [the generation loop](../app/src/main/cpp/engine.cpp), proposal time is tracked separately and excluded from that decision; ordinary-step and verification-window timings include different sampling/rollback work. Normalize cost scope before trusting a new policy.
 
@@ -67,3 +67,7 @@ Current per-step logit tracing covers initial/ordinary decoding, but the specula
 | TND-04 | Consider votes, corpus lookup or trees only after the chain result | Compatible state/mask/rollback/sampling contracts and net latency/memory benefit; clean-store controls and source removal/version invalidation verified |
 
 Keep product speculation at depth 0 during this work. Use the existing supported 1..8-row research range first; a 32-row tree is a new implementation, not a parameter change. Do not import Spark price tables, relax the numerical gate to one ulp, change the sampler, or load a trained drafter as a side effect of this review. [Pixel protocol](pixel10-testing.md), [speculation/MTP](speculation.md), [roadmap](roadmap.md).
+
+## Executed follow-up
+
+[TND-01/TND-02 have now been exercised on the Pixel](speculation-pixel-2026-10-01.md). Tracing/cost accounting is implemented, but serial-versus-batch numerical parity fails at larger contexts. TND-02b now precedes TND-03: isolate and repair the attention-path boundary. The proposals above remain historical design context; product speculation is still off.

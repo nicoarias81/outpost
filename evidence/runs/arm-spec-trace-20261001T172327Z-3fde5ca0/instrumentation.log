@@ -1,0 +1,43 @@
+
+Starting spec/warmup / depth 0
+
+Completed spec/warmup: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Starting spec/plain / depth 0
+
+Completed spec/plain: 64 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Starting spec/oracle1 / depth 1
+
+Completed spec/oracle1: 64 tokens, 36 verify windows, 26 accepted / 36 proposed
+
+Starting spec/oracle3 / depth 3
+
+Completed spec/oracle3: 64 tokens, 23 verify windows, 39 accepted / 66 proposed
+
+Starting spec/oracle7 / depth 7
+
+Completed spec/oracle7: 64 tokens, 16 verify windows, 46 accepted / 91 proposed
+
+Starting spec/request-lookup / depth 3
+
+Completed spec/request-lookup: 64 tokens, 6 verify windows, 10 accepted / 18 proposed
+
+Starting spec/wrong-proposals / depth 3
+
+Completed spec/wrong-proposals: 32 tokens, 30 verify windows, 0 accepted / 87 proposed
+
+Starting spec/cancel / depth 7
+
+Completed spec/cancel: 3 tokens, 1 verify windows, 7 accepted / 7 proposed
+
+Starting spec/recovery / depth 0
+
+Completed spec/recovery: 64 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Starting spec/exact-cache / depth 0
+
+Completed spec/exact-cache: 64 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+PASS ARM spec-trace: 43 controls.
+

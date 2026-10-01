@@ -51,6 +51,12 @@ final class NativeEngine implements AutoCloseable {
     private static native String nativeThreadpoolAudit(long handle);
     void traceLogitsForTests(boolean enabled){nativeTraceLogitsForTests(handle,enabled);}
     long[] logitTrace(){return nativeLogitTrace(handle);}
+    void specStatsForTests(boolean enabled){nativeSpecStatsForTests(handle,enabled);}
+    String specDiagnostics(){return nativeSpecDiagnostics(handle);}
+    String causalCurveForTests(long request,int[] continuation,int threads){return nativeCausalCurve(handle,request,continuation,threads);}
+    private static native String nativeCausalCurve(long handle,long request,int[] continuation,int threads);
+    private static native void nativeSpecStatsForTests(long handle,boolean enabled);
+    private static native String nativeSpecDiagnostics(long handle);
     private static native void nativeTraceLogitsForTests(long handle,boolean enabled);
     private static native long[] nativeLogitTrace(long handle);
     record Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int speculativeDepth,boolean adaptive,int rowTile,int decodeRows,boolean persistentThreads,int affinityMask,int prefillChunk,int decodeChunk) {

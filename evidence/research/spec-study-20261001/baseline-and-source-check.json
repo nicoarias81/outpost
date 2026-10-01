@@ -1,0 +1,10 @@
+{
+  "normalMatchesConfirmed016Prefix": true,
+  "referenceRun": "arm-row-confirm-20261001T154033Z-e72d8318",
+  "referencePositions": 64,
+  "requestLookupTextParity": true,
+  "requestLookupFirstDifferentDistribution": 7,
+  "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+  "attentionSourceSha256": "e4b1b7b6ef1b2b68ebe0f72c0efca27dc71c9f5aefabf296fea8a03e203c572c",
+  "sourceObservation": "ops.cpp around9261 selects split-KV for one query and KV extent >=512; multi-query work follows another branch, optionally tiled. Four verify workers do not recover parity in the measured larger contexts. This supports an attention-path hypothesis, not a completed causal ablation."
+}

@@ -39,9 +39,11 @@ Library schema5 preserves metadata, packs, source identities and imported snapsh
 5. The test-only status Activity can remain visible over keyguard through standard Android APIs; it does not disable authentication or open personal app state. Isolated UI visibility additionally requires an active marker and empty conversation/library/drafts. Do not manually use Outpost during the suite. No global radio/governor/screen-security settings are changed.
 6. Use [candidate testing](candidate-testing.md) for Spark research and [development](development.md) for other suites. Full logit traces are opt-in research overhead and off in product sessions. Generalized device/field acceptance remains open.
 
-## New static research: TandemLLM
+## Current research checkout: TND-01/TND-02
 
-[The pinned review](tandemllm-review.md) prioritizes TND-01/TND-02: full speculative-sample tracing, comparable round-cost accounting and current Pixel verify curves before a cost-aware chain controller. Upstream GPU kernels, price tables, drafters and one-ulp acceptance rules are not imported. Its EngramDrafter is suffix lookup rather than trained model memory. No runtime change or new phone-speed result is part of that review; product speculation remains zero.
+[The Pixel study](speculation-pixel-2026-10-01.md) implements complete target-sample traces and comparable round costs, and measures 1/2/4/8-row verification at 66/466/1066/1666-token prefixes. Execution/lifecycle and normal 0.16-prefix checks pass, but larger-context logits differ and supplied-reference sampled runs change text. Product speculation remains zero. TND-03/TND-04 await an attention-path parity repair; TND-02b should isolate the padded-KV/query-shape boundary without weakening the reference gate.
+
+The current source/build receipt is a research 0.16 app (`509384984532b696e30948fccf992c1433618425e0925caabb5dddb7e53b032b`) with test APK `424c53df056be98b7a0d9308e753bf761f412400f417c430e7e567b389147e97`. The Pixel was restored to the frozen product app/test pair listed above; Outpost35 was also restored. Install both verified research APKs before further research; do not use `-SkipInstall` against the restored phone or overwrite the frozen 0.16 distribution. The prior source-only [TandemLLM review](tandemllm-review.md) remains background, and no upstream code/model/backend patch was incorporated.
 
 ## Preserved limitations and next work
 

@@ -1,0 +1,22 @@
+{
+  "scope": "TND-01/TND-02 diagnostic; product speculation stays disabled",
+  "steps": [
+    "Full target-sample trace and normalized round costs",
+    "Serial versus 2/4/8-row causal batches"
+  ],
+  "model": "Pinned Bonsai4",
+  "decodeThreads": 4,
+  "prefillThreads": 6,
+  "prefillChunk": 32,
+  "decodeChunk": 0,
+  "curveVerifyThreads": [
+    6,
+    4
+  ],
+  "curvePositions": 16,
+  "curveRounds": 2,
+  "maximumContext": 2048,
+  "deadlineMs": 120000,
+  "oracleScope": "Supplied reference continuations; no learned drafter or deployable speed claim",
+  "adoptionGate": "No product speculation or adaptive-policy adoption without exact full target-sample parity and representative complete-answer benefit. Numerical drift is a separately recorded failure even when harness execution succeeds."
+}

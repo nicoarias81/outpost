@@ -130,3 +130,7 @@ The registered Pixel/Bonsai4 preset uses 32-row dynamic prefill scheduling and s
 ## TandemLLM-informed speculation research — open
 
 [TND-01 through TND-04](tandemllm-review.md) define tracing/cost-scope repairs, current Pixel serial/verify curves, a cost-aware request-local chain policy, and conditional corpus/tree work. These are proposed experiments, not implemented product features or measured gains. Prioritize TND-01/TND-02 before new drafters; retain depth 0 and full numerical/output gates. This supplements X-01 and does not supply Bonsai MTP weights or satisfy X-07.
+
+## TND-01/TND-02 — implemented/measured; admission blocked by numerical parity
+
+[The Pixel study](speculation-pixel-2026-10-01.md) completes sample tracing, round-cost accounting, cache/EOS/cancellation controls and bounded forward-cost curves. TND-02b is next: inspect actual padded KV and query shapes, isolate the split-KV versus multi-query attention path, and restore full serial/batch parity. TND-03/TND-04 remain pending; no speculative speedup is enabled in the product. Current checkout APKs are research artifacts, while the phone retains frozen 0.16.

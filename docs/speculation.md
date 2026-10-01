@@ -2,6 +2,12 @@
 
 Status in Outpost 0.16: context speculation exists only as native research functionality; product chat forces depth 0 and has no toggle. Native MTP and a dual-model drafter are not implemented. Measurements below are historical Bonsai 4B emulator experiments, not current phone/product benchmarks.
 
+## Executed Pixel follow-up
+
+The [2026-10-01 study](speculation-pixel-2026-10-01.md) completes speculative target-sample tracing and consistent whole-round costs, including proposal, sampling, rollback and callback work. Hash/trace overhead is reported separately; interrupted/terminal rounds are excluded from controller learning. Current build outputs are research artifacts; the frozen 0.16 product remains installed with depth 0.
+
+The trace/curve/edge suites pass execution controls while the numerical admission gate fails: short-prefix 16-position checks agree, larger-prefix batch logits differ even with 4 verify workers, and oracle-driven sampled answers change. The next prerequisite is attention-path parity, not a trained drafter or a relaxed gate. Historical timings below remain unchanged.
+
 ## Implemented algorithm
 
 After at least eight emitted tokens, search the current request's prompt and already confirmed output for a matching suffix of 8–16 tokens. Propose at most three following tokens. No prior request's answer is a proposal source.

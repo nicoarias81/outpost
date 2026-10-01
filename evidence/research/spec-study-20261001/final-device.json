@@ -1,0 +1,95 @@
+{
+  "recordedUtc": "2026-10-01T17:47:05.4151273Z",
+  "installed": [
+    {
+      "sha256": "095c5c56995e3de9947d0125a0757387c429191cf0602700f7d5b9b8c036239f",
+      "package": "dev.outpost.app"
+    },
+    {
+      "sha256": "92d2c533b1aaff6267c1607b46f6219351589da83bf62ea3b1b1fa4f0c0fa0d0",
+      "package": "dev.outpost.app.test"
+    }
+  ],
+  "isolation": {
+    "runId": "pixel-isolation-20261001T173715Z-5e12179f",
+    "target": "Pixel10Pro",
+    "startedUtc": "2026-10-01T17:37:15.7137596Z",
+    "restoredUtc": "2026-10-01T17:38:16.9442059Z",
+    "status": "restored",
+    "backup": "files/pixel-isolation-20261001T173715Z-5e12179f",
+    "entries": [
+      {
+        "path": "databases",
+        "key": "databases",
+        "existed": true,
+        "beforeDigest": "46b566b9982ee0d42000e7f3b31ccb6188c6781685fbc8dde0ed0f20bfc84824",
+        "afterDigest": "46b566b9982ee0d42000e7f3b31ccb6188c6781685fbc8dde0ed0f20bfc84824"
+      },
+      {
+        "path": "shared_prefs",
+        "key": "shared_prefs",
+        "existed": true,
+        "beforeDigest": "e18580c419b42c8dc878c8566cdc4d1f6cd5cc1618713e1c1fed4945c7cea100",
+        "afterDigest": "e18580c419b42c8dc878c8566cdc4d1f6cd5cc1618713e1c1fed4945c7cea100"
+      },
+      {
+        "path": "files/documents",
+        "key": "documents",
+        "existed": false,
+        "beforeDigest": null,
+        "afterDigest": null
+      }
+    ],
+    "scope": "Opaque app-private directory renames. No personal contents leave the phone; original files are hash-verified after restoration. Test directories are retained separately, never merged."
+  },
+  "properties": {
+    "ro.kernel.qemu": "",
+    "ro.boot.qemu.avd_name": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.device": "blazer",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.version.release": "17",
+    "ro.build.version.sdk": "37",
+    "ro.build.version.security_patch": "2026-09-05",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "ro.soc.manufacturer": "Google",
+    "ro.soc.model": "Tensor G5",
+    "sys.boot_completed": "1"
+  },
+  "radioSettings": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "conditions": {
+    "capturedUtc": "2026-10-01T17:47:05.7157771Z",
+    "battery": [
+      "  AC powered: false",
+      "  USB powered: true",
+      "  Wireless powered: false",
+      "  Dock powered: false",
+      "  status: 4",
+      "  health: 2",
+      "  present: true",
+      "  level: 80",
+      "  scale: 100",
+      "  voltage: 4228",
+      "  temperature: 340",
+      "  technology: Li-ion"
+    ],
+    "memory": [
+      "MemTotal:       15949000 kB",
+      "MemFree:         1546864 kB",
+      "MemAvailable:    4971684 kB",
+      "SwapTotal:       7974496 kB",
+      "SwapFree:        4255236 kB"
+    ],
+    "dataSpace": [
+      "Filesystem       1K-blocks      Used Available Use% Mounted on",
+      "/dev/block/dm-80 239543380 115482280 123930028  49% /data/user/0"
+    ]
+  },
+  "screenOffTimeout": "30000",
+  "stayOnWhilePluggedIn": "0"
+}

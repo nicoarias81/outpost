@@ -1,0 +1,23 @@
+
+Starting edges/eos-plain / depth 0
+
+Completed edges/eos-plain: 2 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Starting edges/eos-oracle / depth 7
+
+Completed edges/eos-oracle: 2 tokens, 1 verify windows, 1 accepted / 1 proposed
+
+Starting edges/cache-after-verification / depth 0
+
+Completed edges/cache-after-verification: 2 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Starting edges/controller-reference / depth 0
+
+Completed edges/controller-reference: 32 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Starting edges/adaptive-wrong / depth 3
+
+Completed edges/adaptive-wrong: 32 tokens, 3 verify windows, 0 accepted / 9 proposed
+
+PASS ARM spec-edges: 27 controls.
+
