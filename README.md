@@ -1,5 +1,7 @@
 # Outpost
 
+Physical-device update (2026-10-01): [Pixel 10 Pro results](docs/pixel10-results-2026-10-01.md) add native admission, 32 practical model answers and real chat/import/PDF checks. ARM Q2 optimization and answer-quality work remain pending.
+
 Research update (2026-10-01): [Spark admission and measured comparison](docs/spark-candidate-results-2026-10-01.md) adds an emulator-only test path. The published local 0.14 APK and its three selectable models remain the product baseline; the same-version research build has separate hashes.
 
 An offline Android assistant. Open the app to chat; add your own documents through **Settings → Add file / Add folder**. The interface and maintained documentation are in English.

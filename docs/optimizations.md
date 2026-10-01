@@ -1,6 +1,6 @@
 # Optimization record
 
-Status: historical measurements plus the new 0.14 row-reuse experiment. The owned multi-column kernel changed; pinned backend/model weights did not. Current measured settings are local to Outpost35/Bonsai 4B; unmeasured device/model keys retain conservative defaults. See [0.14 experiment](kernel-rows-0.14.md) and [runtime](inference-runtime.md). All model execution and numerical tests cited here ran in an AOSP Android 15 x86_64 emulator configured with four logical CPUs and 4 GiB RAM. Results are not phone-performance claims.
+Status: historical measurements plus the 0.14 row-reuse experiment and subsequent [Pixel reference-path trial](pixel10-results-2026-10-01.md). The owned multi-column kernel changed in 0.14; pinned backend/model weights did not. The tuned settings remain local to Outpost35/Bonsai 4B; unmeasured device/model keys retain conservative defaults. See [0.14 experiment](kernel-rows-0.14.md) and [runtime](inference-runtime.md). Historical optimization measurements below used an AOSP Android 15 x86_64 emulator with four logical CPUs and 4 GiB RAM. They do not establish a phone speedup; the separate physical trial identifies the next ARM work without enabling a new kernel.
 
 ## Measurements and attribution
 
@@ -61,7 +61,7 @@ Prioritize an operation/shape baseline (P-05), then a guarded multi-row Q2 candi
 
 | Hypothesis | Required experiment | Adoption criterion |
 |---|---|---|
-| Native ARM kernels help the intended phones | Implement guarded reference/NEON/DotProd/I8MM variants, use the already linked/packaged ARM app, execute new kernels only in an authorized emulator first | Numerical checks, fallback/lifecycle tests, and full-workload benefit; phone measurements remain a later scope change |
+| Native ARM kernels help the intended phones | Implement guarded reference/NEON/DotProd/I8MM variants on the explicitly registered Pixel 10 Pro under [its protocol](pixel10-testing.md); retain the reference path | The [first physical trial](pixel10-results-2026-10-01.md) confirms all three ISA capabilities but selects the unoptimized Q2 reference. Require numerical/guard/lifecycle checks and controlled full-answer benefit before enabling an ARM candidate; other devices remain outside scope |
 | VNNI improves the current dot path | Distinguish AVX-VNNI and AVX-512 requirements; test signedness, accumulation limits, packing costs, and tails | Improvement beyond noise on compatible hardware; no regression on baseline dispatch |
 | Context reuse benefits real field work | Freeze a multi-question mission and package version, compare cold/partial/exact reuse | Useful outcome preserved, measured latency benefit, acceptable retained memory |
 | Smarter evidence selection lowers prefill | Compare bounded prompt budgets while holding mission evidence coverage constant | Faster useful answers without more omissions or citation errors |

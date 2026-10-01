@@ -12,6 +12,12 @@ Delivery checkpoints: OSM implementation `a804044`, evidence `9f3d36c`; kernel i
 - The product serves traveler, farmer, field engineer, mountaineer and driver question types. Vitalik's restaurant example is not a vegan/restaurant specialization. Public, regional and personal knowledge are complementary; inference and knowledge remain separate technical domains.
 - Discovery about reflection, reconnect tasks and equipment is not authorization to send, connect or operate external systems. Preserve pinned dependencies, reference fallback, private data and failed evidence. Public distribution/license/signing remain separate; the existing remote is private.
 
+## Physical Pixel checkpoint
+
+The owner-authorized Pixel 10 Pro / Tensor G5 / Android 17 now passes 23 native admission checks and 45 product chat/import/PDF checks. The 32-answer pilot passes 37 execution checks, but Bonsai has four deadline returns and both candidates have material answer/source errors. See [physical results](pixel10-results-2026-10-01.md) and [guarded commands/recovery](pixel10-testing.md). Main/native code and model pins are unchanged; custom Q2 ARM kernels remain absent. Prioritize P-02 equivalence and complete-request measurements rather than copying the x86 profile.
+
+The phone ends with app SHA `93b91e7f…5d35` and test SHA `6097b92f…4015`. Outpost35 was not modified by this trial and retains its prior test APK, so do not assume `-SkipInstall` matches the latest local build. The phone's existing chat/preferences were preserved through isolated visual testing; the journal is restored and original directory hashes match. Temporary screen settings were restored to timeout 30,000 ms / USB stay-on 0. Recheck live state before work.
+
 ## Product baseline
 
 Chat is home. One send retrieves and streams; the local conversation persists, with two bounded recent completed/limited turns as model context. `ChatPrompt` v1.1 permits general knowledge without fabricating personal/live sources; `ResearchPrompt` remains an independent evidence-only evaluation protocol. Product chat always sets speculation depth 0.
@@ -50,7 +56,7 @@ Spark-X2.5-1.7B is now a pinned, executed research profile outside the product s
 
 Attributed assistant review found 13/24 fully satisfactory reserved outcomes for each model under greedy diagnostics, with material errors in both. The full sampled-policy comparison and independent/field review remain pending. Spark is not offered in Settings and no product default changed. LFM2.5/Qwen3.5 remain unexecuted candidates. Compact Spark cache saved about 54 MiB sampled PSS in one control but failed strict first-logit parity; ordinary comparisons retain full cache/policy 2. All failed records and analyst notes are preserved.
 
-Current research app SHA starts 93b91e7f and test SHA 1fb39c9d; the exact identities are in the research validation, not the frozen release 0.14 manifest. Version labels are identical, so verify bytes. Models/code were executed only on Outpost35; no phone, host inference or storage policy change occurred. [Engram](engram-review.md), full pipeline tracing and trained-drafter integration remain separate research.
+Current research app SHA starts 93b91e7f and test SHA 1fb39c9d; the exact identities are in the research validation, not the frozen release 0.14 manifest. Version labels are identical, so verify bytes. That historical research checkpoint executed models/code only on Outpost35. The subsequent authorized Pixel trial is recorded above; host inference and storage-policy tuning remain outside scope. [Engram](engram-review.md), full pipeline tracing and trained-drafter integration remain separate research.
 
 ## Answer-pipeline observability research
 

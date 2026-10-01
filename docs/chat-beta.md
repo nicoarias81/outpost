@@ -6,7 +6,7 @@ Current behavior in Outpost 0.14.0; introduced in 0.10. [Latest validation](vali
 
 The launcher opens the current conversation with a bottom message composer and a Settings icon. Sending performs retrieval and streaming inference in one action. Settings contains document import/management, offline-model setup and confirmed conversation deletion. Prototype diagnostics, Kev controls, speculation controls, seed content and bottom navigation are removed from the product interface. Synthetic corpora and retrieval controls live only in the instrumented test APK.
 
-The user requested progress toward mobile user testing. The build packages ARM64 as well as x86_64, but the prior emulator-only execution constraint remains active. Building an ARM library is not physical-device validation. This candidate still requires model provisioning and the checks in the current roadmap before a broader release.
+The user requested progress toward mobile user testing and explicitly authorized the connected Pixel 10 Pro on 2026-10-01. The build packages ARM64 and x86_64; [physical validation](pixel10-results-2026-10-01.md) now includes 45 chat/import/PDF controls and native model admission. Use [the guarded Pixel protocol](pixel10-testing.md) and isolate personal state before visual tests. Broader provider/folder/OSM, field quality and release checks remain in the roadmap.
 
 ## Conversation and inference
 

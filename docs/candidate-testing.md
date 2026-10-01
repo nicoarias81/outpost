@@ -46,4 +46,6 @@ PSS/RSS and self process fault counters are sampled at a requested 200 ms interv
 
 ## Status
 
+The subsequent owner-authorized [Pixel 10 Pro trial](pixel10-results-2026-10-01.md) passed 23 native admission checks and 37 pilot execution checks/32 answers, with 45 real-chat checks. Counts include the new permission/hash gates; historical emulator counts below are unchanged. Bonsai has four phone pilot deadlines and both models retain quality failures. Use [the Pixel runbook](pixel10-testing.md) for data isolation and target registration.
+
 Final admission passed 21 execution checks, the pilot/reserved/timing runs completed, and real product-chat regression passed 45 checks. [Results and exact research-build identity](spark-candidate-results-2026-10-01.md) preserve attributed quality failures and the rejected compact-cache experiment. Spark remains outside the product selector; no candidate is promoted by these execution checks. E-07/E-05, P-04/P-07 and E-08 remain distinct: sampled native-call memory does not implement complete lifecycle tracing or a storage benchmark.
