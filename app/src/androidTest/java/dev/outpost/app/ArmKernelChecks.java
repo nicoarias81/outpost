@@ -99,9 +99,9 @@ final class ArmKernelChecks {
     }
     private void paired(NativeEngine engine,ModelStore model,boolean confirm)throws Exception{
         int threads=Integer.parseInt(args.getString("arm_threads","4")),width=Integer.parseInt(args.getString("arm_width","4"));int rounds=confirm?3:1;
-        engine.deadlineForTests(300000);report.put("comparisonThreads",threads).put("comparisonWidth",width).put("rounds",rounds).put("researchDeadlineMs",300000).put("productDeadlineMs",120000);write();
+        engine.deadlineForTests(300000);report.put("comparisonThreads",threads).put("comparisonWidth",width).put("referenceThreads",4).put("rounds",rounds).put("researchDeadlineMs",300000).put("productDeadlineMs",120000);write();
         ChatPrompt.Prepared shortPrompt=ChatPrompt.prepare("For this conversation my code name is Cedar. Reply with just the code name.",List.of(),List.of());
-        NativeEngine.Result shortReference=call(engine,model,"complete-control/reference",ChatPrompt.SYSTEM,shortPrompt.user(),false,threads,width,192);int[] shortTokens=engine.lastTokens();
+        NativeEngine.Result shortReference=call(engine,model,"complete-control/reference",ChatPrompt.SYSTEM,shortPrompt.user(),false,4,width,192);int[] shortTokens=engine.lastTokens();
         NativeEngine.Result shortFast=call(engine,model,"complete-control/candidate",ChatPrompt.SYSTEM,shortPrompt.user(),true,threads,width,192);
         require(shortReference.reason()==0&&shortFast.reason()==0&&shortReference.text().equals(shortFast.text())&&shortReference.firstLogitsHash()==shortFast.firstLogitsHash()&&Arrays.equals(shortTokens,engine.lastTokens()),"Complete short chat has identical tokens/text/logits");
         List<ChatPrompt.Prepared> prompts=prompts();
@@ -109,9 +109,9 @@ final class ArmKernelChecks {
             var prompt=prompts.get(c);String expected=null;long hash=0;int[] tokens=null;int expectedStop=-1;
             for(int round=0;round<rounds;round++)for(int order=0;order<2;order++){
                 boolean fast=(c+round+order)%2!=0;
-                call(engine,model,"case"+c+"/round"+round+"/warmup",ChatPrompt.SYSTEM,prompt.user(),fast,threads,width,8);
+                call(engine,model,"case"+c+"/round"+round+"/warmup",ChatPrompt.SYSTEM,prompt.user(),fast,fast?threads:4,width,8);
                 answers.getJSONObject(answers.length()-1).put("warmup",true);write();
-                NativeEngine.Result r=call(engine,model,"case"+c+"/round"+round,ChatPrompt.SYSTEM,prompt.user(),fast,threads,width,192);
+                NativeEngine.Result r=call(engine,model,"case"+c+"/round"+round,ChatPrompt.SYSTEM,prompt.user(),fast,fast?threads:4,width,192);
                 require(r.reason()==0||r.reason()==1,"Request finishes naturally or at unchanged192-token cap within equal300-second research deadline");
                 if(expected==null){expected=r.text();hash=r.firstLogitsHash();tokens=engine.lastTokens();expectedStop=(int)r.reason();}
                 else require(expectedStop==r.reason()&&expected.equals(r.text())&&hash==r.firstLogitsHash()&&Arrays.equals(tokens,engine.lastTokens()),"Full generated sequence, stop reason and initial logits remain identical");
