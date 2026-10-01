@@ -57,7 +57,7 @@ final class RuntimeChecks {
             output.putString("stream","\nFAIL runtime: "+android.util.Log.getStackTraceString(error)); test.finish(Activity.RESULT_CANCELED,output);
         } finally { NativeEngine.setKernelBatchWidth(1); NativeEngine.setKernelAutomatic(true); }
     }
-    private RuntimeSettings.Profile p(int threads,int prompt,int batch,int width) { RuntimeSettings.Profile current=RuntimeSettings.load(test.getTargetContext(),model.spec());return new RuntimeSettings.Profile(threads,prompt,batch,width,true,current.rowTile(),current.decodeRows()); }
+    private RuntimeSettings.Profile p(int threads,int prompt,int batch,int width) { RuntimeSettings.Profile current=RuntimeSettings.load(test.getTargetContext(),model.spec());return new RuntimeSettings.Profile(threads,prompt,batch,width,true,current.rowTile(),current.decodeRows(),current.prefillChunk(),current.decodeChunk()); }
     private NativeEngine.Result call(NativeEngine engine,String label,RuntimeSettings.Profile profile,boolean cache,String user,int max,boolean sampled) throws Exception {
         engine.configure(profile.configuration(cache));
         NativeEngine.Result r=engine.generateWithSampling(engine.request(),model.file(),SYSTEM,user,max,sampled,(s,n)->{});

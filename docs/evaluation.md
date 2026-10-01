@@ -1,6 +1,6 @@
 # Evaluation and evidence protocol
 
-Current reference: **Outpost 0.15.0**, [validation](validation-0.15.md), [fixtures v8](../eval/fixtures-v8.json), [rubric v2](../eval/rubric-v2.md). Broad field/held-out quality remains open. Scored development experiments from 0.9 are historical; the current product protocol is `ChatPrompt` v1.1, distinct from the matrix's evidence-only `ResearchPrompt`.
+Current reference: **Outpost 0.16.0**, [validation](validation-0.16.md), [fixtures v9](../eval/fixtures-v9.json), [rubric v2](../eval/rubric-v2.md). Broad field/held-out quality remains open. Scored development experiments from 0.9 are historical; the current product protocol is `ChatPrompt` v1.1, distinct from the matrix's evidence-only `ResearchPrompt`.
 
 ## Separate the questions
 

@@ -2,6 +2,13 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## 0.16.0 — 2026-10-01
+
+- Added guarded dynamic matrix-row scheduling using existing threadpool storage; the measured Pixel/Bonsai4 profile uses 32-row prefill chunks and unchanged static decode.
+- Preserved exact numerical/full-output behavior, cache/cancellation recovery and fallback; added persisted chunk identity and actual-path diagnostics.
+- Recorded two complete paired campaigns, final mobile/UI/model and x86 checks; preserved previous artifacts and original device data.
+- Updated current fixtures to v9 and corrected stale project metadata to the current version and authorized execution scope.
+
 ## Post-0.15 research — 2026-10-01
 
 - Added test-only app CPU sampling with matched output controls and build-ID-checked native symbol attribution; the released product APK is unchanged.

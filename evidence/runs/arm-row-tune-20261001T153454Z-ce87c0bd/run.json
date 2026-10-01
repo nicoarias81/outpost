@@ -1,0 +1,84 @@
+{
+  "runId": "arm-row-tune-20261001T153454Z-ce87c0bd",
+  "phase": "row-tune",
+  "target": "Pixel10Pro",
+  "startedUtc": "2026-10-01T15:34:54.1192341Z",
+  "gitHead": "decaafed912e1262acff2565445159a09b3945e2",
+  "sourceStatus": [
+    " M app/src/androidTest/java/dev/outpost/app/ArmKernelChecks.java",
+    " M app/src/main/cpp/engine.cpp",
+    " M app/src/main/cpp/q2_arm.c",
+    " M app/src/main/cpp/q2_arm.h",
+    " M app/src/main/java/dev/outpost/app/NativeEngine.java",
+    " M scripts/test-arm.ps1",
+    " M scripts/test-pixel-chat-isolated.ps1",
+    "?? evidence/research/row-schedule-20261001/",
+    "?? evidence/runs/arm-row-numeric-20261001T153430Z-99bc2c0a/",
+    "?? evidence/runs/pixel-isolation-20261001T153425Z-311b40af/",
+    "?? evidence/runs/pixel-isolation-20261001T153447Z-4ee217de/"
+  ],
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T15:33:13.5209793Z",
+    "versionName": "0.15.0",
+    "versionCode": 17,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "64dbebde50a03c195be865e085636e003779f3422466b64a30b90f8ebd7b90f5",
+    "testSourcesSha256": "31047a313154699415ea01cfc525241ff406d76ea8ead7b5cf6abd38ecd0e3a8",
+    "appSha256": "bd2a9b2972770f8d95bebf0756986f19a813efa0ea1adb34960cd8a27538f1cd",
+    "testApkSha256": "91a9c239191baa88695fbfabc9ffa5310877b94aef2688e26b282dfbfbf85ecd",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "deviceProperties": {
+    "ro.kernel.qemu": "",
+    "ro.boot.qemu.avd_name": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.device": "blazer",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.version.release": "17",
+    "ro.build.version.sdk": "37",
+    "ro.build.version.security_patch": "2026-09-05",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "ro.soc.manufacturer": "Google",
+    "ro.soc.model": "Tensor G5",
+    "sys.boot_completed": "1"
+  },
+  "radioSettings": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "conditionsBefore": {
+    "capturedUtc": "2026-10-01T15:34:54.6598374Z",
+    "battery": [
+      "  AC powered: false",
+      "  USB powered: true",
+      "  Wireless powered: false",
+      "  Dock powered: false",
+      "  status: 4",
+      "  health: 2",
+      "  present: true",
+      "  level: 80",
+      "  scale: 100",
+      "  voltage: 4167",
+      "  temperature: 315",
+      "  technology: Li-ion"
+    ],
+    "memory": [
+      "MemTotal:       15949000 kB",
+      "MemFree:         1362808 kB",
+      "MemAvailable:    4645260 kB",
+      "SwapTotal:       7974496 kB",
+      "SwapFree:        3942352 kB"
+    ],
+    "dataSpace": [
+      "Filesystem       1K-blocks      Used Available Use% Mounted on",
+      "/dev/block/dm-80 239543380 115997304 123415004  49% /data/user/0"
+    ]
+  },
+  "threads": 4,
+  "width": 8,
+  "decodeRows": 4,
+  "scope": "Foreground ARM parity/performance research; per-call thermal/screen gates, unchanged model/prompt/output budget. No personal app content is read by the replacement Activity."
+}

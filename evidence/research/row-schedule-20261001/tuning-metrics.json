@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "runId": "arm-row-tune-20261001T153454Z-ce87c0bd",
+  "phase": "row-tune",
+  "reportSha256": "ddf6452a90f703ae971f07f7f12dacf232f3182748f2a4cbb2d1aeb53c7cf5a7",
+  "appSha256": "bd2a9b2972770f8d95bebf0756986f19a813efa0ea1adb34960cd8a27538f1cd",
+  "testApkSha256": "91a9c239191baa88695fbfabc9ffa5310877b94aef2688e26b282dfbfbf85ecd",
+  "scope": "Rotated/reversed known synthetic workloads. Same attention workers, model, sampling and output budgets. Matched full logit traces establish bounded numerical parity, not answer quality or cross-device speed.",
+  "cases": [
+    {
+      "case": "tuning",
+      "tokens": 64,
+      "stopReason": 1,
+      "allTokensAndDistributionsEqual": true,
+      "configurations": [
+        {
+          "prefillChunk": 0,
+          "decodeChunk": 0,
+          "metrics": {
+            "prefillMs": {
+              "observations": [
+                9842,
+                14037
+              ],
+              "median": 11939.5
+            },
+            "firstTokenMs": {
+              "observations": [
+                9944,
+                14217
+              ],
+              "median": 12080.5
+            },
+            "decodeMs": {
+              "observations": [
+                6885,
+                11172
+              ],
+              "median": 9028.5
+            },
+            "totalMs": {
+              "observations": [
+                16829,
+                25387
+              ],
+              "median": 21108.0
+            }
+          },
+          "baselineOverCandidateRatio": {
+            "prefillMs": 1.0,
+            "firstTokenMs": 1.0,
+            "decodeMs": 1.0,
+            "totalMs": 1.0
+          }
+        },
+        {
+          "prefillChunk": 0,
+          "decodeChunk": 64,
+          "metrics": {
+            "prefillMs": {
+              "observations": [
+                10309,
+                14277
+              ],
+              "median": 12293.0
+            },
+            "firstTokenMs": {
+              "observations": [
+                10422,
+                14462
+              ],
+              "median": 12442.0
+            },
+            "decodeMs": {
+              "observations": [
+                6470,
+                10952
+              ],
+              "median": 8711.0
+            },
+            "totalMs": {
+              "observations": [
+                16892,
+                25413
+              ],
+              "median": 21152.5
+            }
+          },
+          "baselineOverCandidateRatio": {
+            "prefillMs": 0.9712437972830066,
+            "firstTokenMs": 0.9709451856614693,
+            "decodeMs": 1.0364481689817473,
+            "totalMs": 0.9978962297600756
+          }
+        },
+        {
+          "prefillChunk": 32,
+          "decodeChunk": 0,
+          "metrics": {
+            "prefillMs": {
+              "observations": [
+                8613,
+                12344
+              ],
+              "median": 10478.5
+            },
+            "firstTokenMs": {
+              "observations": [
+                8725,
+                12522
+              ],
+              "median": 10623.5
+            },
+            "decodeMs": {
+              "observations": [
+                6913,
+                11267
+              ],
+              "median": 9090.0
+            },
+            "totalMs": {
+              "observations": [
+                15638,
+                23789
+              ],
+              "median": 19713.5
+            }
+          },
+          "baselineOverCandidateRatio": {
+            "prefillMs": 1.1394283532948417,
+            "firstTokenMs": 1.137148773944557,
+            "decodeMs": 0.9932343234323432,
+            "totalMs": 1.0707383265275066
+          }
+        },
+        {
+          "prefillChunk": 32,
+          "decodeChunk": 64,
+          "metrics": {
+            "prefillMs": {
+              "observations": [
+                9504,
+                12615
+              ],
+              "median": 11059.5
+            },
+            "firstTokenMs": {
+              "observations": [
+                9617,
+                12795
+              ],
+              "median": 11206.0
+            },
+            "decodeMs": {
+              "observations": [
+                7151,
+                10958
+              ],
+              "median": 9054.5
+            },
+            "totalMs": {
+              "observations": [
+                16767,
+                23752
+              ],
+              "median": 20259.5
+            }
+          },
+          "baselineOverCandidateRatio": {
+            "prefillMs": 1.079569600795696,
+            "firstTokenMs": 1.07803855077637,
+            "decodeMs": 0.9971284996410624,
+            "totalMs": 1.0418815864162492
+          }
+        },
+        {
+          "prefillChunk": 64,
+          "decodeChunk": 128,
+          "metrics": {
+            "prefillMs": {
+              "observations": [
+                10378,
+                11370
+              ],
+              "median": 10874.0
+            },
+            "firstTokenMs": {
+              "observations": [
+                10509,
+                11499
+              ],
+              "median": 11004.0
+            },
+            "decodeMs": {
+              "observations": [
+                8742,
+                10375
+              ],
+              "median": 9558.5
+            },
+            "totalMs": {
+              "observations": [
+                19250,
+                21873
+              ],
+              "median": 20561.5
+            }
+          },
+          "baselineOverCandidateRatio": {
+            "prefillMs": 1.0979860217031452,
+            "firstTokenMs": 1.097828062522719,
+            "decodeMs": 0.9445519694512737,
+            "totalMs": 1.0265788001848115
+          }
+        }
+      ]
+    }
+  ],
+  "exploratoryChoice": {
+    "prefillChunk": 32,
+    "decodeChunk": 0,
+    "requiresCompleteConfirmation": true
+  }
+}

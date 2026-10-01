@@ -1,6 +1,6 @@
 # Developer guide
 
-Current baseline: **Outpost 0.15.0**, Windows/PowerShell host. Work from `E:/projects/outpost`. The APK packages x86_64/ARM64; execution is allowed on Outpost35/emulator-5582 or the specifically registered Pixel10Pro. Read [the emulator guide](emulator-runbook.md) or [the Pixel protocol](pixel10-testing.md) before runtime work. Host inference remains outside scope.
+Current baseline: **Outpost 0.16.0**, Windows/PowerShell host. Work from `E:/projects/outpost`. The APK packages x86_64/ARM64; execution is allowed on Outpost35/emulator-5582 or the specifically registered Pixel10Pro. Read [the emulator guide](emulator-runbook.md) or [the Pixel protocol](pixel10-testing.md) before runtime work. Host inference remains outside scope.
 
 ## Environment and preparation
 
@@ -48,7 +48,7 @@ pwsh -File scripts/publish-artifact.ps1 -Verify
 if ($LASTEXITCODE -ne 0) { throw 'Artifact verification failed.' }
 ```
 
-Publication copies the debug APK into ignored `dist/` using the version in `app/build.gradle`, writes an LF checksum sidecar and refuses a different artifact with the same version. `-Verify` checks the existing artifact without requiring a build APK. This is local integrity checking, not production signing, public distribution or an independent reproducible-build attestation. The current artifact is `outpost-0.15.0-user-test.apk`; exact hashes/receipt are in [validation](validation-0.15.md).
+Publication copies the debug APK into ignored `dist/` using the version in `app/build.gradle`, writes an LF checksum sidecar and refuses a different artifact with the same version. `-Verify` checks the existing artifact without requiring a build APK. This is local integrity checking, not production signing, public distribution or an independent reproducible-build attestation. The current artifact is `outpost-0.16.0-user-test.apk`; exact hashes/receipt are in [validation](validation-0.16.md).
 
 Current lint: **0 errors, 3 existing upstream BouncyCastle TrustAllX509TrustManager warnings**. The app has no INTERNET permission and does not use those networking helpers. Report actual counts; do not describe lint as having no issues.
 
@@ -103,7 +103,7 @@ Keep behavior commits separate from regenerated evidence; raw JSON/screenshots c
 
 A native-controller review must actually complete before it grants review authority. The historical `a52f2b3` review failed with empty/length-limited output; later practical fixes do not retroactively acknowledge it. [Handoff](handoff.md) retains that distinction.
 
-For docs-only work, inspect source contracts, resolve local links, run `eval/validate.py`, `eval/check-build.ps1`, artifact `-Verify` and `git diff --check` as appropriate. No emulator/model/build rerun is needed. The fixture validator now compares the full packaged ABI set; v7 preserves the current identity while earlier manifests remain frozen. Validate with `eval/validate.py`; host-only ABI fault-injection results are preserved with the place-query research evidence.
+For docs-only work, inspect source contracts, resolve local links, run `eval/validate.py`, `eval/check-build.ps1`, artifact `-Verify` and `git diff --check` as appropriate. No emulator/model/build rerun is needed. The fixture validator now compares the full packaged ABI set; v9 preserves the current identity while earlier manifests remain frozen. Validate with `eval/validate.py`; host-only ABI fault-injection results are preserved with the place-query research evidence.
 
 ## Troubleshooting
 
@@ -121,3 +121,5 @@ For docs-only work, inspect source contracts, resolve local links, run `eval/val
 ## App-only CPU sampling
 
 The current ARM wrapper also accepts `-ArmPhase profile` through the Pixel isolation script. Use 4 decode/6 prompt workers, width 8, decodeRows 4 and persistent workers as shown in [the stack audit](inference-stack-audit-2026-10-01.md). It records own-process user CPU samples with Android simpleperf and observed first-text boundaries, then restores personal app data. Run the offline symbol analysis against the exact native build ID. The rejected half-block experiment is retained only in its evidence snapshots.
+
+The retained `profile` phase reproduces the earlier static-row CPU audit. It does not automatically select the 0.16 queued product profile. Current queue execution is verified by `row-confirm`/`row-lifecycle` and the real-chat native node counters.

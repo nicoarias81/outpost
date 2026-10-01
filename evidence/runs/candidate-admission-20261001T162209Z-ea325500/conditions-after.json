@@ -1,0 +1,35 @@
+{
+  "radioSettings": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "conditions": {
+    "capturedUtc": "2026-10-01T16:26:00.1172822Z",
+    "battery": [
+      "  AC powered: false",
+      "  USB powered: true",
+      "  Wireless powered: false",
+      "  Dock powered: false",
+      "  status: 2",
+      "  health: 2",
+      "  present: true",
+      "  level: 80",
+      "  scale: 100",
+      "  voltage: 4227",
+      "  temperature: 375",
+      "  technology: Li-ion"
+    ],
+    "memory": [
+      "MemTotal:       15949000 kB",
+      "MemFree:         1377964 kB",
+      "MemAvailable:    5000408 kB",
+      "SwapTotal:       7974496 kB",
+      "SwapFree:        3729164 kB"
+    ],
+    "dataSpace": [
+      "Filesystem       1K-blocks      Used Available Use% Mounted on",
+      "/dev/block/dm-80 239543380 115998864 123413444  49% /data/user/0"
+    ]
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "version": "0.16.0",
+  "versionCode": 18,
+  "appSha256": "095c5c56995e3de9947d0125a0757387c429191cf0602700f7d5b9b8c036239f",
+  "testApkSha256": "92d2c533b1aaff6267c1607b46f6219351589da83bf62ea3b1b1fa4f0c0fa0d0",
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T16:18:36.7896439Z",
+    "versionName": "0.16.0",
+    "versionCode": 18,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "0fe885d9b8c523320f15518b2010525b8b2bf3463f7edff5432a04ea51d6daa9",
+    "testSourcesSha256": "0b7e12fe691467eed88935904d4d69bcd5ff24cd4c7988246a0a4e99b645fcdf",
+    "appSha256": "095c5c56995e3de9947d0125a0757387c429191cf0602700f7d5b9b8c036239f",
+    "testApkSha256": "92d2c533b1aaff6267c1607b46f6219351589da83bf62ea3b1b1fa4f0c0fa0d0",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "runs": {
+    "numeric": "arm-row-numeric-20261001T153430Z-99bc2c0a",
+    "tuning": "arm-row-tune-20261001T153454Z-ce87c0bd",
+    "confirmation": "arm-row-confirm-20261001T154033Z-e72d8318",
+    "reversedConfirmation": "arm-row-confirm-reverse-20261001T155657Z-a8a9eb76",
+    "finalLifecycle": "arm-row-lifecycle-20261001T162122Z-b4acd4ef",
+    "finalChat": "chat-20261001T162039Z-83cce61f",
+    "finalAdmission": "candidate-admission-20261001T162209Z-ea325500",
+    "finalX86": "x86-regression-20261001T162031Z-55049363"
+  },
+  "selectedProfile": {
+    "threads": 4,
+    "promptThreads": 6,
+    "batch": 128,
+    "width": 8,
+    "rowTile": 1,
+    "decodeRows": 4,
+    "prefillChunk": 32,
+    "decodeChunk": 0,
+    "measured": true,
+    "persistentThreads": true,
+    "kernel": "Q2_0 NEON DotProd"
+  },
+  "productLimits": {
+    "context": 2048,
+    "outputTokens": 192,
+    "deadlineMs": 120000
+  },
+  "scope": "Local user-test artifact. Known synthetic paired timing and exact output controls; no broader device, quality, energy or field-acceptance claim.",
+  "uiObservations": [
+    {
+      "case": "first-turn",
+      "text": "Cedar",
+      "tokens": 2,
+      "firstTokenMs": 6190,
+      "totalMs": 6392,
+      "rowSchedule": {
+        "prefillChunk": 32,
+        "decodeChunk": 0,
+        "prefillNodes": 498,
+        "decodeNodes": 0
+      }
+    },
+    {
+      "case": "follow-up",
+      "text": "Cedar",
+      "tokens": 2,
+      "firstTokenMs": 6337,
+      "totalMs": 6544,
+      "rowSchedule": {
+        "prefillChunk": 32,
+        "decodeChunk": 0,
+        "prefillNodes": 498,
+        "decodeNodes": 0
+      }
+    },
+    {
+      "case": "with-document",
+      "text": "[1] Equipment manual.pdf: Sample unit PX-65 uses spare filter F-92.",
+      "tokens": 21,
+      "firstTokenMs": 4858,
+      "totalMs": 7234,
+      "rowSchedule": {
+        "prefillChunk": 32,
+        "decodeChunk": 0,
+        "prefillNodes": 498,
+        "decodeNodes": 0
+      }
+    }
+  ],
+  "visualReview": {
+    "files": [
+      "chat-home.png",
+      "chat-settings.png",
+      "chat-documents.png",
+      "chat-pdf.png",
+      "chat-conversation.png",
+      "chat-sourced.png"
+    ],
+    "result": "All six synthetic captures visually reviewed: English chat/Settings/document/PDF/source flows remain readable; no personal app content is shown."
+  },
+  "nativeLibraries": {
+    "arm64-v8a": {
+      "sha256": "2a4285c4df1e1ad8cc9fd0baed8ee8f7203ad7c54e7792a84d155da0886626a4",
+      "identicalToConfirmedResearchBuild": true
+    },
+    "x86_64": {
+      "sha256": "cba58c7ebc4368b68db6f99d4fe7279e56b10e5fa25f87e6703403e6b617c584",
+      "identicalToConfirmedResearchBuild": true
+    }
+  },
+  "isolationRuns": [
+    "pixel-isolation-20261001T153425Z-311b40af",
+    "pixel-isolation-20261001T153447Z-4ee217de",
+    "pixel-isolation-20261001T154028Z-62196fb3",
+    "pixel-isolation-20261001T155207Z-f52628e8",
+    "pixel-isolation-20261001T155652Z-2397ab57",
+    "pixel-isolation-20261001T161423Z-019f9753",
+    "pixel-isolation-20261001T161517Z-b8a97435",
+    "pixel-isolation-20261001T162034Z-c038cb5e",
+    "pixel-isolation-20261001T162116Z-c65c1a7f"
+  ],
+  "failedIntegrationRun": "chat-20261001T161524Z-cdd8aad0",
+  "finalDeviceRecord": "final-device.json"
+}

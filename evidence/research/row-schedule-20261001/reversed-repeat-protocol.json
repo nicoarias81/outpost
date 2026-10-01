@@ -1,0 +1,13 @@
+{
+  "reason": "First confirmation improves prefill in both cases, but total-time group medians disagree with paired observations during thermal/order drift. One reversed repeat is permitted to resolve this uncertainty before adoption.",
+  "maximumAdditionalCampaigns": 1,
+  "reverseCaseOrder": true,
+  "reverseArmOrder": true,
+  "sameAppApkRequired": true,
+  "chosenPrefillChunk": 32,
+  "chosenDecodeChunk": 0,
+  "roundsPerCase": 3,
+  "outputCap": 192,
+  "deadlineMs": 120000,
+  "gate": "Pool both complete campaigns: exact tokens/text/stop/per-step-logit hashes in every case; baseline/candidate median prefill >1.05 in each case; baseline/candidate median total >=1.0 in each case; lifecycle passes. If the gate fails, keep the static product policy. Paired ratios are also reported but do not replace the gate."
+}

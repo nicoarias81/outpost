@@ -1,8 +1,12 @@
 # Inference runtime
 
-Status: implementation reference for Outpost 0.15.0. The owned wrappers support guarded x86 and ARM Q2 paths. ARM adds exact-lane DotProd, prepared activations/column/decode-row reuse and persistent workers; vendor backend, model weights and sampler remain pinned and unchanged. See [architecture](architecture.md) for the application flow and [optimizations](optimizations.md) for measurements.
+Status: implementation reference for Outpost 0.16.0. The owned wrappers support guarded x86 and ARM Q2 paths. ARM adds exact-lane DotProd, prepared activations/column/decode-row reuse and persistent workers; vendor backend, model weights and sampler remain pinned and unchanged. See [architecture](architecture.md) for the application flow and [optimizations](optimizations.md) for measurements.
 
 For the complete weight/activation/arithmetic/KV/dispatch contract and measured CPU attribution, see [the stack audit](inference-stack-audit-2026-10-01.md).
+
+## 0.16 row scheduling
+
+The 0.16 configuration adds prefill/decode row chunks to JNI, cache compatibility and persisted profiles. The exact Pixel/Bonsai4 key selects 32/0; multi-column Q2 matrices claim 32-row tasks through the existing threadpool counter. Single-column work, other device/model keys and small/one-worker cases retain static scheduling. [Implementation and validation](validation-0.16.md).
 
 ## Model identities
 
@@ -55,7 +59,7 @@ Changing decoder thread count can change the backend's split-KV attention reduct
 2. For an identical prompt, retain its KV state and saved final-prompt logits. Start a fresh sampler and sample the first output from those logits.
 3. For a partial match, reuse only complete batches aligned with cold execution. Recompute the remaining prompt.
 4. Remove generated response tokens from attention before the next request. Caching does not create conversational history.
-5. Invalidate incompatible model, thread/batch/width/kernel settings, and contexts affected by cancellation or error.
+5. Invalidate incompatible model, thread/batch/width/kernel/row-queue settings, and contexts affected by cancellation or error.
 6. Release context on backgrounding or the relevant memory callback; do not retain it when Android reports low memory.
 
 Re-evaluating only the last token of an identical prompt was tried and replaced after UI logits/text changed. The failed record remains part of the [cache evidence](../evidence/0.7-before-outpost/strata/cache-initial-ui-mismatch.json).

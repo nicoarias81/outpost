@@ -32,3 +32,5 @@ gradlew.bat text eol=crlf
 /app/src/androidTest/assets/places/*.osm -text whitespace=cr-at-eol
 /app/src/androidTest/assets/places/*.json -text whitespace=cr-at-eol
 /evidence/research/stack-audit-20261001/** -text whitespace=cr-at-eol
+/evidence/research/row-schedule-20261001/** -text whitespace=cr-at-eol
+/evidence/runs/x86-regression-*/*.log whitespace=cr-at-eol,-blank-at-eof

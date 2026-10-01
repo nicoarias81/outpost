@@ -1,0 +1,8 @@
+
+FAIL chat: java.lang.AssertionError: Product chat executes the selected prefill row queue: first-turn
+	at dev.outpost.app.ChatChecks.check(ChatChecks.java:44)
+	at dev.outpost.app.ChatChecks.record(ChatChecks.java:183)
+	at dev.outpost.app.ChatChecks.run(ChatChecks.java:126)
+	at dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:85)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2655)
+

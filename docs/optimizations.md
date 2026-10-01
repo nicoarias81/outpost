@@ -4,6 +4,10 @@ Status: current ARM adoption in Outpost 0.15, followed by preserved historical x
 
 The [stack audit and CPU profile](inference-stack-audit-2026-10-01.md) separates packed storage, INT8 arithmetic, F16 cache and actual function samples. The resulting half-block scheduling experiment removed inner-loop spills and preserved all outputs but did not pass speed admission. The original kernel remains selected; the profile itself is not a new speedup.
 
+## 0.16 row scheduling
+
+The 0.16 row queue is admitted only for multi-column work on the measured Pixel/Bonsai key. 32-row prefill chunks pass ownership, full-output, lifecycle and phase/total timing gates; decode remains static. [Six-pair comparison and limitations](validation-0.16.md). The first campaign and the predeclared reversed repeat are both retained.
+
 ## Current ARM result
 
 [0.15 validation](validation-0.15.md) adopts guarded DotProd, activation/column/decode-row reuse and persistent workers for the tested Pixel/Bonsai preset. Three exact full-trace pairs show205.05→35.52s and262.63→42.32s native medians; first-token medians41.08→12.38s and45.37→14.13s. Both comparison arms used300-second research deadlines; normal app limits are unchanged. This is a combined runtime improvement on two known workloads, not a DotProd-only or universal device speedup.

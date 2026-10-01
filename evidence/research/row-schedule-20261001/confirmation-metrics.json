@@ -1,0 +1,378 @@
+{
+  "schemaVersion": 1,
+  "runId": "arm-row-confirm-20261001T154033Z-e72d8318",
+  "phase": "row-confirm",
+  "reportSha256": "d105b0db87cd209879c5a47f7d35d6eeebeef36cca29eee1d92faa4b2fe24931",
+  "appSha256": "bd2a9b2972770f8d95bebf0756986f19a813efa0ea1adb34960cd8a27538f1cd",
+  "testApkSha256": "91a9c239191baa88695fbfabc9ffa5310877b94aef2688e26b282dfbfbf85ecd",
+  "scope": "Rotated/reversed known synthetic workloads. Same attention workers, model, sampling and output budgets. Matched full logit traces establish bounded numerical parity, not answer quality or cross-device speed.",
+  "cases": [
+    {
+      "case": "case0",
+      "tokens": 133,
+      "stopReason": 0,
+      "allTokensAndDistributionsEqual": true,
+      "configurations": [
+        {
+          "prefillChunk": 0,
+          "decodeChunk": 0,
+          "metrics": {
+            "prefillMs": {
+              "observations": [
+                9463,
+                12445,
+                14627,
+                18579,
+                16224,
+                16623
+              ],
+              "median": 15425.5
+            },
+            "firstTokenMs": {
+              "observations": [
+                9573,
+                12639,
+                14832,
+                18799,
+                16430,
+                16837
+              ],
+              "median": 15631.0
+            },
+            "decodeMs": {
+              "observations": [
+                19907,
+                23843,
+                24010,
+                26340,
+                25800,
+                25819
+              ],
+              "median": 24905.0
+            },
+            "totalMs": {
+              "observations": [
+                29479,
+                36481,
+                38841,
+                45137,
+                42228,
+                42654
+              ],
+              "median": 40534.5
+            }
+          },
+          "baselineOverCandidateRatio": {
+            "prefillMs": 1.0,
+            "firstTokenMs": 1.0,
+            "decodeMs": 1.0,
+            "totalMs": 1.0
+          }
+        },
+        {
+          "prefillChunk": 32,
+          "decodeChunk": 0,
+          "metrics": {
+            "prefillMs": {
+              "observations": [
+                9894,
+                11513,
+                12482,
+                15578,
+                14592,
+                14561
+              ],
+              "median": 13521.5
+            },
+            "firstTokenMs": {
+              "observations": [
+                10027,
+                11706,
+                12687,
+                15795,
+                14811,
+                14776
+              ],
+              "median": 13731.5
+            },
+            "decodeMs": {
+              "observations": [
+                22541,
+                23040,
+                23977,
+                27506,
+                25981,
+                27467
+              ],
+              "median": 24979.0
+            },
+            "totalMs": {
+              "observations": [
+                32568,
+                34744,
+                36662,
+                43299,
+                40789,
+                42242
+              ],
+              "median": 38725.5
+            }
+          },
+          "baselineOverCandidateRatio": {
+            "prefillMs": 1.1408127796472285,
+            "firstTokenMs": 1.1383315733896515,
+            "decodeMs": 0.9970375115096681,
+            "totalMs": 1.0467134058953402
+          }
+        }
+      ],
+      "pairedRatios": [
+        {
+          "campaign": 0,
+          "round": 0,
+          "ratios": {
+            "prefillMs": 0.9564382454012533,
+            "firstTokenMs": 0.9547222499252019,
+            "decodeMs": 0.883146266802715,
+            "totalMs": 0.9051522967329895
+          }
+        },
+        {
+          "campaign": 0,
+          "round": 1,
+          "ratios": {
+            "prefillMs": 1.0809519673412664,
+            "firstTokenMs": 1.0797027165556126,
+            "decodeMs": 1.0348524305555555,
+            "totalMs": 1.0499942436104075
+          }
+        },
+        {
+          "campaign": 0,
+          "round": 2,
+          "ratios": {
+            "prefillMs": 1.1718474603428937,
+            "firstTokenMs": 1.1690707022936864,
+            "decodeMs": 1.0013763189723486,
+            "totalMs": 1.0594348371610933
+          }
+        },
+        {
+          "campaign": 1,
+          "round": 0,
+          "ratios": {
+            "prefillMs": 1.1926434715624599,
+            "firstTokenMs": 1.1901867679645457,
+            "decodeMs": 0.9576092488911511,
+            "totalMs": 1.042449017298321
+          }
+        },
+        {
+          "campaign": 1,
+          "round": 1,
+          "ratios": {
+            "prefillMs": 1.111842105263158,
+            "firstTokenMs": 1.1093106474917291,
+            "decodeMs": 0.99303337054001,
+            "totalMs": 1.0352791193704185
+          }
+        },
+        {
+          "campaign": 1,
+          "round": 2,
+          "ratios": {
+            "prefillMs": 1.1416111530801456,
+            "firstTokenMs": 1.13948294531673,
+            "decodeMs": 0.940000728146503,
+            "totalMs": 1.009753326073576
+          }
+        }
+      ]
+    },
+    {
+      "case": "case1",
+      "tokens": 162,
+      "stopReason": 0,
+      "allTokensAndDistributionsEqual": true,
+      "configurations": [
+        {
+          "prefillChunk": 0,
+          "decodeChunk": 0,
+          "metrics": {
+            "prefillMs": {
+              "observations": [
+                17487,
+                17649,
+                21665,
+                10505,
+                18223,
+                21437
+              ],
+              "median": 17936.0
+            },
+            "firstTokenMs": {
+              "observations": [
+                17700,
+                17852,
+                21883,
+                10610,
+                18441,
+                21655
+              ],
+              "median": 18146.5
+            },
+            "decodeMs": {
+              "observations": [
+                30380,
+                30661,
+                31670,
+                23556,
+                32924,
+                34542
+              ],
+              "median": 31165.5
+            },
+            "totalMs": {
+              "observations": [
+                48079,
+                48512,
+                53551,
+                34166,
+                51363,
+                56195
+              ],
+              "median": 49937.5
+            }
+          },
+          "baselineOverCandidateRatio": {
+            "prefillMs": 1.0,
+            "firstTokenMs": 1.0,
+            "decodeMs": 1.0,
+            "totalMs": 1.0
+          }
+        },
+        {
+          "prefillChunk": 32,
+          "decodeChunk": 0,
+          "metrics": {
+            "prefillMs": {
+              "observations": [
+                15434,
+                15734,
+                17590,
+                11968,
+                14492,
+                17921
+              ],
+              "median": 15584.0
+            },
+            "firstTokenMs": {
+              "observations": [
+                15647,
+                15940,
+                17812,
+                12119,
+                14710,
+                18140
+              ],
+              "median": 15793.5
+            },
+            "decodeMs": {
+              "observations": [
+                30938,
+                34680,
+                32787,
+                29207,
+                31993,
+                33883
+              ],
+              "median": 32390.0
+            },
+            "totalMs": {
+              "observations": [
+                46584,
+                50618,
+                50597,
+                41324,
+                46701,
+                52021
+              ],
+              "median": 48649.0
+            }
+          },
+          "baselineOverCandidateRatio": {
+            "prefillMs": 1.1509240246406571,
+            "firstTokenMs": 1.1489853420711051,
+            "decodeMs": 0.9621951219512195,
+            "totalMs": 1.0264856420481407
+          }
+        }
+      ],
+      "pairedRatios": [
+        {
+          "campaign": 0,
+          "round": 0,
+          "ratios": {
+            "prefillMs": 1.1330180121808993,
+            "firstTokenMs": 1.13120726017767,
+            "decodeMs": 0.9819639278557114,
+            "totalMs": 1.032092563970462
+          }
+        },
+        {
+          "campaign": 0,
+          "round": 1,
+          "ratios": {
+            "prefillMs": 1.1217109444515063,
+            "firstTokenMs": 1.1199498117942284,
+            "decodeMs": 0.8841118800461361,
+            "totalMs": 0.9583942471057727
+          }
+        },
+        {
+          "campaign": 0,
+          "round": 2,
+          "ratios": {
+            "prefillMs": 1.231665719158613,
+            "firstTokenMs": 1.2285537839658658,
+            "decodeMs": 0.9659316192393327,
+            "totalMs": 1.058382908077554
+          }
+        },
+        {
+          "campaign": 1,
+          "round": 0,
+          "ratios": {
+            "prefillMs": 0.8777573529411765,
+            "firstTokenMs": 0.8754847759716148,
+            "decodeMs": 0.8065189851747868,
+            "totalMs": 0.8267834672345369
+          }
+        },
+        {
+          "campaign": 1,
+          "round": 1,
+          "ratios": {
+            "prefillMs": 1.2574523875241512,
+            "firstTokenMs": 1.2536369816451394,
+            "decodeMs": 1.0291001156502986,
+            "totalMs": 1.0998265561765272
+          }
+        },
+        {
+          "campaign": 1,
+          "round": 2,
+          "ratios": {
+            "prefillMs": 1.196194408794152,
+            "firstTokenMs": 1.1937706725468578,
+            "decodeMs": 1.0194492813505298,
+            "totalMs": 1.0802368274350742
+          }
+        }
+      ]
+    }
+  ],
+  "secondRunId": "arm-row-confirm-reverse-20261001T155657Z-a8a9eb76",
+  "secondReportSha256": "c3769405913bd1d3931d681e907449cf07070004313515276bcdc87f100b1d03",
+  "secondTestApkSha256": "e8aefbf8907cd7fdbb908664edb3507e394a38f59d47acec3272d17e0bed905e"
+}

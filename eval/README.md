@@ -1,6 +1,6 @@
 # Executable evaluation and attributed review
 
-The current default is [fixtures-v8.json](fixtures-v8.json): manifest schema2, revision8, app **0.15.0**, 15 defined fixtures (**12 runnable, 3 blocked**). This evaluates the evidence-only `ResearchPrompt` protocol. Product chat uses `ChatPrompt` v1.1 and has separate integration checks. No historical score automatically transfers to current chat.
+The current default is [fixtures-v9.json](fixtures-v9.json): manifest schema2, revision9, app **0.16.0**, 15 defined fixtures (**12 runnable, 3 blocked**). This evaluates the evidence-only `ResearchPrompt` protocol. Product chat uses `ChatPrompt` v1.1 and has separate integration checks. No historical score automatically transfers to current chat.
 
 ## Validate, execute and review
 
@@ -65,4 +65,8 @@ The regional fixture no longer depends on map/routing K-07. Its broader time/pre
 
 ## Current integration suites
 
-`test-chat.ps1` checks chat/files/PDF/persistence, with optional `-Generate` for real conversational controls. `test-folders.ps1` checks recursive SAF ingestion; `test-osm.ps1` checks parser/storage/source UI, with optional `-Generate` for one synthetic source answer; `test-knowledge.ps1` checks migrations/CSV/packs/locators. These are integration/regression suites, not the broad question-family study. [0.15 validation](../docs/validation-0.15.md) owns current run identities; the 0.14 record preserves previous integration coverage, including `test-places.ps1` and its no-model synthetic/real-subset checks. The older generated OSM answer remains recorded with its 0.12 identities.
+`test-chat.ps1` checks chat/files/PDF/persistence, with optional `-Generate` for real conversational controls. `test-folders.ps1` checks recursive SAF ingestion; `test-osm.ps1` checks parser/storage/source UI, with optional `-Generate` for one synthetic source answer; `test-knowledge.ps1` checks migrations/CSV/packs/locators. These are integration/regression suites, not the broad question-family study. [0.16 validation](../docs/validation-0.16.md) owns current run identities; the 0.14 record preserves previous integration coverage, including `test-places.ps1` and its no-model synthetic/real-subset checks. The older generated OSM answer remains recorded with its 0.12 identities.
+
+| Current revision | Change |
+|---|---|
+| v9 / app 0.16 | Updated runtime-release identity only; questions, locks and runnable/blocked status unchanged. Row performance remains separate from field-answer quality. |

@@ -1,0 +1,99 @@
+
+Starting row-confirm/case0/round0/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round0/warmup: 9649ms / first 8939ms / 8 tokens / stop 1
+
+Starting row-confirm/case0/round0/control / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round0/control: 29479ms / first 9573ms / 133 tokens / stop 0
+
+Starting row-confirm/case0/round0/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round0/warmup: 10177ms / first 9146ms / 8 tokens / stop 1
+
+Starting row-confirm/case0/round0/candidate / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round0/candidate: 32568ms / first 10027ms / 133 tokens / stop 0
+
+Starting row-confirm/case0/round1/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round1/warmup: 12688ms / first 11543ms / 8 tokens / stop 1
+
+Starting row-confirm/case0/round1/candidate / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round1/candidate: 34744ms / first 11706ms / 133 tokens / stop 0
+
+Starting row-confirm/case0/round1/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round1/warmup: 13385ms / first 12235ms / 8 tokens / stop 1
+
+Starting row-confirm/case0/round1/control / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round1/control: 36481ms / first 12639ms / 133 tokens / stop 0
+
+Starting row-confirm/case0/round2/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round2/warmup: 14076ms / first 12917ms / 8 tokens / stop 1
+
+Starting row-confirm/case0/round2/control / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round2/control: 38841ms / first 14832ms / 133 tokens / stop 0
+
+Starting row-confirm/case0/round2/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round2/warmup: 13438ms / first 12270ms / 8 tokens / stop 1
+
+Starting row-confirm/case0/round2/candidate / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round2/candidate: 36662ms / first 12687ms / 133 tokens / stop 0
+
+Starting row-confirm/case1/round0/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round0/warmup: 15576ms / first 14221ms / 8 tokens / stop 1
+
+Starting row-confirm/case1/round0/candidate / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round0/candidate: 46584ms / first 15647ms / 162 tokens / stop 0
+
+Starting row-confirm/case1/round0/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round0/warmup: 16016ms / first 14744ms / 8 tokens / stop 1
+
+Starting row-confirm/case1/round0/control / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round0/control: 48079ms / first 17700ms / 162 tokens / stop 0
+
+Starting row-confirm/case1/round1/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round1/warmup: 16144ms / first 14816ms / 8 tokens / stop 1
+
+Starting row-confirm/case1/round1/control / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round1/control: 48512ms / first 17852ms / 162 tokens / stop 0
+
+Starting row-confirm/case1/round1/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round1/warmup: 15553ms / first 14095ms / 8 tokens / stop 1
+
+Starting row-confirm/case1/round1/candidate / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round1/candidate: 50618ms / first 15940ms / 162 tokens / stop 0
+
+Starting row-confirm/case1/round2/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round2/warmup: 17290ms / first 15702ms / 8 tokens / stop 1
+
+Starting row-confirm/case1/round2/candidate / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round2/candidate: 50597ms / first 17812ms / 162 tokens / stop 0
+
+Starting row-confirm/case1/round2/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round2/warmup: 18152ms / first 16561ms / 8 tokens / stop 1
+
+Starting row-confirm/case1/round2/control / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round2/control: 53551ms / first 21883ms / 162 tokens / stop 0
+
+PASS ARM row-confirm: 123 controls.
+

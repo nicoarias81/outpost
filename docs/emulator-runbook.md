@@ -2,6 +2,10 @@
 
 Use this with the [agent handoff](handoff.md) and [developer guide](development.md). This is the operational entry point for a successor on the existing host or a newly prepared checkout. This runbook remains specific to the emulator. The owner separately authorized the connected Pixel 10 Pro on 2026-10-01; follow [the Pixel protocol](pixel10-testing.md), not these emulator-only commands, for that device.
 
+## 0.16 row scheduling
+
+The 0.16 regression repeats numeric/dispatch/batch/real-decoder checks with the new JNI configuration and restores original Outpost35 APKs. ARM queue settings default to 0 on x86. [Current validation](validation-0.16.md) owns the run identity.
+
 ## 0.15 compatibility checkpoint
 
 The 0.15 x86 regression verifies numeric kernels, dispatch, grouped graphs and a real Bonsai decoder pair, then restores the previously installed app/test APK bytes. [Current validation](validation-0.15.md) owns those identities. Do not assume the emulator has the latest local APK after this wrapper; verify before `-SkipInstall`. Emulator-5580 remains preserved.

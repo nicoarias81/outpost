@@ -146,6 +146,12 @@ Start with conservative ARM settings and the pinned candidate lifecycle controls
 
 Research alone may extend each engine session's deadline to300 seconds for both comparison arms; product requests retain120 seconds/192 tokens. An initial-logit or short-token match is not sufficient for adoption. Pools pause after requests/cache release, resize only after context teardown and restore caller affinity if research pinning is used. Test lock-screen visibility never disables authentication and personal UI state is isolated. See [validation](validation-0.15.md) and [experiment](arm-optimization-2026-10-01.md). Reconsider worker counts, KV layout, I8MM or other model profiles only with independent full-trace and practical-cost evidence.
 
+## ADR-035 — Queue prefill rows while retaining attention and decode policy
+
+**Status: bounded adoption in 0.16,2026-10-01.** The owner requested implementing the row-balancing hypothesis from the CPU profile. Reuse the backend task counter to claim independent row chunks after activation preparation. Preserve each output's arithmetic, all existing layout/capability guards and the static fallback. The exact Pixel/Bonsai4 profile selects 32-row multi-column chunks and static single-column work; attention workers remain 4/6 and no affinity is set.
+
+Ownership/poison tests and complete per-step-logit traces pass. The first campaign's total-time ambiguity prompted one predeclared reversed repeat; the combined six-pair-per-case gate passes for prefill and total time. Decode queues did not justify adoption. Row settings join cache identity and persisted profiles. Broader devices, memory pressure, power and task quality remain separate work; revisit the preset only with matched-output evidence. [Validation and raw records](validation-0.16.md).
+
 ## Updating this register
 
 Add a new numbered decision when a material tradeoff changes. Include status, problem, choice, alternatives, consequences, evidence, and reconsideration condition. Mark superseded decisions rather than erasing the reason an earlier implementation existed.

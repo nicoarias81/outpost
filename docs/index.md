@@ -1,6 +1,6 @@
 # Documentation index
 
-**Outpost 0.15.0 / version code 17**, maintained English documentation updated through **2026-10-01**. Canonical repository: `E:/projects/outpost`. Start with [AGENTS.md](../AGENTS.md), [handoff](handoff.md) and [current validation](validation-0.15.md).
+**Outpost 0.16.0 / version code 18**, maintained English documentation updated through **2026-10-01**. Canonical repository: `E:/projects/outpost`. Start with [AGENTS.md](../AGENTS.md), [handoff](handoff.md) and [current validation](validation-0.16.md).
 
 ## Reading paths and ownership
 
@@ -20,10 +20,11 @@
 | Review Spark-X2.5 and storage stalls | [Model admission and NVMe/Engram analysis](spark-x25-storage-review.md) |
 | Compare models and memory designs | [Model alternatives and emulator study](model-alternatives.md), [Engram review](engram-review.md), [pinned research metadata](../evidence/research/model-survey-20260930/survey-metadata.json) |
 | Inspect actual arithmetic and CPU hotspots | [Encoding/kernel stack audit and app-only profile](inference-stack-audit-2026-10-01.md) |
+| Review dynamic prefill scheduling | [0.16 implementation, paired results and reproduction](validation-0.16.md) |
 | Improve inference | [Runtime](inference-runtime.md), [measured optimizations](optimizations.md), [ARM experiment](arm-optimization-2026-10-01.md), [historical x86 row experiment](kernel-rows-0.14.md), [speculation/MTP](speculation.md) |
 | Inspect answer-pipeline behavior | [NeMo Relay review and proposed local traces](nemo-relay-review.md) |
-| Define/score outcomes | [Evaluation protocol](evaluation.md), [runner/review guide](../eval/README.md), [v8 fixtures](../eval/fixtures-v8.json), [rubric v2](../eval/rubric-v2.md) |
-| Verify current delivery | [0.15 validation](validation-0.15.md), [frozen release manifest](../evidence/releases/0.15.0/manifest.json) |
+| Define/score outcomes | [Evaluation protocol](evaluation.md), [runner/review guide](../eval/README.md), [v9 fixtures](../eval/fixtures-v9.json), [rubric v2](../eval/rubric-v2.md) |
+| Verify current delivery | [0.16 validation](validation-0.16.md), [frozen release manifest](../evidence/releases/0.16.0/manifest.json) |
 | Trace external/product input | [Bounty snapshot and requirement trace](bounty-31.md), [anonymized discovery](discovery-2026-09-29.md) |
 | Understand naming and history | [Migration record](repository-migration.md), [changelog](../CHANGELOG.md), [glossary](glossary.md) |
 | Review this documentation pass | [Documentation audit](documentation-audit-2026-09-30.md) |

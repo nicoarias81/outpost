@@ -1,0 +1,99 @@
+
+Starting row-confirm/case1/round0/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round0/warmup: 11332ms / first 10462ms / 8 tokens / stop 1
+
+Starting row-confirm/case1/round0/control / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round0/control: 34166ms / first 10610ms / 162 tokens / stop 0
+
+Starting row-confirm/case1/round0/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round0/warmup: 11573ms / first 10443ms / 8 tokens / stop 1
+
+Starting row-confirm/case1/round0/candidate / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round0/candidate: 41324ms / first 12119ms / 162 tokens / stop 0
+
+Starting row-confirm/case1/round1/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round1/warmup: 15654ms / first 14368ms / 8 tokens / stop 1
+
+Starting row-confirm/case1/round1/candidate / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round1/candidate: 46701ms / first 14710ms / 162 tokens / stop 0
+
+Starting row-confirm/case1/round1/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round1/warmup: 16301ms / first 14921ms / 8 tokens / stop 1
+
+Starting row-confirm/case1/round1/control / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round1/control: 51363ms / first 18441ms / 162 tokens / stop 0
+
+Starting row-confirm/case1/round2/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round2/warmup: 17661ms / first 16189ms / 8 tokens / stop 1
+
+Starting row-confirm/case1/round2/control / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round2/control: 56195ms / first 21655ms / 162 tokens / stop 0
+
+Starting row-confirm/case1/round2/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round2/warmup: 16503ms / first 15027ms / 8 tokens / stop 1
+
+Starting row-confirm/case1/round2/candidate / DotProd / 4 threads / width 8
+
+Completed row-confirm/case1/round2/candidate: 52021ms / first 18140ms / 162 tokens / stop 0
+
+Starting row-confirm/case0/round0/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round0/warmup: 14619ms / first 13275ms / 8 tokens / stop 1
+
+Starting row-confirm/case0/round0/candidate / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round0/candidate: 43299ms / first 15795ms / 133 tokens / stop 0
+
+Starting row-confirm/case0/round0/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round0/warmup: 16182ms / first 14806ms / 8 tokens / stop 1
+
+Starting row-confirm/case0/round0/control / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round0/control: 45137ms / first 18799ms / 133 tokens / stop 0
+
+Starting row-confirm/case0/round1/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round1/warmup: 15137ms / first 13896ms / 8 tokens / stop 1
+
+Starting row-confirm/case0/round1/control / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round1/control: 42228ms / first 16430ms / 133 tokens / stop 0
+
+Starting row-confirm/case0/round1/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round1/warmup: 14281ms / first 13041ms / 8 tokens / stop 1
+
+Starting row-confirm/case0/round1/candidate / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round1/candidate: 40789ms / first 14811ms / 133 tokens / stop 0
+
+Starting row-confirm/case0/round2/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round2/warmup: 14421ms / first 13095ms / 8 tokens / stop 1
+
+Starting row-confirm/case0/round2/candidate / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round2/candidate: 42242ms / first 14776ms / 133 tokens / stop 0
+
+Starting row-confirm/case0/round2/warmup / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round2/warmup: 14963ms / first 13791ms / 8 tokens / stop 1
+
+Starting row-confirm/case0/round2/control / DotProd / 4 threads / width 8
+
+Completed row-confirm/case0/round2/control: 42654ms / first 16837ms / 133 tokens / stop 0
+
+PASS ARM row-confirm-reverse: 123 controls.
+

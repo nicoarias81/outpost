@@ -1,0 +1,3 @@
+
+PASS kernel: 16241 vectors, zero bit differences. Dot-product speedup 6.253904789951183x.
+

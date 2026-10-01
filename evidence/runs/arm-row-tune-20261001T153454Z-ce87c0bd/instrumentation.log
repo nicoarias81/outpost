@@ -1,0 +1,47 @@
+
+Starting row-tune/warmup / DotProd / 4 threads / width 8
+
+Completed row-tune/warmup: 10435ms / first 9683ms / 8 tokens / stop 1
+
+Starting row-tune/round0/mode0 / DotProd / 4 threads / width 8
+
+Completed row-tune/round0/mode0: 16829ms / first 9944ms / 64 tokens / stop 1
+
+Starting row-tune/round0/mode1 / DotProd / 4 threads / width 8
+
+Completed row-tune/round0/mode1: 15638ms / first 8725ms / 64 tokens / stop 1
+
+Starting row-tune/round0/mode2 / DotProd / 4 threads / width 8
+
+Completed row-tune/round0/mode2: 16892ms / first 10422ms / 64 tokens / stop 1
+
+Starting row-tune/round0/mode3 / DotProd / 4 threads / width 8
+
+Completed row-tune/round0/mode3: 16767ms / first 9617ms / 64 tokens / stop 1
+
+Starting row-tune/round0/mode4 / DotProd / 4 threads / width 8
+
+Completed row-tune/round0/mode4: 19250ms / first 10509ms / 64 tokens / stop 1
+
+Starting row-tune/round1/mode4 / DotProd / 4 threads / width 8
+
+Completed row-tune/round1/mode4: 21873ms / first 11499ms / 64 tokens / stop 1
+
+Starting row-tune/round1/mode3 / DotProd / 4 threads / width 8
+
+Completed row-tune/round1/mode3: 23752ms / first 12795ms / 64 tokens / stop 1
+
+Starting row-tune/round1/mode2 / DotProd / 4 threads / width 8
+
+Completed row-tune/round1/mode2: 25413ms / first 14462ms / 64 tokens / stop 1
+
+Starting row-tune/round1/mode1 / DotProd / 4 threads / width 8
+
+Completed row-tune/round1/mode1: 23789ms / first 12522ms / 64 tokens / stop 1
+
+Starting row-tune/round1/mode0 / DotProd / 4 threads / width 8
+
+Completed row-tune/round1/mode0: 25387ms / first 14217ms / 64 tokens / stop 1
+
+PASS ARM row-tune: 68 controls.
+

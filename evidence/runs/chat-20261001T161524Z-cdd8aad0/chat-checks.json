@@ -1,0 +1,164 @@
+{
+  "runId": "chat-20261001T161524Z-cdd8aad0",
+  "target": "Pixel10Pro",
+  "version": "0.16.0",
+  "passed": false,
+  "checksPassed": 30,
+  "checks": [
+    {
+      "name": "Chat runs on the explicitly admitted target architecture\/model",
+      "passed": true
+    },
+    {
+      "name": "Product APK remains offline without INTERNET permission",
+      "passed": true
+    },
+    {
+      "name": "Production APK does not bundle the mock knowledge base",
+      "passed": true
+    },
+    {
+      "name": "Fresh product library is empty and has no mock search results",
+      "passed": true
+    },
+    {
+      "name": "Existing schema-2 database upgrades to schema 5",
+      "passed": true
+    },
+    {
+      "name": "Upgrade removes only the five unchanged demo notes",
+      "passed": true
+    },
+    {
+      "name": "Upgrade preserves imported document identity\/content",
+      "passed": true
+    },
+    {
+      "name": "Upgrade preserves an edited record even with a former demo ID",
+      "passed": true
+    },
+    {
+      "name": "Removed demo FTS rows cannot remain as search results",
+      "passed": true
+    },
+    {
+      "name": "Process recovery marks an unfinished draft interrupted",
+      "passed": true
+    },
+    {
+      "name": "Follow-up context includes completed turns and excludes interrupted drafts",
+      "passed": true
+    },
+    {
+      "name": "Chat can proceed without imported documents, without fabricated source IDs",
+      "passed": true
+    },
+    {
+      "name": "Conversation input neutralizes model role delimiters",
+      "passed": true
+    },
+    {
+      "name": "Conversation survives closing and reopening storage",
+      "passed": true
+    },
+    {
+      "name": "New-chat storage deletion removes the conversation",
+      "passed": true
+    },
+    {
+      "name": "Relevant details near the end of a PDF page reach the bounded prompt",
+      "passed": true
+    },
+    {
+      "name": "PDF text extraction preserves two distinct pages and exact code",
+      "passed": true
+    },
+    {
+      "name": "PDF import keeps an exact offline copy of the original",
+      "passed": true
+    },
+    {
+      "name": "PDF citation resolves to the original page number",
+      "passed": true
+    },
+    {
+      "name": "Page locator resolves its exact extracted text",
+      "passed": true
+    },
+    {
+      "name": "Removing PDF deletes indexed text and original private file",
+      "passed": true
+    },
+    {
+      "name": "Removed PDF citations fail without rebinding",
+      "passed": true
+    },
+    {
+      "name": "Image-only or blank PDF is rejected rather than silently indexed as text",
+      "passed": true
+    },
+    {
+      "name": "Password-protected PDF receives an import failure",
+      "passed": true
+    },
+    {
+      "name": "Malformed PDF is rejected",
+      "passed": true
+    },
+    {
+      "name": "Real Bonsai 4B is already installed and verified",
+      "passed": true
+    },
+    {
+      "name": "Launcher opens directly on chat with composer and Settings icon",
+      "passed": true
+    },
+    {
+      "name": "Chat has no demo tabs, benchmark buttons or reviewer controls",
+      "passed": true
+    },
+    {
+      "name": "Chat request settles within its bounded deadline",
+      "passed": true
+    },
+    {
+      "name": "Real on-device chat responds to an initial message",
+      "passed": true
+    },
+    {
+      "name": "Product chat executes the selected prefill row queue: first-turn",
+      "passed": false
+    }
+  ],
+  "answers": [
+    {
+      "error": "java.lang.AssertionError: Product chat executes the selected prefill row queue: first-turn\n\tat dev.outpost.app.ChatChecks.check(ChatChecks.java:44)\n\tat dev.outpost.app.ChatChecks.record(ChatChecks.java:183)\n\tat dev.outpost.app.ChatChecks.run(ChatChecks.java:126)\n\tat dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:85)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2655)\n"
+    },
+    {
+      "failedConversation": [
+        {
+          "question": "For this conversation my code name is Cedar. Reply with just the code name.",
+          "answer": "Cedar",
+          "status": "complete",
+          "sourceCount": 0
+        }
+      ]
+    }
+  ],
+  "modelExecution": true,
+  "promptVersion": "chat-v1.1",
+  "runtimeProfile": {
+    "threads": 4,
+    "promptThreads": 6,
+    "batch": 128,
+    "width": 8,
+    "rowTile": 1,
+    "decodeRows": 4,
+    "prefillChunk": 32,
+    "decodeChunk": 0,
+    "measured": true,
+    "persistentThreads": true,
+    "kernel": "Q2_0 NEON DotProd"
+  },
+  "scope": "Recorded Android target. Synthetic documents exercise import\/chat plumbing, not general answer quality, battery life or field acceptance."
+}

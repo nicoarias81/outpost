@@ -2,6 +2,10 @@
 
 The owner explicitly authorized the connected physical Pixel 10 Pro on 2026-10-01. This supersedes the earlier emulator-only constraint for that phone (ADR-033). Outpost35 remains available, emulator-5580 is preserved, and host inference/other phones are outside scope.
 
+## 0.16 row scheduling
+
+Current 0.16 adds row scheduling phases to the same isolation protocol. Use `-ArmPhase row-numeric`, `row-tune`, `row-confirm`, `row-confirm-reverse` or `row-lifecycle`; confirmation/lifecycle take `-PrefillChunk 32 -DecodeChunk 0`. Keep 4/6 workers, width 8, decodeRows 4, persistent workers and no affinity. [Current validation](validation-0.16.md).
+
 ## Target and preservation
 
 Observed device: Google Pixel 10 Pro / `blazer`, ARM64, Tensor G5, Android 17/API 37, security patch 2026-09-05, fingerprint `google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys`. Initial memory: 15,949,000KiB total; available memory fluctuates. The phone had no Outpost app/test package, about 121.8GiB free data storage, USB charging at 20% and battery temperature 28.0°C. These are an initial snapshot, not steady-state measurements or hardware specifications inferred from marketing.
@@ -64,3 +68,5 @@ The [completed Pixel validation](pixel10-results-2026-10-01.md) records 23 admis
 ## App-only CPU sampling
 
 The current ARM wrapper also accepts `-ArmPhase profile` through the Pixel isolation script. Use 4 decode/6 prompt workers, width 8, decodeRows 4 and persistent workers as shown in [the stack audit](inference-stack-audit-2026-10-01.md). It records own-process user CPU samples with Android simpleperf and observed first-text boundaries, then restores personal app data. Run the offline symbol analysis against the exact native build ID. The rejected half-block experiment is retained only in its evidence snapshots.
+
+The retained `profile` phase reproduces the earlier static-row CPU audit. It does not automatically select the 0.16 queued product profile. Current queue execution is verified by `row-confirm`/`row-lifecycle` and the real-chat native node counters.

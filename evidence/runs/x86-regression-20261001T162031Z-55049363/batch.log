@@ -1,0 +1,3 @@
+
+PASS batched kernel: 10023 values, identical bits and real graph dispatch.
+
