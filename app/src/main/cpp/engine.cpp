@@ -226,9 +226,9 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
     jint spec_depth,jboolean adaptive,jint row_tile,jint decode_rows,jintArray oracle_tokens,jobject callback) {
     try {
         if (run <= 0 || max_tokens < 1 || max_tokens > 256 || !callback) throw std::runtime_error("Invalid generation parameters");
-        if(template_policy<0 || template_policy>1 || sampler_policy<0 || sampler_policy>2 || seed<0
-            || (template_policy==0 && sampler_policy==2) || (template_policy==1 && sampler_policy==1))throw std::runtime_error("Invalid generation policy");
-        if(template_policy==1 && spec_depth!=0)throw std::runtime_error("Spark speculation is not admitted");
+        if(template_policy<0 || template_policy>2 || sampler_policy<0 || sampler_policy>2 || seed<0
+            || (template_policy==0 && sampler_policy==2) || (template_policy>0 && sampler_policy==1))throw std::runtime_error("Invalid generation policy");
+        if(template_policy>0 && spec_depth!=0)throw std::runtime_error("Spark speculation is not admitted");
         if (threads<1 || threads>8 || prompt_threads<1 || prompt_threads>8 || batch_size<16 || batch_size>512) throw std::runtime_error("Invalid runtime configuration");
         if(matrix_width!=1 && matrix_width!=2 && matrix_width!=4 && matrix_width!=8) throw std::runtime_error("Invalid matrix kernel width");
         if(spec_depth<0 || spec_depth>7) throw std::runtime_error("Invalid speculation depth");
@@ -284,7 +284,7 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
                 const char *tmpl = llama_model_chat_template(session->model, nullptr);
                 if (!tmpl) throw std::runtime_error("Model has no chat template");
                 std::vector<llama_token> tokens;
-                if(template_policy==1)tokens=spark_prompt(session->model,system,user);
+                if(template_policy>0)tokens=spark_prompt(session->model,system,user);
                 else {
                     llama_chat_message messages[] = {{"system", system.c_str()}, {"user", user.c_str()}};
                     int needed = llama_chat_apply_template(tmpl, messages, 2, true, nullptr, 0);
@@ -315,6 +315,8 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
                     params.n_ctx = 2048; params.n_batch = batch_size; params.n_ubatch = batch_size;
                     params.n_threads = threads; params.n_threads_batch = prompt_threads;
                     params.no_perf = true;
+                    // Spark research policy1 uses compact SWA; policy2 is its full-cache reference.
+                    params.swa_full = template_policy!=1;
                     session->context=llama_init_from_model(session->model,params);
                     session->context_batch=batch_size;
                     session->context_template=template_policy;

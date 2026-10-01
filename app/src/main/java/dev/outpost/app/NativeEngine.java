@@ -99,8 +99,8 @@ final class NativeEngine implements AutoCloseable {
     record GenerationPolicy(int template, int sampler, int seed) {
         static GenerationPolicy spark(boolean sampled,int seed) { return new GenerationPolicy(1,sampled?2:0,seed); }
         GenerationPolicy {
-            if (template<0 || template>1 || sampler<0 || sampler>2 || seed<0
-                || (template==0 && sampler==2) || (template==1 && sampler==1))
+            if (template<0 || template>2 || sampler<0 || sampler>2 || seed<0
+                || (template==0 && sampler==2) || (template>0 && sampler==1))
                 throw new IllegalArgumentException("Invalid generation policy");
         }
     }

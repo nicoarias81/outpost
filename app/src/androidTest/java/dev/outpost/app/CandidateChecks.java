@@ -28,6 +28,7 @@ final class CandidateChecks {
     private ModelStore spark;
     private JSONObject lock,fixtures;
     private int checksPassed;
+    private boolean fullSparkCache;
     CandidateChecks(Instrumentation test,Bundle args){this.test=test;this.args=args;}
     private void require(boolean value,String label)throws Exception{checks.put(new JSONObject().put("label",label).put("passed",value));write();if(!value)throw new AssertionError(label);checksPassed++;}
     private void status(String text){Bundle b=new Bundle();b.putString("stream","\n"+text+"\n");test.sendStatus(0,b);}
@@ -68,9 +69,9 @@ final class CandidateChecks {
     private NativeEngine.Result call(NativeEngine engine,String id,boolean candidate,String system,String user,int cap,boolean sampled,int seed,boolean cache,boolean cancel)throws Exception{
         engine.configure(config(candidate,cache));long request=engine.request();
         File file=candidate?spark.file():new ModelStore(context,ModelStore.BONSAI4).file();
-        NativeEngine.GenerationPolicy policy=candidate?NativeEngine.GenerationPolicy.spark(sampled,seed):new NativeEngine.GenerationPolicy(0,sampled?1:0,seed);
+        NativeEngine.GenerationPolicy policy=candidate?new NativeEngine.GenerationPolicy(fullSparkCache?2:1,sampled?2:0,seed):new NativeEngine.GenerationPolicy(0,sampled?1:0,seed);
         JSONObject item=new JSONObject().put("id",id).put("model",candidate?"spark17":"bonsai4").put("sampled",sampled).put("seed",seed).put("templatePolicy",policy.template()).put("samplerPolicy",policy.sampler())
-            .put("system",system).put("user",user).put("maxTokens",cap).put("cacheEnabled",cache).put("status","running").put("configuration",new JSONObject().put("threads",4).put("promptThreads",4).put("batch",128).put("matrixWidth",candidate?1:4).put("rowTile",candidate?1:2).put("decodeRows",1).put("speculation",0));
+            .put("system",system).put("user",user).put("maxTokens",cap).put("cacheEnabled",cache).put("status","running").put("configuration",new JSONObject().put("threads",4).put("promptThreads",4).put("batch",128).put("matrixWidth",candidate?1:4).put("rowTile",candidate?1:2).put("decodeRows",1).put("swaFull",!candidate||fullSparkCache).put("speculation",0));
         answers.put(item);write();status("Starting "+id+" / "+(candidate?"Spark":"Bonsai"));
         long started=SystemClock.elapsedRealtime(),cpu=android.os.Process.getElapsedCpuTime();
         MemoryProbe memory=new MemoryProbe();NativeEngine.Result r;
@@ -116,6 +117,10 @@ final class CandidateChecks {
             NativeEngine.Result rewind=call(engine,"admit-sliding-evicted-rewind",true,system,early,16,false,42,true,false);
             engine.clearCache();NativeEngine.Result rewindCold=call(engine,"admit-sliding-rewind-cold",true,system,early,16,false,42,true,false);
             require(rewind.cachedTokens()==0&&rewind.text().equals(rewindCold.text())&&rewind.firstLogitsHash()==rewindCold.firstLogitsHash(),"Evicted-window rewind falls back cold with parity");
+            NativeEngine.Result full;
+            fullSparkCache=true;
+            try{full=call(engine,"admit-full-cache-reference",true,system,longB,16,false,42,false,false);}finally{fullSparkCache=false;}
+            require(full.text().equals(cold.text())&&full.firstLogitsHash()==cold.firstLogitsHash(),"Compact and full SWA cache reference text/logit parity");
             NativeEngine.Result canceled=call(engine,"admit-cancel",true,system,"Explain three differences between a maintenance log and a manufacturer manual.",96,false,42,true,true);
             require(canceled.cancelled()&&canceled.tokens()==3,"Cancellation stops after confirmed token three");
             NativeEngine.Result recovery=call(engine,"admit-recovery",true,system,user,48,false,42,true,false);
