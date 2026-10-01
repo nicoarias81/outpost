@@ -48,7 +48,7 @@ final class CandidateChecks {
             report.put("runId",run).put("phase",phase).put("passed",false).put("checks",checks).put("answers",answers).put("modelLock",lock)
                 .put("fixtureSha256",Evidence.sha256(fixtureBytes)).put("chatPromptVersion",ChatPrompt.VERSION).put("system",ChatPrompt.SYSTEM)
                 .put("runtime",new JSONObject(NativeEngine.kernelProfile())).put("scope","Emulator research build. Execution checks are not answer-quality scores. Memory sampling perturbs the measured path; no phone or energy claim.");write();
-            require(android.os.Build.SUPPORTED_ABIS[0].equals("x86_64")&&android.os.Build.MODEL.contains("sdk"),"Documented emulator architecture");
+            require(android.os.Build.SUPPORTED_ABIS[0].equals("x86_64")&&android.os.Build.MODEL.toLowerCase(java.util.Locale.ROOT).contains("sdk"),"Documented emulator architecture");
             spark=new ModelStore(context,new ModelStore.Spec("spark17research","Spark-X2.5 1.7B research",lock.getString("file"),lock.getLong("bytes"),lock.getString("sha256"),false));
             require(spark.file().length()==lock.getLong("bytes")&&hash(spark.file()).equals(lock.getString("sha256")),"Candidate full bytes verified inside Android");
             require(ModelStore.PROFILES.size()==3&&!ModelStore.PROFILES.contains(spark.spec()),"Candidate is outside product selector");
