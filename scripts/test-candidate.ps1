@@ -1,4 +1,4 @@
-param([string]$Sdk=$env:ANDROID_HOME,[string]$Serial='emulator-5582',[switch]$SkipInstall,[ValidateSet('admission','pilot','heldout','timing')][string]$Phase='admission')
+param([string]$Sdk=$env:ANDROID_HOME,[string]$Serial='emulator-5582',[switch]$SkipInstall,[ValidateSet('admission','cache','pilot','heldout','timing')][string]$Phase='admission')
 $ErrorActionPreference='Stop'
 if($Serial -ne 'emulator-5582'){throw 'Only the dedicated Outpost emulator is admitted.'}
 $project=Split-Path $PSScriptRoot -Parent

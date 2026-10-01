@@ -28,7 +28,7 @@ final class CandidateChecks {
     private ModelStore spark;
     private JSONObject lock,fixtures;
     private int checksPassed;
-    private boolean fullSparkCache;
+    private boolean fullSparkCache=true;
     CandidateChecks(Instrumentation test,Bundle args){this.test=test;this.args=args;}
     private void require(boolean value,String label)throws Exception{checks.put(new JSONObject().put("label",label).put("passed",value));write();if(!value)throw new AssertionError(label);checksPassed++;}
     private void status(String text){Bundle b=new Bundle();b.putString("stream","\n"+text+"\n");test.sendStatus(0,b);}
@@ -56,7 +56,7 @@ final class CandidateChecks {
             ModelStore baseline=new ModelStore(context,ModelStore.BONSAI4);
             require(baseline.file().length()==baseline.spec().bytes()&&hash(baseline.file()).equals(baseline.spec().sha256()),"Bonsai reference full bytes verified inside Android");
             report.put("referenceModel",new JSONObject().put("id",baseline.spec().id()).put("bytes",baseline.spec().bytes()).put("sha256",baseline.spec().sha256()));
-            if(phase.equals("admission"))admission();
+            if(phase.equals("admission")||phase.equals("cache")){fullSparkCache=!phase.equals("cache");admission();}
             else if(phase.equals("pilot")||phase.equals("heldout")||phase.equals("timing"))missions(phase);
             else throw new IllegalArgumentException("Unknown candidate phase");
             report.put("checksPassed",checksPassed).put("passed",true);write();passed=true;
@@ -116,11 +116,13 @@ final class CandidateChecks {
             String early=entry.repeat(12)+"Changed note: storage moved outdoors. "+entry.repeat(33)+"\nFinal record: the approved spare is J-83. State the final spare code only.";
             NativeEngine.Result rewind=call(engine,"admit-sliding-evicted-rewind",true,system,early,16,false,42,true,false);
             engine.clearCache();NativeEngine.Result rewindCold=call(engine,"admit-sliding-rewind-cold",true,system,early,16,false,42,true,false);
-            require(rewind.cachedTokens()==0&&rewind.text().equals(rewindCold.text())&&rewind.firstLogitsHash()==rewindCold.firstLogitsHash(),"Evicted-window rewind falls back cold with parity");
+            require((fullSparkCache||rewind.cachedTokens()==0)&&rewind.text().equals(rewindCold.text())&&rewind.firstLogitsHash()==rewindCold.firstLogitsHash(),"Earlier-source rewind matches cold; compact mode requires fallback");
+            if(!fullSparkCache){
             NativeEngine.Result full;
             fullSparkCache=true;
             try{full=call(engine,"admit-full-cache-reference",true,system,longB,16,false,42,false,false);}finally{fullSparkCache=false;}
             require(full.text().equals(cold.text())&&full.firstLogitsHash()==cold.firstLogitsHash(),"Compact and full SWA cache reference text/logit parity");
+            }
             NativeEngine.Result canceled=call(engine,"admit-cancel",true,system,"Explain three differences between a maintenance log and a manufacturer manual.",96,false,42,true,true);
             require(canceled.cancelled()&&canceled.tokens()==3,"Cancellation stops after confirmed token three");
             NativeEngine.Result recovery=call(engine,"admit-recovery",true,system,user,48,false,42,true,false);

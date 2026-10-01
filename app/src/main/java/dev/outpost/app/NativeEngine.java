@@ -97,7 +97,7 @@ final class NativeEngine implements AutoCloseable {
     }
     /** Research protocols are explicit; the product's existing boolean API retains its behavior. */
     record GenerationPolicy(int template, int sampler, int seed) {
-        static GenerationPolicy spark(boolean sampled,int seed) { return new GenerationPolicy(1,sampled?2:0,seed); }
+        static GenerationPolicy spark(boolean sampled,int seed) { return new GenerationPolicy(2,sampled?2:0,seed); }
         GenerationPolicy {
             if (template<0 || template>2 || sampler<0 || sampler>2 || seed<0
                 || (template==0 && sampler==2) || (template>0 && sampler==1))
