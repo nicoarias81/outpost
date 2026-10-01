@@ -55,6 +55,11 @@ final class ChatChecks {
                 :target.equals("Outpost35")&&android.os.Build.SUPPORTED_ABIS[0].equals("x86_64")&&android.os.Build.MODEL.toLowerCase(java.util.Locale.ROOT).contains("sdk");
             check(identity,"Chat runs on the explicitly admitted target architecture/model");
             if(target.equals("Pixel10Pro")&&test.getTargetContext().getSystemService(android.app.KeyguardManager.class).isKeyguardLocked())throw new IllegalStateException("Unlock the registered Pixel before visual chat checks");
+            if(target.equals("Pixel10Pro")){
+                try(ChatStore chat=new ChatStore(test.getTargetContext());Library library=new Library(test.getTargetContext())){
+                    if(!chat.turns().isEmpty()||!library.documents().isEmpty())throw new IllegalStateException("Physical visual suite requires an empty chat/library so captures cannot include personal content; existing data preserved");
+                }
+            }
             String[] permissions=test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",android.content.pm.PackageManager.GET_PERMISSIONS).requestedPermissions;
             check(permissions==null||!java.util.Arrays.asList(permissions).contains("android.permission.INTERNET"),"Product APK remains offline without INTERNET permission");
             check(!java.util.Arrays.asList(test.getTargetContext().getAssets().list("")).contains("library.json"),"Production APK does not bundle the mock knowledge base");
@@ -156,7 +161,7 @@ final class ChatChecks {
                 check(texts(activity).stream().anyMatch(t->t.contains("Cedar")),"Conversation remains visible after Activity restart");
             }
             complete=true;result.putString("stream","\nPASS chat: "+passed+" checks.\n");
-        }catch(Throwable e){try{answers.put(new JSONObject().put("error",android.util.Log.getStackTraceString(e)));try(ChatStore saved=new ChatStore(test.getTargetContext())){JSONArray failed=new JSONArray();for(ChatStore.Turn t:saved.turns())if(!existingTurns.contains(t.id()))failed.put(new JSONObject().put("question",t.question()).put("answer",t.answer()).put("status",t.status()).put("sourceCount",t.sources().size()));answers.put(new JSONObject().put("failedConversation",failed));}}catch(Exception ignored){}result.putString("stream","\nFAIL chat: "+android.util.Log.getStackTraceString(e));}
+        }catch(Throwable e){try{answers.put(new JSONObject().put("error",android.util.Log.getStackTraceString(e)));if(capturedTurns)try(ChatStore saved=new ChatStore(test.getTargetContext())){JSONArray failed=new JSONArray();for(ChatStore.Turn t:saved.turns())if(!existingTurns.contains(t.id()))failed.put(new JSONObject().put("question",t.question()).put("answer",t.answer()).put("status",t.status()).put("sourceCount",t.sources().size()));answers.put(new JSONObject().put("failedConversation",failed));}}catch(Exception ignored){}result.putString("stream","\nFAIL chat: "+android.util.Log.getStackTraceString(e));}
         finally {
             if(activity!=null){MainActivity last=activity;test.runOnMainSync(last::finish);SystemClock.sleep(400);}
             try(Library library=new Library(test.getTargetContext())){for(String id:imported)library.removeDocument(id);}catch(Exception ignored){}
