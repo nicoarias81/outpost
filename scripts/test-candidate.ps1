@@ -41,8 +41,8 @@ $identity|ConvertTo-Json -Depth 8|Set-Content -LiteralPath (Join-Path $out 'run.
 Copy-Item -LiteralPath $fixture -Destination (Join-Path $out 'missions-v1.json')
 Copy-Item -LiteralPath $lock -Destination (Join-Path $out 'spark17-lock.json')
 foreach($source in @('app/src/main/cpp/engine.cpp','app/src/main/java/dev/outpost/app/NativeEngine.java','app/src/main/java/dev/outpost/app/ChatPrompt.java','app/src/androidTest/java/dev/outpost/app/CandidateChecks.java','scripts/test-candidate.ps1','scripts/test-target.ps1')){
-    $target=Join-Path $out "source/$source";New-Item -ItemType Directory -Force -Path (Split-Path $target -Parent)|Out-Null
-    Copy-Item -LiteralPath (Join-Path $project $source) -Destination $target
+    $sourceTarget=Join-Path $out "source/$source";New-Item -ItemType Directory -Force -Path (Split-Path $sourceTarget -Parent)|Out-Null
+    Copy-Item -LiteralPath (Join-Path $project $source) -Destination $sourceTarget
 }
 $executionError=$null;$result=@()
 try{$result=Invoke-Adb shell am instrument -w -e candidate_run $runId -e candidate_phase $Phase -e candidate_target $Target dev.outpost.app.test/dev.outpost.app.GenerationInstrumentation | ForEach-Object {Write-Host $_;$_}}
