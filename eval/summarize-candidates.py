@@ -42,6 +42,6 @@ for run in args.runs:
             timing.append(entry)
     summaries.append({'runId':report['runId'],'phase':report['phase'],'reportSha256':hashlib.sha256(raw).hexdigest(),'identity':identity,'pairedTasks':len(pairs),'statistics':stats,'timingPairs':timing})
 args.output.mkdir(parents=True)
-(args.output/'metrics.json').write_text(json.dumps({'scope':'Descriptive paired emulator metrics. No automated answer-quality verdict, confidence interval, phone claim or field acceptance.','runs':summaries},indent=2)+'\n',encoding='utf-8')
+(args.output/'metrics.json').write_text(json.dumps({'scope':'Descriptive paired Android metrics on each recorded target; do not pool targets. No automated answer-quality verdict, confidence interval, battery-life claim or field acceptance.','runs':summaries},indent=2)+'\n',encoding='utf-8')
 (args.output/'answers-for-review.json').write_text(json.dumps(inspection,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
 print(json.dumps([{'run':r['runId'],'pairs':r['pairedTasks'],'statistics':r['statistics'],'timing':r['timingPairs']} for r in summaries],indent=2))

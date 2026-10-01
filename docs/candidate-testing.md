@@ -4,7 +4,7 @@ Research work starting 2026-10-01 from `9cca240`. Spark-X2.5-1.7B is a pinned **
 
 ## Preparation and commands
 
-Read the [emulator runbook](emulator-runbook.md), verify Outpost35 / emulator-5582, and keep all model/numerical execution inside that emulator. Resolve Python/SDK/JDK/Gradle through local settings. Run sequentially from the repository:
+The following default commands target Outpost35 / emulator-5582; read the [emulator runbook](emulator-runbook.md). The owner also authorized one connected Pixel 10 Pro on 2026-10-01: use the separate [Pixel preparation and protocol](pixel10-testing.md) and explicit `-Target Pixel10Pro`. No host inference is allowed. Resolve Python/SDK/JDK/Gradle through local settings. Run sequentially from the repository:
 
 ```powershell
 . ./scripts/environment.ps1
@@ -18,7 +18,7 @@ $OutpostPython = (Get-OutpostSettings).pythonExecutable
 ./scripts/test-candidate.ps1 -Phase timing -SkipInstall
 ```
 
-Provisioning requires an installed debuggable Outpost APK, validates the dedicated offline emulator, downloads only the pinned official file when absent, hashes it, checks space for staging plus the private copy, uses binary ADB file transfer and verifies the app-private copy. It does not select a product model or install an APK. The admission wrapper installs both freshly built APKs unless `-SkipInstall` is used; that option verifies installed hashes. Admission also needs the existing pinned Bonsai 4 reference and Qwen smoke-test model; follow the runbook's normal model preparation on a fresh AVD. Keep other runtime/install workflows idle during a run. No host model execution or physical phone is involved.
+Provisioning requires an installed debuggable Outpost APK, validates the dedicated offline emulator, downloads only the pinned official file when absent, hashes it, checks space for staging plus the private copy, uses binary ADB file transfer and verifies the app-private copy. It does not select a product model or install an APK. The admission wrapper installs both freshly built APKs unless `-SkipInstall` is used; that option verifies installed hashes. Admission also needs the existing pinned Bonsai 4 reference and Qwen smoke-test model; follow the runbook's normal model preparation on a fresh AVD. Keep other runtime/install workflows idle during a run. The default path uses no physical phone; the explicit Pixel path has separate identity guards and conservative ARM configuration. Neither path executes models on the host.
 
 The test profile and templates are bound by [the lock](../app/src/androidTest/assets/candidates/spark17-lock.json); [mission definitions](../app/src/androidTest/assets/candidates/missions-v1.json) contain eight development and 24 held-out cases. They are authored synthetic text records, not real field data or a PDF/CSV parser benchmark. Expected outcomes are preserved for review and never passed to the model. The product APK contains neither these fixtures nor the candidate profile.
 
@@ -38,7 +38,7 @@ The 2,048-token context, 192-token mission output and 120-second native deadline
 - **Heldout:** 24 predeclared tasks, fixed evidence, paired greedy runs. No parameter/prompt changes based on held-out outputs. This isolates generation and does not establish full retrieval quality or field acceptance.
 - **Timing:** first two development tasks, three alternating pairs using each model's recorded sampled policy and seed 42. Each measured call follows a same-model eight-token warmup. Exclude warmup rows; evaluate EOS/quality/length before comparing completion times. This is a development timing control, not a held-out win or a seed sweep.
 
-All phases record full synthetic prompts, selected source identities where applicable, output, token IDs, cache use, stop reasons, native phase timings and explicit configuration. Model-cold calls can still have warm storage pages after hash verification; do not label them cold-storage measurements. Bonsai uses its measured4/4-thread, batch128, width4, rows2/1 policy; Spark begins with4/4 threads, batch128 and width/rows1. They are current best-known baseline versus conservative candidate, not identically tuned kernels.
+All phases record full synthetic prompts, selected source identities where applicable, output, token IDs, cache use, stop reasons, native phase timings and explicit configuration. Model-cold calls can still have warm storage pages after hash verification; do not label them cold-storage measurements. On Outpost35, Bonsai uses its measured4/4-thread, batch128, width4, rows2/1 policy; Spark begins with4/4 threads, batch128 and width/rows1. The Pixel uses at most4 threads, batch128 and width/rows1 for both models; emulator tuning is not transferred to ARM. They are current best-known baseline versus conservative candidate, not identically tuned kernels.
 
 PSS/RSS and self process fault counters are sampled at a requested 200 ms interval. Reports include actual maximum sampling gap; unavailable fields remain absent/null. Sampled maxima can miss peaks, and the sampler adds overhead to both arms. A model-switch call can include the previous model in its initial sample; use post-warmup timing rows for steady-model comparisons. Fault counters do not count physical storage reads. No host storage tuning or cold-cache forcing is performed.
 

@@ -19,7 +19,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/** Functional LLM tests run inside the emulator's target application process. */
+/** Functional LLM tests run inside the explicitly admitted Android target process. */
 public final class GenerationInstrumentation extends OfflineInstrumentation {
     private boolean generationSuite;
     private Bundle chatArgs;
@@ -68,7 +68,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         if(placeRun!=null){new PlaceChecks(this,placeRun).run();return;}
         if(osmArgs!=null){new OsmChecks(this,osmArgs.getString("osm_run"),"true".equals(osmArgs.getString("osm_generate"))).run();return;}
         if(folderRun!=null){new FolderChecks(this,folderRun).run();return;}
-        if(chatArgs!=null){new ChatChecks(this,chatArgs.getString("chat_run"),"true".equals(chatArgs.getString("chat_generate"))).run();return;}
+        if(chatArgs!=null){new ChatChecks(this,chatArgs.getString("chat_run"),"true".equals(chatArgs.getString("chat_generate")),chatArgs.getString("chat_target","Outpost35")).run();return;}
         if(knowledgeSuite) { new KnowledgeChecks(this, knowledgeRun).run(); return; }
         if(evaluationArgs != null) { new EvaluationChecks(this, evaluationArgs).run(); return; }
         if(!speculationPhase.isEmpty()) { new SpeculationChecks(this).run(speculationPhase); return; }

@@ -1,14 +1,14 @@
-param([string]$Sdk=$env:ANDROID_HOME,[string]$Serial='emulator-5582',[switch]$SkipInstall,[switch]$Generate)
+param([string]$Sdk=$env:ANDROID_HOME,[string]$Serial='',[ValidateSet('Outpost35','Pixel10Pro')][string]$Target='Outpost35',[switch]$SkipInstall,[switch]$Generate)
 $ErrorActionPreference='Stop'
-if($Serial -notmatch '^emulator-[0-9]+$') { throw 'Only emulator targets are permitted.' }
 $project=Split-Path $PSScriptRoot -Parent
 . (Join-Path $PSScriptRoot 'environment.ps1')
 $Sdk=Resolve-OutpostSdk $Sdk
 $adb=Join-Path $Sdk 'platform-tools/adb.exe'
+. (Join-Path $project 'scripts/test-target.ps1')
+$device=Resolve-OutpostTestTarget -Adb $adb -Target $Target -Serial $Serial
+$Serial=$device.Serial
+$conditionsBefore=Get-OutpostTargetConditions -Adb $adb -Serial $Serial
 function Invoke-Adb { & $adb -s $Serial @args; if($LASTEXITCODE -ne 0) { throw 'adb failed' } }
-if((Invoke-Adb shell getprop ro.kernel.qemu).Trim() -ne '1' -or (Invoke-Adb shell getprop ro.boot.qemu.avd_name).Trim() -ne 'Outpost35') { throw 'Dedicated Outpost emulator required.' }
-if((Invoke-Adb shell getprop sys.boot_completed).Trim() -ne '1') { throw 'Emulator boot incomplete.' }
-if((Invoke-Adb shell settings get global airplane_mode_on).Trim() -ne '1' -or (Invoke-Adb shell settings get global wifi_on).Trim() -ne '0' -or (Invoke-Adb shell settings get global mobile_data).Trim() -ne '0') { throw 'The evaluation emulator must be offline.' }
 & (Join-Path $project 'eval/check-build.ps1')
 $apks=@(
     @{Package='dev.outpost.app';File="$project/app/build/outputs/apk/debug/app-debug.apk"},
@@ -25,7 +25,7 @@ $runId='chat-'+(Get-Date).ToUniversalTime().ToString('yyyyMMddTHHmmssZ')+'-'+[gu
 $out=Join-Path $project "evidence/runs/$runId"
 New-Item -ItemType Directory -Path $out | Out-Null
 $generation=if($Generate){'true'}else{'false'}
-$result=Invoke-Adb shell am instrument -w -e chat_run $runId -e chat_generate $generation dev.outpost.app.test/dev.outpost.app.GenerationInstrumentation | ForEach-Object { Write-Host $_; $_ }
+$result=Invoke-Adb shell am instrument -w -e chat_run $runId -e chat_generate $generation -e chat_target $Target dev.outpost.app.test/dev.outpost.app.GenerationInstrumentation | ForEach-Object { Write-Host $_; $_ }
 $result | Set-Content -LiteralPath (Join-Path $out 'instrumentation.log') -Encoding utf8
 $files=@('chat-checks.json','chat-home.png','chat-settings.png','chat-documents.png','chat-pdf.png')
 if($Generate){$files+=@('chat-conversation.png','chat-sourced.png')}
@@ -40,12 +40,13 @@ foreach($name in $files) {
     if($process.ExitCode -ne 0){Write-Warning "No ${name}: $($process.StandardError.ReadToEnd())"}
 }
 [ordered]@{
-    runId=$runId;serial=$Serial;modelExecution=[bool]$Generate
+    runId=$runId;target=$Target;serial=if($Target -eq 'Outpost35'){$Serial}else{'registered-pixel-ending-'+$Serial.Substring($Serial.Length-4)};modelExecution=[bool]$Generate
+    deviceProperties=$device.Properties;radioSettingsBefore=$device.RadioSettings;conditionsBefore=$conditionsBefore;conditionsAfter=Get-OutpostTargetConditions -Adb $adb -Serial $Serial
     appSha256=(Get-FileHash -LiteralPath $apks[0].File -Algorithm SHA256).Hash.ToLowerInvariant()
     testApkSha256=(Get-FileHash -LiteralPath $apks[1].File -Algorithm SHA256).Hash.ToLowerInvariant()
     mainSourcesSha256=Get-OutpostSourceFingerprint main
     testSourcesSha256=Get-OutpostSourceFingerprint androidTest
-    scope='Emulator chat/import/migration checks. ARM packaging is a compile claim only.'
-} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $out 'run.json') -Encoding utf8
+    scope='Chat/import/migration checks on the recorded Android target. Synthetic content is removed; product selection is restored. No battery-life or field-quality claim.'
+} | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $out 'run.json') -Encoding utf8
 Write-Output "Evidence: $out"
 if(-not($result -match 'PASS chat:')) { throw 'Chat checks failed; inspect retained evidence.' }

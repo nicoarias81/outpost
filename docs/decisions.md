@@ -134,6 +134,12 @@ Originated on 2026-09-29; status reconciled with Outpost 0.12.0 on 2026-09-30. T
 
 Full SWA storage remains the comparison policy after compact storage changed initial logits despite the same short answer. Record the memory reduction and rejection without claiming quality degradation from hash drift alone. Greedy reserved review found 13/24 fully supported outcomes for each model and several critical errors; sampled timing controls also changed answer quality. Preserve exact artifacts and failed runs, separate model quality from speed, and continue broader sampled-policy/other-model evaluation before changing the product default. No phone, host inference, storage tuning or Relay integration follows from this decision. See [results](spark-candidate-results-2026-10-01.md) and [resumption commands](candidate-testing.md).
 
+## ADR-033 — Extend execution to the specifically authorized Pixel 10 Pro
+
+**Status: owner-authorized trial, 2026-10-01.** The owner explicitly requested tests on the connected Pixel 10 Pro, superseding the earlier emulator-only boundary for that device. Register its USB serial in ignored local settings and require matching Google/Pixel 10 Pro/ARM64 properties before installing or executing. Keep emulator guards/defaults; do not turn device discovery into authorization for arbitrary phones. Host inference remains outside scope.
+
+Start with conservative ARM settings and the pinned candidate lifecycle controls, then paired practical questions. Preserve personal content, model selection, system radio settings and old emulators. The app has no INTERNET permission, which permits local-inference tests without interrupting the owner's phone connectivity; this does not demonstrate a fully disconnected-device mission. Record APK/model/source identities, memory, battery temperature, charging state and Android thermal status. Stop starting requests at severe thermal status. USB-powered timing cannot establish battery life. See [protocol and validation status](pixel10-testing.md). Reconsider tuned ARM policies only with device-specific equivalence and complete-answer evidence.
+
 ## Updating this register
 
 Add a new numbered decision when a material tradeoff changes. Include status, problem, choice, alternatives, consequences, evidence, and reconsideration condition. Mark superseded decisions rather than erasing the reason an earlier implementation existed.

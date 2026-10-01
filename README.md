@@ -23,7 +23,7 @@ The measured Bonsai 4B emulator profile now uses guarded two-row processing for 
 
 Start with [AGENTS.md](AGENTS.md), the [handoff](docs/handoff.md), [current state](docs/current-state.md), [chat and document design](docs/chat-beta.md), and [latest validation](docs/validation-0.14.md). The [roadmap](docs/roadmap.md) separates implementation from remaining quality/device work.
 
-The APK now packages **arm64-v8a and x86_64**. ARM64 compilation/linking is preparation for phone testing; all runtime validation still occurs in Outpost35, the x86_64 Android emulator. No physical-device latency, compatibility, peak memory, battery, thermal or GrapheneOS claim follows from the build.
+The APK now packages **arm64-v8a and x86_64**. Historical runtime validation used Outpost35, the x86_64 Android emulator. The owner has now authorized the connected Pixel 10 Pro; [its protocol and status](docs/pixel10-testing.md) distinguish physical results from emulator evidence. No physical-device latency, compatibility, peak memory, battery, thermal or GrapheneOS claim follows from the build.
 
 Configure the external SDK/JDK/Gradle paths using [development](docs/development.md), then:
 
@@ -38,7 +38,7 @@ pwsh -File scripts/test-chat.ps1 -SkipInstall -Generate
 pwsh -File scripts/test-knowledge.ps1 -SkipInstall
 ```
 
-The offline flag requires cached dependencies. Read the [emulator runbook](docs/emulator-runbook.md) before any runtime work. Test commands explicitly reject phones; model execution never runs on the host. Tests install synthetic content only for isolated checks and clean up their own inputs. Run the listed checks sequentially and stop on any nonzero exit code; `-Generate` is optional and requires an installed verified Bonsai 4B model.
+The offline flag requires cached dependencies. Read the [emulator runbook](docs/emulator-runbook.md) before any runtime work. The commands below retain emulator guards; the candidate harness also accepts the explicitly registered Pixel through its separate protocol. Model execution never runs on the host. Tests install synthetic content only for isolated checks and clean up their own inputs. Run the listed checks sequentially and stop on any nonzero exit code; `-Generate` is optional and requires an installed verified Bonsai 4B model.
 
 Publish the local debug artifact with `scripts/publish-artifact.ps1`, then verify it with `-Verify`. See [validation](docs/validation-0.14.md) for the exact filename, hash, checked build and limits. A debug candidate is not a signed production release. Project license, release signing, public distribution and phone trials remain separate work; the existing GitHub remote is private.
 

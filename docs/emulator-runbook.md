@@ -1,6 +1,6 @@
 # Emulator operating guide
 
-Use this with the [agent handoff](handoff.md) and [developer guide](development.md). This is the operational entry point for a successor on the existing host or a newly prepared checkout. Runtime inference remains inside the emulator; no phone execution is authorized.
+Use this with the [agent handoff](handoff.md) and [developer guide](development.md). This is the operational entry point for a successor on the existing host or a newly prepared checkout. This runbook remains specific to the emulator. The owner separately authorized the connected Pixel 10 Pro on 2026-10-01; follow [the Pixel protocol](pixel10-testing.md), not these emulator-only commands, for that device.
 
 ## Identity and last observed state
 

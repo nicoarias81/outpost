@@ -34,10 +34,11 @@ final class ChatChecks {
     private final Instrumentation test;
     private final String runId;
     private final boolean generate;
+    private final String target;
     private final JSONArray checks=new JSONArray(), answers=new JSONArray();
     private int passed;
     private File directory;
-    ChatChecks(Instrumentation test,String id,boolean generate){this.test=test;this.runId=id;this.generate=generate;}
+    ChatChecks(Instrumentation test,String id,boolean generate,String target){this.test=test;this.runId=id;this.generate=generate;this.target=target;}
     private void check(boolean ok,String label)throws Exception {checks.put(new JSONObject().put("name",label).put("passed",ok));if(!ok)throw new AssertionError(label);passed++;}
     private interface Action{void run()throws Exception;}
     private void rejects(Action action,String label)throws Exception{boolean rejected=false;try{action.run();}catch(Exception e){rejected=true;}check(rejected,label);}
@@ -49,7 +50,10 @@ final class ChatChecks {
         try {
             if(!runId.matches("[A-Za-z0-9_-]{8,80}"))throw new IllegalArgumentException("Unique run ID required");
             directory=new File(test.getTargetContext().getFilesDir(),"evidence/chat/"+runId);if(directory.exists()||!directory.mkdirs())throw new IllegalStateException("Run directory already exists");
-            check(android.os.Build.SUPPORTED_ABIS[0].equals("x86_64"),"Runtime checks stay on the x86_64 emulator");
+            boolean identity=target.equals("Pixel10Pro")
+                ?android.os.Build.MANUFACTURER.equals("Google")&&android.os.Build.MODEL.equals("Pixel 10 Pro")&&android.os.Build.SUPPORTED_ABIS[0].equals("arm64-v8a")
+                :target.equals("Outpost35")&&android.os.Build.SUPPORTED_ABIS[0].equals("x86_64")&&android.os.Build.MODEL.toLowerCase(java.util.Locale.ROOT).contains("sdk");
+            check(identity,"Chat runs on the explicitly admitted target architecture/model");
             String[] permissions=test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",android.content.pm.PackageManager.GET_PERMISSIONS).requestedPermissions;
             check(permissions==null||!java.util.Arrays.asList(permissions).contains("android.permission.INTERNET"),"Product APK remains offline without INTERNET permission");
             check(!java.util.Arrays.asList(test.getTargetContext().getAssets().list("")).contains("library.json"),"Production APK does not bundle the mock knowledge base");
@@ -157,7 +161,7 @@ final class ChatChecks {
             try(Library library=new Library(test.getTargetContext())){for(String id:imported)library.removeDocument(id);}catch(Exception ignored){}
             if(capturedTurns)try(ChatStore chat=new ChatStore(test.getTargetContext())){for(ChatStore.Turn turn:chat.turns())if(!existingTurns.contains(turn.id()))chat.remove(turn.id());}catch(Exception ignored){}
             ModelStore.select(test.getTargetContext(),previous);test.getTargetContext().deleteDatabase(migration);test.getTargetContext().deleteDatabase(chatDb);for(int i=temporary.size()-1;i>=0;i--)temporary.get(i).delete();
-            try {JSONObject report=new JSONObject().put("runId",runId).put("version",test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",0).versionName).put("passed",complete).put("checksPassed",passed).put("checks",checks).put("answers",answers).put("modelExecution",generate).put("promptVersion",ChatPrompt.VERSION).put("scope","x86_64 emulator only. Synthetic documents exercise import/chat plumbing, not general answer quality or physical-phone performance.");writeText(new File(directory,"chat-checks.json").toPath(),report.toString(2));}catch(Exception ignored){}
+            try {JSONObject report=new JSONObject().put("runId",runId).put("target",target).put("version",test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",0).versionName).put("passed",complete).put("checksPassed",passed).put("checks",checks).put("answers",answers).put("modelExecution",generate).put("promptVersion",ChatPrompt.VERSION).put("scope","Recorded Android target. Synthetic documents exercise import/chat plumbing, not general answer quality, battery life or field acceptance.");writeText(new File(directory,"chat-checks.json").toPath(),report.toString(2));}catch(Exception ignored){}
         }
         test.finish(complete?Activity.RESULT_OK:Activity.RESULT_CANCELED,result);
     }

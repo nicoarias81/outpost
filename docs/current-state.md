@@ -2,6 +2,8 @@
 
 **Outpost 0.14.0 / version code 16**, checked on 2026-10-01. Canonical source: `E:/projects/outpost`, branch `codex/outpost`. The product is an English offline Android chat with an empty initial knowledge library. [Validation](validation-0.14.md) owns exact artifact identities/results; the [roadmap](roadmap.md) owns remaining tasks.
 
+The owner authorized the connected Pixel 10 Pro on 2026-10-01. [The Pixel protocol](pixel10-testing.md) records preparation, run identities and current physical validation status. Historical emulator results below are not phone results.
+
 ## Capability inventory
 
 | Area | Implemented | Limits / remaining work |

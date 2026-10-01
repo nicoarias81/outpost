@@ -15,6 +15,7 @@
 | Change ingestion or storage | [Knowledge contracts](knowledge-base.md), [developer pack v1](knowledge-packs-v1.md), [data boundaries](security-and-data.md) |
 | Build or run tests | [Development](development.md), [emulator operating guide](emulator-runbook.md), [dependencies](../THIRD_PARTY.md) |
 | Review new kernel ideas | [DeepGEMM-Ascend static review and prioritized experiments](deepgemm-ascend-review.md) |
+| Test the authorized Pixel 10 Pro | [Physical-device protocol and status](pixel10-testing.md) |
 | Run/review candidate models | [Candidate testing](candidate-testing.md), [Spark results and research-build identity](spark-candidate-results-2026-10-01.md) |
 | Review Spark-X2.5 and storage stalls | [Model admission and NVMe/Engram analysis](spark-x25-storage-review.md) |
 | Compare models and memory designs | [Model alternatives and emulator study](model-alternatives.md), [Engram review](engram-review.md), [pinned research metadata](../evidence/research/model-survey-20260930/survey-metadata.json) |

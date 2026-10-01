@@ -17,7 +17,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/** Pinned candidate admission and paired practical tasks, exclusively in the emulator. */
+/** Pinned candidate admission and paired tasks on explicitly admitted Android targets. */
 final class CandidateChecks {
     private final Instrumentation test;
     private final Bundle args;
@@ -29,6 +29,8 @@ final class CandidateChecks {
     private JSONObject lock,fixtures;
     private int checksPassed;
     private boolean fullSparkCache=true;
+    private boolean physicalPixel;
+    private int threads=4;
     CandidateChecks(Instrumentation test,Bundle args){this.test=test;this.args=args;}
     private void require(boolean value,String label)throws Exception{checks.put(new JSONObject().put("label",label).put("passed",value));write();if(!value)throw new AssertionError(label);checksPassed++;}
     private void status(String text){Bundle b=new Bundle();b.putString("stream","\n"+text+"\n");test.sendStatus(0,b);}
@@ -48,8 +50,16 @@ final class CandidateChecks {
             lock=new JSONObject(asset("spark17-lock.json"));String fixtureBytes=asset("missions-v1.json");fixtures=new JSONObject(fixtureBytes);
             report.put("runId",run).put("phase",phase).put("passed",false).put("checks",checks).put("answers",answers).put("modelLock",lock)
                 .put("fixtureSha256",Evidence.sha256(fixtureBytes)).put("chatPromptVersion",ChatPrompt.VERSION).put("system",ChatPrompt.SYSTEM)
-                .put("runtime",new JSONObject(NativeEngine.kernelProfile())).put("scope","Emulator research build. Execution checks are not answer-quality scores. Memory sampling perturbs the measured path; no phone or energy claim.");write();
-            require(android.os.Build.SUPPORTED_ABIS[0].equals("x86_64")&&android.os.Build.MODEL.toLowerCase(java.util.Locale.ROOT).contains("sdk"),"Documented emulator architecture");
+                .put("runtime",new JSONObject(NativeEngine.kernelProfile())).put("scope","Android research build on the recorded target. Execution checks are not answer-quality scores. Memory sampling adds overhead; USB tests do not establish battery life.");write();
+            String target=args.getString("candidate_target","Outpost35");physicalPixel=target.equals("Pixel10Pro");
+            boolean identity=physicalPixel
+                ?android.os.Build.MANUFACTURER.equals("Google")&&android.os.Build.MODEL.equals("Pixel 10 Pro")&&android.os.Build.SUPPORTED_ABIS[0].equals("arm64-v8a")
+                :target.equals("Outpost35")&&android.os.Build.SUPPORTED_ABIS[0].equals("x86_64")&&android.os.Build.MODEL.toLowerCase(java.util.Locale.ROOT).contains("sdk");
+            report.put("target",target).put("device",new JSONObject().put("manufacturer",android.os.Build.MANUFACTURER).put("model",android.os.Build.MODEL).put("abi",android.os.Build.SUPPORTED_ABIS[0]).put("fingerprint",android.os.Build.FINGERPRINT));
+            require(identity,"Explicitly admitted target architecture/model");
+            threads=physicalPixel?Math.max(1,Math.min(4,Runtime.getRuntime().availableProcessors())):4;
+            String[] permissions=context.getPackageManager().getPackageInfo(context.getPackageName(),android.content.pm.PackageManager.GET_PERMISSIONS).requestedPermissions;
+            require(permissions==null||!Arrays.asList(permissions).contains("android.permission.INTERNET"),"Product has no INTERNET permission; phone radios remain unchanged");
             spark=new ModelStore(context,new ModelStore.Spec("spark17research","Spark-X2.5 1.7B research",lock.getString("file"),lock.getLong("bytes"),lock.getString("sha256"),false));
             require(spark.file().length()==lock.getLong("bytes")&&hash(spark.file()).equals(lock.getString("sha256")),"Candidate full bytes verified inside Android");
             require(ModelStore.PROFILES.size()==3&&!ModelStore.PROFILES.contains(spark.spec()),"Candidate is outside product selector");
@@ -65,19 +75,28 @@ final class CandidateChecks {
             end.putString("stream","\nFAIL candidate: "+android.util.Log.getStackTraceString(e));}
         test.finish(passed?Activity.RESULT_OK:Activity.RESULT_CANCELED,end);
     }
-    private static NativeEngine.Configuration config(boolean spark,boolean cache){return new NativeEngine.Configuration(4,4,128,cache,spark?1:4,0,true,spark?1:2,1);}
+    private NativeEngine.Configuration config(boolean spark,boolean cache){return new NativeEngine.Configuration(threads,threads,128,cache,spark||physicalPixel?1:4,0,true,spark||physicalPixel?1:2,1);}
+    private JSONObject conditions()throws Exception{
+        android.os.PowerManager power=context.getSystemService(android.os.PowerManager.class);
+        android.content.Intent battery=context.registerReceiver(null,new android.content.IntentFilter(android.content.Intent.ACTION_BATTERY_CHANGED));
+        JSONObject result=new JSONObject().put("elapsedRealtimeMs",SystemClock.elapsedRealtime()).put("thermalStatus",power.getCurrentThermalStatus());
+        if(battery!=null)result.put("batteryTemperatureTenthsC",battery.getIntExtra(android.os.BatteryManager.EXTRA_TEMPERATURE,-1)).put("batteryLevel",battery.getIntExtra(android.os.BatteryManager.EXTRA_LEVEL,-1)).put("batteryScale",battery.getIntExtra(android.os.BatteryManager.EXTRA_SCALE,-1)).put("plugged",battery.getIntExtra(android.os.BatteryManager.EXTRA_PLUGGED,-1));
+        return result;
+    }
     private NativeEngine.Result call(NativeEngine engine,String id,boolean candidate,String system,String user,int cap,boolean sampled,int seed,boolean cache,boolean cancel)throws Exception{
-        engine.configure(config(candidate,cache));long request=engine.request();
+        JSONObject before=conditions();
+        if(physicalPixel&&before.getInt("thermalStatus")>=android.os.PowerManager.THERMAL_STATUS_SEVERE)throw new IllegalStateException("Thermal status severe or higher; cool the phone before another run");
+        NativeEngine.Configuration configuration=config(candidate,cache);engine.configure(configuration);long request=engine.request();
         File file=candidate?spark.file():new ModelStore(context,ModelStore.BONSAI4).file();
         NativeEngine.GenerationPolicy policy=candidate?new NativeEngine.GenerationPolicy(fullSparkCache?2:1,sampled?2:0,seed):new NativeEngine.GenerationPolicy(0,sampled?1:0,seed);
         JSONObject item=new JSONObject().put("id",id).put("model",candidate?"spark17":"bonsai4").put("sampled",sampled).put("seed",seed).put("templatePolicy",policy.template()).put("samplerPolicy",policy.sampler())
-            .put("system",system).put("user",user).put("maxTokens",cap).put("cacheEnabled",cache).put("status","running").put("configuration",new JSONObject().put("threads",4).put("promptThreads",4).put("batch",128).put("matrixWidth",candidate?1:4).put("rowTile",candidate?1:2).put("decodeRows",1).put("swaFull",!candidate||fullSparkCache).put("speculation",0));
+            .put("system",system).put("user",user).put("maxTokens",cap).put("cacheEnabled",cache).put("status","running").put("conditionsBefore",before).put("configuration",new JSONObject().put("threads",configuration.threads()).put("promptThreads",configuration.promptThreads()).put("batch",128).put("matrixWidth",configuration.matrixWidth()).put("rowTile",configuration.rowTile()).put("decodeRows",1).put("swaFull",!candidate||fullSparkCache).put("speculation",0));
         answers.put(item);write();status("Starting "+id+" / "+(candidate?"Spark":"Bonsai"));
         long started=SystemClock.elapsedRealtime(),cpu=android.os.Process.getElapsedCpuTime();
         MemoryProbe memory=new MemoryProbe();NativeEngine.Result r;
         try{memory.start();r=engine.generateWithPolicy(request,file,system,user,cap,policy,(text,count)->{if(cancel&&count>=3)engine.cancel(request);});}
         catch(Throwable error){item.put("status","error").put("error",error.toString());throw error;}
-        finally{memory.close();item.put("memory",memory.result()).put("wallMsIncludingProbe",SystemClock.elapsedRealtime()-started).put("processCpuMs",android.os.Process.getElapsedCpuTime()-cpu);write();}
+        finally{memory.close();item.put("memory",memory.result()).put("conditionsAfter",conditions()).put("wallMsIncludingProbe",SystemClock.elapsedRealtime()-started).put("processCpuMs",android.os.Process.getElapsedCpuTime()-cpu);write();}
         item.put("status","returned").put("text",r.text()).put("promptTokens",r.promptTokens()).put("tokens",r.tokens()).put("loadMs",r.loadMs()).put("prepareMs",r.prepareMs()).put("prefillMs",r.prefillMs()).put("decodeMs",r.decodeMs()).put("firstTokenMs",r.firstTokenMs()).put("totalMs",r.totalMs()).put("stopReason",r.reason()).put("reusedTokens",r.cachedTokens()).put("firstLogitsHash",Long.toUnsignedString(r.firstLogitsHash())).put("drafted",r.drafted()).put("accepted",r.accepted());
         item.put("promptTokenIds",new JSONArray(engine.lastPromptTokens())).put("outputTokenIds",new JSONArray(engine.lastTokens()));write();
         status("Completed "+id+": "+r.tokens()+" tokens / "+r.totalMs()+"ms / stop="+r.reason());return r;
@@ -134,7 +153,9 @@ final class CandidateChecks {
             require(rejected,"Spark protocol rejects another model architecture");
             NativeEngine.Result switched=call(engine,"admit-spark-switch-back",true,system,user,48,false,42,true,false);
             require(switched.text().equals(first.text())&&switched.cachedTokens()==0,"Model switch back resets state");
-            engine.configure(config(true,false));NativeEngine.Result qwen=engine.generate(engine.request(),new ModelStore(context,ModelStore.QWEN).file(),system,user,48,(s,n)->{});
+            ModelStore qwenModel=new ModelStore(context,ModelStore.QWEN);
+            require(qwenModel.file().length()==qwenModel.spec().bytes()&&hash(qwenModel.file()).equals(qwenModel.spec().sha256()),"Qwen smoke model full bytes verified inside Android");
+            engine.configure(config(true,false));NativeEngine.Result qwen=engine.generate(engine.request(),qwenModel.file(),system,user,48,(s,n)->{});
             report.put("qwenSmoke",new JSONObject().put("text",qwen.text()).put("tokens",qwen.tokens()).put("stopReason",qwen.reason()));
             require(qwen.tokens()>0&&qwen.reason()==0,"Legacy greedy Qwen path remains functional");
         }

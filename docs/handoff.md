@@ -8,7 +8,7 @@ Delivery checkpoints: OSM implementation `a804044`, evidence `9f3d36c`; kernel i
 
 - Work in `E:/projects/outpost`, branch `codex/outpost`, app `dev.outpost.app`, native `outpost_engine`. Check Git state and ongoing work first; older C-workspace delivery/staging folders are historical, not current source.
 - English UI, maintained docs/comments and primary fixtures. Preserve original imported/historical language and deliberate multilingual probes.
-- Execute models/numerical/runtime tests only in **Outpost35 / emulator-5582**. Host build/static/header/hash checks are allowed. Preserve old Brújula and emulator-5580. Physical Pixels remain unauthorized; ARM64 is packaged but not runtime-validated.
+- Execute models/numerical/runtime tests in **Outpost35 / emulator-5582** or the **specifically registered Pixel 10 Pro**, explicitly authorized by the owner on 2026-10-01. Follow [the Pixel protocol](pixel10-testing.md); preserve phone data/radios and old Brújula/emulator-5580. Host build/static/header/hash checks are allowed; host inference and other phones remain outside scope. Phone validation status is recorded separately from the historical emulator checkpoints.
 - The product serves traveler, farmer, field engineer, mountaineer and driver question types. Vitalik's restaurant example is not a vegan/restaurant specialization. Public, regional and personal knowledge are complementary; inference and knowledge remain separate technical domains.
 - Discovery about reflection, reconnect tasks and equipment is not authorization to send, connect or operate external systems. Preserve pinned dependencies, reference fallback, private data and failed evidence. Public distribution/license/signing remain separate; the existing remote is private.
 
@@ -35,7 +35,7 @@ Latest recorded cleanup left synthetic imports/turns removed and Bonsai 4B selec
 ## Resume checklist
 
 1. Inspect Git status/diff and relevant source. For docs-only changes, verify links/source/receipt; do not build or run models.
-2. For runtime work read the [emulator runbook](emulator-runbook.md): confirm AVD name and serial, boot, offline state, installed APK hashes and model readiness. Only one test/install workflow owns the emulator at a time.
+2. For Pixel work follow [the Pixel protocol](pixel10-testing.md). For emulator work read the [emulator runbook](emulator-runbook.md): confirm AVD name and serial, boot, offline state, installed APK hashes and model readiness. Only one test/install workflow owns the emulator at a time.
 3. Resolve tools from ignored `.local/developer-settings.json`. Existing host SDK: `C:/Users/nicoa/Documents/ChatGPT/muna 7/work/bug-hunter-toolchain/sdk`. Python: `C:/Users/nicoa/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe`; set `PYTHONUTF8=1`. Reconfigure actual paths on a new host; caches/AVD/models are not in Git.
 4. After code changes use `scripts/build.ps1 -Offline` with populated caches. It builds both ABIs/test APK and checks dependency bytes/source fingerprints. `eval/check-build.ps1` verifies current receipt; local publication requires matching production inputs and bytes.
 5. Choose focused checks in [development](development.md). OSM/folder/chat/knowledge suites default to no model and use unique runs; `-Generate` is explicit for OSM/chat. Archive fixed-output legacy research evidence before rerunning. Keep behavior and evidence commits separate.
@@ -64,7 +64,7 @@ The [static Spark/storage review](spark-x25-storage-review.md) remains the prove
 
 Follow [roadmap](roadmap.md), preserving task IDs. E-06 is fixed and v7 declares both packaged ABIs. Six host-only identity controls cover valid/reordered and missing/extra/duplicate/malformed sets. The obsolete K-07 dependency is removed from the regional fixture; its broader time/preference recommendation task remains blocked. P-05/P-06 now have shape/graph/model evidence and a bounded prefill-only adoption. Further timing/pressure/ARM work remains. Do not infer a kernel gain from deterministic place replies or extrapolate the emulator profile to a phone.
 
-Prioritize realistic user tasks and source/answer failures; model provisioning and bounded-chat UX; original-file/process-death/storage recovery; complex PDF and real-region OSM evaluation. Typed arithmetic, editable mission context, Office/OCR/ZIM and broader geographic tools remain pending. Phone trials require explicit scope expansion. No field-quality, peak-RAM, phone-speed, battery/thermal or bounty-compliance claim follows from current checks.
+Prioritize realistic user tasks and source/answer failures; model provisioning and bounded-chat UX; original-file/process-death/storage recovery; complex PDF and real-region OSM evaluation. Typed arithmetic, editable mission context, Office/OCR/ZIM and broader geographic tools remain pending. The connected Pixel 10 Pro trial is now authorized; other devices still require explicit scope expansion. No field-quality, peak-RAM, phone-speed, battery/thermal or bounty-compliance claim follows from current checks.
 
 ## New optimization reference
 
