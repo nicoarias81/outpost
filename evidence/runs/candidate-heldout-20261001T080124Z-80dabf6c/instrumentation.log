@@ -1,0 +1,195 @@
+
+Starting h01-travel-transfer/fixed/0 / Spark
+
+Completed h01-travel-transfer/fixed/0: 92 tokens / 42381ms / stop=0
+
+Starting h01-travel-transfer/fixed/0 / Bonsai
+
+Completed h01-travel-transfer/fixed/0: 54 tokens / 37019ms / stop=0
+
+Starting h02-travel-ambiguous/fixed/0 / Bonsai
+
+Completed h02-travel-ambiguous/fixed/0: 68 tokens / 38202ms / stop=0
+
+Starting h02-travel-ambiguous/fixed/0 / Spark
+
+Completed h02-travel-ambiguous/fixed/0: 55 tokens / 32103ms / stop=0
+
+Starting h03-travel-diet/fixed/0 / Spark
+
+Completed h03-travel-diet/fixed/0: 38 tokens / 29678ms / stop=0
+
+Starting h03-travel-diet/fixed/0 / Bonsai
+
+Completed h03-travel-diet/fixed/0: 16 tokens / 26093ms / stop=0
+
+Starting h04-travel-hours/fixed/0 / Bonsai
+
+Completed h04-travel-hours/fixed/0: 78 tokens / 41985ms / stop=0
+
+Starting h04-travel-hours/fixed/0 / Spark
+
+Completed h04-travel-hours/fixed/0: 76 tokens / 37508ms / stop=0
+
+Starting h05-records-owner/fixed/0 / Spark
+
+Completed h05-records-owner/fixed/0: 89 tokens / 45067ms / stop=0
+
+Starting h05-records-owner/fixed/0 / Bonsai
+
+Completed h05-records-owner/fixed/0: 76 tokens / 45130ms / stop=0
+
+Starting h06-records-conflict/fixed/0 / Bonsai
+
+Completed h06-records-conflict/fixed/0: 133 tokens / 99943ms / stop=0
+
+Starting h06-records-conflict/fixed/0 / Spark
+
+Completed h06-records-conflict/fixed/0: 100 tokens / 66029ms / stop=0
+
+Starting h07-records-attachment/fixed/0 / Spark
+
+Completed h07-records-attachment/fixed/0: 45 tokens / 37203ms / stop=0
+
+Starting h07-records-attachment/fixed/0 / Bonsai
+
+Completed h07-records-attachment/fixed/0: 64 tokens / 51729ms / stop=0
+
+Starting h08-records-quoted-instruction/fixed/0 / Bonsai
+
+Completed h08-records-quoted-instruction/fixed/0: 40 tokens / 40184ms / stop=0
+
+Starting h08-records-quoted-instruction/fixed/0 / Spark
+
+Completed h08-records-quoted-instruction/fixed/0: 101 tokens / 59516ms / stop=0
+
+Starting h09-engineer-match/fixed/0 / Spark
+
+Completed h09-engineer-match/fixed/0: 20 tokens / 28371ms / stop=0
+
+Starting h09-engineer-match/fixed/0 / Bonsai
+
+Completed h09-engineer-match/fixed/0: 21 tokens / 31180ms / stop=0
+
+Starting h10-engineer-diagnosis/fixed/0 / Bonsai
+
+Completed h10-engineer-diagnosis/fixed/0: 96 tokens / 69869ms / stop=0
+
+Starting h10-engineer-diagnosis/fixed/0 / Spark
+
+Completed h10-engineer-diagnosis/fixed/0: 105 tokens / 65781ms / stop=0
+
+Starting h11-engineer-limits/fixed/0 / Spark
+
+Completed h11-engineer-limits/fixed/0: 93 tokens / 59005ms / stop=0
+
+Starting h11-engineer-limits/fixed/0 / Bonsai
+
+Completed h11-engineer-limits/fixed/0: 89 tokens / 66547ms / stop=0
+
+Starting h12-engineer-missing-revision/fixed/0 / Bonsai
+
+Completed h12-engineer-missing-revision/fixed/0: 66 tokens / 52999ms / stop=0
+
+Starting h12-engineer-missing-revision/fixed/0 / Spark
+
+Completed h12-engineer-missing-revision/fixed/0: 68 tokens / 47577ms / stop=0
+
+Starting h13-farm-conversion/fixed/0 / Spark
+
+Completed h13-farm-conversion/fixed/0: 58 tokens / 44257ms / stop=0
+
+Starting h13-farm-conversion/fixed/0 / Bonsai
+
+Completed h13-farm-conversion/fixed/0: 41 tokens / 41470ms / stop=0
+
+Starting h14-farm-sensor/fixed/0 / Bonsai
+
+Completed h14-farm-sensor/fixed/0: 65 tokens / 53687ms / stop=0
+
+Starting h14-farm-sensor/fixed/0 / Spark
+
+Completed h14-farm-sensor/fixed/0: 52 tokens / 40184ms / stop=0
+
+Starting h15-farm-parts/fixed/0 / Spark
+
+Completed h15-farm-parts/fixed/0: 23 tokens / 30370ms / stop=0
+
+Starting h15-farm-parts/fixed/0 / Bonsai
+
+Completed h15-farm-parts/fixed/0: 31 tokens / 36798ms / stop=0
+
+Starting h16-farm-units-conflict/fixed/0 / Bonsai
+
+Completed h16-farm-units-conflict/fixed/0: 115 tokens / 77687ms / stop=0
+
+Starting h16-farm-units-conflict/fixed/0 / Spark
+
+Completed h16-farm-units-conflict/fixed/0: 137 tokens / 78152ms / stop=0
+
+Starting h17-hiking-route/fixed/0 / Spark
+
+Completed h17-hiking-route/fixed/0: 58 tokens / 42148ms / stop=0
+
+Starting h17-hiking-route/fixed/0 / Bonsai
+
+Completed h17-hiking-route/fixed/0: 28 tokens / 33113ms / stop=0
+
+Starting h18-driving-charger/fixed/0 / Bonsai
+
+Completed h18-driving-charger/fixed/0: 63 tokens / 38934ms / stop=0
+
+Starting h18-driving-charger/fixed/0 / Spark
+
+Completed h18-driving-charger/fixed/0: 79 tokens / 39414ms / stop=0
+
+Starting h19-hiking-distance/fixed/0 / Spark
+
+Completed h19-hiking-distance/fixed/0: 84 tokens / 36157ms / stop=0
+
+Starting h19-hiking-distance/fixed/0 / Bonsai
+
+Completed h19-hiking-distance/fixed/0: 88 tokens / 42206ms / stop=0
+
+Starting h20-driving-stale/fixed/0 / Bonsai
+
+Completed h20-driving-stale/fixed/0: 61 tokens / 35094ms / stop=0
+
+Starting h20-driving-stale/fixed/0 / Spark
+
+Completed h20-driving-stale/fixed/0: 44 tokens / 27483ms / stop=0
+
+Starting h21-context-correction/fixed/0 / Spark
+
+Completed h21-context-correction/fixed/0: 29 tokens / 26577ms / stop=0
+
+Starting h21-context-correction/fixed/0 / Bonsai
+
+Completed h21-context-correction/fixed/0: 25 tokens / 27554ms / stop=0
+
+Starting h22-context-no-source/fixed/0 / Bonsai
+
+Completed h22-context-no-source/fixed/0: 139 tokens / 60554ms / stop=0
+
+Starting h22-context-no-source/fixed/0 / Spark
+
+Completed h22-context-no-source/fixed/0: 192 tokens / 61986ms / stop=1
+
+Starting h23-context-explain/fixed/0 / Spark
+
+Completed h23-context-explain/fixed/0: 71 tokens / 34245ms / stop=0
+
+Starting h23-context-explain/fixed/0 / Bonsai
+
+Completed h23-context-explain/fixed/0: 171 tokens / 70635ms / stop=0
+
+Starting h24-context-partial-answer/fixed/0 / Bonsai
+
+Completed h24-context-partial-answer/fixed/0: 95 tokens / 37051ms / stop=0
+
+Starting h24-context-partial-answer/fixed/0 / Spark
+
+Completed h24-context-partial-answer/fixed/0: 49 tokens / 24261ms / stop=0
+
+PASS candidate heldout: 52 execution checks; review recorded answers separately.
+

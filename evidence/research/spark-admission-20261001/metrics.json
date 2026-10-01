@@ -1,0 +1,377 @@
+{
+  "scope": "Descriptive paired emulator metrics. No automated answer-quality verdict, confidence interval, phone claim or field acceptance.",
+  "runs": [
+    {
+      "runId": "candidate-pilot-20261001T073447Z-db85788d",
+      "phase": "pilot",
+      "reportSha256": "ca842649b336fbbdae4aaaeac8a7b66518c49b855410cf56c1c3209a135418f1",
+      "identity": {
+        "runId": "candidate-pilot-20261001T073447Z-db85788d",
+        "phase": "pilot",
+        "serial": "emulator-5582",
+        "avd": "Outpost35",
+        "startedUtc": "2026-10-01T07:34:47.4473851Z",
+        "gitHead": "55d11e498d5a56c31f0ae5a86e5895177b3fd5ae",
+        "sourceStatus": [
+          "?? evidence/runs/candidate-admission-20261001T065759Z-07fa8637/",
+          "?? evidence/runs/candidate-admission-20261001T065952Z-f5d33e44/",
+          "?? evidence/runs/candidate-admission-20261001T070356Z-49c50808/",
+          "?? evidence/runs/candidate-admission-20261001T071004Z-35b00c68/",
+          "?? evidence/runs/candidate-admission-20261001T071945Z-d48b1353/",
+          "?? evidence/runs/candidate-admission-20261001T072903Z-83456a7a/"
+        ],
+        "appSha256": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+        "testApkSha256": "1fb39c9df410c54de0bedcf09097df3ca2fb621d6745d4cb3a08bf2e6ccc1ef6",
+        "mainSourcesSha256": "5158b954308a530c4293bafe757c19616d3a0bd41200224b882ba6b8a40a4378",
+        "testSourcesSha256": "5275e9b0d24fde3976338507afa0467e5e3340135836a50eaaad84c52f4b548d",
+        "fixtureSha256": "6d6152c30998339d768c695011b4da93c6a85e75fafb51822dcbc5257a59bdb6",
+        "lockSha256": "229fa0e3c71a8b3fa444a0e56b04830fb5320fd79ae144ca1e97fa2aedb2efd1",
+        "deviceFingerprint": "Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys",
+        "offlineState": [
+          1,
+          0,
+          0
+        ],
+        "buildReceipt": {
+          "schemaVersion": 1,
+          "builtAtUtc": "2026-10-01T07:28:00.2663616Z",
+          "versionName": "0.14.0",
+          "versionCode": 16,
+          "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+          "mainSourcesSha256": "5158b954308a530c4293bafe757c19616d3a0bd41200224b882ba6b8a40a4378",
+          "testSourcesSha256": "5275e9b0d24fde3976338507afa0467e5e3340135836a50eaaad84c52f4b548d",
+          "appSha256": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+          "testApkSha256": "1fb39c9df410c54de0bedcf09097df3ca2fb621d6745d4cb3a08bf2e6ccc1ef6",
+          "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+        },
+        "modelExecution": true,
+        "scope": "Pinned Spark research and Bonsai control inside Outpost35. No product profile selection, physical device or storage-policy change. Same-version research APK is identified by bytes, not release label."
+      },
+      "pairedTasks": 16,
+      "statistics": [
+        {
+          "model": "bonsai4",
+          "arm": "fixed",
+          "calls": 8,
+          "stopReasons": {
+            "0": 7,
+            "1": 1
+          },
+          "medianNativeTotalMs": 47854.5,
+          "medianFirstTokenMs": 18557.5,
+          "medianLoadMs": 175.5,
+          "medianOutputTokens": 87.0,
+          "maxSampledPssKiB": 1525974,
+          "maxSamplingGapMs": 1617,
+          "memoryScope": "Timing rows follow warmup; pilot/heldout peaks may include previous model during switching. Sampled process maxima, not continuous peaks."
+        },
+        {
+          "model": "bonsai4",
+          "arm": "retrieval",
+          "calls": 8,
+          "stopReasons": {
+            "0": 7,
+            "1": 1
+          },
+          "medianNativeTotalMs": 41197.0,
+          "medianFirstTokenMs": 19721.0,
+          "medianLoadMs": 476.0,
+          "medianOutputTokens": 87.0,
+          "maxSampledPssKiB": 1524526,
+          "maxSamplingGapMs": 1054,
+          "memoryScope": "Timing rows follow warmup; pilot/heldout peaks may include previous model during switching. Sampled process maxima, not continuous peaks."
+        },
+        {
+          "model": "spark17",
+          "arm": "fixed",
+          "calls": 8,
+          "stopReasons": {
+            "0": 8
+          },
+          "medianNativeTotalMs": 34241.0,
+          "medianFirstTokenMs": 18421.0,
+          "medianLoadMs": 368.0,
+          "medianOutputTokens": 82.5,
+          "maxSampledPssKiB": 1304825,
+          "maxSamplingGapMs": 1417,
+          "memoryScope": "Timing rows follow warmup; pilot/heldout peaks may include previous model during switching. Sampled process maxima, not continuous peaks."
+        },
+        {
+          "model": "spark17",
+          "arm": "retrieval",
+          "calls": 8,
+          "stopReasons": {
+            "0": 8
+          },
+          "medianNativeTotalMs": 35547.0,
+          "medianFirstTokenMs": 18749.5,
+          "medianLoadMs": 474.0,
+          "medianOutputTokens": 82.5,
+          "maxSampledPssKiB": 1305630,
+          "maxSamplingGapMs": 1050,
+          "memoryScope": "Timing rows follow warmup; pilot/heldout peaks may include previous model during switching. Sampled process maxima, not continuous peaks."
+        }
+      ],
+      "timingPairs": []
+    },
+    {
+      "runId": "candidate-heldout-20261001T080124Z-80dabf6c",
+      "phase": "heldout",
+      "reportSha256": "867ab1aad066fd4374f2d0fdbaf58f1d5d0b499fe603cfc941c0c2cf5e1765c6",
+      "identity": {
+        "runId": "candidate-heldout-20261001T080124Z-80dabf6c",
+        "phase": "heldout",
+        "serial": "emulator-5582",
+        "avd": "Outpost35",
+        "startedUtc": "2026-10-01T08:01:24.7331595Z",
+        "gitHead": "55d11e498d5a56c31f0ae5a86e5895177b3fd5ae",
+        "sourceStatus": [
+          "?? evidence/runs/candidate-admission-20261001T065759Z-07fa8637/",
+          "?? evidence/runs/candidate-admission-20261001T065952Z-f5d33e44/",
+          "?? evidence/runs/candidate-admission-20261001T070356Z-49c50808/",
+          "?? evidence/runs/candidate-admission-20261001T071004Z-35b00c68/",
+          "?? evidence/runs/candidate-admission-20261001T071945Z-d48b1353/",
+          "?? evidence/runs/candidate-admission-20261001T072903Z-83456a7a/",
+          "?? evidence/runs/candidate-pilot-20261001T073447Z-db85788d/"
+        ],
+        "appSha256": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+        "testApkSha256": "1fb39c9df410c54de0bedcf09097df3ca2fb621d6745d4cb3a08bf2e6ccc1ef6",
+        "mainSourcesSha256": "5158b954308a530c4293bafe757c19616d3a0bd41200224b882ba6b8a40a4378",
+        "testSourcesSha256": "5275e9b0d24fde3976338507afa0467e5e3340135836a50eaaad84c52f4b548d",
+        "fixtureSha256": "6d6152c30998339d768c695011b4da93c6a85e75fafb51822dcbc5257a59bdb6",
+        "lockSha256": "229fa0e3c71a8b3fa444a0e56b04830fb5320fd79ae144ca1e97fa2aedb2efd1",
+        "deviceFingerprint": "Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys",
+        "offlineState": [
+          1,
+          0,
+          0
+        ],
+        "buildReceipt": {
+          "schemaVersion": 1,
+          "builtAtUtc": "2026-10-01T07:28:00.2663616Z",
+          "versionName": "0.14.0",
+          "versionCode": 16,
+          "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+          "mainSourcesSha256": "5158b954308a530c4293bafe757c19616d3a0bd41200224b882ba6b8a40a4378",
+          "testSourcesSha256": "5275e9b0d24fde3976338507afa0467e5e3340135836a50eaaad84c52f4b548d",
+          "appSha256": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+          "testApkSha256": "1fb39c9df410c54de0bedcf09097df3ca2fb621d6745d4cb3a08bf2e6ccc1ef6",
+          "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+        },
+        "modelExecution": true,
+        "scope": "Pinned Spark research and Bonsai control inside Outpost35. No product profile selection, physical device or storage-policy change. Same-version research APK is identified by bytes, not release label."
+      },
+      "pairedTasks": 24,
+      "statistics": [
+        {
+          "model": "bonsai4",
+          "arm": "fixed",
+          "calls": 24,
+          "stopReasons": {
+            "0": 24
+          },
+          "medianNativeTotalMs": 41727.5,
+          "medianFirstTokenMs": 20838.0,
+          "medianLoadMs": 242.5,
+          "medianOutputTokens": 65.5,
+          "maxSampledPssKiB": 1527979,
+          "maxSamplingGapMs": 1230,
+          "memoryScope": "Timing rows follow warmup; pilot/heldout peaks may include previous model during switching. Sampled process maxima, not continuous peaks."
+        },
+        {
+          "model": "spark17",
+          "arm": "fixed",
+          "calls": 24,
+          "stopReasons": {
+            "0": 23,
+            "1": 1
+          },
+          "medianNativeTotalMs": 39799.0,
+          "medianFirstTokenMs": 20219.0,
+          "medianLoadMs": 409.0,
+          "medianOutputTokens": 69.5,
+          "maxSampledPssKiB": 1312055,
+          "maxSamplingGapMs": 1231,
+          "memoryScope": "Timing rows follow warmup; pilot/heldout peaks may include previous model during switching. Sampled process maxima, not continuous peaks."
+        }
+      ],
+      "timingPairs": []
+    },
+    {
+      "runId": "candidate-timing-20261001T084346Z-f368fdb1",
+      "phase": "timing",
+      "reportSha256": "dcc57be2cd3c1aabe66ac3d6bd85f3ac4ae774427255f1c5adac070b13f938a9",
+      "identity": {
+        "runId": "candidate-timing-20261001T084346Z-f368fdb1",
+        "phase": "timing",
+        "serial": "emulator-5582",
+        "avd": "Outpost35",
+        "startedUtc": "2026-10-01T08:43:46.1947057Z",
+        "gitHead": "55d11e498d5a56c31f0ae5a86e5895177b3fd5ae",
+        "sourceStatus": [
+          "?? evidence/runs/candidate-admission-20261001T065759Z-07fa8637/",
+          "?? evidence/runs/candidate-admission-20261001T065952Z-f5d33e44/",
+          "?? evidence/runs/candidate-admission-20261001T070356Z-49c50808/",
+          "?? evidence/runs/candidate-admission-20261001T071004Z-35b00c68/",
+          "?? evidence/runs/candidate-admission-20261001T071945Z-d48b1353/",
+          "?? evidence/runs/candidate-admission-20261001T072903Z-83456a7a/",
+          "?? evidence/runs/candidate-heldout-20261001T080124Z-80dabf6c/",
+          "?? evidence/runs/candidate-pilot-20261001T073447Z-db85788d/"
+        ],
+        "appSha256": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+        "testApkSha256": "1fb39c9df410c54de0bedcf09097df3ca2fb621d6745d4cb3a08bf2e6ccc1ef6",
+        "mainSourcesSha256": "5158b954308a530c4293bafe757c19616d3a0bd41200224b882ba6b8a40a4378",
+        "testSourcesSha256": "5275e9b0d24fde3976338507afa0467e5e3340135836a50eaaad84c52f4b548d",
+        "fixtureSha256": "6d6152c30998339d768c695011b4da93c6a85e75fafb51822dcbc5257a59bdb6",
+        "lockSha256": "229fa0e3c71a8b3fa444a0e56b04830fb5320fd79ae144ca1e97fa2aedb2efd1",
+        "deviceFingerprint": "Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys",
+        "offlineState": [
+          1,
+          0,
+          0
+        ],
+        "buildReceipt": {
+          "schemaVersion": 1,
+          "builtAtUtc": "2026-10-01T07:28:00.2663616Z",
+          "versionName": "0.14.0",
+          "versionCode": 16,
+          "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+          "mainSourcesSha256": "5158b954308a530c4293bafe757c19616d3a0bd41200224b882ba6b8a40a4378",
+          "testSourcesSha256": "5275e9b0d24fde3976338507afa0467e5e3340135836a50eaaad84c52f4b548d",
+          "appSha256": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+          "testApkSha256": "1fb39c9df410c54de0bedcf09097df3ca2fb621d6745d4cb3a08bf2e6ccc1ef6",
+          "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+        },
+        "modelExecution": true,
+        "scope": "Pinned Spark research and Bonsai control inside Outpost35. No product profile selection, physical device or storage-policy change. Same-version research APK is identified by bytes, not release label."
+      },
+      "pairedTasks": 6,
+      "statistics": [
+        {
+          "model": "bonsai4",
+          "arm": "fixed",
+          "calls": 6,
+          "stopReasons": {
+            "0": 6
+          },
+          "medianNativeTotalMs": 42922.5,
+          "medianFirstTokenMs": 21112.5,
+          "medianLoadMs": 0.0,
+          "medianOutputTokens": 91.5,
+          "maxSampledPssKiB": 1519220,
+          "maxSamplingGapMs": 617,
+          "memoryScope": "Timing rows follow warmup; pilot/heldout peaks may include previous model during switching. Sampled process maxima, not continuous peaks."
+        },
+        {
+          "model": "spark17",
+          "arm": "fixed",
+          "calls": 6,
+          "stopReasons": {
+            "0": 6
+          },
+          "medianNativeTotalMs": 40511.5,
+          "medianFirstTokenMs": 20569.0,
+          "medianLoadMs": 0.0,
+          "medianOutputTokens": 120.5,
+          "maxSampledPssKiB": 1300228,
+          "maxSamplingGapMs": 700,
+          "memoryScope": "Timing rows follow warmup; pilot/heldout peaks may include previous model during switching. Sampled process maxima, not continuous peaks."
+        }
+      ],
+      "timingPairs": [
+        {
+          "fixture": "d01-travel-arrival",
+          "models": {
+            "spark17": {
+              "normalEosAll": true,
+              "nativeTotalMs": [
+                31536,
+                30857,
+                30367
+              ],
+              "medianNativeTotalMs": 30857,
+              "firstTokenMs": [
+                18781,
+                19446,
+                18935
+              ],
+              "sampledPeakPssKiB": [
+                1292192,
+                1298368,
+                1299448
+              ],
+              "textsIdenticalWithinModel": true
+            },
+            "bonsai4": {
+              "normalEosAll": true,
+              "nativeTotalMs": [
+                40180,
+                39653,
+                39776
+              ],
+              "medianNativeTotalMs": 39776,
+              "firstTokenMs": [
+                19973,
+                19522,
+                19978
+              ],
+              "sampledPeakPssKiB": [
+                1516485,
+                1517069,
+                1515868
+              ],
+              "textsIdenticalWithinModel": true
+            }
+          },
+          "bonsaiOverSparkNativeMedian": 1.289043004828726
+        },
+        {
+          "fixture": "d02-manual-revision",
+          "models": {
+            "spark17": {
+              "normalEosAll": true,
+              "nativeTotalMs": [
+                51987,
+                51725,
+                49487
+              ],
+              "medianNativeTotalMs": 51725,
+              "firstTokenMs": [
+                22563,
+                22296,
+                21692
+              ],
+              "sampledPeakPssKiB": [
+                1299268,
+                1300228,
+                1299876
+              ],
+              "textsIdenticalWithinModel": true
+            },
+            "bonsai4": {
+              "normalEosAll": true,
+              "nativeTotalMs": [
+                48039,
+                46003,
+                45665
+              ],
+              "medianNativeTotalMs": 46003,
+              "firstTokenMs": [
+                22864,
+                22706,
+                22247
+              ],
+              "sampledPeakPssKiB": [
+                1517592,
+                1517376,
+                1519220
+              ],
+              "textsIdenticalWithinModel": true
+            }
+          },
+          "bonsaiOverSparkNativeMedian": 0.8893765103914935
+        }
+      ]
+    }
+  ]
+}

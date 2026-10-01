@@ -1,0 +1,18 @@
+{
+  "id": "spark17research",
+  "repo": "XHToken/Spark-X2.5-1.7B-GGUF",
+  "revision": "1f7fa33b1245c14730da39e125714ad3a327901b",
+  "file": "Spark-X2.5-1.7B-Q4_K_M.gguf",
+  "bytes": 1107457856,
+  "sha256": "902bde2522394954ac17821b3e5fd0df02defbc6944f122253f2580acf0503f4",
+  "templateSha256": "84493de66d859ab2694ec760056c82690af45de2dd170f1b6245456378f32f52",
+  "license": "Apache-2.0",
+  "adapter": "spark-two-message-no-thinking-v1",
+  "sampling": {
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 0,
+    "seed": 42
+  },
+  "scope": "Research only. Not in ModelStore.PROFILES."
+}

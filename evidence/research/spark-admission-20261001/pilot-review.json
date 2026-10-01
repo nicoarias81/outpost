@@ -1,0 +1,461 @@
+{
+  "policy": {
+    "reviewer": {
+      "kind": "assistant",
+      "independent": false,
+      "domain_expert": false,
+      "name": "Codex assistant, same implementation and evaluation session"
+    },
+    "scope": "Development review of frozen synthetic fixtures only; not field accuracy or bounty acceptance.",
+    "labels": {
+      "pass": "Requested outcome supported, key constraints/uncertainties preserved, citations aligned when needed.",
+      "partial": "Useful core answer, but material omission, confusing presentation or truncation needs correction.",
+      "fail": "Wrong requested fact/filter/range, unsupported decisive conclusion, or failure to provide a supported usable outcome."
+    },
+    "rules": [
+      "Review actual selected-source slots in each answer; fixture-number references describe original fixture order, not guaranteed retrieval order.",
+      "Review answer content independently of execution PASS and stop reason.",
+      "Record truncation separately; a correct core with an unfinished answer can still be partial.",
+      "Do not average a critical factual contradiction away with easy-case passes.",
+      "Greedy diagnostic and author-style sampled timing runs are separate conditions.",
+      "The reviewer authored the synthetic expectations and implementation; this is not blinded independent review."
+    ],
+    "rubric": "candidate-review-v1 descriptive verdicts; not the numeric evidence-only rubric-v2"
+  },
+  "runId": "candidate-pilot-20261001T073447Z-db85788d",
+  "reportSha256": "ca842649b336fbbdae4aaaeac8a7b66518c49b855410cf56c1c3209a135418f1",
+  "reviewDate": "2026-10-01",
+  "scope": "32 output records but only8 unique development questions. Fixed/retrieval inputs and output texts matched within each model, so those arms are not independent quality samples.",
+  "generalKnowledgeReferences": [
+    {
+      "url": "https://spaceplace.nasa.gov/gps/en/",
+      "claim": "Positioning depends on satellite signals and receiver measurements."
+    },
+    {
+      "url": "https://support.google.com/maps/answer/6291838?hl=en",
+      "claim": "Downloaded map areas can be used offline; this is a fact check, not a proposal to ingest Google Maps into Outpost."
+    }
+  ],
+  "uniqueFixedCaseCounts": {
+    "spark17": {
+      "pass": 5,
+      "partial": 2,
+      "fail": 1
+    },
+    "bonsai4": {
+      "pass": 4,
+      "fail": 3,
+      "partial": 1
+    }
+  },
+  "reviews": [
+    {
+      "fixtureId": "d01-travel-arrival",
+      "arm": "fixed",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "All relevant times and missing code correctly stated; verbose.",
+      "stopReason": 0,
+      "textSha256": "6efaf34b79116b339adaddc9582e71dd7f25259be8d0d59db8b7f6456638939e",
+      "promptSha256": "9a95f95ba149ac926327bc0fe599386b097cfdc5a947fd00fbeac1dd58d83bb6",
+      "selectedSourceTitles": [
+        "Cedar Lodge reservation"
+      ]
+    },
+    {
+      "fixtureId": "d01-travel-arrival",
+      "arm": "fixed",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Correct late-arrival arrangement and missing code; repeats question and is verbose.",
+      "stopReason": 0,
+      "textSha256": "b18953338a040d578aae135c72c604c3fcfc8a69ac79978554d798588f4e2fea",
+      "promptSha256": "9a95f95ba149ac926327bc0fe599386b097cfdc5a947fd00fbeac1dd58d83bb6",
+      "selectedSourceTitles": [
+        "Cedar Lodge reservation"
+      ]
+    },
+    {
+      "fixtureId": "d01-travel-arrival",
+      "arm": "retrieval",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "All relevant times and missing code correctly stated; verbose.",
+      "stopReason": 0,
+      "textSha256": "6efaf34b79116b339adaddc9582e71dd7f25259be8d0d59db8b7f6456638939e",
+      "promptSha256": "9a95f95ba149ac926327bc0fe599386b097cfdc5a947fd00fbeac1dd58d83bb6",
+      "selectedSourceTitles": [
+        "Cedar Lodge reservation"
+      ]
+    },
+    {
+      "fixtureId": "d01-travel-arrival",
+      "arm": "retrieval",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Correct late-arrival arrangement and missing code; repeats question and is verbose.",
+      "stopReason": 0,
+      "textSha256": "b18953338a040d578aae135c72c604c3fcfc8a69ac79978554d798588f4e2fea",
+      "promptSha256": "9a95f95ba149ac926327bc0fe599386b097cfdc5a947fd00fbeac1dd58d83bb6",
+      "selectedSourceTitles": [
+        "Cedar Lodge reservation"
+      ]
+    },
+    {
+      "fixtureId": "d02-manual-revision",
+      "arm": "fixed",
+      "model": "bonsai4",
+      "verdict": "fail",
+      "note": "Incorrectly excludes firmware3.2 from3.0–3.4 and concludes no filter is documented. Also truncated.",
+      "stopReason": 1,
+      "textSha256": "732b45dc9245097bdcaa65b36f4b87736f09a6f2311e05eb3b6ca5c6d7171e2f",
+      "promptSha256": "23099372f602c7de6e23625dfd4de2b8fd6e15cc2d1f405746d3557eb9900f3b",
+      "selectedSourceTitles": [
+        "P-17 service manual revision C",
+        "P-17 older manual revision A"
+      ]
+    },
+    {
+      "fixtureId": "d02-manual-revision",
+      "arm": "fixed",
+      "model": "spark17",
+      "verdict": "partial",
+      "note": "Correct Z-42 and firmware range/source1; omits the explicit qualified-technician requirement from the before-action conditions.",
+      "stopReason": 0,
+      "textSha256": "222497b2a8cbdd91a52246039e1a3e42f58fe354390e6d17f73f22a02856ed83",
+      "promptSha256": "23099372f602c7de6e23625dfd4de2b8fd6e15cc2d1f405746d3557eb9900f3b",
+      "selectedSourceTitles": [
+        "P-17 service manual revision C",
+        "P-17 older manual revision A"
+      ]
+    },
+    {
+      "fixtureId": "d02-manual-revision",
+      "arm": "retrieval",
+      "model": "bonsai4",
+      "verdict": "fail",
+      "note": "Incorrectly excludes firmware3.2 from3.0–3.4 and concludes no filter is documented. Also truncated.",
+      "stopReason": 1,
+      "textSha256": "732b45dc9245097bdcaa65b36f4b87736f09a6f2311e05eb3b6ca5c6d7171e2f",
+      "promptSha256": "23099372f602c7de6e23625dfd4de2b8fd6e15cc2d1f405746d3557eb9900f3b",
+      "selectedSourceTitles": [
+        "P-17 service manual revision C",
+        "P-17 older manual revision A"
+      ]
+    },
+    {
+      "fixtureId": "d02-manual-revision",
+      "arm": "retrieval",
+      "model": "spark17",
+      "verdict": "partial",
+      "note": "Correct Z-42 and firmware range/source1; omits the explicit qualified-technician requirement from the before-action conditions.",
+      "stopReason": 0,
+      "textSha256": "222497b2a8cbdd91a52246039e1a3e42f58fe354390e6d17f73f22a02856ed83",
+      "promptSha256": "23099372f602c7de6e23625dfd4de2b8fd6e15cc2d1f405746d3557eb9900f3b",
+      "selectedSourceTitles": [
+        "P-17 service manual revision C",
+        "P-17 older manual revision A"
+      ]
+    },
+    {
+      "fixtureId": "d03-issue-list",
+      "arm": "fixed",
+      "model": "spark17",
+      "verdict": "partial",
+      "note": "Lists closed I-14 among open items, then says not to count it. The correction is explicit but the requested filtered list is internally inconsistent.",
+      "stopReason": 0,
+      "textSha256": "4382c4570bd45af7cb62a8033b0c9ada07a5c0bbe28554626695a76a36f5e4bc",
+      "promptSha256": "ad748b451da7befe4569b670c003df1d83e16fd097a41bf7353d2c676fddfdfa",
+      "selectedSourceTitles": [
+        "Downloaded issue list 2026-09-14"
+      ]
+    },
+    {
+      "fixtureId": "d03-issue-list",
+      "arm": "fixed",
+      "model": "bonsai4",
+      "verdict": "fail",
+      "note": "Includes I-13 assigned to Luis in the requested Noor-only list.",
+      "stopReason": 0,
+      "textSha256": "433bb72d3e23885c1b2814b1a9908bfc29c98805f8c788698af0e5a5ded620e9",
+      "promptSha256": "ad748b451da7befe4569b670c003df1d83e16fd097a41bf7353d2c676fddfdfa",
+      "selectedSourceTitles": [
+        "Downloaded issue list 2026-09-14"
+      ]
+    },
+    {
+      "fixtureId": "d03-issue-list",
+      "arm": "retrieval",
+      "model": "spark17",
+      "verdict": "partial",
+      "note": "Lists closed I-14 among open items, then says not to count it. The correction is explicit but the requested filtered list is internally inconsistent.",
+      "stopReason": 0,
+      "textSha256": "4382c4570bd45af7cb62a8033b0c9ada07a5c0bbe28554626695a76a36f5e4bc",
+      "promptSha256": "ad748b451da7befe4569b670c003df1d83e16fd097a41bf7353d2c676fddfdfa",
+      "selectedSourceTitles": [
+        "Downloaded issue list 2026-09-14"
+      ]
+    },
+    {
+      "fixtureId": "d03-issue-list",
+      "arm": "retrieval",
+      "model": "bonsai4",
+      "verdict": "fail",
+      "note": "Includes I-13 assigned to Luis in the requested Noor-only list.",
+      "stopReason": 0,
+      "textSha256": "433bb72d3e23885c1b2814b1a9908bfc29c98805f8c788698af0e5a5ded620e9",
+      "promptSha256": "ad748b451da7befe4569b670c003df1d83e16fd097a41bf7353d2c676fddfdfa",
+      "selectedSourceTitles": [
+        "Downloaded issue list 2026-09-14"
+      ]
+    },
+    {
+      "fixtureId": "d04-farm-units",
+      "arm": "fixed",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "54kg, provisional rate, missing soil and suitability information supported.",
+      "stopReason": 0,
+      "textSha256": "43adfd195507f1c3e16dc2c748045dc26acc5225ae7e087610c95ea71f9b059e",
+      "promptSha256": "00c2475499427e9c56e8877344982fbc7f9d19db2dfe267d658b3b0e2dc670a8",
+      "selectedSourceTitles": [
+        "Field A seed planning sheet"
+      ]
+    },
+    {
+      "fixtureId": "d04-farm-units",
+      "arm": "fixed",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "54kg and provisional/non-recommendation caveat supported.",
+      "stopReason": 0,
+      "textSha256": "be09a4b28fac06ce3537c71bbe3ff7dd2e05e12d627b9bc059eb50b2ec5c2827",
+      "promptSha256": "00c2475499427e9c56e8877344982fbc7f9d19db2dfe267d658b3b0e2dc670a8",
+      "selectedSourceTitles": [
+        "Field A seed planning sheet"
+      ]
+    },
+    {
+      "fixtureId": "d04-farm-units",
+      "arm": "retrieval",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "54kg, provisional rate, missing soil and suitability information supported.",
+      "stopReason": 0,
+      "textSha256": "43adfd195507f1c3e16dc2c748045dc26acc5225ae7e087610c95ea71f9b059e",
+      "promptSha256": "00c2475499427e9c56e8877344982fbc7f9d19db2dfe267d658b3b0e2dc670a8",
+      "selectedSourceTitles": [
+        "Field A seed planning sheet"
+      ]
+    },
+    {
+      "fixtureId": "d04-farm-units",
+      "arm": "retrieval",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "54kg and provisional/non-recommendation caveat supported.",
+      "stopReason": 0,
+      "textSha256": "be09a4b28fac06ce3537c71bbe3ff7dd2e05e12d627b9bc059eb50b2ec5c2827",
+      "promptSha256": "00c2475499427e9c56e8877344982fbc7f9d19db2dfe267d658b3b0e2dc670a8",
+      "selectedSourceTitles": [
+        "Field A seed planning sheet"
+      ]
+    },
+    {
+      "fixtureId": "d05-hiking-freshness",
+      "arm": "fixed",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Does not rely on an old spring observation as current flow/quality; source/date preserved. Follow-up request could be more practical.",
+      "stopReason": 0,
+      "textSha256": "7ce05f8d0ad6c58b9436a96d45435d43aeefee709b2e54a6271e4a41dcaff235",
+      "promptSha256": "9f0f75a25306163ff9c784f46c4bb2d02751cf13d2aad03e8b60acdcd69c4f9e",
+      "selectedSourceTitles": [
+        "North Ridge route note"
+      ]
+    },
+    {
+      "fixtureId": "d05-hiking-freshness",
+      "arm": "fixed",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Correctly distinguishes old flow observation from current availability and quality.",
+      "stopReason": 0,
+      "textSha256": "1dde62cd6c78540468303341089060b21271994c9f03f7470d45f17e7b1f6656",
+      "promptSha256": "9f0f75a25306163ff9c784f46c4bb2d02751cf13d2aad03e8b60acdcd69c4f9e",
+      "selectedSourceTitles": [
+        "North Ridge route note"
+      ]
+    },
+    {
+      "fixtureId": "d05-hiking-freshness",
+      "arm": "retrieval",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Does not rely on an old spring observation as current flow/quality; source/date preserved. Follow-up request could be more practical.",
+      "stopReason": 0,
+      "textSha256": "7ce05f8d0ad6c58b9436a96d45435d43aeefee709b2e54a6271e4a41dcaff235",
+      "promptSha256": "9f0f75a25306163ff9c784f46c4bb2d02751cf13d2aad03e8b60acdcd69c4f9e",
+      "selectedSourceTitles": [
+        "North Ridge route note"
+      ]
+    },
+    {
+      "fixtureId": "d05-hiking-freshness",
+      "arm": "retrieval",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Correctly distinguishes old flow observation from current availability and quality.",
+      "stopReason": 0,
+      "textSha256": "1dde62cd6c78540468303341089060b21271994c9f03f7470d45f17e7b1f6656",
+      "promptSha256": "9f0f75a25306163ff9c784f46c4bb2d02751cf13d2aad03e8b60acdcd69c4f9e",
+      "selectedSourceTitles": [
+        "North Ridge route note"
+      ]
+    },
+    {
+      "fixtureId": "d06-driving-gap",
+      "arm": "fixed",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "No invented station/distance/citation; asks for road/location.",
+      "stopReason": 0,
+      "textSha256": "5a917c073b03bf39ec398577a7878266a54887aab652c57c139fbad9d621c056",
+      "promptSha256": "05e1c5f4a34eddc3ca038b0696a345245d0ab33d85072cdd1102b69286e9117f",
+      "selectedSourceTitles": []
+    },
+    {
+      "fixtureId": "d06-driving-gap",
+      "arm": "fixed",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "No invented station/distance/citation; asks for road context. Look it up wording should specify saved evidence.",
+      "stopReason": 0,
+      "textSha256": "92de6648c4e766db88373bfe7536ba89f655e41dbd5ff99c18947df9b8b4129f",
+      "promptSha256": "05e1c5f4a34eddc3ca038b0696a345245d0ab33d85072cdd1102b69286e9117f",
+      "selectedSourceTitles": []
+    },
+    {
+      "fixtureId": "d06-driving-gap",
+      "arm": "retrieval",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "No invented station/distance/citation; asks for road/location.",
+      "stopReason": 0,
+      "textSha256": "5a917c073b03bf39ec398577a7878266a54887aab652c57c139fbad9d621c056",
+      "promptSha256": "05e1c5f4a34eddc3ca038b0696a345245d0ab33d85072cdd1102b69286e9117f",
+      "selectedSourceTitles": []
+    },
+    {
+      "fixtureId": "d06-driving-gap",
+      "arm": "retrieval",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "No invented station/distance/citation; asks for road context. Look it up wording should specify saved evidence.",
+      "stopReason": 0,
+      "textSha256": "92de6648c4e766db88373bfe7536ba89f655e41dbd5ff99c18947df9b8b4129f",
+      "promptSha256": "05e1c5f4a34eddc3ca038b0696a345245d0ab33d85072cdd1102b69286e9117f",
+      "selectedSourceTitles": []
+    },
+    {
+      "fixtureId": "d07-followup-correction",
+      "arm": "fixed",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Corrected River House rule and source1; no stale Cedar code requirement.",
+      "stopReason": 0,
+      "textSha256": "f46b886b8c824ee394c7e63b233261e3e23e2025eced54a40cb32b7dd049fd6f",
+      "promptSha256": "2181ca50cd1350376338625f0f18cb80f28a334f66e4f32066f39a05def9b18d",
+      "selectedSourceTitles": [
+        "River House booking",
+        "Cedar Lodge booking"
+      ]
+    },
+    {
+      "fixtureId": "d07-followup-correction",
+      "arm": "fixed",
+      "model": "bonsai4",
+      "verdict": "partial",
+      "note": "Correct River House facts, but cites source2, which is Cedar Lodge; citation cannot substantiate the answer.",
+      "stopReason": 0,
+      "textSha256": "487f825b5f48af3c206d159ec05bf9b97212f1977945d4e0a7304ec4e85322a0",
+      "promptSha256": "2181ca50cd1350376338625f0f18cb80f28a334f66e4f32066f39a05def9b18d",
+      "selectedSourceTitles": [
+        "River House booking",
+        "Cedar Lodge booking"
+      ]
+    },
+    {
+      "fixtureId": "d07-followup-correction",
+      "arm": "retrieval",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Corrected River House rule and source1; no stale Cedar code requirement.",
+      "stopReason": 0,
+      "textSha256": "f46b886b8c824ee394c7e63b233261e3e23e2025eced54a40cb32b7dd049fd6f",
+      "promptSha256": "2181ca50cd1350376338625f0f18cb80f28a334f66e4f32066f39a05def9b18d",
+      "selectedSourceTitles": [
+        "River House booking",
+        "Cedar Lodge booking"
+      ]
+    },
+    {
+      "fixtureId": "d07-followup-correction",
+      "arm": "retrieval",
+      "model": "bonsai4",
+      "verdict": "partial",
+      "note": "Correct River House facts, but cites source2, which is Cedar Lodge; citation cannot substantiate the answer.",
+      "stopReason": 0,
+      "textSha256": "487f825b5f48af3c206d159ec05bf9b97212f1977945d4e0a7304ec4e85322a0",
+      "promptSha256": "2181ca50cd1350376338625f0f18cb80f28a334f66e4f32066f39a05def9b18d",
+      "selectedSourceTitles": [
+        "River House booking",
+        "Cedar Lodge booking"
+      ]
+    },
+    {
+      "fixtureId": "d08-general-preparation",
+      "arm": "fixed",
+      "model": "bonsai4",
+      "verdict": "fail",
+      "note": "Correct satellite clause, then conflates missing satellite reception with missing map display and says mapping data are unavailable without connectivity, overlooking downloaded offline maps.",
+      "stopReason": 0,
+      "textSha256": "aa9f0fd16c0cead4e507370a7462d0d91082836625528cb5c8933264fffd2dcf",
+      "promptSha256": "90ceec3e6fcd360c532804e197014c62a0b7b7ddf07c8cc1a7bc1cf5f3aba7a9",
+      "selectedSourceTitles": []
+    },
+    {
+      "fixtureId": "d08-general-preparation",
+      "arm": "fixed",
+      "model": "spark17",
+      "verdict": "fail",
+      "note": "Misleadingly attributes offline positioning to GPS data being stored locally; does not explain satellite reception. Correctly points to map-data availability but misses the requested mechanism.",
+      "stopReason": 0,
+      "textSha256": "250257be9d04409c44db8a89ed0692d902e854cd8b6fd3ea5126e31113085961",
+      "promptSha256": "90ceec3e6fcd360c532804e197014c62a0b7b7ddf07c8cc1a7bc1cf5f3aba7a9",
+      "selectedSourceTitles": []
+    },
+    {
+      "fixtureId": "d08-general-preparation",
+      "arm": "retrieval",
+      "model": "bonsai4",
+      "verdict": "fail",
+      "note": "Correct satellite clause, then conflates missing satellite reception with missing map display and says mapping data are unavailable without connectivity, overlooking downloaded offline maps.",
+      "stopReason": 0,
+      "textSha256": "aa9f0fd16c0cead4e507370a7462d0d91082836625528cb5c8933264fffd2dcf",
+      "promptSha256": "90ceec3e6fcd360c532804e197014c62a0b7b7ddf07c8cc1a7bc1cf5f3aba7a9",
+      "selectedSourceTitles": []
+    },
+    {
+      "fixtureId": "d08-general-preparation",
+      "arm": "retrieval",
+      "model": "spark17",
+      "verdict": "fail",
+      "note": "Misleadingly attributes offline positioning to GPS data being stored locally; does not explain satellite reception. Correctly points to map-data availability but misses the requested mechanism.",
+      "stopReason": 0,
+      "textSha256": "250257be9d04409c44db8a89ed0692d902e854cd8b6fd3ea5126e31113085961",
+      "promptSha256": "90ceec3e6fcd360c532804e197014c62a0b7b7ddf07c8cc1a7bc1cf5f3aba7a9",
+      "selectedSourceTitles": []
+    }
+  ]
+}

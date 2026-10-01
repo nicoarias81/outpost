@@ -1,0 +1,139 @@
+{
+  "policy": {
+    "reviewer": {
+      "kind": "assistant",
+      "independent": false,
+      "domain_expert": false,
+      "name": "Codex assistant, same implementation and evaluation session"
+    },
+    "scope": "Development review of frozen synthetic fixtures only; not field accuracy or bounty acceptance.",
+    "labels": {
+      "pass": "Requested outcome supported, key constraints/uncertainties preserved, citations aligned when needed.",
+      "partial": "Useful core answer, but material omission, confusing presentation or truncation needs correction.",
+      "fail": "Wrong requested fact/filter/range, unsupported decisive conclusion, or failure to provide a supported usable outcome."
+    },
+    "rules": [
+      "Review actual selected-source slots in each answer; fixture-number references describe original fixture order, not guaranteed retrieval order.",
+      "Review answer content independently of execution PASS and stop reason.",
+      "Record truncation separately; a correct core with an unfinished answer can still be partial.",
+      "Do not average a critical factual contradiction away with easy-case passes.",
+      "Greedy diagnostic and author-style sampled timing runs are separate conditions.",
+      "The reviewer authored the synthetic expectations and implementation; this is not blinded independent review."
+    ],
+    "rubric": "candidate-review-v1 descriptive verdicts; not the numeric evidence-only rubric-v2"
+  },
+  "runId": "candidate-timing-20261001T084346Z-f368fdb1",
+  "reportSha256": "dcc57be2cd3c1aabe66ac3d6bd85f3ac4ae774427255f1c5adac070b13f938a9",
+  "scope": "Two development prompts, one fixed seed per model, three repeated timings; only four unique answer texts. Author-style sampling differs from the greedy quality sweeps.",
+  "conclusion": "Neither timing case establishes a clean quality-preserving Spark replacement. Do not promote from speed or memory alone.",
+  "reviews": [
+    {
+      "fixtureId": "d01-travel-arrival",
+      "model": "spark17",
+      "round": 0,
+      "verdict": "partial",
+      "note": "Correct late-arrival/code requirements, but attributes the user-provided22:30 arrival/check-in time to the reservation record.",
+      "textSha256": "5d13bce1aebaa84c6c17a9f9c50a565988bbec35d3009e172463f29f5556fae7",
+      "stopReason": 0
+    },
+    {
+      "fixtureId": "d01-travel-arrival",
+      "model": "bonsai4",
+      "round": 0,
+      "verdict": "pass",
+      "note": "Correct required arrangement and missing code, with aligned source.",
+      "textSha256": "1ec2aa603f1a80d308bfa5ba5078523558ed64cec1b224b6a496c20520a82113",
+      "stopReason": 0
+    },
+    {
+      "fixtureId": "d01-travel-arrival",
+      "model": "bonsai4",
+      "round": 1,
+      "verdict": "pass",
+      "note": "Correct required arrangement and missing code, with aligned source.",
+      "textSha256": "1ec2aa603f1a80d308bfa5ba5078523558ed64cec1b224b6a496c20520a82113",
+      "stopReason": 0
+    },
+    {
+      "fixtureId": "d01-travel-arrival",
+      "model": "spark17",
+      "round": 1,
+      "verdict": "partial",
+      "note": "Correct late-arrival/code requirements, but attributes the user-provided22:30 arrival/check-in time to the reservation record.",
+      "textSha256": "5d13bce1aebaa84c6c17a9f9c50a565988bbec35d3009e172463f29f5556fae7",
+      "stopReason": 0
+    },
+    {
+      "fixtureId": "d01-travel-arrival",
+      "model": "spark17",
+      "round": 2,
+      "verdict": "partial",
+      "note": "Correct late-arrival/code requirements, but attributes the user-provided22:30 arrival/check-in time to the reservation record.",
+      "textSha256": "5d13bce1aebaa84c6c17a9f9c50a565988bbec35d3009e172463f29f5556fae7",
+      "stopReason": 0
+    },
+    {
+      "fixtureId": "d01-travel-arrival",
+      "model": "bonsai4",
+      "round": 2,
+      "verdict": "pass",
+      "note": "Correct required arrangement and missing code, with aligned source.",
+      "textSha256": "1ec2aa603f1a80d308bfa5ba5078523558ed64cec1b224b6a496c20520a82113",
+      "stopReason": 0
+    },
+    {
+      "fixtureId": "d02-manual-revision",
+      "model": "bonsai4",
+      "round": 0,
+      "verdict": "partial",
+      "note": "Correct Z-42 and technician requirement, but asks whether isolation is actually required even though the applicable manual explicitly requires it; completion/status is what is unknown.",
+      "textSha256": "62d09b78ac65e3bcd08b0597c94e498847e9344f1a80bc1550e34909ece40c7e",
+      "stopReason": 0
+    },
+    {
+      "fixtureId": "d02-manual-revision",
+      "model": "spark17",
+      "round": 0,
+      "verdict": "fail",
+      "note": "Requests a document/further clarification to finalize the filter although it quotes the applicable range and Z-42; unsupported abstention and isolation requirement/status confusion.",
+      "textSha256": "80b93d9dd523197b7076b3138d500f20d92a5048431d0a7b2dfd16cdfd2f538e",
+      "stopReason": 0
+    },
+    {
+      "fixtureId": "d02-manual-revision",
+      "model": "spark17",
+      "round": 1,
+      "verdict": "fail",
+      "note": "Requests a document/further clarification to finalize the filter although it quotes the applicable range and Z-42; unsupported abstention and isolation requirement/status confusion.",
+      "textSha256": "80b93d9dd523197b7076b3138d500f20d92a5048431d0a7b2dfd16cdfd2f538e",
+      "stopReason": 0
+    },
+    {
+      "fixtureId": "d02-manual-revision",
+      "model": "bonsai4",
+      "round": 1,
+      "verdict": "partial",
+      "note": "Correct Z-42 and technician requirement, but asks whether isolation is actually required even though the applicable manual explicitly requires it; completion/status is what is unknown.",
+      "textSha256": "62d09b78ac65e3bcd08b0597c94e498847e9344f1a80bc1550e34909ece40c7e",
+      "stopReason": 0
+    },
+    {
+      "fixtureId": "d02-manual-revision",
+      "model": "bonsai4",
+      "round": 2,
+      "verdict": "partial",
+      "note": "Correct Z-42 and technician requirement, but asks whether isolation is actually required even though the applicable manual explicitly requires it; completion/status is what is unknown.",
+      "textSha256": "62d09b78ac65e3bcd08b0597c94e498847e9344f1a80bc1550e34909ece40c7e",
+      "stopReason": 0
+    },
+    {
+      "fixtureId": "d02-manual-revision",
+      "model": "spark17",
+      "round": 2,
+      "verdict": "fail",
+      "note": "Requests a document/further clarification to finalize the filter although it quotes the applicable range and Z-42; unsupported abstention and isolation requirement/status confusion.",
+      "textSha256": "80b93d9dd523197b7076b3138d500f20d92a5048431d0a7b2dfd16cdfd2f538e",
+      "stopReason": 0
+    }
+  ]
+}

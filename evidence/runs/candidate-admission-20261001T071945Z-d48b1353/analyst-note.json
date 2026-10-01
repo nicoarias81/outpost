@@ -1,0 +1,7 @@
+{
+  "classification": "compact-cache candidate failed strict numerical adoption gate",
+  "observed": "Compact/full both returned J-83, but first-logit hashes differed. Sampled process PSS in the long control was about1207MiB compact versus1261MiB full, with sampling/transition caveats.",
+  "resolution_commit": "55d11e4",
+  "resolution": "Use full cache policy2 for ordinary candidate admission/pilot/heldout/timing. Keep compact policy1 experimental; drift magnitude/quality were not established.",
+  "raw_evidence": "Original report/logs preserved without modification."
+}

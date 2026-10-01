@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-01",
+  "implementationCheckpoint": "55d11e4",
+  "scope": "Research-only Spark admission and paired synthetic-task study on Outpost35; no product model promotion or new user APK publication.",
+  "buildReceipt": "build-receipt.json",
+  "emulatorState": "emulator.json",
+  "runs": [
+    {
+      "phase": "admission",
+      "runId": "candidate-admission-20261001T072903Z-83456a7a",
+      "checksPassed": 21,
+      "report": "candidate-checks.json",
+      "reportSha256": "53bc87f0e703d75ad5bb7c087407a8e77d3e7c94782ccf72156f24611f67255d",
+      "passed": true
+    },
+    {
+      "phase": "pilot",
+      "runId": "candidate-pilot-20261001T073447Z-db85788d",
+      "checksPassed": 36,
+      "report": "candidate-checks.json",
+      "reportSha256": "ca842649b336fbbdae4aaaeac8a7b66518c49b855410cf56c1c3209a135418f1",
+      "passed": true
+    },
+    {
+      "phase": "heldout",
+      "runId": "candidate-heldout-20261001T080124Z-80dabf6c",
+      "checksPassed": 52,
+      "report": "candidate-checks.json",
+      "reportSha256": "867ab1aad066fd4374f2d0fdbaf58f1d5d0b499fe603cfc941c0c2cf5e1765c6",
+      "passed": true
+    },
+    {
+      "phase": "timing",
+      "runId": "candidate-timing-20261001T084346Z-f368fdb1",
+      "checksPassed": 16,
+      "report": "candidate-checks.json",
+      "reportSha256": "dcc57be2cd3c1aabe66ac3d6bd85f3ac4ae774427255f1c5adac070b13f938a9",
+      "passed": true
+    },
+    {
+      "phase": "chat",
+      "runId": "chat-20261001T085833Z-62f694d5",
+      "checksPassed": 45,
+      "report": "chat-checks.json",
+      "reportSha256": "8c3d83534537d64651fd3cc6e1aa5a732e5c1ab4721b90b00b221c1ff2dfc10e",
+      "passed": true
+    }
+  ],
+  "studyCounts": {
+    "developmentQuestions": 8,
+    "reservedQuestions": 24,
+    "pilotOutputRecords": 32,
+    "reservedOutputRecords": 48,
+    "timingMeasuredOutputRecords": 12,
+    "timingWarmupsExcluded": 12,
+    "independentReview": false
+  },
+  "packageChecks": {
+    "mainAppBytes": 34143830,
+    "mainAppSha256": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+    "testApkBytes": 549781,
+    "testApkSha256": "1fb39c9df410c54de0bedcf09097df3ca2fb621d6745d4cb3a08bf2e6ccc1ef6",
+    "abis": [
+      "arm64-v8a",
+      "x86_64"
+    ],
+    "mainCandidateAssets": 0,
+    "mainBundledGgufs": 0,
+    "testCandidateAssets": 2
+  },
+  "lint": {
+    "errors": 0,
+    "existingWarnings": 3
+  },
+  "provisioningIdempotency": "passed: existing exact private model reverified; no selection changed",
+  "compactCache": "Not adopted; initial-logit hash mismatch. Text matched one short control; drift magnitude/quality unmeasured.",
+  "quality": "Attributed assistant candidate-review-v1. Reserved fully satisfactory13/24 for each model under greedy. Partial/failure records preserved; no field accuracy claim.",
+  "limits": [
+    "No phone/ARM runtime, energy or thermal validation",
+    "Concurrent memory sampling; overhead not separately measured",
+    "Sampled process maxima, not continuous peak or required phone RAM",
+    "No cold-storage/NVMe/pressure benchmark or complete E-08 pipeline trace",
+    "No full sampled-policy multi-seed quality study",
+    "Same-version development APK is distinct from the frozen user-test release"
+  ],
+  "documentationAudit": {
+    "documents": 66,
+    "localLinks": 783,
+    "issues": 0
+  },
+  "fixtureV7Validation": {
+    "passed": true,
+    "total": 15,
+    "runnable": 12,
+    "blocked": 3
+  },
+  "buildReceiptCheck": "passed for current app/test inputs and bytes",
+  "frozenUserArtifactCheck": "passed, original9d3506d7\u2026 artifact unchanged",
+  "visualQa": "Reviewed all6 chat-suite PNG captures: English chat-first UI and synthetic fixture content only."
+}

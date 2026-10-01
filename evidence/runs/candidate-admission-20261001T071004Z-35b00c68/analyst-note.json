@@ -1,0 +1,6 @@
+{
+  "classification": "incorrect test assumption about cache mode",
+  "cause": "The backend default swa_full=true retained the complete context. Earlier-source reuse was128 tokens and text/initial-logit parity passed; the test incorrectly required zero reuse.",
+  "resolution": "Add explicit compact/full modes and keep cache-mode expectations separate. This is not evidence of an incorrect generated answer.",
+  "raw_evidence": "Original report/logs preserved without modification."
+}

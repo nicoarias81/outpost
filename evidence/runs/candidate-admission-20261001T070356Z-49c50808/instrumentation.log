@@ -1,0 +1,51 @@
+
+Starting admit-normal / Spark
+
+Completed admit-normal: 9 tokens / 5496ms / stop=0
+
+Starting admit-exact-cache / Spark
+
+Completed admit-exact-cache: 9 tokens / 1490ms / stop=0
+
+Starting admit-empty-system-unicode / Spark
+
+Completed admit-empty-system-unicode: 8 tokens / 4109ms / stop=1
+
+Starting admit-literal-control-text / Spark
+
+Completed admit-literal-control-text: 1 tokens / 5924ms / stop=1
+
+Starting admit-sliding-base / Spark
+
+Completed admit-sliding-base: 4 tokens / 58569ms / stop=0
+
+Starting admit-sliding-partial / Spark
+
+Completed admit-sliding-partial: 4 tokens / 5193ms / stop=0
+
+Starting admit-sliding-cold / Spark
+
+Completed admit-sliding-cold: 4 tokens / 62713ms / stop=0
+
+Starting admit-cancel / Spark
+
+Completed admit-cancel: 3 tokens / 3149ms / stop=2
+
+Starting admit-recovery / Spark
+
+Completed admit-recovery: 9 tokens / 4633ms / stop=0
+
+Starting admit-spark-sampled / Spark
+
+Completed admit-spark-sampled: 9 tokens / 5055ms / stop=0
+
+Starting admit-bonsai-switch / Bonsai
+
+Completed admit-bonsai-switch: 9 tokens / 8769ms / stop=0
+
+Starting admit-spark-switch-back / Spark
+
+Completed admit-spark-switch-back: 9 tokens / 5648ms / stop=0
+
+PASS candidate admission: 19 execution checks; review recorded answers separately.
+

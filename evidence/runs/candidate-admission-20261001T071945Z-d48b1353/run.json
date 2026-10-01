@@ -1,0 +1,40 @@
+{
+  "runId": "candidate-admission-20261001T071945Z-d48b1353",
+  "phase": "admission",
+  "serial": "emulator-5582",
+  "avd": "Outpost35",
+  "startedUtc": "2026-10-01T07:19:45.4233253Z",
+  "gitHead": "ac179bdf8d28b38ac0d223bcad9cd27043a572ac",
+  "sourceStatus": [
+    "?? evidence/runs/candidate-admission-20261001T065759Z-07fa8637/",
+    "?? evidence/runs/candidate-admission-20261001T065952Z-f5d33e44/",
+    "?? evidence/runs/candidate-admission-20261001T070356Z-49c50808/",
+    "?? evidence/runs/candidate-admission-20261001T071004Z-35b00c68/"
+  ],
+  "appSha256": "35d8247667c8d6dedba18860729be286723b68777c9fd8eca634e8ac0dc5233d",
+  "testApkSha256": "8aef49a7ab306e0694c64d84f25e2a5ef9ce3b49fd983f3af58d3313eb888b7c",
+  "mainSourcesSha256": "0204ba685704d5386a071a40a1374b698e9cbaa3fefcc63cdbaaa7e9d602570d",
+  "testSourcesSha256": "84b3eb0bf2f6cfa81b6991f9125e0ab3aa23e0e88a564fc5cd1430ab5ebdcdb9",
+  "fixtureSha256": "6d6152c30998339d768c695011b4da93c6a85e75fafb51822dcbc5257a59bdb6",
+  "lockSha256": "229fa0e3c71a8b3fa444a0e56b04830fb5320fd79ae144ca1e97fa2aedb2efd1",
+  "deviceFingerprint": "Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys",
+  "offlineState": [
+    1,
+    0,
+    0
+  ],
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T07:18:36.1445659Z",
+    "versionName": "0.14.0",
+    "versionCode": 16,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "0204ba685704d5386a071a40a1374b698e9cbaa3fefcc63cdbaaa7e9d602570d",
+    "testSourcesSha256": "84b3eb0bf2f6cfa81b6991f9125e0ab3aa23e0e88a564fc5cd1430ab5ebdcdb9",
+    "appSha256": "35d8247667c8d6dedba18860729be286723b68777c9fd8eca634e8ac0dc5233d",
+    "testApkSha256": "8aef49a7ab306e0694c64d84f25e2a5ef9ce3b49fd983f3af58d3313eb888b7c",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "modelExecution": true,
+  "scope": "Pinned Spark research and Bonsai control inside Outpost35. No product profile selection, physical device or storage-policy change. Same-version research APK is identified by bytes, not release label."
+}

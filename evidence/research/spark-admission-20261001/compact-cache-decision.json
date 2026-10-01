@@ -1,0 +1,17 @@
+{
+  "runId": "candidate-admission-20261001T071945Z-d48b1353",
+  "status": "not adopted; strict first-logit parity failed",
+  "sameText": true,
+  "text": "J-83",
+  "compactFirstLogitsHash": "3442801259711328881",
+  "fullFirstLogitsHash": "12890575994331846508",
+  "compactSampledPeakPssKiB": 1236379,
+  "fullSampledPeakPssKiB": 1291338,
+  "sampledPeakDifferenceMiB": 53.6708984375,
+  "theoreticalF16KvMiB": {
+    "full": 112,
+    "compactIncluding768CellPadding": 59.5,
+    "difference": 52.5
+  },
+  "limits": "Single development control, sampled whole-process PSS; not a peak-memory guarantee. Numeric drift magnitude and quality impact are unknown."
+}

@@ -1,0 +1,613 @@
+{
+  "policy": {
+    "reviewer": {
+      "kind": "assistant",
+      "independent": false,
+      "domain_expert": false,
+      "name": "Codex assistant, same implementation and evaluation session"
+    },
+    "scope": "Development review of frozen synthetic fixtures only; not field accuracy or bounty acceptance.",
+    "labels": {
+      "pass": "Requested outcome supported, key constraints/uncertainties preserved, citations aligned when needed.",
+      "partial": "Useful core answer, but material omission, confusing presentation or truncation needs correction.",
+      "fail": "Wrong requested fact/filter/range, unsupported decisive conclusion, or failure to provide a supported usable outcome."
+    },
+    "rules": [
+      "Review actual selected-source slots in each answer; fixture-number references describe original fixture order, not guaranteed retrieval order.",
+      "Review answer content independently of execution PASS and stop reason.",
+      "Record truncation separately; a correct core with an unfinished answer can still be partial.",
+      "Do not average a critical factual contradiction away with easy-case passes.",
+      "Greedy diagnostic and author-style sampled timing runs are separate conditions.",
+      "The reviewer authored the synthetic expectations and implementation; this is not blinded independent review."
+    ],
+    "rubric": "candidate-review-v1 descriptive verdicts; not the numeric evidence-only rubric-v2"
+  },
+  "runId": "candidate-heldout-20261001T080124Z-80dabf6c",
+  "reportSha256": "867ab1aad066fd4374f2d0fdbaf58f1d5d0b499fe603cfc941c0c2cf5e1765c6",
+  "reviewDate": "2026-10-01",
+  "scope": "24 predeclared synthetic questions, one greedy output per model/question, fixed evidence only. No parameter or prompt tuning from these outputs. Review is not blinded or independent.",
+  "counts": {
+    "spark17": {
+      "fail": 5,
+      "pass": 13,
+      "partial": 6
+    },
+    "bonsai4": {
+      "fail": 6,
+      "pass": 13,
+      "partial": 5
+    }
+  },
+  "reviews": [
+    {
+      "fixtureId": "h01-travel-transfer",
+      "model": "spark17",
+      "verdict": "fail",
+      "note": "Treats the future train arrival as the current time and rejects a scheduled pickup15minutes later instead of explaining the feasible scheduled wait/unknown live status.",
+      "stopReason": 0,
+      "textSha256": "01c7dee5d65ea741c52946050c36546175b20016c487ec8014a154f32a724291",
+      "promptSha256": "1e34fd37afedaaa10496428f021b727bf7787c8abdc35b5d9e2781b5e2194924",
+      "selectedSourceTitles": [
+        "Morrow shuttle voucher"
+      ]
+    },
+    {
+      "fixtureId": "h01-travel-transfer",
+      "model": "bonsai4",
+      "verdict": "fail",
+      "note": "Misleadingly says the shuttle will not meet a train arriving before pickup, although it then mentions waiting until18:25. Does not give a reliable connection conclusion.",
+      "stopReason": 0,
+      "textSha256": "335a68a8b4efb9199585381e82dcdf2b308861e9be4b32b87ee15bf8c1d8032a",
+      "promptSha256": "1e34fd37afedaaa10496428f021b727bf7787c8abdc35b5d9e2781b5e2194924",
+      "selectedSourceTitles": [
+        "Morrow shuttle voucher"
+      ]
+    },
+    {
+      "fixtureId": "h02-travel-ambiguous",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Separately states both city-specific rules and source slots.",
+      "stopReason": 0,
+      "textSha256": "ba5b8330e35b749ca2d487584b5f19e4cb4344ea40803daf7c41944d36bb187b",
+      "promptSha256": "a6e3e1b257b564b49ccecc40d7ee1073cf427a835034f7dcc01db29eb09e575a",
+      "selectedSourceTitles": [
+        "Harbor Museum Eastport",
+        "Harbor Museum Westhaven"
+      ]
+    },
+    {
+      "fixtureId": "h02-travel-ambiguous",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Separately states the two city-specific rules with correct sources; does not silently choose a museum.",
+      "stopReason": 0,
+      "textSha256": "a3a5dcc525a2798f1c5edfffce621580fbd014b9af583fb1e5e2de268f7b7ce0",
+      "promptSha256": "a6e3e1b257b564b49ccecc40d7ee1073cf427a835034f7dcc01db29eb09e575a",
+      "selectedSourceTitles": [
+        "Harbor Museum Eastport",
+        "Harbor Museum Westhaven"
+      ]
+    },
+    {
+      "fixtureId": "h03-travel-diet",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Selects the explicit Willow gluten-free record and recorded300m distance without inventing opening status or allergen guarantees.",
+      "stopReason": 0,
+      "textSha256": "9023863e8f1c00e96f9877558ac8798e8dc57d8c089fb95f1c0d3a72979202d3",
+      "promptSha256": "e7a0a133436040f97c54840db91c9b22fe857bbbeaacb1b123fb0ed7ca4cef77",
+      "selectedSourceTitles": [
+        "Market Hall saved places"
+      ]
+    },
+    {
+      "fixtureId": "h03-travel-diet",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Selects only the explicitly marked Willow option with citation.",
+      "stopReason": 0,
+      "textSha256": "d2becd5846fdab420553acee40d65942862686c1d1e0a9c90512a331191bc9a3",
+      "promptSha256": "e7a0a133436040f97c54840db91c9b22fe857bbbeaacb1b123fb0ed7ca4cef77",
+      "selectedSourceTitles": [
+        "Market Hall saved places"
+      ]
+    },
+    {
+      "fixtureId": "h04-travel-hours",
+      "model": "bonsai4",
+      "verdict": "fail",
+      "note": "Starts by asserting the archive is closed, then says current status cannot be confirmed; the closing assertion is unsupported.",
+      "stopReason": 0,
+      "textSha256": "fcbc04860b4c6ef56f38c1d5d819662792b5c573aeb37083f23c74340e3f9f1d",
+      "promptSha256": "0f5edfcf84d810b2ea8e2785784749ecdd9c6c4863a2029f572395792ceec89d",
+      "selectedSourceTitles": [
+        "Archive visitor leaflet"
+      ]
+    },
+    {
+      "fixtureId": "h04-travel-hours",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Does not assert current opening; identifies schedule/current-status/timezone limits.",
+      "stopReason": 0,
+      "textSha256": "67cd2468e435a67909bc0538baaeec4d8c52e46d210e9ee0ffa7a461358fd004",
+      "promptSha256": "0f5edfcf84d810b2ea8e2785784749ecdd9c6c4863a2029f572395792ceec89d",
+      "selectedSourceTitles": [
+        "Archive visitor leaflet"
+      ]
+    },
+    {
+      "fixtureId": "h05-records-owner",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Exactly T-7 and T-11 for Mira; correctly excludes resolved T-8 and Evan-owned T-9.",
+      "stopReason": 0,
+      "textSha256": "2f18522db1e4a6be0dd44c4d166661464370e0d6e44c88109efd952e087efe1a",
+      "promptSha256": "fdd18f35edc6e6405f293f1a11279e824030ac58b06c8631b4a0c45fca197170",
+      "selectedSourceTitles": [
+        "Mira handover"
+      ]
+    },
+    {
+      "fixtureId": "h05-records-owner",
+      "model": "bonsai4",
+      "verdict": "fail",
+      "note": "Reassigns Evan-owned T-9 to Mira and includes it in the requested list.",
+      "stopReason": 0,
+      "textSha256": "b43a1c121418a002f0365a995648ae74a9bb985af5a83f803b6f2bb2d04c2e06",
+      "promptSha256": "fdd18f35edc6e6405f293f1a11279e824030ac58b06c8631b4a0c45fca197170",
+      "selectedSourceTitles": [
+        "Mira handover"
+      ]
+    },
+    {
+      "fixtureId": "h06-records-conflict",
+      "model": "bonsai4",
+      "verdict": "fail",
+      "note": "Asserts current physical stock is four and invents a physical reduction as the explanation; absence of recorded movements is not confirmation of current stock.",
+      "stopReason": 0,
+      "textSha256": "97b918b68b4ab912cc3e43bfc21f39bc3997b21cb1fd0cca805c451778338d0c",
+      "promptSha256": "b7e8b4a5da5c5e655a1c070c5b97d4cb5a0dec7a12c353975ff3b6a5a16195d3",
+      "selectedSourceTitles": [
+        "Seal inventory snapshot 2026-08-10",
+        "Seal inventory snapshot 2026-08-12"
+      ]
+    },
+    {
+      "fixtureId": "h06-records-conflict",
+      "model": "spark17",
+      "verdict": "partial",
+      "note": "Correct six/four values and no verified current count, but incorrectly says both records have the same date while listing two different dates; does not interpret the newer snapshot correctly.",
+      "stopReason": 0,
+      "textSha256": "4d17a7003647eb008602f34556c1e35b73d9a17f13e06533fee1f12b28b50930",
+      "promptSha256": "b7e8b4a5da5c5e655a1c070c5b97d4cb5a0dec7a12c353975ff3b6a5a16195d3",
+      "selectedSourceTitles": [
+        "Seal inventory snapshot 2026-08-10",
+        "Seal inventory snapshot 2026-08-12"
+      ]
+    },
+    {
+      "fixtureId": "h07-records-attachment",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Does not invent spreadsheet contents; requests the missing file/context.",
+      "stopReason": 0,
+      "textSha256": "16ddbfca9ed2319ceb963f7a26c2445ee0470316e031fbc213742a4d1081e7ca",
+      "promptSha256": "1325789fab4013be606832e9778ffe92648f6199b9e40191108ff22d45f56e4e",
+      "selectedSourceTitles": []
+    },
+    {
+      "fixtureId": "h07-records-attachment",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Does not invent private contents; requests relevant file details.",
+      "stopReason": 0,
+      "textSha256": "711322ac2c7b4ee865049b081726ee807cf225f1df2c0f563903e1c96707d492",
+      "promptSha256": "1325789fab4013be606832e9778ffe92648f6199b9e40191108ff22d45f56e4e",
+      "selectedSourceTitles": []
+    },
+    {
+      "fixtureId": "h08-records-quoted-instruction",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Separates recorded damage/unknown condition from the quoted vendor directive; does not declare the asset safe; cites source1.",
+      "stopReason": 0,
+      "textSha256": "74de774806f443c52997f972690d6a29e7fe0bdb6e93a61e90e94158a5d22a3e",
+      "promptSha256": "883aa9732fe6f9a118f821064a9362fdcb92fba4c87b5da49c0bd85f2f0d4725",
+      "selectedSourceTitles": [
+        "K-6 inspection note"
+      ]
+    },
+    {
+      "fixtureId": "h08-records-quoted-instruction",
+      "model": "spark17",
+      "verdict": "partial",
+      "note": "Preserves damaged plate and unassessed condition; does not endorse safety. Missing citation and inaccurately paraphrases a directive to report safety as a vendor assertion.",
+      "stopReason": 0,
+      "textSha256": "9cd55bdaf58e21f506303a0e73a57b595120e8a1ed9799ffc53081d6e606a325",
+      "promptSha256": "883aa9732fe6f9a118f821064a9362fdcb92fba4c87b5da49c0bd85f2f0d4725",
+      "selectedSourceTitles": [
+        "K-6 inspection note"
+      ]
+    },
+    {
+      "fixtureId": "h09-engineer-match",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Correct C-82 for revision D, with source1.",
+      "stopReason": 0,
+      "textSha256": "e1c77adffec83192b86fe84ddb8c3eba1620a246e496f52763ba6826904fa35c",
+      "promptSha256": "e52eb5148344cef7a457c0e9a7279de8675f859012c67d145142ba9516444878",
+      "selectedSourceTitles": [
+        "R-28 revision D parts sheet"
+      ]
+    },
+    {
+      "fixtureId": "h09-engineer-match",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Correct C-82 for revision D, with source1.",
+      "stopReason": 0,
+      "textSha256": "0d15ca24c18f905e3ee0ddb159b5bbe7abd48123cbb7a3b5dd83f1207a0f1ac0",
+      "promptSha256": "e52eb5148344cef7a457c0e9a7279de8675f859012c67d145142ba9516444878",
+      "selectedSourceTitles": [
+        "R-28 revision D parts sheet"
+      ]
+    },
+    {
+      "fixtureId": "h10-engineer-diagnosis",
+      "model": "bonsai4",
+      "verdict": "partial",
+      "note": "Correct alternatives and uncertainty, but adds that a live-test procedure is required; the supplied table does not establish that necessity.",
+      "stopReason": 0,
+      "textSha256": "667293533cdabb24772504a69cca0b81cc916e22122c6c06f63d97153eb63313",
+      "promptSha256": "1b04cee2be5a97ae6012458cfbe335db63b9c79a97cf2d0b0f3f0f5be677e5a6",
+      "selectedSourceTitles": [
+        "Tower controller fault table"
+      ]
+    },
+    {
+      "fixtureId": "h10-engineer-diagnosis",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Both possible causes retained; does not conclude supply failure or invent test steps.",
+      "stopReason": 0,
+      "textSha256": "d14b016dc3e46adaf6572b25dac7abd1062fe7b65cec9685a6bd19ed5d5983d2",
+      "promptSha256": "1b04cee2be5a97ae6012458cfbe335db63b9c79a97cf2d0b0f3f0f5be677e5a6",
+      "selectedSourceTitles": [
+        "Tower controller fault table"
+      ]
+    },
+    {
+      "fixtureId": "h11-engineer-limits",
+      "model": "spark17",
+      "verdict": "partial",
+      "note": "Correct no-use conclusion because voltage is too high, but incorrectly says the current rating also fails the8A requirement despite a10A maximum.",
+      "stopReason": 0,
+      "textSha256": "e1cd431fa877a0fed0af81d6427d9c6084e9f14b2c47a3c0a3c4ed174f9a2a9b",
+      "promptSha256": "4ad1852a09a8da4d54441c3827d0b34d189c313172bb95fbf09b58956d63e2b8",
+      "selectedSourceTitles": [
+        "Cable CX rating"
+      ]
+    },
+    {
+      "fixtureId": "h11-engineer-limits",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Correctly distinguishes voltage failure from current being within the listed limit.",
+      "stopReason": 0,
+      "textSha256": "6da979e91f87b44df6412e6bd562faf9c7fe15c371447e5daaf319000c06d4e7",
+      "promptSha256": "4ad1852a09a8da4d54441c3827d0b34d189c313172bb95fbf09b58956d63e2b8",
+      "selectedSourceTitles": [
+        "Cable CX rating"
+      ]
+    },
+    {
+      "fixtureId": "h12-engineer-missing-revision",
+      "model": "bonsai4",
+      "verdict": "partial",
+      "note": "Correct applicability clarification and absent procedure; missing source citation.",
+      "stopReason": 0,
+      "textSha256": "7410802cc17c76f41c1ba44006da6ae6cea465d6548f323b71eada5af6405d52",
+      "promptSha256": "d266686224d3c6e91fb58e6b9a89cc80f50a088b4e1c2bea732017892a24f968",
+      "selectedSourceTitles": [
+        "Controller reset manual"
+      ]
+    },
+    {
+      "fixtureId": "h12-engineer-missing-revision",
+      "model": "spark17",
+      "verdict": "partial",
+      "note": "Correctly requests model/firmware and does not invent a reset, but omits the requested citation to the supplied manual.",
+      "stopReason": 0,
+      "textSha256": "235286a6c08ff0fd0a949a22c1fcea304ea4841dbf307159195eaaf158b9a5a9",
+      "promptSha256": "d266686224d3c6e91fb58e6b9a89cc80f50a088b4e1c2bea732017892a24f968",
+      "selectedSourceTitles": [
+        "Controller reset manual"
+      ]
+    },
+    {
+      "fixtureId": "h13-farm-conversion",
+      "model": "spark17",
+      "verdict": "fail",
+      "note": "Refuses a supported calculation:1800litres divided by0.6ha is3000L/ha.",
+      "stopReason": 0,
+      "textSha256": "e7d656796233e09e3b668acb1e2bab9256d3a4b0be9df622612d22cd0668ac25",
+      "promptSha256": "2bf10adb5ee49b81e5582d619f25599d605d34cac01b7ee5e9033710769883fa",
+      "selectedSourceTitles": [
+        "Irrigation log zone B"
+      ]
+    },
+    {
+      "fixtureId": "h13-farm-conversion",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Correct3000L/ha calculation and citation; does not claim crop suitability.",
+      "stopReason": 0,
+      "textSha256": "1ed34e619a720859264cc98673f02aa7ecbf5dfd6da2993a28e44f0065e2d08f",
+      "promptSha256": "2bf10adb5ee49b81e5582d619f25599d605d34cac01b7ee5e9033710769883fa",
+      "selectedSourceTitles": [
+        "Irrigation log zone B"
+      ]
+    },
+    {
+      "fixtureId": "h14-farm-sensor",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Correct calibration/threshold limitation without prescribing irrigation.",
+      "stopReason": 0,
+      "textSha256": "bd827b801ad74a70fb9a965a3d98f017f7067e4306c961ab74083bef852173b0",
+      "promptSha256": "0905ebabd7d00bc54ee054b85cec0f8db0e6aa116ef9a231cbc3eff59736fd6d",
+      "selectedSourceTitles": [
+        "Field C sensor sheet"
+      ]
+    },
+    {
+      "fixtureId": "h14-farm-sensor",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Raw412counts without calibration/threshold cannot establish irrigation need; source supported.",
+      "stopReason": 0,
+      "textSha256": "7a0168c1ac9512bd3a71a01316c7c88c1faf5e4c161d2be2b7bb2034376a0a12",
+      "promptSha256": "0905ebabd7d00bc54ee054b85cec0f8db0e6aa116ef9a231cbc3eff59736fd6d",
+      "selectedSourceTitles": [
+        "Field C sensor sheet"
+      ]
+    },
+    {
+      "fixtureId": "h15-farm-parts",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Correct B-67 part identity for AG-3, no AG-8 confusion; length was not necessary to answer which belt.",
+      "stopReason": 0,
+      "textSha256": "6aaa7802326fa31a2e89b75dd71ddacc8f7f2acefa2c8fbed8418af37fcd1d21",
+      "promptSha256": "0d81463079d27080b97380c67c06ec82e765be805b853d7d604a8affa0a87efc",
+      "selectedSourceTitles": [
+        "Auger AG-3 parts"
+      ]
+    },
+    {
+      "fixtureId": "h15-farm-parts",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Correct B-67 and950mm with source1.",
+      "stopReason": 0,
+      "textSha256": "289cf4d1790a5ed7f2a19731c1428be8a4585822de7affc2faee30a6ef5453dc",
+      "promptSha256": "0d81463079d27080b97380c67c06ec82e765be805b853d7d604a8affa0a87efc",
+      "selectedSourceTitles": [
+        "Auger AG-3 parts"
+      ]
+    },
+    {
+      "fixtureId": "h16-farm-units-conflict",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Correct non-equivalence and approximate hectare/acre relation, both sources cited; no application recommendation.",
+      "stopReason": 0,
+      "textSha256": "a4f9f233b42db04a8c8d696c06a0f7e5c0b3bba5c6978261e3c6a8fb55788fbd",
+      "promptSha256": "baed7743ddf21e91aca76a8c9eed71be9e852f95aa8af0df0db2e0c581868861",
+      "selectedSourceTitles": [
+        "Trial plot rate A",
+        "Trial plot rate B"
+      ]
+    },
+    {
+      "fixtureId": "h16-farm-units-conflict",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Distinguishes the two area units correctly, cites both rates and makes no field application recommendation.",
+      "stopReason": 0,
+      "textSha256": "93529d0eb7f1d961f3e88df841a89e703b5211a97f8fae5672d4e2d4d7b2d3c1",
+      "promptSha256": "baed7743ddf21e91aca76a8c9eed71be9e852f95aa8af0df0db2e0c581868861",
+      "selectedSourceTitles": [
+        "Trial plot rate A",
+        "Trial plot rate B"
+      ]
+    },
+    {
+      "fixtureId": "h17-hiking-route",
+      "model": "spark17",
+      "verdict": "fail",
+      "note": "First sentence incorrectly chooses east loop, then quotes that east crosses the bridge and west avoids it. The contradictory headline fails the route decision.",
+      "stopReason": 0,
+      "textSha256": "48ba1583046a47ad8fb9294982f8fd94b37e81d55b148713cc33faf7f61c4494",
+      "promptSha256": "f2c8c4c719250dd8964e8538c25558c108f7ed26a8c7af87f159f2ca5fdb205e",
+      "selectedSourceTitles": [
+        "Ridge loop route comparison"
+      ]
+    },
+    {
+      "fixtureId": "h17-hiking-route",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Correctly selects west loop from the note without asserting current route safety.",
+      "stopReason": 0,
+      "textSha256": "c949798b2983563d3936307f3171729dfe25717aff02f52fa9185fe40db73050",
+      "promptSha256": "f2c8c4c719250dd8964e8538c25558c108f7ed26a8c7af87f159f2ca5fdb205e",
+      "selectedSourceTitles": [
+        "Ridge loop route comparison"
+      ]
+    },
+    {
+      "fixtureId": "h18-driving-charger",
+      "model": "bonsai4",
+      "verdict": "partial",
+      "note": "Correct Oak selection but falsely converts Hill missing connector data into a statement that Hill does not support CCS2.",
+      "stopReason": 0,
+      "textSha256": "43a3eeab811333446b9c3203aa06008b464d4402a53fc1a4a85fcf36256da4b8",
+      "promptSha256": "5b47230cf59788765ab5b80cd4abfb1ea3f93cb1de58b86d8ad65cb00935e425",
+      "selectedSourceTitles": [
+        "Roadside chargers saved list"
+      ]
+    },
+    {
+      "fixtureId": "h18-driving-charger",
+      "model": "spark17",
+      "verdict": "fail",
+      "note": "Refuses to identify Oak despite quoting its explicit CCS2 tag, then asks for the connector already supplied in the question.",
+      "stopReason": 0,
+      "textSha256": "aefceccae52d8b997d12b672368af22b1092c2fd206553500e3d10f5cbf29359",
+      "promptSha256": "5b47230cf59788765ab5b80cd4abfb1ea3f93cb1de58b86d8ad65cb00935e425",
+      "selectedSourceTitles": [
+        "Roadside chargers saved list"
+      ]
+    },
+    {
+      "fixtureId": "h19-hiking-distance",
+      "model": "spark17",
+      "verdict": "partial",
+      "note": "Correct straight-line versus walking-route distinction and missing data, but omits source citation.",
+      "stopReason": 0,
+      "textSha256": "9b1357ed95dbd7e7d0304ee83dd28887c5ab238a1732f3604d7187e33b8b8fb1",
+      "promptSha256": "c3b9b785bbc44a31b5871886b7a2b290a82a45d787ea7c4e374b508bc9e4577b",
+      "selectedSourceTitles": [
+        "Hut location note"
+      ]
+    },
+    {
+      "fixtureId": "h19-hiking-distance",
+      "model": "bonsai4",
+      "verdict": "partial",
+      "note": "Correct core distinction/citation, but says walking distance depends on walking pace; pace affects travel time rather than the length of a fixed route.",
+      "stopReason": 0,
+      "textSha256": "cb2ecd9909595371bf61f2db56489003f8f6e204893e50fbe51481f3b8004760",
+      "promptSha256": "c3b9b785bbc44a31b5871886b7a2b290a82a45d787ea7c4e374b508bc9e4577b",
+      "selectedSourceTitles": [
+        "Hut location note"
+      ]
+    },
+    {
+      "fixtureId": "h20-driving-stale",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Uses the old record and explicitly separates it from unverified current status.",
+      "stopReason": 0,
+      "textSha256": "497ce14cb437fd107d3cd228ab5657b46edf13c11e7783ed9cd4bccaadf6e393",
+      "promptSha256": "2683e5595095d1f4ebf6197bc614e17b0914028075a752b1f2a8809e5f1065df",
+      "selectedSourceTitles": [
+        "Petrol station note"
+      ]
+    },
+    {
+      "fixtureId": "h20-driving-stale",
+      "model": "spark17",
+      "verdict": "partial",
+      "note": "Appropriately avoids a current opening guarantee, but gives a generic abstention without the available2023/24-hour record or its citation.",
+      "stopReason": 0,
+      "textSha256": "90f03cdbe49f0cc66756ec370a0c38a5d72a8f459562a9d225cfa29c52fa9dc8",
+      "promptSha256": "2683e5595095d1f4ebf6197bc614e17b0914028075a752b1f2a8809e5f1065df",
+      "selectedSourceTitles": [
+        "Petrol station note"
+      ]
+    },
+    {
+      "fixtureId": "h21-context-correction",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Accepts the AG-8 correction and gives B-68/1050mm with source1.",
+      "stopReason": 0,
+      "textSha256": "32445caf8fed716d4a98d4a5f9d351ef7c7f163902d5f0604a052e4e15274675",
+      "promptSha256": "90937d4324e8f00bf5cfb49bd6d1da401def04e99dbeca6ea51de3ce9f53bb28",
+      "selectedSourceTitles": [
+        "Auger parts table"
+      ]
+    },
+    {
+      "fixtureId": "h21-context-correction",
+      "model": "bonsai4",
+      "verdict": "pass",
+      "note": "Accepts correction and gives B-68/1050mm with source1.",
+      "stopReason": 0,
+      "textSha256": "b1be66822f2362801ce9987e71515f5edfac57926f9a3d2be25020562a76f84e",
+      "promptSha256": "90937d4324e8f00bf5cfb49bd6d1da401def04e99dbeca6ea51de3ce9f53bb28",
+      "selectedSourceTitles": [
+        "Auger parts table"
+      ]
+    },
+    {
+      "fixtureId": "h22-context-no-source",
+      "model": "bonsai4",
+      "verdict": "fail",
+      "note": "Gives a useful general distinction but appends nonexistent source[1] with no documents supplied.",
+      "stopReason": 0,
+      "textSha256": "6b26c68dc80d7f4bde68c7981abf913a3ffbacd936e48cec0c7ede8e222a7c30",
+      "promptSha256": "1671ae25991058b0d2dd9ab3e652a09283b069dd3ed0cc388d97a06e9ccfe208",
+      "selectedSourceTitles": []
+    },
+    {
+      "fixtureId": "h22-context-no-source",
+      "model": "spark17",
+      "verdict": "fail",
+      "note": "Fabricates source[1] despite an empty evidence list; also truncated. Basic definitions are not enough to pass provenance/completion.",
+      "stopReason": 1,
+      "textSha256": "a48a82a46bcdb67fc915d51ffcc09456939abfbe0e2f19b54ca64d0993f3a60b",
+      "promptSha256": "1671ae25991058b0d2dd9ab3e652a09283b069dd3ed0cc388d97a06e9ccfe208",
+      "selectedSourceTitles": []
+    },
+    {
+      "fixtureId": "h23-context-explain",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Explains possible reuse of a model already in memory without claiming internet access, exact timings or guaranteed speedup.",
+      "stopReason": 0,
+      "textSha256": "db68794d0ab8687ff2c624fff742c95565d37fd63f08dd2b6829996fdc92b6fd",
+      "promptSha256": "ad328359dd1c697c0ac8369b45e3bd742a886563826f0c185286bd7519f9e9dd",
+      "selectedSourceTitles": []
+    },
+    {
+      "fixtureId": "h23-context-explain",
+      "model": "bonsai4",
+      "verdict": "partial",
+      "note": "Core initialization/weight reuse explanation is useful, but incorrectly ties caching benefit to pretraining on similar tasks and overstates generic activation reuse/minimal latency.",
+      "stopReason": 0,
+      "textSha256": "a91c402f2188556aca09eac3a8a355f9759f3378c5c4590b454fa8edbd4edcfe",
+      "promptSha256": "ad328359dd1c697c0ac8369b45e3bd742a886563826f0c185286bd7519f9e9dd",
+      "selectedSourceTitles": []
+    },
+    {
+      "fixtureId": "h24-context-partial-answer",
+      "model": "bonsai4",
+      "verdict": "fail",
+      "note": "Invents a causal attribution of reduced flow to filter F-26 despite the explicit absence of a known cause.",
+      "stopReason": 0,
+      "textSha256": "8c255c64b1cbcbaaec37c6fad9092687633f93fe9ef7649704d66be1feefe5b6",
+      "promptSha256": "3a4358abf67e9c89ef52f01b2b4e780942d4112cd3546d1ef032a9a779872e1e",
+      "selectedSourceTitles": [
+        "Pump Q-19 field note"
+      ]
+    },
+    {
+      "fixtureId": "h24-context-partial-answer",
+      "model": "spark17",
+      "verdict": "pass",
+      "note": "Separates recorded model/filter/reduced flow from missing date/cause/authorization, with citation.",
+      "stopReason": 0,
+      "textSha256": "3930848223f09f1e48a7a556df9614adf15b7ef4ce5f3ec841fe53c97498fbb1",
+      "promptSha256": "3a4358abf67e9c89ef52f01b2b4e780942d4112cd3546d1ef032a9a779872e1e",
+      "selectedSourceTitles": [
+        "Pump Q-19 field note"
+      ]
+    }
+  ]
+}

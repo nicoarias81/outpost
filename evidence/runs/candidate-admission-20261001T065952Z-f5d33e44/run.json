@@ -1,0 +1,37 @@
+{
+  "runId": "candidate-admission-20261001T065952Z-f5d33e44",
+  "phase": "admission",
+  "serial": "emulator-5582",
+  "avd": "Outpost35",
+  "startedUtc": "2026-10-01T06:59:52.7803534Z",
+  "gitHead": "ce99deaf6bd8d443449e8f4884b813a0b824bd99",
+  "sourceStatus": [
+    "?? evidence/runs/candidate-admission-20261001T065759Z-07fa8637/"
+  ],
+  "appSha256": "e60e0b2cad1bed1c0e2dfef3193ed3f076ca4b9e2700d06da52d6a2c273dd67c",
+  "testApkSha256": "0d391b00eb566c5f596c7312b68e528ce8bbd6cc9b27dade92f62af9d5ce941d",
+  "mainSourcesSha256": "89bf87b55cf7392122dad0db82c0edc640003f3377677d3fdd3387223d721c2b",
+  "testSourcesSha256": "d8b386400c54e1c23f5df888836c45b9fcbf4492c6c5b496401e59b2d25e6b25",
+  "fixtureSha256": "6d6152c30998339d768c695011b4da93c6a85e75fafb51822dcbc5257a59bdb6",
+  "lockSha256": "229fa0e3c71a8b3fa444a0e56b04830fb5320fd79ae144ca1e97fa2aedb2efd1",
+  "deviceFingerprint": "Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys",
+  "offlineState": [
+    1,
+    0,
+    0
+  ],
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T06:58:59.8530659Z",
+    "versionName": "0.14.0",
+    "versionCode": 16,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "89bf87b55cf7392122dad0db82c0edc640003f3377677d3fdd3387223d721c2b",
+    "testSourcesSha256": "d8b386400c54e1c23f5df888836c45b9fcbf4492c6c5b496401e59b2d25e6b25",
+    "appSha256": "e60e0b2cad1bed1c0e2dfef3193ed3f076ca4b9e2700d06da52d6a2c273dd67c",
+    "testApkSha256": "0d391b00eb566c5f596c7312b68e528ce8bbd6cc9b27dade92f62af9d5ce941d",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "modelExecution": true,
+  "scope": "Pinned Spark research and Bonsai control inside Outpost35. No product profile selection, physical device or storage-policy change. Same-version research APK is identified by bytes, not release label."
+}

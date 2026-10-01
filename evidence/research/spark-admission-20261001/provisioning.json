@@ -1,0 +1,18 @@
+{
+  "scope": "Provisioning/debug history, no model execution on host",
+  "failed_transfers": [
+    {
+      "method": "adb exec-out with shell redirection",
+      "outcome": "no target file created"
+    },
+    {
+      "method": "adb shell -T dd with regular-file stdin",
+      "outcome": "462-byte GGUF prefix",
+      "sha256": "037125579f376498744393bdb75f1ed4803c582fcc48b13df89539b40ca258bc"
+    }
+  ],
+  "working_method": "adb push to a task-owned temporary path; hash; run-as copy to app-private .part; hash/size; rename; remove the task-owned staging copy",
+  "failed_prefix_preserved": "files/models/spark17-failed-transfer-462.bin on Outpost35",
+  "model_bytes": 1107457856,
+  "model_sha256": "902bde2522394954ac17821b3e5fd0df02defbc6944f122253f2580acf0503f4"
+}

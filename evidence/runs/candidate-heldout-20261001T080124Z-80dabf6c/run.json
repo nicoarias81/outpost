@@ -1,0 +1,43 @@
+{
+  "runId": "candidate-heldout-20261001T080124Z-80dabf6c",
+  "phase": "heldout",
+  "serial": "emulator-5582",
+  "avd": "Outpost35",
+  "startedUtc": "2026-10-01T08:01:24.7331595Z",
+  "gitHead": "55d11e498d5a56c31f0ae5a86e5895177b3fd5ae",
+  "sourceStatus": [
+    "?? evidence/runs/candidate-admission-20261001T065759Z-07fa8637/",
+    "?? evidence/runs/candidate-admission-20261001T065952Z-f5d33e44/",
+    "?? evidence/runs/candidate-admission-20261001T070356Z-49c50808/",
+    "?? evidence/runs/candidate-admission-20261001T071004Z-35b00c68/",
+    "?? evidence/runs/candidate-admission-20261001T071945Z-d48b1353/",
+    "?? evidence/runs/candidate-admission-20261001T072903Z-83456a7a/",
+    "?? evidence/runs/candidate-pilot-20261001T073447Z-db85788d/"
+  ],
+  "appSha256": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+  "testApkSha256": "1fb39c9df410c54de0bedcf09097df3ca2fb621d6745d4cb3a08bf2e6ccc1ef6",
+  "mainSourcesSha256": "5158b954308a530c4293bafe757c19616d3a0bd41200224b882ba6b8a40a4378",
+  "testSourcesSha256": "5275e9b0d24fde3976338507afa0467e5e3340135836a50eaaad84c52f4b548d",
+  "fixtureSha256": "6d6152c30998339d768c695011b4da93c6a85e75fafb51822dcbc5257a59bdb6",
+  "lockSha256": "229fa0e3c71a8b3fa444a0e56b04830fb5320fd79ae144ca1e97fa2aedb2efd1",
+  "deviceFingerprint": "Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys",
+  "offlineState": [
+    1,
+    0,
+    0
+  ],
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T07:28:00.2663616Z",
+    "versionName": "0.14.0",
+    "versionCode": 16,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "5158b954308a530c4293bafe757c19616d3a0bd41200224b882ba6b8a40a4378",
+    "testSourcesSha256": "5275e9b0d24fde3976338507afa0467e5e3340135836a50eaaad84c52f4b548d",
+    "appSha256": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+    "testApkSha256": "1fb39c9df410c54de0bedcf09097df3ca2fb621d6745d4cb3a08bf2e6ccc1ef6",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "modelExecution": true,
+  "scope": "Pinned Spark research and Bonsai control inside Outpost35. No product profile selection, physical device or storage-policy change. Same-version research APK is identified by bytes, not release label."
+}

@@ -1,0 +1,6 @@
+{
+  "classification": "harness identity check failure before model execution",
+  "cause": "Case-sensitive sdk substring did not match the uppercase SDK emulator model label.",
+  "resolution_commit": "ce99dea",
+  "raw_evidence": "Original report/logs preserved without modification."
+}

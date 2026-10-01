@@ -1,0 +1,39 @@
+{
+  "runId": "candidate-admission-20261001T071004Z-35b00c68",
+  "phase": "admission",
+  "serial": "emulator-5582",
+  "avd": "Outpost35",
+  "startedUtc": "2026-10-01T07:10:04.1948538Z",
+  "gitHead": "6b7958434fb623493e05889b4d62441ec50d070c",
+  "sourceStatus": [
+    "?? evidence/runs/candidate-admission-20261001T065759Z-07fa8637/",
+    "?? evidence/runs/candidate-admission-20261001T065952Z-f5d33e44/",
+    "?? evidence/runs/candidate-admission-20261001T070356Z-49c50808/"
+  ],
+  "appSha256": "fa32c7dbaf4d7dfa3c5532dd6275045f3e4e2908f3628c95dc67eeb8e8a5d87f",
+  "testApkSha256": "80685c6df1f147bed733c71a001ef329a935b4a3c10846740a68f520fe7f08c2",
+  "mainSourcesSha256": "795821643e9fc4b15a154bf793c7a98e9a244734237d484963291bb86f453c93",
+  "testSourcesSha256": "8ee9619c2787161a7b52d3aef4beaa8aec51e725209394d6e26630b893f8d571",
+  "fixtureSha256": "6d6152c30998339d768c695011b4da93c6a85e75fafb51822dcbc5257a59bdb6",
+  "lockSha256": "229fa0e3c71a8b3fa444a0e56b04830fb5320fd79ae144ca1e97fa2aedb2efd1",
+  "deviceFingerprint": "Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys",
+  "offlineState": [
+    1,
+    0,
+    0
+  ],
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T07:09:07.4029363Z",
+    "versionName": "0.14.0",
+    "versionCode": 16,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "795821643e9fc4b15a154bf793c7a98e9a244734237d484963291bb86f453c93",
+    "testSourcesSha256": "8ee9619c2787161a7b52d3aef4beaa8aec51e725209394d6e26630b893f8d571",
+    "appSha256": "fa32c7dbaf4d7dfa3c5532dd6275045f3e4e2908f3628c95dc67eeb8e8a5d87f",
+    "testApkSha256": "80685c6df1f147bed733c71a001ef329a935b4a3c10846740a68f520fe7f08c2",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "modelExecution": true,
+  "scope": "Pinned Spark research and Bonsai control inside Outpost35. No product profile selection, physical device or storage-policy change. Same-version research APK is identified by bytes, not release label."
+}

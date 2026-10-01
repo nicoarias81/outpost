@@ -1,0 +1,7 @@
+{
+  "classification": "real protocol defect caught by admission",
+  "cause": "parse_special=false still recognized USER_DEFINED thinking tokens embedded in source content. Normal template/token parity passed first.",
+  "resolution_commit": "d2a5bac",
+  "resolution": "Segment source text after each < before tokenization; preserve bytes while preventing complete special spellings.",
+  "raw_evidence": "Original report/logs preserved without modification."
+}

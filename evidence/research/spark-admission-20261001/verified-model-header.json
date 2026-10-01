@@ -1,0 +1,2370 @@
+{
+  "scope": "Static GGUF metadata read; full file SHA verified by download step",
+  "file": "Spark-X2.5-1.7B-Q4_K_M.gguf",
+  "bytes": 1107457856,
+  "header_bytes": 5383977,
+  "tensor_count": 226,
+  "tensor_types": {
+    "0": 57,
+    "14": 29,
+    "12": 140
+  },
+  "metadata": {
+    "general.architecture": "spark2_5",
+    "general.type": "model",
+    "general.sampling.top_k": 0,
+    "general.sampling.top_p": 0.949999988079071,
+    "general.sampling.temp": 1.0,
+    "general.name": "Hf_Format",
+    "general.size_label": "1.7B",
+    "spark2_5.block_count": 28,
+    "spark2_5.context_length": 1048576,
+    "spark2_5.embedding_length": 2048,
+    "spark2_5.feed_forward_length": 6656,
+    "spark2_5.attention.head_count": 8,
+    "spark2_5.attention.head_count_kv": 2,
+    "spark2_5.rope.freq_base": 5000000.0,
+    "spark2_5.rope.freq_base_swa": 10000.0,
+    "spark2_5.attention.layer_norm_rms_epsilon": 9.999999974752427e-07,
+    "spark2_5.attention.key_length": 256,
+    "spark2_5.attention.value_length": 256,
+    "spark2_5.vocab_size": 131072,
+    "spark2_5.attention.sliding_window": 512,
+    "spark2_5.rope.dimension_count": 64,
+    "spark2_5.rope.dimension_count_swa": 256,
+    "tokenizer.ggml.model": "gpt2",
+    "tokenizer.ggml.pre": "spark2_5",
+    "tokenizer.ggml.bos_token_id": 0,
+    "tokenizer.ggml.eos_token_id": 1,
+    "tokenizer.ggml.unknown_token_id": 5,
+    "tokenizer.ggml.padding_token_id": 2,
+    "tokenizer.ggml.add_bos_token": false,
+    "tokenizer.ggml.add_eos_token": false,
+    "general.quantization_version": 2,
+    "general.file_type": 15
+  },
+  "template": "{%- if not messages %}\n    {{- raise_exception('No messages provided.') }}\n{%- endif %}\n{%- set enable_thinking = enable_thinking | default(true) %}\n\n{#- Render a string or a list of text blocks. -#}\n{%- macro render_content(content, context_name) %}\n    {%- if content is string %}\n        {{- content }}\n    {%- elif content is none or content is undefined %}\n        {{- '' }}\n    {%- elif content is iterable and content is not mapping %}\n        {%- for block in content %}\n            {%- if block.type == 'text' %}\n                {{- block.text }}\n            {%- else %}\n                {{- raise_exception('Unsupported ' ~ context_name ~ ' content block type: ' ~ (block.type | string)) }}\n            {%- endif %}\n        {%- endfor %}\n    {%- else %}\n        {{- raise_exception(context_name ~ ' content must be a string or a list of text blocks') }}\n    {%- endif %}\n{%- endmacro %}\n\n{#- Default system prompt -#}\n{%- set default_system = \"you are a helpful assistant.\" %}\n\n{#- The first message-level system is placed in the initial system block. -#}\n{%- set ns = namespace(initial_system='') %}\n{%- if messages[0].role == \"system\" %}\n    {%- set ns.initial_system = render_content(messages[0].content, 'system') %}\n{%- endif %}\n\n{#- System block -#}\n{{- '<｜start▁of▁sentence｜><|System|>' + '\\n' + default_system }}\n{%- if tools %}\n    {{- '## Tools' + '\\n' + 'You have access to the following functions:' + '\\n' + '<tools>' }}\n    {%- for tool in tools %}\n        {{- '\\n' + tool.function | tojson}}\n    {%- endfor %}\n    {{- '\\n' + '</tools>' }}\n{%- endif %}\n{%- if ns.initial_system %}\n    {{- '\\n\\n' + ns.initial_system }}\n{%- endif %}\n{{- '<｜end▁of▁sentence｜>'}}\n\n{#- Conversation turns -#}\n{%- for message in messages %}\n    {%- if message.role == \"system\" %}\n        {#- The first system message was consumed by the initial block. -#}\n        {%- if not loop.first %}\n            {{- '<｜start▁of▁sentence｜><|System|>\\n' + render_content(message.content, 'system') + '<｜end▁of▁sentence｜>' }}\n        {%- endif %}\n    {%- elif message.role == \"user\" %}\n        {{- '<｜start▁of▁sentence｜><|User|>' + render_content(message.content, 'user') + '<｜end▁of▁sentence｜>' }}\n    {%- elif message.role == \"assistant\" %}\n        {%- set assistant_content = render_content(message.content, 'assistant') %}\n        {%- if message.reasoning_content is defined and message.reasoning_content %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- set reasoning_content = '' %}\n        {%- endif %}\n        {{- '<｜start▁of▁sentence｜><|Bot|>'}}\n        {%- if reasoning_content %}\n            {{- '<think>' + reasoning_content + '</think>'}}\n        {%- else %}\n            {{- '</think>' }}\n        {%- endif %}\n        {%- if assistant_content %}\n            {{- assistant_content }}\n        {%- endif %}\n        {%- if message.tool_calls is defined and message.tool_calls is not none %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if tool_call.function.arguments is not mapping %}\n                    {{- raise_exception('tool_call.function.arguments must be a dictionary; normalize JSON strings before apply_chat_template') }}\n                {%- endif %}\n                {%- set args = tool_call.function.arguments %}\n                {{- '<tool_call>' + tool_call.function.name }}\n                {%- for k, v in args.items() %}\n                    {{- '<arg_key>' ~ k ~ '</arg_key><arg_value>' ~ (v if v is string else v | tojson) ~ '</arg_value>' }}\n                {%- endfor %}\n                {{- '</tool_call>' }}\n            {%- endfor %}\n        {%- endif %}\n        {{- '<｜end▁of▁sentence｜>' }}\n    {%- elif message.role == \"tool\" %}\n        {%- if loop.previtem is undefined or loop.previtem.role != \"tool\" %}\n            {{- '<｜start▁of▁sentence｜><|Tool|>' }}\n        {%- endif %}\n        {{- '<tool_response>' ~ message.content ~ '</tool_response>' }}\n        {%- if loop.nextitem is undefined or loop.nextitem.role != \"tool\" %}\n            {{- '<｜end▁of▁sentence｜>' }}\n        {%- endif %}\n    {%- else %}\n        {{- raise_exception('Unsupported message role: ' ~ message.role) }}\n    {%- endif %}\n{%- endfor %}\n\n{#- Generation prompt -#}\n{%- if add_generation_prompt %}\n    {{- '<｜start▁of▁sentence｜><|Bot|>' }}\n    {%- if enable_thinking is defined and enable_thinking %}\n        {{- '<think>' }}\n    {%- endif %}\n    {%- if enable_thinking is defined and not enable_thinking %}\n        {{- '</think>' }}\n    {%- endif %}\n{%- endif %}\n",
+  "template_sha256": "84493de66d859ab2694ec760056c82690af45de2dd170f1b6245456378f32f52",
+  "special_tokens": [
+    {
+      "id": 0,
+      "text": "<｜start▁of▁sentence｜>",
+      "type": 3
+    },
+    {
+      "id": 1,
+      "text": "<｜end▁of▁sentence｜>",
+      "type": 3
+    },
+    {
+      "id": 2,
+      "text": "<｜▁pad▁｜>",
+      "type": 3
+    },
+    {
+      "id": 3,
+      "text": "<think>",
+      "type": 4
+    },
+    {
+      "id": 4,
+      "text": "</think>",
+      "type": 4
+    },
+    {
+      "id": 5,
+      "text": "<unk>",
+      "type": 3
+    },
+    {
+      "id": 6,
+      "text": "<｜start▁of▁text｜>",
+      "type": 3
+    },
+    {
+      "id": 7,
+      "text": "<｜end▁of▁text｜>",
+      "type": 3
+    },
+    {
+      "id": 8,
+      "text": "<User>",
+      "type": 4
+    },
+    {
+      "id": 9,
+      "text": "<System>",
+      "type": 4
+    },
+    {
+      "id": 10,
+      "text": "<Bot>",
+      "type": 4
+    },
+    {
+      "id": 11,
+      "text": "<｜fim▁begin｜>",
+      "type": 3
+    },
+    {
+      "id": 12,
+      "text": "<｜fim▁hole｜>",
+      "type": 3
+    },
+    {
+      "id": 13,
+      "text": "<｜fim▁end｜>",
+      "type": 3
+    },
+    {
+      "id": 130972,
+      "text": "<|System|>",
+      "type": 3
+    },
+    {
+      "id": 130973,
+      "text": "<|User|>",
+      "type": 3
+    },
+    {
+      "id": 130974,
+      "text": "<|Tool|>",
+      "type": 3
+    },
+    {
+      "id": 130975,
+      "text": "<|Developer|>",
+      "type": 3
+    },
+    {
+      "id": 130976,
+      "text": "<|Bot|>",
+      "type": 3
+    },
+    {
+      "id": 130977,
+      "text": "<tool_call>",
+      "type": 4
+    },
+    {
+      "id": 130978,
+      "text": "<tool_response>",
+      "type": 4
+    },
+    {
+      "id": 130979,
+      "text": "</tool_response>",
+      "type": 4
+    },
+    {
+      "id": 130980,
+      "text": "<arg_key>",
+      "type": 4
+    },
+    {
+      "id": 130981,
+      "text": "</arg_key>",
+      "type": 4
+    },
+    {
+      "id": 130982,
+      "text": "<arg_value>",
+      "type": 4
+    },
+    {
+      "id": 130983,
+      "text": "</arg_value>",
+      "type": 4
+    },
+    {
+      "id": 130984,
+      "text": "</tool_call>",
+      "type": 4
+    },
+    {
+      "id": 130986,
+      "text": "<||unused2||>",
+      "type": 3
+    },
+    {
+      "id": 130987,
+      "text": "<||unused3||>",
+      "type": 3
+    },
+    {
+      "id": 130988,
+      "text": "<||unused4||>",
+      "type": 3
+    },
+    {
+      "id": 130989,
+      "text": "<||unused5||>",
+      "type": 3
+    },
+    {
+      "id": 130990,
+      "text": "<||unused6||>",
+      "type": 3
+    },
+    {
+      "id": 130991,
+      "text": "<||unused7||>",
+      "type": 3
+    },
+    {
+      "id": 130992,
+      "text": "<||unused8||>",
+      "type": 3
+    },
+    {
+      "id": 130993,
+      "text": "<||unused9||>",
+      "type": 3
+    },
+    {
+      "id": 130994,
+      "text": "<||unused10||>",
+      "type": 3
+    },
+    {
+      "id": 130995,
+      "text": "<||unused11||>",
+      "type": 3
+    },
+    {
+      "id": 130996,
+      "text": "<||unused12||>",
+      "type": 3
+    },
+    {
+      "id": 130997,
+      "text": "<||unused13||>",
+      "type": 3
+    },
+    {
+      "id": 130998,
+      "text": "<||unused14||>",
+      "type": 3
+    },
+    {
+      "id": 130999,
+      "text": "<||unused15||>",
+      "type": 3
+    },
+    {
+      "id": 131000,
+      "text": "<||unused16||>",
+      "type": 3
+    },
+    {
+      "id": 131001,
+      "text": "<||unused17||>",
+      "type": 3
+    },
+    {
+      "id": 131002,
+      "text": "<||unused18||>",
+      "type": 3
+    },
+    {
+      "id": 131003,
+      "text": "<||unused19||>",
+      "type": 3
+    },
+    {
+      "id": 131004,
+      "text": "<||unused20||>",
+      "type": 3
+    },
+    {
+      "id": 131005,
+      "text": "<||unused21||>",
+      "type": 3
+    },
+    {
+      "id": 131006,
+      "text": "<||unused22||>",
+      "type": 3
+    },
+    {
+      "id": 131007,
+      "text": "<||unused23||>",
+      "type": 3
+    },
+    {
+      "id": 131008,
+      "text": "<||unused24||>",
+      "type": 3
+    },
+    {
+      "id": 131009,
+      "text": "<||unused25||>",
+      "type": 3
+    },
+    {
+      "id": 131010,
+      "text": "<||unused26||>",
+      "type": 3
+    },
+    {
+      "id": 131011,
+      "text": "<||unused27||>",
+      "type": 3
+    },
+    {
+      "id": 131012,
+      "text": "<||unused28||>",
+      "type": 3
+    },
+    {
+      "id": 131013,
+      "text": "<||unused29||>",
+      "type": 3
+    },
+    {
+      "id": 131014,
+      "text": "<||unused30||>",
+      "type": 3
+    },
+    {
+      "id": 131015,
+      "text": "<||unused31||>",
+      "type": 3
+    },
+    {
+      "id": 131016,
+      "text": "<||unused32||>",
+      "type": 3
+    },
+    {
+      "id": 131017,
+      "text": "<||unused33||>",
+      "type": 3
+    },
+    {
+      "id": 131018,
+      "text": "<||unused34||>",
+      "type": 3
+    },
+    {
+      "id": 131019,
+      "text": "<||unused35||>",
+      "type": 3
+    },
+    {
+      "id": 131020,
+      "text": "<||unused36||>",
+      "type": 3
+    },
+    {
+      "id": 131021,
+      "text": "<||unused37||>",
+      "type": 3
+    },
+    {
+      "id": 131022,
+      "text": "<||unused38||>",
+      "type": 3
+    },
+    {
+      "id": 131023,
+      "text": "<||unused39||>",
+      "type": 3
+    },
+    {
+      "id": 131024,
+      "text": "<||unused40||>",
+      "type": 3
+    },
+    {
+      "id": 131025,
+      "text": "<||unused41||>",
+      "type": 3
+    },
+    {
+      "id": 131026,
+      "text": "<||unused42||>",
+      "type": 3
+    },
+    {
+      "id": 131027,
+      "text": "<||unused43||>",
+      "type": 3
+    },
+    {
+      "id": 131028,
+      "text": "<||unused44||>",
+      "type": 3
+    },
+    {
+      "id": 131029,
+      "text": "<||unused45||>",
+      "type": 3
+    },
+    {
+      "id": 131030,
+      "text": "<||unused46||>",
+      "type": 3
+    },
+    {
+      "id": 131031,
+      "text": "<||unused47||>",
+      "type": 3
+    },
+    {
+      "id": 131032,
+      "text": "<||unused48||>",
+      "type": 3
+    },
+    {
+      "id": 131033,
+      "text": "<||unused49||>",
+      "type": 3
+    },
+    {
+      "id": 131034,
+      "text": "<||unused50||>",
+      "type": 3
+    },
+    {
+      "id": 131035,
+      "text": "<||unused51||>",
+      "type": 3
+    },
+    {
+      "id": 131036,
+      "text": "<||unused52||>",
+      "type": 3
+    },
+    {
+      "id": 131037,
+      "text": "<||unused53||>",
+      "type": 3
+    },
+    {
+      "id": 131038,
+      "text": "<||unused54||>",
+      "type": 3
+    },
+    {
+      "id": 131039,
+      "text": "<||unused55||>",
+      "type": 3
+    },
+    {
+      "id": 131040,
+      "text": "<||unused56||>",
+      "type": 3
+    },
+    {
+      "id": 131041,
+      "text": "<||unused57||>",
+      "type": 3
+    },
+    {
+      "id": 131042,
+      "text": "<||unused58||>",
+      "type": 3
+    },
+    {
+      "id": 131043,
+      "text": "<||unused59||>",
+      "type": 3
+    },
+    {
+      "id": 131044,
+      "text": "<||unused60||>",
+      "type": 3
+    },
+    {
+      "id": 131045,
+      "text": "<||unused61||>",
+      "type": 3
+    },
+    {
+      "id": 131046,
+      "text": "<||unused62||>",
+      "type": 3
+    },
+    {
+      "id": 131047,
+      "text": "<||unused63||>",
+      "type": 3
+    },
+    {
+      "id": 131048,
+      "text": "<||unused64||>",
+      "type": 3
+    },
+    {
+      "id": 131049,
+      "text": "<||unused65||>",
+      "type": 3
+    },
+    {
+      "id": 131050,
+      "text": "<||unused66||>",
+      "type": 3
+    },
+    {
+      "id": 131051,
+      "text": "<||unused67||>",
+      "type": 3
+    },
+    {
+      "id": 131052,
+      "text": "<||unused68||>",
+      "type": 3
+    },
+    {
+      "id": 131053,
+      "text": "<||unused69||>",
+      "type": 3
+    },
+    {
+      "id": 131054,
+      "text": "<||unused70||>",
+      "type": 3
+    },
+    {
+      "id": 131055,
+      "text": "<||unused71||>",
+      "type": 3
+    },
+    {
+      "id": 131056,
+      "text": "<||unused72||>",
+      "type": 3
+    },
+    {
+      "id": 131057,
+      "text": "<||unused73||>",
+      "type": 3
+    },
+    {
+      "id": 131058,
+      "text": "<||unused74||>",
+      "type": 3
+    },
+    {
+      "id": 131059,
+      "text": "<||unused75||>",
+      "type": 3
+    },
+    {
+      "id": 131060,
+      "text": "<||unused76||>",
+      "type": 3
+    },
+    {
+      "id": 131061,
+      "text": "<||unused77||>",
+      "type": 3
+    },
+    {
+      "id": 131062,
+      "text": "<||unused78||>",
+      "type": 3
+    },
+    {
+      "id": 131063,
+      "text": "<||unused79||>",
+      "type": 3
+    },
+    {
+      "id": 131064,
+      "text": "<||unused80||>",
+      "type": 3
+    },
+    {
+      "id": 131065,
+      "text": "<||unused81||>",
+      "type": 3
+    },
+    {
+      "id": 131066,
+      "text": "<||unused82||>",
+      "type": 3
+    },
+    {
+      "id": 131067,
+      "text": "<||unused83||>",
+      "type": 3
+    },
+    {
+      "id": 131068,
+      "text": "<||unused84||>",
+      "type": 3
+    },
+    {
+      "id": 131069,
+      "text": "<||unused85||>",
+      "type": 3
+    },
+    {
+      "id": 131070,
+      "text": "<||unused86||>",
+      "type": 3
+    },
+    {
+      "id": 131071,
+      "text": "<||unused87||>",
+      "type": 3
+    }
+  ],
+  "tensor_descriptors": [
+    {
+      "name": "output_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "token_embd.weight",
+      "dimensions": [
+        2048,
+        131072
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.0.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.0.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.0.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.0.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.0.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.0.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.0.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.0.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.1.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.1.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.1.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.1.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.1.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.1.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.1.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.1.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.2.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.2.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.2.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.2.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.2.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.2.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.2.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.2.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.3.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.3.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.3.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.3.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.3.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.3.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.3.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.3.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.4.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.4.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.4.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.4.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.4.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.4.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.4.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.4.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.5.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.5.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.5.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.5.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.5.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.5.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.5.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.5.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.6.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.6.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.6.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.6.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.6.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.6.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.6.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.6.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.7.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.7.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.7.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.7.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.7.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.7.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.7.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.7.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.8.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.8.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.8.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.8.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.8.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.8.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.8.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.8.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.9.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.9.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.9.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.9.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.9.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.9.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.9.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.9.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.10.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.10.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.10.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.10.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.10.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.10.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.10.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.10.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.11.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.11.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.11.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.11.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.11.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.11.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.11.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.11.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.12.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.12.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.12.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.12.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.12.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.12.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.12.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.12.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.13.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.13.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.13.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.13.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.13.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.13.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.13.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.13.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.14.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.14.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.14.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.14.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.14.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.14.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.14.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.14.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.15.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.15.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.15.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.15.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.15.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.15.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.15.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.15.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.16.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.16.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.16.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.16.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.16.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.16.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.16.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.16.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.17.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.17.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.17.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.17.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.17.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.17.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.17.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.17.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.18.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.18.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.18.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.18.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.18.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.18.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.18.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.18.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.19.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.19.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.19.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.19.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.19.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.19.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.19.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.19.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.20.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.20.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.20.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.20.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.20.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.20.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.20.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.20.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.21.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.21.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.21.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.21.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.21.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.21.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.21.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.21.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.22.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.22.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.22.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.22.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.22.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.22.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.22.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.22.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.23.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.23.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.23.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.23.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.23.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.23.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.23.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.23.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.24.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.24.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.24.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.24.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.24.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.24.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.24.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.24.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.25.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.25.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.25.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.25.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.25.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.25.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.25.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.25.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.26.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.26.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.26.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.26.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.26.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.26.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.26.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.26.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.27.attn_gate.weight",
+      "dimensions": [
+        2048,
+        8
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.27.attn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.27.attn_output.weight",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.27.attn_qkv.weight",
+      "dimensions": [
+        2048,
+        3072
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.27.ffn_down.weight",
+      "dimensions": [
+        6656,
+        2048
+      ],
+      "type": 14
+    },
+    {
+      "name": "blk.27.ffn_gate.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    },
+    {
+      "name": "blk.27.ffn_norm.weight",
+      "dimensions": [
+        2048
+      ],
+      "type": 0
+    },
+    {
+      "name": "blk.27.ffn_up.weight",
+      "dimensions": [
+        2048,
+        6656
+      ],
+      "type": 12
+    }
+  ],
+  "verifiedModelSha256": "902bde2522394954ac17821b3e5fd0df02defbc6944f122253f2580acf0503f4",
+  "verification": "Full byte identity checked on host provisioning and inside Android at each admission/comparison start. Header read itself is static."
+}

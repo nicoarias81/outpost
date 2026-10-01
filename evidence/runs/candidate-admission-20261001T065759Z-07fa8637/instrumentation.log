@@ -1,0 +1,7 @@
+
+FAIL candidate: java.lang.AssertionError: Documented emulator architecture
+	at dev.outpost.app.CandidateChecks.require(CandidateChecks.java:32)
+	at dev.outpost.app.CandidateChecks.run(CandidateChecks.java:51)
+	at dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:66)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2594)
+

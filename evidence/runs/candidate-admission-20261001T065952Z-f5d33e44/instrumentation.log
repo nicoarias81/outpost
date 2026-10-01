@@ -1,0 +1,24 @@
+
+Starting admit-normal / Spark
+
+Completed admit-normal: 9 tokens / 6032ms / stop=0
+
+Starting admit-exact-cache / Spark
+
+Completed admit-exact-cache: 9 tokens / 1228ms / stop=0
+
+Starting admit-empty-system-unicode / Spark
+
+Completed admit-empty-system-unicode: 8 tokens / 3905ms / stop=1
+
+Starting admit-literal-control-text / Spark
+
+Completed admit-literal-control-text: 1 tokens / 4178ms / stop=1
+
+FAIL candidate: java.lang.AssertionError: Source control spellings remain plain data
+	at dev.outpost.app.CandidateChecks.require(CandidateChecks.java:32)
+	at dev.outpost.app.CandidateChecks.admission(CandidateChecks.java:102)
+	at dev.outpost.app.CandidateChecks.run(CandidateChecks.java:58)
+	at dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:66)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2594)
+

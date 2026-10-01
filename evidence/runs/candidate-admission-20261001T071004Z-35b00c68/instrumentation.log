@@ -1,0 +1,48 @@
+
+Starting admit-normal / Spark
+
+Completed admit-normal: 9 tokens / 9145ms / stop=0
+
+Starting admit-exact-cache / Spark
+
+Completed admit-exact-cache: 9 tokens / 1217ms / stop=0
+
+Starting admit-empty-system-unicode / Spark
+
+Completed admit-empty-system-unicode: 8 tokens / 4027ms / stop=1
+
+Starting admit-literal-control-text / Spark
+
+Completed admit-literal-control-text: 1 tokens / 5989ms / stop=1
+
+Starting admit-sliding-base / Spark
+
+Completed admit-sliding-base: 4 tokens / 61539ms / stop=0
+
+Starting admit-sliding-exact / Spark
+
+Completed admit-sliding-exact: 4 tokens / 732ms / stop=0
+
+Starting admit-sliding-partial / Spark
+
+Completed admit-sliding-partial: 4 tokens / 4877ms / stop=0
+
+Starting admit-sliding-cold / Spark
+
+Completed admit-sliding-cold: 4 tokens / 63352ms / stop=0
+
+Starting admit-sliding-evicted-rewind / Spark
+
+Completed admit-sliding-evicted-rewind: 4 tokens / 53383ms / stop=0
+
+Starting admit-sliding-rewind-cold / Spark
+
+Completed admit-sliding-rewind-cold: 4 tokens / 63133ms / stop=0
+
+FAIL candidate: java.lang.AssertionError: Evicted-window rewind falls back cold with parity
+	at dev.outpost.app.CandidateChecks.require(CandidateChecks.java:32)
+	at dev.outpost.app.CandidateChecks.admission(CandidateChecks.java:118)
+	at dev.outpost.app.CandidateChecks.run(CandidateChecks.java:58)
+	at dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:66)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2594)
+

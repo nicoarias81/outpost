@@ -1,0 +1,49 @@
+{
+  "capturedUtc": "2026-10-01T09:09:23.159414+00:00",
+  "serial": "emulator-5582",
+  "avd": "Outpost35",
+  "offline": {
+    "airplane_mode_on": "1",
+    "wifi_on": "0",
+    "mobile_data": "0"
+  },
+  "fingerprint": "Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys",
+  "selectedModelPreferences": "<?xml version='1.0' encoding='utf-8' standalone='yes' ?>\r\n<map>\r\n    <string name=\"profile\">bonsai4</string>\r\n</map>",
+  "databases": [
+    "chat.db",
+    "chat.db-journal",
+    "folder-migration-320f42f7-af03-4607-b756-bf52075d5681.db",
+    "folder-migration-320f42f7-af03-4607-b756-bf52075d5681.db-journal",
+    "library.db",
+    "library.db-journal",
+    "test-07b5df5e-2143-4135-bbfb-810d6afe9fc7.db",
+    "test-07b5df5e-2143-4135-bbfb-810d6afe9fc7.db-journal",
+    "test-0809de05-5c1f-4646-977e-358c6d61affa.db",
+    "test-0809de05-5c1f-4646-977e-358c6d61affa.db-journal",
+    "test-1c955831-b18d-4947-a478-819791a58176.db",
+    "test-1c955831-b18d-4947-a478-819791a58176.db-journal",
+    "test-693e0ed8-b0e9-4827-ac5f-430110b001f7.db",
+    "test-693e0ed8-b0e9-4827-ac5f-430110b001f7.db-journal",
+    "test-6e8d471d-bda1-4ad5-b721-d47aaa63a168.db",
+    "test-6e8d471d-bda1-4ad5-b721-d47aaa63a168.db-journal",
+    "test-7b0975db-45e1-48a3-a94a-073d8cf12dc1.db",
+    "test-7b0975db-45e1-48a3-a94a-073d8cf12dc1.db-journal",
+    "test-7b4e2cb9-58f3-4398-ac8e-a114cc5bb2df.db",
+    "test-7b4e2cb9-58f3-4398-ac8e-a114cc5bb2df.db-journal",
+    "test-b351ad5d-2060-4f2d-a020-c78eb4159681.db",
+    "test-b351ad5d-2060-4f2d-a020-c78eb4159681.db-journal",
+    "test-b5d85f3f-66d3-4100-bc75-b1147a8d15bc.db",
+    "test-b5d85f3f-66d3-4100-bc75-b1147a8d15bc.db-journal",
+    "test-b63be99c-ba95-441d-9791-f79e30a88879.db",
+    "test-b63be99c-ba95-441d-9791-f79e30a88879.db-journal",
+    "test-e5cdf00c-40a8-44a4-9c76-d0cc297b0329.db",
+    "test-e5cdf00c-40a8-44a4-9c76-d0cc297b0329.db-journal",
+    "test-f7484235-46c0-4bb3-b54d-bed01d9fed02.db",
+    "test-f7484235-46c0-4bb3-b54d-bed01d9fed02.db-journal"
+  ],
+  "installedApks": {
+    "dev.outpost.app": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+    "dev.outpost.app.test": "1fb39c9df410c54de0bedcf09097df3ca2fb621d6745d4cb3a08bf2e6ccc1ef6"
+  },
+  "finalUiAction": "Opened chat home after successful chat-suite cleanup."
+}

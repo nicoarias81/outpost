@@ -1,0 +1,99 @@
+
+Starting d01-travel-arrival/warmup/0 / Spark
+
+Completed d01-travel-arrival/warmup/0: 8 tokens / 20673ms / stop=1
+
+Starting d01-travel-arrival/fixed/0 / Spark
+
+Completed d01-travel-arrival/fixed/0: 71 tokens / 31536ms / stop=0
+
+Starting d01-travel-arrival/warmup/0 / Bonsai
+
+Completed d01-travel-arrival/warmup/0: 8 tokens / 23348ms / stop=1
+
+Starting d01-travel-arrival/fixed/0 / Bonsai
+
+Completed d01-travel-arrival/fixed/0: 85 tokens / 40180ms / stop=0
+
+Starting d01-travel-arrival/warmup/1 / Bonsai
+
+Completed d01-travel-arrival/warmup/1: 8 tokens / 21042ms / stop=1
+
+Starting d01-travel-arrival/fixed/1 / Bonsai
+
+Completed d01-travel-arrival/fixed/1: 85 tokens / 39653ms / stop=0
+
+Starting d01-travel-arrival/warmup/1 / Spark
+
+Completed d01-travel-arrival/warmup/1: 8 tokens / 21150ms / stop=1
+
+Starting d01-travel-arrival/fixed/1 / Spark
+
+Completed d01-travel-arrival/fixed/1: 71 tokens / 30857ms / stop=0
+
+Starting d01-travel-arrival/warmup/2 / Spark
+
+Completed d01-travel-arrival/warmup/2: 8 tokens / 20371ms / stop=1
+
+Starting d01-travel-arrival/fixed/2 / Spark
+
+Completed d01-travel-arrival/fixed/2: 71 tokens / 30367ms / stop=0
+
+Starting d01-travel-arrival/warmup/2 / Bonsai
+
+Completed d01-travel-arrival/warmup/2: 8 tokens / 21255ms / stop=1
+
+Starting d01-travel-arrival/fixed/2 / Bonsai
+
+Completed d01-travel-arrival/fixed/2: 85 tokens / 39776ms / stop=0
+
+Starting d02-manual-revision/warmup/0 / Bonsai
+
+Completed d02-manual-revision/warmup/0: 8 tokens / 24589ms / stop=1
+
+Starting d02-manual-revision/fixed/0 / Bonsai
+
+Completed d02-manual-revision/fixed/0: 98 tokens / 48039ms / stop=0
+
+Starting d02-manual-revision/warmup/0 / Spark
+
+Completed d02-manual-revision/warmup/0: 8 tokens / 24154ms / stop=1
+
+Starting d02-manual-revision/fixed/0 / Spark
+
+Completed d02-manual-revision/fixed/0: 170 tokens / 51987ms / stop=0
+
+Starting d02-manual-revision/warmup/1 / Spark
+
+Completed d02-manual-revision/warmup/1: 8 tokens / 23839ms / stop=1
+
+Starting d02-manual-revision/fixed/1 / Spark
+
+Completed d02-manual-revision/fixed/1: 170 tokens / 51725ms / stop=0
+
+Starting d02-manual-revision/warmup/1 / Bonsai
+
+Completed d02-manual-revision/warmup/1: 8 tokens / 24609ms / stop=1
+
+Starting d02-manual-revision/fixed/1 / Bonsai
+
+Completed d02-manual-revision/fixed/1: 98 tokens / 46003ms / stop=0
+
+Starting d02-manual-revision/warmup/2 / Bonsai
+
+Completed d02-manual-revision/warmup/2: 8 tokens / 24396ms / stop=1
+
+Starting d02-manual-revision/fixed/2 / Bonsai
+
+Completed d02-manual-revision/fixed/2: 98 tokens / 45665ms / stop=0
+
+Starting d02-manual-revision/warmup/2 / Spark
+
+Completed d02-manual-revision/warmup/2: 8 tokens / 23647ms / stop=1
+
+Starting d02-manual-revision/fixed/2 / Spark
+
+Completed d02-manual-revision/fixed/2: 170 tokens / 49487ms / stop=0
+
+PASS candidate timing: 16 execution checks; review recorded answers separately.
+
