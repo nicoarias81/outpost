@@ -25,6 +25,7 @@ gradlew.bat text eol=crlf
 
 /app/src/main/assets/licenses/* -text
 /evidence/releases/** -text whitespace=cr-at-eol
+/evidence/research/pixel10-20261001/** -text whitespace=cr-at-eol
 
 # Prepared source fixtures retain the byte identities used by release evidence.
 /app/src/androidTest/assets/places/*.osm -text whitespace=cr-at-eol

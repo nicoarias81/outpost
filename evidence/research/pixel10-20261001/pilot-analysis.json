@@ -1,0 +1,417 @@
+{
+  "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+  "reportSha256": "cb76781f4573593c7eb031a89c0753d4c0fabf0347bab0892446092a738f60b3",
+  "scope": "Descriptive physical Pixel pilot. Screen/foreground state changed during the run; no controlled cross-device speedup or energy claim. Process peaks may include prior model during switching. Deadline/cap outputs are incomplete costs, not full-answer latency.",
+  "models": {
+    "spark17": {
+      "returnedCalls": 16,
+      "fixedCaseStops": {
+        "0": 8,
+        "1": 0,
+        "2": 0,
+        "3": 0
+      },
+      "allArmStops": {
+        "0": 16,
+        "1": 0,
+        "2": 0,
+        "3": 0
+      },
+      "fixedNativeMedianMs": 46634.0,
+      "fixedFirstTokenMedianMs": 10211.5,
+      "fixedOutputMedianTokens": 96.0,
+      "sampledProcessPeakKiB": 1445718,
+      "sampledBatteryTemperatureMinMaxC": [
+        33.8,
+        38.1
+      ],
+      "observedBoundaryThermalStatuses": [
+        0,
+        1
+      ],
+      "medianProcessCpuToWallRatio": 3.5143258247025715,
+      "majorFaultDeltas": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMemorySamplingGapMs": 1238,
+      "allEos": true
+    },
+    "bonsai4": {
+      "returnedCalls": 16,
+      "fixedCaseStops": {
+        "0": 6,
+        "1": 0,
+        "2": 0,
+        "3": 2
+      },
+      "allArmStops": {
+        "0": 12,
+        "1": 0,
+        "2": 0,
+        "3": 4
+      },
+      "fixedNativeMedianMs": 71454.5,
+      "fixedFirstTokenMedianMs": 29190.0,
+      "fixedOutputMedianTokens": 85.0,
+      "sampledProcessPeakKiB": 1663231,
+      "sampledBatteryTemperatureMinMaxC": [
+        33.8,
+        38.1
+      ],
+      "observedBoundaryThermalStatuses": [
+        0,
+        1
+      ],
+      "medianProcessCpuToWallRatio": 3.814183476035569,
+      "majorFaultDeltas": [
+        27,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxMemorySamplingGapMs": 1341,
+      "allEos": false
+    }
+  },
+  "cases": [
+    {
+      "fixture": "d01-travel-arrival",
+      "models": {
+        "spark17": {
+          "fixed": {
+            "totalMs": 42599,
+            "firstTokenMs": 9078,
+            "prefillMs": 8635,
+            "decodeMs": 33523,
+            "tokens": 173,
+            "stopReason": 0
+          },
+          "retrieval": {
+            "totalMs": 61812,
+            "tokens": 173,
+            "stopReason": 0
+          },
+          "sameArmPrompt": true,
+          "sameArmText": true
+        },
+        "bonsai4": {
+          "fixed": {
+            "totalMs": 120001,
+            "firstTokenMs": 28887,
+            "prefillMs": 28239,
+            "decodeMs": 91117,
+            "tokens": 167,
+            "stopReason": 3
+          },
+          "retrieval": {
+            "totalMs": 120006,
+            "tokens": 128,
+            "stopReason": 3
+          },
+          "sameArmPrompt": true,
+          "sameArmText": false
+        }
+      }
+    },
+    {
+      "fixture": "d02-manual-revision",
+      "models": {
+        "spark17": {
+          "fixed": {
+            "totalMs": 49791,
+            "firstTokenMs": 16525,
+            "prefillMs": 15916,
+            "decodeMs": 33270,
+            "tokens": 60,
+            "stopReason": 0
+          },
+          "retrieval": {
+            "totalMs": 44673,
+            "tokens": 60,
+            "stopReason": 0
+          },
+          "sameArmPrompt": true,
+          "sameArmText": true
+        },
+        "bonsai4": {
+          "fixed": {
+            "totalMs": 120009,
+            "firstTokenMs": 39000,
+            "prefillMs": 38839,
+            "decodeMs": 81009,
+            "tokens": 162,
+            "stopReason": 3
+          },
+          "retrieval": {
+            "totalMs": 120009,
+            "tokens": 109,
+            "stopReason": 3
+          },
+          "sameArmPrompt": true,
+          "sameArmText": false
+        }
+      }
+    },
+    {
+      "fixture": "d03-issue-list",
+      "models": {
+        "spark17": {
+          "fixed": {
+            "totalMs": 62715,
+            "firstTokenMs": 8407,
+            "prefillMs": 8346,
+            "decodeMs": 54308,
+            "tokens": 103,
+            "stopReason": 0
+          },
+          "retrieval": {
+            "totalMs": 51315,
+            "tokens": 103,
+            "stopReason": 0
+          },
+          "sameArmPrompt": true,
+          "sameArmText": true
+        },
+        "bonsai4": {
+          "fixed": {
+            "totalMs": 68463,
+            "firstTokenMs": 31485,
+            "prefillMs": 30672,
+            "decodeMs": 36982,
+            "tokens": 60,
+            "stopReason": 0
+          },
+          "retrieval": {
+            "totalMs": 66965,
+            "tokens": 60,
+            "stopReason": 0
+          },
+          "sameArmPrompt": true,
+          "sameArmText": true
+        }
+      }
+    },
+    {
+      "fixture": "d04-farm-units",
+      "models": {
+        "spark17": {
+          "fixed": {
+            "totalMs": 43477,
+            "firstTokenMs": 9680,
+            "prefillMs": 8948,
+            "decodeMs": 33799,
+            "tokens": 112,
+            "stopReason": 0
+          },
+          "retrieval": {
+            "totalMs": 44670,
+            "tokens": 112,
+            "stopReason": 0
+          },
+          "sameArmPrompt": true,
+          "sameArmText": true
+        },
+        "bonsai4": {
+          "fixed": {
+            "totalMs": 87013,
+            "firstTokenMs": 28926,
+            "prefillMs": 28790,
+            "decodeMs": 58088,
+            "tokens": 104,
+            "stopReason": 0
+          },
+          "retrieval": {
+            "totalMs": 85573,
+            "tokens": 104,
+            "stopReason": 0
+          },
+          "sameArmPrompt": true,
+          "sameArmText": true
+        }
+      }
+    },
+    {
+      "fixture": "d05-hiking-freshness",
+      "models": {
+        "spark17": {
+          "fixed": {
+            "totalMs": 40009,
+            "firstTokenMs": 8555,
+            "prefillMs": 8486,
+            "decodeMs": 31454,
+            "tokens": 89,
+            "stopReason": 0
+          },
+          "retrieval": {
+            "totalMs": 44690,
+            "tokens": 89,
+            "stopReason": 0
+          },
+          "sameArmPrompt": true,
+          "sameArmText": true
+        },
+        "bonsai4": {
+          "fixed": {
+            "totalMs": 58331,
+            "firstTokenMs": 27348,
+            "prefillMs": 26369,
+            "decodeMs": 30987,
+            "tokens": 70,
+            "stopReason": 0
+          },
+          "retrieval": {
+            "totalMs": 63232,
+            "tokens": 70,
+            "stopReason": 0
+          },
+          "sameArmPrompt": true,
+          "sameArmText": true
+        }
+      }
+    },
+    {
+      "fixture": "d06-driving-gap",
+      "models": {
+        "spark17": {
+          "fixed": {
+            "totalMs": 60109,
+            "firstTokenMs": 14225,
+            "prefillMs": 13382,
+            "decodeMs": 45888,
+            "tokens": 57,
+            "stopReason": 0
+          },
+          "retrieval": {
+            "totalMs": 38434,
+            "tokens": 57,
+            "stopReason": 0
+          },
+          "sameArmPrompt": true,
+          "sameArmText": true
+        },
+        "bonsai4": {
+          "fixed": {
+            "totalMs": 70976,
+            "firstTokenMs": 21061,
+            "prefillMs": 20953,
+            "decodeMs": 49916,
+            "tokens": 38,
+            "stopReason": 0
+          },
+          "retrieval": {
+            "totalMs": 47115,
+            "tokens": 38,
+            "stopReason": 0
+          },
+          "sameArmPrompt": true,
+          "sameArmText": true
+        }
+      }
+    },
+    {
+      "fixture": "d07-followup-correction",
+      "models": {
+        "spark17": {
+          "fixed": {
+            "totalMs": 34940,
+            "firstTokenMs": 12615,
+            "prefillMs": 12546,
+            "decodeMs": 22326,
+            "tokens": 54,
+            "stopReason": 0
+          },
+          "retrieval": {
+            "totalMs": 37810,
+            "tokens": 54,
+            "stopReason": 0
+          },
+          "sameArmPrompt": true,
+          "sameArmText": true
+        },
+        "bonsai4": {
+          "fixed": {
+            "totalMs": 71933,
+            "firstTokenMs": 45361,
+            "prefillMs": 44304,
+            "decodeMs": 26575,
+            "tokens": 39,
+            "stopReason": 0
+          },
+          "retrieval": {
+            "totalMs": 66750,
+            "tokens": 39,
+            "stopReason": 0
+          },
+          "sameArmPrompt": true,
+          "sameArmText": true
+        }
+      }
+    },
+    {
+      "fixture": "d08-general-preparation",
+      "models": {
+        "spark17": {
+          "fixed": {
+            "totalMs": 53407,
+            "firstTokenMs": 10743,
+            "prefillMs": 9264,
+            "decodeMs": 42666,
+            "tokens": 106,
+            "stopReason": 0
+          },
+          "retrieval": {
+            "totalMs": 47257,
+            "tokens": 106,
+            "stopReason": 0
+          },
+          "sameArmPrompt": true,
+          "sameArmText": true
+        },
+        "bonsai4": {
+          "fixed": {
+            "totalMs": 67389,
+            "firstTokenMs": 29454,
+            "prefillMs": 29294,
+            "decodeMs": 37937,
+            "tokens": 100,
+            "stopReason": 0
+          },
+          "retrieval": {
+            "totalMs": 75914,
+            "tokens": 100,
+            "stopReason": 0
+          },
+          "sameArmPrompt": true,
+          "sameArmText": true
+        }
+      }
+    }
+  ]
+}

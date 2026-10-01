@@ -1,0 +1,6 @@
+
+FAIL chat: java.lang.IllegalStateException: Physical visual suite requires an empty chat/library so captures cannot include personal content; existing data preserved
+	at dev.outpost.app.ChatChecks.run(ChatChecks.java:60)
+	at dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:71)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2655)
+

@@ -1,0 +1,6 @@
+{
+  "capturedUtc": "2026-10-01T10:32:51.1110056Z",
+  "target": "Pixel10Pro",
+  "pageSizeBytes": 4096,
+  "source": "adb shell getconf PAGE_SIZE"
+}

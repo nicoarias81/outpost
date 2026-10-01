@@ -1,0 +1,93 @@
+{
+  "date": "2026-10-01",
+  "target": "owner-authorized registered Pixel10Pro",
+  "productMainAndNativeChanged": false,
+  "runs": [
+    {
+      "runId": "candidate-admission-20261001T095919Z-c0129c18",
+      "passed": true,
+      "executionChecks": 23,
+      "reportSha256": "1a81ebdb6417828a0f6b701fa3495a4d85a03e02ac89a36fb03a24154b49c68d",
+      "appSha256": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+      "testApkSha256": "7584f34c8d1e73558e1ba65d786872805477db204fb506acfe17144c41163634"
+    },
+    {
+      "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+      "passed": true,
+      "executionChecks": 37,
+      "reportSha256": "cb76781f4573593c7eb031a89c0753d4c0fabf0347bab0892446092a738f60b3",
+      "appSha256": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+      "testApkSha256": "7584f34c8d1e73558e1ba65d786872805477db204fb506acfe17144c41163634"
+    },
+    {
+      "runId": "chat-20261001T104406Z-e60ee466",
+      "passed": true,
+      "executionChecks": 45,
+      "reportSha256": "1061928594cbc7ac6f673c78b68df4c19f79ff211cec11aa8049f35214d88d0c",
+      "appSha256": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+      "testApkSha256": "6097b92f3e8da208ca23f2962d4022176f8e6b35ad63011daf19cab78f4b4015"
+    }
+  ],
+  "privateDataRestored": true,
+  "isolationJournalSha256": "297901d7e90650a116fbf7bb319293714d5529e39ffa4044cb40f7efaa64716e",
+  "screenSettingsRestored": true,
+  "radioSettingsPreserved": true,
+  "visualReview": [
+    {
+      "file": "chat-home.png",
+      "sha256": "38f21bfb7d6205ed36c1f26db8ebd147df56af9cc26db05f0f02fe32daed3490",
+      "bytes": 92376,
+      "width": 1080,
+      "height": 2410,
+      "reviewedBy": "Codex assistant",
+      "reviewScope": "English visible app text, synthetic content, readable controls and expected UI state. Not an exhaustive accessibility/IME/provider audit."
+    },
+    {
+      "file": "chat-settings.png",
+      "sha256": "9ec7bc1b664bc0ac9cd54ca34416c5766c9fd5047f79370c3fc7eb8a8806e176",
+      "bytes": 153216,
+      "width": 1080,
+      "height": 2410,
+      "reviewedBy": "Codex assistant",
+      "reviewScope": "English visible app text, synthetic content, readable controls and expected UI state. Not an exhaustive accessibility/IME/provider audit."
+    },
+    {
+      "file": "chat-documents.png",
+      "sha256": "5f03997b48a81424354b0c1f9fb543dbb6755d2060cf088ae06bd60df6f0124f",
+      "bytes": 141963,
+      "width": 1080,
+      "height": 2410,
+      "reviewedBy": "Codex assistant",
+      "reviewScope": "English visible app text, synthetic content, readable controls and expected UI state. Not an exhaustive accessibility/IME/provider audit."
+    },
+    {
+      "file": "chat-pdf.png",
+      "sha256": "a3c973c04f457aa9e6229d7bce1a37bac50a04c507bdbcc9b043be688fe61d4b",
+      "bytes": 106138,
+      "width": 1080,
+      "height": 2410,
+      "reviewedBy": "Codex assistant",
+      "reviewScope": "English visible app text, synthetic content, readable controls and expected UI state. Not an exhaustive accessibility/IME/provider audit."
+    },
+    {
+      "file": "chat-conversation.png",
+      "sha256": "ffdc0266d8e244b7dd0d7f10b2c7f2ebe0400f1cc12554dedd645647af281a84",
+      "bytes": 103667,
+      "width": 1080,
+      "height": 2410,
+      "reviewedBy": "Codex assistant",
+      "reviewScope": "English visible app text, synthetic content, readable controls and expected UI state. Not an exhaustive accessibility/IME/provider audit."
+    },
+    {
+      "file": "chat-sourced.png",
+      "sha256": "e163f594d47eda51ff73b447a1d2d5dd2c9bbb8cee227703f2d3e895f9e6f3a3",
+      "bytes": 153321,
+      "width": 1080,
+      "height": 2410,
+      "reviewedBy": "Codex assistant",
+      "reviewScope": "English visible app text, synthetic content, readable controls and expected UI state. Not an exhaustive accessibility/IME/provider audit."
+    }
+  ],
+  "qualityReviewSha256": "c6dc153096110c905fa3b9ec68153a21f3e8b678a8ca7367b605c88a7ede2c08",
+  "scope": "Bounded native compatibility and UI validation plus an exploratory known-fixture pilot. Execution PASS is not answer quality. No product model promotion, host inference, battery-life claim or controlled cross-device speedup."
+}

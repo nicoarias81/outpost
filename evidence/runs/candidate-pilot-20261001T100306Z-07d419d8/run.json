@@ -1,0 +1,81 @@
+{
+  "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+  "phase": "pilot",
+  "target": "Pixel10Pro",
+  "serial": "registered-pixel-ending-03Q6",
+  "startedUtc": "2026-10-01T10:03:06.1504623Z",
+  "gitHead": "97f83e2fb500fa62541d8b8c2b5e505671af85d2",
+  "sourceStatus": [
+    "?? evidence/research/pixel10-20261001/",
+    "?? evidence/runs/candidate-admission-20261001T095850Z-7f0c40ef/",
+    "?? evidence/runs/candidate-admission-20261001T095919Z-c0129c18/"
+  ],
+  "appSha256": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+  "testApkSha256": "7584f34c8d1e73558e1ba65d786872805477db204fb506acfe17144c41163634",
+  "mainSourcesSha256": "5158b954308a530c4293bafe757c19616d3a0bd41200224b882ba6b8a40a4378",
+  "testSourcesSha256": "fe5e78997fc539f13dcbd5975b4f5c74ea302eca917c639928d92e399e0c3fcd",
+  "fixtureSha256": "6d6152c30998339d768c695011b4da93c6a85e75fafb51822dcbc5257a59bdb6",
+  "lockSha256": "229fa0e3c71a8b3fa444a0e56b04830fb5320fd79ae144ca1e97fa2aedb2efd1",
+  "deviceProperties": {
+    "ro.kernel.qemu": "",
+    "ro.boot.qemu.avd_name": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.device": "blazer",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.version.release": "17",
+    "ro.build.version.sdk": "37",
+    "ro.build.version.security_patch": "2026-09-05",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "ro.soc.manufacturer": "Google",
+    "ro.soc.model": "Tensor G5",
+    "sys.boot_completed": "1"
+  },
+  "radioSettingsBefore": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "conditionsBefore": {
+    "capturedUtc": "2026-10-01T10:03:06.6700777Z",
+    "battery": [
+      "  AC powered: false",
+      "  USB powered: true",
+      "  Wireless powered: false",
+      "  Dock powered: false",
+      "  status: 2",
+      "  health: 2",
+      "  present: true",
+      "  level: 22",
+      "  scale: 100",
+      "  voltage: 3819",
+      "  temperature: 341",
+      "  technology: Li-ion"
+    ],
+    "memory": [
+      "MemTotal:       15949000 kB",
+      "MemFree:         1024372 kB",
+      "MemAvailable:    4605164 kB",
+      "SwapTotal:       7974496 kB",
+      "SwapFree:        3203604 kB"
+    ],
+    "dataSpace": [
+      "Filesystem       1K-blocks      Used Available Use% Mounted on",
+      "/dev/block/dm-80 239543380 114980536 124431772  49% /data/user/0"
+    ]
+  },
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T09:58:17.788062Z",
+    "versionName": "0.14.0",
+    "versionCode": 16,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "5158b954308a530c4293bafe757c19616d3a0bd41200224b882ba6b8a40a4378",
+    "testSourcesSha256": "fe5e78997fc539f13dcbd5975b4f5c74ea302eca917c639928d92e399e0c3fcd",
+    "appSha256": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+    "testApkSha256": "7584f34c8d1e73558e1ba65d786872805477db204fb506acfe17144c41163634",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "modelExecution": true,
+  "scope": "Pinned Spark research and Bonsai control on the recorded Android target. Product has no INTERNET permission. Phone radio settings and product selection are preserved. Same-version research APK is identified by bytes. USB charging is not a battery-life experiment."
+}

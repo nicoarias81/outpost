@@ -1,0 +1,131 @@
+
+Starting d01-travel-arrival/fixed/0 / Spark
+
+Completed d01-travel-arrival/fixed/0: 173 tokens / 42599ms / stop=0
+
+Starting d01-travel-arrival/fixed/0 / Bonsai
+
+Completed d01-travel-arrival/fixed/0: 167 tokens / 120001ms / stop=3
+
+Starting d01-travel-arrival/retrieval/0 / Spark
+
+Completed d01-travel-arrival/retrieval/0: 173 tokens / 61812ms / stop=0
+
+Starting d01-travel-arrival/retrieval/0 / Bonsai
+
+Completed d01-travel-arrival/retrieval/0: 128 tokens / 120006ms / stop=3
+
+Starting d02-manual-revision/fixed/0 / Bonsai
+
+Completed d02-manual-revision/fixed/0: 162 tokens / 120009ms / stop=3
+
+Starting d02-manual-revision/fixed/0 / Spark
+
+Completed d02-manual-revision/fixed/0: 60 tokens / 49791ms / stop=0
+
+Starting d02-manual-revision/retrieval/0 / Bonsai
+
+Completed d02-manual-revision/retrieval/0: 109 tokens / 120009ms / stop=3
+
+Starting d02-manual-revision/retrieval/0 / Spark
+
+Completed d02-manual-revision/retrieval/0: 60 tokens / 44673ms / stop=0
+
+Starting d03-issue-list/fixed/0 / Spark
+
+Completed d03-issue-list/fixed/0: 103 tokens / 62715ms / stop=0
+
+Starting d03-issue-list/fixed/0 / Bonsai
+
+Completed d03-issue-list/fixed/0: 60 tokens / 68463ms / stop=0
+
+Starting d03-issue-list/retrieval/0 / Spark
+
+Completed d03-issue-list/retrieval/0: 103 tokens / 51315ms / stop=0
+
+Starting d03-issue-list/retrieval/0 / Bonsai
+
+Completed d03-issue-list/retrieval/0: 60 tokens / 66965ms / stop=0
+
+Starting d04-farm-units/fixed/0 / Bonsai
+
+Completed d04-farm-units/fixed/0: 104 tokens / 87013ms / stop=0
+
+Starting d04-farm-units/fixed/0 / Spark
+
+Completed d04-farm-units/fixed/0: 112 tokens / 43477ms / stop=0
+
+Starting d04-farm-units/retrieval/0 / Bonsai
+
+Completed d04-farm-units/retrieval/0: 104 tokens / 85573ms / stop=0
+
+Starting d04-farm-units/retrieval/0 / Spark
+
+Completed d04-farm-units/retrieval/0: 112 tokens / 44670ms / stop=0
+
+Starting d05-hiking-freshness/fixed/0 / Spark
+
+Completed d05-hiking-freshness/fixed/0: 89 tokens / 40009ms / stop=0
+
+Starting d05-hiking-freshness/fixed/0 / Bonsai
+
+Completed d05-hiking-freshness/fixed/0: 70 tokens / 58331ms / stop=0
+
+Starting d05-hiking-freshness/retrieval/0 / Spark
+
+Completed d05-hiking-freshness/retrieval/0: 89 tokens / 44690ms / stop=0
+
+Starting d05-hiking-freshness/retrieval/0 / Bonsai
+
+Completed d05-hiking-freshness/retrieval/0: 70 tokens / 63232ms / stop=0
+
+Starting d06-driving-gap/fixed/0 / Bonsai
+
+Completed d06-driving-gap/fixed/0: 38 tokens / 70976ms / stop=0
+
+Starting d06-driving-gap/fixed/0 / Spark
+
+Completed d06-driving-gap/fixed/0: 57 tokens / 60109ms / stop=0
+
+Starting d06-driving-gap/retrieval/0 / Bonsai
+
+Completed d06-driving-gap/retrieval/0: 38 tokens / 47115ms / stop=0
+
+Starting d06-driving-gap/retrieval/0 / Spark
+
+Completed d06-driving-gap/retrieval/0: 57 tokens / 38434ms / stop=0
+
+Starting d07-followup-correction/fixed/0 / Spark
+
+Completed d07-followup-correction/fixed/0: 54 tokens / 34940ms / stop=0
+
+Starting d07-followup-correction/fixed/0 / Bonsai
+
+Completed d07-followup-correction/fixed/0: 39 tokens / 71933ms / stop=0
+
+Starting d07-followup-correction/retrieval/0 / Spark
+
+Completed d07-followup-correction/retrieval/0: 54 tokens / 37810ms / stop=0
+
+Starting d07-followup-correction/retrieval/0 / Bonsai
+
+Completed d07-followup-correction/retrieval/0: 39 tokens / 66750ms / stop=0
+
+Starting d08-general-preparation/fixed/0 / Bonsai
+
+Completed d08-general-preparation/fixed/0: 100 tokens / 67389ms / stop=0
+
+Starting d08-general-preparation/fixed/0 / Spark
+
+Completed d08-general-preparation/fixed/0: 106 tokens / 53407ms / stop=0
+
+Starting d08-general-preparation/retrieval/0 / Bonsai
+
+Completed d08-general-preparation/retrieval/0: 100 tokens / 75914ms / stop=0
+
+Starting d08-general-preparation/retrieval/0 / Spark
+
+Completed d08-general-preparation/retrieval/0: 106 tokens / 47257ms / stop=0
+
+PASS candidate pilot: 37 execution checks; review recorded answers separately.
+

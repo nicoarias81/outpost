@@ -1,0 +1,21 @@
+{
+  "runId": "chat-20261001T103943Z-fcf12cbe",
+  "target": "Pixel10Pro",
+  "version": "0.14.0",
+  "passed": false,
+  "checksPassed": 1,
+  "checks": [
+    {
+      "name": "Chat runs on the explicitly admitted target architecture\/model",
+      "passed": true
+    }
+  ],
+  "answers": [
+    {
+      "error": "java.lang.IllegalStateException: Physical visual suite requires an empty chat\/library so captures cannot include personal content; existing data preserved\n\tat dev.outpost.app.ChatChecks.run(ChatChecks.java:60)\n\tat dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:71)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2655)\n"
+    }
+  ],
+  "modelExecution": true,
+  "promptVersion": "chat-v1.1",
+  "scope": "Recorded Android target. Synthetic documents exercise import\/chat plumbing, not general answer quality, battery life or field acceptance."
+}

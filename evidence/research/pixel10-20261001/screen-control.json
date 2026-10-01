@@ -1,0 +1,17 @@
+{
+  "capturedUtc": "2026-10-01T10:05:43.274623Z",
+  "target": "Pixel10Pro",
+  "previousStayOnWhilePluggedIn": "0",
+  "requested": "Keep phone awake during authorized tests",
+  "method": "svc power stayon usb",
+  "restoreAfterTesting": true,
+  "pilotStartedWithKeyguard": true,
+  "ownerUnlockedDuringPilot": true,
+  "previousScreenOffTimeout": "30000",
+  "effectiveTemporaryScreenOffTimeout": 600000,
+  "adminMaximumMs": 900000,
+  "note": "Android administrative maximum disables permanent USB stay-on. Restored stay-on setting and used a ten-minute screen timeout within the existing maximum. Administrative policy unchanged.",
+  "restoredUtc": "2026-10-01T10:47:16.8399105Z",
+  "restoredScreenOffTimeout": "30000",
+  "restoredStayOnWhilePluggedIn": "0"
+}

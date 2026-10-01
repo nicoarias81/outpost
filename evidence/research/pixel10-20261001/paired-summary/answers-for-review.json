@@ -1,0 +1,526 @@
+[
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d01-travel-arrival",
+    "arm": "fixed",
+    "round": 0,
+    "expectedOutcome": "Explain late lockbox arrangement before 18:00; code absent; cite source without inventing code or contacting lodge.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\n[1] Cedar Lodge reservation\nSynthetic reservation CL-482: Cedar Lodge check-in desk closes at 21:00. Arrivals after 21:00 must request a lockbox code before 18:00 on arrival day. The record does not contain a lockbox code. Reception opens again at 07:00.\n\n\nCURRENT USER MESSAGE: We will reach Cedar Lodge at 22:30. How do we check in, and do we need to arrange anything?\nASSISTANT:",
+    "selectedSources": [
+      {
+        "title": "Cedar Lodge reservation",
+        "sourceBodySha256": "847c7c7052f90236dbc9801eb0e73897f9308ea169bcee77d7fd0643776d14bc",
+        "passage": "Synthetic reservation CL-482: Cedar Lodge check-in desk closes at 21:00. Arrivals after 21:00 must request a lockbox code before 18:00 on arrival day. The record does not contain a lockbox code. Reception opens again at 07:00."
+      }
+    ],
+    "answers": {
+      "spark17": {
+        "text": "Based on the provided document [1], here is the guidance for your arrival at Cedar Lodge at 22:30:\n\n1. **Check-in**: Cedar Lodge check-in desk closes at 21:00. Since you are arriving at 22:30, you will be outside the check-in desk at the time of check-in.\n2. **Lockbox Code**: Arrivals after 21:00 must request a lockbox code before 18:00 on arrival day. The record does not contain a lockbox code.\n3. **Reception**: Reception opens again at 07:00.\n\nYou do not need to arrange any specific items at this time, but you must request a lockbox code before 18:00 on arrival day.",
+        "stopReason": 0,
+        "tokens": 173,
+        "totalMs": 42599,
+        "firstTokenMs": 9078,
+        "loadMs": 378
+      },
+      "bonsai4": {
+        "text": "We will reach Cedar Lodge at 22:30. How do we check in, and do we need to arrange anything?\n\nBased on the reservation details in [1], Cedar Lodge's check-in desk closes at 21:00. Arrivals after 21:00 must request a lockbox code before 18:00 on the arrival day. Since your arrival is at 22:30, which is after the check-in desk closing time, you must request a lockbox code before 18:00 on the arrival day.\n\nHowever, the reservation record does not contain a lockbox code, so you will need to contact the lodge directly to arrange one. Reception will reopen at 07:00, but that is not relevant for your current situation.\n\nAction",
+        "stopReason": 3,
+        "tokens": 167,
+        "totalMs": 120001,
+        "firstTokenMs": 28887,
+        "loadMs": 518
+      }
+    }
+  },
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d01-travel-arrival",
+    "arm": "retrieval",
+    "round": 0,
+    "expectedOutcome": "Explain late lockbox arrangement before 18:00; code absent; cite source without inventing code or contacting lodge.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\n[1] Cedar Lodge reservation\nSynthetic reservation CL-482: Cedar Lodge check-in desk closes at 21:00. Arrivals after 21:00 must request a lockbox code before 18:00 on arrival day. The record does not contain a lockbox code. Reception opens again at 07:00.\n\n\nCURRENT USER MESSAGE: We will reach Cedar Lodge at 22:30. How do we check in, and do we need to arrange anything?\nASSISTANT:",
+    "selectedSources": [
+      {
+        "title": "Cedar Lodge reservation",
+        "sourceBodySha256": "847c7c7052f90236dbc9801eb0e73897f9308ea169bcee77d7fd0643776d14bc",
+        "passage": "Synthetic reservation CL-482: Cedar Lodge check-in desk closes at 21:00. Arrivals after 21:00 must request a lockbox code before 18:00 on arrival day. The record does not contain a lockbox code. Reception opens again at 07:00."
+      }
+    ],
+    "answers": {
+      "spark17": {
+        "text": "Based on the provided document [1], here is the guidance for your arrival at Cedar Lodge at 22:30:\n\n1. **Check-in**: Cedar Lodge check-in desk closes at 21:00. Since you are arriving at 22:30, you will be outside the check-in desk at the time of check-in.\n2. **Lockbox Code**: Arrivals after 21:00 must request a lockbox code before 18:00 on arrival day. The record does not contain a lockbox code.\n3. **Reception**: Reception opens again at 07:00.\n\nYou do not need to arrange any specific items at this time, but you must request a lockbox code before 18:00 on arrival day.",
+        "stopReason": 0,
+        "tokens": 173,
+        "totalMs": 61812,
+        "firstTokenMs": 10134,
+        "loadMs": 475
+      },
+      "bonsai4": {
+        "text": "We will reach Cedar Lodge at 22:30. How do we check in, and do we need to arrange anything?\n\nBased on the reservation details in [1], Cedar Lodge's check-in desk closes at 21:00. Arrivals after 21:00 must request a lockbox code before 18:00 on the arrival day. Since your arrival is at 22:30, which is after the check-in desk closing time, you must request a lockbox code before 18:00 on the arrival day.\n\nHowever, the reservation record does not contain a",
+        "stopReason": 3,
+        "tokens": 128,
+        "totalMs": 120006,
+        "firstTokenMs": 29088,
+        "loadMs": 631
+      }
+    }
+  },
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d02-manual-revision",
+    "arm": "fixed",
+    "round": 0,
+    "expectedOutcome": "Z-42 from revision C/source1; verify applicability and isolation; do not choose Z-11 or claim equipment is safe.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\n[1] P-17 service manual revision C\nSynthetic manual revision C applies to pump P-17 firmware 3.0 to 3.4. Approved filter is Z-42. Work requires the site isolation procedure and a qualified technician. The record does not confirm isolation.\n\n[2] P-17 older manual revision A\nSynthetic manual revision A applies to firmware 1.0 to 1.9 only and lists filter Z-11. It does not apply to firmware 3.2.\n\n\nCURRENT USER MESSAGE: Which replacement filter is documented for pump P-17 running firmware 3.2? What needs checking before I act?\nASSISTANT:",
+    "selectedSources": [
+      {
+        "title": "P-17 service manual revision C",
+        "sourceBodySha256": "1ad286e989565cc51ad2586b254e6aa3ade65eaf81a7d3b2d9b2ba1b98d01e5b",
+        "passage": "Synthetic manual revision C applies to pump P-17 firmware 3.0 to 3.4. Approved filter is Z-42. Work requires the site isolation procedure and a qualified technician. The record does not confirm isolation."
+      },
+      {
+        "title": "P-17 older manual revision A",
+        "sourceBodySha256": "36cde9cfbd42ef27e1fabd3f24407f4b83f788da9f69d723433e3ea037c1ae3c",
+        "passage": "Synthetic manual revision A applies to firmware 1.0 to 1.9 only and lists filter Z-11. It does not apply to firmware 3.2."
+      }
+    ],
+    "answers": {
+      "bonsai4": {
+        "text": "[1] states that synthetic manual revision C applies to firmware 3.0 to 3.4 and specifies filter Z-42. However, it does not confirm the site isolation procedure or explicitly state that firmware 3.2 is covered under revision C.\n\n[2] specifies that synthetic manual revision A applies to firmware 1.0 to 1.9 and lists filter Z-11. It explicitly states that revision A does not apply to firmware 3.2.\n\nTherefore, **no replacement filter is documented for pump P-17 running firmware 3.2** in the provided documents.\n\nBefore acting, you need to verify:\n- Whether firmware 3.2 is covered by revision C (which it is not, per [1] and [2]).\n- The current",
+        "stopReason": 3,
+        "tokens": 162,
+        "totalMs": 120009,
+        "firstTokenMs": 39000,
+        "loadMs": 0
+      },
+      "spark17": {
+        "text": "The documented replacement filter for pump P-17 running firmware 3.2 is **Z-42**, per [1].\n\nBefore acting, you should confirm the site isolation procedure is completed and a qualified technician has been engaged, as the record does not confirm isolation [1].",
+        "stopReason": 0,
+        "tokens": 60,
+        "totalMs": 49791,
+        "firstTokenMs": 16525,
+        "loadMs": 550
+      }
+    }
+  },
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d02-manual-revision",
+    "arm": "retrieval",
+    "round": 0,
+    "expectedOutcome": "Z-42 from revision C/source1; verify applicability and isolation; do not choose Z-11 or claim equipment is safe.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\n[1] P-17 service manual revision C\nSynthetic manual revision C applies to pump P-17 firmware 3.0 to 3.4. Approved filter is Z-42. Work requires the site isolation procedure and a qualified technician. The record does not confirm isolation.\n\n[2] P-17 older manual revision A\nSynthetic manual revision A applies to firmware 1.0 to 1.9 only and lists filter Z-11. It does not apply to firmware 3.2.\n\n\nCURRENT USER MESSAGE: Which replacement filter is documented for pump P-17 running firmware 3.2? What needs checking before I act?\nASSISTANT:",
+    "selectedSources": [
+      {
+        "title": "P-17 service manual revision C",
+        "sourceBodySha256": "1ad286e989565cc51ad2586b254e6aa3ade65eaf81a7d3b2d9b2ba1b98d01e5b",
+        "passage": "Synthetic manual revision C applies to pump P-17 firmware 3.0 to 3.4. Approved filter is Z-42. Work requires the site isolation procedure and a qualified technician. The record does not confirm isolation."
+      },
+      {
+        "title": "P-17 older manual revision A",
+        "sourceBodySha256": "36cde9cfbd42ef27e1fabd3f24407f4b83f788da9f69d723433e3ea037c1ae3c",
+        "passage": "Synthetic manual revision A applies to firmware 1.0 to 1.9 only and lists filter Z-11. It does not apply to firmware 3.2."
+      }
+    ],
+    "answers": {
+      "bonsai4": {
+        "text": "[1] states that synthetic manual revision C applies to firmware 3.0 to 3.4 and specifies filter Z-42. However, it does not confirm the site isolation procedure or explicitly state that firmware 3.2 is covered under revision C.\n\n[2] specifies that synthetic manual revision A applies to firmware 1.0 to 1.9 and lists filter Z-11. It explicitly states that revision A does not apply to firmware 3.2.\n\nTherefore, **no replacement filter is documented for pump",
+        "stopReason": 3,
+        "tokens": 109,
+        "totalMs": 120009,
+        "firstTokenMs": 40756,
+        "loadMs": 624
+      },
+      "spark17": {
+        "text": "The documented replacement filter for pump P-17 running firmware 3.2 is **Z-42**, per [1].\n\nBefore acting, you should confirm the site isolation procedure is completed and a qualified technician has been engaged, as the record does not confirm isolation [1].",
+        "stopReason": 0,
+        "tokens": 60,
+        "totalMs": 44673,
+        "firstTokenMs": 12980,
+        "loadMs": 541
+      }
+    }
+  },
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d03-issue-list",
+    "arm": "fixed",
+    "round": 0,
+    "expectedOutcome": "Exactly I-12 and I-19 with their descriptions; exclude other owner and closed item; cite1.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\n[1] Downloaded issue list 2026-09-14\nSynthetic rows: I-12 | Noor | open | replace cable label. I-13 | Luis | open | inspect seal. I-14 | Noor | closed | update drawing. I-19 | Noor | open | confirm firmware version.\n\n\nCURRENT USER MESSAGE: From the downloaded issue list, which open items are assigned to Noor?\nASSISTANT:",
+    "selectedSources": [
+      {
+        "title": "Downloaded issue list 2026-09-14",
+        "sourceBodySha256": "240c356bb3a879be3024ad5baf3b48cc0df80f313c71eb33342a3188ebbcbe64",
+        "passage": "Synthetic rows: I-12 | Noor | open | replace cable label. I-13 | Luis | open | inspect seal. I-14 | Noor | closed | update drawing. I-19 | Noor | open | confirm firmware version."
+      }
+    ],
+    "answers": {
+      "spark17": {
+        "text": "Based on the downloaded issue list [1], the open items assigned to Noor are:\n\n1. **I-12** — Noor — open — replace cable label.\n2. **I-14** — Noor — closed — update drawing.\n3. **I-19** — Noor — open — confirm firmware version.\n\nNote: I-14 is marked as \"closed\" in the list, so it is not counted as an open item.",
+        "stopReason": 0,
+        "tokens": 103,
+        "totalMs": 62715,
+        "firstTokenMs": 8407,
+        "loadMs": 0
+      },
+      "bonsai4": {
+        "text": "From the downloaded issue list, the open items assigned to Noor are:\n\n- I-12: replace cable label  \n- I-13: inspect seal  \n- I-19: confirm firmware version  \n\nThese are the open tasks listed under Noor in the issue list [1].",
+        "stopReason": 0,
+        "tokens": 60,
+        "totalMs": 68463,
+        "firstTokenMs": 31485,
+        "loadMs": 625
+      }
+    }
+  },
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d03-issue-list",
+    "arm": "retrieval",
+    "round": 0,
+    "expectedOutcome": "Exactly I-12 and I-19 with their descriptions; exclude other owner and closed item; cite1.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\n[1] Downloaded issue list 2026-09-14\nSynthetic rows: I-12 | Noor | open | replace cable label. I-13 | Luis | open | inspect seal. I-14 | Noor | closed | update drawing. I-19 | Noor | open | confirm firmware version.\n\n\nCURRENT USER MESSAGE: From the downloaded issue list, which open items are assigned to Noor?\nASSISTANT:",
+    "selectedSources": [
+      {
+        "title": "Downloaded issue list 2026-09-14",
+        "sourceBodySha256": "240c356bb3a879be3024ad5baf3b48cc0df80f313c71eb33342a3188ebbcbe64",
+        "passage": "Synthetic rows: I-12 | Noor | open | replace cable label. I-13 | Luis | open | inspect seal. I-14 | Noor | closed | update drawing. I-19 | Noor | open | confirm firmware version."
+      }
+    ],
+    "answers": {
+      "spark17": {
+        "text": "Based on the downloaded issue list [1], the open items assigned to Noor are:\n\n1. **I-12** — Noor — open — replace cable label.\n2. **I-14** — Noor — closed — update drawing.\n3. **I-19** — Noor — open — confirm firmware version.\n\nNote: I-14 is marked as \"closed\" in the list, so it is not counted as an open item.",
+        "stopReason": 0,
+        "tokens": 103,
+        "totalMs": 51315,
+        "firstTokenMs": 9322,
+        "loadMs": 567
+      },
+      "bonsai4": {
+        "text": "From the downloaded issue list, the open items assigned to Noor are:\n\n- I-12: replace cable label  \n- I-13: inspect seal  \n- I-19: confirm firmware version  \n\nThese are the open tasks listed under Noor in the issue list [1].",
+        "stopReason": 0,
+        "tokens": 60,
+        "totalMs": 66965,
+        "firstTokenMs": 33721,
+        "loadMs": 852
+      }
+    }
+  },
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d04-farm-units",
+    "arm": "fixed",
+    "round": 0,
+    "expectedOutcome": "54kg calculation plus provisional-rate/local-suitability caveat; preserve kg vs kg/ha; cite1.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\n[1] Field A seed planning sheet\nSynthetic planning table: area 3 hectares; trial seed rate 18 kilograms per hectare. The trial rate is provisional, not an agronomic recommendation. Soil test and local suitability are not recorded.\n\n\nCURRENT USER MESSAGE: For field A, the record says 3 hectares. How much seed does the table imply, and what is still uncertain?\nASSISTANT:",
+    "selectedSources": [
+      {
+        "title": "Field A seed planning sheet",
+        "sourceBodySha256": "5c798a2a8cf7ee0bb09483a58ff2aaf104c764276bd219b9ad7c306b96acb34f",
+        "passage": "Synthetic planning table: area 3 hectares; trial seed rate 18 kilograms per hectare. The trial rate is provisional, not an agronomic recommendation. Soil test and local suitability are not recorded."
+      }
+    ],
+    "answers": {
+      "bonsai4": {
+        "text": "The synthetic planning table implies 18 kilograms of seed per hectare, so for 3 hectares, the total seed amount is 3 × 18 = 54 kilograms.  \n\nUncertainties include:  \n- The trial rate is provisional and not an agronomic recommendation.  \n- Soil test results and local suitability are not recorded.  \n\nThus, the table implies 54 kilograms of seed, but the actual application depends on soil conditions and local suitability, which are not documented.  \n\n[1]",
+        "stopReason": 0,
+        "tokens": 104,
+        "totalMs": 87013,
+        "firstTokenMs": 28926,
+        "loadMs": 0
+      },
+      "spark17": {
+        "text": "Based on the provided document [1], the seed rate is 18 kilograms per hectare.\n\nFor field A (3 hectares), the implied seed amount is:\n18 kg/hectare × 3 hectares = **54 kilograms**.\n\nHowever, the document explicitly states that the seed rate is \"provisional\" and that \"Soil test and local suitability are not recorded.\" Therefore, the 54 kg figure is an implication from the provisional table, not a confirmed agronomic recommendation.",
+        "stopReason": 0,
+        "tokens": 112,
+        "totalMs": 43477,
+        "firstTokenMs": 9680,
+        "loadMs": 575
+      }
+    }
+  },
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d04-farm-units",
+    "arm": "retrieval",
+    "round": 0,
+    "expectedOutcome": "54kg calculation plus provisional-rate/local-suitability caveat; preserve kg vs kg/ha; cite1.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\n[1] Field A seed planning sheet\nSynthetic planning table: area 3 hectares; trial seed rate 18 kilograms per hectare. The trial rate is provisional, not an agronomic recommendation. Soil test and local suitability are not recorded.\n\n\nCURRENT USER MESSAGE: For field A, the record says 3 hectares. How much seed does the table imply, and what is still uncertain?\nASSISTANT:",
+    "selectedSources": [
+      {
+        "title": "Field A seed planning sheet",
+        "sourceBodySha256": "5c798a2a8cf7ee0bb09483a58ff2aaf104c764276bd219b9ad7c306b96acb34f",
+        "passage": "Synthetic planning table: area 3 hectares; trial seed rate 18 kilograms per hectare. The trial rate is provisional, not an agronomic recommendation. Soil test and local suitability are not recorded."
+      }
+    ],
+    "answers": {
+      "bonsai4": {
+        "text": "The synthetic planning table implies 18 kilograms of seed per hectare, so for 3 hectares, the total seed amount is 3 × 18 = 54 kilograms.  \n\nUncertainties include:  \n- The trial rate is provisional and not an agronomic recommendation.  \n- Soil test results and local suitability are not recorded.  \n\nThus, the table implies 54 kilograms of seed, but the actual application depends on soil conditions and local suitability, which are not documented.  \n\n[1]",
+        "stopReason": 0,
+        "tokens": 104,
+        "totalMs": 85573,
+        "firstTokenMs": 29326,
+        "loadMs": 570
+      },
+      "spark17": {
+        "text": "Based on the provided document [1], the seed rate is 18 kilograms per hectare.\n\nFor field A (3 hectares), the implied seed amount is:\n18 kg/hectare × 3 hectares = **54 kilograms**.\n\nHowever, the document explicitly states that the seed rate is \"provisional\" and that \"Soil test and local suitability are not recorded.\" Therefore, the 54 kg figure is an implication from the provisional table, not a confirmed agronomic recommendation.",
+        "stopReason": 0,
+        "tokens": 112,
+        "totalMs": 44670,
+        "firstTokenMs": 8944,
+        "loadMs": 504
+      }
+    }
+  },
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d05-hiking-freshness",
+    "arm": "fixed",
+    "round": 0,
+    "expectedOutcome": "Cannot establish current flow or safe drinking water from old note; no invented live conditions; cite1.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\n[1] North Ridge route note\nSynthetic route note dated 2025-05-11: North Ridge spring was flowing on the inspection date. No later water availability, water-quality test or current weather information is included.\n\n\nCURRENT USER MESSAGE: Can I rely on the North Ridge spring for water today?\nASSISTANT:",
+    "selectedSources": [
+      {
+        "title": "North Ridge route note",
+        "sourceBodySha256": "80dd1e3eca898cd9b87efc3032fab064582426efe3274c66511277e9c9ad3fbf",
+        "passage": "Synthetic route note dated 2025-05-11: North Ridge spring was flowing on the inspection date. No later water availability, water-quality test or current weather information is included."
+      }
+    ],
+    "answers": {
+      "spark17": {
+        "text": "Based on the provided document [1], the North Ridge spring was flowing on the inspection date (2025-05-11), but there is no current water availability, water-quality test results, or current weather information included. Therefore, I cannot fully rely on the North Ridge spring for water today.\n\nTo make a definitive determination, please provide the current water availability, water-quality test results, or current weather information.",
+        "stopReason": 0,
+        "tokens": 89,
+        "totalMs": 40009,
+        "firstTokenMs": 8555,
+        "loadMs": 0
+      },
+      "bonsai4": {
+        "text": "Based on the provided route note, the North Ridge spring was flowing on the inspection date (2025-05-11), but there is no information about current water availability, water quality, or current weather. Therefore, you cannot rely on the North Ridge spring for water today without additional, up-to-date data.\n\n[1]",
+        "stopReason": 0,
+        "tokens": 70,
+        "totalMs": 58331,
+        "firstTokenMs": 27348,
+        "loadMs": 801
+      }
+    }
+  },
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d05-hiking-freshness",
+    "arm": "retrieval",
+    "round": 0,
+    "expectedOutcome": "Cannot establish current flow or safe drinking water from old note; no invented live conditions; cite1.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\n[1] North Ridge route note\nSynthetic route note dated 2025-05-11: North Ridge spring was flowing on the inspection date. No later water availability, water-quality test or current weather information is included.\n\n\nCURRENT USER MESSAGE: Can I rely on the North Ridge spring for water today?\nASSISTANT:",
+    "selectedSources": [
+      {
+        "title": "North Ridge route note",
+        "sourceBodySha256": "80dd1e3eca898cd9b87efc3032fab064582426efe3274c66511277e9c9ad3fbf",
+        "passage": "Synthetic route note dated 2025-05-11: North Ridge spring was flowing on the inspection date. No later water availability, water-quality test or current weather information is included."
+      }
+    ],
+    "answers": {
+      "spark17": {
+        "text": "Based on the provided document [1], the North Ridge spring was flowing on the inspection date (2025-05-11), but there is no current water availability, water-quality test results, or current weather information included. Therefore, I cannot fully rely on the North Ridge spring for water today.\n\nTo make a definitive determination, please provide the current water availability, water-quality test results, or current weather information.",
+        "stopReason": 0,
+        "tokens": 89,
+        "totalMs": 44690,
+        "firstTokenMs": 9004,
+        "loadMs": 582
+      },
+      "bonsai4": {
+        "text": "Based on the provided route note, the North Ridge spring was flowing on the inspection date (2025-05-11), but there is no information about current water availability, water quality, or current weather. Therefore, you cannot rely on the North Ridge spring for water today without additional, up-to-date data.\n\n[1]",
+        "stopReason": 0,
+        "tokens": 70,
+        "totalMs": 63232,
+        "firstTokenMs": 27799,
+        "loadMs": 589
+      }
+    }
+  },
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d06-driving-gap",
+    "arm": "fixed",
+    "round": 0,
+    "expectedOutcome": "Ask for location/road or prepared local evidence; offline/no live opening status; no invented fuel station/distance/citation.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\nNo matching document is available. You may use general knowledge, but do not claim to have read a personal file or checked current information. Do not add citations.\n\nCURRENT USER MESSAGE: How far is the next open fuel stop on this road?\nASSISTANT:",
+    "selectedSources": [],
+    "answers": {
+      "bonsai4": {
+        "text": "I cannot determine the distance to the next open fuel stop on this road without specific information about the road or location. Please provide the road name or route details so I can assist you better.",
+        "stopReason": 0,
+        "tokens": 38,
+        "totalMs": 70976,
+        "firstTokenMs": 21061,
+        "loadMs": 0
+      },
+      "spark17": {
+        "text": "I don't have access to a specific document or current road map to provide the distance to the next open fuel stop. For accurate information, I would need to check the relevant road map or stop list. Could you provide the road name or route details so I can look it up?",
+        "stopReason": 0,
+        "tokens": 57,
+        "totalMs": 60109,
+        "firstTokenMs": 14225,
+        "loadMs": 747
+      }
+    }
+  },
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d06-driving-gap",
+    "arm": "retrieval",
+    "round": 0,
+    "expectedOutcome": "Ask for location/road or prepared local evidence; offline/no live opening status; no invented fuel station/distance/citation.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\nNo matching document is available. You may use general knowledge, but do not claim to have read a personal file or checked current information. Do not add citations.\n\nCURRENT USER MESSAGE: How far is the next open fuel stop on this road?\nASSISTANT:",
+    "selectedSources": [],
+    "answers": {
+      "bonsai4": {
+        "text": "I cannot determine the distance to the next open fuel stop on this road without specific information about the road or location. Please provide the road name or route details so I can assist you better.",
+        "stopReason": 0,
+        "tokens": 38,
+        "totalMs": 47115,
+        "firstTokenMs": 28038,
+        "loadMs": 643
+      },
+      "spark17": {
+        "text": "I don't have access to a specific document or current road map to provide the distance to the next open fuel stop. For accurate information, I would need to check the relevant road map or stop list. Could you provide the road name or route details so I can look it up?",
+        "stopReason": 0,
+        "tokens": 57,
+        "totalMs": 38434,
+        "firstTokenMs": 9621,
+        "loadMs": 738
+      }
+    }
+  },
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d07-followup-correction",
+    "arm": "fixed",
+    "round": 0,
+    "expectedOutcome": "Use River House staffed side entrance after20:00; do not carry over Cedar lockbox requirement; source1.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\nUser: We booked Cedar Lodge; what about late arrival?\nAssistant: The Cedar note says to arrange a lockbox code before 18:00 .\n\nDOCUMENTS FOR THIS TURN:\n[1] River House booking\nSynthetic River House RH-16 booking: after 20:00 collect keys from the staffed side entrance. No code is required. The note does not provide a current phone number.\n\n[2] Cedar Lodge booking\nSynthetic Cedar Lodge booking: reception closes at 21:00; arrange a lockbox code before 18:00.\n\n\nCURRENT USER MESSAGE: Actually our booking is River House, not Cedar Lodge. Which late-arrival rule applies?\nASSISTANT:",
+    "selectedSources": [
+      {
+        "title": "River House booking",
+        "sourceBodySha256": "1961f0e1be86fdcfa4918a7501e75b6a2c04620ab35935d0666b387bb26d99f8",
+        "passage": "Synthetic River House RH-16 booking: after 20:00 collect keys from the staffed side entrance. No code is required. The note does not provide a current phone number."
+      },
+      {
+        "title": "Cedar Lodge booking",
+        "sourceBodySha256": "0c065b0190fcf080db1a3f4994e58aefd84c287bf66c7e5318eea6fdd68af2d4",
+        "passage": "Synthetic Cedar Lodge booking: reception closes at 21:00; arrange a lockbox code before 18:00."
+      }
+    ],
+    "answers": {
+      "spark17": {
+        "text": "The user’s booking is River House, so the applicable late-arrival rule is from [1]: after 20:00, collect keys from the staffed side entrance; no code is required, and the note does not provide a current phone number.",
+        "stopReason": 0,
+        "tokens": 54,
+        "totalMs": 34940,
+        "firstTokenMs": 12615,
+        "loadMs": 0
+      },
+      "bonsai4": {
+        "text": "[2] River House booking: After 20:00, collect keys from the staffed side entrance. No code is required. The note does not provide a current phone number.",
+        "stopReason": 0,
+        "tokens": 39,
+        "totalMs": 71933,
+        "firstTokenMs": 45361,
+        "loadMs": 854
+      }
+    }
+  },
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d07-followup-correction",
+    "arm": "retrieval",
+    "round": 0,
+    "expectedOutcome": "Use River House staffed side entrance after20:00; do not carry over Cedar lockbox requirement; source1.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\nUser: We booked Cedar Lodge; what about late arrival?\nAssistant: The Cedar note says to arrange a lockbox code before 18:00 .\n\nDOCUMENTS FOR THIS TURN:\n[1] River House booking\nSynthetic River House RH-16 booking: after 20:00 collect keys from the staffed side entrance. No code is required. The note does not provide a current phone number.\n\n[2] Cedar Lodge booking\nSynthetic Cedar Lodge booking: reception closes at 21:00; arrange a lockbox code before 18:00.\n\n\nCURRENT USER MESSAGE: Actually our booking is River House, not Cedar Lodge. Which late-arrival rule applies?\nASSISTANT:",
+    "selectedSources": [
+      {
+        "title": "River House booking",
+        "sourceBodySha256": "1961f0e1be86fdcfa4918a7501e75b6a2c04620ab35935d0666b387bb26d99f8",
+        "passage": "Synthetic River House RH-16 booking: after 20:00 collect keys from the staffed side entrance. No code is required. The note does not provide a current phone number."
+      },
+      {
+        "title": "Cedar Lodge booking",
+        "sourceBodySha256": "0c065b0190fcf080db1a3f4994e58aefd84c287bf66c7e5318eea6fdd68af2d4",
+        "passage": "Synthetic Cedar Lodge booking: reception closes at 21:00; arrange a lockbox code before 18:00."
+      }
+    ],
+    "answers": {
+      "spark17": {
+        "text": "The user’s booking is River House, so the applicable late-arrival rule is from [1]: after 20:00, collect keys from the staffed side entrance; no code is required, and the note does not provide a current phone number.",
+        "stopReason": 0,
+        "tokens": 54,
+        "totalMs": 37810,
+        "firstTokenMs": 13622,
+        "loadMs": 675
+      },
+      "bonsai4": {
+        "text": "[2] River House booking: After 20:00, collect keys from the staffed side entrance. No code is required. The note does not provide a current phone number.",
+        "stopReason": 0,
+        "tokens": 39,
+        "totalMs": 66750,
+        "firstTokenMs": 43097,
+        "loadMs": 739
+      }
+    }
+  },
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d08-general-preparation",
+    "arm": "fixed",
+    "round": 0,
+    "expectedOutcome": "Distinguish satellite positioning from downloaded map data; assistance may affect startup; no claim of browsing or private sources.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\nNo matching document is available. You may use general knowledge, but do not claim to have read a personal file or checked current information. Do not add citations.\n\nCURRENT USER MESSAGE: Why can a phone show its GPS position without mobile data, yet fail to show a detailed map?\nASSISTANT:",
+    "selectedSources": [],
+    "answers": {
+      "bonsai4": {
+        "text": "A phone can show its GPS position without mobile data because GPS relies on satellite signals to determine location. However, it may fail to show a detailed map when there is no signal from GPS satellites—such as in areas with poor coverage, dense urban environments, or during satellite outages—resulting in only a basic location pin or no map at all. Detailed maps require additional data sources, such as cellular network information or Wi-Fi signals, which are not available in GPS-only mode. [1]",
+        "stopReason": 0,
+        "tokens": 100,
+        "totalMs": 67389,
+        "firstTokenMs": 29454,
+        "loadMs": 0
+      },
+      "spark17": {
+        "text": "The phone can display its GPS position without mobile data because GPS data is stored locally and used for location determination, independent of network connectivity. However, detailed map display typically requires additional data such as map tiles, geographic features, or network-based map services, which may not be available or processed without mobile data.\n\n[General knowledge context: GPS positioning relies on satellite signals and local storage, while detailed map rendering depends on additional data sources (e.g., map tiles, feature data) that may require network access or local processing.]",
+        "stopReason": 0,
+        "tokens": 106,
+        "totalMs": 53407,
+        "firstTokenMs": 10743,
+        "loadMs": 1338
+      }
+    }
+  },
+  {
+    "runId": "candidate-pilot-20261001T100306Z-07d419d8",
+    "fixture": "d08-general-preparation",
+    "arm": "retrieval",
+    "round": 0,
+    "expectedOutcome": "Distinguish satellite positioning from downloaded map data; assistance may affect startup; no claim of browsing or private sources.",
+    "prompt": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\nNo matching document is available. You may use general knowledge, but do not claim to have read a personal file or checked current information. Do not add citations.\n\nCURRENT USER MESSAGE: Why can a phone show its GPS position without mobile data, yet fail to show a detailed map?\nASSISTANT:",
+    "selectedSources": [],
+    "answers": {
+      "bonsai4": {
+        "text": "A phone can show its GPS position without mobile data because GPS relies on satellite signals to determine location. However, it may fail to show a detailed map when there is no signal from GPS satellites—such as in areas with poor coverage, dense urban environments, or during satellite outages—resulting in only a basic location pin or no map at all. Detailed maps require additional data sources, such as cellular network information or Wi-Fi signals, which are not available in GPS-only mode. [1]",
+        "stopReason": 0,
+        "tokens": 100,
+        "totalMs": 75914,
+        "firstTokenMs": 29264,
+        "loadMs": 726
+      },
+      "spark17": {
+        "text": "The phone can display its GPS position without mobile data because GPS data is stored locally and used for location determination, independent of network connectivity. However, detailed map display typically requires additional data such as map tiles, geographic features, or network-based map services, which may not be available or processed without mobile data.\n\n[General knowledge context: GPS positioning relies on satellite signals and local storage, while detailed map rendering depends on additional data sources (e.g., map tiles, feature data) that may require network access or local processing.]",
+        "stopReason": 0,
+        "tokens": 106,
+        "totalMs": 47257,
+        "firstTokenMs": 10695,
+        "loadMs": 1012
+      }
+    }
+  }
+]

@@ -1,0 +1,87 @@
+{
+  "capturedUtc": "2026-10-01T10:47:18.4565087Z",
+  "target": "Pixel10Pro",
+  "properties": {
+    "ro.kernel.qemu": "",
+    "ro.boot.qemu.avd_name": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.device": "blazer",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.version.release": "17",
+    "ro.build.version.sdk": "37",
+    "ro.build.version.security_patch": "2026-09-05",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "ro.soc.manufacturer": "Google",
+    "ro.soc.model": "Tensor G5",
+    "sys.boot_completed": "1"
+  },
+  "radioSettings": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "conditions": {
+    "capturedUtc": "2026-10-01T10:47:18.7603313Z",
+    "battery": [
+      "  AC powered: false",
+      "  USB powered: true",
+      "  Wireless powered: false",
+      "  Dock powered: false",
+      "  status: 2",
+      "  health: 2",
+      "  present: true",
+      "  level: 27",
+      "  scale: 100",
+      "  voltage: 3844",
+      "  temperature: 355",
+      "  technology: Li-ion"
+    ],
+    "memory": [
+      "MemTotal:       15949000 kB",
+      "MemFree:         1674300 kB",
+      "MemAvailable:    4510112 kB",
+      "SwapTotal:       7974496 kB",
+      "SwapFree:        2857920 kB"
+    ],
+    "dataSpace": [
+      "Filesystem       1K-blocks      Used Available Use% Mounted on",
+      "/dev/block/dm-80 239543380 115019208 124393100  49% /data/user/0"
+    ]
+  },
+  "screenSettingsRestored": true,
+  "dataRestoration": {
+    "runId": "pixel-isolation-20261001T104400Z-4cf26208",
+    "target": "Pixel10Pro",
+    "startedUtc": "2026-10-01T10:44:00.5042606Z",
+    "status": "restored",
+    "backup": "files/pixel-isolation-20261001T104400Z-4cf26208",
+    "entries": [
+      {
+        "path": "databases",
+        "key": "databases",
+        "existed": true,
+        "beforeDigest": "46b566b9982ee0d42000e7f3b31ccb6188c6781685fbc8dde0ed0f20bfc84824",
+        "afterDigest": "46b566b9982ee0d42000e7f3b31ccb6188c6781685fbc8dde0ed0f20bfc84824"
+      },
+      {
+        "path": "shared_prefs",
+        "key": "shared_prefs",
+        "existed": true,
+        "beforeDigest": "e18580c419b42c8dc878c8566cdc4d1f6cd5cc1618713e1c1fed4945c7cea100",
+        "afterDigest": "e18580c419b42c8dc878c8566cdc4d1f6cd5cc1618713e1c1fed4945c7cea100"
+      },
+      {
+        "path": "files/documents",
+        "key": "documents",
+        "existed": false,
+        "beforeDigest": null,
+        "afterDigest": null
+      }
+    ],
+    "scope": "Opaque app-private directory renames. No personal contents leave the phone; original files are hash-verified after restoration. Test directories are retained separately, never merged.",
+    "restoredUtc": "2026-10-01T10:45:27.2497238Z"
+  },
+  "appSha256": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+  "testApkSha256": "6097b92f3e8da208ca23f2962d4022176f8e6b35ad63011daf19cab78f4b4015"
+}
