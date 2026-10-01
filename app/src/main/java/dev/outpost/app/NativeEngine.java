@@ -86,12 +86,30 @@ final class NativeEngine implements AutoCloseable {
         return generateWithSampling(request,model,system,user,maxTokens,false,listener);
     }
     Result generateWithSampling(long request,File model,String system,String user,int maxTokens,boolean sampled,Listener listener) {
+        return generateWithPolicy(request,model,system,user,maxTokens,new GenerationPolicy(0,sampled?1:0,42),listener);
+    }
+    Result generateWithPolicy(long request,File model,String system,String user,int maxTokens,GenerationPolicy policy,Listener listener) {
         Callback callback = new Callback(listener);
         Configuration c=configuration;
-        long[] result = nativeGenerate(handle,request,utf8(model.getAbsolutePath()),utf8(system),utf8(user),maxTokens,sampled,c.threads(),c.promptThreads(),c.batch(),c.cache(),c.matrixWidth(),c.speculativeDepth(),c.adaptive(),c.rowTile(),c.decodeRows(),oracleForTests,callback);
+        long[] result = nativeGenerate(handle,request,utf8(model.getAbsolutePath()),utf8(system),utf8(user),maxTokens,policy.template(),policy.sampler(),policy.seed(),c.threads(),c.promptThreads(),c.batch(),c.cache(),c.matrixWidth(),c.speculativeDepth(),c.adaptive(),c.rowTile(),c.decodeRows(),oracleForTests,callback);
         if (result == null || result.length != 19) throw new IllegalStateException("The engine did not return a valid result.");
         return new Result(callback.text,result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14],result[15],result[16],result[17],result[18]!=0);
     }
+    /** Research protocols are explicit; the product's existing boolean API retains its behavior. */
+    record GenerationPolicy(int template, int sampler, int seed) {
+        static GenerationPolicy spark(boolean sampled,int seed) { return new GenerationPolicy(1,sampled?2:0,seed); }
+        GenerationPolicy {
+            if (template<0 || template>1 || sampler<0 || sampler>2 || seed<0
+                || (template==0 && sampler==2) || (template==1 && sampler==1))
+                throw new IllegalArgumentException("Invalid generation policy");
+        }
+    }
+    int[] lastPromptTokens() { return nativeLastPromptTokens(handle); }
+    int[] tokenizeForTests(String text,boolean special) { return nativeTokenizeForTests(handle,utf8(text),special); }
+    String modelTemplateForTests() { return new String(nativeModelTemplateForTests(handle),StandardCharsets.UTF_8); }
+    private static native int[] nativeLastPromptTokens(long handle);
+    private static native int[] nativeTokenizeForTests(long handle,byte[] text,boolean special);
+    private static native byte[] nativeModelTemplateForTests(long handle);
     private static byte[] utf8(String value) { return value.getBytes(StandardCharsets.UTF_8); }
     @Override public void close() { long id = handle; handle = 0; nativeClose(id); }
     static final class Callback {
@@ -111,6 +129,6 @@ final class NativeEngine implements AutoCloseable {
     private static native int[] nativeModelCapabilities(long handle);
     private static native double[] nativeVerificationAudit(long handle,int[] tokens,int width);
     private static native double[] nativeRowsAudit(long handle,int[] tokens,int rows);
-    private static native long[] nativeGenerate(long handle,long request,byte[] path,byte[] system,byte[] user,int maxTokens,boolean sampled,int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int specDepth,boolean adaptive,int rowTile,int decodeRows,int[] oracle,Callback callback);
+    private static native long[] nativeGenerate(long handle,long request,byte[] path,byte[] system,byte[] user,int maxTokens,int template,int sampler,int seed,int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int specDepth,boolean adaptive,int rowTile,int decodeRows,int[] oracle,Callback callback);
     private static native double[] nativeJudge(long handle, long request, byte[] path, byte[] head, byte[] evidence, byte[] instruction, byte[][] choices);
 }

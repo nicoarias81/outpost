@@ -34,6 +34,8 @@ struct Session {
     std::vector<llama_token> prefix;
     std::vector<float> prefix_logits;
     std::vector<llama_token> last_tokens;
+    std::vector<llama_token> last_prompt_tokens;
+    int context_template=0;
     std::string path;
     void clear_context() {
         if (context) llama_free(context);
@@ -152,13 +154,74 @@ llama_token sample_saved_logits(llama_sampler *sampler,const std::vector<float> 
     return token;
 }
 
+namespace {
+std::vector<llama_token> protocol_tokens(const llama_vocab *vocab,const std::string &text,bool special) {
+    int count=-llama_tokenize(vocab,text.data(),text.size(),nullptr,0,false,special);
+    if(count==0)return {};
+    if(count<0 || count>24000)throw std::runtime_error("Invalid protocol token count");
+    std::vector<llama_token> result(count);
+    if(llama_tokenize(vocab,text.data(),text.size(),result.data(),count,false,special)!=count)
+        throw std::runtime_error("Protocol tokenization failed");
+    return result;
+}
+std::vector<llama_token> spark_prompt(const llama_model *model,const std::string &system,const std::string &user) {
+    char arch[64]={0};
+    if(llama_model_meta_val_str(model,"general.architecture",arch,sizeof(arch))<1 || std::string(arch)!="spark2_5")
+        throw std::runtime_error("Spark protocol requires a Spark model");
+    const auto *vocab=llama_model_get_vocab(model);
+    std::vector<llama_token> result;
+    auto marker=[&](const char *text,llama_token expected) {
+        auto ids=protocol_tokens(vocab,text,true);
+        if(ids.size()!=1 || ids[0]!=expected)throw std::runtime_error("Unsupported Spark vocabulary");
+        result.push_back(ids[0]);
+    };
+    auto content=[&](const std::string &text) {
+        // Tokenize data separately: literal control-token spellings cannot become role delimiters.
+        auto ids=protocol_tokens(vocab,text,false);result.insert(result.end(),ids.begin(),ids.end());
+    };
+    // Exact two-message, no-tools, enable_thinking=false projection of the pinned official template.
+    // GGUF template SHA256: 84493de66d859ab2694ec760056c82690af45de2dd170f1b6245456378f32f52.
+    marker("<｜start▁of▁sentence｜>",0);marker("<|System|>",130972);
+    content(std::string("\nyou are a helpful assistant.")+(system.empty()?"":"\n\n"+system));
+    marker("<｜end▁of▁sentence｜>",1);marker("<｜start▁of▁sentence｜>",0);marker("<|User|>",130973);
+    content(user);
+    marker("<｜end▁of▁sentence｜>",1);marker("<｜start▁of▁sentence｜>",0);marker("<|Bot|>",130976);marker("</think>",4);
+    return result;
+}
+jintArray token_array(JNIEnv *env,const std::vector<llama_token> &tokens) {
+    auto result=env->NewIntArray(tokens.size());
+    if(result && !tokens.empty())env->SetIntArrayRegion(result,0,tokens.size(),tokens.data());
+    return result;
+}
+}
+extern "C" JNIEXPORT jintArray JNICALL
+Java_dev_outpost_app_NativeEngine_nativeLastPromptTokens(JNIEnv *env,jclass,jlong id) {
+    try {auto s=get(id);std::lock_guard<std::mutex> lock(s->inference);return token_array(env,s->last_prompt_tokens);}
+    catch(const std::exception &e){fail(env,e.what());return nullptr;}
+}
+extern "C" JNIEXPORT jintArray JNICALL
+Java_dev_outpost_app_NativeEngine_nativeTokenizeForTests(JNIEnv *env,jclass,jlong id,jbyteArray text,jboolean special) {
+    try {auto s=get(id);std::lock_guard<std::mutex> lock(s->inference);if(!s->model)throw std::runtime_error("Model not loaded");return token_array(env,protocol_tokens(llama_model_get_vocab(s->model),bytes(env,text),special));}
+    catch(const std::exception &e){fail(env,e.what());return nullptr;}
+}
+extern "C" JNIEXPORT jbyteArray JNICALL
+Java_dev_outpost_app_NativeEngine_nativeModelTemplateForTests(JNIEnv *env,jclass,jlong id) {
+    try {auto s=get(id);std::lock_guard<std::mutex> lock(s->inference);if(!s->model)throw std::runtime_error("Model not loaded");
+        const char *text=llama_model_chat_template(s->model,nullptr);if(!text)throw std::runtime_error("Model template missing");
+        auto result=env->NewByteArray(std::strlen(text));if(result)env->SetByteArrayRegion(result,0,std::strlen(text),reinterpret_cast<const jbyte *>(text));return result;
+    }catch(const std::exception &e){fail(env,e.what());return nullptr;}
+}
+
 extern "C" JNIEXPORT jlongArray JNICALL
 Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
     jlong run, jbyteArray model_path, jbyteArray system_text, jbyteArray user_text,
-    jint max_tokens,jboolean sampled,jint threads,jint prompt_threads,jint batch_size,jboolean cache,jint matrix_width,
+    jint max_tokens,jint template_policy,jint sampler_policy,jint seed,jint threads,jint prompt_threads,jint batch_size,jboolean cache,jint matrix_width,
     jint spec_depth,jboolean adaptive,jint row_tile,jint decode_rows,jintArray oracle_tokens,jobject callback) {
     try {
         if (run <= 0 || max_tokens < 1 || max_tokens > 256 || !callback) throw std::runtime_error("Invalid generation parameters");
+        if(template_policy<0 || template_policy>1 || sampler_policy<0 || sampler_policy>2 || seed<0
+            || (template_policy==0 && sampler_policy==2) || (template_policy==1 && sampler_policy==1))throw std::runtime_error("Invalid generation policy");
+        if(template_policy==1 && spec_depth!=0)throw std::runtime_error("Spark speculation is not admitted");
         if (threads<1 || threads>8 || prompt_threads<1 || prompt_threads>8 || batch_size<16 || batch_size>512) throw std::runtime_error("Invalid runtime configuration");
         if(matrix_width!=1 && matrix_width!=2 && matrix_width!=4 && matrix_width!=8) throw std::runtime_error("Invalid matrix kernel width");
         if(spec_depth<0 || spec_depth>7) throw std::runtime_error("Invalid speculation depth");
@@ -176,6 +239,7 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
         outpost_q2_set_batch_width(matrix_width);
         outpost_q2_set_row_tiles(row_tile,decode_rows);
         session->last_tokens.clear();
+        session->last_prompt_tokens.clear();
         struct Cleanup {
             Session *s; bool keep=false;
             ~Cleanup() {
@@ -212,25 +276,32 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
                 for(auto token:oracle) if(token<0 || token>=llama_vocab_n_tokens(vocab)) throw std::runtime_error("Invalid oracle token");
                 const char *tmpl = llama_model_chat_template(session->model, nullptr);
                 if (!tmpl) throw std::runtime_error("Model has no chat template");
-                llama_chat_message messages[] = {{"system", system.c_str()}, {"user", user.c_str()}};
-                int needed = llama_chat_apply_template(tmpl, messages, 2, true, nullptr, 0);
-                if (needed < 1 || needed > 24000) throw std::runtime_error("Unsupported chat template or oversized input");
-                std::vector<char> prompt(needed + 1);
-                int length = llama_chat_apply_template(tmpl, messages, 2, true, prompt.data(), prompt.size());
-                if (length < 1 || length > needed) throw std::runtime_error("Cannot format chat prompt");
-                std::string formatted(prompt.data(), length);
-                // The built-in ChatML formatter omits Bonsai's fixed non-thinking suffix.
-                // Reproduce the suffix present in both pinned official GGUF templates.
-                const std::string template_text(tmpl);
-                if (template_text.find("assistant\\n<think>\\n\\n</think>\\n\\n") != std::string::npos) {
-                    formatted += "<think>\n\n</think>\n\n";
+                std::vector<llama_token> tokens;
+                if(template_policy==1)tokens=spark_prompt(session->model,system,user);
+                else {
+                    llama_chat_message messages[] = {{"system", system.c_str()}, {"user", user.c_str()}};
+                    int needed = llama_chat_apply_template(tmpl, messages, 2, true, nullptr, 0);
+                    if (needed < 1 || needed > 24000) throw std::runtime_error("Unsupported chat template or oversized input");
+                    std::vector<char> prompt(needed + 1);
+                    int length = llama_chat_apply_template(tmpl, messages, 2, true, prompt.data(), prompt.size());
+                    if (length < 1 || length > needed) throw std::runtime_error("Cannot format chat prompt");
+                    std::string formatted(prompt.data(), length);
+                    // The built-in ChatML formatter omits Bonsai's fixed non-thinking suffix.
+                    // Reproduce the suffix present in both pinned official GGUF templates.
+                    const std::string template_text(tmpl);
+                    if (template_text.find("assistant\\n<think>\\n\\n</think>\\n\\n") != std::string::npos) {
+                        formatted += "<think>\n\n</think>\n\n";
+                    }
+                    int n=-llama_tokenize(vocab,formatted.data(),formatted.size(),nullptr,0,true,true);
+                    if(n<1 || n+max_tokens>=2048)throw std::runtime_error("Context limit exceeded; shorten the question or sources");
+                    tokens.resize(n);
+                    if(llama_tokenize(vocab,formatted.data(),formatted.size(),tokens.data(),tokens.size(),true,true)!=n)throw std::runtime_error("Cannot tokenize input");
                 }
-                int count = -llama_tokenize(vocab, formatted.data(), formatted.size(), nullptr, 0, true, true);
-                if (count < 1 || count + max_tokens >= 2048) throw std::runtime_error("Context limit exceeded; shorten the question or sources");
-                std::vector<llama_token> tokens(count);
-                if (llama_tokenize(vocab, formatted.data(), formatted.size(), tokens.data(), tokens.size(), true, true) != count) throw std::runtime_error("Cannot tokenize input");
+                int count=(int)tokens.size();
+                if(count<1 || count+max_tokens>=2048)throw std::runtime_error("Context limit exceeded; shorten the question or sources");
+                session->last_prompt_tokens=tokens;
                 prompt_count = count;
-                if (!cache || session->context_batch!=batch_size || session->context_threads!=threads || session->context_prompt_threads!=prompt_threads
+                if (!cache || session->context_template!=template_policy || session->context_batch!=batch_size || session->context_threads!=threads || session->context_prompt_threads!=prompt_threads
                     || session->context_width!=matrix_width || session->context_rows!=row_tile || session->context_decode_rows!=decode_rows || session->context_kernel!=outpost_q2_name()) session->clear_context();
                 if (!session->context) {
                     auto params = llama_context_default_params();
@@ -239,6 +310,7 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
                     params.no_perf = true;
                     session->context=llama_init_from_model(session->model,params);
                     session->context_batch=batch_size;
+                    session->context_template=template_policy;
                     session->context_threads=threads; session->context_prompt_threads=prompt_threads; session->context_width=matrix_width;
                     session->context_rows=row_tile;
                     session->context_decode_rows=decode_rows;
@@ -278,12 +350,12 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
                 }
                 auto decode_start=Clock::now();
                 llama_sampler *sampler_raw = nullptr;
-                if (sampled) {
+                if (sampler_policy!=0) {
                     sampler_raw = llama_sampler_chain_init(llama_sampler_chain_default_params());
-                    llama_sampler_chain_add(sampler_raw,llama_sampler_init_top_k(20));
-                    llama_sampler_chain_add(sampler_raw,llama_sampler_init_top_p(0.8f,1));
-                    llama_sampler_chain_add(sampler_raw,llama_sampler_init_temp(0.7f));
-                    llama_sampler_chain_add(sampler_raw,llama_sampler_init_dist(42));
+                    if(sampler_policy==1)llama_sampler_chain_add(sampler_raw,llama_sampler_init_top_k(20));
+                    llama_sampler_chain_add(sampler_raw,llama_sampler_init_top_p(sampler_policy==1?0.8f:0.95f,1));
+                    llama_sampler_chain_add(sampler_raw,llama_sampler_init_temp(sampler_policy==1?0.7f:1.0f));
+                    llama_sampler_chain_add(sampler_raw,llama_sampler_init_dist((uint32_t)seed));
                 } else sampler_raw = llama_sampler_init_greedy();
                 std::unique_ptr<llama_sampler, decltype(&llama_sampler_free)> sampler(sampler_raw, llama_sampler_free);
                 jclass cls = env->GetObjectClass(callback);

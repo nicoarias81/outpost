@@ -27,6 +27,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
     private Bundle osmArgs;
     private String placeRun;
     private Bundle rowsArgs;
+    private Bundle candidateArgs;
     private Bundle evaluationArgs;
     private boolean knowledgeSuite;
     private String knowledgeRun;
@@ -44,6 +45,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         checks++;
     }
     @Override public void onCreate(Bundle arguments) {
+        candidateArgs=arguments!=null&&arguments.containsKey("candidate_run")?new Bundle(arguments):null;
         rowsArgs=arguments!=null&&arguments.containsKey("rows_run")?new Bundle(arguments):null;
         placeRun=arguments==null?null:arguments.getString("places_run");
         osmArgs=arguments!=null&&arguments.containsKey("osm_run")?new Bundle(arguments):null;
@@ -61,6 +63,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         super.onCreate(arguments);
     }
     @Override public void onStart() {
+        if(candidateArgs!=null){new CandidateChecks(this,candidateArgs).run();return;}
         if(rowsArgs!=null){new KernelRowsChecks(this,rowsArgs.getString("rows_run"),rowsArgs.getString("rows_phase","graphs"),"true".equals(rowsArgs.getString("rows_apply"))).run();return;}
         if(placeRun!=null){new PlaceChecks(this,placeRun).run();return;}
         if(osmArgs!=null){new OsmChecks(this,osmArgs.getString("osm_run"),"true".equals(osmArgs.getString("osm_generate"))).run();return;}
