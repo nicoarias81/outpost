@@ -1,0 +1,73 @@
+
+Starting attention/reference-tokens / depth 0
+
+Completed attention/reference-tokens: 32 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Starting attention/prefix253/mode0 / depth 0
+
+Completed attention/prefix253/mode0: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Attention mode 0 / prefix 253 / rows 1,2,4,8
+
+Starting attention/prefix253/mode2 / depth 0
+
+Completed attention/prefix253/mode2: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Attention mode 2 / prefix 253 / rows 1,2,4,8
+
+Starting attention/prefix509/mode0 / depth 0
+
+Completed attention/prefix509/mode0: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Attention mode 0 / prefix 509 / rows 1,2,4,8
+
+Starting attention/prefix509/mode1 / depth 0
+
+Completed attention/prefix509/mode1: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Attention mode 1 / prefix 509 / rows 1,2,4,8
+
+Starting attention/prefix509/mode2 / depth 0
+
+Completed attention/prefix509/mode2: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Attention mode 2 / prefix 509 / rows 1,2,4,8
+
+Starting attention/prefix765/mode0 / depth 0
+
+Completed attention/prefix765/mode0: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Attention mode 0 / prefix 765 / rows 1,2,4,8
+
+Starting attention/prefix765/mode2 / depth 0
+
+Completed attention/prefix765/mode2: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Attention mode 2 / prefix 765 / rows 1,2,4,8
+
+Starting attention/prefix1066/mode0 / depth 0
+
+Completed attention/prefix1066/mode0: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Attention mode 0 / prefix 1066 / rows 1,2,4,8
+
+Starting attention/prefix1066/mode2 / depth 0
+
+Completed attention/prefix1066/mode2: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Attention mode 2 / prefix 1066 / rows 1,2,4,8
+
+Starting attention/prefix1666/mode0 / depth 0
+
+Completed attention/prefix1666/mode0: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Attention mode 0 / prefix 1666 / rows 1,2,4,8
+
+Starting attention/prefix1666/mode2 / depth 0
+
+Completed attention/prefix1666/mode2: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Attention mode 2 / prefix 1666 / rows 1,2,4,8
+
+PASS ARM attention-curve: 326 controls.
+

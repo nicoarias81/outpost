@@ -1,0 +1,54 @@
+{
+  "startedUtc": "2026-10-01T21:16:13.1044881Z",
+  "phases": [
+    "attention-curve"
+  ],
+  "prefillChunk": 32,
+  "decodeChunk": 0,
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T21:15:40.6288707Z",
+    "versionName": "0.16.0",
+    "versionCode": 18,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "372393d584f3bd97d04d0b2f39b1dc51b890278d2a01ae0b84e13bad66be777f",
+    "testSourcesSha256": "639684fbff2bd7118461237e39e2cae0872519fa397e31295be8b407b82daead",
+    "appSha256": "e5617e651fc2fb72cbc11496e982b0f9efa3025dc3975c0fa3c857fcf3a0ba5c",
+    "testApkSha256": "879cf303d2cf19d9ba75844adf833a8ef18f03dfe8ec62fe642bc1ec8ebf5de8",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "restored": true,
+  "restoredUtc": "2026-10-01T21:37:15.3741663Z",
+  "isolation": {
+    "runId": "pixel-isolation-20261001T211617Z-bdd43fd3",
+    "target": "Pixel10Pro",
+    "startedUtc": "2026-10-01T21:16:17.279689Z",
+    "restoredUtc": "2026-10-01T21:37:12.1885248Z",
+    "status": "restored",
+    "backup": "files/pixel-isolation-20261001T211617Z-bdd43fd3",
+    "entries": [
+      {
+        "path": "databases",
+        "key": "databases",
+        "existed": true,
+        "beforeDigest": "46b566b9982ee0d42000e7f3b31ccb6188c6781685fbc8dde0ed0f20bfc84824",
+        "afterDigest": "46b566b9982ee0d42000e7f3b31ccb6188c6781685fbc8dde0ed0f20bfc84824"
+      },
+      {
+        "path": "shared_prefs",
+        "key": "shared_prefs",
+        "existed": true,
+        "beforeDigest": "e18580c419b42c8dc878c8566cdc4d1f6cd5cc1618713e1c1fed4945c7cea100",
+        "afterDigest": "e18580c419b42c8dc878c8566cdc4d1f6cd5cc1618713e1c1fed4945c7cea100"
+      },
+      {
+        "path": "files/documents",
+        "key": "documents",
+        "existed": false,
+        "beforeDigest": null,
+        "afterDigest": null
+      }
+    ],
+    "scope": "Opaque app-private directory renames. No personal contents leave the phone; original files are hash-verified after restoration. Test directories are retained separately, never merged."
+  }
+}

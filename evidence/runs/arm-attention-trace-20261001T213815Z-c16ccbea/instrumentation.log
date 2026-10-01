@@ -1,0 +1,63 @@
+
+Starting spec/warmup / depth 0
+
+Completed spec/warmup: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Starting spec/plain / depth 0
+
+Completed spec/plain: 64 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Starting spec/oracle1 / depth 1
+
+Completed spec/oracle1: 64 tokens, 31 verify windows, 31 accepted / 31 proposed
+
+Starting spec/oracle3 / depth 3
+
+Completed spec/oracle3: 64 tokens, 16 verify windows, 47 accepted / 47 proposed
+
+Starting spec/oracle7 / depth 7
+
+Completed spec/oracle7: 64 tokens, 8 verify windows, 55 accepted / 55 proposed
+
+Starting spec/request-lookup / depth 3
+
+Completed spec/request-lookup: 64 tokens, 6 verify windows, 10 accepted / 18 proposed
+
+Starting spec/wrong-proposals / depth 3
+
+Completed spec/wrong-proposals: 32 tokens, 30 verify windows, 0 accepted / 87 proposed
+
+Starting spec/cancel / depth 7
+
+Completed spec/cancel: 3 tokens, 1 verify windows, 7 accepted / 7 proposed
+
+Starting spec/recovery / depth 0
+
+Completed spec/recovery: 64 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Starting spec/exact-cache / depth 0
+
+Completed spec/exact-cache: 64 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Starting edges/eos-plain / depth 0
+
+Completed edges/eos-plain: 2 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Starting edges/eos-oracle / depth 7
+
+Completed edges/eos-oracle: 2 tokens, 1 verify windows, 1 accepted / 1 proposed
+
+Starting edges/cache-after-verification / depth 0
+
+Completed edges/cache-after-verification: 2 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Starting edges/controller-reference / depth 0
+
+Completed edges/controller-reference: 32 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Starting edges/adaptive-wrong / depth 3
+
+Completed edges/adaptive-wrong: 32 tokens, 3 verify windows, 0 accepted / 9 proposed
+
+PASS ARM attention-trace: 67 controls.
+

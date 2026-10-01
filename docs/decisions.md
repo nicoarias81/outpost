@@ -152,6 +152,12 @@ Research alone may extend each engine session's deadline to300 seconds for both 
 
 Ownership/poison tests and complete per-step-logit traces pass. The first campaign's total-time ambiguity prompted one predeclared reversed repeat; the combined six-pair-per-case gate passes for prefill and total time. Decode queues did not justify adoption. Row settings join cache identity and persisted profiles. Broader devices, memory pressure, power and task quality remain separate work; revisit the preset only with matched-output evidence. [Validation and raw records](validation-0.16.md).
 
+## ADR-036 — Preserve serial attention arithmetic in verification research
+
+**Status: bounded experimental repair validated, 2026-10-01; no product admission.** The owner requested fixing the serial-versus-batch parity blocker. Preserve the pinned backend and ordinary decoding; use an owned opt-in wrapper to call original attention per query with four workers and the serial padded KV extent. Keep other layers batched, validate dense causal masks/layout/scratch and synchronize partial-buffer reuse. Forcing attention reference everywhere removes the ablation mismatch but changes normal logits; simply matching thread counts leaves a different reduction. Neither is an acceptable substitute for the existing reference.
+
+All 640 tested candidate logit vectors and bounded sampled/rejection/EOS/cancellation/cache checks agree. The cost is serialized per-query attention, four verification workers and a narrow guarded shape contract. Retain depth 0 in the product until real proposal/controller work demonstrates repeated end-to-end benefit. More scheduler workers require preserving the four-way mathematical partitions separately, not changing arithmetic. [Evidence, limitations and reproduction](attention-parity-2026-10-01.md).
+
 ## Updating this register
 
 Add a new numbered decision when a material tradeoff changes. Include status, problem, choice, alternatives, consequences, evidence, and reconsideration condition. Mark superseded decisions rather than erasing the reason an earlier implementation existed.

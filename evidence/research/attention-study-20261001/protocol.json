@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "scope": "TND-02b attention-only ablation and guarded serial-equivalent query slicing; no vendor or product-default change",
+  "reference": "Original four-worker serial decoding, frozen 0.16 exact first-64-token manual evidence",
+  "modes": {
+    "0": "Original attention; shape observation only",
+    "1": "Attention-only use_ref ablation, not an adoption candidate",
+    "2": "Four-worker per-query attention, per-position 256-cell padded KV extent, original operation and extra scratch-reuse barrier"
+  },
+  "prefixes": [
+    253,
+    509,
+    765,
+    1066,
+    1666
+  ],
+  "continuationPositions": 16,
+  "widths": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "repeats": "Two reversed width orders",
+  "gates": [
+    "Actual 36 attention calls per model batch",
+    "No shape/mask/scratch fallback in supported candidate cases",
+    "Every candidate logit bit equal to original serial",
+    "Ablation internally serial/batch equivalent, separately compared to original",
+    "Full sampled trace, rejection, EOS, cancellation and cache recovery",
+    "Baseline APKs and original private data/radio settings restored"
+  ],
+  "productSpeculationDepth": 0,
+  "performanceScope": "Warm-model, USB-powered forward-only exploratory timing; no drafter or end-to-end adoption claim"
+}

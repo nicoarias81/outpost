@@ -97,3 +97,7 @@ The Spark profile is hash-pinned in test assets and absent from ModelStore.PROFI
 ## Research sample and round diagnostics
 
 The [Pixel speculation study](speculation-pixel-2026-10-01.md) adds test-only sample events and round diagnostics through separate getters, retaining the 19-slot result array. Tracing and storage are off by default. Legacy `verifyMicros` remains the verification span; new comparable controller costs include proposal/evaluation/sampling/rollback/token callbacks and exclude measured trace overhead. An accepted draft prefix may contain samples never emitted after cancellation; use emitted-event markers and committed counts rather than `accepted` alone. Product speculation stays disabled and current research APK hashes differ from the installed frozen release.
+
+## Experimental attention parity wrapper
+
+[TND-02b](attention-parity-2026-10-01.md) adds a link-time wrapper around `ggml_compute_forward_flash_attn_ext`, off in ordinary product calls. Research mode 1 changes only attention to vec reference for causal isolation; mode 2 keeps the original attention operation and four-worker reduction per verification query, reconstructs each serial padded KV extent and synchronizes scratch reuse. It is restricted to dense causal Bonsai F16-cache shapes; all other cases retain the original route. JNI diagnostics record actual shape/dispatch and rejection counts. The underlying projections remain batched. Current candidate numerical/sample gates pass; cost-aware product admission and generalized model/device support remain open.

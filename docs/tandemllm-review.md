@@ -53,9 +53,9 @@ The code notice identifies AGPL-3.0-only plus a separate commercial offering; do
 
 ## Gaps found in the reviewed Outpost baseline
 
-The current [controller](../app/src/main/cpp/speculation.cpp) can disable a fixed-depth proposal policy after three costly windows; it does not choose a depth from a calibrated cost curve. In [the generation loop](../app/src/main/cpp/engine.cpp), proposal time is tracked separately and excluded from that decision; ordinary-step and verification-window timings include different sampling/rollback work. Normalize cost scope before trusting a new policy.
+The [controller](../app/src/main/cpp/speculation.cpp) can disable a fixed-depth proposal policy after three costly windows; it does not yet choose a depth from a calibrated cost curve. At initial inspection, proposal time was excluded and the timing scopes differed. [TND-01](speculation-pixel-2026-10-01.md) subsequently normalized complete round costs, including proposal, sampling, rollback and callbacks. Calibrated depth selection remains TND-03.
 
-Current per-step logit tracing covers initial/ordinary decoding, but the speculative `spec::verify` callback samples rows without recording their hashes. Extend trace coverage before using it as a speculative parity gate. Also audit the 4-decode/6-prompt worker split and shape-dependent attention path: the 0.16 per-row scheduling proof does not imply serial-versus-batch graph equality. Historical speculative audits already recorded logit differences.
+The initially inspected trace covered initial/ordinary decoding but omitted hashes inside `spec::verify`. TND-01 now records every target sample. The 0.16 per-row scheduling proof alone did not imply serial-versus-batch graph equality: TND-02 exposed that gap, and TND-02b subsequently isolated and repaired the attention reduction in a guarded research path. The original failed numerical audits remain preserved.
 
 ## Prioritized experiments — proposed, not implemented
 
@@ -70,4 +70,4 @@ Keep product speculation at depth 0 during this work. Use the existing supported
 
 ## Executed follow-up
 
-[TND-01/TND-02 have now been exercised on the Pixel](speculation-pixel-2026-10-01.md). Tracing/cost accounting is implemented, but serial-versus-batch numerical parity fails at larger contexts. TND-02b now precedes TND-03: isolate and repair the attention-path boundary. The proposals above remain historical design context; product speculation is still off.
+[TND-01/TND-02 were exercised on the Pixel](speculation-pixel-2026-10-01.md), implementing full tracing/cost accounting and exposing larger-context numerical drift. [TND-02b now isolates and repairs the attention boundary](attention-parity-2026-10-01.md) in a guarded experiment with unchanged normal logits. TND-03 can proceed to measured-cost real-proposal work; product speculation remains off. The earlier source review/proposals remain historical context.

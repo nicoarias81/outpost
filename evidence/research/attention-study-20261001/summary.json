@@ -1,0 +1,2696 @@
+{
+  "schemaVersion": 1,
+  "curveRun": "arm-attention-curve-20261001T211621Z-f2f231d9",
+  "curveReportSha256": "b7b9bf4393717711cb6fd3b60e7b8727890d6dbf156ac886fa0a4b6a519c507b",
+  "curveReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T21:15:40.6288707Z",
+    "versionName": "0.16.0",
+    "versionCode": 18,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "372393d584f3bd97d04d0b2f39b1dc51b890278d2a01ae0b84e13bad66be777f",
+    "testSourcesSha256": "639684fbff2bd7118461237e39e2cae0872519fa397e31295be8b407b82daead",
+    "appSha256": "e5617e651fc2fb72cbc11496e982b0f9efa3025dc3975c0fa3c857fcf3a0ba5c",
+    "testApkSha256": "879cf303d2cf19d9ba75844adf833a8ef18f03dfe8ec62fe642bc1ec8ebf5de8",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "executionPassed": true,
+  "curves": [
+    {
+      "prefixTokens": 253,
+      "attentionMode": 0,
+      "modeReferenceEqualsOriginal": true,
+      "originalAttention": {
+        "calls": 576,
+        "originalSplitCalls": 468,
+        "originalVectorCalls": 108,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 256,
+        "kvMax": 512,
+        "queryMin": 1,
+        "queryMax": 1,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUs": [
+            1710040,
+            1692377
+          ],
+          "medianEvaluateUs": 1701208.5,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 576,
+            "originalSplitCalls": 468,
+            "originalVectorCalls": 108,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 256,
+            "kvMax": 512,
+            "queryMin": 1,
+            "queryMax": 1,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 2,
+          "evaluateUs": [
+            1111571,
+            1064921
+          ],
+          "medianEvaluateUs": 1088246.0,
+          "forwardOnlySerialOverBatchRatio": 1.563257296603893,
+          "identicalToOriginal": [
+            3,
+            3
+          ],
+          "identicalToModeReference": [
+            3,
+            3
+          ],
+          "firstDifferentPosition": [
+            3,
+            3
+          ],
+          "attention": {
+            "calls": 288,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 288,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 256,
+            "kvMax": 512,
+            "queryMin": 2,
+            "queryMax": 2,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 4,
+          "evaluateUs": [
+            887945,
+            851146
+          ],
+          "medianEvaluateUs": 869545.5,
+          "forwardOnlySerialOverBatchRatio": 1.9564341371440597,
+          "identicalToOriginal": [
+            3,
+            3
+          ],
+          "identicalToModeReference": [
+            3,
+            3
+          ],
+          "firstDifferentPosition": [
+            3,
+            3
+          ],
+          "attention": {
+            "calls": 144,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 144,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 512,
+            "kvMax": 512,
+            "queryMin": 4,
+            "queryMax": 4,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 8,
+          "evaluateUs": [
+            820430,
+            792344
+          ],
+          "medianEvaluateUs": 806387.0,
+          "forwardOnlySerialOverBatchRatio": 2.109667566565433,
+          "identicalToOriginal": [
+            3,
+            3
+          ],
+          "identicalToModeReference": [
+            3,
+            3
+          ],
+          "firstDifferentPosition": [
+            3,
+            3
+          ],
+          "attention": {
+            "calls": 72,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 72,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 512,
+            "kvMax": 512,
+            "queryMin": 8,
+            "queryMax": 8,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        }
+      ]
+    },
+    {
+      "prefixTokens": 253,
+      "attentionMode": 2,
+      "modeReferenceEqualsOriginal": true,
+      "originalAttention": {
+        "calls": 576,
+        "originalSplitCalls": 468,
+        "originalVectorCalls": 108,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 256,
+        "kvMax": 512,
+        "queryMin": 1,
+        "queryMax": 1,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUs": [
+            2722273,
+            2657073
+          ],
+          "medianEvaluateUs": 2689673.0,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 576,
+            "originalSplitCalls": 468,
+            "originalVectorCalls": 108,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 256,
+            "kvMax": 512,
+            "queryMin": 1,
+            "queryMax": 1,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 2,
+          "evaluateUs": [
+            1855620,
+            1810327
+          ],
+          "medianEvaluateUs": 1832973.5,
+          "forwardOnlySerialOverBatchRatio": 1.467382370776228,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 288,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 288,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 288,
+            "sliceRows": 576,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 256,
+            "kvMax": 512,
+            "queryMin": 2,
+            "queryMax": 2,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 256,
+            "logicalKvMax": 512
+          }
+        },
+        {
+          "rows": 4,
+          "evaluateUs": [
+            1533500,
+            1523399
+          ],
+          "medianEvaluateUs": 1528449.5,
+          "forwardOnlySerialOverBatchRatio": 1.7597395268865605,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 144,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 144,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 144,
+            "sliceRows": 576,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 512,
+            "kvMax": 512,
+            "queryMin": 4,
+            "queryMax": 4,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 256,
+            "logicalKvMax": 512
+          }
+        },
+        {
+          "rows": 8,
+          "evaluateUs": [
+            1416418,
+            1421165
+          ],
+          "medianEvaluateUs": 1418791.5,
+          "forwardOnlySerialOverBatchRatio": 1.8957493049542515,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 72,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 72,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 72,
+            "sliceRows": 576,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 512,
+            "kvMax": 512,
+            "queryMin": 8,
+            "queryMax": 8,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 256,
+            "logicalKvMax": 512
+          }
+        }
+      ]
+    },
+    {
+      "prefixTokens": 509,
+      "attentionMode": 0,
+      "modeReferenceEqualsOriginal": true,
+      "originalAttention": {
+        "calls": 576,
+        "originalSplitCalls": 576,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 512,
+        "kvMax": 768,
+        "queryMin": 1,
+        "queryMax": 1,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUs": [
+            3029316,
+            2887078
+          ],
+          "medianEvaluateUs": 2958197.0,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 576,
+            "originalSplitCalls": 576,
+            "originalVectorCalls": 0,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 512,
+            "kvMax": 768,
+            "queryMin": 1,
+            "queryMax": 1,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 2,
+          "evaluateUs": [
+            1836528,
+            1783326
+          ],
+          "medianEvaluateUs": 1809927.0,
+          "forwardOnlySerialOverBatchRatio": 1.6344289023811458,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            0,
+            0
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 288,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 288,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 512,
+            "kvMax": 768,
+            "queryMin": 2,
+            "queryMax": 2,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 4,
+          "evaluateUs": [
+            1483875,
+            1478021
+          ],
+          "medianEvaluateUs": 1480948.0,
+          "forwardOnlySerialOverBatchRatio": 1.9975022755694325,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            0,
+            0
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 144,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 144,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 768,
+            "kvMax": 768,
+            "queryMin": 4,
+            "queryMax": 4,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 8,
+          "evaluateUs": [
+            1363186,
+            1363330
+          ],
+          "medianEvaluateUs": 1363258.0,
+          "forwardOnlySerialOverBatchRatio": 2.1699465545039898,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            0,
+            0
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 72,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 72,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 768,
+            "kvMax": 768,
+            "queryMin": 8,
+            "queryMax": 8,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        }
+      ]
+    },
+    {
+      "prefixTokens": 509,
+      "attentionMode": 1,
+      "modeReferenceEqualsOriginal": false,
+      "originalAttention": {
+        "calls": 576,
+        "originalSplitCalls": 576,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 512,
+        "kvMax": 768,
+        "queryMin": 1,
+        "queryMax": 1,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUs": [
+            2819472,
+            2725622
+          ],
+          "medianEvaluateUs": 2772547.0,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 576,
+            "originalSplitCalls": 576,
+            "originalVectorCalls": 0,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 576,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 512,
+            "kvMax": 768,
+            "queryMin": 1,
+            "queryMax": 1,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 2,
+          "evaluateUs": [
+            1996596,
+            1985523
+          ],
+          "medianEvaluateUs": 1991059.5,
+          "forwardOnlySerialOverBatchRatio": 1.39249831559529,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 288,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 288,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 288,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 512,
+            "kvMax": 768,
+            "queryMin": 2,
+            "queryMax": 2,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 4,
+          "evaluateUs": [
+            1655801,
+            1634339
+          ],
+          "medianEvaluateUs": 1645070.0,
+          "forwardOnlySerialOverBatchRatio": 1.6853671880223942,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 144,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 144,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 144,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 768,
+            "kvMax": 768,
+            "queryMin": 4,
+            "queryMax": 4,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 8,
+          "evaluateUs": [
+            1523271,
+            1517046
+          ],
+          "medianEvaluateUs": 1520158.5,
+          "forwardOnlySerialOverBatchRatio": 1.8238538941827447,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 72,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 72,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 72,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 768,
+            "kvMax": 768,
+            "queryMin": 8,
+            "queryMax": 8,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        }
+      ]
+    },
+    {
+      "prefixTokens": 509,
+      "attentionMode": 2,
+      "modeReferenceEqualsOriginal": true,
+      "originalAttention": {
+        "calls": 576,
+        "originalSplitCalls": 576,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 512,
+        "kvMax": 768,
+        "queryMin": 1,
+        "queryMax": 1,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUs": [
+            3004825,
+            2910590
+          ],
+          "medianEvaluateUs": 2957707.5,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 576,
+            "originalSplitCalls": 576,
+            "originalVectorCalls": 0,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 512,
+            "kvMax": 768,
+            "queryMin": 1,
+            "queryMax": 1,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 2,
+          "evaluateUs": [
+            2261148,
+            2221066
+          ],
+          "medianEvaluateUs": 2241107.0,
+          "forwardOnlySerialOverBatchRatio": 1.3197529167505166,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 288,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 288,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 288,
+            "sliceRows": 576,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 512,
+            "kvMax": 768,
+            "queryMin": 2,
+            "queryMax": 2,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 512,
+            "logicalKvMax": 768
+          }
+        },
+        {
+          "rows": 4,
+          "evaluateUs": [
+            1890458,
+            1863956
+          ],
+          "medianEvaluateUs": 1877207.0,
+          "forwardOnlySerialOverBatchRatio": 1.5755894262060604,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 144,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 144,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 144,
+            "sliceRows": 576,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 768,
+            "kvMax": 768,
+            "queryMin": 4,
+            "queryMax": 4,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 512,
+            "logicalKvMax": 768
+          }
+        },
+        {
+          "rows": 8,
+          "evaluateUs": [
+            1746189,
+            1740343
+          ],
+          "medianEvaluateUs": 1743266.0,
+          "forwardOnlySerialOverBatchRatio": 1.6966472701240085,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 72,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 72,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 72,
+            "sliceRows": 576,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 768,
+            "kvMax": 768,
+            "queryMin": 8,
+            "queryMax": 8,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 512,
+            "logicalKvMax": 768
+          }
+        }
+      ]
+    },
+    {
+      "prefixTokens": 765,
+      "attentionMode": 0,
+      "modeReferenceEqualsOriginal": true,
+      "originalAttention": {
+        "calls": 576,
+        "originalSplitCalls": 576,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 768,
+        "kvMax": 1024,
+        "queryMin": 1,
+        "queryMax": 1,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUs": [
+            3261160,
+            3123768
+          ],
+          "medianEvaluateUs": 3192464.0,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 576,
+            "originalSplitCalls": 576,
+            "originalVectorCalls": 0,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 768,
+            "kvMax": 1024,
+            "queryMin": 1,
+            "queryMax": 1,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 2,
+          "evaluateUs": [
+            2267327,
+            2206005
+          ],
+          "medianEvaluateUs": 2236666.0,
+          "forwardOnlySerialOverBatchRatio": 1.4273315729751335,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            0,
+            0
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 288,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 288,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 768,
+            "kvMax": 1024,
+            "queryMin": 2,
+            "queryMax": 2,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 4,
+          "evaluateUs": [
+            1895459,
+            1854031
+          ],
+          "medianEvaluateUs": 1874745.0,
+          "forwardOnlySerialOverBatchRatio": 1.7028790582185844,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            0,
+            0
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 144,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 144,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1024,
+            "kvMax": 1024,
+            "queryMin": 4,
+            "queryMax": 4,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 8,
+          "evaluateUs": [
+            1770172,
+            1766168
+          ],
+          "medianEvaluateUs": 1768170.0,
+          "forwardOnlySerialOverBatchRatio": 1.805518700124988,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            0,
+            0
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 72,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 72,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1024,
+            "kvMax": 1024,
+            "queryMin": 8,
+            "queryMax": 8,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        }
+      ]
+    },
+    {
+      "prefixTokens": 765,
+      "attentionMode": 2,
+      "modeReferenceEqualsOriginal": true,
+      "originalAttention": {
+        "calls": 576,
+        "originalSplitCalls": 576,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 768,
+        "kvMax": 1024,
+        "queryMin": 1,
+        "queryMax": 1,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUs": [
+            3338635,
+            3289816
+          ],
+          "medianEvaluateUs": 3314225.5,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 576,
+            "originalSplitCalls": 576,
+            "originalVectorCalls": 0,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 768,
+            "kvMax": 1024,
+            "queryMin": 1,
+            "queryMax": 1,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 2,
+          "evaluateUs": [
+            2570592,
+            2542125
+          ],
+          "medianEvaluateUs": 2556358.5,
+          "forwardOnlySerialOverBatchRatio": 1.2964635046297301,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 288,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 288,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 288,
+            "sliceRows": 576,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 768,
+            "kvMax": 1024,
+            "queryMin": 2,
+            "queryMax": 2,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 768,
+            "logicalKvMax": 1024
+          }
+        },
+        {
+          "rows": 4,
+          "evaluateUs": [
+            2160812,
+            2163785
+          ],
+          "medianEvaluateUs": 2162298.5,
+          "forwardOnlySerialOverBatchRatio": 1.53273264537713,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 144,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 144,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 144,
+            "sliceRows": 576,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1024,
+            "kvMax": 1024,
+            "queryMin": 4,
+            "queryMax": 4,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 768,
+            "logicalKvMax": 1024
+          }
+        },
+        {
+          "rows": 8,
+          "evaluateUs": [
+            2034439,
+            2036404
+          ],
+          "medianEvaluateUs": 2035421.5,
+          "forwardOnlySerialOverBatchRatio": 1.6282747823976509,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 72,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 72,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 72,
+            "sliceRows": 576,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1024,
+            "kvMax": 1024,
+            "queryMin": 8,
+            "queryMax": 8,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 768,
+            "logicalKvMax": 1024
+          }
+        }
+      ]
+    },
+    {
+      "prefixTokens": 1066,
+      "attentionMode": 0,
+      "modeReferenceEqualsOriginal": true,
+      "originalAttention": {
+        "calls": 576,
+        "originalSplitCalls": 576,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 1280,
+        "kvMax": 1280,
+        "queryMin": 1,
+        "queryMax": 1,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUs": [
+            3572295,
+            3574209
+          ],
+          "medianEvaluateUs": 3573252.0,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 576,
+            "originalSplitCalls": 576,
+            "originalVectorCalls": 0,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1280,
+            "kvMax": 1280,
+            "queryMin": 1,
+            "queryMax": 1,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 2,
+          "evaluateUs": [
+            2600319,
+            2605478
+          ],
+          "medianEvaluateUs": 2602898.5,
+          "forwardOnlySerialOverBatchRatio": 1.3727972873317957,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            0,
+            0
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 288,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 288,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1280,
+            "kvMax": 1280,
+            "queryMin": 2,
+            "queryMax": 2,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 4,
+          "evaluateUs": [
+            2234210,
+            2229727
+          ],
+          "medianEvaluateUs": 2231968.5,
+          "forwardOnlySerialOverBatchRatio": 1.600941948777503,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            0,
+            0
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 144,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 144,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1280,
+            "kvMax": 1280,
+            "queryMin": 4,
+            "queryMax": 4,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 8,
+          "evaluateUs": [
+            2099215,
+            2092742
+          ],
+          "medianEvaluateUs": 2095978.5,
+          "forwardOnlySerialOverBatchRatio": 1.7048132888767704,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            0,
+            0
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 72,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 72,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1280,
+            "kvMax": 1280,
+            "queryMin": 8,
+            "queryMax": 8,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        }
+      ]
+    },
+    {
+      "prefixTokens": 1066,
+      "attentionMode": 2,
+      "modeReferenceEqualsOriginal": true,
+      "originalAttention": {
+        "calls": 576,
+        "originalSplitCalls": 576,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 1280,
+        "kvMax": 1280,
+        "queryMin": 1,
+        "queryMax": 1,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUs": [
+            3614679,
+            3564646
+          ],
+          "medianEvaluateUs": 3589662.5,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 576,
+            "originalSplitCalls": 576,
+            "originalVectorCalls": 0,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1280,
+            "kvMax": 1280,
+            "queryMin": 1,
+            "queryMax": 1,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 2,
+          "evaluateUs": [
+            3235938,
+            2807158
+          ],
+          "medianEvaluateUs": 3021548.0,
+          "forwardOnlySerialOverBatchRatio": 1.1880210077748228,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 288,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 288,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 288,
+            "sliceRows": 576,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1280,
+            "kvMax": 1280,
+            "queryMin": 2,
+            "queryMax": 2,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 1280,
+            "logicalKvMax": 1280
+          }
+        },
+        {
+          "rows": 4,
+          "evaluateUs": [
+            2440244,
+            2457785
+          ],
+          "medianEvaluateUs": 2449014.5,
+          "forwardOnlySerialOverBatchRatio": 1.4657579610083975,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 144,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 144,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 144,
+            "sliceRows": 576,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1280,
+            "kvMax": 1280,
+            "queryMin": 4,
+            "queryMax": 4,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 1280,
+            "logicalKvMax": 1280
+          }
+        },
+        {
+          "rows": 8,
+          "evaluateUs": [
+            2314350,
+            2311059
+          ],
+          "medianEvaluateUs": 2312704.5,
+          "forwardOnlySerialOverBatchRatio": 1.5521492261549195,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 72,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 72,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 72,
+            "sliceRows": 576,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1280,
+            "kvMax": 1280,
+            "queryMin": 8,
+            "queryMax": 8,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 1280,
+            "logicalKvMax": 1280
+          }
+        }
+      ]
+    },
+    {
+      "prefixTokens": 1666,
+      "attentionMode": 0,
+      "modeReferenceEqualsOriginal": true,
+      "originalAttention": {
+        "calls": 576,
+        "originalSplitCalls": 576,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 1792,
+        "kvMax": 1792,
+        "queryMin": 1,
+        "queryMax": 1,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUs": [
+            4066247,
+            4043079
+          ],
+          "medianEvaluateUs": 4054663.0,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 576,
+            "originalSplitCalls": 576,
+            "originalVectorCalls": 0,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1792,
+            "kvMax": 1792,
+            "queryMin": 1,
+            "queryMax": 1,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 2,
+          "evaluateUs": [
+            3188417,
+            3139211
+          ],
+          "medianEvaluateUs": 3163814.0,
+          "forwardOnlySerialOverBatchRatio": 1.2815743909092001,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            0,
+            0
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 288,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 288,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1792,
+            "kvMax": 1792,
+            "queryMin": 2,
+            "queryMax": 2,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 4,
+          "evaluateUs": [
+            2776327,
+            2776229
+          ],
+          "medianEvaluateUs": 2776278.0,
+          "forwardOnlySerialOverBatchRatio": 1.4604672154589706,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            0,
+            0
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 144,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 144,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1792,
+            "kvMax": 1792,
+            "queryMin": 4,
+            "queryMax": 4,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 8,
+          "evaluateUs": [
+            2639296,
+            2627089
+          ],
+          "medianEvaluateUs": 2633192.5,
+          "forwardOnlySerialOverBatchRatio": 1.5398277945877485,
+          "identicalToOriginal": [
+            0,
+            0
+          ],
+          "identicalToModeReference": [
+            0,
+            0
+          ],
+          "firstDifferentPosition": [
+            0,
+            0
+          ],
+          "attention": {
+            "calls": 72,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 72,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1792,
+            "kvMax": 1792,
+            "queryMin": 8,
+            "queryMax": 8,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        }
+      ]
+    },
+    {
+      "prefixTokens": 1666,
+      "attentionMode": 2,
+      "modeReferenceEqualsOriginal": true,
+      "originalAttention": {
+        "calls": 576,
+        "originalSplitCalls": 576,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 1792,
+        "kvMax": 1792,
+        "queryMin": 1,
+        "queryMax": 1,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      },
+      "batches": [
+        {
+          "rows": 1,
+          "evaluateUs": [
+            4078403,
+            4043226
+          ],
+          "medianEvaluateUs": 4060814.5,
+          "forwardOnlySerialOverBatchRatio": 1.0,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 576,
+            "originalSplitCalls": 576,
+            "originalVectorCalls": 0,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 0,
+            "sliceRows": 0,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1792,
+            "kvMax": 1792,
+            "queryMin": 1,
+            "queryMax": 1,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 0,
+            "logicalKvMax": 0
+          }
+        },
+        {
+          "rows": 2,
+          "evaluateUs": [
+            3352382,
+            3293130
+          ],
+          "medianEvaluateUs": 3322756.0,
+          "forwardOnlySerialOverBatchRatio": 1.222122388764026,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 288,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 288,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 288,
+            "sliceRows": 576,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1792,
+            "kvMax": 1792,
+            "queryMin": 2,
+            "queryMax": 2,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 1792,
+            "logicalKvMax": 1792
+          }
+        },
+        {
+          "rows": 4,
+          "evaluateUs": [
+            2931562,
+            2906698
+          ],
+          "medianEvaluateUs": 2919130.0,
+          "forwardOnlySerialOverBatchRatio": 1.391104370137678,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 144,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 144,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 144,
+            "sliceRows": 576,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1792,
+            "kvMax": 1792,
+            "queryMin": 4,
+            "queryMax": 4,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 1792,
+            "logicalKvMax": 1792
+          }
+        },
+        {
+          "rows": 8,
+          "evaluateUs": [
+            2775165,
+            2772704
+          ],
+          "medianEvaluateUs": 2773934.5,
+          "forwardOnlySerialOverBatchRatio": 1.4639186685914898,
+          "identicalToOriginal": [
+            16,
+            16
+          ],
+          "identicalToModeReference": [
+            16,
+            16
+          ],
+          "firstDifferentPosition": [
+            -1,
+            -1
+          ],
+          "attention": {
+            "calls": 72,
+            "originalSplitCalls": 0,
+            "originalVectorCalls": 72,
+            "originalTiledCalls": 0,
+            "forcedReferenceCalls": 0,
+            "slicedCalls": 72,
+            "sliceRows": 576,
+            "shapeRejections": 0,
+            "maskRejections": 0,
+            "scratchRejections": 0,
+            "kvMin": 1792,
+            "kvMax": 1792,
+            "queryMin": 8,
+            "queryMax": 8,
+            "threadsMin": 4,
+            "threadsMax": 4,
+            "logicalKvMin": 1792,
+            "logicalKvMax": 1792
+          }
+        }
+      ]
+    }
+  ],
+  "scope": "Bounded warm-page USB-powered synthetic Pixel study. Forward-only medians exclude sampling/emission/proposal. Not a user-visible or deployable drafter speed claim.",
+  "productSpeculationDepth": 0,
+  "productAdoption": false,
+  "candidateExactLogitVectors": 640,
+  "traceRun": "arm-attention-trace-20261001T213815Z-c16ccbea",
+  "traceReportSha256": "67901e6339330e3701eafa5c5f0e4ae5b3458e654961ef5d7ce31814b14f5493",
+  "traceReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T21:15:40.6288707Z",
+    "versionName": "0.16.0",
+    "versionCode": 18,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "372393d584f3bd97d04d0b2f39b1dc51b890278d2a01ae0b84e13bad66be777f",
+    "testSourcesSha256": "639684fbff2bd7118461237e39e2cae0872519fa397e31295be8b407b82daead",
+    "appSha256": "e5617e651fc2fb72cbc11496e982b0f9efa3025dc3975c0fa3c857fcf3a0ba5c",
+    "testApkSha256": "879cf303d2cf19d9ba75844adf833a8ef18f03dfe8ec62fe642bc1ec8ebf5de8",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "sampledComparisons": [
+    {
+      "depth": 1,
+      "fullTraceParity": true,
+      "textParity": true,
+      "firstDifferentSample": -1
+    },
+    {
+      "depth": 3,
+      "fullTraceParity": true,
+      "textParity": true,
+      "firstDifferentSample": -1
+    },
+    {
+      "depth": 7,
+      "fullTraceParity": true,
+      "textParity": true,
+      "firstDifferentSample": -1
+    }
+  ],
+  "generation": [
+    {
+      "id": "spec/warmup",
+      "oracle": false,
+      "tokens": 1,
+      "reason": 1,
+      "totalMs": 11503,
+      "firstTokenMs": 11502,
+      "prefillMs": 10962,
+      "decodeMs": 2,
+      "drafted": 0,
+      "accepted": 0,
+      "verifyPasses": 0,
+      "rejectedWindows": 0,
+      "disabledByCost": false,
+      "attention": {
+        "calls": 0,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 0,
+        "kvMax": 0,
+        "queryMin": 0,
+        "queryMax": 0,
+        "threadsMin": 0,
+        "threadsMax": 0,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      }
+    },
+    {
+      "id": "spec/plain",
+      "oracle": false,
+      "tokens": 64,
+      "reason": 1,
+      "totalMs": 20548,
+      "firstTokenMs": 10401,
+      "prefillMs": 10235,
+      "decodeMs": 10147,
+      "drafted": 0,
+      "accepted": 0,
+      "verifyPasses": 0,
+      "rejectedWindows": 0,
+      "disabledByCost": false,
+      "attention": {
+        "calls": 0,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 0,
+        "kvMax": 0,
+        "queryMin": 0,
+        "queryMax": 0,
+        "threadsMin": 0,
+        "threadsMax": 0,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      }
+    },
+    {
+      "id": "spec/oracle1",
+      "oracle": true,
+      "tokens": 64,
+      "reason": 1,
+      "totalMs": 20477,
+      "firstTokenMs": 12164,
+      "prefillMs": 11988,
+      "decodeMs": 8315,
+      "drafted": 31,
+      "accepted": 31,
+      "verifyPasses": 31,
+      "rejectedWindows": 0,
+      "disabledByCost": false,
+      "attention": {
+        "calls": 1116,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 1116,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 1116,
+        "sliceRows": 2232,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 512,
+        "kvMax": 512,
+        "queryMin": 2,
+        "queryMax": 2,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 512,
+        "logicalKvMax": 512
+      }
+    },
+    {
+      "id": "spec/oracle3",
+      "oracle": true,
+      "tokens": 64,
+      "reason": 1,
+      "totalMs": 19793,
+      "firstTokenMs": 12913,
+      "prefillMs": 12732,
+      "decodeMs": 6881,
+      "drafted": 47,
+      "accepted": 47,
+      "verifyPasses": 16,
+      "rejectedWindows": 0,
+      "disabledByCost": false,
+      "attention": {
+        "calls": 576,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 576,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 576,
+        "sliceRows": 2268,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 512,
+        "kvMax": 512,
+        "queryMin": 3,
+        "queryMax": 4,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 512,
+        "logicalKvMax": 512
+      }
+    },
+    {
+      "id": "spec/oracle7",
+      "oracle": true,
+      "tokens": 64,
+      "reason": 1,
+      "totalMs": 19715,
+      "firstTokenMs": 13306,
+      "prefillMs": 13127,
+      "decodeMs": 6410,
+      "drafted": 55,
+      "accepted": 55,
+      "verifyPasses": 8,
+      "rejectedWindows": 0,
+      "disabledByCost": false,
+      "attention": {
+        "calls": 288,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 288,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 288,
+        "sliceRows": 2268,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 512,
+        "kvMax": 512,
+        "queryMin": 7,
+        "queryMax": 8,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 512,
+        "logicalKvMax": 512
+      }
+    },
+    {
+      "id": "spec/request-lookup",
+      "oracle": false,
+      "tokens": 64,
+      "reason": 1,
+      "totalMs": 27972,
+      "firstTokenMs": 16473,
+      "prefillMs": 16287,
+      "decodeMs": 11499,
+      "drafted": 18,
+      "accepted": 10,
+      "verifyPasses": 6,
+      "rejectedWindows": 3,
+      "disabledByCost": false,
+      "attention": {
+        "calls": 216,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 216,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 216,
+        "sliceRows": 864,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 512,
+        "kvMax": 512,
+        "queryMin": 4,
+        "queryMax": 4,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 512,
+        "logicalKvMax": 512
+      }
+    },
+    {
+      "id": "spec/wrong-proposals",
+      "oracle": true,
+      "tokens": 32,
+      "reason": 1,
+      "totalMs": 27889,
+      "firstTokenMs": 14440,
+      "prefillMs": 14265,
+      "decodeMs": 13450,
+      "drafted": 87,
+      "accepted": 0,
+      "verifyPasses": 30,
+      "rejectedWindows": 30,
+      "disabledByCost": false,
+      "attention": {
+        "calls": 1080,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 1080,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 1080,
+        "sliceRows": 4212,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 512,
+        "kvMax": 512,
+        "queryMin": 2,
+        "queryMax": 4,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 512,
+        "logicalKvMax": 512
+      }
+    },
+    {
+      "id": "spec/cancel",
+      "oracle": true,
+      "tokens": 3,
+      "reason": 2,
+      "totalMs": 14947,
+      "firstTokenMs": 14129,
+      "prefillMs": 13950,
+      "decodeMs": 819,
+      "drafted": 7,
+      "accepted": 7,
+      "verifyPasses": 1,
+      "rejectedWindows": 0,
+      "disabledByCost": false,
+      "attention": {
+        "calls": 36,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 36,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 36,
+        "sliceRows": 288,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 512,
+        "kvMax": 512,
+        "queryMin": 8,
+        "queryMax": 8,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 512,
+        "logicalKvMax": 512
+      }
+    },
+    {
+      "id": "spec/recovery",
+      "oracle": false,
+      "tokens": 64,
+      "reason": 1,
+      "totalMs": 27661,
+      "firstTokenMs": 16201,
+      "prefillMs": 16023,
+      "decodeMs": 11462,
+      "drafted": 0,
+      "accepted": 0,
+      "verifyPasses": 0,
+      "rejectedWindows": 0,
+      "disabledByCost": false,
+      "attention": {
+        "calls": 0,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 0,
+        "kvMax": 0,
+        "queryMin": 0,
+        "queryMax": 0,
+        "threadsMin": 0,
+        "threadsMax": 0,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      }
+    },
+    {
+      "id": "spec/exact-cache",
+      "oracle": false,
+      "tokens": 64,
+      "reason": 1,
+      "totalMs": 11415,
+      "firstTokenMs": 7,
+      "prefillMs": 0,
+      "decodeMs": 11410,
+      "drafted": 0,
+      "accepted": 0,
+      "verifyPasses": 0,
+      "rejectedWindows": 0,
+      "disabledByCost": false,
+      "attention": {
+        "calls": 0,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 0,
+        "kvMax": 0,
+        "queryMin": 0,
+        "queryMax": 0,
+        "threadsMin": 0,
+        "threadsMax": 0,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      }
+    },
+    {
+      "id": "edges/eos-plain",
+      "oracle": false,
+      "tokens": 2,
+      "reason": 0,
+      "totalMs": 9568,
+      "firstTokenMs": 9244,
+      "prefillMs": 9065,
+      "decodeMs": 326,
+      "drafted": 0,
+      "accepted": 0,
+      "verifyPasses": 0,
+      "rejectedWindows": 0,
+      "disabledByCost": false,
+      "attention": {
+        "calls": 0,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 0,
+        "kvMax": 0,
+        "queryMin": 0,
+        "queryMax": 0,
+        "threadsMin": 0,
+        "threadsMax": 0,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      }
+    },
+    {
+      "id": "edges/eos-oracle",
+      "oracle": true,
+      "tokens": 2,
+      "reason": 0,
+      "totalMs": 9564,
+      "firstTokenMs": 9335,
+      "prefillMs": 9157,
+      "decodeMs": 231,
+      "drafted": 1,
+      "accepted": 1,
+      "verifyPasses": 1,
+      "rejectedWindows": 0,
+      "disabledByCost": false,
+      "attention": {
+        "calls": 36,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 36,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 36,
+        "sliceRows": 72,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 256,
+        "kvMax": 256,
+        "queryMin": 2,
+        "queryMax": 2,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 256,
+        "logicalKvMax": 256
+      }
+    },
+    {
+      "id": "edges/cache-after-verification",
+      "oracle": false,
+      "tokens": 2,
+      "reason": 0,
+      "totalMs": 339,
+      "firstTokenMs": 6,
+      "prefillMs": 0,
+      "decodeMs": 334,
+      "drafted": 0,
+      "accepted": 0,
+      "verifyPasses": 0,
+      "rejectedWindows": 0,
+      "disabledByCost": false,
+      "attention": {
+        "calls": 0,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 0,
+        "kvMax": 0,
+        "queryMin": 0,
+        "queryMax": 0,
+        "threadsMin": 0,
+        "threadsMax": 0,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      }
+    },
+    {
+      "id": "edges/controller-reference",
+      "oracle": false,
+      "tokens": 32,
+      "reason": 1,
+      "totalMs": 20173,
+      "firstTokenMs": 14554,
+      "prefillMs": 14377,
+      "decodeMs": 5620,
+      "drafted": 0,
+      "accepted": 0,
+      "verifyPasses": 0,
+      "rejectedWindows": 0,
+      "disabledByCost": false,
+      "attention": {
+        "calls": 0,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 0,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 0,
+        "sliceRows": 0,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 0,
+        "kvMax": 0,
+        "queryMin": 0,
+        "queryMax": 0,
+        "threadsMin": 0,
+        "threadsMax": 0,
+        "logicalKvMin": 0,
+        "logicalKvMax": 0
+      }
+    },
+    {
+      "id": "edges/adaptive-wrong",
+      "oracle": true,
+      "tokens": 32,
+      "reason": 1,
+      "totalMs": 20857,
+      "firstTokenMs": 14413,
+      "prefillMs": 14237,
+      "decodeMs": 6444,
+      "drafted": 9,
+      "accepted": 0,
+      "verifyPasses": 3,
+      "rejectedWindows": 3,
+      "disabledByCost": true,
+      "attention": {
+        "calls": 108,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 108,
+        "originalTiledCalls": 0,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 108,
+        "sliceRows": 432,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 512,
+        "kvMax": 512,
+        "queryMin": 4,
+        "queryMax": 4,
+        "threadsMin": 4,
+        "threadsMax": 4,
+        "logicalKvMin": 512,
+        "logicalKvMax": 512
+      }
+    }
+  ],
+  "sampledParityPassed": true,
+  "adaptiveCostCheck": {
+    "windows": 3,
+    "disabled": true,
+    "plainEwmaUs": 180892.51450314326,
+    "windowUs": 1341552,
+    "windowCommitted": 3
+  },
+  "unchangedNormalBaselineRun": "arm-spec-trace-20261001T172327Z-3fde5ca0",
+  "unchangedNormalBaselinePassed": true
+}

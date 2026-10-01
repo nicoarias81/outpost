@@ -35,3 +35,4 @@ gradlew.bat text eol=crlf
 /evidence/research/row-schedule-20261001/** -text whitespace=cr-at-eol
 /evidence/runs/x86-regression-*/*.log whitespace=cr-at-eol,-blank-at-eof
 /evidence/research/spec-study-20261001/** -text whitespace=cr-at-eol
+/evidence/research/attention-study-20261001/** -text whitespace=cr-at-eol

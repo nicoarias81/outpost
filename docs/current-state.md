@@ -4,7 +4,7 @@
 
 The owner authorized the connected Pixel 10 Pro on 2026-10-01. [The Pixel protocol](pixel10-testing.md) records preparation, run identities and current physical validation status. Historical emulator results below are not phone results.
 
-Current checkout also contains [speculation diagnostics](speculation-pixel-2026-10-01.md). Their research APK differs from the installed/published frozen 0.16 product. Numerical admission failed for larger-context verification, so speculation remains disabled; read the handoff before installing or using -SkipInstall.
+Current checkout contains an [opt-in attention parity repair](attention-parity-2026-10-01.md): 640 curve logit vectors and bounded sampled/lifecycle checks match the original serial reference. Its research APK differs from the installed/published frozen 0.16 product. Product speculation stays disabled pending representative end-to-end benefit and a measured-cost policy; read the handoff before installing or using -SkipInstall.
 
 ## Capability inventory
 

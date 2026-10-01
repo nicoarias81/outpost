@@ -2,6 +2,12 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## Post-0.16 attention parity repair — 2026-10-01
+
+- Isolated single-query split-KV versus batched attention reduction and 256-cell padding boundaries on the registered Pixel.
+- Added an opt-in owned attention wrapper that preserves original serial arithmetic per query, with layout/mask/scratch guards and synchronized scratch reuse.
+- Matched 640 whole-model logit vectors and bounded sampled/EOS/rejection/cancellation/cache controls; preserved original normal-generation and x86 behavior. Restored device data/APKs; product speculation remains disabled pending real end-to-end benefit.
+
 ## Post-0.16 speculation research - 2026-10-01
 
 - Added complete target-sample traces and consistent whole-round cost accounting, including un-emitted EOS/cancelled decisions.

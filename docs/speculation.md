@@ -6,7 +6,7 @@ Status in Outpost 0.16: context speculation exists only as native research funct
 
 The [2026-10-01 study](speculation-pixel-2026-10-01.md) completes speculative target-sample tracing and consistent whole-round costs, including proposal, sampling, rollback and callback work. Hash/trace overhead is reported separately; interrupted/terminal rounds are excluded from controller learning. Current build outputs are research artifacts; the frozen 0.16 product remains installed with depth 0.
 
-The trace/curve/edge suites pass execution controls while the numerical admission gate fails: short-prefix 16-position checks agree, larger-prefix batch logits differ even with 4 verify workers, and oracle-driven sampled answers change. The next prerequisite is attention-path parity, not a trained drafter or a relaxed gate. Historical timings below remain unchanged.
+The initial trace/curve/edge suites reproduced larger-prefix logit drift and changed oracle-driven text. The subsequent [TND-02b attention repair](attention-parity-2026-10-01.md) preserves all 640 candidate logit vectors and the bounded sampled/lifecycle controls by retaining original serial attention arithmetic per query. No trained drafter or relaxed numerical gate is introduced. Product adoption still requires measured real-proposal benefit; historical timings below remain unchanged.
 
 ## Implemented algorithm
 
