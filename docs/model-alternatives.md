@@ -1,10 +1,10 @@
-# Mobile model alternatives — 2026-09-30
+# Mobile model alternatives — reviewed 2026-09-30, updated 2026-10-01
 
 **Research status, not a new runtime release.** Outpost remains 0.14.0 at source checkpoint `511d6af`, with its three existing generator pins. Bonsai is a measured baseline, not a permanent architectural requirement. This review inspected public model cards/configurations, publisher artifact metadata and the pinned local backend. No new weights were downloaded, no model was executed, and no phone was used. The [metadata snapshot](../evidence/research/model-survey-20260930/survey-metadata.json) records revisions, source hashes, artifact sizes and failed discovery requests; the [candidate manifest](../evidence/research/model-survey-20260930/candidates.json) is research input, not an import allowlist.
 
 ## Recommended comparison order
 
-Start with **LFM2.5-1.2B-Instruct QAD Q4_0** and **Qwen3.5-2B Q4_K_M**, against the current Bonsai 4B and Qwen2.5 1.5B. They test two useful hypotheses: a smaller model optimized for using supplied evidence, and a newer general model at similar storage cost to Bonsai. Add **LFM2.5-2.6B QAD Q4_0** if the smaller LFM loses too much quality; add **Gemma 4 E2B QAT** as a separate higher-memory candidate. Select by completed practical tasks, source fidelity, latency and peak memory together. There is no measured winner yet.
+Start with **LFM2.5-1.2B-Instruct QAD Q4_0**, **Qwen3.5-2B Q4_K_M** and **Spark-X2.5-1.7B Q4_K_M**, against the current Bonsai 4B and Qwen2.5 1.5B. They test compact evidence-driven generation, general synthesis and an additional sliding/full-attention architecture at comparable storage cost. The [October 1 Spark review](spark-x25-storage-review.md) adds the third candidate and identifies its formatting gate; the September metadata snapshot remains unchanged. Add **LFM2.5-2.6B QAD Q4_0** if the smaller LFM loses too much quality; add **Gemma 4 E2B QAT** as a separate higher-memory candidate. Select by completed practical tasks, source fidelity, latency and peak memory together. There is no measured winner yet.
 
 All sizes below are **decimal GB of the named GGUF file**, not RAM. New-model sizes/SHA-256 values come from the publisher's HF LFS metadata and have not been verified by downloading full files. Existing Bonsai/Qwen2.5 values come from Outpost's verified locks. Unsloth publishes the listed Qwen conversions; Qwen publishes the underlying checkpoints. Conversion provenance still needs checking before admission.
 
@@ -15,6 +15,8 @@ All sizes below are **decimal GB of the named GGUF file**, not RAM. New-model si
 | Qwen2.5 1.5B Q4_K_M | 1.117 GB | Existing conventional-quantization control | Older model, different sampler | Control |
 | LFM2.5-1.2B-Instruct QAD Q4_0 | 0.696 GB | Text-only, compact, evidence-driven assistant candidate | Hybrid convolution/attention state, template and sampler; LFM license | First |
 | Qwen3.5-2B Q4_K_M | 1.281 GB | General knowledge and supplied-document synthesis candidate | Recurrent/attention hybrid; template/no-thinking and cache validation | First |
+| Spark-X2.5-1.7B Q4_K_M | 1.107 GB | Official compact model with sliding/full attention | Explicit Spark formatting/no-thinking adapter and sliding-cache checks | First, added October 1 |
+| Spark-X2.5-4B Q4_K_M | 2.600 GB | Larger sibling for a quality follow-up | Same formatting gate, greater weight bandwidth; no measured advantage | Conditional |
 | LFM2.5-2.6B QAD Q4_0 | 1.594 GB | More capacity while retaining the hybrid design | Larger than 1.2B; not identical to older LFM2-2.6B | Second |
 | Gemma 4 E2B QAT Q4_0 | 3.350 GB | Mobile-oriented architecture; trained assistant available | Effective size excludes large lookup embeddings; new formatting and cache behavior | Second, memory lane |
 | Qwen3-4B-Instruct-2507 Q4_K_M | 2.497 GB | Same broad dense Qwen3 family as Bonsai; non-thinking control | More storage/bandwidth; this is not a quantization-only ablation of Bonsai | Diagnostic |
@@ -64,6 +66,8 @@ The inventory found a **296M LFM2.5 1.2B DSpark drafter** and a **roughly 78M Ge
 [Engram review](engram-review.md) separates trained conditional memory, source retrieval, conversation memory and exact response caches. It is a conditional architecture experiment, not an immediate Bonsai optimization. LFM2.5-Embedding-350M is also pinned for a possible **retrieval** experiment; its bidirectional graph/pooling/index cost is separate from generator support and no encoder was integrated.
 
 ## Emulator experiment contract
+
+Spark artifact sizes above are from the separate [October metadata](../evidence/research/spark-x25-20261001/candidates.json); the official files have not been downloaded or admitted. The [storage review](spark-x25-storage-review.md) also adds residency/I/O profiling, without importing DGX NVMe settings into Android.
 
 **Planned, not executed.** E-07 owns candidate admission and E-05 owns answer comparison. Preserve both the measured Bonsai profile and the conservative defaults as identified controls.
 

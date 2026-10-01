@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "baseline_commit": "a6742d5",
+  "role": "Research shortlist, not production allowlist",
+  "candidates": [
+    {
+      "repo": "XHToken/Spark-X2.5-1.7B-GGUF",
+      "revision": "1f7fa33b1245c14730da39e125714ad3a327901b",
+      "filename": "Spark-X2.5-1.7B-Q4_K_M.gguf",
+      "bytes": 1107457856,
+      "sha256_from_publisher": "902bde2522394954ac17821b3e5fd0df02defbc6944f122253f2580acf0503f4",
+      "url": "https://huggingface.co/XHToken/Spark-X2.5-1.7B-GGUF/resolve/1f7fa33b1245c14730da39e125714ad3a327901b/Spark-X2.5-1.7B-Q4_K_M.gguf",
+      "priority": "first small-model comparison",
+      "status": "not downloaded, admitted or executed; static metadata only"
+    },
+    {
+      "repo": "XHToken/Spark-X2.5-4B-GGUF",
+      "revision": "9826e0be84e6e6e8b9668abc91421109a1df1e2d",
+      "filename": "Spark-X2.5-4B-Q4_K_M.gguf",
+      "bytes": 2600224352,
+      "sha256_from_publisher": "adfcfa19a4ed6a5985da8bf565fe15f8e1a7e131d79bae2d19d48d1c40109428",
+      "url": "https://huggingface.co/XHToken/Spark-X2.5-4B-GGUF/resolve/9826e0be84e6e6e8b9668abc91421109a1df1e2d/Spark-X2.5-4B-Q4_K_M.gguf",
+      "priority": "follow-up after 1.7B admission",
+      "status": "not downloaded, admitted or executed; static metadata only"
+    }
+  ]
+}

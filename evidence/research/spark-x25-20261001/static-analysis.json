@@ -1,0 +1,91 @@
+{
+  "baseline_commit": "a6742d5",
+  "backend_revision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+  "method": "Static model config and source inspection; no model/template/numerical runtime execution",
+  "source_files": [
+    {
+      "path": ".local/llama.cpp/src/llama-arch.cpp",
+      "bytes": 84305,
+      "sha256": "4940cb857da9d9e0e12e9365ca6674370a3300cb51350f6902684ae7ba7defa6"
+    },
+    {
+      "path": ".local/llama.cpp/src/llama-model.cpp",
+      "bytes": 162382,
+      "sha256": "1d5ca76dff826368d56eb2774f5e5f9c6281291a154e830e2cab94cbd9606309"
+    },
+    {
+      "path": ".local/llama.cpp/src/models/spark2-5.cpp",
+      "bytes": 6363,
+      "sha256": "ccc39dcddea0bbfab3adf522e20e583f7a6bded8b1448e99ed8e766249567a1e"
+    },
+    {
+      "path": ".local/llama.cpp/conversion/spark2_5.py",
+      "bytes": 2941,
+      "sha256": "73cadaf8fe62ab32cb3b83a75707ff6d4a985a8e96f2ee8fd107f7a03642b67a"
+    },
+    {
+      "path": ".local/llama.cpp/src/llama-chat.cpp",
+      "bytes": 42829,
+      "sha256": "57ef4408dce79bc2b2ccc1cd2c82bcbc8c7be186f1113db9dfaa7dcc4cc0a6be"
+    },
+    {
+      "path": "app/src/main/cpp/engine.cpp",
+      "bytes": 42261,
+      "sha256": "e8c84de905a5ac882568f1ec7ecceaf972852faa4921495384c64da1992bb838"
+    },
+    {
+      "path": "app/src/main/java/dev/outpost/app/ModelStore.java",
+      "bytes": 4544,
+      "sha256": "14f2d0c1f02aacffd7dfccda297fe81a46e2a5ddd291fe6e45f0f496c8cef273"
+    }
+  ],
+  "kv_scenarios": [
+    {
+      "repo": "XHToken/Spark-X2.5-1.7B",
+      "full_layers": 7,
+      "sliding_layers": 21,
+      "kv_heads": 2,
+      "head_dim": 256,
+      "context": 2048,
+      "sliding_window": 512,
+      "logical_f16_kv_bytes": 51380224,
+      "logical_f16_kv_MiB": 49.0
+    },
+    {
+      "repo": "XHToken/Spark-X2.5-4B",
+      "full_layers": 9,
+      "sliding_layers": 27,
+      "kv_heads": 4,
+      "head_dim": 256,
+      "context": 2048,
+      "sliding_window": 512,
+      "logical_f16_kv_bytes": 132120576,
+      "logical_f16_kv_MiB": 126.0
+    }
+  ],
+  "kv_scope": "Logical F16 K and V only, assuming compact sliding-window retention. Excludes padding, actual allocator/cache capacity, weights, scratch and application memory. Not peak RAM.",
+  "storage_scenarios": [
+    {
+      "exposed_storage_fraction": 0.1,
+      "io_speedup_assumption": 3.5,
+      "whole_token_speedup": 1.0769230769230769
+    },
+    {
+      "exposed_storage_fraction": 0.5,
+      "io_speedup_assumption": 3.5,
+      "whole_token_speedup": 1.5555555555555558
+    },
+    {
+      "exposed_storage_fraction": 0.9,
+      "io_speedup_assumption": 3.5,
+      "whole_token_speedup": 2.8
+    }
+  ],
+  "storage_scope": "Amdahl arithmetic only; fractions not measured. User-reported drive results are not Outpost evidence.",
+  "findings": [
+    "Backend architecture, converter and graph present for spark2_5.",
+    "Captured HF template uses System/User/Bot and custom sentence delimiters; inspected built-in chat formatter has no Spark handler. Exact GGUF formatting still needs validation.",
+    "No Engram/PLE table established by inspected Spark config/graph.",
+    "Tokenizer max length 131072 differs from config max_position_embeddings 1048576; Outpost remains 2048."
+  ]
+}

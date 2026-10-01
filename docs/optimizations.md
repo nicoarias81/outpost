@@ -87,3 +87,7 @@ The original decode-only two/four-row candidates passed numerical checks but did
 ## Model and trained-memory alternatives
 
 The [model survey](model-alternatives.md) expands optimization beyond Bonsai Q2 kernels: compact QAD checkpoints, hybrid models, lookup-heavy Gemma variants and target-specific trained drafters. These are source/config research findings, not performance results. Preserve per-model/kernel profiles and compare full task completion plus memory before promotion. [Engram](engram-review.md) requires trained weights; its server offload results are not an Android optimization claim.
+
+## Storage and model admission follow-up — 2026-10-01
+
+The [Spark-X2.5/storage review](spark-x25-storage-review.md) adds an official small-model candidate and a proposed P-07 study of memory residency and storage stalls. Sequential bandwidth, file size and active parameters cannot establish random-lookup latency. The user-reported NVMe A/B/A timings remain external unverified observations, not Outpost results; no host/device tuning or runtime experiment was performed.

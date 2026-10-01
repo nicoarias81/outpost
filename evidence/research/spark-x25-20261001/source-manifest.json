@@ -1,0 +1,65 @@
+{
+  "captured_utc": "2026-10-01T06:22:54.640786+00:00",
+  "repository": "XHToken/Spark-X2.5",
+  "commit": "a24ca4e6366f60b8e14211af50dfbd75d089be5c",
+  "default_branch": "main",
+  "license_api": {
+    "key": "apache-2.0",
+    "name": "Apache License 2.0",
+    "spdx_id": "Apache-2.0",
+    "url": "https://api.github.com/licenses/apache-2.0",
+    "node_id": "MDc6TGljZW5zZTI="
+  },
+  "repository_source": {
+    "url": "https://api.github.com/repos/XHToken/Spark-X2.5",
+    "bytes": 6386,
+    "sha256": "f19cceacb5f11595338ae2b59dcf0f34d825161e3a657d4184ebf0cc30ab928e"
+  },
+  "commit_source": {
+    "url": "https://api.github.com/repos/XHToken/Spark-X2.5/commits/main",
+    "bytes": 4310,
+    "sha256": "828ecf848040d6ebe8637d4a3b01ea5780761ec83317328b578b35111f79fd68"
+  },
+  "tree_source": {
+    "url": "https://api.github.com/repos/XHToken/Spark-X2.5/git/trees/a24ca4e6366f60b8e14211af50dfbd75d089be5c?recursive=1",
+    "bytes": 1952,
+    "sha256": "975d94f3325761776ee4630fc347da91131cad1b56609b865532043e24f7b74d"
+  },
+  "files": [
+    {
+      "url": "https://raw.githubusercontent.com/XHToken/Spark-X2.5/a24ca4e6366f60b8e14211af50dfbd75d089be5c/README.md",
+      "bytes": 23742,
+      "sha256": "1ca45fa5939ebe82afed90cace185b369c279645bb1c6231f03c50140a980763",
+      "file": "README.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/XHToken/Spark-X2.5/a24ca4e6366f60b8e14211af50dfbd75d089be5c/LICENSE",
+      "bytes": 11345,
+      "sha256": "cc2f8e468cb7bc042c9ceec146612c6235b777b30ea6bdc43924616714be82b9",
+      "file": "LICENSE"
+    }
+  ],
+  "storage_sources": [
+    {
+      "url": "https://docs.nvidia.com/dgx/dgx-os-7-user-guide/additional_software.html",
+      "bytes": 78657,
+      "sha256": "160463bf0db5a2ce3cc735830483fbde498ac33671b7ad6a3aed70aa973053e0"
+    },
+    {
+      "url": "https://docs.nvidia.com/dgx/baseos-9-user-guide/latest/upgrading-baseos.html",
+      "bytes": 40950,
+      "sha256": "f6a4a92448217bb68ff3c89704e561df084e4e9f0c79825afb122fde83c20121"
+    },
+    {
+      "url": "https://docs.nvidia.com/dgx/dgx-spark/release-notes.html",
+      "bytes": 35390,
+      "sha256": "7889f6eb47c37495a82ae62be5dd48f5621fd7216de4678a35153e307da7402f"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/linux-nvme/libnvme/01ede320a30ef2094ab4d3fb072cea64f6bf6ecc/src/nvme/types.h",
+      "commit": "01ede320a30ef2094ab4d3fb072cea64f6bf6ecc",
+      "bytes": 393823,
+      "sha256": "e3006b0f66521516e45e85103901df395a61aec2af1ce786d103abd08338e916"
+    }
+  ]
+}

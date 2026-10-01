@@ -1,0 +1,37 @@
+{
+  "source": "User-pasted PSA, received 2026-10-01; original post URL/author and raw data not supplied",
+  "verification": "Not independently reproduced; official documentation corroborates service/policy only",
+  "reported_hardware": "two Samsung PM9E1 NVMe drives in DGX Spark context",
+  "reported_io": {
+    "reads": 20000,
+    "size_bytes": 4096,
+    "queue_depth": 1,
+    "direct_io": true,
+    "io_engine": "unspecified",
+    "read_count_per_stage": "unspecified"
+  },
+  "reported_sequence": [
+    {
+      "coalescing": "on",
+      "latency_us_approx": 200
+    },
+    {
+      "coalescing": "off",
+      "latency_us_range": [
+        55,
+        57
+      ]
+    },
+    {
+      "coalescing": "on again",
+      "latency_us_approx": 200
+    }
+  ],
+  "statistic_and_percentiles": "not supplied",
+  "other_unverified_claims": [
+    "Factory coalescing OFF on those units",
+    "Threshold of eight completions in applied configuration",
+    "SparkNest preference for older drives due to this setting"
+  ],
+  "no_claim": "No measured tokens-per-second gain, Android effect or generalized SSD ranking"
+}

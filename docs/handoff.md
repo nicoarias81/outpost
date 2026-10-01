@@ -1,6 +1,6 @@
 # Engineering handoff — start here
 
-Updated **2026-09-30**, baseline **Outpost 0.14.0 / code 16**. The 0.13 place-query slice adds deterministic place answers, a v6 evaluation identity and full-ABI validation. Version 0.14 adds guarded row reuse and phase-separated runtime profiles. The general chat prompt/model pins remain unchanged. [Kernel record](kernel-rows-0.14.md) separates rejected candidates from the measured prefill-only profile. Read the validation record for precise artifact/run identities. Read [current state](current-state.md), [validation](validation-0.14.md), then the owning domain guide in [the index](index.md).
+Updated **2026-10-01**, baseline **Outpost 0.14.0 / code 16**. The 0.13 place-query slice adds deterministic place answers, a v6 evaluation identity and full-ABI validation. Version 0.14 adds guarded row reuse and phase-separated runtime profiles. The general chat prompt/model pins remain unchanged. [Kernel record](kernel-rows-0.14.md) separates rejected candidates from the measured prefill-only profile. Read the validation record for precise artifact/run identities. Read [current state](current-state.md), [validation](validation-0.14.md), then the owning domain guide in [the index](index.md).
 
 ## Scope and persistent constraints
 
@@ -46,13 +46,17 @@ The test-only `FolderDocumentsProvider` stays registered and protected by MANAGE
 
 ## Model-selection research checkpoint
 
-The owner requested alternatives to Bonsai and exploration of Engram. The [model survey](model-alternatives.md) prioritizes LFM2.5-1.2B QAD and Qwen3.5-2B, then LFM2.5-2.6B and Gemma 4 E2B. Public revisions/artifact metadata and pinned-backend static compatibility are recorded; no candidate weights were downloaded or executed. E-07 covers research admission; E-05 remains the answer comparison. New profiles need template/sampler and hybrid-state lifecycle validation despite backend architecture support. Production pins, selected model, APK and emulator state were not changed by this research.
+The owner requested alternatives to Bonsai and exploration of Engram. The [model survey](model-alternatives.md) prioritizes LFM2.5-1.2B QAD, Qwen3.5-2B and Spark-X2.5-1.7B, then LFM2.5-2.6B and Gemma 4 E2B. Public revisions/artifact metadata and pinned-backend static compatibility are recorded; no candidate weights were downloaded or executed. E-07 covers research admission; E-05 remains the answer comparison. New profiles need template/sampler and hybrid-state lifecycle validation despite backend architecture support. Production pins, selected model, APK and emulator state were not changed by this research.
 
 [Engram](engram-review.md) is trained conditional memory, distinct from imported evidence and mission memory. The inspected official demo is not a small trained checkpoint; X-07 is conditional. Published LFM DSpark and Gemma assistants make X-01 more concrete for those targets, without providing a Bonsai MTP head or Android speed evidence. Preserve the emulator-only constraint.
 
 ## Answer-pipeline observability research
 
 The [NeMo Relay review](nemo-relay-review.md) pins upstream source at `872972c600599a6e9085c4e1799d07b980a1dab5` and maps its lifecycle-tracing method onto Outpost. E-08 proposes local correlated traces for route selection, retrieval fallback, source clipping, native generation, persistence and visible completion, with separate quality review. No Relay SDK, exporter, new trace implementation or network endpoint was added. Existing native timings/run identities remain intact; E-07 model admission can proceed independently.
+
+## Spark-X2.5 and storage research checkpoint
+
+The [October 1 review](spark-x25-storage-review.md) pins official Spark-X2.5 model/config/GGUF metadata and adds 1.7B to E-07/E-05. The backend graph exists, but the inspected built-in chat formatter lacks Spark support; validate exact GGUF formatting before execution. The NVMe PSA is recorded as an unverified user report: NVIDIA documentation confirms the boot policy, not those measured latency values or universal effective settings. P-07 proposes emulator-bounded residency/storage profiling. No model weights, NVMe commands, host storage changes, model execution or phone work occurred.
 
 ## Next work and known gaps
 

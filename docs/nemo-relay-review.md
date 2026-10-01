@@ -60,3 +60,7 @@ Relay's `enable_full_payloads=false` is **not a no-content switch**: its pinned 
 4. Optimize task completion first, then explain cost through branch choice, retries, clipping, model calls and elapsed time. If a fallback recovers useful evidence but takes longer, record both effects. Compare complete-answer latency and failures alongside tokens/s; no phone energy inference from emulator timings.
 
 **Adoption decision:** borrow the method now as a documented next experiment; defer embedding the SDK until Android support, footprint, lifecycle and interoperability have evidence. E-07 model admission can proceed independently. E-08 is valuable before making causal claims about why one model or harness policy performs better. No speedup, trace format conformance or implementation result is claimed by this review.
+
+## Residency/I/O correlation follow-up — 2026-10-01
+
+[P-07 in the Spark-X2.5/storage review](spark-x25-storage-review.md) proposes correlating residency/fault/I/O observations with E-08 turn traces. Separate model compute from exposed storage wait and preserve unavailable-counter status. Per-token trace emission and asynchronous exporters can themselves perturb latency; measure overhead before drawing conclusions. The NVMe report supplies a hypothesis, not a reproduced phone/emulator measurement.

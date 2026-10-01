@@ -1,0 +1,436 @@
+{
+  "captured_utc": "2026-10-01T06:24:41.878579+00:00",
+  "scope": "Public model metadata and source inspection; no weights fetched or code/model execution. LFS hashes are expected publisher identities, not locally verified tensor bytes.",
+  "models": [
+    {
+      "repo": "XHToken/Spark-X2.5-1.7B",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/XHToken/Spark-X2.5-1.7B?blobs=true",
+        "bytes": 13522,
+        "sha256": "e37561434ac97f3832b6e2c2585a6ac723ad266010fdd32afc08477d810c66c9"
+      },
+      "revision": "14d6e83c13c7add2b62a7c39b2131f4ed1cddcf8",
+      "license": "apache-2.0",
+      "parameter_metadata": {
+        "parameters": {
+          "BF16": 1707657216
+        },
+        "total": 1707657216
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/XHToken/Spark-X2.5-1.7B/resolve/14d6e83c13c7add2b62a7c39b2131f4ed1cddcf8/README.md",
+          "bytes": 23637,
+          "sha256": "ab5dcaa0eec542f2472019d60e65b4fbce92d3db7073ae067318f0e55a17fd39",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/XHToken/Spark-X2.5-1.7B/resolve/14d6e83c13c7add2b62a7c39b2131f4ed1cddcf8/LICENSE",
+          "bytes": 11338,
+          "sha256": "525c465ab952779d2d360a9ff36f7f49ae018a23d80302ff839a850a77784c36",
+          "file": "LICENSE"
+        },
+        {
+          "url": "https://huggingface.co/XHToken/Spark-X2.5-1.7B/resolve/14d6e83c13c7add2b62a7c39b2131f4ed1cddcf8/config.json",
+          "bytes": 1838,
+          "sha256": "16aa5d3619d0d893e7157f2499675430844eb7b383c80ecc1b3e8e8928a75d52",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/XHToken/Spark-X2.5-1.7B/resolve/14d6e83c13c7add2b62a7c39b2131f4ed1cddcf8/generation_config.json",
+          "bytes": 281,
+          "sha256": "804a5276a9d237600688267dd2bf6f9d4129ec21faf417f870d5d52b32ad9e6c",
+          "file": "generation_config.json"
+        },
+        {
+          "url": "https://huggingface.co/XHToken/Spark-X2.5-1.7B/resolve/14d6e83c13c7add2b62a7c39b2131f4ed1cddcf8/tokenizer_config.json",
+          "bytes": 4797,
+          "sha256": "0729b0aeb1b88e000687b51c72d5aece759233bb4f6fb353eb497676e04d43b0",
+          "file": "tokenizer_config.json"
+        }
+      ],
+      "config": {
+        "architectures": [
+          "Spark2_5ForCausalLM"
+        ],
+        "attention_bias": false,
+        "attention_dropout": 0.0,
+        "auto_map": {
+          "AutoConfig": "configuration_spark.Spark2_5Config",
+          "AutoModel": "modeling_spark.Spark2_5Model",
+          "AutoModelForCausalLM": "modeling_spark.Spark2_5ForCausalLM"
+        },
+        "bos_token_id": 0,
+        "dtype": "bfloat16",
+        "eos_token_id": 1,
+        "gate_attn_act_mode": "sigmoid",
+        "head_dim": 256,
+        "headwise_attn_output_gate": true,
+        "hidden_act": "gelu",
+        "hidden_size": 2048,
+        "initializer_range": 0.0221,
+        "intermediate_size": 6656,
+        "layer_types": [
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention"
+        ],
+        "max_position_embeddings": 1048576,
+        "mlp_bias": false,
+        "model_type": "spark2_5",
+        "num_attention_heads": 8,
+        "num_hidden_layers": 28,
+        "num_key_value_heads": 2,
+        "pad_token_id": 2,
+        "rms_norm_eps": 1e-06,
+        "rope_parameters": {
+          "full_attention": {
+            "partial_rotary_factor": 0.25,
+            "rope_theta": 5000000
+          },
+          "sliding_attention": {
+            "partial_rotary_factor": 1.0,
+            "rope_theta": 10000
+          }
+        },
+        "sliding_window": 512,
+        "tie_word_embeddings": true,
+        "transformers_version": "4.57.1",
+        "use_cache": true,
+        "vocab_size": 131072
+      },
+      "generation_config": {
+        "bos_token_id": 0,
+        "eos_token_id": 1,
+        "pad_token_id": 2,
+        "max_tokens": 1048576,
+        "temperature": 1.0,
+        "top_p": 0.95,
+        "top_k": -1,
+        "repetition_penalty": 1.0,
+        "presence_penalty": 0,
+        "frequency_penalty": 0,
+        "do_sample": true,
+        "transformers_version": "4.57.1"
+      },
+      "tokenizer_summary": {
+        "bos_token": {
+          "__type": "AddedToken",
+          "content": "<\uff5cstart\u2581of\u2581sentence\uff5c>",
+          "lstrip": false,
+          "normalized": true,
+          "rstrip": false,
+          "single_word": false
+        },
+        "eos_token": {
+          "__type": "AddedToken",
+          "content": "<\uff5cend\u2581of\u2581sentence\uff5c>",
+          "lstrip": false,
+          "normalized": true,
+          "rstrip": false,
+          "single_word": false
+        },
+        "add_bos_token": false,
+        "add_eos_token": false,
+        "chat_template": "{%- if not messages %}{{- raise_exception('No messages provided.') }}{%- endif %}{%- set enable_thinking = enable_thinking | default(true) %}{#- Render a string or a list of text blocks. -#}{%- macro render_content(content, context_name) %}{%- if content is string %}{{- content }}{%- elif content is none or content is undefined %}{{- '' }}{%- elif content is iterable and content is not mapping %}{%- for block in content %}{%- if block.type == 'text' %}{{- block.text }}{%- else %}{{- raise_exception('Unsupported ' ~ context_name ~ ' content block type: ' ~ (block.type | string)) }}{%- endif %}{%- endfor %}{%- else %}{{- raise_exception(context_name ~ ' content must be a string or a list of text blocks') }}{%- endif %}{%- endmacro %}{#- Default system prompt -#}{%- set default_system = 'you are a helpful assistant.' %}{#- The first message-level system is placed in the initial system block. -#}{%- set ns = namespace(initial_system='') %}{%- if messages[0].role == 'system' %}{%- set ns.initial_system = render_content(messages[0].content, 'system') %}{%- endif %}{#- System block -#}{{- '<\uff5cstart\u2581of\u2581sentence\uff5c><|System|>' + '\n' + default_system }}{%- if tools %}{{- '## Tools' + '\n' + 'You have access to the following functions:' + '\n' + '<tools>' }}{%- for tool in tools %}{{- '\n' + tool.function | tojson}}{%- endfor %}{{- '\n' + '</tools>' }}{%- endif %}{%- if ns.initial_system %}{{- '\n\n' + ns.initial_system }}{%- endif %}{{- '<\uff5cend\u2581of\u2581sentence\uff5c>'}}{#- Conversation turns -#}{%- for message in messages %}{%- if message.role == 'system' %}{#- The first system message was consumed by the initial block. -#}{%- if not loop.first %}{{- '<\uff5cstart\u2581of\u2581sentence\uff5c><|System|>\n' + render_content(message.content, 'system') + '<\uff5cend\u2581of\u2581sentence\uff5c>' }}{%- endif %}{%- elif message.role == 'user' %}{{- '<\uff5cstart\u2581of\u2581sentence\uff5c><|User|>' + render_content(message.content, 'user') + '<\uff5cend\u2581of\u2581sentence\uff5c>' }}{%- elif message.role == 'assistant' %}{%- set assistant_content = render_content(message.content, 'assistant') %}{%- if message.reasoning_content is defined and message.reasoning_content %}{%- set reasoning_content = message.reasoning_content %}{%- else %}{%- set reasoning_content = '' %}{%- endif %}{{- '<\uff5cstart\u2581of\u2581sentence\uff5c><|Bot|>'}}{%- if reasoning_content %}{{- '<think>' + reasoning_content + '</think>'}}{%- else %}{{- '</think>' }}{%- endif %}{%- if assistant_content %}{{- assistant_content }}{%- endif %}{%- if message.tool_calls is defined and message.tool_calls is not none %}{%- for tool_call in message.tool_calls %}{%- if tool_call.function.arguments is not mapping %}{{- raise_exception('tool_call.function.arguments must be a dictionary; normalize JSON strings before apply_chat_template') }}{%- endif %}{%- set args = tool_call.function.arguments %}{{- '<tool_call>' + tool_call.function.name }}{%- for k, v in args.items() %}{{- '<arg_key>' ~ k ~ '</arg_key><arg_value>' ~ (v if v is string else v | tojson) ~ '</arg_value>' }}{%- endfor %}{{- '</tool_call>' }}{%- endfor %}{%- endif %}{{- '<\uff5cend\u2581of\u2581sentence\uff5c>' }}{%- elif message.role == 'tool' %}{%- if loop.previtem is undefined or loop.previtem.role != 'tool' %}{{- '<\uff5cstart\u2581of\u2581sentence\uff5c><|Tool|>' }}{%- endif %}{{- '<tool_response>' ~ message.content ~ '</tool_response>' }}{%- if loop.nextitem is undefined or loop.nextitem.role != 'tool' %}{{- '<\uff5cend\u2581of\u2581sentence\uff5c>' }}{%- endif %}{%- else %}{{- raise_exception('Unsupported message role: ' ~ message.role) }}{%- endif %}{%- endfor %}{#- Generation prompt -#}{%- if add_generation_prompt %}{{- '<\uff5cstart\u2581of\u2581sentence\uff5c><|Bot|>' }}{%- if enable_thinking is defined and enable_thinking %}{{- '<think>' }}{%- endif %}{%- if enable_thinking is defined and not enable_thinking %}{{- '</think>' }}{%- endif %}{%- endif %}",
+        "model_max_length": 131072
+      }
+    },
+    {
+      "repo": "XHToken/Spark-X2.5-4B",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/XHToken/Spark-X2.5-4B?blobs=true",
+        "bytes": 14582,
+        "sha256": "715414f14d7415b6100c0e83fe32e46f6f1b3e20e2a2724991d4290fbb54b384"
+      },
+      "revision": "0bcb35678590218655dff3765b9e61c83b35e9c4",
+      "license": "apache-2.0",
+      "parameter_metadata": {
+        "parameters": {
+          "BF16": 4112079360
+        },
+        "total": 4112079360
+      },
+      "artifacts": [],
+      "files": [
+        {
+          "url": "https://huggingface.co/XHToken/Spark-X2.5-4B/resolve/0bcb35678590218655dff3765b9e61c83b35e9c4/README.md",
+          "bytes": 23607,
+          "sha256": "275fe9e4f9d3764e39679339ea2795c383e0663d4c06d70c910be81eba260885",
+          "file": "README.md"
+        },
+        {
+          "url": "https://huggingface.co/XHToken/Spark-X2.5-4B/resolve/0bcb35678590218655dff3765b9e61c83b35e9c4/LICENSE",
+          "bytes": 11338,
+          "sha256": "525c465ab952779d2d360a9ff36f7f49ae018a23d80302ff839a850a77784c36",
+          "file": "LICENSE"
+        },
+        {
+          "url": "https://huggingface.co/XHToken/Spark-X2.5-4B/resolve/0bcb35678590218655dff3765b9e61c83b35e9c4/config.json",
+          "bytes": 2035,
+          "sha256": "767161ece8ed2891e44345afdf98d29c1cacb964116cb6db7d20dc1c757490ad",
+          "file": "config.json"
+        },
+        {
+          "url": "https://huggingface.co/XHToken/Spark-X2.5-4B/resolve/0bcb35678590218655dff3765b9e61c83b35e9c4/generation_config.json",
+          "bytes": 281,
+          "sha256": "804a5276a9d237600688267dd2bf6f9d4129ec21faf417f870d5d52b32ad9e6c",
+          "file": "generation_config.json"
+        },
+        {
+          "url": "https://huggingface.co/XHToken/Spark-X2.5-4B/resolve/0bcb35678590218655dff3765b9e61c83b35e9c4/tokenizer_config.json",
+          "bytes": 4797,
+          "sha256": "0729b0aeb1b88e000687b51c72d5aece759233bb4f6fb353eb497676e04d43b0",
+          "file": "tokenizer_config.json"
+        }
+      ],
+      "config": {
+        "architectures": [
+          "Spark2_5ForCausalLM"
+        ],
+        "attention_bias": false,
+        "attention_dropout": 0.0,
+        "auto_map": {
+          "AutoConfig": "configuration_spark.Spark2_5Config",
+          "AutoModel": "modeling_spark.Spark2_5Model",
+          "AutoModelForCausalLM": "modeling_spark.Spark2_5ForCausalLM"
+        },
+        "bos_token_id": 0,
+        "dtype": "bfloat16",
+        "eos_token_id": 1,
+        "gate_attn_act_mode": "sigmoid",
+        "head_dim": 256,
+        "headwise_attn_output_gate": true,
+        "hidden_act": "gelu",
+        "hidden_size": 2560,
+        "initializer_range": 0.01976,
+        "intermediate_size": 10240,
+        "layer_types": [
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "sliding_attention",
+          "full_attention"
+        ],
+        "max_position_embeddings": 1048576,
+        "mlp_bias": false,
+        "model_type": "spark2_5",
+        "num_attention_heads": 16,
+        "num_hidden_layers": 36,
+        "num_key_value_heads": 4,
+        "pad_token_id": 2,
+        "rms_norm_eps": 1e-06,
+        "rope_parameters": {
+          "full_attention": {
+            "partial_rotary_factor": 0.25,
+            "rope_theta": 5000000
+          },
+          "sliding_attention": {
+            "partial_rotary_factor": 1.0,
+            "rope_theta": 10000
+          }
+        },
+        "sliding_window": 512,
+        "tie_word_embeddings": true,
+        "transformers_version": "4.57.1",
+        "use_cache": true,
+        "vocab_size": 131072
+      },
+      "generation_config": {
+        "bos_token_id": 0,
+        "eos_token_id": 1,
+        "pad_token_id": 2,
+        "max_tokens": 1048576,
+        "temperature": 1.0,
+        "top_p": 0.95,
+        "top_k": -1,
+        "repetition_penalty": 1.0,
+        "presence_penalty": 0,
+        "frequency_penalty": 0,
+        "do_sample": true,
+        "transformers_version": "4.57.1"
+      },
+      "tokenizer_summary": {
+        "bos_token": {
+          "__type": "AddedToken",
+          "content": "<\uff5cstart\u2581of\u2581sentence\uff5c>",
+          "lstrip": false,
+          "normalized": true,
+          "rstrip": false,
+          "single_word": false
+        },
+        "eos_token": {
+          "__type": "AddedToken",
+          "content": "<\uff5cend\u2581of\u2581sentence\uff5c>",
+          "lstrip": false,
+          "normalized": true,
+          "rstrip": false,
+          "single_word": false
+        },
+        "add_bos_token": false,
+        "add_eos_token": false,
+        "chat_template": "{%- if not messages %}{{- raise_exception('No messages provided.') }}{%- endif %}{%- set enable_thinking = enable_thinking | default(true) %}{#- Render a string or a list of text blocks. -#}{%- macro render_content(content, context_name) %}{%- if content is string %}{{- content }}{%- elif content is none or content is undefined %}{{- '' }}{%- elif content is iterable and content is not mapping %}{%- for block in content %}{%- if block.type == 'text' %}{{- block.text }}{%- else %}{{- raise_exception('Unsupported ' ~ context_name ~ ' content block type: ' ~ (block.type | string)) }}{%- endif %}{%- endfor %}{%- else %}{{- raise_exception(context_name ~ ' content must be a string or a list of text blocks') }}{%- endif %}{%- endmacro %}{#- Default system prompt -#}{%- set default_system = 'you are a helpful assistant.' %}{#- The first message-level system is placed in the initial system block. -#}{%- set ns = namespace(initial_system='') %}{%- if messages[0].role == 'system' %}{%- set ns.initial_system = render_content(messages[0].content, 'system') %}{%- endif %}{#- System block -#}{{- '<\uff5cstart\u2581of\u2581sentence\uff5c><|System|>' + '\n' + default_system }}{%- if tools %}{{- '## Tools' + '\n' + 'You have access to the following functions:' + '\n' + '<tools>' }}{%- for tool in tools %}{{- '\n' + tool.function | tojson}}{%- endfor %}{{- '\n' + '</tools>' }}{%- endif %}{%- if ns.initial_system %}{{- '\n\n' + ns.initial_system }}{%- endif %}{{- '<\uff5cend\u2581of\u2581sentence\uff5c>'}}{#- Conversation turns -#}{%- for message in messages %}{%- if message.role == 'system' %}{#- The first system message was consumed by the initial block. -#}{%- if not loop.first %}{{- '<\uff5cstart\u2581of\u2581sentence\uff5c><|System|>\n' + render_content(message.content, 'system') + '<\uff5cend\u2581of\u2581sentence\uff5c>' }}{%- endif %}{%- elif message.role == 'user' %}{{- '<\uff5cstart\u2581of\u2581sentence\uff5c><|User|>' + render_content(message.content, 'user') + '<\uff5cend\u2581of\u2581sentence\uff5c>' }}{%- elif message.role == 'assistant' %}{%- set assistant_content = render_content(message.content, 'assistant') %}{%- if message.reasoning_content is defined and message.reasoning_content %}{%- set reasoning_content = message.reasoning_content %}{%- else %}{%- set reasoning_content = '' %}{%- endif %}{{- '<\uff5cstart\u2581of\u2581sentence\uff5c><|Bot|>'}}{%- if reasoning_content %}{{- '<think>' + reasoning_content + '</think>'}}{%- else %}{{- '</think>' }}{%- endif %}{%- if assistant_content %}{{- assistant_content }}{%- endif %}{%- if message.tool_calls is defined and message.tool_calls is not none %}{%- for tool_call in message.tool_calls %}{%- if tool_call.function.arguments is not mapping %}{{- raise_exception('tool_call.function.arguments must be a dictionary; normalize JSON strings before apply_chat_template') }}{%- endif %}{%- set args = tool_call.function.arguments %}{{- '<tool_call>' + tool_call.function.name }}{%- for k, v in args.items() %}{{- '<arg_key>' ~ k ~ '</arg_key><arg_value>' ~ (v if v is string else v | tojson) ~ '</arg_value>' }}{%- endfor %}{{- '</tool_call>' }}{%- endfor %}{%- endif %}{{- '<\uff5cend\u2581of\u2581sentence\uff5c>' }}{%- elif message.role == 'tool' %}{%- if loop.previtem is undefined or loop.previtem.role != 'tool' %}{{- '<\uff5cstart\u2581of\u2581sentence\uff5c><|Tool|>' }}{%- endif %}{{- '<tool_response>' ~ message.content ~ '</tool_response>' }}{%- if loop.nextitem is undefined or loop.nextitem.role != 'tool' %}{{- '<\uff5cend\u2581of\u2581sentence\uff5c>' }}{%- endif %}{%- else %}{{- raise_exception('Unsupported message role: ' ~ message.role) }}{%- endif %}{%- endfor %}{#- Generation prompt -#}{%- if add_generation_prompt %}{{- '<\uff5cstart\u2581of\u2581sentence\uff5c><|Bot|>' }}{%- if enable_thinking is defined and enable_thinking %}{{- '<think>' }}{%- endif %}{%- if enable_thinking is defined and not enable_thinking %}{{- '</think>' }}{%- endif %}{%- endif %}",
+        "model_max_length": 131072
+      }
+    },
+    {
+      "repo": "XHToken/Spark-X2.5-1.7B-GGUF",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/XHToken/Spark-X2.5-1.7B-GGUF?blobs=true",
+        "bytes": 7392,
+        "sha256": "079c28b21367308565c3f39111ec388aff526f4272d389785cbb64cacdff9004"
+      },
+      "revision": "1f7fa33b1245c14730da39e125714ad3a327901b",
+      "license": "apache-2.0",
+      "parameter_metadata": null,
+      "artifacts": [
+        {
+          "rfilename": "Spark-X2.5-1.7B-Q4_K_M.gguf",
+          "blobId": "efcb3c5914af3d3b0577ee98c20ce4f3b23f4ba9",
+          "size": 1107457856,
+          "lfs": {
+            "sha256": "902bde2522394954ac17821b3e5fd0df02defbc6944f122253f2580acf0503f4",
+            "size": 1107457856,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Spark-X2.5-1.7B-Q8_0.gguf",
+          "blobId": "698d21c6c8b28383ef42530fc111c94cfe1010ef",
+          "size": 1820112704,
+          "lfs": {
+            "sha256": "cd77c03185a834bb1162a4b7713520be5838058bfc54873645beff470bb24442",
+            "size": 1820112704,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Spark-X2.5-1.7B.gguf",
+          "blobId": "08d1d2c6f27499323fa7b47004a398381aabcabc",
+          "size": 3420931904,
+          "lfs": {
+            "sha256": "67d5f2f06e6d898efcf0dc40cab8528bc82b871c8dafb0936784183d2c10cdd9",
+            "size": 3420931904,
+            "pointerSize": 135
+          }
+        }
+      ],
+      "files": [
+        {
+          "url": "https://huggingface.co/XHToken/Spark-X2.5-1.7B-GGUF/resolve/1f7fa33b1245c14730da39e125714ad3a327901b/README.md",
+          "bytes": 1635,
+          "sha256": "7b0bfb0f25eb6c42e1a68a83339c650ba022de6a69cb9956bf55dc7f31d4b526",
+          "file": "README.md"
+        }
+      ]
+    },
+    {
+      "repo": "XHToken/Spark-X2.5-4B-GGUF",
+      "metadata_source": {
+        "url": "https://huggingface.co/api/models/XHToken/Spark-X2.5-4B-GGUF?blobs=true",
+        "bytes": 7420,
+        "sha256": "dd36c4ebaae58aac08df2ee40cc3b4d6c56c7d980263859e42e45c7556b51773"
+      },
+      "revision": "9826e0be84e6e6e8b9668abc91421109a1df1e2d",
+      "license": "apache-2.0",
+      "parameter_metadata": null,
+      "artifacts": [
+        {
+          "rfilename": "Spark-X2.5-4B-Q4_K_M.gguf",
+          "blobId": "76f90491100ab6539451ff68ba300ef52d89fa1f",
+          "size": 2600224352,
+          "lfs": {
+            "sha256": "adfcfa19a4ed6a5985da8bf565fe15f8e1a7e131d79bae2d19d48d1c40109428",
+            "size": 2600224352,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Spark-X2.5-4B-Q8_0.gguf",
+          "blobId": "9c53a86c1267a2facfd149a8128acdfd48ba2c2e",
+          "size": 4375021152,
+          "lfs": {
+            "sha256": "5c2c3c190e4337e1016b8593ca8e26e8b18c972200b107385d4ec61a25d9dea2",
+            "size": 4375021152,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "Spark-X2.5-4B.gguf",
+          "blobId": "a18cb6771204a0aec24a68009969f53892f38350",
+          "size": 8229920352,
+          "lfs": {
+            "sha256": "8cecf405a41a4a10f833530910c2e13fde9fb39c325c8afc3c5d10e4181e1a14",
+            "size": 8229920352,
+            "pointerSize": 135
+          }
+        }
+      ],
+      "files": [
+        {
+          "url": "https://huggingface.co/XHToken/Spark-X2.5-4B-GGUF/resolve/9826e0be84e6e6e8b9668abc91421109a1df1e2d/README.md",
+          "bytes": 1622,
+          "sha256": "c97e3c38783a3d9ec91ce3014c635f7d0e44643fc0e76e87f58d440be6db194c",
+          "file": "README.md"
+        }
+      ]
+    }
+  ]
+}

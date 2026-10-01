@@ -48,3 +48,7 @@ On a phone, CPU and GPU generally draw from the same limited system RAM. Host-DR
 If that condition is met, compare matched backbone baselines with and without trained memory, controlling total stored bytes, active computation, quantization and prompt/output budgets. Measure answer quality separately for internal knowledge, source reading, paraphrase/entity variation and conflicting evidence; test collisions, token normalization, layer/state restoration and cancellation. Profile cold/warm lookup, page faults, prefetch benefit, RAM/scratch and full-answer latency. A perplexity gain or synthetic gather speed alone is not the acceptance gate.
 
 **Decision:** no graft onto Bonsai, no enormous offloaded table, and no production memory/cache change from this review. Revisit when a suitable trained checkpoint and an emulator-compatible implementation exist, or the user explicitly chooses a training investigation. Available model comparisons can proceed independently now.
+
+## Storage-latency follow-up — 2026-10-01
+
+The [DGX NVMe report and Spark-X2.5 review](spark-x25-storage-review.md) corroborates the NVIDIA boot policy but preserves the quoted drive timings as unverified user evidence. It adds a critical distinction between QD1 direct I/O, mmap/page-cache behavior and exposed per-token storage wait. P-07 proposes bounded emulator residency/fault profiling; no controller, service or memory policy changed. Spark-X2.5 itself is sliding/full attention and is not evidence of a small Engram/PLE checkpoint.
