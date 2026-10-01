@@ -1,6 +1,6 @@
 # Documentation index
 
-**Outpost 0.14.0 / version code 16**, maintained English documentation consolidated against source on **2026-09-30**. Canonical repository: `E:/projects/outpost`. Start with [AGENTS.md](../AGENTS.md), [handoff](handoff.md) and [current validation](validation-0.14.md).
+**Outpost 0.14.0 / version code 16**, maintained English documentation updated through **2026-10-01**. Canonical repository: `E:/projects/outpost`. Start with [AGENTS.md](../AGENTS.md), [handoff](handoff.md) and [current validation](validation-0.14.md).
 
 ## Reading paths and ownership
 
@@ -15,6 +15,7 @@
 | Change ingestion or storage | [Knowledge contracts](knowledge-base.md), [developer pack v1](knowledge-packs-v1.md), [data boundaries](security-and-data.md) |
 | Build or run tests | [Development](development.md), [emulator operating guide](emulator-runbook.md), [dependencies](../THIRD_PARTY.md) |
 | Review new kernel ideas | [DeepGEMM-Ascend static review and prioritized experiments](deepgemm-ascend-review.md) |
+| Run/review candidate models | [Candidate testing](candidate-testing.md), [Spark results and research-build identity](spark-candidate-results-2026-10-01.md) |
 | Review Spark-X2.5 and storage stalls | [Model admission and NVMe/Engram analysis](spark-x25-storage-review.md) |
 | Compare models and memory designs | [Model alternatives and emulator study](model-alternatives.md), [Engram review](engram-review.md), [pinned research metadata](../evidence/research/model-survey-20260930/survey-metadata.json) |
 | Improve inference | [Runtime](inference-runtime.md), [measured optimizations](optimizations.md), [0.14 row-kernel experiment](kernel-rows-0.14.md), [speculation/MTP](speculation.md) |

@@ -1,6 +1,6 @@
 # Current implementation and known gaps
 
-**Outpost 0.14.0 / version code 16**, checked on 2026-09-30. Canonical source: `E:/projects/outpost`, branch `codex/outpost`. The product is an English offline Android chat with an empty initial knowledge library. [Validation](validation-0.14.md) owns exact artifact identities/results; the [roadmap](roadmap.md) owns remaining tasks.
+**Outpost 0.14.0 / version code 16**, checked on 2026-10-01. Canonical source: `E:/projects/outpost`, branch `codex/outpost`. The product is an English offline Android chat with an empty initial knowledge library. [Validation](validation-0.14.md) owns exact artifact identities/results; the [roadmap](roadmap.md) owns remaining tasks.
 
 ## Capability inventory
 
@@ -42,4 +42,4 @@ Use **Outpost35 / emulator-5582**, AOSP API 35 x86_64, four virtual CPUs and 4 G
 
 ## Model exploration checkpoint
 
-The [model alternatives](model-alternatives.md) and [Engram study](engram-review.md) capture public artifact/config metadata and current-backend static compatibility as of 2026-09-30. They change the research backlog, not shipped capabilities: no new model, memory layer, drafter, download flow or runtime measurement is included. The admitted generator set and 0.14 delivery remain unchanged.
+[Spark-X2.5 research admission and comparison](spark-candidate-results-2026-10-01.md) is implemented and executed on Outpost35. The candidate stays outside the three-model product selector. The emulator uses a separately hashed same-version research build; the published 0.14 APK remains frozen. Greedy reserved-case review found 13/24 fully supported outcomes for each model, with material failures; no default replacement or phone claim follows. Compact cache remains experimental after failed first-logit equivalence. Other model candidates, cold storage profiling and full lifecycle tracing remain pending.

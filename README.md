@@ -1,5 +1,7 @@
 # Outpost
 
+Research update (2026-10-01): [Spark admission and measured comparison](docs/spark-candidate-results-2026-10-01.md) adds an emulator-only test path. The published local 0.14 APK and its three selectable models remain the product baseline; the same-version research build has separate hashes.
+
 An offline Android assistant. Open the app to chat; add your own documents through **Settings → Add file / Add folder**. The interface and maintained documentation are in English.
 
 **Current version: 0.14.0, user-test candidate.** The app starts with an empty document library. There are no sample notes, Explore/Library/Status tabs, benchmark buttons, reviewer controls or runtime metrics in the product interface.

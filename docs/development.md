@@ -63,6 +63,7 @@ Before testing, follow the runbook for AVD identity, boot/offline state, APK has
 | Recursive SAF import | `test-folders.ps1` | No |
 | OSM parser/storage/SAF/source UI | `test-osm.ps1` | No; `-Generate` adds one real Bonsai 4B source answer |
 | Migrations/locators/CSV/packs/runtime policy | `test-knowledge.ps1` | No |
+| Pinned candidate admission/comparison | `test-candidate.ps1 -Phase admission`, `pilot`, `heldout`, `timing` | Yes, Spark 1.7B and Bonsai 4B; [preparation, rejected compact experiment and scope](candidate-testing.md) |
 | Evidence-only question matrix | `test-evaluation.ps1 -Phase baseline -Model bonsai4` | Yes; [runner/review guide](../eval/README.md) |
 | Dot / dispatch / grouped numeric operations | `test-kernel.ps1 -Phase numeric`, `dispatch`, `batch` | Numerical execution in emulator; whole-model phases separately use `decoder`, `decoder4`, `sampling` |
 | Calibration / grouping / cache / research missions | `test-runtime.ps1 -Phase calibrate`, `batch`, `cache`, `missions` | Installed Bonsai 4B |

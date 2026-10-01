@@ -7,12 +7,16 @@ settings=json.loads((root/'.local/developer-settings.json').read_text())
 adb=str(pathlib.Path(settings['sdk'])/'platform-tools/adb.exe')
 serial='emulator-5582'
 def run(*args):
-    p=subprocess.run([adb,'-s',serial,*args],stdout=subprocess.PIPE,stderr=subprocess.PIPE,check=True)
+    p=subprocess.run([adb,'-s',serial,*args],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+    if p.returncode:raise RuntimeError('ADB operation failed: '+p.stderr.decode('utf-8',errors='replace')[:1500])
     return p.stdout.decode('utf-8').strip()
 for field,expected in [('ro.kernel.qemu','1'),('ro.boot.qemu.avd_name','Outpost35'),('sys.boot_completed','1')]:
     if run('shell','getprop',field)!=expected:raise RuntimeError('Incorrect emulator identity/state: '+field)
 for field,expected in [('airplane_mode_on','1'),('wifi_on','0'),('mobile_data','0')]:
     if run('shell','settings','get','global',field)!=expected:raise RuntimeError('Offline emulator required')
+if not run('shell','pm','path','dev.outpost.app').startswith('package:'):
+    raise RuntimeError('Install the Outpost debug APK first, following docs/emulator-runbook.md')
+run('shell','run-as','dev.outpost.app','pwd')
 filename=lock['file']
 if not re.fullmatch(r'[A-Za-z0-9._-]+\.gguf',filename):raise ValueError('Invalid pinned filename')
 local=root/'.local/models'/filename
@@ -41,6 +45,9 @@ if existing:
     if existing.split()[0]!=lock['sha256']:raise RuntimeError('Existing candidate differs; preserving it')
     print('Candidate already verified on Outpost35. Product selection unchanged.');raise SystemExit(0)
 part=remote+'.part'
+available_kib=int(run('shell','df','-k','/data').splitlines()[-1].split()[3])
+if available_kib*1024<2*lock['bytes']+64*1024*1024:
+    raise RuntimeError('Insufficient emulator space for staging plus the private model copy; no files evicted')
 existing=run('shell','run-as','dev.outpost.app','sh','-c',f"'if test -e {part}; then echo present; fi'")
 if existing:
     if int(run('shell','run-as','dev.outpost.app','stat','-c','%s',part))!=0:raise RuntimeError('Existing nonempty app-private partial preserved; inspect before retrying')

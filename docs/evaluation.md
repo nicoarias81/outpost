@@ -66,3 +66,9 @@ A documentation audit needs source/link/identity checks, not another model run. 
 ## Proposed lifecycle trace experiment
 
 The [NeMo Relay review](nemo-relay-review.md) identifies a gap between existing per-run identities/native timings and a correlated trace of the complete answer pipeline. E-08 proposes local events around route selection, retrieval attempts, evidence clipping, generation, persistence and UI completion, while keeping task verification/review separate. Measure tracing overhead and incomplete/canceled runs before using the traces for comparisons. This is a design checkpoint, not a new exporter or result; it does not change current test commands or install external infrastructure.
+
+## Executed candidate study — 2026-10-01
+
+[Spark/Bonsai results](spark-candidate-results-2026-10-01.md) use a separate frozen test asset and `chat-v1.1`, not the evidence-only matrix. Eight development questions were run with fixed evidence and isolated SQLite retrieval;24 predeclared questions were run with fixed evidence. Greedy diagnostic reviews are attributed to the implementing assistant and use descriptive candidate-review-v1 labels, not rubric-v2 numeric scores or independent field evaluation. Two sampled timing controls use one fixed seed and three repeated pairs; source/quality errors prevent a clean model-promotion claim. Preserve failed admission/cache experiments and distinguish paired timing repetitions from unique quality examples.
+
+The harness captures native-call/memory/fault diagnostics with measured sampling gaps, not the complete E-08 route/retrieval/UI lifecycle. Profile overhead and host contention remain limitations. Future sampled-policy studies need additional seeds and fresh cases; do not tune on this reserved set and reclassify it as unseen evidence.

@@ -1,6 +1,6 @@
 # Mobile model alternatives — reviewed 2026-09-30, updated 2026-10-01
 
-**Research status, not a new runtime release.** Outpost remains 0.14.0 at source checkpoint `511d6af`, with its three existing generator pins. Bonsai is a measured baseline, not a permanent architectural requirement. This review inspected public model cards/configurations, publisher artifact metadata and the pinned local backend. No new weights were downloaded, no model was executed, and no phone was used. The [metadata snapshot](../evidence/research/model-survey-20260930/survey-metadata.json) records revisions, source hashes, artifact sizes and failed discovery requests; the [candidate manifest](../evidence/research/model-survey-20260930/candidates.json) is research input, not an import allowlist.
+**Research status, not a new runtime release.** Outpost remains 0.14.0 at source checkpoint `511d6af`, with its three existing generator pins. Bonsai is a measured baseline, not a permanent architectural requirement. This review inspected public model cards/configurations, publisher artifact metadata and the pinned local backend. The September 30 survey downloaded metadata only. The subsequent [October 1 Spark admission/comparison](spark-candidate-results-2026-10-01.md) verified and executed Spark 1.7B in the emulator; other new candidates and phone execution remain untested. The [metadata snapshot](../evidence/research/model-survey-20260930/survey-metadata.json) records revisions, source hashes, artifact sizes and failed discovery requests; the [candidate manifest](../evidence/research/model-survey-20260930/candidates.json) is research input, not an import allowlist.
 
 ## Recommended comparison order
 
@@ -15,7 +15,7 @@ All sizes below are **decimal GB of the named GGUF file**, not RAM. New-model si
 | Qwen2.5 1.5B Q4_K_M | 1.117 GB | Existing conventional-quantization control | Older model, different sampler | Control |
 | LFM2.5-1.2B-Instruct QAD Q4_0 | 0.696 GB | Text-only, compact, evidence-driven assistant candidate | Hybrid convolution/attention state, template and sampler; LFM license | First |
 | Qwen3.5-2B Q4_K_M | 1.281 GB | General knowledge and supplied-document synthesis candidate | Recurrent/attention hybrid; template/no-thinking and cache validation | First |
-| Spark-X2.5-1.7B Q4_K_M | 1.107 GB | Official compact model with sliding/full attention | Explicit Spark formatting/no-thinking adapter and sliding-cache checks | First, added October 1 |
+| Spark-X2.5-1.7B Q4_K_M | 1.107 GB | Official compact model with sliding/full attention | Explicit Spark formatting/no-thinking adapter and sliding-cache checks | Research-admitted October 1; mixed measured quality, no product promotion |
 | Spark-X2.5-4B Q4_K_M | 2.600 GB | Larger sibling for a quality follow-up | Same formatting gate, greater weight bandwidth; no measured advantage | Conditional |
 | LFM2.5-2.6B QAD Q4_0 | 1.594 GB | More capacity while retaining the hybrid design | Larger than 1.2B; not identical to older LFM2-2.6B | Second |
 | Gemma 4 E2B QAT Q4_0 | 3.350 GB | Mobile-oriented architecture; trained assistant available | Effective size excludes large lookup embeddings; new formatting and cache behavior | Second, memory lane |
@@ -67,9 +67,9 @@ The inventory found a **296M LFM2.5 1.2B DSpark drafter** and a **roughly 78M Ge
 
 ## Emulator experiment contract
 
-Spark artifact sizes above are from the separate [October metadata](../evidence/research/spark-x25-20261001/candidates.json); the official files have not been downloaded or admitted. The [storage review](spark-x25-storage-review.md) also adds residency/I/O profiling, without importing DGX NVMe settings into Android.
+Spark artifact sizes above are from the separate [October metadata](../evidence/research/spark-x25-20261001/candidates.json); the1.7B file has since been verified and admitted to emulator research, while4B remains metadata-only. See [executed results](spark-candidate-results-2026-10-01.md); the original metadata snapshot is unchanged. The [storage review](spark-x25-storage-review.md) also adds residency/I/O profiling, without importing DGX NVMe settings into Android.
 
-**Planned, not executed.** E-07 owns candidate admission and E-05 owns answer comparison. Preserve both the measured Bonsai profile and the conservative defaults as identified controls.
+**Protocol, partially executed for Spark/Bonsai.** The linked October 1 study implements admission, eight development cases/two evidence arms and 24 reserved fixed-evidence greedy pairs; it adds two sampled timing controls at one seed. The complete sampled multi-seed and broader retrieval study remains open. E-07 owns candidate admission and E-05 owns answer comparison. Preserve both the measured Bonsai profile and the conservative defaults as identified controls.
 
 1. Admit one candidate at a time: verify full file size/SHA, inspect header/tensor types, confirm conversion provenance/license, template/tokenization and load. Keep test profiles outside product Settings until accepted. No arbitrary-GGUF import change.
 2. Use eight development cases to fix integration, then freeze prompt/adapters/samplers before 24 held-out cases. Use six families with four cases each: travel/locality evidence; downloaded records/date conflicts; field manuals/version matching; farm reference tables/units; hiking or driving preparation with missing data; general explanations and follow-up corrections. Include complete evidence, missing evidence, conflicting evidence and plausible distractors across the set. These are a study design, not 24 existing scored fixtures.

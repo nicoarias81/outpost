@@ -4,7 +4,7 @@ Updated **2026-10-01**, baseline **Outpost 0.14.0 / code 16**. The 0.13 place-qu
 
 ## Scope and persistent constraints
 
-Delivery checkpoints: OSM implementation `a804044`, evidence `9f3d36c`; kernel implementation `a1019a3`, evidence `37f009c`. The local0.14 artifact is checksum-verified and installed on Outpost35 with the measured Bonsai4 profile. All synthetic/public test imports and test turns are cleaned by their suites; no phone execution or remote publication occurred.
+Delivery checkpoints: OSM implementation `a804044`, evidence `9f3d36c`; kernel implementation `a1019a3`, evidence `37f009c`. The frozen local 0.14 artifact is checksum-verified; Outpost35 now has the separately hashed same-version Spark research build, with Bonsai 4 still selected. See the [research checkpoint](spark-candidate-results-2026-10-01.md) before using -SkipInstall or choosing an APK. All synthetic/public test imports and test turns are cleaned by their suites; no phone execution or remote publication occurred.
 
 - Work in `E:/projects/outpost`, branch `codex/outpost`, app `dev.outpost.app`, native `outpost_engine`. Check Git state and ongoing work first; older C-workspace delivery/staging folders are historical, not current source.
 - English UI, maintained docs/comments and primary fixtures. Preserve original imported/historical language and deliberate multilingual probes.
@@ -46,9 +46,11 @@ The test-only `FolderDocumentsProvider` stays registered and protected by MANAGE
 
 ## Model-selection research checkpoint
 
-The owner requested alternatives to Bonsai and exploration of Engram. The [model survey](model-alternatives.md) prioritizes LFM2.5-1.2B QAD, Qwen3.5-2B and Spark-X2.5-1.7B, then LFM2.5-2.6B and Gemma 4 E2B. Public revisions/artifact metadata and pinned-backend static compatibility are recorded; no candidate weights were downloaded or executed. E-07 covers research admission; E-05 remains the answer comparison. New profiles need template/sampler and hybrid-state lifecycle validation despite backend architecture support. Production pins, selected model, APK and emulator state were not changed by this research.
+Spark-X2.5-1.7B is now a pinned, executed research profile outside the product selector. [Results](spark-candidate-results-2026-10-01.md) and [commands](candidate-testing.md) own exact artifacts/protocols. Final admission passed 21 checks; 32 pilot records cover 8 questions/two arms/two models, 48 reserved records cover 24 fixed-evidence questions, and 12 sampled timing records repeat 2 development tasks. Final real-chat regression passed 45 checks. Do not turn execution PASS into answer correctness.
 
-[Engram](engram-review.md) is trained conditional memory, distinct from imported evidence and mission memory. The inspected official demo is not a small trained checkpoint; X-07 is conditional. Published LFM DSpark and Gemma assistants make X-01 more concrete for those targets, without providing a Bonsai MTP head or Android speed evidence. Preserve the emulator-only constraint.
+Attributed assistant review found 13/24 fully satisfactory reserved outcomes for each model under greedy diagnostics, with material errors in both. The full sampled-policy comparison and independent/field review remain pending. Spark is not offered in Settings and no product default changed. LFM2.5/Qwen3.5 remain unexecuted candidates. Compact Spark cache saved about 54 MiB sampled PSS in one control but failed strict first-logit parity; ordinary comparisons retain full cache/policy 2. All failed records and analyst notes are preserved.
+
+Current research app SHA starts 93b91e7f and test SHA 1fb39c9d; the exact identities are in the research validation, not the frozen release 0.14 manifest. Version labels are identical, so verify bytes. Models/code were executed only on Outpost35; no phone, host inference or storage policy change occurred. [Engram](engram-review.md), full pipeline tracing and trained-drafter integration remain separate research.
 
 ## Answer-pipeline observability research
 
@@ -56,7 +58,7 @@ The [NeMo Relay review](nemo-relay-review.md) pins upstream source at `872972c60
 
 ## Spark-X2.5 and storage research checkpoint
 
-The [October 1 review](spark-x25-storage-review.md) pins official Spark-X2.5 model/config/GGUF metadata and adds 1.7B to E-07/E-05. The backend graph exists, but the inspected built-in chat formatter lacks Spark support; validate exact GGUF formatting before execution. The NVMe PSA is recorded as an unverified user report: NVIDIA documentation confirms the boot policy, not those measured latency values or universal effective settings. P-07 proposes emulator-bounded residency/storage profiling. No model weights, NVMe commands, host storage changes, model execution or phone work occurred.
+The [static Spark/storage review](spark-x25-storage-review.md) remains the provenance for model discovery and the NVMe hypothesis. Subsequent implementation resolved the bounded Spark template path, literal USER_DEFINED-token handling and cache-policy separation; see the executed results above. NVIDIA documentation confirms a boot policy, not the pasted drive measurements or a phone effect. Sampled self-process faults/PSS in the new harness do not close P-07 or E-08. Candidate databases and final chat-suite records were cleaned; pre-existing unrelated test databases were preserved. The [post-check emulator snapshot](../evidence/research/spark-admission-20261001/emulator.json) records the final research APK pair, offline state and Bonsai selection.
 
 ## Next work and known gaps
 

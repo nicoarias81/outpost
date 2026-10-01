@@ -248,3 +248,9 @@ These procedures were checked against current scripts; the earlier live observat
 ## Measured row profile in 0.14
 
 The final post-validation checkpoint selected Bonsai 4B with 4/4 threads, batch 128, width 4, multi-column rowTile 2 and single-column decodeRows 1, under kernel identity `q2-row-v3-phase`. This is scoped to the recorded device/model/build; recheck live state and do not transplant it to other phones/models. `test-rows.ps1` has graphs/model/confirm phases; only confirmation accepts `-ApplyProfile`. All kernel/model execution stays on the emulator, and runs remain sequential. See [kernel record](kernel-rows-0.14.md) and [post-validation state](../evidence/releases/0.14.0/emulator.json).
+
+## Spark research checkpoint — 2026-10-01
+
+The emulator now has a same-version 0.14 research app/test pair with hashes in [Spark results](spark-candidate-results-2026-10-01.md), distinct from the frozen user-test APK. It remains offline with Bonsai 4 selected. Spark 1.7B Q4_K_M is verified in app-private `files/models/Spark-X2.5-1.7B-Q4_K_M.gguf` but is not a selectable product profile; no verification marker/product admission is implied by that file's presence.
+
+Use [candidate preparation and tests](candidate-testing.md). `prepare-spark-research.py` requires an installed debug APK, uses binary ADB push/copy/hash and preserves existing valid files. Do not repeat the failed binary-stdin transfer method. The final candidate tests clean their per-run databases; unrelated older test databases remain preserved. Always verify installed APK bytes before `-SkipInstall`, and run only one instrumentation/model workflow at a time. No phone scope expansion occurred.

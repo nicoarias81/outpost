@@ -1,6 +1,6 @@
 # Third-party dependencies and model provenance
 
-Current app: Outpost 0.12.0. Runtime/model identities remain pinned; PDF extraction adds the dependencies listed below. Model and dependency identities refer to the locked files used by this prototype, not automatically to newer upstream releases. This file preserves dependency notices; it does not select a license for this project's own code.
+Product baseline: Outpost 0.14.0, with the separately identified October 1 Spark research build. Runtime/model identities remain pinned; PDF extraction adds the dependencies listed below. Model and dependency identities refer to the locked files used by this prototype, not automatically to newer upstream releases. This file preserves dependency notices; it does not select a license for this project's own code.
 
 ## llama.cpp
 
@@ -39,6 +39,14 @@ The initial comparison also used Qwen2.5 0.5B Instruct Q4_K_M. Its identity is p
 - Architecture: `qwen3`. Both locked templates end the assistant prefix with a closed empty `think` block. The integration reproduces that suffix because the basic ChatML formatter does not execute that Jinja-specific part. Generated output is retained without removing generated reasoning text after the fact.
 - Bonsai sampling uses top-k 20, top-p 0.8, temperature 0.7, and seed 42. The earlier parameter choice was informed by the [Qwen3 non-thinking guidance](https://huggingface.co/Qwen/Qwen3-4B); it is not a claim that these are optimal Bonsai parameters.
 - Weights are downloaded from the publisher, verified, and excluded from the APK. The same pinned llama.cpp backend is used; no Prism fork replaced it.
+
+## Spark-X2.5-1.7B research profile
+
+- Publisher: XHToken; [official GGUF repository](https://huggingface.co/XHToken/Spark-X2.5-1.7B-GGUF/tree/1f7fa33b1245c14730da39e125714ad3a327901b).
+- Publisher-declared license: Apache-2.0. Exact file/revision/bytes/hash are in the [research lock](app/src/androidTest/assets/candidates/spark17-lock.json).
+- Official weights are downloaded, fully verified on host/Android and kept outside Git/APK. This is not a new product model distribution or a change to the project's own license.
+- Own JNI formatting implements the official template's two-message/no-tools/no-thinking subset, with explicit literal-data token handling. Template SHA and source provenance are recorded with the [admission evidence](evidence/research/spark-admission-20261001/verified-model-header.json). No model Python code or upstream serving stack was executed or imported.
+- The existing unmodified pinned llama.cpp implements the model graph. Research fixtures/lock are packaged only in the test APK. Full-cache policy is used for comparisons; the compact candidate failed strict numerical equivalence. [Results](docs/spark-candidate-results-2026-10-01.md).
 
 ## Kev classifier and GGUF conversion
 

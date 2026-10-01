@@ -90,4 +90,4 @@ The [model survey](model-alternatives.md) expands optimization beyond Bonsai Q2 
 
 ## Storage and model admission follow-up — 2026-10-01
 
-The [Spark-X2.5/storage review](spark-x25-storage-review.md) adds an official small-model candidate and a proposed P-07 study of memory residency and storage stalls. Sequential bandwidth, file size and active parameters cannot establish random-lookup latency. The user-reported NVMe A/B/A timings remain external unverified observations, not Outpost results; no host/device tuning or runtime experiment was performed.
+The [Spark-X2.5/storage review](spark-x25-storage-review.md) adds an official small-model candidate and a proposed P-07 study of memory residency and storage stalls. Sequential bandwidth, file size and active parameters cannot establish random-lookup latency. The user-reported NVMe A/B/A timings remain external unverified observations. Subsequent [Spark model/cache experiments](spark-candidate-results-2026-10-01.md) ran only in the emulator: full-cache admission passed; compact storage reduced sampled PSS but failed strict initial-logit parity and was not adopted. No host/phone storage tuning occurred.
