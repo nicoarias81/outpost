@@ -1,0 +1,16 @@
+{
+  "capturedDate": "2026-10-01",
+  "source": "Read-only Android sysfs cpuinfo_max_freq observation",
+  "unit": "kHz",
+  "cpuMaximumFrequencies": [
+    2246000,
+    2246000,
+    3052000,
+    3052000,
+    3052000,
+    3052000,
+    3052000,
+    3782000
+  ],
+  "interpretation": "Maximum reported frequencies, not the operating frequencies during a run. Fixed affinity was tested only for Outpost threads and restored; no governor or scheduler priority change."
+}

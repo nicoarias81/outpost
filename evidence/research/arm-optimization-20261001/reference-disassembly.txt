@@ -1,0 +1,78 @@
+
+app/.cxx/Release/4h1y6t6z/arm64-v8a/llama/ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/arch/arm/quants.c.o:	file format elf64-littleaarch64
+
+Disassembly of section .text.ggml_vec_dot_q2_0_q8_0:
+
+0000000000000000 <ggml_vec_dot_q2_0_q8_0>:
+       0:      	movi	v0.2d, #0000000000000000
+       4:      	cmp	w0, #0x40
+       8:      	b.lt	0x110 <ggml_vec_dot_q2_0_q8_0+0x110>
+       c:      	movi	v1.16b, #0x3
+      10:      	movi	v2.2d, #0xffffffffffffffff
+      14:      	adrp	x9, 0x0 <ggml_vec_dot_q2_0_q8_0>
+      18:      	adrp	x10, 0x0 <ggml_vec_dot_q2_0_q8_0>
+      1c:      	adrp	x11, 0x0 <ggml_vec_dot_q2_0_q8_0>
+      20:      	lsr	w8, w0, #6
+      24:      	ldr	q3, [x9]
+      28:      	ldr	q4, [x10]
+      2c:      	ldr	q5, [x11]
+      30:      	add	x9, x5, #0x22
+      34:      	ldur	d6, [x3, #0x2]
+      38:      	ldur	d7, [x3, #0xa]
+      3c:      	subs	x8, x8, #0x1
+      40:      	ldp	q18, q19, [x9, #-0x20]
+      44:      	ldur	q21, [x9, #0x2]
+      48:      	mov	v6.d[1], v6.d[0]
+      4c:      	mov	v7.d[1], v7.d[0]
+      50:      	tbl	v16.16b, { v6.16b }, v3.16b
+      54:      	tbl	v17.16b, { v7.16b }, v3.16b
+      58:      	tbl	v6.16b, { v6.16b }, v5.16b
+      5c:      	tbl	v7.16b, { v7.16b }, v5.16b
+      60:      	ushl	v16.16b, v16.16b, v4.16b
+      64:      	ushl	v17.16b, v17.16b, v4.16b
+      68:      	ushl	v6.16b, v6.16b, v4.16b
+      6c:      	ushl	v7.16b, v7.16b, v4.16b
+      70:      	and	v16.16b, v16.16b, v1.16b
+      74:      	and	v17.16b, v17.16b, v1.16b
+      78:      	and	v6.16b, v6.16b, v1.16b
+      7c:      	and	v7.16b, v7.16b, v1.16b
+      80:      	add	v16.16b, v16.16b, v2.16b
+      84:      	add	v17.16b, v17.16b, v2.16b
+      88:      	add	v6.16b, v6.16b, v2.16b
+      8c:      	add	v7.16b, v7.16b, v2.16b
+      90:      	smull2	v20.8h, v16.16b, v18.16b
+      94:      	smull	v16.8h, v16.8b, v18.8b
+      98:      	saddlp	v18.4s, v20.8h
+      9c:      	smull2	v20.8h, v17.16b, v21.16b
+      a0:      	sadalp	v18.4s, v16.8h
+      a4:      	smull	v16.8h, v17.8b, v21.8b
+      a8:      	saddlp	v17.4s, v20.8h
+      ac:      	smull	v20.8h, v6.8b, v19.8b
+      b0:      	smull2	v6.8h, v6.16b, v19.16b
+      b4:      	sadalp	v17.4s, v16.8h
+      b8:      	ldur	q16, [x9, #0x12]
+      bc:      	sadalp	v18.4s, v20.8h
+      c0:      	smull	v20.8h, v7.8b, v16.8b
+      c4:      	sadalp	v17.4s, v20.8h
+      c8:      	sadalp	v18.4s, v6.8h
+      cc:      	smull2	v6.8h, v7.16b, v16.16b
+      d0:      	ldr	h7, [x3]
+      d4:      	ldur	h16, [x9, #-0x22]
+      d8:      	add	x3, x3, #0x12
+      dc:      	fcvt	s7, h7
+      e0:      	fcvt	s16, h16
+      e4:      	sadalp	v17.4s, v6.8h
+      e8:      	ldr	h6, [x9]
+      ec:      	add	x9, x9, #0x44
+      f0:      	fcvt	s6, h6
+      f4:      	fmul	s16, s7, s16
+      f8:      	scvtf	v18.4s, v18.4s
+      fc:      	fmul	s6, s7, s6
+     100:      	fmla	v0.4s, v18.4s, v16.s[0]
+     104:      	scvtf	v16.4s, v17.4s
+     108:      	fmla	v0.4s, v16.4s, v6.s[0]
+     10c:      	b.ne	0x34 <ggml_vec_dot_q2_0_q8_0+0x34>
+     110:      	faddp	v0.4s, v0.4s, v0.4s
+     114:      	faddp	s0, v0.2s
+     118:      	str	s0, [x1]
+     11c:      	ret

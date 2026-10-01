@@ -1,0 +1,7 @@
+
+FAIL ARM: java.lang.AssertionError: Unlock the Pixel before foreground model measurements
+	at dev.outpost.app.ArmKernelChecks.require(ArmKernelChecks.java:32)
+	at dev.outpost.app.ArmKernelChecks.run(ArmKernelChecks.java:46)
+	at dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:72)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2655)
+

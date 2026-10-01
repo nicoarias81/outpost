@@ -1,0 +1,7 @@
+
+Checking 16,000+ vectors, guard pages and reference dispatch...
+
+Checking matrix strides, tails, workers and real Bonsai shapes...
+
+PASS ARM numeric: 6 controls.
+

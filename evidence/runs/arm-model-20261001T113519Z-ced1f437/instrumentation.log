@@ -1,0 +1,16 @@
+
+Starting case0/round0/warmup / reference / 4 threads / width 8
+
+Completed case0/round0/warmup: 24505ms / first 23292ms / 8 tokens / stop 1
+
+Starting case0/round0 / reference / 4 threads / width 8
+
+Completed case0/round0: 120012ms / first 23401ms / 121 tokens / stop 3
+
+FAIL ARM: java.lang.AssertionError: Complete EOS answer within unchanged192-token/120-second budget
+	at dev.outpost.app.ArmKernelChecks.require(ArmKernelChecks.java:32)
+	at dev.outpost.app.ArmKernelChecks.paired(ArmKernelChecks.java:101)
+	at dev.outpost.app.ArmKernelChecks.run(ArmKernelChecks.java:64)
+	at dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:72)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2655)
+

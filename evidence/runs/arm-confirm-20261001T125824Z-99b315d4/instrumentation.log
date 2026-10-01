@@ -1,0 +1,80 @@
+
+Starting complete-control/reference / reference / 4 threads / width 8
+
+Completed complete-control/reference: 24502ms / first 19561ms / 2 tokens / stop 0
+
+Starting complete-control/candidate / DotProd / 6 threads / width 8
+
+Completed complete-control/candidate: 8660ms / first 8482ms / 2 tokens / stop 0
+
+Starting case0/round0/warmup / reference / 4 threads / width 8
+
+Completed case0/round0/warmup: 42044ms / first 33725ms / 8 tokens / stop 1
+
+Starting case0/round0 / reference / 4 threads / width 8
+
+Completed case0/round0: 191660ms / first 45954ms / 133 tokens / stop 0
+
+Starting case0/round0/warmup / DotProd / 6 threads / width 8
+
+Completed case0/round0/warmup: 12209ms / first 11401ms / 8 tokens / stop 1
+
+Starting case0/round0 / DotProd / 6 threads / width 8
+
+Completed case0/round0: 29104ms / first 12486ms / 133 tokens / stop 0
+
+Starting case0/round1/warmup / DotProd / 6 threads / width 8
+
+Completed case0/round1/warmup: 13414ms / first 12598ms / 8 tokens / stop 1
+
+Starting case0/round1 / DotProd / 6 threads / width 8
+
+Completed case0/round1: 29319ms / first 12498ms / 133 tokens / stop 0
+
+Starting case0/round1/warmup / reference / 4 threads / width 8
+
+Completed case0/round1/warmup: 48696ms / first 42236ms / 8 tokens / stop 1
+
+Starting case0/round1 / reference / 4 threads / width 8
+
+Completed case0/round1: 190201ms / first 41676ms / 133 tokens / stop 0
+
+Starting case0/round2/warmup / reference / 4 threads / width 8
+
+Completed case0/round2/warmup: 44922ms / first 37704ms / 8 tokens / stop 1
+
+Starting case0/round2 / reference / 4 threads / width 8
+
+Completed case0/round2: 163550ms / first 39106ms / 133 tokens / stop 0
+
+Starting case0/round2/warmup / DotProd / 6 threads / width 8
+
+Completed case0/round2/warmup: 18823ms / first 18055ms / 8 tokens / stop 1
+
+Starting case0/round2 / DotProd / 6 threads / width 8
+
+Completed case0/round2: 28784ms / first 12381ms / 133 tokens / stop 0
+
+Starting case1/round0/warmup / DotProd / 6 threads / width 8
+
+Completed case1/round0/warmup: 15153ms / first 14276ms / 8 tokens / stop 1
+
+Starting case1/round0 / DotProd / 6 threads / width 8
+
+Completed case1/round0: 32000ms / first 14111ms / 142 tokens / stop 0
+
+Starting case1/round0/warmup / reference / 4 threads / width 8
+
+Completed case1/round0/warmup: 56351ms / first 48787ms / 8 tokens / stop 1
+
+Starting case1/round0 / reference / 4 threads / width 8
+
+Completed case1/round0: 213045ms / first 50920ms / 162 tokens / stop 0
+
+FAIL ARM: java.lang.AssertionError: Full generated sequence, stop reason and initial logits remain identical
+	at dev.outpost.app.ArmKernelChecks.require(ArmKernelChecks.java:35)
+	at dev.outpost.app.ArmKernelChecks.paired(ArmKernelChecks.java:117)
+	at dev.outpost.app.ArmKernelChecks.run(ArmKernelChecks.java:69)
+	at dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:72)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2655)
+

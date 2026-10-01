@@ -1,0 +1,244 @@
+{
+  "version": "0.15.0",
+  "versionCode": 17,
+  "date": "2026-10-01",
+  "passed": true,
+  "artifactName": "outpost-0.15.0-user-test.apk",
+  "appSha256": "dc8af7cb9b7d92fdee9b93c27a7879482be77338dc6a62c592e86249517f9719",
+  "appBytes": 28787808,
+  "testApkSha256": "608614371ce9acdb340928215e7b6352b578da6a87098a343a0117dac405f726",
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T14:07:24.4902881Z",
+    "versionName": "0.15.0",
+    "versionCode": 17,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "064241c22de3cfef2362960a0ac59162ab80154f96aa700f4bfebf9eb46c9720",
+    "testSourcesSha256": "1f21d75e907455b008c3c91d8064dc1f8dedf0cf08fb3853fbd948ed87793876",
+    "appSha256": "dc8af7cb9b7d92fdee9b93c27a7879482be77338dc6a62c592e86249517f9719",
+    "testApkSha256": "608614371ce9acdb340928215e7b6352b578da6a87098a343a0117dac405f726",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "metricsPath": "evidence/research/arm-optimization-20261001/confirmation-metrics.json",
+  "metricsLink": "../evidence/research/arm-optimization-20261001/confirmation-metrics.json",
+  "manifestLink": "../evidence/releases/0.15.0/manifest.json",
+  "runs": [
+    {
+      "runId": "arm-confirm-20261001T133232Z-a8581810",
+      "report": "arm-checks.json",
+      "reportSha256": "f2c98587deee1b17d401e8a65f2e988642591936eecd0d13fea7a7b44fc741f6",
+      "checksPassed": 79,
+      "finalArtifact": false
+    },
+    {
+      "runId": "arm-lifecycle-20261001T140850Z-b50c180e",
+      "report": "arm-checks.json",
+      "reportSha256": "a5e038dd490c8b26db674ac29ec206768882094eb00e7849f55f4c5351400a06",
+      "checksPassed": 9,
+      "finalArtifact": true
+    },
+    {
+      "runId": "arm-trace-20261001T140941Z-98c14bfd",
+      "report": "arm-checks.json",
+      "reportSha256": "448f0f2944da6529c4a3b242a70be15aa4b489bd0349170def555fbc8094d182",
+      "checksPassed": 14,
+      "finalArtifact": true
+    },
+    {
+      "runId": "chat-20261001T141139Z-ef7751e2",
+      "report": "chat-checks.json",
+      "reportSha256": "de19032fe6302225408f7c201a25025d05a95d2d5da26294d62a0cd52c7db653",
+      "checksPassed": 45,
+      "finalArtifact": true
+    },
+    {
+      "runId": "candidate-admission-20261001T141332Z-033c11d2",
+      "report": "candidate-checks.json",
+      "reportSha256": "130a1d16357e696e54cfe3146b1acf4f0ec6986b56846692ca45999991438c0a",
+      "checksPassed": 23,
+      "finalArtifact": true
+    },
+    {
+      "runId": "x86-regression-20261001T141728Z-225a37aa",
+      "phases": [
+        {
+          "phase": "numeric",
+          "passed": true
+        },
+        {
+          "phase": "dispatch",
+          "passed": true
+        },
+        {
+          "phase": "batch",
+          "passed": true
+        },
+        {
+          "phase": "decoder4",
+          "passed": true
+        }
+      ],
+      "originalApksRestored": true
+    }
+  ],
+  "isolationRestorations": [
+    {
+      "runId": "pixel-isolation-20261001T112620Z-f20ab9cc",
+      "journalSha256": "6066dc7835e1e301479e70ee37947aa843c712853ee088e28a398cb8b7719c4e",
+      "restored": true
+    },
+    {
+      "runId": "pixel-isolation-20261001T113345Z-c450ba13",
+      "journalSha256": "5463958f416c9e1c8a59d7dfa6f84cd46dc704be84ea0a3b1cf986ce262badea",
+      "restored": true
+    },
+    {
+      "runId": "pixel-isolation-20261001T113512Z-2bdfbe74",
+      "journalSha256": "92a4e67a7962d815c25e8e42cad0850ea0747dabee433be628c344152f5a7d92",
+      "restored": true
+    },
+    {
+      "runId": "pixel-isolation-20261001T114804Z-1ecf037c",
+      "journalSha256": "1738a36c0cf328c7f1b0e64f45ed742d621d70708d98bf162fd70c0d757de0c2",
+      "restored": true
+    },
+    {
+      "runId": "pixel-isolation-20261001T121048Z-911126ba",
+      "journalSha256": "3c1ea71efce214bc32b79d92fc2b44584b593f575b760e180002f8aa388ead19",
+      "restored": true
+    },
+    {
+      "runId": "pixel-isolation-20261001T122022Z-48d11763",
+      "journalSha256": "2eddbaa87d2aadc8f671269e8bd7aefc7fd00161d065b203c49bf815dffb0a39",
+      "restored": true
+    },
+    {
+      "runId": "pixel-isolation-20261001T124018Z-fbd9cc82",
+      "journalSha256": "b39ab1aa83ecfb1f405144c938e097045dd1f42eed0a95086042d5b27d5f4900",
+      "restored": true
+    },
+    {
+      "runId": "pixel-isolation-20261001T125604Z-dc9264b5",
+      "journalSha256": "ec5a36236643ab6110957a834eaee0c6182cab074de2462c600d24c9d688b678",
+      "restored": true
+    },
+    {
+      "runId": "pixel-isolation-20261001T125819Z-15089238",
+      "journalSha256": "b733d83b3ef78c8046bf4c2aed417ed6ee086b1268ca9f07637290c41b6c68d0",
+      "restored": true
+    },
+    {
+      "runId": "pixel-isolation-20261001T132949Z-69b30b48",
+      "journalSha256": "caf6f4b3d958b96c9a34b31580eba4848d57f5f312ff2f02d236acda7451ad27",
+      "restored": true
+    },
+    {
+      "runId": "pixel-isolation-20261001T133226Z-45a2e965",
+      "journalSha256": "b701f265e2bcf434a4298b8a6f2773be028c81e1c40a0bda1cad8c47e6bb587e",
+      "restored": true
+    },
+    {
+      "runId": "pixel-isolation-20261001T140845Z-874018bc",
+      "journalSha256": "bfdc136abd4127a8b7203e75660e9a2fc047c7410b358a22ba6b72523082814f",
+      "restored": true
+    },
+    {
+      "runId": "pixel-isolation-20261001T140935Z-265d3dd3",
+      "journalSha256": "9fdc04b14de9b98fc06a4bf6fc2db460913497e19600d07ddab42aa7fc875e45",
+      "restored": true
+    },
+    {
+      "runId": "pixel-isolation-20261001T141133Z-7ea4c32c",
+      "journalSha256": "d30a56a50b738094b7819dc244d0afe69ac29f0f70927a92cdb3aeb6a847cc72",
+      "restored": true
+    }
+  ],
+  "visualReview": [
+    {
+      "file": "chat-home.png",
+      "sha256": "094273fcebb199d71326786f96f7c1aac1f5b2ef0b54404899ceb165b0e3198e",
+      "width": 1080,
+      "height": 2410,
+      "reviewer": "Codex assistant",
+      "scope": "Synthetic English app content and expected visible state; not exhaustive accessibility/provider testing."
+    },
+    {
+      "file": "chat-settings.png",
+      "sha256": "baefcd0b4502cebf0f8cffd4904efc906450051e050d5dbb5c1141faf6f24295",
+      "width": 1080,
+      "height": 2410,
+      "reviewer": "Codex assistant",
+      "scope": "Synthetic English app content and expected visible state; not exhaustive accessibility/provider testing."
+    },
+    {
+      "file": "chat-documents.png",
+      "sha256": "1b517f0d31a191d4cb358ae72818519a6a7f76ad83195ad31d9a7c0739a2ce4e",
+      "width": 1080,
+      "height": 2410,
+      "reviewer": "Codex assistant",
+      "scope": "Synthetic English app content and expected visible state; not exhaustive accessibility/provider testing."
+    },
+    {
+      "file": "chat-pdf.png",
+      "sha256": "bc3786a4d142d21f2c44008a7be96101af2973a94d81f2c87197ea7e311e6cef",
+      "width": 1080,
+      "height": 2410,
+      "reviewer": "Codex assistant",
+      "scope": "Synthetic English app content and expected visible state; not exhaustive accessibility/provider testing."
+    },
+    {
+      "file": "chat-conversation.png",
+      "sha256": "bd75ec2275ac34f057382078953855543f81128c968013b2cef955f1299083d9",
+      "width": 1080,
+      "height": 2410,
+      "reviewer": "Codex assistant",
+      "scope": "Synthetic English app content and expected visible state; not exhaustive accessibility/provider testing."
+    },
+    {
+      "file": "chat-sourced.png",
+      "sha256": "360e31b932c7ee5ebe42cdba8ca570a3c1bf60033ea1f9b14168c7882ec7f2d1",
+      "width": 1080,
+      "height": 2410,
+      "reviewer": "Codex assistant",
+      "scope": "Synthetic English app content and expected visible state; not exhaustive accessibility/provider testing."
+    }
+  ],
+  "productProfile": {
+    "threads": 4,
+    "promptThreads": 6,
+    "batch": 128,
+    "width": 8,
+    "rowTile": 1,
+    "decodeRows": 4,
+    "measured": true,
+    "persistentThreads": true,
+    "kernel": "Q2_0 NEON DotProd"
+  },
+  "productChatAnswers": [
+    {
+      "case": "first-turn",
+      "text": "Cedar",
+      "tokens": 2,
+      "firstTokenMs": 9090,
+      "totalMs": 9385,
+      "reason": 0
+    },
+    {
+      "case": "follow-up",
+      "text": "Cedar",
+      "tokens": 2,
+      "firstTokenMs": 9474,
+      "totalMs": 9813,
+      "reason": 0
+    },
+    {
+      "case": "with-document",
+      "text": "[1] Equipment manual.pdf: Sample unit PX-65 uses spare filter F-92.",
+      "tokens": 21,
+      "firstTokenMs": 7479,
+      "totalMs": 11350,
+      "reason": 0
+    }
+  ],
+  "scope": "Local debug candidate. Paired native timings on the specifically authorized Pixel, unchanged model/prompt/sampling and product120-second/192-token limits. No field-quality, universal speedup, energy or public distribution claim."
+}

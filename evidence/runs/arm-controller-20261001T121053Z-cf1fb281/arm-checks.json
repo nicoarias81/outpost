@@ -1,0 +1,86 @@
+{
+  "runId": "arm-controller-20261001T121053Z-cf1fb281",
+  "phase": "controller",
+  "passed": false,
+  "checks": [
+    {
+      "label": "Registered Pixel architecture\/model",
+      "passed": true
+    },
+    {
+      "label": "Thermal status permits the bounded test",
+      "passed": true
+    },
+    {
+      "label": "Unlock the Pixel before foreground model measurements",
+      "passed": false
+    }
+  ],
+  "answers": [],
+  "initialRuntime": {
+    "abi": "arm64-v8a",
+    "onlineCpus": 8,
+    "featureMask": 7168,
+    "selected": "Q2_0 reference",
+    "candidates": [
+      {
+        "id": 0,
+        "name": "Q2_0 reference",
+        "cpuCompatible": true,
+        "compiled": true,
+        "enabled": true,
+        "selected": true
+      },
+      {
+        "id": 1,
+        "name": "Q2_0 AVX2\/F16C",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 2,
+        "name": "Q2_0 AVX-VNNI",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 3,
+        "name": "Q2_0 AVX-512 VNNI\/VL",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 4,
+        "name": "Q2_0 NEON",
+        "cpuCompatible": true,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 5,
+        "name": "Q2_0 NEON DotProd",
+        "cpuCompatible": true,
+        "compiled": true,
+        "enabled": true,
+        "selected": false
+      },
+      {
+        "id": 6,
+        "name": "Q2_0 NEON I8MM",
+        "cpuCompatible": true,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      }
+    ]
+  },
+  "scope": "Foreground Android ARM experiment. Synthetic prompts only; exact parity and actual dispatch required. USB-powered, no energy claim.",
+  "error": "java.lang.AssertionError: Unlock the Pixel before foreground model measurements\n\tat dev.outpost.app.ArmKernelChecks.require(ArmKernelChecks.java:32)\n\tat dev.outpost.app.ArmKernelChecks.run(ArmKernelChecks.java:46)\n\tat dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:72)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2655)\n"
+}

@@ -1,0 +1,19 @@
+
+Starting trace/reference4-4 / reference / 4 threads / width 8
+
+Completed trace/reference4-4: 28014ms / first 26863ms / 8 tokens / stop 1
+
+Starting trace/candidate6-6 / DotProd / 6 threads / width 8
+
+Completed trace/candidate6-6: 11068ms / first 10528ms / 8 tokens / stop 1
+
+Starting trace/candidate4-6 / DotProd / 4 threads / width 8
+
+Completed trace/candidate4-6: 10696ms / first 9847ms / 8 tokens / stop 1
+
+Starting trace/candidate4-4 / DotProd / 4 threads / width 8
+
+Completed trace/candidate4-4: 16022ms / first 14997ms / 8 tokens / stop 1
+
+PASS ARM trace: 14 controls.
+

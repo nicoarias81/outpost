@@ -1,0 +1,28 @@
+{
+  "capturedUtc": "2026-10-01T12:56:53.9589372Z",
+  "battery": [
+    "  AC powered: false",
+    "  USB powered: true",
+    "  Wireless powered: false",
+    "  Dock powered: false",
+    "  status: 4",
+    "  health: 2",
+    "  present: true",
+    "  level: 55",
+    "  scale: 100",
+    "  voltage: 3947",
+    "  temperature: 377",
+    "  technology: Li-ion"
+  ],
+  "memory": [
+    "MemTotal:       15949000 kB",
+    "MemFree:         1309232 kB",
+    "MemAvailable:    4558448 kB",
+    "SwapTotal:       7974496 kB",
+    "SwapFree:        3345148 kB"
+  ],
+  "dataSpace": [
+    "Filesystem       1K-blocks      Used Available Use% Mounted on",
+    "/dev/block/dm-80 239543380 116053748 123358560  49% /data/user/0"
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "runId": "arm-lifecycle-20261001T125610Z-2ce8e082",
+  "phase": "lifecycle",
+  "target": "Pixel10Pro",
+  "startedUtc": "2026-10-01T12:56:10.5763072Z",
+  "gitHead": "a9b768530681db017bd32ea70c1b70df4726c825",
+  "sourceStatus": [
+    "?? evidence/runs/arm-controller-20261001T121053Z-cf1fb281/",
+    "?? evidence/runs/arm-controller-20261001T122026Z-ae50971f/",
+    "?? evidence/runs/arm-model-20261001T113519Z-ced1f437/",
+    "?? evidence/runs/arm-numeric-20261001T112624Z-912fe233/",
+    "?? evidence/runs/arm-numeric-20261001T113351Z-30fc1ab8/",
+    "?? evidence/runs/arm-numeric-20261001T114809Z-7f2313f2/",
+    "?? evidence/runs/arm-tune-20261001T124023Z-2b792260/",
+    "?? evidence/runs/pixel-isolation-20261001T112620Z-f20ab9cc/",
+    "?? evidence/runs/pixel-isolation-20261001T113345Z-c450ba13/",
+    "?? evidence/runs/pixel-isolation-20261001T113512Z-2bdfbe74/",
+    "?? evidence/runs/pixel-isolation-20261001T114804Z-1ecf037c/",
+    "?? evidence/runs/pixel-isolation-20261001T121048Z-911126ba/",
+    "?? evidence/runs/pixel-isolation-20261001T122022Z-48d11763/",
+    "?? evidence/runs/pixel-isolation-20261001T124018Z-fbd9cc82/",
+    "?? evidence/runs/pixel-isolation-20261001T125604Z-dc9264b5/"
+  ],
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T12:36:58.329792Z",
+    "versionName": "0.14.0",
+    "versionCode": 16,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "c3fd199a9e332a0aedb5316528393e7d6d59da4ef3ee90bc4b31f9add88797ee",
+    "testSourcesSha256": "b9659e5571ce2939d7f80871c7339dd4cbb5d3f3a4ed3abea1380d154c4dbb42",
+    "appSha256": "f9ba608aae881c409e633c6c6773c227fec87db3895d362dc29c73f296d8e486",
+    "testApkSha256": "a04455f93b19a451218f9b3e70e535c13a7f5ab3d8ed7f82cb85d278a1292da0",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "deviceProperties": {
+    "ro.kernel.qemu": "",
+    "ro.boot.qemu.avd_name": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.device": "blazer",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.version.release": "17",
+    "ro.build.version.sdk": "37",
+    "ro.build.version.security_patch": "2026-09-05",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "ro.soc.manufacturer": "Google",
+    "ro.soc.model": "Tensor G5",
+    "sys.boot_completed": "1"
+  },
+  "radioSettings": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "conditionsBefore": {
+    "capturedUtc": "2026-10-01T12:56:10.9008653Z",
+    "battery": [
+      "  AC powered: false",
+      "  USB powered: true",
+      "  Wireless powered: false",
+      "  Dock powered: false",
+      "  status: 2",
+      "  health: 2",
+      "  present: true",
+      "  level: 55",
+      "  scale: 100",
+      "  voltage: 4014",
+      "  temperature: 372",
+      "  technology: Li-ion"
+    ],
+    "memory": [
+      "MemTotal:       15949000 kB",
+      "MemFree:         1441172 kB",
+      "MemAvailable:    4629548 kB",
+      "SwapTotal:       7974496 kB",
+      "SwapFree:        3325512 kB"
+    ],
+    "dataSpace": [
+      "Filesystem       1K-blocks      Used Available Use% Mounted on",
+      "/dev/block/dm-80 239543380 116053756 123358552  49% /data/user/0"
+    ]
+  },
+  "threads": 6,
+  "width": 8,
+  "decodeRows": 4,
+  "scope": "Foreground ARM parity/performance research; per-call thermal/screen gates, unchanged model/prompt/output budget. No personal app content is read by the replacement Activity."
+}

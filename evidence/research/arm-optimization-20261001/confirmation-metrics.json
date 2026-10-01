@@ -1,0 +1,276 @@
+{
+  "runId": "arm-confirm-20261001T133232Z-a8581810",
+  "reportSha256": "f2c98587deee1b17d401e8a65f2e988642591936eecd0d13fea7a7b44fc741f6",
+  "identity": {
+    "runId": "arm-confirm-20261001T133232Z-a8581810",
+    "phase": "confirm",
+    "target": "Pixel10Pro",
+    "startedUtc": "2026-10-01T13:32:32.7796052Z",
+    "gitHead": "9c3b7aff041a403c81eaded22dad7b81157f73ad",
+    "sourceStatus": [
+      "?? evidence/research/arm-optimization-20261001/",
+      "?? evidence/runs/arm-confirm-20261001T125824Z-99b315d4/",
+      "?? evidence/runs/arm-controller-20261001T121053Z-cf1fb281/",
+      "?? evidence/runs/arm-controller-20261001T122026Z-ae50971f/",
+      "?? evidence/runs/arm-lifecycle-20261001T125610Z-2ce8e082/",
+      "?? evidence/runs/arm-model-20261001T113519Z-ced1f437/",
+      "?? evidence/runs/arm-numeric-20261001T112624Z-912fe233/",
+      "?? evidence/runs/arm-numeric-20261001T113351Z-30fc1ab8/",
+      "?? evidence/runs/arm-numeric-20261001T114809Z-7f2313f2/",
+      "?? evidence/runs/arm-trace-20261001T132954Z-f9669c2f/",
+      "?? evidence/runs/arm-tune-20261001T124023Z-2b792260/",
+      "?? evidence/runs/pixel-isolation-20261001T112620Z-f20ab9cc/",
+      "?? evidence/runs/pixel-isolation-20261001T113345Z-c450ba13/",
+      "?? evidence/runs/pixel-isolation-20261001T113512Z-2bdfbe74/",
+      "?? evidence/runs/pixel-isolation-20261001T114804Z-1ecf037c/",
+      "?? evidence/runs/pixel-isolation-20261001T121048Z-911126ba/",
+      "?? evidence/runs/pixel-isolation-20261001T122022Z-48d11763/",
+      "?? evidence/runs/pixel-isolation-20261001T124018Z-fbd9cc82/",
+      "?? evidence/runs/pixel-isolation-20261001T125604Z-dc9264b5/",
+      "?? evidence/runs/pixel-isolation-20261001T125819Z-15089238/",
+      "?? evidence/runs/pixel-isolation-20261001T132949Z-69b30b48/",
+      "?? evidence/runs/pixel-isolation-20261001T133226Z-45a2e965/"
+    ],
+    "buildReceipt": {
+      "schemaVersion": 1,
+      "builtAtUtc": "2026-10-01T13:28:52.5907681Z",
+      "versionName": "0.14.0",
+      "versionCode": 16,
+      "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+      "mainSourcesSha256": "6a47073d33fd6b3112087cdbf384cdb13849e18068e80d64d78a933f34e1098f",
+      "testSourcesSha256": "721f70edcf508255b95c6c59e23f0193237669accee9531023fe2a6f665872f2",
+      "appSha256": "95f67b1ee13c7899f77d2b47d0f41a650fd850fd9d209d03c099bfc380ae2821",
+      "testApkSha256": "608614371ce9acdb340928215e7b6352b578da6a87098a343a0117dac405f726",
+      "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+    },
+    "deviceProperties": {
+      "ro.kernel.qemu": "",
+      "ro.boot.qemu.avd_name": "",
+      "ro.product.manufacturer": "Google",
+      "ro.product.model": "Pixel 10 Pro",
+      "ro.product.device": "blazer",
+      "ro.product.cpu.abi": "arm64-v8a",
+      "ro.build.version.release": "17",
+      "ro.build.version.sdk": "37",
+      "ro.build.version.security_patch": "2026-09-05",
+      "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+      "ro.soc.manufacturer": "Google",
+      "ro.soc.model": "Tensor G5",
+      "sys.boot_completed": "1"
+    },
+    "radioSettings": {
+      "airplane_mode_on": "0",
+      "wifi_on": "1",
+      "mobile_data": "1"
+    },
+    "conditionsBefore": {
+      "capturedUtc": "2026-10-01T13:32:33.1089988Z",
+      "battery": [
+        "  AC powered: false",
+        "  USB powered: true",
+        "  Wireless powered: false",
+        "  Dock powered: false",
+        "  status: 2",
+        "  health: 2",
+        "  present: true",
+        "  level: 60",
+        "  scale: 100",
+        "  voltage: 4066",
+        "  temperature: 361",
+        "  technology: Li-ion"
+      ],
+      "memory": [
+        "MemTotal:       15949000 kB",
+        "MemFree:         1551904 kB",
+        "MemAvailable:    4761968 kB",
+        "SwapTotal:       7974496 kB",
+        "SwapFree:        3703172 kB"
+      ],
+      "dataSpace": [
+        "Filesystem       1K-blocks      Used Available Use% Mounted on",
+        "/dev/block/dm-80 239543380 116013488 123398820  49% /data/user/0"
+      ]
+    },
+    "threads": 4,
+    "width": 8,
+    "decodeRows": 4,
+    "scope": "Foreground ARM parity/performance research; per-call thermal/screen gates, unchanged model/prompt/output budget. No personal app content is read by the replacement Activity."
+  },
+  "cases": [
+    {
+      "case": "case0",
+      "question": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\n[1] Cedar Lodge reservation\nSynthetic reservation CL-482: Cedar Lodge check-in desk closes at 21:00. Arrivals after 21:00 must request a lockbox code before 18:00 on arrival day. The record does not contain a lockbox code. Reception opens again at 07:00.\n\n\nCURRENT USER MESSAGE: We will reach Cedar Lodge at 22:30. How do we check in, and do we need to arrange anything?\nASSISTANT:",
+      "text": "You will need to request a lockbox code before 18:00 on the arrival day to check in at Cedar Lodge. Since you are arriving at 22:30, which is after the 21:00 check-in closure time, you must arrange for a lockbox code by 18:00 on the day of your arrival. The reservation record does not contain a lockbox code, so you must contact the lodge directly to request one. Reception will open again at 07:00, but check-in is not possible after 21:00 without a prior code request.  \n\n[1]",
+      "tokens": 133,
+      "stopReason": 0,
+      "fullOutputEquivalent": true,
+      "normalEos": true,
+      "arms": {
+        "legacy": {
+          "configuration": {
+            "threads": 4,
+            "promptThreads": 4,
+            "width": 8,
+            "decodeRows": 4,
+            "persistentThreads": false,
+            "affinityMask": 0,
+            "batch": 128
+          },
+          "totalMs": [
+            226152,
+            205048,
+            167784
+          ],
+          "firstTokenMs": [
+            38453,
+            41081,
+            41341
+          ],
+          "medianTotalMs": 205048,
+          "medianFirstTokenMs": 41081,
+          "medianPrefillMs": 40898,
+          "medianDecodeMs": 163968,
+          "wouldExceedProductDeadline": [
+            true,
+            true,
+            true
+          ],
+          "sampledBatteryTemperatureRangeC": [
+            36.9,
+            37.9
+          ],
+          "sampledThermalStatuses": [
+            1
+          ]
+        },
+        "optimized": {
+          "configuration": {
+            "threads": 4,
+            "promptThreads": 6,
+            "width": 8,
+            "decodeRows": 4,
+            "persistentThreads": true,
+            "affinityMask": 0,
+            "batch": 128
+          },
+          "totalMs": [
+            35335,
+            35858,
+            35519
+          ],
+          "firstTokenMs": [
+            12377,
+            12491,
+            12104
+          ],
+          "medianTotalMs": 35519,
+          "medianFirstTokenMs": 12377,
+          "medianPrefillMs": 12234,
+          "medianDecodeMs": 23368,
+          "wouldExceedProductDeadline": [
+            false,
+            false,
+            false
+          ],
+          "sampledBatteryTemperatureRangeC": [
+            37.2,
+            38.0
+          ],
+          "sampledThermalStatuses": [
+            1
+          ]
+        }
+      },
+      "nativeTotalMedianRatio": 5.772910273374814,
+      "firstTokenMedianRatio": 3.319140340954997
+    },
+    {
+      "case": "case1",
+      "question": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\n[1] P-17 service manual revision C\nSynthetic manual revision C applies to pump P-17 firmware 3.0 to 3.4. Approved filter is Z-42. Work requires the site isolation procedure and a qualified technician. The record does not confirm isolation.\n\n[2] P-17 older manual revision A\nSynthetic manual revision A applies to firmware 1.0 to 1.9 only and lists filter Z-11. It does not apply to firmware 3.2.\n\n\nCURRENT USER MESSAGE: Which replacement filter is documented for pump P-17 running firmware 3.2? What needs checking before I act?\nASSISTANT:",
+      "text": "The replacement filter documented for pump P-17 running firmware 3.2 is **Z-42** (from P-17 service manual revision C). However, the document does not confirm the site isolation procedure or explicitly state that the site isolation is already completed.\n\nBefore acting, you need to verify:\n\n1. Whether the site isolation procedure has been performed (this is not confirmed in the provided documents).\n2. Whether the pump is indeed running firmware 3.2 (manual revision C applies to firmware 3.0 to 3.4, so firmware 3.2 is within range, but confirmation is needed).\n3. Whether the qualified technician has already completed the required work (no such record is provided).\n\nAction should only proceed after confirming isolation and technician qualification. [1]",
+      "tokens": 162,
+      "stopReason": 0,
+      "fullOutputEquivalent": true,
+      "normalEos": true,
+      "arms": {
+        "legacy": {
+          "configuration": {
+            "threads": 4,
+            "promptThreads": 4,
+            "width": 8,
+            "decodeRows": 4,
+            "persistentThreads": false,
+            "affinityMask": 0,
+            "batch": 128
+          },
+          "totalMs": [
+            262629,
+            222673,
+            265701
+          ],
+          "firstTokenMs": [
+            45369,
+            46428,
+            44869
+          ],
+          "medianTotalMs": 262629,
+          "medianFirstTokenMs": 45369,
+          "medianPrefillMs": 45187,
+          "medianDecodeMs": 217261,
+          "wouldExceedProductDeadline": [
+            true,
+            true,
+            true
+          ],
+          "sampledBatteryTemperatureRangeC": [
+            38.0,
+            38.7
+          ],
+          "sampledThermalStatuses": [
+            1
+          ]
+        },
+        "optimized": {
+          "configuration": {
+            "threads": 4,
+            "promptThreads": 6,
+            "width": 8,
+            "decodeRows": 4,
+            "persistentThreads": true,
+            "affinityMask": 0,
+            "batch": 128
+          },
+          "totalMs": [
+            42322,
+            41744,
+            42598
+          ],
+          "firstTokenMs": [
+            14132,
+            13665,
+            14299
+          ],
+          "medianTotalMs": 42322,
+          "medianFirstTokenMs": 14132,
+          "medianPrefillMs": 13957,
+          "medianDecodeMs": 28191,
+          "wouldExceedProductDeadline": [
+            false,
+            false,
+            false
+          ],
+          "sampledBatteryTemperatureRangeC": [
+            38.0,
+            38.7
+          ],
+          "sampledThermalStatuses": [
+            1
+          ]
+        }
+      },
+      "nativeTotalMedianRatio": 6.205495959548226,
+      "firstTokenMedianRatio": 3.2103736201528448
+    }
+  ],
+  "scope": "Three rotated pairs per known synthetic question. Same exact generated sequence and initial logits.300-second research deadline on both arms avoids censoring the legacy path; product deadline remains120 seconds. EOS/cap are explicit. No energy, broad-model accuracy or universal speedup claim."
+}

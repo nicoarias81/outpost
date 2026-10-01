@@ -1,0 +1,111 @@
+
+Starting tune/reference / reference / 4 threads / width 8
+
+Completed tune/reference: 38092ms / first 26732ms / 64 tokens / stop 1
+
+Starting prefill/round0/p2/w4 / DotProd / 4 threads / width 4
+
+Completed prefill/round0/p2/w4: 34940ms / first 25391ms / 8 tokens / stop 1
+
+Starting prefill/round0/p2/w8 / DotProd / 4 threads / width 8
+
+Completed prefill/round0/p2/w8: 26503ms / first 25639ms / 8 tokens / stop 1
+
+Starting prefill/round0/p4/w4 / DotProd / 4 threads / width 4
+
+Completed prefill/round0/p4/w4: 17321ms / first 16255ms / 8 tokens / stop 1
+
+Starting prefill/round0/p4/w8 / DotProd / 4 threads / width 8
+
+Completed prefill/round0/p4/w8: 19604ms / first 18412ms / 8 tokens / stop 1
+
+Starting prefill/round0/p6/w4 / DotProd / 4 threads / width 4
+
+Completed prefill/round0/p6/w4: 16641ms / first 15419ms / 8 tokens / stop 1
+
+Starting prefill/round0/p6/w8 / DotProd / 4 threads / width 8
+
+Completed prefill/round0/p6/w8: 15323ms / first 14117ms / 8 tokens / stop 1
+
+Starting prefill/round0/p8/w4 / DotProd / 4 threads / width 4
+
+Completed prefill/round0/p8/w4: 26376ms / first 25150ms / 8 tokens / stop 1
+
+Starting prefill/round0/p8/w8 / DotProd / 4 threads / width 8
+
+Completed prefill/round0/p8/w8: 31674ms / first 30464ms / 8 tokens / stop 1
+
+Starting prefill/round1/p8/w8 / DotProd / 4 threads / width 8
+
+Completed prefill/round1/p8/w8: 34742ms / first 33490ms / 8 tokens / stop 1
+
+Starting prefill/round1/p8/w4 / DotProd / 4 threads / width 4
+
+Completed prefill/round1/p8/w4: 33295ms / first 32064ms / 8 tokens / stop 1
+
+Starting prefill/round1/p6/w8 / DotProd / 4 threads / width 8
+
+Completed prefill/round1/p6/w8: 15716ms / first 14467ms / 8 tokens / stop 1
+
+Starting prefill/round1/p6/w4 / DotProd / 4 threads / width 4
+
+Completed prefill/round1/p6/w4: 16812ms / first 15579ms / 8 tokens / stop 1
+
+Starting prefill/round1/p4/w8 / DotProd / 4 threads / width 8
+
+Completed prefill/round1/p4/w8: 21424ms / first 20182ms / 8 tokens / stop 1
+
+Starting prefill/round1/p4/w4 / DotProd / 4 threads / width 4
+
+Completed prefill/round1/p4/w4: 22108ms / first 20905ms / 8 tokens / stop 1
+
+Starting prefill/round1/p2/w8 / DotProd / 4 threads / width 8
+
+Completed prefill/round1/p2/w8: 35351ms / first 34237ms / 8 tokens / stop 1
+
+Starting prefill/round1/p2/w4 / DotProd / 4 threads / width 4
+
+Completed prefill/round1/p2/w4: 35892ms / first 34850ms / 8 tokens / stop 1
+
+Starting decode/round0/t1 / DotProd / 1 threads / width 8
+
+Completed decode/round0/t1: 43304ms / first 19442ms / 64 tokens / stop 1
+
+Starting decode/round0/t2 / DotProd / 2 threads / width 8
+
+Completed decode/round0/t2: 32799ms / first 13591ms / 64 tokens / stop 1
+
+Starting decode/round0/t4 / DotProd / 4 threads / width 8
+
+Completed decode/round0/t4: 31611ms / first 20581ms / 64 tokens / stop 1
+
+Starting decode/round0/t6 / DotProd / 6 threads / width 8
+
+Completed decode/round0/t6: 31447ms / first 22612ms / 64 tokens / stop 1
+
+Starting decode/round0/t8 / DotProd / 8 threads / width 8
+
+Completed decode/round0/t8: 29021ms / first 14400ms / 64 tokens / stop 1
+
+Starting decode/round1/t8 / DotProd / 8 threads / width 8
+
+Completed decode/round1/t8: 29290ms / first 14253ms / 64 tokens / stop 1
+
+Starting decode/round1/t6 / DotProd / 6 threads / width 8
+
+Completed decode/round1/t6: 22469ms / first 14428ms / 64 tokens / stop 1
+
+Starting decode/round1/t4 / DotProd / 4 threads / width 8
+
+Completed decode/round1/t4: 27646ms / first 16336ms / 64 tokens / stop 1
+
+Starting decode/round1/t2 / DotProd / 2 threads / width 8
+
+Completed decode/round1/t2: 37004ms / first 16069ms / 64 tokens / stop 1
+
+Starting decode/round1/t1 / DotProd / 1 threads / width 8
+
+Completed decode/round1/t1: 47739ms / first 20156ms / 64 tokens / stop 1
+
+PASS ARM tune: 61 controls.
+

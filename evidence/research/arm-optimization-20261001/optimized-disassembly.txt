@@ -1,0 +1,414 @@
+
+app/.cxx/Release/4h1y6t6z/arm64-v8a/CMakeFiles/outpost_engine.dir/q2_arm.c.o:	file format elf64-littleaarch64
+
+Disassembly of section .text.outpost_q2_arm_dot:
+
+0000000000000000 <outpost_q2_arm_dot>:
+       0:      	movi	v0.2d, #0000000000000000
+       4:      	cmp	w0, #0x40
+       8:      	b.lt	0x100 <outpost_q2_arm_dot+0x100>
+       c:      	adrp	x9, 0x0 <outpost_q2_arm_dot>
+      10:      	movi	v1.16b, #0x3
+      14:      	movi	v2.2d, #0xffffffffffffffff
+      18:      	ldr	q3, [x9]
+      1c:      	adrp	x9, 0x0 <outpost_q2_arm_dot>
+      20:      	adrp	x10, 0x0 <outpost_q2_arm_dot>
+      24:      	adrp	x11, 0x0 <outpost_q2_arm_dot>
+      28:      	lsr	w8, w0, #6
+      2c:      	ldr	q4, [x9]
+      30:      	ldr	q5, [x10]
+      34:      	ldr	q6, [x11]
+      38:      	add	x9, x5, #0x22
+      3c:      	ldur	d7, [x3, #0x2]
+      40:      	ldur	d16, [x3, #0xa]
+      44:      	movi	v21.2d, #0000000000000000
+      48:      	ldp	q19, q20, [x9, #-0x20]
+      4c:      	movi	v23.2d, #0000000000000000
+      50:      	mov	v7.d[1], v7.d[0]
+      54:      	mov	v16.d[1], v16.d[0]
+      58:      	ldur	q22, [x9, #0x2]
+      5c:      	ldur	h24, [x9, #-0x22]
+      60:      	subs	x8, x8, #0x1
+      64:      	tbl	v19.16b, { v19.16b }, v6.16b
+      68:      	tbl	v22.16b, { v22.16b }, v6.16b
+      6c:      	tbl	v20.16b, { v20.16b }, v6.16b
+      70:      	tbl	v17.16b, { v7.16b }, v3.16b
+      74:      	tbl	v7.16b, { v7.16b }, v5.16b
+      78:      	tbl	v18.16b, { v16.16b }, v3.16b
+      7c:      	tbl	v16.16b, { v16.16b }, v5.16b
+      80:      	ushl	v17.16b, v17.16b, v4.16b
+      84:      	ushl	v7.16b, v7.16b, v4.16b
+      88:      	ushl	v18.16b, v18.16b, v4.16b
+      8c:      	ushl	v16.16b, v16.16b, v4.16b
+      90:      	and	v17.16b, v17.16b, v1.16b
+      94:      	and	v7.16b, v7.16b, v1.16b
+      98:      	and	v18.16b, v18.16b, v1.16b
+      9c:      	and	v16.16b, v16.16b, v1.16b
+      a0:      	add	v17.16b, v17.16b, v2.16b
+      a4:      	add	v7.16b, v7.16b, v2.16b
+      a8:      	add	v18.16b, v18.16b, v2.16b
+      ac:      	add	v16.16b, v16.16b, v2.16b
+      b0:      	sdot	v21.4s, v17.16b, v19.16b
+      b4:      	ldur	q17, [x9, #0x12]
+      b8:      	ldr	h19, [x3]
+      bc:      	sdot	v23.4s, v18.16b, v22.16b
+      c0:      	fcvt	s18, h24
+      c4:      	add	x3, x3, #0x12
+      c8:      	tbl	v17.16b, { v17.16b }, v6.16b
+      cc:      	sdot	v21.4s, v7.16b, v20.16b
+      d0:      	fcvt	s7, h19
+      d4:      	ldr	h19, [x9]
+      d8:      	add	x9, x9, #0x44
+      dc:      	sdot	v23.4s, v16.16b, v17.16b
+      e0:      	scvtf	v16.4s, v21.4s
+      e4:      	fmul	s17, s7, s18
+      e8:      	fcvt	s18, h19
+      ec:      	fmla	v0.4s, v16.4s, v17.s[0]
+      f0:      	scvtf	v16.4s, v23.4s
+      f4:      	fmul	s7, s7, s18
+      f8:      	fmla	v0.4s, v16.4s, v7.s[0]
+      fc:      	b.ne	0x3c <outpost_q2_arm_dot+0x3c>
+     100:      	faddp	v0.4s, v0.4s, v0.4s
+     104:      	faddp	s0, v0.2s
+     108:      	str	s0, [x1]
+     10c:      	ret
+
+Disassembly of section .text.decode_rows4:
+
+0000000000000000 <decode_rows4>:
+       0:      	movi	v0.2d, #0000000000000000
+       4:      	movi	v1.2d, #0000000000000000
+       8:      	cmp	w0, #0x40
+       c:      	movi	v2.2d, #0000000000000000
+      10:      	movi	v3.2d, #0000000000000000
+      14:      	b.lt	0x2bc <decode_rows4+0x2bc>
+      18:      	stp	d15, d14, [sp, #-0x40]!
+      1c:      	stp	d13, d12, [sp, #0x10]
+      20:      	stp	d11, d10, [sp, #0x20]
+      24:      	stp	d9, d8, [sp, #0x30]
+      28:      	movi	v0.2d, #0000000000000000
+      2c:      	movi	v4.16b, #0x3
+      30:      	adrp	x9, 0x0 <decode_rows4>
+      34:      	movi	v5.2d, #0xffffffffffffffff
+      38:      	movi	v1.2d, #0000000000000000
+      3c:      	adrp	x10, 0x0 <decode_rows4>
+      40:      	movi	v2.2d, #0000000000000000
+      44:      	movi	v3.2d, #0000000000000000
+      48:      	adrp	x11, 0x0 <decode_rows4>
+      4c:      	lsr	w8, w0, #6
+      50:      	ldr	q6, [x9]
+      54:      	ldr	q7, [x10]
+      58:      	ldr	q16, [x11]
+      5c:      	add	x9, x3, #0x22
+      60:      	add	x10, x1, #0x2
+      64:      	ldp	d19, d17, [x10]
+      68:      	add	x12, x10, x2
+      6c:      	ldp	d20, d18, [x12]
+      70:      	add	x13, x12, x2
+      74:      	add	x11, x13, x2
+      78:      	ldp	d28, d25, [x13]
+      7c:      	mov	v19.d[1], v19.d[0]
+      80:      	ldp	d30, d26, [x11]
+      84:      	mov	v20.d[1], v20.d[0]
+      88:      	mov	v18.d[1], v18.d[0]
+      8c:      	mov	v17.d[1], v17.d[0]
+      90:      	mov	v28.d[1], v28.d[0]
+      94:      	mov	v25.d[1], v25.d[0]
+      98:      	ldur	h24, [x12, #-0x2]
+      9c:      	mov	v30.d[1], v30.d[0]
+      a0:      	mov	v26.d[1], v26.d[0]
+      a4:      	ldur	h22, [x13, #-0x2]
+      a8:      	tbl	v21.16b, { v19.16b }, v6.16b
+      ac:      	tbl	v29.16b, { v19.16b }, v16.16b
+      b0:      	movi	v19.2d, #0000000000000000
+      b4:      	tbl	v23.16b, { v20.16b }, v6.16b
+      b8:      	tbl	v12.16b, { v18.16b }, v6.16b
+      bc:      	tbl	v11.16b, { v20.16b }, v16.16b
+      c0:      	tbl	v31.16b, { v28.16b }, v6.16b
+      c4:      	tbl	v15.16b, { v28.16b }, v16.16b
+      c8:      	tbl	v8.16b, { v17.16b }, v6.16b
+      cc:      	tbl	v9.16b, { v30.16b }, v6.16b
+      d0:      	tbl	v17.16b, { v17.16b }, v16.16b
+      d4:      	tbl	v18.16b, { v18.16b }, v16.16b
+      d8:      	ushl	v27.16b, v21.16b, v7.16b
+      dc:      	ushl	v13.16b, v29.16b, v7.16b
+      e0:      	movi	v21.2d, #0000000000000000
+      e4:      	ushl	v10.16b, v23.16b, v7.16b
+      e8:      	ldp	q14, q29, [x9, #-0x20]
+      ec:      	movi	v23.2d, #0000000000000000
+      f0:      	ushl	v31.16b, v31.16b, v7.16b
+      f4:      	ushl	v12.16b, v12.16b, v7.16b
+      f8:      	and	v27.16b, v27.16b, v4.16b
+      fc:      	ushl	v9.16b, v9.16b, v7.16b
+     100:      	and	v13.16b, v13.16b, v4.16b
+     104:      	and	v10.16b, v10.16b, v4.16b
+     108:      	ushl	v11.16b, v11.16b, v7.16b
+     10c:      	ldur	q20, [x9, #0x2]
+     110:      	and	v31.16b, v31.16b, v4.16b
+     114:      	ushl	v8.16b, v8.16b, v7.16b
+     118:      	subs	x8, x8, #0x1
+     11c:      	add	v27.16b, v27.16b, v5.16b
+     120:      	and	v9.16b, v9.16b, v4.16b
+     124:      	add	v13.16b, v13.16b, v5.16b
+     128:      	add	v10.16b, v10.16b, v5.16b
+     12c:      	and	v11.16b, v11.16b, v4.16b
+     130:      	movi	v28.2d, #0000000000000000
+     134:      	add	v31.16b, v31.16b, v5.16b
+     138:      	and	v8.16b, v8.16b, v4.16b
+     13c:      	ushl	v17.16b, v17.16b, v7.16b
+     140:      	add	v9.16b, v9.16b, v5.16b
+     144:      	ushl	v18.16b, v18.16b, v7.16b
+     148:      	fcvt	s24, h24
+     14c:      	sdot	v21.4s, v27.16b, v14.16b
+     150:      	movi	v27.2d, #0000000000000000
+     154:      	add	v11.16b, v11.16b, v5.16b
+     158:      	sdot	v23.4s, v10.16b, v14.16b
+     15c:      	tbl	v10.16b, { v30.16b }, v16.16b
+     160:      	and	v30.16b, v12.16b, v4.16b
+     164:      	ushl	v12.16b, v15.16b, v7.16b
+     168:      	sdot	v19.4s, v31.16b, v14.16b
+     16c:      	ldur	q31, [x9, #0x12]
+     170:      	add	v8.16b, v8.16b, v5.16b
+     174:      	and	v17.16b, v17.16b, v4.16b
+     178:      	and	v18.16b, v18.16b, v4.16b
+     17c:      	sdot	v21.4s, v13.16b, v29.16b
+     180:      	tbl	v13.16b, { v25.16b }, v6.16b
+     184:      	sdot	v27.4s, v9.16b, v14.16b
+     188:      	tbl	v9.16b, { v26.16b }, v6.16b
+     18c:      	ushl	v10.16b, v10.16b, v7.16b
+     190:      	and	v12.16b, v12.16b, v4.16b
+     194:      	tbl	v25.16b, { v25.16b }, v16.16b
+     198:      	tbl	v26.16b, { v26.16b }, v16.16b
+     19c:      	add	v14.16b, v30.16b, v5.16b
+     1a0:      	movi	v30.2d, #0000000000000000
+     1a4:      	sdot	v23.4s, v11.16b, v29.16b
+     1a8:      	ldr	h11, [x9]
+     1ac:      	ushl	v13.16b, v13.16b, v7.16b
+     1b0:      	and	v10.16b, v10.16b, v4.16b
+     1b4:      	add	v12.16b, v12.16b, v5.16b
+     1b8:      	ushl	v9.16b, v9.16b, v7.16b
+     1bc:      	sdot	v28.4s, v8.16b, v20.16b
+     1c0:      	ldur	h8, [x9, #-0x22]
+     1c4:      	add	x9, x9, #0x44
+     1c8:      	ushl	v25.16b, v25.16b, v7.16b
+     1cc:      	ushl	v26.16b, v26.16b, v7.16b
+     1d0:      	and	v13.16b, v13.16b, v4.16b
+     1d4:      	add	v10.16b, v10.16b, v5.16b
+     1d8:      	sdot	v30.4s, v14.16b, v20.16b
+     1dc:      	ldur	h14, [x10, #-0x2]
+     1e0:      	add	x10, x10, #0x12
+     1e4:      	and	v9.16b, v9.16b, v4.16b
+     1e8:      	sdot	v19.4s, v12.16b, v29.16b
+     1ec:      	movi	v12.2d, #0000000000000000
+     1f0:      	and	v25.16b, v25.16b, v4.16b
+     1f4:      	add	v13.16b, v13.16b, v5.16b
+     1f8:      	and	v26.16b, v26.16b, v4.16b
+     1fc:      	fcvt	s8, h8
+     200:      	add	v9.16b, v9.16b, v5.16b
+     204:      	sdot	v27.4s, v10.16b, v29.16b
+     208:      	movi	v29.2d, #0000000000000000
+     20c:      	fcvt	s14, h14
+     210:      	fcvt	s22, h22
+     214:      	add	v17.16b, v17.16b, v5.16b
+     218:      	add	v18.16b, v18.16b, v5.16b
+     21c:      	add	v25.16b, v25.16b, v5.16b
+     220:      	add	v26.16b, v26.16b, v5.16b
+     224:      	sdot	v12.4s, v13.16b, v20.16b
+     228:      	ldur	h13, [x11, #-0x2]
+     22c:      	scvtf	v21.4s, v21.4s
+     230:      	sdot	v29.4s, v9.16b, v20.16b
+     234:      	fmul	s20, s8, s24
+     238:      	scvtf	v23.4s, v23.4s
+     23c:      	fmul	s10, s8, s14
+     240:      	fcvt	s9, h13
+     244:      	fmul	s13, s8, s22
+     248:      	fcvt	s11, h11
+     24c:      	scvtf	v19.4s, v19.4s
+     250:      	sdot	v28.4s, v17.16b, v31.16b
+     254:      	sdot	v30.4s, v18.16b, v31.16b
+     258:      	scvtf	v18.4s, v27.4s
+     25c:      	sdot	v12.4s, v25.16b, v31.16b
+     260:      	fmla	v2.4s, v23.4s, v20.s[0]
+     264:      	sdot	v29.4s, v26.16b, v31.16b
+     268:      	fmul	s17, s8, s9
+     26c:      	fmla	v3.4s, v21.4s, v10.s[0]
+     270:      	fmla	v1.4s, v19.4s, v13.s[0]
+     274:      	fmul	s19, s11, s14
+     278:      	fmul	s20, s11, s24
+     27c:      	fmul	s21, s11, s22
+     280:      	scvtf	v23.4s, v12.4s
+     284:      	fmul	s22, s11, s9
+     288:      	scvtf	v24.4s, v29.4s
+     28c:      	fmla	v0.4s, v18.4s, v17.s[0]
+     290:      	scvtf	v17.4s, v28.4s
+     294:      	scvtf	v18.4s, v30.4s
+     298:      	fmla	v1.4s, v23.4s, v21.s[0]
+     29c:      	fmla	v3.4s, v17.4s, v19.s[0]
+     2a0:      	fmla	v2.4s, v18.4s, v20.s[0]
+     2a4:      	fmla	v0.4s, v24.4s, v22.s[0]
+     2a8:      	b.ne	0x64 <decode_rows4+0x64>
+     2ac:      	ldp	d9, d8, [sp, #0x30]
+     2b0:      	ldp	d11, d10, [sp, #0x20]
+     2b4:      	ldp	d13, d12, [sp, #0x10]
+     2b8:      	ldp	d15, d14, [sp], #0x40
+     2bc:      	faddp	v3.4s, v3.4s, v3.4s
+     2c0:      	faddp	v2.4s, v2.4s, v2.4s
+     2c4:      	faddp	v1.4s, v1.4s, v1.4s
+     2c8:      	faddp	v0.4s, v0.4s, v0.4s
+     2cc:      	faddp	s3, v3.2s
+     2d0:      	faddp	s2, v2.2s
+     2d4:      	faddp	s1, v1.2s
+     2d8:      	faddp	s0, v0.2s
+     2dc:      	stp	s3, s2, [x4]
+     2e0:      	stp	s1, s0, [x4, #0x8]
+     2e4:      	ret
+
+Disassembly of section .text.columns4:
+
+0000000000000000 <columns4>:
+       0:      	movi	v0.2d, #0000000000000000
+       4:      	movi	v1.2d, #0000000000000000
+       8:      	cmp	w0, #0x40
+       c:      	movi	v2.2d, #0000000000000000
+      10:      	movi	v4.2d, #0000000000000000
+      14:      	b.lt	0x20c <columns4+0x20c>
+      18:      	str	d12, [sp, #-0x30]!
+      1c:      	stp	d11, d10, [sp, #0x10]
+      20:      	stp	d9, d8, [sp, #0x20]
+      24:      	movi	v0.2d, #0000000000000000
+      28:      	movi	v3.16b, #0x3
+      2c:      	adrp	x9, 0x0 <columns4>
+      30:      	movi	v5.2d, #0xffffffffffffffff
+      34:      	movi	v1.2d, #0000000000000000
+      38:      	adrp	x10, 0x0 <columns4>
+      3c:      	movi	v2.2d, #0000000000000000
+      40:      	movi	v4.2d, #0000000000000000
+      44:      	adrp	x11, 0x0 <columns4>
+      48:      	lsr	w8, w0, #6
+      4c:      	ldr	q6, [x9]
+      50:      	ldr	q7, [x10]
+      54:      	ldr	q16, [x11]
+      58:      	add	x9, x2, #0x2
+      5c:      	ldur	d26, [x1, #0x2]
+      60:      	ldur	d23, [x1, #0xa]
+      64:      	add	x10, x9, x3
+      68:      	ldp	q9, q10, [x10]
+      6c:      	movi	v18.2d, #0000000000000000
+      70:      	mov	v26.d[1], v26.d[0]
+      74:      	mov	v23.d[1], v23.d[0]
+      78:      	movi	v27.2d, #0000000000000000
+      7c:      	add	x11, x10, x3
+      80:      	ldp	q24, q20, [x9]
+      84:      	movi	v31.2d, #0000000000000000
+      88:      	add	x12, x11, x3
+      8c:      	ldr	h19, [x1]
+      90:      	ldur	q25, [x9, #0x22]
+      94:      	movi	v28.2d, #0000000000000000
+      98:      	ldur	q11, [x10, #0x22]
+      9c:      	tbl	v17.16b, { v26.16b }, v6.16b
+      a0:      	tbl	v8.16b, { v26.16b }, v16.16b
+      a4:      	tbl	v21.16b, { v23.16b }, v6.16b
+      a8:      	tbl	v23.16b, { v23.16b }, v16.16b
+      ac:      	movi	v26.2d, #0000000000000000
+      b0:      	fcvt	s19, h19
+      b4:      	subs	x8, x8, #0x1
+      b8:      	add	x1, x1, #0x12
+      bc:      	ushl	v22.16b, v17.16b, v7.16b
+      c0:      	ushl	v8.16b, v8.16b, v7.16b
+      c4:      	ushl	v30.16b, v21.16b, v7.16b
+      c8:      	ushl	v23.16b, v23.16b, v7.16b
+      cc:      	movi	v17.2d, #0000000000000000
+      d0:      	movi	v21.2d, #0000000000000000
+      d4:      	and	v29.16b, v22.16b, v3.16b
+      d8:      	movi	v22.2d, #0000000000000000
+      dc:      	and	v8.16b, v8.16b, v3.16b
+      e0:      	and	v30.16b, v30.16b, v3.16b
+      e4:      	and	v23.16b, v23.16b, v3.16b
+      e8:      	add	v29.16b, v29.16b, v5.16b
+      ec:      	add	v8.16b, v8.16b, v5.16b
+      f0:      	add	v30.16b, v30.16b, v5.16b
+      f4:      	add	v23.16b, v23.16b, v5.16b
+      f8:      	sdot	v22.4s, v29.16b, v9.16b
+      fc:      	ldp	q12, q9, [x11]
+     100:      	sdot	v18.4s, v29.16b, v24.16b
+     104:      	sdot	v17.4s, v30.16b, v25.16b
+     108:      	ldur	q25, [x12, #0x22]
+     10c:      	sdot	v21.4s, v30.16b, v11.16b
+     110:      	ldur	h11, [x10, #-0x2]
+     114:      	sdot	v27.4s, v29.16b, v12.16b
+     118:      	ldp	q24, q12, [x12]
+     11c:      	sdot	v22.4s, v8.16b, v10.16b
+     120:      	ldur	h10, [x12, #-0x2]
+     124:      	sdot	v28.4s, v30.16b, v25.16b
+     128:      	sdot	v18.4s, v8.16b, v20.16b
+     12c:      	ldur	h20, [x11, #-0x2]
+     130:      	fcvt	s11, h11
+     134:      	sdot	v31.4s, v29.16b, v24.16b
+     138:      	ldur	h24, [x9, #-0x2]
+     13c:      	ldur	q29, [x11, #0x22]
+     140:      	sdot	v27.4s, v8.16b, v9.16b
+     144:      	fcvt	s20, h20
+     148:      	fcvt	s10, h10
+     14c:      	fcvt	s24, h24
+     150:      	sdot	v26.4s, v30.16b, v29.16b
+     154:      	ldur	q29, [x10, #0x32]
+     158:      	ldur	q30, [x9, #0x32]
+     15c:      	scvtf	v18.4s, v18.4s
+     160:      	ldr	h25, [x10, #0x20]
+     164:      	sdot	v31.4s, v8.16b, v12.16b
+     168:      	ldr	h9, [x9, #0x20]
+     16c:      	ldur	q8, [x11, #0x32]
+     170:      	ldr	h12, [x11, #0x20]
+     174:      	sdot	v17.4s, v23.16b, v30.16b
+     178:      	ldur	q30, [x12, #0x32]
+     17c:      	fmul	s24, s19, s24
+     180:      	sdot	v21.4s, v23.16b, v29.16b
+     184:      	ldr	h29, [x12, #0x20]
+     188:      	fcvt	s9, h9
+     18c:      	fmul	s11, s19, s11
+     190:      	fmul	s20, s19, s20
+     194:      	scvtf	v22.4s, v22.4s
+     198:      	fmul	s10, s19, s10
+     19c:      	scvtf	v27.4s, v27.4s
+     1a0:      	scvtf	v31.4s, v31.4s
+     1a4:      	fcvt	s25, h25
+     1a8:      	sdot	v26.4s, v23.16b, v8.16b
+     1ac:      	sdot	v28.4s, v23.16b, v30.16b
+     1b0:      	fcvt	s23, h12
+     1b4:      	fmla	v4.4s, v18.4s, v24.s[0]
+     1b8:      	fcvt	s18, h29
+     1bc:      	scvtf	v17.4s, v17.4s
+     1c0:      	scvtf	v21.4s, v21.4s
+     1c4:      	fmla	v2.4s, v22.4s, v11.s[0]
+     1c8:      	fmla	v1.4s, v27.4s, v20.s[0]
+     1cc:      	add	x9, x9, #0x44
+     1d0:      	fmla	v0.4s, v31.4s, v10.s[0]
+     1d4:      	fmul	s20, s19, s9
+     1d8:      	fmul	s22, s19, s25
+     1dc:      	fmul	s23, s19, s23
+     1e0:      	scvtf	v24.4s, v28.4s
+     1e4:      	fmul	s18, s19, s18
+     1e8:      	scvtf	v19.4s, v26.4s
+     1ec:      	fmla	v4.4s, v17.4s, v20.s[0]
+     1f0:      	fmla	v2.4s, v21.4s, v22.s[0]
+     1f4:      	fmla	v1.4s, v19.4s, v23.s[0]
+     1f8:      	fmla	v0.4s, v24.4s, v18.s[0]
+     1fc:      	b.ne	0x5c <columns4+0x5c>
+     200:      	ldp	d9, d8, [sp, #0x20]
+     204:      	ldp	d11, d10, [sp, #0x10]
+     208:      	ldr	d12, [sp], #0x30
+     20c:      	faddp	v3.4s, v4.4s, v4.4s
+     210:      	faddp	v2.4s, v2.4s, v2.4s
+     214:      	lsl	x8, x5, #1
+     218:      	faddp	v1.4s, v1.4s, v1.4s
+     21c:      	faddp	v0.4s, v0.4s, v0.4s
+     220:      	add	x9, x8, x5
+     224:      	faddp	s3, v3.2s
+     228:      	faddp	s2, v2.2s
+     22c:      	faddp	s1, v1.2s
+     230:      	faddp	s0, v0.2s
+     234:      	str	s3, [x4]
+     238:      	str	s2, [x4, x5]
+     23c:      	str	s1, [x4, x8]
+     240:      	str	s0, [x4, x9]
+     244:      	ret

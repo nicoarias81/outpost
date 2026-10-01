@@ -1,0 +1,97 @@
+{
+  "capturedUtc": "2026-10-01T14:24:49.2953406Z",
+  "target": "Pixel10Pro",
+  "properties": {
+    "ro.kernel.qemu": "",
+    "ro.boot.qemu.avd_name": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.device": "blazer",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.version.release": "17",
+    "ro.build.version.sdk": "37",
+    "ro.build.version.security_patch": "2026-09-05",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "ro.soc.manufacturer": "Google",
+    "ro.soc.model": "Tensor G5",
+    "sys.boot_completed": "1"
+  },
+  "radioSettings": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "screenOffTimeout": "30000",
+  "stayOnWhilePluggedIn": "0",
+  "packages": [
+    {
+      "package": "dev.outpost.app",
+      "sha256": "dc8af7cb9b7d92fdee9b93c27a7879482be77338dc6a62c592e86249517f9719"
+    },
+    {
+      "package": "dev.outpost.app.test",
+      "sha256": "608614371ce9acdb340928215e7b6352b578da6a87098a343a0117dac405f726"
+    }
+  ],
+  "conditions": {
+    "capturedUtc": "2026-10-01T14:24:49.6782704Z",
+    "battery": [
+      "  AC powered: false",
+      "  USB powered: true",
+      "  Wireless powered: false",
+      "  Dock powered: false",
+      "  status: 2",
+      "  health: 2",
+      "  present: true",
+      "  level: 67",
+      "  scale: 100",
+      "  voltage: 4138",
+      "  temperature: 344",
+      "  technology: Li-ion"
+    ],
+    "memory": [
+      "MemTotal:       15949000 kB",
+      "MemFree:          899544 kB",
+      "MemAvailable:    5025912 kB",
+      "SwapTotal:       7974496 kB",
+      "SwapFree:        3823136 kB"
+    ],
+    "dataSpace": [
+      "Filesystem       1K-blocks      Used Available Use% Mounted on",
+      "/dev/block/dm-80 239543380 116006144 123406164  49% /data/user/0"
+    ]
+  },
+  "privateStateJournal": {
+    "runId": "pixel-isolation-20261001T141133Z-7ea4c32c",
+    "target": "Pixel10Pro",
+    "startedUtc": "2026-10-01T14:11:33.4371616Z",
+    "restoredUtc": "2026-10-01T14:12:25.9867245Z",
+    "status": "restored",
+    "backup": "files/pixel-isolation-20261001T141133Z-7ea4c32c",
+    "entries": [
+      {
+        "path": "databases",
+        "key": "databases",
+        "existed": true,
+        "beforeDigest": "46b566b9982ee0d42000e7f3b31ccb6188c6781685fbc8dde0ed0f20bfc84824",
+        "afterDigest": "46b566b9982ee0d42000e7f3b31ccb6188c6781685fbc8dde0ed0f20bfc84824"
+      },
+      {
+        "path": "shared_prefs",
+        "key": "shared_prefs",
+        "existed": true,
+        "beforeDigest": "e18580c419b42c8dc878c8566cdc4d1f6cd5cc1618713e1c1fed4945c7cea100",
+        "afterDigest": "e18580c419b42c8dc878c8566cdc4d1f6cd5cc1618713e1c1fed4945c7cea100"
+      },
+      {
+        "path": "files/documents",
+        "key": "documents",
+        "existed": false,
+        "beforeDigest": null,
+        "afterDigest": null
+      }
+    ],
+    "scope": "Opaque app-private directory renames. No personal contents leave the phone; original files are hash-verified after restoration. Test directories are retained separately, never merged."
+  },
+  "scope": "Final installed0.15 APKs; original app stores restored, system settings preserved. Benchmark per-window keep-awake ended with its Activity."
+}
