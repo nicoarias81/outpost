@@ -176,8 +176,15 @@ std::vector<llama_token> spark_prompt(const llama_model *model,const std::string
         result.push_back(ids[0]);
     };
     auto content=[&](const std::string &text) {
-        // Tokenize data separately: literal control-token spellings cannot become role delimiters.
-        auto ids=protocol_tokens(vocab,text,false);result.insert(result.end(),ids.begin(),ids.end());
+        // This backend still recognizes USER_DEFINED tokens when parse_special=false.
+        // Every special spelling in the pinned Spark vocabulary starts with '<'. Split after it
+        // to preserve literal bytes without recognizing a complete control/reasoning/tool marker.
+        size_t start=0;
+        while(start<text.size()) {
+            size_t angle=text.find('<',start),end=angle==std::string::npos?text.size():angle+1;
+            auto ids=protocol_tokens(vocab,text.substr(start,end-start),false);
+            result.insert(result.end(),ids.begin(),ids.end());start=end;
+        }
     };
     // Exact two-message, no-tools, enable_thinking=false projection of the pinned official template.
     // GGUF template SHA256: 84493de66d859ab2694ec760056c82690af45de2dd170f1b6245456378f32f52.
