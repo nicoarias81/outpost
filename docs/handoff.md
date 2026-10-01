@@ -39,6 +39,10 @@ Library schema5 preserves metadata, packs, source identities and imported snapsh
 5. The test-only status Activity can remain visible over keyguard through standard Android APIs; it does not disable authentication or open personal app state. Isolated UI visibility additionally requires an active marker and empty conversation/library/drafts. Do not manually use Outpost during the suite. No global radio/governor/screen-security settings are changed.
 6. Use [candidate testing](candidate-testing.md) for Spark research and [development](development.md) for other suites. Full logit traces are opt-in research overhead and off in product sessions. Generalized device/field acceptance remains open.
 
+## New static research: TandemLLM
+
+[The pinned review](tandemllm-review.md) prioritizes TND-01/TND-02: full speculative-sample tracing, comparable round-cost accounting and current Pixel verify curves before a cost-aware chain controller. Upstream GPU kernels, price tables, drafters and one-ulp acceptance rules are not imported. Its EngramDrafter is suffix lookup rather than trained model memory. No runtime change or new phone-speed result is part of that review; product speculation remains zero.
+
 ## Preserved limitations and next work
 
 Model facts, range/row filtering and citation binding still fail on some known tasks; kernel equivalence intentionally preserves those outputs. Spark remains outside Settings, and LFM2.5/Qwen3.5/Engram remain separate studies. Native MTP/drafter integration is not implemented. NeMo Relay is a design reference, not an installed runtime/exporter.

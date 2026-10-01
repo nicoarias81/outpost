@@ -52,3 +52,7 @@ If that condition is met, compare matched backbone baselines with and without tr
 ## Storage-latency follow-up — 2026-10-01
 
 The [DGX NVMe report and Spark-X2.5 review](spark-x25-storage-review.md) corroborates the NVIDIA boot policy but preserves the quoted drive timings as unverified user evidence. It adds a critical distinction between QD1 direct I/O, mmap/page-cache behavior and exposed per-token storage wait. P-07 proposes bounded emulator residency/fault profiling; no controller, service or memory policy changed. Spark-X2.5 itself is sliding/full attention and is not evidence of a small Engram/PLE checkpoint.
+
+## Name collision: TandemLLM EngramDrafter
+
+The [TandemLLM review](tandemllm-review.md) finds a token-suffix dictionary named EngramDrafter and a newer counted n-gram proposer. They propose continuations for target verification; they are neither trained Engram embeddings nor a replacement for document retrieval/source binding. This distinction does not change X-07's trained-checkpoint requirement.

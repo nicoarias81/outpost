@@ -1,6 +1,6 @@
 # Context speculation and MTP
 
-Status in Outpost 0.14: context speculation exists only as native research functionality; product chat forces depth 0 and has no toggle. Native MTP and a dual-model drafter are not implemented. Measurements below are historical Bonsai 4B emulator experiments, not current phone/product benchmarks.
+Status in Outpost 0.16: context speculation exists only as native research functionality; product chat forces depth 0 and has no toggle. Native MTP and a dual-model drafter are not implemented. Measurements below are historical Bonsai 4B emulator experiments, not current phone/product benchmarks.
 
 ## Implemented algorithm
 
@@ -55,3 +55,7 @@ Require compatible trained weights, a numerical/acceptance audit, EOS and KV rol
 ## New trained-drafter candidates — 2026-09-30 research
 
 The [model survey](model-alternatives.md) pins LFM2.5-1.2B-Instruct-DSpark (about 296M parameters) and Gemma 4 E2B assistant (about 78M). They depend on their corresponding targets and state/activation interfaces; neither supplies the missing Bonsai MTP heads. Baseline new targets before testing drafting, and separately verify quantized/QAD pairing, rollback, sampling correctness and draft/verify/cancellation costs. A theoretical target-distribution guarantee is not necessarily identical sampled text for an identical seed. No weights were downloaded, no drafter was integrated, and product depth remains zero. X-01 is now actionable research for those families, not a measured speedup.
+
+## TandemLLM follow-up — 2026-10-01
+
+[The static review](tandemllm-review.md) maps a measured-cost chain controller onto this existing research path. TND-01 first fills speculative logit-trace coverage and normalizes timing scope; TND-02 measures current Pixel verify costs and numerical equivalence. Neither earlier emulator timings nor TandemLLM's DGX Spark tables establish a 0.16 phone gain. Product speculation remains off; trained drafters/tree verification and sampler changes remain separate work.

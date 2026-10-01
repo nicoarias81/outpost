@@ -1,0 +1,231 @@
+{
+  "repository": "https://github.com/0xBakeer/TandemLLM",
+  "revision": "c11aecaa7ba767642409ff51d90d48c79c572d3a",
+  "scope": "Public text fetched for static review only. No installer, code, tests, inference, model downloads or service operations executed.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 17201,
+      "sha256": "5d1b9300beb3fb78b0a1d3e19381e163052c6002cf46bc308d0b16de2eccadb3",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/README.md"
+    },
+    {
+      "path": "VERSION",
+      "bytes": 6,
+      "sha256": "d915cc95d6ca8f47ae297713ed46d4e5c5d99ddd29fc3c61e263bdf305f2b5b0",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/VERSION"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 34523,
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/LICENSE"
+    },
+    {
+      "path": "NOTICE",
+      "bytes": 432,
+      "sha256": "ff6d9e8aa99295cd87f17014cb38daa67462c43e3e2805109b2886be7c473437",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/NOTICE"
+    },
+    {
+      "path": "COMMERCIAL-LICENSE.md",
+      "bytes": 862,
+      "sha256": "47baf7e7886b31d7c084518bef76422ec954b6d5a67b42e19f9d52b3d76d6cce",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/COMMERCIAL-LICENSE.md"
+    },
+    {
+      "path": "docs/LICENSE",
+      "bytes": 624,
+      "sha256": "a2060f5d56ba5ab914c4e70eebd59ac224c4f325e953fd0390619bc5734f750c",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/docs/LICENSE"
+    },
+    {
+      "path": "docs/architecture.md",
+      "bytes": 7471,
+      "sha256": "283bda9698708b10dbec8611f7f6e20fa61bc171ab9da7043816c208863438ce",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/docs/architecture.md"
+    },
+    {
+      "path": "docs/speculative-decoding.md",
+      "bytes": 16130,
+      "sha256": "1d4e2b6e17e3370f9a308b6bd839fdef9f8094e869e65df5529170183effe395",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/docs/speculative-decoding.md"
+    },
+    {
+      "path": "docs/exactness.md",
+      "bytes": 9068,
+      "sha256": "95df729c9a065e789a8e6f24ce0c3e49ef7bbd3ca7d74bbac2ddf5a485709a85",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/docs/exactness.md"
+    },
+    {
+      "path": "docs/caches.md",
+      "bytes": 9632,
+      "sha256": "e395a0288ea8d66fae753ce5cf638b72a12327ea8bc38087e70a28f6f570ca55",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/docs/caches.md"
+    },
+    {
+      "path": "docs/kernels.md",
+      "bytes": 8371,
+      "sha256": "f3ab27cef53ee5829dc991a03eeb4a28c8ef4e90199c13f58f4d9514eca7653e",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/docs/kernels.md"
+    },
+    {
+      "path": "docs/measurement.md",
+      "bytes": 9529,
+      "sha256": "3442be6025dc13446bab87595b54e6493883a191c03fc3efb4b1545c631d1dc6",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/docs/measurement.md"
+    },
+    {
+      "path": "docs/quantisation.md",
+      "bytes": 14458,
+      "sha256": "b32ecd5fad9d1bfc1080a8f4a4e9b0369fc7bc166b6713746a17ccd9e950fbe1",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/docs/quantisation.md"
+    },
+    {
+      "path": "docs/adding-a-model.md",
+      "bytes": 7504,
+      "sha256": "301131ae4d69105582c8a1b66bfb740e254f993a466b875e16a6652bd15cf7ba",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/docs/adding-a-model.md"
+    },
+    {
+      "path": "engine/lenrouter.py",
+      "bytes": 102046,
+      "sha256": "3c2b431718ea052a6bb830c3231b49893bb762aa51e9de73687cd6b5019fdca3",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/engine/lenrouter.py"
+    },
+    {
+      "path": "engine/router.py",
+      "bytes": 50051,
+      "sha256": "7e98bd0868001d6166a2bf422a608cf61402d6563b47f9bf1a8ba5f7f0190820",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/engine/router.py"
+    },
+    {
+      "path": "engine/prices.py",
+      "bytes": 3452,
+      "sha256": "817551da84925efae115f75ff7d5cd8f2dfd7fc3554ba8bce8eff500dbb72473",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/engine/prices.py"
+    },
+    {
+      "path": "engine/tree.py",
+      "bytes": 25267,
+      "sha256": "bc47813057de58637007a2b2e2edf4195b9ee388753295617633f83a72e6c489",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/engine/tree.py"
+    },
+    {
+      "path": "engine/spec.py",
+      "bytes": 28983,
+      "sha256": "2c0a3443c7f598e637a279f7971c5f26548b7e3522ec25d382f62b7a76db63c3",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/engine/spec.py"
+    },
+    {
+      "path": "engine/cache.py",
+      "bytes": 48390,
+      "sha256": "02e5fde9795dce14b209176b5cb32b5f52014c4ab29c464aba058944c9f3416e",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/engine/cache.py"
+    },
+    {
+      "path": "engine/sample.py",
+      "bytes": 16346,
+      "sha256": "4de25fc196ff4500ae8613978331b8720696873dda8b5ab9914e2152a1fec42f",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/engine/sample.py"
+    },
+    {
+      "path": "engine/model.py",
+      "bytes": 85683,
+      "sha256": "0ff9f7a7174a2e76bb61908c90620d07ed913fd353c24a901c97010cc8ecd058",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/engine/model.py"
+    },
+    {
+      "path": "engine/drafters/ngram.py",
+      "bytes": 20604,
+      "sha256": "0a711eaeb3b2ce428338ce9997599aab0382590b9bac752691a3ad0a1a7e06ed",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/engine/drafters/ngram.py"
+    },
+    {
+      "path": "engine/drafters/engram.py",
+      "bytes": 3146,
+      "sha256": "3918247b2ffefa98c4991ea9531e67875f8079c7cbe4fe4ac6a1c49ba6ed487d",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/engine/drafters/engram.py"
+    },
+    {
+      "path": "engine/drafters/dflash2.py",
+      "bytes": 74725,
+      "sha256": "291a6cc589e59c7d01347fc855f8c985b8122b8e5af1eb677948c2987a676f73",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/engine/drafters/dflash2.py"
+    },
+    {
+      "path": "engine/drafters/mtp.py",
+      "bytes": 10944,
+      "sha256": "2e027cbafdfc6853a189f67b72a272fe21c48cea9ad55ebdb6742ecfda60315d",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/engine/drafters/mtp.py"
+    },
+    {
+      "path": "ops/stair-tables-nvfp4.json",
+      "bytes": 2994,
+      "sha256": "fc5fa90831d07a9cf583ee9814ec549e3a24d3ea6cdbda13e8be3823fcb19c7d",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/ops/stair-tables-nvfp4.json"
+    },
+    {
+      "path": "ops/lookup-rho.json",
+      "bytes": 1975,
+      "sha256": "97f453aa7af1db69091facb6a2a2f311a1ddf623340b1e19e4d59600b6c584fd",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/ops/lookup-rho.json"
+    },
+    {
+      "path": "ops/serve.env",
+      "bytes": 19265,
+      "sha256": "c91b0d09e8773ed1895fe461e22fdd9dca69748e3a024830e8ddd51cf67c3d4a",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/ops/serve.env"
+    },
+    {
+      "path": "tests/test_router_stair.py",
+      "bytes": 8261,
+      "sha256": "0a782b5c6410258fd8f4fad4bfbf22cf43fce301fe8c18149876025d2141b5b1",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/tests/test_router_stair.py"
+    },
+    {
+      "path": "tests/test_sample.py",
+      "bytes": 19118,
+      "sha256": "671f77afe83c9cd32c78a4b4957c6f7df2587bb296819e0900d2af699e173812",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/tests/test_sample.py"
+    },
+    {
+      "path": "tests/test_resident.py",
+      "bytes": 13052,
+      "sha256": "621aa24f3514df12b5e7afa8944ac99ebf5657e8bb88fb086efa78ce86a4e353",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/tests/test_resident.py"
+    },
+    {
+      "path": "tools/verify_curve.py",
+      "bytes": 8698,
+      "sha256": "e7ac7982a194a16716a5f12aec833c0f972c92961e4b8366c128b4a6433d7bc8",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/tools/verify_curve.py"
+    },
+    {
+      "path": "tools/forced_bench.py",
+      "bytes": 16150,
+      "sha256": "d3ebdc61d8687cccde0933045ed4f94045c6a274b2a3da8e02efffe25923acac",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/tools/forced_bench.py"
+    },
+    {
+      "path": "tools/verify_spec.py",
+      "bytes": 18597,
+      "sha256": "7d3410ae96e5fd75a1b78aa3253b5d1a0f06e9044100d5182274525bbb3eb6ef",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/tools/verify_spec.py"
+    },
+    {
+      "path": "tools/nvfp4_skinny.py",
+      "bytes": 63760,
+      "sha256": "63e7b569f82e5c686a1de4ec2955d028c35fc8c0e88668457a7a10181dae6617",
+      "url": "https://raw.githubusercontent.com/0xBakeer/TandemLLM/c11aecaa7ba767642409ff51d90d48c79c572d3a/tools/nvfp4_skinny.py"
+    }
+  ],
+  "versionFile": "0.3.0",
+  "reviewedOn": "2026-10-01",
+  "outpostBaseline": "0.16.0 / 64c7472",
+  "licenseMetadata": {
+    "code": "AGPL-3.0-only; separate commercial license offered",
+    "docs": "CC BY 4.0; program code examples retain the code license",
+    "source": "NOTICE and docs/LICENSE"
+  }
+}

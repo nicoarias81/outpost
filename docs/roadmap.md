@@ -126,3 +126,7 @@ P-02 now has an [app-only CPU profile](inference-stack-audit-2026-10-01.md): the
 ## P-02 follow-up — admitted in 0.16
 
 The registered Pixel/Bonsai4 preset uses 32-row dynamic prefill scheduling and static decode. [Validation](validation-0.16.md) includes row ownership, two complete paired campaigns, cache/cancellation/profile persistence, real UI and x86 restoration. Other device/model presets, energy measurement, additional layouts and quality work remain open.
+
+## TandemLLM-informed speculation research — open
+
+[TND-01 through TND-04](tandemllm-review.md) define tracing/cost-scope repairs, current Pixel serial/verify curves, a cost-aware request-local chain policy, and conditional corpus/tree work. These are proposed experiments, not implemented product features or measured gains. Prioritize TND-01/TND-02 before new drafters; retain depth 0 and full numerical/output gates. This supplements X-01 and does not supply Bonsai MTP weights or satisfy X-07.

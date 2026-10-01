@@ -21,6 +21,7 @@
 | Compare models and memory designs | [Model alternatives and emulator study](model-alternatives.md), [Engram review](engram-review.md), [pinned research metadata](../evidence/research/model-survey-20260930/survey-metadata.json) |
 | Inspect actual arithmetic and CPU hotspots | [Encoding/kernel stack audit and app-only profile](inference-stack-audit-2026-10-01.md) |
 | Review dynamic prefill scheduling | [0.16 implementation, paired results and reproduction](validation-0.16.md) |
+| Review cost-aware speculation | [TandemLLM/StairCut review, exactness limits and proposed Pixel experiments](tandemllm-review.md) |
 | Improve inference | [Runtime](inference-runtime.md), [measured optimizations](optimizations.md), [ARM experiment](arm-optimization-2026-10-01.md), [historical x86 row experiment](kernel-rows-0.14.md), [speculation/MTP](speculation.md) |
 | Inspect answer-pipeline behavior | [NeMo Relay review and proposed local traces](nemo-relay-review.md) |
 | Define/score outcomes | [Evaluation protocol](evaluation.md), [runner/review guide](../eval/README.md), [v9 fixtures](../eval/fixtures-v9.json), [rubric v2](../eval/rubric-v2.md) |

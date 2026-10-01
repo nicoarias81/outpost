@@ -1,0 +1,25 @@
+{
+  "revision": "c11aecaa7ba767642409ff51d90d48c79c572d3a",
+  "scope": "Extracted upstream reported data, not measurements performed by Outpost.",
+  "reportedServingTokensPerSecond": {
+    "staircut": 49.89,
+    "fixedBlock8": 47.13,
+    "fixedBlock16": 44.8,
+    "plainGreedy": 13.69
+  },
+  "staircutOverFixed8": 1.0585614258434117,
+  "staircutOverFixed16": 1.1136160714285714,
+  "combinedOverPlainGreedy": 3.644265887509131,
+  "verifyTreeAt1024ContextMs": {
+    "8": 75.49934202688746,
+    "16": 74.3580884882249,
+    "24": 83.12686899444088,
+    "32": 87.75812349631451
+  },
+  "exactnessReported": {
+    "prompts": 30,
+    "identicalToEndOfAnswer": 17,
+    "divergeWithinAnswerAtNearTie": 13,
+    "unexplainedWarmCold64kDifference": true
+  }
+}
