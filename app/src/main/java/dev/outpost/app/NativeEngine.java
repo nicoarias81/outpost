@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 final class NativeEngine implements AutoCloseable {
     static { System.loadLibrary("outpost_engine"); }
     static native double[] nativeKernelChecks();
+    static native String nativeArmGraphChecks();
     static native double[] nativeBatchChecks();
     static native String nativeRowsBenchmark();
     static native boolean kernelRowsUsed();
@@ -40,7 +41,14 @@ final class NativeEngine implements AutoCloseable {
         } catch(org.json.JSONException e) { return "Could not read CPU profile. Active path: "+kernelName(); }
     }
     private volatile long handle = nativeCreate();
-    record Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int speculativeDepth,boolean adaptive,int rowTile,int decodeRows) {
+    private int testDeadlineMs=120000;
+    void deadlineForTests(int millis){nativeDeadlineForTests(handle,millis);testDeadlineMs=millis;}
+    int deadlineForTests(){return testDeadlineMs;}
+    private static native void nativeDeadlineForTests(long handle,int millis);
+    String threadpoolAudit(){return nativeThreadpoolAudit(handle);}
+    private static native String nativeThreadpoolAudit(long handle);
+    record Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int speculativeDepth,boolean adaptive,int rowTile,int decodeRows,boolean persistentThreads,int affinityMask) {
+        Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int speculativeDepth,boolean adaptive,int rowTile,int decodeRows){this(threads,promptThreads,batch,cache,matrixWidth,speculativeDepth,adaptive,rowTile,decodeRows,false,0);}
         Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int speculativeDepth,boolean adaptive,int legacyRows) {this(threads,promptThreads,batch,cache,matrixWidth,speculativeDepth,adaptive,legacyRows==2?2:1,legacyRows);}
         Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int speculativeDepth,boolean adaptive) {this(threads,promptThreads,batch,cache,matrixWidth,speculativeDepth,adaptive,1);}
         Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth) { this(threads,promptThreads,batch,cache,matrixWidth,0,true); }
@@ -51,6 +59,7 @@ final class NativeEngine implements AutoCloseable {
             if(speculativeDepth<0 || speculativeDepth>7) throw new IllegalArgumentException("Invalid speculation depth");
             if(rowTile!=1 && rowTile!=2) throw new IllegalArgumentException("Invalid prefill row tile");
             if(decodeRows!=1 && decodeRows!=2 && decodeRows!=4) throw new IllegalArgumentException("Invalid decode row tile");
+            if(affinityMask<0||affinityMask>255||(!persistentThreads&&affinityMask!=0))throw new IllegalArgumentException("Invalid thread-pool affinity policy");
         }
     }
     private volatile Configuration configuration=new Configuration(4,4,128,true);
@@ -91,7 +100,7 @@ final class NativeEngine implements AutoCloseable {
     Result generateWithPolicy(long request,File model,String system,String user,int maxTokens,GenerationPolicy policy,Listener listener) {
         Callback callback = new Callback(listener);
         Configuration c=configuration;
-        long[] result = nativeGenerate(handle,request,utf8(model.getAbsolutePath()),utf8(system),utf8(user),maxTokens,policy.template(),policy.sampler(),policy.seed(),c.threads(),c.promptThreads(),c.batch(),c.cache(),c.matrixWidth(),c.speculativeDepth(),c.adaptive(),c.rowTile(),c.decodeRows(),oracleForTests,callback);
+        long[] result = nativeGenerate(handle,request,utf8(model.getAbsolutePath()),utf8(system),utf8(user),maxTokens,policy.template(),policy.sampler(),policy.seed(),c.threads(),c.promptThreads(),c.batch(),c.cache(),c.matrixWidth(),c.speculativeDepth(),c.adaptive(),c.rowTile(),c.decodeRows(),c.persistentThreads(),c.affinityMask(),oracleForTests,callback);
         if (result == null || result.length != 19) throw new IllegalStateException("The engine did not return a valid result.");
         return new Result(callback.text,result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8],result[9],result[10],result[11],result[12],result[13],result[14],result[15],result[16],result[17],result[18]!=0);
     }
@@ -129,6 +138,6 @@ final class NativeEngine implements AutoCloseable {
     private static native int[] nativeModelCapabilities(long handle);
     private static native double[] nativeVerificationAudit(long handle,int[] tokens,int width);
     private static native double[] nativeRowsAudit(long handle,int[] tokens,int rows);
-    private static native long[] nativeGenerate(long handle,long request,byte[] path,byte[] system,byte[] user,int maxTokens,int template,int sampler,int seed,int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int specDepth,boolean adaptive,int rowTile,int decodeRows,int[] oracle,Callback callback);
+    private static native long[] nativeGenerate(long handle,long request,byte[] path,byte[] system,byte[] user,int maxTokens,int template,int sampler,int seed,int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int specDepth,boolean adaptive,int rowTile,int decodeRows,boolean persistentThreads,int affinityMask,int[] oracle,Callback callback);
     private static native double[] nativeJudge(long handle, long request, byte[] path, byte[] head, byte[] evidence, byte[] instruction, byte[][] choices);
 }

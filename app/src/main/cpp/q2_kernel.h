@@ -10,6 +10,7 @@ typedef struct {
 int outpost_q2_available(void);
 int outpost_q2_fast_enabled(void);
 int outpost_q2_was_used(void);
+void outpost_q2_note_use(void);
 void outpost_q2_set_mode(int automatic);
 const char *outpost_q2_name(void);
 void outpost_q2_profile(char *out, size_t size);

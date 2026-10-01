@@ -12,6 +12,10 @@ Delivery checkpoints: OSM implementation `a804044`, evidence `9f3d36c`; kernel i
 - The product serves traveler, farmer, field engineer, mountaineer and driver question types. Vitalik's restaurant example is not a vegan/restaurant specialization. Public, regional and personal knowledge are complementary; inference and knowledge remain separate technical domains.
 - Discovery about reflection, reconnect tasks and equipment is not authorization to send, connect or operate external systems. Preserve pinned dependencies, reference fallback, private data and failed evidence. Public distribution/license/signing remain separate; the existing remote is private.
 
+## Active ARM optimization research
+
+The owner requested maximum optimization after the first Pixel trial. [The ARM experiment](arm-optimization-2026-10-01.md) records bit-preserving DotProd/matrix kernels and separately gated persistent-worker/affinity research. Numeric and bounded controller probes passed; tuning, lifecycle and complete-output confirmation are in progress. New production policies remain disabled until those gates pass. Check current APK hashes and isolation journal before continuing.
+
 ## Physical Pixel checkpoint
 
 The owner-authorized Pixel 10 Pro / Tensor G5 / Android 17 now passes 23 native admission checks and 45 product chat/import/PDF checks. The 32-answer pilot passes 37 execution checks, but Bonsai has four deadline returns and both candidates have material answer/source errors. See [physical results](pixel10-results-2026-10-01.md) and [guarded commands/recovery](pixel10-testing.md). Main/native code and model pins are unchanged; custom Q2 ARM kernels remain absent. Prioritize P-02 equivalence and complete-request measurements rather than copying the x86 profile.

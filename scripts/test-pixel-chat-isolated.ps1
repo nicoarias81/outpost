@@ -1,4 +1,4 @@
-param([string]$Sdk=$env:ANDROID_HOME,[switch]$Generate,[switch]$RestoreOnly)
+param([string]$Sdk=$env:ANDROID_HOME,[switch]$Generate,[switch]$RestoreOnly,[ValidateSet('','numeric','model','tune','confirm','controller','lifecycle')][string]$ArmPhase='',[ValidateRange(1,8)][int]$Threads=4,[ValidateSet(1,2,4,8)][int]$Width=4,[ValidateSet(1,2,4)][int]$DecodeRows=1,[switch]$PersistentThreads,[ValidateSet('none','performance')][string]$Affinity='none')
 $ErrorActionPreference='Stop'
 $project=Split-Path $PSScriptRoot -Parent
 . (Join-Path $PSScriptRoot 'environment.ps1')
@@ -59,7 +59,8 @@ try {
             if($entry.existed){Invoke-PixelAdb shell run-as dev.outpost.app mv $path "$backup/original-$key"|Out-Null}
         }
         $state.status='isolated';Save-State
-        & (Join-Path $project 'scripts/test-chat.ps1') -Sdk $Sdk -Target Pixel10Pro -SkipInstall -Generate:$Generate
+        if($ArmPhase){& (Join-Path $project 'scripts/test-arm.ps1') -Sdk $Sdk -Phase $ArmPhase -SkipInstall -Threads $Threads -Width $Width -DecodeRows $DecodeRows -PersistentThreads:$PersistentThreads -Affinity $Affinity}
+        else {& (Join-Path $project 'scripts/test-chat.ps1') -Sdk $Sdk -Target Pixel10Pro -SkipInstall -Generate:$Generate}
     }
 } catch { $failure=$_ }
 finally {

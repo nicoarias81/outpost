@@ -1,5 +1,6 @@
 #include "q2_kernel.h"
 #include "q2_dispatch.h"
+#include "q2_arm.h"
 #include "ggml-cpu.h"
 #include "quants.h"
 #include <assert.h>
@@ -20,12 +21,18 @@ void __real_ggml_vec_dot_q2_0_q8_0(int, float *, size_t, const void *, size_t, c
 void __wrap_ggml_vec_dot_q2_0_q8_0(int, float *, size_t, const void *, size_t, const void *, size_t, int);
 static pthread_once_t detection = PTHREAD_ONCE_INIT;
 static br_q2_id selected_kernel;
+#if defined(__aarch64__)
+static _Atomic int automatic_mode = 0; // Research gate; enable only after Android parity and model confirmation.
+#else
 static _Atomic int automatic_mode = 1;
+#endif
 static _Atomic int used_fast;
 // Only actual, validated implementations belong here. Capability descriptors are not implementations.
 static const uint32_t compiled = BR_Q2_BIT(BR_Q2_REFERENCE)
 #if defined(__x86_64__)
     | BR_Q2_BIT(BR_Q2_AVX2)
+#elif defined(__aarch64__)
+    | BR_Q2_BIT(BR_Q2_DOTPROD)
 #endif
     ;
 
@@ -36,6 +43,7 @@ static void detect(void) {
 int outpost_q2_available(void) { pthread_once(&detection, detect); return selected_kernel != BR_Q2_REFERENCE; }
 int outpost_q2_fast_enabled(void) { return outpost_q2_available() && atomic_load_explicit(&automatic_mode,memory_order_relaxed); }
 int outpost_q2_was_used(void) { return atomic_load_explicit(&used_fast, memory_order_relaxed); }
+void outpost_q2_note_use(void) { if(!atomic_load_explicit(&used_fast,memory_order_relaxed))atomic_store_explicit(&used_fast,1,memory_order_relaxed); }
 void outpost_q2_set_mode(int automatic) {
     atomic_store_explicit(&automatic_mode, automatic != 0, memory_order_relaxed);
     atomic_store_explicit(&used_fast, 0, memory_order_relaxed);
@@ -90,6 +98,11 @@ static void q2_avx2(int n, float *s, size_t bs, const void *vx, size_t bx, const
 #endif
 
 void __wrap_ggml_vec_dot_q2_0_q8_0(int n, float *s, size_t bs, const void *vx, size_t bx, const void *vy, size_t by, int nrc) {
+#if defined(__aarch64__)
+    if(outpost_q2_fast_enabled()&&selected_kernel==BR_Q2_DOTPROD&&n>=0&&n%64==0&&nrc==1) {
+        outpost_q2_note_use();outpost_q2_arm_dot(n,s,bs,vx,bx,vy,by,nrc);return;
+    }
+#endif
 #if defined(__x86_64__)
     if (outpost_q2_available() && selected_kernel == BR_Q2_AVX2 && atomic_load_explicit(&automatic_mode, memory_order_relaxed)) {
         if (!atomic_load_explicit(&used_fast, memory_order_relaxed)) atomic_store_explicit(&used_fast, 1, memory_order_relaxed);
@@ -100,14 +113,19 @@ void __wrap_ggml_vec_dot_q2_0_q8_0(int n, float *s, size_t bs, const void *vx, s
     __real_ggml_vec_dot_q2_0_q8_0(n, s, bs, vx, bx, vy, by, nrc);
 }
 
-#if defined(__x86_64__)
+#if defined(__x86_64__) || defined(__aarch64__)
+#if defined(__aarch64__)
+#define tested_dot outpost_q2_arm_dot
+#else
+#define tested_dot q2_avx2
+#endif
 static uint32_t random32(uint32_t *state) {
     uint32_t x = *state; x ^= x<<13; x ^= x>>17; x ^= x<<5; return *state=x;
 }
 static void compare(outpost_q2_report *r, int n, const void *x, const void *y) {
     float original=0, output[3]={12345.0f,0,-6789.0f};
     __real_ggml_vec_dot_q2_0_q8_0(n,&original,0,x,0,y,0,1);
-    q2_avx2(n,&output[1],0,x,0,y,0,1);
+    tested_dot(n,&output[1],0,x,0,y,0,1);
     r->cases++;
     if(memcmp(&original,&output[1],sizeof(float)) || output[0]!=12345.0f || output[2]!=-6789.0f) r->bit_mismatches++;
     const double error=fabs((double)original-output[1]);
@@ -127,7 +145,7 @@ static double median3(double a,double b,double c) { return fmax(fmin(a,b),fmin(f
 
 outpost_q2_report outpost_q2_test(void) {
     outpost_q2_report r={0}; r.supported=outpost_q2_available();
-#if defined(__x86_64__)
+#if defined(__x86_64__) || defined(__aarch64__)
     if(!r.supported) return r;
     ggml_cpu_init();
     const int lengths[]={0,64,128,576,4096,12288};
@@ -181,8 +199,8 @@ outpost_q2_report outpost_q2_test(void) {
     }
     double scalar[3],fast[3];
     for(int i=0;i<3;i++) {
-        if(i%2) { fast[i]=timed(q2_avx2,x,y); scalar[i]=timed(__real_ggml_vec_dot_q2_0_q8_0,x,y); }
-        else { scalar[i]=timed(__real_ggml_vec_dot_q2_0_q8_0,x,y); fast[i]=timed(q2_avx2,x,y); }
+        if(i%2) { fast[i]=timed(tested_dot,x,y); scalar[i]=timed(__real_ggml_vec_dot_q2_0_q8_0,x,y); }
+        else { scalar[i]=timed(__real_ggml_vec_dot_q2_0_q8_0,x,y); fast[i]=timed(tested_dot,x,y); }
     }
     r.scalar_ns=median3(scalar[0],scalar[1],scalar[2]); r.fast_ns=median3(fast[0],fast[1],fast[2]);
     free(raw_x); free(raw_y); outpost_q2_set_mode(1);

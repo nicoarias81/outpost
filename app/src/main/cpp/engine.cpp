@@ -1,6 +1,8 @@
 #include <jni.h>
 #include <android/log.h>
 #include "llama.h"
+#include "ggml-cpu.h"
+#include <sched.h>
 #include "q2_kernel.h"
 #include "q2_dispatch.h"
 #include "speculation.h"
@@ -36,22 +38,58 @@ struct Session {
     std::vector<llama_token> last_tokens;
     std::vector<llama_token> last_prompt_tokens;
     int context_template=0;
+    long test_generation_deadline_ms=120000;
+    bool persistent_threads=false;
+    uint32_t affinity_mask=0,effective_affinity_mask=0;
+    ggml_threadpool_t pool=nullptr,pool_batch=nullptr;
+    int pool_threads=0,pool_prompt_threads=0,pool_creations=0;
+    uint32_t affinity_before=0,affinity_during=0,affinity_after=0;
+    bool affinity_restored=true;
+    bool affinity_captured=false;
+    bool pools_paused=true;
     std::string path;
+    void pause_pools(){if(pool)ggml_threadpool_pause(pool);if(pool_batch&&pool_batch!=pool)ggml_threadpool_pause(pool_batch);pools_paused=true;}
+    void free_pools(){
+        if(context)llama_detach_threadpool(context);
+        if(pool_batch&&pool_batch!=pool)ggml_threadpool_free(pool_batch);
+        if(pool)ggml_threadpool_free(pool);pool=nullptr;pool_batch=nullptr;pool_threads=0;pool_prompt_threads=0;effective_affinity_mask=0;
+    }
+    void attach_pools(int threads,int prompt_threads){
+        if(!persistent_threads)return;
+        uint32_t desired_mask=(affinity_captured&&affinity_mask&&(affinity_mask&affinity_before)==affinity_mask&&__builtin_popcount(affinity_mask)>=std::max(threads,prompt_threads))?affinity_mask:0;
+        if(!pool||pool_threads!=threads||pool_prompt_threads!=prompt_threads||effective_affinity_mask!=desired_mask){
+            free_pools();effective_affinity_mask=desired_mask;
+            auto create=[&](int n){auto settings=ggml_threadpool_params_default(n);settings.paused=true;
+                if(effective_affinity_mask){settings.strict_cpu=true;for(int i=0;i<8;i++)settings.cpumask[i]=(effective_affinity_mask&(1u<<i))!=0;}
+                auto p=ggml_threadpool_new(&settings);if(!p)throw std::runtime_error("Cannot allocate inference thread pool");pool_creations++;return p;};
+            pool=create(threads);pool_batch=prompt_threads==threads?pool:create(prompt_threads);pool_threads=threads;pool_prompt_threads=prompt_threads;
+        }
+        llama_attach_threadpool(context,pool,pool_batch);
+        pools_paused=false;
+    }
     void clear_context() {
-        if (context) llama_free(context);
+        if(context){llama_detach_threadpool(context);llama_free(context);}pause_pools();
         context = nullptr; context_batch = 0; prefix.clear(); prefix_logits.clear();
     }
-    ~Session() { clear_context(); if (model) llama_model_free(model); }
+    ~Session() { clear_context(); free_pools(); if (model) llama_model_free(model); }
     bool cancelled(jlong run) const { return cancelledThrough.load() >= run; }
+};
+uint32_t affinity_bits(const cpu_set_t &cpus){uint32_t bits=0;for(int i=0;i<8;i++)if(CPU_ISSET(i,&cpus))bits|=1u<<i;return bits;}
+struct RestoreAffinity {
+    Session *session;cpu_set_t saved;bool captured;
+    explicit RestoreAffinity(Session *s):session(s){CPU_ZERO(&saved);captured=sched_getaffinity(0,sizeof(saved),&saved)==0;session->affinity_captured=captured;session->affinity_before=captured?affinity_bits(saved):0;}
+    ~RestoreAffinity(){cpu_set_t current;CPU_ZERO(&current);if(sched_getaffinity(0,sizeof(current),&current)==0)session->affinity_during=affinity_bits(current);
+        session->affinity_restored=!captured||!session->affinity_mask||sched_setaffinity(0,sizeof(saved),&saved)==0;CPU_ZERO(&current);if(sched_getaffinity(0,sizeof(current),&current)==0)session->affinity_after=affinity_bits(current);}
 };
 struct Abort {
     std::shared_ptr<Session> session;
     jlong run;
     Clock::time_point start;
+    long deadline_ms=120000;
 };
 bool abort_eval(void *data) {
     auto *a = static_cast<Abort *>(data);
-    return a->session->cancelled(a->run) || elapsed(a->start) > 120000;
+    return a->session->cancelled(a->run) || elapsed(a->start) > a->deadline_ms;
 }
 bool load_progress(float, void *data) { return !abort_eval(data); }
 std::mutex registry_mutex;
@@ -223,7 +261,7 @@ extern "C" JNIEXPORT jlongArray JNICALL
 Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
     jlong run, jbyteArray model_path, jbyteArray system_text, jbyteArray user_text,
     jint max_tokens,jint template_policy,jint sampler_policy,jint seed,jint threads,jint prompt_threads,jint batch_size,jboolean cache,jint matrix_width,
-    jint spec_depth,jboolean adaptive,jint row_tile,jint decode_rows,jintArray oracle_tokens,jobject callback) {
+    jint spec_depth,jboolean adaptive,jint row_tile,jint decode_rows,jboolean persistent_threads,jint affinity_mask,jintArray oracle_tokens,jobject callback) {
     try {
         if (run <= 0 || max_tokens < 1 || max_tokens > 256 || !callback) throw std::runtime_error("Invalid generation parameters");
         if(template_policy<0 || template_policy>2 || sampler_policy<0 || sampler_policy>2 || seed<0
@@ -243,6 +281,9 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
         auto session = get(id);
         std::lock_guard<std::mutex> execution(execution_mutex);
         std::lock_guard<std::mutex> lock(session->inference);
+        if(affinity_mask<0||affinity_mask>255||(!persistent_threads&&affinity_mask))throw std::runtime_error("Invalid thread-pool affinity policy");
+        RestoreAffinity restore_affinity(session.get());
+        if(session->persistent_threads!=(bool)persistent_threads||session->affinity_mask!=(uint32_t)affinity_mask){session->clear_context();session->free_pools();session->persistent_threads=persistent_threads;session->affinity_mask=affinity_mask;}
         outpost_q2_set_batch_width(matrix_width);
         outpost_q2_set_row_tiles(row_tile,decode_rows);
         session->last_tokens.clear();
@@ -251,11 +292,12 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
             Session *s; bool keep=false;
             ~Cleanup() {
                 if (s->context) llama_set_abort_callback(s->context,nullptr,nullptr);
+                s->pause_pools();
                 if (!keep) s->clear_context();
             }
         } cleanup{session.get()};
         auto start = Clock::now();
-        Abort abort{session, run, start};
+        Abort abort{session, run, start, session->test_generation_deadline_ms};
         long load_ms = 0, first_ms = -1;
         long prepare_ms=0, prefill_ms=0, decode_ms=0, reused=0;
         uint64_t logits_hash=0;
@@ -328,6 +370,7 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
                 auto *context=session->context;
                 if (!context) throw std::runtime_error("Cannot allocate model context");
                 llama_set_n_threads(context,threads,prompt_threads);
+                session->attach_pools(threads,prompt_threads);
                 llama_set_abort_callback(context,abort_eval,&abort);
                 while (cache && reused<count && reused<(long)session->prefix.size() && tokens[reused]==session->prefix[reused]) reused++;
                 bool complete_hit=reused==count && session->prefix.size()==tokens.size() && session->prefix_logits.size()==(size_t)llama_vocab_n_tokens(vocab);
@@ -452,7 +495,7 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
             }
         }
         if (session->cancelled(run)) reason = 2;
-        else if (elapsed(start) > 120000) reason = 3;
+        else if (elapsed(start) > abort.deadline_ms) reason = 3;
         cleanup.keep=cache && reason<2;
         jlong data[] = {prompt_count,generated,load_ms,first_ms,elapsed(start),reason,prepare_ms,prefill_ms,decode_ms,reused,(jlong)logits_hash,
             drafted,accepted,verify_passes,rejections,plain_steps,verify_us,draft_us,(jlong)controller.disabled};
@@ -595,6 +638,28 @@ Java_dev_outpost_app_NativeEngine_nativeKernelChecks(JNIEnv *env,jclass) {
     outpost_q2_report r=outpost_q2_test();
     double values[]={ (double)r.supported,(double)r.cases,(double)r.bit_mismatches,(double)r.dispatch_ok,(double)r.guard_ok,r.max_abs,r.max_rel,r.scalar_ns,r.fast_ns };
     jdoubleArray result=env->NewDoubleArray(9); if(result) env->SetDoubleArrayRegion(result,0,9,values); return result;
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_dev_outpost_app_NativeEngine_nativeDeadlineForTests(JNIEnv *env,jclass,jlong id,jint millis) {
+    try {
+        if(millis<120000||millis>300000)throw std::runtime_error("Research deadline outside120–300 seconds");
+        auto session=get(id);std::lock_guard<std::mutex> execution(execution_mutex);std::lock_guard<std::mutex> lock(session->inference);
+        session->test_generation_deadline_ms=millis;
+    }catch(const std::exception &error){fail(env,error.what());}
+}
+extern "C" JNIEXPORT jstring JNICALL
+Java_dev_outpost_app_NativeEngine_nativeThreadpoolAudit(JNIEnv *env,jclass,jlong id) {
+    try{auto s=get(id);std::lock_guard<std::mutex> lock(s->inference);char text[512];
+        snprintf(text,sizeof(text),"{\"enabled\":%s,\"poolCreations\":%d,\"threads\":%d,\"promptThreads\":%d,\"requestedMask\":%u,\"effectiveMask\":%u,\"affinityBefore\":%u,\"affinityDuring\":%u,\"affinityAfter\":%u,\"affinityRestored\":%s,\"pausedAfterRequest\":%s}",s->persistent_threads?"true":"false",s->pool_creations,s->pool_threads,s->pool_prompt_threads,s->affinity_mask,s->effective_affinity_mask,s->affinity_before,s->affinity_during,s->affinity_after,s->affinity_restored?"true":"false",s->pools_paused?"true":"false");return env->NewStringUTF(text);
+    }catch(const std::exception &error){fail(env,error.what());return nullptr;}
+}
+
+extern "C" void outpost_q2_arm_graph_checks(char *,size_t);
+extern "C" JNIEXPORT jstring JNICALL
+Java_dev_outpost_app_NativeEngine_nativeArmGraphChecks(JNIEnv *env,jclass) {
+    std::lock_guard<std::mutex> execution(execution_mutex);
+    std::vector<char> report(131072);outpost_q2_arm_graph_checks(report.data(),report.size());return env->NewStringUTF(report.data());
 }
 extern "C" JNIEXPORT jstring JNICALL
 Java_dev_outpost_app_NativeEngine_kernelName(JNIEnv *env,jclass) { return env->NewStringUTF(outpost_q2_name()); }

@@ -21,6 +21,10 @@ import org.json.JSONObject;
 
 /** Functional LLM tests run inside the explicitly admitted Android target process. */
 public final class GenerationInstrumentation extends OfflineInstrumentation {
+    @Override public Activity newActivity(ClassLoader loader,String name,Intent intent)throws InstantiationException,IllegalAccessException,ClassNotFoundException {
+        if(armArgs!=null&&name.equals(MainActivity.class.getName()))return new ArmKernelChecks.BenchActivity();
+        return super.newActivity(loader,name,intent);
+    }
     private boolean generationSuite;
     private Bundle chatArgs;
     private String folderRun;
@@ -28,6 +32,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
     private String placeRun;
     private Bundle rowsArgs;
     private Bundle candidateArgs;
+    private Bundle armArgs;
     private Bundle evaluationArgs;
     private boolean knowledgeSuite;
     private String knowledgeRun;
@@ -45,6 +50,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         checks++;
     }
     @Override public void onCreate(Bundle arguments) {
+        armArgs=arguments!=null&&arguments.containsKey("arm_run")?new Bundle(arguments):null;
         candidateArgs=arguments!=null&&arguments.containsKey("candidate_run")?new Bundle(arguments):null;
         rowsArgs=arguments!=null&&arguments.containsKey("rows_run")?new Bundle(arguments):null;
         placeRun=arguments==null?null:arguments.getString("places_run");
@@ -63,6 +69,7 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         super.onCreate(arguments);
     }
     @Override public void onStart() {
+        if(armArgs!=null){new ArmKernelChecks(this,armArgs).run();return;}
         if(candidateArgs!=null){new CandidateChecks(this,candidateArgs).run();return;}
         if(rowsArgs!=null){new KernelRowsChecks(this,rowsArgs.getString("rows_run"),rowsArgs.getString("rows_phase","graphs"),"true".equals(rowsArgs.getString("rows_apply"))).run();return;}
         if(placeRun!=null){new PlaceChecks(this,placeRun).run();return;}

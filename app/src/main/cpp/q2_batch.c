@@ -1,4 +1,5 @@
 #include "q2_kernel.h"
+#include "q2_arm.h"
 #include "ggml-cpu.h"
 #include "ggml-cpu-impl.h"
 #include "quants.h"
@@ -134,6 +135,14 @@ static void multi_rows2(int n,const char *weights,size_t row_stride,const char *
 #endif
 
 bool __wrap_ggml_compute_forward_mul_mat_tiled(const struct ggml_compute_params *p,struct ggml_tensor *dst) {
+#if defined(__aarch64__)
+    int arm_rows=atomic_load_explicit(&decode_row_tile,memory_order_relaxed);
+    if(outpost_q2_arm_matmul(p,dst,atomic_load_explicit(&batch_width,memory_order_relaxed),arm_rows)) {
+        if(dst->src[1]->ne[1]>1)atomic_store_explicit(&batch_used,1,memory_order_relaxed);
+        if(dst->src[1]->ne[1]==1&&arm_rows>1&&dst->src[0]->ne[1]>=arm_rows*p->nth)atomic_store_explicit(&rows_used,1,memory_order_relaxed);
+        note_shape(p,dst->src[0],dst->src[1],1);return true;
+    }
+#endif
 #if defined(__x86_64__)
     const struct ggml_tensor *w=dst->src[0],*a=dst->src[1];
     int width=atomic_load_explicit(&batch_width,memory_order_relaxed);
