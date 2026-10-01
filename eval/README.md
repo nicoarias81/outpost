@@ -1,6 +1,6 @@
 # Executable evaluation and attributed review
 
-The current default is [fixtures-v7.json](fixtures-v7.json): manifest schema 2, revision 7, app **0.14.0**, 15 defined fixtures (**12 runnable, 3 blocked**). This evaluates the evidence-only `ResearchPrompt` protocol. Product chat uses `ChatPrompt` v1.1 and has separate integration checks. No historical score automatically transfers to current chat.
+The current default is [fixtures-v8.json](fixtures-v8.json): manifest schema2, revision8, app **0.15.0**, 15 defined fixtures (**12 runnable, 3 blocked**). This evaluates the evidence-only `ResearchPrompt` protocol. Product chat uses `ChatPrompt` v1.1 and has separate integration checks. No historical score automatically transfers to current chat.
 
 ## Validate, execute and review
 
@@ -55,6 +55,7 @@ Assistant review is not blinded human/domain-expert validation. Critical failure
 | v5 | 0.12 | Frozen identity after bounded OSM import |
 | v6 | 0.13 | Full ABI identity and scoped regional blockers; deterministic places tested separately |
 | v7 | 0.14 | Runtime-release identity; same evidence-only protocol, separate row-kernel controls |
+| v8 | 0.15 | ARM runtime-release identity; unchanged questions/locks, separate full-logit performance controls |
 
 `eval/validate.py` defaults to v7 and accepts `--manifest PATH`. It checks schema/references, declared model/tool/prompt identities and source paths. Historical manifests can intentionally differ from current source; evaluate their frozen run snapshots in their own context. A validator PASS does not prove execution or quality.
 
@@ -64,4 +65,4 @@ The regional fixture no longer depends on map/routing K-07. Its broader time/pre
 
 ## Current integration suites
 
-`test-chat.ps1` checks chat/files/PDF/persistence, with optional `-Generate` for real conversational controls. `test-folders.ps1` checks recursive SAF ingestion; `test-osm.ps1` checks parser/storage/source UI, with optional `-Generate` for one synthetic source answer; `test-knowledge.ps1` checks migrations/CSV/packs/locators. These are integration/regression suites, not the broad question-family study. [0.14 validation](../docs/validation-0.14.md) owns current run identities, including `test-places.ps1` and its no-model synthetic/real-subset checks. The older generated OSM answer remains recorded with its 0.12 identities.
+`test-chat.ps1` checks chat/files/PDF/persistence, with optional `-Generate` for real conversational controls. `test-folders.ps1` checks recursive SAF ingestion; `test-osm.ps1` checks parser/storage/source UI, with optional `-Generate` for one synthetic source answer; `test-knowledge.ps1` checks migrations/CSV/packs/locators. These are integration/regression suites, not the broad question-family study. [0.15 validation](../docs/validation-0.15.md) owns current run identities; the 0.14 record preserves previous integration coverage, including `test-places.ps1` and its no-model synthetic/real-subset checks. The older generated OSM answer remains recorded with its 0.12 identities.

@@ -54,11 +54,12 @@ struct Session {
     std::string path;
     void pause_pools(){if(pool)ggml_threadpool_pause(pool);if(pool_batch&&pool_batch!=pool)ggml_threadpool_pause(pool_batch);pools_paused=true;}
     void free_pools(){
-        if(context)llama_detach_threadpool(context);
+        // The CPU backend retains its pool pointer; destroy the context before its pools.
+        if(context)clear_context();
         if(pool_batch&&pool_batch!=pool)ggml_threadpool_free(pool_batch);
         if(pool)ggml_threadpool_free(pool);pool=nullptr;pool_batch=nullptr;pool_threads=0;pool_prompt_threads=0;effective_affinity_mask=0;
     }
-    void attach_pools(int threads,int prompt_threads){
+    void prepare_pools(int threads,int prompt_threads){
         if(!persistent_threads)return;
         uint32_t desired_mask=(affinity_captured&&affinity_mask&&(affinity_mask&affinity_before)==affinity_mask&&__builtin_popcount(affinity_mask)>=std::max(threads,prompt_threads))?affinity_mask:0;
         if(!pool||pool_threads!=threads||pool_prompt_threads!=prompt_threads||effective_affinity_mask!=desired_mask){
@@ -68,11 +69,9 @@ struct Session {
                 auto p=ggml_threadpool_new(&settings);if(!p)throw std::runtime_error("Cannot allocate inference thread pool");pool_creations++;return p;};
             pool=create(threads);pool_batch=prompt_threads==threads?pool:create(prompt_threads);pool_threads=threads;pool_prompt_threads=prompt_threads;
         }
-        llama_attach_threadpool(context,pool,pool_batch);
-        pools_paused=false;
     }
     void clear_context() {
-        if(context){llama_detach_threadpool(context);llama_free(context);}pause_pools();
+        pause_pools();if(context){llama_detach_threadpool(context);llama_free(context);}
         context = nullptr; context_batch = 0; prefix.clear(); prefix_logits.clear();
     }
     ~Session() { clear_context(); free_pools(); if (model) llama_model_free(model); }
@@ -357,6 +356,7 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
                 prompt_count = count;
                 if (!cache || session->context_template!=template_policy || session->context_batch!=batch_size || session->context_threads!=threads || session->context_prompt_threads!=prompt_threads
                     || session->context_width!=matrix_width || session->context_rows!=row_tile || session->context_decode_rows!=decode_rows || session->context_kernel!=outpost_q2_name()) session->clear_context();
+                session->prepare_pools(threads,prompt_threads);
                 if (!session->context) {
                     auto params = llama_context_default_params();
                     params.n_ctx = 2048; params.n_batch = batch_size; params.n_ubatch = batch_size;
@@ -375,7 +375,7 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
                 auto *context=session->context;
                 if (!context) throw std::runtime_error("Cannot allocate model context");
                 llama_set_n_threads(context,threads,prompt_threads);
-                session->attach_pools(threads,prompt_threads);
+                if(session->persistent_threads){llama_attach_threadpool(context,session->pool,session->pool_batch);session->pools_paused=false;}
                 llama_set_abort_callback(context,abort_eval,&abort);
                 while (cache && reused<count && reused<(long)session->prefix.size() && tokens[reused]==session->prefix[reused]) reused++;
                 bool complete_hit=reused==count && session->prefix.size()==tokens.size() && session->prefix_logits.size()==(size_t)llama_vocab_n_tokens(vocab);

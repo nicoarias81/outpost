@@ -1,6 +1,6 @@
 # Evaluation and evidence protocol
 
-Current reference: **Outpost 0.14.0**, [validation](validation-0.14.md), [fixtures v7](../eval/fixtures-v7.json), [rubric v2](../eval/rubric-v2.md). Broad field/held-out quality remains open. Scored development experiments from 0.9 are historical; the current product protocol is `ChatPrompt` v1.1, distinct from the matrix's evidence-only `ResearchPrompt`.
+Current reference: **Outpost 0.15.0**, [validation](validation-0.15.md), [fixtures v8](../eval/fixtures-v8.json), [rubric v2](../eval/rubric-v2.md). Broad field/held-out quality remains open. Scored development experiments from 0.9 are historical; the current product protocol is `ChatPrompt` v1.1, distinct from the matrix's evidence-only `ResearchPrompt`.
 
 ## Separate the questions
 
@@ -37,7 +37,7 @@ The longer 0.9 prompt candidate was rejected after controlled comparison, and Qw
 | Evidence-only fixture matrix | `test-evaluation.ps1` / `eval/review.py` | Attributed 0.9 development reviews; no newly scored broad v7 run claimed |
 | Build/package/lint | `build.ps1`, `publish-artifact.ps1 -Verify` | ARM64+x86_64 packaging; 0 lint errors, 3 upstream warnings |
 
-All current run links and exact identities are in [0.14 validation](validation-0.14.md). The new place suite executes no generator and checks a frozen real-data subset as well as synthetic inputs. The older 33-token, 76.152-second Bonsai answer belongs to [0.12](validation-0.12.md); it is not a current timing or broad accuracy claim. Do not combine counts across suites into an accuracy percentage.
+Current identities are in [0.15 validation](validation-0.15.md); [0.14 validation](validation-0.14.md) preserves earlier integration/OSM controls. The new place suite executes no generator and checks a frozen real-data subset as well as synthetic inputs. The older 33-token, 76.152-second Bonsai answer belongs to [0.12](validation-0.12.md); it is not a current timing or broad accuracy claim. Do not combine counts across suites into an accuracy percentage.
 
 ## Performance protocol
 

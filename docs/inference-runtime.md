@@ -1,6 +1,6 @@
 # Inference runtime
 
-Status: implementation reference for Outpost 0.14.0. The owned Q2 wrappers now support guarded output-row reuse and separate multi-column/single-column policies; vendor backend, model weights and sampler remain pinned and unchanged. See [architecture](architecture.md) for the application flow and [optimizations](optimizations.md) for measurements.
+Status: implementation reference for Outpost 0.15.0. The owned wrappers support guarded x86 and ARM Q2 paths. ARM adds exact-lane DotProd, prepared activations/column/decode-row reuse and persistent workers; vendor backend, model weights and sampler remain pinned and unchanged. See [architecture](architecture.md) for the application flow and [optimizations](optimizations.md) for measurements.
 
 ## Model identities
 
@@ -31,11 +31,21 @@ One model is loaded in the native session at a time. Selecting another generator
 | AVX2/F16C | CPU instruction support plus OS vector-state support | Compiled custom Q2 path |
 | AVX-VNNI | Separate x86 capability; not equivalent to AVX-512 VNNI | Descriptor only |
 | AVX-512 VNNI | CPU extensions plus required OS extended-state support | Descriptor only |
-| ARM NEON / DotProd / I8MM | Android ARM HWCAP/HWCAP2 as applicable | Descriptors; custom optimized kernels pending |
+| ARM NEON | Baseline ARM SIMD | Available through the original backend fallback |
+| ARM DotProd | NEON and HWCAP_ASIMDDP | Compiled guarded custom Q2 path, validated on the registered Pixel |
+| ARM I8MM | NEON and HWCAP2_I8MM | Descriptor only; no custom I8MM kernel |
 
-The registry separately reports CPU compatibility, compiled implementation, enabled policy, and selected path. Detection never makes a missing implementation executable. Synthetic dispatch checks test policy; they do not exercise unsupported instructions. The current APK packages x86_64 and ARM64. The [authorized Pixel 10 Pro trial](pixel10-results-2026-10-01.md) now verifies bounded ARM model admission and product chat in addition to the historical x86_64 emulator checks. That phone detects NEON, DotProd and I8MM but selects the Q2 reference path; custom ARM kernels remain pending. Other devices, 16 KiB pages and broad stress/field validation are not established by this trial.
+The registry separately reports CPU compatibility, compiled implementation, enabled policy, and selected path. Detection never makes a missing implementation executable. Synthetic dispatch checks test policy; they do not exercise unsupported instructions. The current APK packages x86_64 and ARM64. The [authorized Pixel 10 Pro trial](pixel10-results-2026-10-01.md) now verifies bounded ARM model admission and product chat in addition to the historical x86_64 emulator checks. That initial trial selected the backend reference path. The subsequent [0.15 validation](validation-0.15.md) admits custom DotProd and persistent workers; I8MM remains pending. Other devices, 16 KiB pages and broad stress/field validation are not established by this trial.
 
 The measured profile key includes Android fingerprint/API, ABI, feature mask, online CPU count, app version, kernel identifier, and model SHA-256. A different key returns a conservative default: at most 4 decode/prompt threads, batch 128 and width 1, marked unmeasured. The key uses app `versionName`, not the source/APK hash; changing code without a version change does not automatically invalidate it. Calibration is a developer action, not an automatic startup benchmark. Current Settings exposes model preparation, not runtime calibration/metrics. Any future runtime UI must distinguish unsupported or unmeasured states.
+
+## ARM policy in 0.15
+
+The Q2 ARM baseline uses NEON and emulates dot products. Native SDOT groups products differently, so the wrapper explicitly preserves the old lane grouping, fused float accumulation and final reduction. Prepared activation data stays inside the existing per-graph workspace; model weights are not expanded or rewritten. The exact Pixel/Bonsai 4B preset uses 4 decode workers, 6 prompt workers,batch 128,width 8,prefillRows1/decodeRows4 and no affinity. It is gated by the recorded OS fingerprint,8 CPUs,featureMask7168,model identity and active DotProd path. Other keys keep conservative matrix settings.
+
+ARM configuration defaults use session-owned pools; x86 defaults keep their previous worker lifecycle. Pools are paused after each request and cache release, and freed on close. A context is destroyed before any referenced pool is freed or resized because the CPU backend retains that pointer. Research affinity is restricted to eligible Outpost threads and restores the caller's original mask; no fixed affinity is shipped. ARM calibration uses `q2-arm-dot-pool-v1`.
+
+Changing decoder thread count can change the backend's split-KV attention reduction and therefore rounding. The6/6 candidate was rejected after a long answer diverged. The adopted4/6 policy matches every sampling-logit hash and token in complete confirmation. Logit tracing and extended per-session deadlines are explicit test APIs, disabled in ordinary app requests. Research comparison uses300 seconds on both arms; product output remains192 tokens and120 seconds.
 
 ## Cache invariants
 
@@ -66,7 +76,7 @@ Boundary cases are covered in the knowledge suite. The historical 0.9 [width con
 
 `NativeEngine.Configuration` and its JNI call now carry separate `rowTile` and `decodeRows` fields. `rowTile` selects one/two output rows for eligible multi-column matrices; `decodeRows` selects one/two/four for single-column matrices. This distinction follows matrix shape, not an explicit generation-phase tag: a one-column prefill tail uses the single-column policy too. Product speculation remains off. Each policy change invalidates cached computation, alongside existing model/thread/batch/width/kernel conditions.
 
-The two-row kernel reuses Q8 loads/corrections across adjacent output rows and retains each output's scale/accumulation order. Existing type/stride/workspace/CPU/reference guards remain; insufficient rows per worker and unsupported shapes fall back. No model-wide dequantized copy or scratch-space extension is introduced. ARM keeps the backend/reference route; no custom ARM/VNNI implementation was added.
+The two-row kernel reuses Q8 loads/corrections across adjacent output rows and retains each output's scale/accumulation order. Existing type/stride/workspace/CPU/reference guards remain; insufficient rows per worker and unsupported shapes fall back. No model-wide dequantized copy or scratch-space extension is introduced. That0.14 x86 experiment did not add ARM/VNNI kernels; the separate0.15 ARM policy is described above.
 
 `RuntimeSettings` uses kernel identity `q2-row-v3-phase` and persists both dimensions. Unmatched hardware/model/build keys retain the conservative width 1 / row 1 / decode 1 default. Legacy thread/batch/width calibration preserves the row dimensions it did not measure. The validated Outpost35 Bonsai 4B profile is 4/4 threads, batch 128, matrixWidth 4, rowTile 2 and decodeRows 1. It is a local measured profile, not a universal phone default or automatic startup benchmark.
 
@@ -76,4 +86,4 @@ The selected policy improves prompt-oriented work while retaining the old decode
 
 The [model survey](model-alternatives.md) now has an executed [Spark 1.7B research slice](spark-candidate-results-2026-10-01.md). `GenerationPolicy` is explicit:0 retains the legacy formatter;2 uses the bounded Spark no-thinking formatter with full SWA storage;1 is its experimental compact-cache alternative. Sampler 0 is greedy,1 retains Bonsai's prior top-k 20/top-p 0.8/temperature 0.7, and2 uses Spark's top-p 0.95/temperature 1.0 without top-k. Seed is explicit. Existing product boolean calls map to their former policy and seed 42.
 
-The Spark profile is hash-pinned in test assets and absent from ModelStore.PROFILES. Its marker/vocabulary checks, segmented literal-data tokenization, prefix retention check and lifecycle evidence are described in [candidate testing](candidate-testing.md). New formatter/cache policy invalidates context reuse. Compact/full first logits differed despite identical short text, so full storage remains the comparison policy; this is not evidence of a general quality loss or a validated compact optimization. Backend/model product pins and Q2 kernels remain unchanged. E-07/E-05 remain partial beyond this slice; [Engram](engram-review.md) is still conditional trained-architecture research.
+The Spark profile is hash-pinned in test assets and absent from ModelStore.PROFILES. Its marker/vocabulary checks, segmented literal-data tokenization, prefix retention check and lifecycle evidence are described in [candidate testing](candidate-testing.md). New formatter/cache policy invalidates context reuse. Compact/full first logits differed despite identical short text, so full storage remains the comparison policy; this is not evidence of a general quality loss or a validated compact optimization. That Spark admission slice did not change Q2 kernels; subsequent0.15 ARM work is separate. Backend/model pins remain unchanged. E-07/E-05 remain partial beyond this slice; [Engram](engram-review.md) is still conditional trained-architecture research.

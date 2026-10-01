@@ -21,11 +21,7 @@ void __real_ggml_vec_dot_q2_0_q8_0(int, float *, size_t, const void *, size_t, c
 void __wrap_ggml_vec_dot_q2_0_q8_0(int, float *, size_t, const void *, size_t, const void *, size_t, int);
 static pthread_once_t detection = PTHREAD_ONCE_INIT;
 static br_q2_id selected_kernel;
-#if defined(__aarch64__)
-static _Atomic int automatic_mode = 0; // Research gate; enable only after Android parity and model confirmation.
-#else
 static _Atomic int automatic_mode = 1;
-#endif
 static _Atomic int used_fast;
 // Only actual, validated implementations belong here. Capability descriptors are not implementations.
 static const uint32_t compiled = BR_Q2_BIT(BR_Q2_REFERENCE)

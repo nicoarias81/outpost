@@ -1,6 +1,12 @@
 # Optimization record
 
-Status: historical measurements plus the 0.14 row-reuse experiment and subsequent [Pixel reference-path trial](pixel10-results-2026-10-01.md). The owned multi-column kernel changed in 0.14; pinned backend/model weights did not. The tuned settings remain local to Outpost35/Bonsai 4B; unmeasured device/model keys retain conservative defaults. See [0.14 experiment](kernel-rows-0.14.md) and [runtime](inference-runtime.md). Historical optimization measurements below used an AOSP Android 15 x86_64 emulator with four logical CPUs and 4 GiB RAM. They do not establish a phone speedup; the separate physical trial identifies the next ARM work without enabling a new kernel.
+Status: current ARM adoption in Outpost 0.15, followed by preserved historical x86 measurements. Pinned model/backend sources are unchanged. The exact Pixel/Bonsai preset and [0.15 validation](validation-0.15.md) govern current phone performance; the [0.14 record](kernel-rows-0.14.md) remains specific to its measured emulator configuration.
+
+## Current ARM result
+
+[0.15 validation](validation-0.15.md) adopts guarded DotProd, activation/column/decode-row reuse and persistent workers for the tested Pixel/Bonsai preset. Three exact full-trace pairs show205.05→35.52s and262.63→42.32s native medians; first-token medians41.08→12.38s and45.37→14.13s. Both comparison arms used300-second research deadlines; normal app limits are unchanged. This is a combined runtime improvement on two known workloads, not a DotProd-only or universal device speedup.
+
+Six decode workers were rejected after attention-reduction drift, and fixed affinity was slower in the controller probe. The selected policy retains4 decode/6 prompt workers. Kernel correctness, seeded output equality and answer quality remain distinct. [The experiment record](arm-optimization-2026-10-01.md) preserves successful and rejected runs.
 
 ## Measurements and attribution
 
@@ -61,13 +67,13 @@ Prioritize an operation/shape baseline (P-05), then a guarded multi-row Q2 candi
 
 | Hypothesis | Required experiment | Adoption criterion |
 |---|---|---|
-| Native ARM kernels help the intended phones | Implement guarded reference/NEON/DotProd/I8MM variants on the explicitly registered Pixel 10 Pro under [its protocol](pixel10-testing.md); retain the reference path | The [first physical trial](pixel10-results-2026-10-01.md) confirms all three ISA capabilities but selects the unoptimized Q2 reference. Require numerical/guard/lifecycle checks and controlled full-answer benefit before enabling an ARM candidate; other devices remain outside scope |
+| Native ARM kernels help the intended phones | Implement guarded reference/NEON/DotProd/I8MM variants on the explicitly registered Pixel 10 Pro under [its protocol](pixel10-testing.md); retain the reference path | The first trial used the backend NEON reference. [0.15](validation-0.15.md) now adopts guarded DotProd after numerical, lifecycle and full-logit confirmation. I8MM, additional shapes/devices and energy remain open; other phones require explicit scope |
 | VNNI improves the current dot path | Distinguish AVX-VNNI and AVX-512 requirements; test signedness, accumulation limits, packing costs, and tails | Improvement beyond noise on compatible hardware; no regression on baseline dispatch |
 | Context reuse benefits real field work | Freeze a multi-question mission and package version, compare cold/partial/exact reuse | Useful outcome preserved, measured latency benefit, acceptable retained memory |
 | Smarter evidence selection lowers prefill | Compare bounded prompt budgets while holding mission evidence coverage constant | Faster useful answers without more omissions or citation errors |
 | GPU/NPU offload is worthwhile | Prototype a concrete backend and measure transfers, supported operations, RAM, and integration complexity | End-to-end benefit and fallback integrity; no theoretical-throughput claims |
 
-These experiments are pending. Start with a hypothesis and baseline, alternate paired runs, preserve raw results, and use the [evaluation protocol](evaluation.md). A nominal 5% improvement is only a working adoption threshold; repeated evidence must also show it exceeds run-to-run noise.
+Unadopted extensions in this table remain pending. Start with a hypothesis and baseline, alternate paired runs, preserve raw results, and use the [evaluation protocol](evaluation.md). A nominal 5% improvement is only a working adoption threshold; repeated evidence must also show it exceeds run-to-run noise.
 
 ## Measurement caveats found in 0.8
 

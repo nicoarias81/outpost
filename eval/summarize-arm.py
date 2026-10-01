@@ -22,6 +22,7 @@ for case in ('case0','case1'):
         assert row['status']=='returned'
         assert (row['system'],row['user'],row['maxTokens'],row['deadlineMs'],row['sampler'])==(first['system'],first['user'],first['maxTokens'],first['deadlineMs'],first['sampler'])
         assert (row['tokenIds'],row['text'],row['firstLogitsHash'],row['stopReason'])==(first['tokenIds'],first['text'],first['firstLogitsHash'],first['stopReason'])
+        assert row['logitTrace'] and row['logitTrace']==first['logitTrace']
         assert row['conditionsBefore']['interactive'] and row['conditionsBefore']['benchmarkHasFocus'] and row['conditionsBefore']['benchmarkResumed']
         assert row['conditionsAfter']['interactive'] and row['conditionsAfter']['benchmarkHasFocus'] and row['conditionsAfter']['benchmarkResumed']
         assert row['threadpool']['affinityRestored'] and row['threadpool']['pausedAfterRequest']

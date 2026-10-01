@@ -14,8 +14,9 @@ final class RuntimeSettings {
     }
     private static String key(Context context,ModelStore.Spec spec) throws Exception {
         org.json.JSONObject cpu=new org.json.JSONObject(NativeEngine.kernelProfile());
+        String kernel=cpu.getString("abi").equals("arm64-v8a")?"q2-arm-dot-pool-v1":"q2-row-v3-phase";
         String value=Build.FINGERPRINT+"/"+Build.VERSION.SDK_INT+"/"+cpu.getString("abi")+"/"+cpu.getInt("featureMask")+"/"+cpu.getInt("onlineCpus")
-            +"/"+context.getPackageManager().getPackageInfo(context.getPackageName(),0).versionName+"/q2-row-v3-phase/"+spec.sha256();
+            +"/"+context.getPackageManager().getPackageInfo(context.getPackageName(),0).versionName+"/"+kernel+"/"+spec.sha256();
         byte[] digest=MessageDigest.getInstance("SHA-256").digest(value.getBytes(StandardCharsets.UTF_8));
         StringBuilder out=new StringBuilder(); for(byte b:digest) out.append(String.format(java.util.Locale.ROOT,"%02x",b & 255)); return out.toString();
     }
@@ -29,6 +30,12 @@ final class RuntimeSettings {
                 if(p.width()==1 || p.width()==2 || p.width()==4 || p.width()==8) return p;
             }
         } catch(Exception ignored) { }
+        // Confirmed Pixel/Bonsai preset; other hardware, OS builds and models remain conservative.
+        if(spec==ModelStore.BONSAI4&&Build.FINGERPRINT.equals("google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys"))try {
+            org.json.JSONObject cpu=new org.json.JSONObject(NativeEngine.kernelProfile());
+            if(cpu.getString("abi").equals("arm64-v8a")&&cpu.getInt("onlineCpus")==8&&cpu.getInt("featureMask")==7168
+                &&cpu.getString("selected").equals("Q2_0 NEON DotProd"))return new Profile(4,6,128,8,true,1,4);
+        }catch(org.json.JSONException ignored){}
         int threads=Math.max(1,Math.min(4,Runtime.getRuntime().availableProcessors()));
         return new Profile(threads,threads,128,1,false);
     }

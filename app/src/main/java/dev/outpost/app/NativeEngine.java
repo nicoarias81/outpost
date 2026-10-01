@@ -52,7 +52,7 @@ final class NativeEngine implements AutoCloseable {
     private static native void nativeTraceLogitsForTests(long handle,boolean enabled);
     private static native long[] nativeLogitTrace(long handle);
     record Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int speculativeDepth,boolean adaptive,int rowTile,int decodeRows,boolean persistentThreads,int affinityMask) {
-        Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int speculativeDepth,boolean adaptive,int rowTile,int decodeRows){this(threads,promptThreads,batch,cache,matrixWidth,speculativeDepth,adaptive,rowTile,decodeRows,false,0);}
+        Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int speculativeDepth,boolean adaptive,int rowTile,int decodeRows){this(threads,promptThreads,batch,cache,matrixWidth,speculativeDepth,adaptive,rowTile,decodeRows,android.os.Build.SUPPORTED_ABIS[0].equals("arm64-v8a"),0);}
         Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int speculativeDepth,boolean adaptive,int legacyRows) {this(threads,promptThreads,batch,cache,matrixWidth,speculativeDepth,adaptive,legacyRows==2?2:1,legacyRows);}
         Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth,int speculativeDepth,boolean adaptive) {this(threads,promptThreads,batch,cache,matrixWidth,speculativeDepth,adaptive,1);}
         Configuration(int threads,int promptThreads,int batch,boolean cache,int matrixWidth) { this(threads,promptThreads,batch,cache,matrixWidth,0,true); }

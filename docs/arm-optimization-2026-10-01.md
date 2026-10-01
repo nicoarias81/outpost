@@ -1,6 +1,6 @@
 # ARM optimization experiment — 2026-10-01
 
-Status: research in progress on the explicitly authorized Pixel 10 Pro. New ARM kernels and persistent workers are compiled but remain disabled in ordinary product calls until confirmation. The frozen 0.14 user-test APK is preserved. Model weights, ChatPrompt, sampling and the product's 120-second/192-token limits are unchanged.
+Status: bounded adoption in Outpost 0.15 after full confirmation and final regressions. The exact tested Pixel/Bonsai preset uses 4 decode workers, 6 prompt workers, batch 128, width 8, rows 1/4 and persistent workers without affinity. The frozen 0.14 APK is preserved. Model weights, ChatPrompt, sampling and product limits remain unchanged. [Release validation](validation-0.15.md) owns final artifacts and measurements.
 
 ## Implementation and numerical contract
 
@@ -19,8 +19,16 @@ Session-owned thread pools are an independent experiment. They are reused across
 
 Two earlier attempts stopped at the unlocked-screen precondition without executing model work. The dedicated test Activity now uses Android's standard show-when-locked/turn-screen-on APIs and checks actual resume/focus/interactive state. It can display only benchmark status over keyguard, never personal app content; it does not disable device authentication. Actual keyguard state remains recorded. See [Android's Activity API](https://developer.android.com/reference/android/app/Activity#setShowWhenLocked(boolean)).
 
+## Full-trace rejection and adoption
+
+The exploratory 6/6-worker recommendation passed bounded tuning but failed [long confirmation](../evidence/runs/arm-confirm-20261001T125824Z-99b315d4/arm-checks.json) at output token 90 in the manual case. The backend partitions decode attention's KV reduction by worker count, changing rounding. [Per-step trace](../evidence/runs/arm-trace-20261001T132954Z-f9669c2f/arm-checks.json) found drift from distribution index 1 with 6 decode workers; 4/6 and 4/4 preserve every distribution in that probe. The rejected run is not product evidence of adoption.
+
+The corrected [confirmation](../evidence/runs/arm-confirm-20261001T133232Z-a8581810/arm-checks.json) passed 79 controls and compares all sampling-logit hashes, tokens, stop reasons and full outputs across three rotated pairs. Both questions end normally: 133 travel tokens and 162 manual tokens. Median native totals improve 205.048→35.519 seconds and 262.629→42.322 seconds; first-token medians improve 41.081→12.377 and 45.369→14.132 seconds. These are matched-output, combined-runtime measurements on this phone, not a DotProd-only or universal speedup. [Exact metrics](../evidence/research/arm-optimization-20261001/confirmation-metrics.json).
+
+Final 0.15 repeats lifecycle and per-step trace, passes Spark/Bonsai/Qwen admission and 45 chat/import/PDF controls, and passes x86 numeric/dispatch/batch/decoder regression before restoring the emulator's old APKs. The real chat produced the same short answers in 9.385/9.813 seconds and the same cited PDF answer in 11.350 seconds. Original app-private data was restored after isolated tests; no global radio/governor/security change was made.
+
 ## Reproduction and current gates
 
-Build with `scripts/build.ps1 -Offline`, install both verified debug APKs on the registered Pixel, then use `scripts/test-pixel-chat-isolated.ps1 -ArmPhase numeric`. The same wrapper accepts `controller`, `tune`, `lifecycle`, `model` and `confirm`; `-Threads`, `-Width`, `-DecodeRows`, `-PersistentThreads` and `-Affinity` record requested research settings. It preserves and restores original app-private data hashes. Use `-RestoreOnly` if its journal reports a pending restoration. No host model/numerical execution is permitted.
+Build with `scripts/build.ps1 -Offline`, install both verified debug APKs on the registered Pixel, then use `scripts/test-pixel-chat-isolated.ps1 -ArmPhase numeric`. The same wrapper accepts `controller`, `tune`, `lifecycle`, `trace`, `model` and `confirm`; `-Threads`, `-PromptThreads`, `-Width`, `-DecodeRows`, `-PersistentThreads` and `-Affinity` record requested research settings. It preserves and restores original app-private data hashes. Use `-RestoreOnly` if its journal reports a pending restoration. No host model/numerical execution is permitted.
 
-The tuning phase selects prompt workers/width and decode workers separately using reversed-order exploratory probes; only reference-equivalent token/logit results are eligible. Lifecycle checks cover exact caching, cancellation, cold recovery and independent pool resizing. Complete-output confirmation, product-policy adoption, UI/other-model regression and final documentation are still pending at this checkpoint. Do not infer adoption from the numeric or32-token controller PASS.
+Tuning probes are exploratory; the rejected six-worker result shows that initial hashes and short token sequences cannot establish full equivalence. Adoption requires the complete per-step trace gate and regressions recorded above. Lifecycle checks cover exact caching, cancellation, recovery and independent pool resizing. Other phones, additional model-specific presets, I8MM, memory pressure and controlled energy remain open. Test-only per-session deadline extension and logit tracing are off in normal product calls.

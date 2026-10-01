@@ -1,6 +1,6 @@
 # Third-party dependencies and model provenance
 
-Product baseline: Outpost 0.14.0, with the separately identified October 1 Spark research build. Runtime/model identities remain pinned; PDF extraction adds the dependencies listed below. Model and dependency identities refer to the locked files used by this prototype, not automatically to newer upstream releases. This file preserves dependency notices; it does not select a license for this project's own code.
+Product baseline: Outpost 0.15.0, with ARM optimization and the separately identified Spark research profile. Runtime/model identities remain pinned; PDF extraction adds the dependencies listed below. Model and dependency identities refer to the locked files used by this prototype, not automatically to newer upstream releases. This file preserves dependency notices; it does not select a license for this project's own code.
 
 ## llama.cpp
 
@@ -9,10 +9,10 @@ Product baseline: Outpost 0.14.0, with the separately identified October 1 Spark
 - License: MIT. Full notice: [llama-MIT.txt](app/src/main/assets/licenses/llama-MIT.txt), included in APK assets.
 - Vendor code is built without source modifications. Own JNI integration is in `app/src/main/cpp/engine.cpp`.
 - Own `q2_kernel.c` wraps `ggml_vec_dot_q2_0_q8_0` through the linker. AVX2/F16C selection retains the original reference fallback. This uses the pinned revision's formats and contracts and must be revalidated on upgrade. No external VNNI PR or fork kernel was imported.
-- `cpu_caps.c` separates CPUID/XCR0 and HWCAP/HWCAP2 detection from `q2_dispatch.c` policy. VNNI and ARM candidates currently have requirement descriptors, not new optimized implementations.
+- `cpu_caps.c` separates CPUID/XCR0 and HWCAP/HWCAP2 detection from `q2_dispatch.c` policy. VNNI/I8MM candidates remain descriptors. The own `q2_arm.c` implements guarded DotProd while preserving the pinned backend's emulated-dot lane grouping and fused accumulation.
 - `q2_batch.c` also wraps `ggml_compute_forward_mul_mat_tiled` for supported Q2 g64 operations. It uses GGML activation quantization and barriers with an own grouped-token kernel. Context reuse and saved-logit sampling use llama.cpp memory and sampler APIs.
 - Since 0.7, own `speculation.cpp` proposes same-request token continuations and controls their cost. JNI verifies them using decode, logits, sampler, and memory APIs. No DSpark/EAGLE implementation or auxiliary speculative weights were imported.
-- CPU/x86_64 and ARM64 are packaged; runtime validation remains x86_64 emulator-only. HTTP server, tools, OpenSSL, and web interfaces are not built.
+- CPU/x86_64 and ARM64 are packaged; bounded runtime validation now covers the x86 emulator and specifically authorized Pixel10Pro. Persistent workers use existing GGML/llama public thread-pool APIs; no vendor source was modified. HTTP server, tools, OpenSSL, and web interfaces are not built.
 
 [DeepGEMM-Ascend](docs/deepgemm-ascend-review.md) was inspected at a pinned revision as an optimization reference; no code, dependency or model from that project was integrated.
 

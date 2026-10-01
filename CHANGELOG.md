@@ -2,6 +2,15 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## 0.15.0 — Measured ARM execution — 2026-10-01
+
+- Adds guarded ARM DotProd Q2 kernels with exact reference lane/FMA ordering, prepared activations, specialized column groups and decode-row reuse.
+- Reuses and pauses session-owned CPU workers; validates cache/cancellation/recovery and independent pool resizing. Global power/radio policies and model selection are preserved.
+- Adds the exact Pixel10Pro/Bonsai4 preset:4 decode/6 prompt threads,batch128,width8,rows1/4,persistent workers,no affinity. Other keys retain conservative matrix settings.
+- Rejects six decode workers after long-output divergence; confirms the adopted path against every sampling-logit hash and output token. Separates research300-second deadlines from product120 seconds/192 tokens.
+- Preserves failed probes, isolated private-data restoration, final model/UI/x86 regression and unchanged model/backend pins. Updates fixture identity to v8 without changing questions or transferring old quality scores.
+- [Validation](docs/validation-0.15.md) records artifact hashes, measured latency and limits. No universal speedup, battery-life, field-quality or public-distribution claim.
+
 ## 0.14.0 — Measured Q2 row reuse — 2026-09-30
 
 - Adds guarded two-row Q2 reuse across multi-column work, with independent single-column policy, reference fallback and unchanged pinned weights/backend.
