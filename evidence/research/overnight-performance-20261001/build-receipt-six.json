@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "builtAtUtc": "2026-10-01T22:00:41.0072876Z",
+  "versionName": "0.16.0",
+  "versionCode": 18,
+  "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+  "mainSourcesSha256": "1c82129ac61beb4d878be319304dbcb2b635ba2be803223ef6cd19cb6c4c19c4",
+  "testSourcesSha256": "28ee2f42a70cc46c8bf09ec16d93c04dd81b6c3ec550a96fdc3829b36575f346",
+  "appSha256": "0c717eccabd7f4ae44bf7c51765529d0bc9f4aa031ddc9f98660e76ccaf2d22a",
+  "testApkSha256": "ef813162d5926fd45a460379c460fe102a2d64fc4641c91cf822138eacd356f8",
+  "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+}

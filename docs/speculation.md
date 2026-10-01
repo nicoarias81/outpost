@@ -1,10 +1,10 @@
 # Context speculation and MTP
 
-Status in Outpost 0.16: context speculation exists only as native research functionality; product chat forces depth 0 and has no toggle. Native MTP and a dual-model drafter are not implemented. Measurements below are historical Bonsai 4B emulator experiments, not current phone/product benchmarks.
+Status in Outpost 0.17: context speculation exists only as native research functionality; product chat forces depth 0 and has no toggle. Native MTP and a dual-model drafter are not implemented. Measurements below are historical Bonsai 4B emulator experiments, not current phone/product benchmarks.
 
 ## Executed Pixel follow-up
 
-The [2026-10-01 study](speculation-pixel-2026-10-01.md) completes speculative target-sample tracing and consistent whole-round costs, including proposal, sampling, rollback and callback work. Hash/trace overhead is reported separately; interrupted/terminal rounds are excluded from controller learning. Current build outputs are research artifacts; the frozen 0.16 product remains installed with depth 0.
+The [2026-10-01 study](speculation-pixel-2026-10-01.md) completes speculative target-sample tracing and consistent whole-round costs, including proposal, sampling, rollback and callback work. Hash/trace overhead is reported separately; interrupted/terminal rounds are excluded from controller learning. That initial study used research artifacts. The current [0.17 normal decoder](validation-0.17.md) is separately validated, while the phone remains restored to frozen 0.16 after tests. Product depth stays 0.
 
 The initial trace/curve/edge suites reproduced larger-prefix logit drift and changed oracle-driven text. The subsequent [TND-02b attention repair](attention-parity-2026-10-01.md) preserves all 640 candidate logit vectors and the bounded sampled/lifecycle controls by retaining original serial attention arithmetic per query. No trained drafter or relaxed numerical gate is introduced. Product adoption still requires measured real-proposal benefit; historical timings below remain unchanged.
 
@@ -65,3 +65,5 @@ The [model survey](model-alternatives.md) pins LFM2.5-1.2B-Instruct-DSpark (abou
 ## TandemLLM follow-up — 2026-10-01
 
 [The static review](tandemllm-review.md) maps a measured-cost chain controller onto this existing research path. TND-01 first fills speculative logit-trace coverage and normalizes timing scope; TND-02 measures current Pixel verify costs and numerical equivalence. Neither earlier emulator timings nor TandemLLM's DGX Spark tables establish a 0.16 phone gain. Product speculation remains off; trained drafters/tree verification and sampler changes remain separate work.
+
+The 0.17 target baseline is now six decode/prompt workers with four logical attention workers. Any new proposal policy must preserve that arithmetic in both serial and verification paths and measure against its lower ordinary-step cost. The public configuration currently rejects speculation combined with fixed attention; admitting that combination is future work, not an existing product feature.

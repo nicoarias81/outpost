@@ -1,0 +1,164 @@
+{
+  "version": "0.17.0",
+  "versionCode": 19,
+  "appSha256": "6ae162f07dc719540b2256d249b312e56d2e70e45d22794b8dc60f8cf8f66ca2",
+  "testApkSha256": "20da12c961e265229b1b3996fc604dd55884c355e4bc2d02f47e22c549f641d3",
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T22:41:54.7348194Z",
+    "versionName": "0.17.0",
+    "versionCode": 19,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "8bbbc05d087c96201bba9dbf07aa7cc453585c72fbddca17f2a61f570846be8f",
+    "testSourcesSha256": "7e44cff9cda5cba25be19729a96ffb9a2e4a17c022b77dd11223a1dbaeeb5f73",
+    "appSha256": "6ae162f07dc719540b2256d249b312e56d2e70e45d22794b8dc60f8cf8f66ca2",
+    "testApkSha256": "20da12c961e265229b1b3996fc604dd55884c355e4bc2d02f47e22c549f641d3",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "runs": {
+    "verificationCurves": "arm-attention-six-20261001T220123Z-55601256",
+    "verificationTrace": "arm-attention-trace-six-20261001T220753Z-5dba27aa",
+    "pilot": "arm-decode-six-pilot-20261001T221733Z-adbd276a",
+    "confirmation": "arm-decode-six-confirm-20261001T222511Z-64ae8cc6",
+    "finalLifecycle": "arm-decode-six-lifecycle-20261001T224406Z-0d8d91e9",
+    "finalPairs": "arm-decode-six-pilot-20261001T224706Z-f2e56a25",
+    "finalAdmission": "candidate-admission-20261001T225617Z-0133cc13",
+    "finalChat": "chat-20261001T225935Z-2e81b8df",
+    "finalX86": "x86-regression-20261001T224726Z-39f66dd6"
+  },
+  "selectedProfile": {
+    "threads": 6,
+    "promptThreads": 6,
+    "batch": 128,
+    "width": 8,
+    "rowTile": 1,
+    "decodeRows": 4,
+    "prefillChunk": 32,
+    "decodeChunk": 0,
+    "attentionThreads": 4,
+    "measured": true,
+    "persistentThreads": true,
+    "kernel": "Q2_0 NEON DotProd"
+  },
+  "productLimits": {
+    "context": 2048,
+    "outputTokens": 192,
+    "deadlineMs": 120000,
+    "speculativeDepth": 0
+  },
+  "scope": "Local user-test artifact. Exact normal-output/logit parity and bounded paired Pixel latency; no generalized device, field-quality or battery-life claim.",
+  "uiObservations": [
+    {
+      "case": "first-turn",
+      "text": "Cedar",
+      "tokens": 2,
+      "firstTokenMs": 10205,
+      "totalMs": 10387,
+      "attention": {
+        "calls": 144,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 108,
+        "originalTiledCalls": 36,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 72,
+        "sliceRows": 72,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 256,
+        "kvMax": 256,
+        "queryMin": 1,
+        "queryMax": 128,
+        "threadsMin": 6,
+        "threadsMax": 6,
+        "logicalKvMin": 256,
+        "logicalKvMax": 256
+      }
+    },
+    {
+      "case": "follow-up",
+      "text": "Cedar",
+      "tokens": 2,
+      "firstTokenMs": 6831,
+      "totalMs": 7031,
+      "attention": {
+        "calls": 144,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 72,
+        "originalTiledCalls": 72,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 72,
+        "sliceRows": 72,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 256,
+        "kvMax": 256,
+        "queryMin": 1,
+        "queryMax": 128,
+        "threadsMin": 6,
+        "threadsMax": 6,
+        "logicalKvMin": 256,
+        "logicalKvMax": 256
+      }
+    },
+    {
+      "case": "with-document",
+      "text": "[1] Equipment manual.pdf: Sample unit PX-65 uses spare filter F-92.",
+      "tokens": 21,
+      "firstTokenMs": 5079,
+      "totalMs": 7801,
+      "attention": {
+        "calls": 828,
+        "originalSplitCalls": 756,
+        "originalVectorCalls": 36,
+        "originalTiledCalls": 36,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 756,
+        "sliceRows": 756,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 256,
+        "kvMax": 512,
+        "queryMin": 1,
+        "queryMax": 128,
+        "threadsMin": 6,
+        "threadsMax": 6,
+        "logicalKvMin": 512,
+        "logicalKvMax": 512
+      }
+    }
+  ],
+  "visualReview": {
+    "files": [
+      "chat-home.png",
+      "chat-settings.png",
+      "chat-documents.png",
+      "chat-pdf.png",
+      "chat-conversation.png",
+      "chat-sourced.png"
+    ],
+    "result": "All six synthetic captures visually reviewed: English chat/settings/documents/PDF/source UI remains readable; no personal app content is shown."
+  },
+  "nativeLibraries": {
+    "arm64-v8a": {
+      "sha256": "53b015b4fd83ba3cfff18c2876fbef9b9745236d111648bee8a0a586aa64ffd4"
+    },
+    "x86_64": {
+      "sha256": "39a495bd75a0a92bdc09a3d6c12f0bbb22b94ca10fe6206a18a6c538572de4d6"
+    }
+  },
+  "isolationRuns": [
+    "pixel-isolation-20261001T220118Z-9e48e80a",
+    "pixel-isolation-20261001T220748Z-05fef305",
+    "pixel-isolation-20261001T221729Z-2706358f",
+    "pixel-isolation-20261001T222506Z-35e87f99",
+    "pixel-isolation-20261001T224400Z-bf582762",
+    "pixel-isolation-20261001T224700Z-6efac20f",
+    "pixel-isolation-20261001T225613Z-a4b34a48",
+    "pixel-isolation-20261001T225928Z-b05113af"
+  ],
+  "finalDeviceRecord": "final-device.json",
+  "researchTimingScope": "Counterbalanced three-pair confirmation used the prior research APK. Final production-field APK independently passed complete paired outputs, lifecycle, UI, models and x86; native library bytes changed during explicit configuration integration."
+}

@@ -1,0 +1,43 @@
+
+Starting decode6/control0/plain / DotProd / 4 threads / width 8
+
+Completed decode6/control0/plain: 6009ms / first 5815ms / 2 tokens / stop 0
+
+Starting decode6/control0/candidate / DotProd / 6 threads / width 8
+
+Completed decode6/control0/candidate: 5969ms / first 5831ms / 2 tokens / stop 0
+
+Starting decode6/control1/plain / DotProd / 4 threads / width 8
+
+Completed decode6/control1/plain: 22567ms / first 20770ms / 16 tokens / stop 1
+
+Starting decode6/control1/candidate / DotProd / 6 threads / width 8
+
+Completed decode6/control1/candidate: 25375ms / first 23548ms / 16 tokens / stop 1
+
+Starting decode6/case0/round0/plain / DotProd / 4 threads / width 8
+
+Completed decode6/case0/round0/plain: 31750ms / first 9289ms / 133 tokens / stop 0
+
+Starting decode6/case0/round0/candidate / DotProd / 6 threads / width 8
+
+Completed decode6/case0/round0/candidate: 29411ms / first 10812ms / 133 tokens / stop 0
+
+Starting decode6/case1/round0/candidate / DotProd / 6 threads / width 8
+
+Completed decode6/case1/round0/candidate: 36312ms / first 13276ms / 162 tokens / stop 0
+
+Starting decode6/case1/round0/plain / DotProd / 4 threads / width 8
+
+Completed decode6/case1/round0/plain: 41952ms / first 13346ms / 162 tokens / stop 0
+
+Starting decode6/case2/round0/plain / DotProd / 4 threads / width 8
+
+Completed decode6/case2/round0/plain: 34713ms / first 8901ms / 154 tokens / stop 0
+
+Starting decode6/case2/round0/candidate / DotProd / 6 threads / width 8
+
+Completed decode6/case2/round0/candidate: 42371ms / first 14614ms / 154 tokens / stop 0
+
+PASS ARM decode-six-pilot: 60 controls.
+

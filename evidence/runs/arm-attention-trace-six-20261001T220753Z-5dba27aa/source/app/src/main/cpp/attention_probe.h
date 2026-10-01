@@ -1,0 +1,17 @@
+#pragma once
+#include <string>
+
+// Research-only controls. Call under execution_mutex, outside an active graph.
+// 0 observes the original operation; 1 forces vec-only attention; 2 slices
+// verification queries to reproduce four-worker serial attention arithmetic.
+// 3 retains six scheduler workers with the same four logical attention workers.
+void outpost_attention_reset();
+void outpost_attention_begin(int mode, int first_position, int rows);
+void outpost_attention_end();
+std::string outpost_attention_stats();
+struct OutpostAttentionScope {
+    OutpostAttentionScope(int mode, int first_position, int rows) {
+        outpost_attention_begin(mode, first_position, rows);
+    }
+    ~OutpostAttentionScope() { outpost_attention_end(); }
+};

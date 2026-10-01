@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 1,
+  "curveRun": "arm-attention-six-20261001T220123Z-55601256",
+  "curveReportSha256": "480bc5baa6ef9b0bfe04d775b21174a02677ac23f00ee3c8943a419e3872fa5f",
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T22:00:41.0072876Z",
+    "versionName": "0.16.0",
+    "versionCode": 18,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "1c82129ac61beb4d878be319304dbcb2b635ba2be803223ef6cd19cb6c4c19c4",
+    "testSourcesSha256": "28ee2f42a70cc46c8bf09ec16d93c04dd81b6c3ec550a96fdc3829b36575f346",
+    "appSha256": "0c717eccabd7f4ae44bf7c51765529d0bc9f4aa031ddc9f98660e76ccaf2d22a",
+    "testApkSha256": "ef813162d5926fd45a460379c460fe102a2d64fc4641c91cf822138eacd356f8",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "curveChecks": 223,
+  "comparisons": [
+    {
+      "prefixTokens": 253,
+      "batches": [
+        {
+          "rows": 1,
+          "fourWorkersUs": [
+            1666358,
+            1681025
+          ],
+          "sixWorkersUs": [
+            1723271,
+            1728932
+          ],
+          "medianFourUs": 1673691.5,
+          "medianSixUs": 1726101.5,
+          "fourOverSix": 0.969636779760634
+        },
+        {
+          "rows": 2,
+          "fourWorkersUs": [
+            1161696,
+            1184020
+          ],
+          "sixWorkersUs": [
+            961999,
+            994198
+          ],
+          "medianFourUs": 1172858.0,
+          "medianSixUs": 978098.5,
+          "fourOverSix": 1.1991205384733745
+        },
+        {
+          "rows": 4,
+          "fourWorkersUs": [
+            951699,
+            977354
+          ],
+          "sixWorkersUs": [
+            803655,
+            823759
+          ],
+          "medianFourUs": 964526.5,
+          "medianSixUs": 813707.0,
+          "fourOverSix": 1.1853486574405776
+        },
+        {
+          "rows": 8,
+          "fourWorkersUs": [
+            910602,
+            896825
+          ],
+          "sixWorkersUs": [
+            750702,
+            775538
+          ],
+          "medianFourUs": 903713.5,
+          "medianSixUs": 763120.0,
+          "fourOverSix": 1.184235113743579
+        }
+      ]
+    },
+    {
+      "prefixTokens": 509,
+      "batches": [
+        {
+          "rows": 1,
+          "fourWorkersUs": [
+            2952469,
+            2888873
+          ],
+          "sixWorkersUs": [
+            2278594,
+            2613423
+          ],
+          "medianFourUs": 2920671.0,
+          "medianSixUs": 2446008.5,
+          "fourOverSix": 1.194055948701732
+        },
+        {
+          "rows": 2,
+          "fourWorkersUs": [
+            2101517,
+            2048585
+          ],
+          "sixWorkersUs": [
+            1318851,
+            1529332
+          ],
+          "medianFourUs": 2075051.0,
+          "medianSixUs": 1424091.5,
+          "fourOverSix": 1.4571051087658342
+        },
+        {
+          "rows": 4,
+          "fourWorkersUs": [
+            1784267,
+            1737531
+          ],
+          "sixWorkersUs": [
+            1117751,
+            7731838
+          ],
+          "medianFourUs": 1760899.0,
+          "medianSixUs": 4424794.5,
+          "fourOverSix": 0.3979617584500252
+        },
+        {
+          "rows": 8,
+          "fourWorkersUs": [
+            1661662,
+            1639450
+          ],
+          "sixWorkersUs": [
+            1058480,
+            4672505
+          ],
+          "medianFourUs": 1650556.0,
+          "medianSixUs": 2865492.5,
+          "fourOverSix": 0.5760112790384201
+        }
+      ]
+    },
+    {
+      "prefixTokens": 1666,
+      "batches": [
+        {
+          "rows": 1,
+          "fourWorkersUs": [
+            4041635,
+            3837444
+          ],
+          "sixWorkersUs": [
+            4023622,
+            3996376
+          ],
+          "medianFourUs": 3939539.5,
+          "medianSixUs": 4009999.0,
+          "fourOverSix": 0.9824290479872938
+        },
+        {
+          "rows": 2,
+          "fourWorkersUs": [
+            3190955,
+            3010311
+          ],
+          "sixWorkersUs": [
+            2830871,
+            2814354
+          ],
+          "medianFourUs": 3100633.0,
+          "medianSixUs": 2822612.5,
+          "fourOverSix": 1.0984975798130279
+        },
+        {
+          "rows": 4,
+          "fourWorkersUs": [
+            2838896,
+            2693962
+          ],
+          "sixWorkersUs": [
+            2538407,
+            2536164
+          ],
+          "medianFourUs": 2766429.0,
+          "medianSixUs": 2537285.5,
+          "fourOverSix": 1.0903104912710848
+        },
+        {
+          "rows": 8,
+          "fourWorkersUs": [
+            2700821,
+            2646349
+          ],
+          "sixWorkersUs": [
+            2421076,
+            2422862
+          ],
+          "medianFourUs": 2673585.0,
+          "medianSixUs": 2421969.0,
+          "fourOverSix": 1.1038890258298104
+        }
+      ]
+    }
+  ],
+  "scope": "Forward-only Pixel research. Same four logical attention workers; four or six physical graph workers. Two width orders per mode, not user-visible speed or energy evidence.",
+  "productAdmission": false,
+  "candidateExactVectors": 384
+}

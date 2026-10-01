@@ -1,0 +1,496 @@
+{
+  "schemaVersion": 1,
+  "runId": "arm-decode-six-confirm-20261001T222511Z-64ae8cc6",
+  "reportSha256": "2f1ff665b4475c3ffe23da47df2a6209bb92b83c4b558f802340a3391afc2725",
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T22:16:02.8997547Z",
+    "versionName": "0.16.0",
+    "versionCode": 18,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "706118c2a63eb439cb18a596058ecaddc54d016497974ce945d22c2c4df4390c",
+    "testSourcesSha256": "8d061114bcf3bf7a3fd4ef9b7b12b95eb3c93355e475c0c9f8d311219f9c2894",
+    "appSha256": "07bc0be6f07deab8793db7eee62eaebeccd98b6db5ce040b9d5964f8140f905d",
+    "testApkSha256": "a5778cefa2580ec4705aa52f0458d2a2f432c2a66373adffb1bf39a481fbca05",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "checksPassed": 138,
+  "rounds": 3,
+  "exactParity": true,
+  "cases": [
+    {
+      "case": 0,
+      "pairs": [
+        {
+          "round": 0,
+          "candidateFirst": false,
+          "tokens": 133,
+          "decodeMs": {
+            "plain": 23729,
+            "candidate": 18673,
+            "ratio": 0.7869273884276623
+          },
+          "totalMs": {
+            "plain": 34380,
+            "candidate": 30387,
+            "ratio": 0.8838568935427574
+          },
+          "firstTokenMs": {
+            "plain": 10652,
+            "candidate": 11715,
+            "ratio": 1.0997934660157718
+          },
+          "prefillMs": {
+            "plain": 10481,
+            "candidate": 11515,
+            "ratio": 1.0986547085201794
+          },
+          "processCpuMs": {
+            "plain": 156390,
+            "candidate": 179241,
+            "ratio": 1.1461154805294456
+          },
+          "conditionsPlainBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 375,
+            "plugged": 2
+          },
+          "conditionsCandidateBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 380,
+            "plugged": 2
+          }
+        },
+        {
+          "round": 1,
+          "candidateFirst": true,
+          "tokens": 133,
+          "decodeMs": {
+            "plain": 23682,
+            "candidate": 18745,
+            "ratio": 0.7915294316358416
+          },
+          "totalMs": {
+            "plain": 35499,
+            "candidate": 30603,
+            "ratio": 0.8620806219893518
+          },
+          "firstTokenMs": {
+            "plain": 11818,
+            "candidate": 11859,
+            "ratio": 1.003469284142833
+          },
+          "prefillMs": {
+            "plain": 11617,
+            "candidate": 11660,
+            "ratio": 1.003701471980718
+          },
+          "processCpuMs": {
+            "plain": 162717,
+            "candidate": 180549,
+            "ratio": 1.1095890410958904
+          },
+          "conditionsPlainBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 383,
+            "plugged": 2
+          },
+          "conditionsCandidateBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 382,
+            "plugged": 2
+          }
+        },
+        {
+          "round": 2,
+          "candidateFirst": false,
+          "tokens": 133,
+          "decodeMs": {
+            "plain": 23496,
+            "candidate": 18695,
+            "ratio": 0.7956673476336398
+          },
+          "totalMs": {
+            "plain": 35300,
+            "candidate": 30384,
+            "ratio": 0.8607365439093484
+          },
+          "firstTokenMs": {
+            "plain": 11805,
+            "candidate": 11691,
+            "ratio": 0.9903430749682338
+          },
+          "prefillMs": {
+            "plain": 11610,
+            "candidate": 11491,
+            "ratio": 0.9897502153316107
+          },
+          "processCpuMs": {
+            "plain": 162257,
+            "candidate": 179339,
+            "ratio": 1.1052774302495425
+          },
+          "conditionsPlainBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 383,
+            "plugged": 2
+          },
+          "conditionsCandidateBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 385,
+            "plugged": 2
+          }
+        }
+      ],
+      "medianRatios": {
+        "decodeMs": 0.7915294316358416,
+        "totalMs": 0.8620806219893518,
+        "firstTokenMs": 1.003469284142833,
+        "prefillMs": 1.003701471980718,
+        "processCpuMs": 1.1095890410958904
+      },
+      "latencyGate": true
+    },
+    {
+      "case": 1,
+      "pairs": [
+        {
+          "round": 0,
+          "candidateFirst": true,
+          "tokens": 162,
+          "decodeMs": {
+            "plain": 29432,
+            "candidate": 23393,
+            "ratio": 0.7948151671649905
+          },
+          "totalMs": {
+            "plain": 43069,
+            "candidate": 36904,
+            "ratio": 0.8568576005943951
+          },
+          "firstTokenMs": {
+            "plain": 13638,
+            "candidate": 13513,
+            "ratio": 0.9908344332013491
+          },
+          "prefillMs": {
+            "plain": 13440,
+            "candidate": 13310,
+            "ratio": 0.9903273809523809
+          },
+          "processCpuMs": {
+            "plain": 196466,
+            "candidate": 217899,
+            "ratio": 1.1090926674335508
+          },
+          "conditionsPlainBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 385,
+            "plugged": 2
+          },
+          "conditionsCandidateBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 385,
+            "plugged": 2
+          }
+        },
+        {
+          "round": 1,
+          "candidateFirst": false,
+          "tokens": 162,
+          "decodeMs": {
+            "plain": 29312,
+            "candidate": 22987,
+            "ratio": 0.7842180676855895
+          },
+          "totalMs": {
+            "plain": 42842,
+            "candidate": 41475,
+            "ratio": 0.9680920591942487
+          },
+          "firstTokenMs": {
+            "plain": 13532,
+            "candidate": 18490,
+            "ratio": 1.3663907774164943
+          },
+          "prefillMs": {
+            "plain": 13328,
+            "candidate": 18293,
+            "ratio": 1.3725240096038416
+          },
+          "processCpuMs": {
+            "plain": 195378,
+            "candidate": 230188,
+            "ratio": 1.178167449764047
+          },
+          "conditionsPlainBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 388,
+            "plugged": 2
+          },
+          "conditionsCandidateBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 389,
+            "plugged": 2
+          }
+        },
+        {
+          "round": 2,
+          "candidateFirst": true,
+          "tokens": 162,
+          "decodeMs": {
+            "plain": 29568,
+            "candidate": 24636,
+            "ratio": 0.833198051948052
+          },
+          "totalMs": {
+            "plain": 43996,
+            "candidate": 38232,
+            "ratio": 0.8689880898263479
+          },
+          "firstTokenMs": {
+            "plain": 14430,
+            "candidate": 13598,
+            "ratio": 0.9423423423423424
+          },
+          "prefillMs": {
+            "plain": 14230,
+            "candidate": 13401,
+            "ratio": 0.9417427969079409
+          },
+          "processCpuMs": {
+            "plain": 201819,
+            "candidate": 225678,
+            "ratio": 1.1182197910008473
+          },
+          "conditionsPlainBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 389,
+            "plugged": 2
+          },
+          "conditionsCandidateBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 389,
+            "plugged": 2
+          }
+        }
+      ],
+      "medianRatios": {
+        "decodeMs": 0.7948151671649905,
+        "totalMs": 0.8689880898263479,
+        "firstTokenMs": 0.9908344332013491,
+        "prefillMs": 0.9903273809523809,
+        "processCpuMs": 1.1182197910008473
+      },
+      "latencyGate": true
+    },
+    {
+      "case": 2,
+      "pairs": [
+        {
+          "round": 0,
+          "candidateFirst": false,
+          "tokens": 154,
+          "decodeMs": {
+            "plain": 26875,
+            "candidate": 21873,
+            "ratio": 0.8138790697674418
+          },
+          "totalMs": {
+            "plain": 36636,
+            "candidate": 31841,
+            "ratio": 0.8691178076209193
+          },
+          "firstTokenMs": {
+            "plain": 9763,
+            "candidate": 9969,
+            "ratio": 1.0211000716992729
+          },
+          "prefillMs": {
+            "plain": 9563,
+            "candidate": 9779,
+            "ratio": 1.0225870542716722
+          },
+          "processCpuMs": {
+            "plain": 163155,
+            "candidate": 185331,
+            "ratio": 1.1359198308357084
+          },
+          "conditionsPlainBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 392,
+            "plugged": 2
+          },
+          "conditionsCandidateBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 392,
+            "plugged": 2
+          }
+        },
+        {
+          "round": 1,
+          "candidateFirst": true,
+          "tokens": 154,
+          "decodeMs": {
+            "plain": 27299,
+            "candidate": 21962,
+            "ratio": 0.804498333272281
+          },
+          "totalMs": {
+            "plain": 37263,
+            "candidate": 31628,
+            "ratio": 0.8487776078147223
+          },
+          "firstTokenMs": {
+            "plain": 9965,
+            "candidate": 9667,
+            "ratio": 0.9700953336678374
+          },
+          "prefillMs": {
+            "plain": 9762,
+            "candidate": 9469,
+            "ratio": 0.9699856586765007
+          },
+          "processCpuMs": {
+            "plain": 166123,
+            "candidate": 186491,
+            "ratio": 1.1226079471235169
+          },
+          "conditionsPlainBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 392,
+            "plugged": 2
+          },
+          "conditionsCandidateBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 392,
+            "plugged": 2
+          }
+        },
+        {
+          "round": 2,
+          "candidateFirst": false,
+          "tokens": 154,
+          "decodeMs": {
+            "plain": 26806,
+            "candidate": 20776,
+            "ratio": 0.7750503618592852
+          },
+          "totalMs": {
+            "plain": 36614,
+            "candidate": 30123,
+            "ratio": 0.8227180859780412
+          },
+          "firstTokenMs": {
+            "plain": 9810,
+            "candidate": 9349,
+            "ratio": 0.953007135575943
+          },
+          "prefillMs": {
+            "plain": 9616,
+            "candidate": 9145,
+            "ratio": 0.9510191347753744
+          },
+          "processCpuMs": {
+            "plain": 163172,
+            "candidate": 177570,
+            "ratio": 1.0882381781187949
+          },
+          "conditionsPlainBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 394,
+            "plugged": 2
+          },
+          "conditionsCandidateBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 394,
+            "plugged": 2
+          }
+        }
+      ],
+      "medianRatios": {
+        "decodeMs": 0.804498333272281,
+        "totalMs": 0.8487776078147223,
+        "firstTokenMs": 0.9700953336678374,
+        "prefillMs": 0.9699856586765007,
+        "processCpuMs": 1.1226079471235169
+      },
+      "latencyGate": true
+    }
+  ],
+  "scope": "Complete sampled answers on the registered Pixel; identical prompt/model/sampler/output budget and full logits/tokens required. USB-powered, uncontrolled background activity and no energy claim. Pilot alone cannot admit a preset.",
+  "boundedConfirmationGate": true,
+  "productAdmission": false
+}

@@ -134,3 +134,7 @@ The registered Pixel/Bonsai4 preset uses 32-row dynamic prefill scheduling and s
 ## TND-01/TND-02/TND-02b — implemented and bounded numerical repair validated
 
 The [initial Pixel study](speculation-pixel-2026-10-01.md) completes sample tracing, round-cost accounting and forward curves while preserving numerical failures. The [attention repair](attention-parity-2026-10-01.md) isolates the split-KV/padded-extent boundary and restores every tested original logit vector and sampled output through a guarded research route. TND-03 is now actionable: use complete round costs and real lookup acceptance to choose depths, then require repeated end-to-end gains across practical tasks. TND-04 corpus/tree work remains conditional. Product speculation remains zero; source/build APKs differ from the restored frozen phone release.
+
+## P-02 — normal decoder improved in 0.17
+
+[Fixed four-way attention with six graph workers](validation-0.17.md) preserves full outputs and reduces measured decode latency about 20%, total time 13–15% on three paired synthetic Pixel cases. Keep I8MM, more efficient scheduling of fixed attention partitions, other devices and actual energy measurements open. TND-03/TND-04 remain research: recalibrate against normal 6/6 + attention 4; do not reuse old 4/6 break-even costs or claim trained MTP is implemented.

@@ -1,0 +1,43 @@
+
+Starting six/reference-tokens / depth 0
+
+Completed six/reference-tokens: 32 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Starting six/prefix253/mode2 / depth 0
+
+Completed six/prefix253/mode2: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Four logical attention workers / 4 matrix workers / prefix 253
+
+Starting six/prefix253/mode3 / depth 0
+
+Completed six/prefix253/mode3: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Four logical attention workers / 6 matrix workers / prefix 253
+
+Starting six/prefix509/mode3 / depth 0
+
+Completed six/prefix509/mode3: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Four logical attention workers / 6 matrix workers / prefix 509
+
+Starting six/prefix509/mode2 / depth 0
+
+Completed six/prefix509/mode2: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Four logical attention workers / 4 matrix workers / prefix 509
+
+Starting six/prefix1666/mode2 / depth 0
+
+Completed six/prefix1666/mode2: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Four logical attention workers / 4 matrix workers / prefix 1666
+
+Starting six/prefix1666/mode3 / depth 0
+
+Completed six/prefix1666/mode3: 1 tokens, 0 verify windows, 0 accepted / 0 proposed
+
+Four logical attention workers / 6 matrix workers / prefix 1666
+
+PASS ARM attention-six: 223 controls.
+

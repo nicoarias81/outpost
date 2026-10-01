@@ -1,0 +1,27 @@
+{
+  "model": "Ternary Bonsai 4B · Q2_0 g64",
+  "system": "Answer in English in one short sentence, using only the source.",
+  "user": "SOURCE: Power is measured in watts. Energy is measured in watt-hours.\nQUESTION: What is energy measured in?",
+  "scalar": {
+    "text": "Energy is measured in watt-hours.",
+    "tokens": 7,
+    "promptTokens": 53,
+    "loadMs": 751,
+    "firstTokenMs": 38559,
+    "totalMs": 44212,
+    "stopReason": 0
+  },
+  "avx2": {
+    "text": "Energy is measured in watt-hours.",
+    "tokens": 7,
+    "promptTokens": 53,
+    "loadMs": 0,
+    "firstTokenMs": 6158,
+    "totalMs": 7249,
+    "stopReason": 0
+  },
+  "scalarSelected": true,
+  "avx2Selected": true,
+  "identicalText": true,
+  "limits": "One paired prompt, scalar first with model load, then AVX2 with warm model. Full-model regression, not a quality benchmark."
+}

@@ -1,0 +1,82 @@
+{
+  "runId": "arm-attention-six-20261001T220123Z-55601256",
+  "phase": "attention-six",
+  "target": "Pixel10Pro",
+  "startedUtc": "2026-10-01T22:01:23.1946198Z",
+  "gitHead": "8443556e3d2bcd1bab1b18816d0f69c3400dc95e",
+  "sourceStatus": [
+    " M .gitattributes",
+    " M app/src/androidTest/java/dev/outpost/app/ArmKernelChecks.java",
+    " M app/src/main/cpp/attention_probe.cpp",
+    " M app/src/main/cpp/attention_probe.h",
+    " M app/src/main/cpp/engine.cpp",
+    " M scripts/test-arm.ps1",
+    " M scripts/test-pixel-chat-isolated.ps1",
+    "?? evidence/research/overnight-performance-20261001/",
+    "?? evidence/runs/pixel-isolation-20261001T220118Z-9e48e80a/"
+  ],
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T22:00:41.0072876Z",
+    "versionName": "0.16.0",
+    "versionCode": 18,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "1c82129ac61beb4d878be319304dbcb2b635ba2be803223ef6cd19cb6c4c19c4",
+    "testSourcesSha256": "28ee2f42a70cc46c8bf09ec16d93c04dd81b6c3ec550a96fdc3829b36575f346",
+    "appSha256": "0c717eccabd7f4ae44bf7c51765529d0bc9f4aa031ddc9f98660e76ccaf2d22a",
+    "testApkSha256": "ef813162d5926fd45a460379c460fe102a2d64fc4641c91cf822138eacd356f8",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "deviceProperties": {
+    "ro.kernel.qemu": "",
+    "ro.boot.qemu.avd_name": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.device": "blazer",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.version.release": "17",
+    "ro.build.version.sdk": "37",
+    "ro.build.version.security_patch": "2026-09-05",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "ro.soc.manufacturer": "Google",
+    "ro.soc.model": "Tensor G5",
+    "sys.boot_completed": "1"
+  },
+  "radioSettings": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "conditionsBefore": {
+    "capturedUtc": "2026-10-01T22:01:23.5601693Z",
+    "battery": [
+      "  AC powered: false",
+      "  USB powered: true",
+      "  Wireless powered: false",
+      "  Dock powered: false",
+      "  status: 2",
+      "  health: 2",
+      "  present: true",
+      "  level: 80",
+      "  scale: 100",
+      "  voltage: 4240",
+      "  temperature: 311",
+      "  technology: Li-ion"
+    ],
+    "memory": [
+      "MemTotal:       15949000 kB",
+      "MemFree:         1009088 kB",
+      "MemAvailable:    4437200 kB",
+      "SwapTotal:       7974496 kB",
+      "SwapFree:        3858864 kB"
+    ],
+    "dataSpace": [
+      "Filesystem       1K-blocks      Used Available Use% Mounted on",
+      "/dev/block/dm-80 239543380 115318692 124093616  49% /data/user/0"
+    ]
+  },
+  "threads": 4,
+  "width": 8,
+  "decodeRows": 4,
+  "scope": "Foreground ARM parity/performance research; per-call thermal/screen gates, unchanged model/prompt/output budget. No personal app content is read by the replacement Activity."
+}

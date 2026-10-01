@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "objective": "Improve normal decoding through six graph workers while retaining four logical attention partitions",
+  "reference": "Frozen 0.16 4/6 worker profile and exact full sampled traces",
+  "candidate": "Six decode/six prefill workers, research mode4 affects single-query attention only; all multi-query prefill operations unchanged",
+  "cases": [
+    "Cedar short EOS",
+    "641-token prompt with one-token prefill tail",
+    "Late arrival with downloaded reservation",
+    "Pump manual revision applicability",
+    "GPS positioning versus downloaded maps"
+  ],
+  "phaseOrder": [
+    "decode-six-pilot",
+    "decode-six-confirm only if exact pilot and useful latency signal"
+  ],
+  "pilotPairsPerCase": 1,
+  "confirmationPairsPerCase": 3,
+  "counterbalance": "Alternate baseline/candidate order by case and round",
+  "deadlineMs": 120000,
+  "maxTokens": 192,
+  "gate": "Every logit hash, emitted token, text and stop reason unchanged; no attention fallback. Confirmation requires >=5% median decode improvement in each substantive case and no >3% median total-time regression. A further reversed repeat is required if total-time drift makes this inconclusive.",
+  "productDefaultChanged": false
+}

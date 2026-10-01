@@ -1,8 +1,12 @@
 # Inference runtime
 
-Status: implementation reference for Outpost 0.16.0. The owned wrappers support guarded x86 and ARM Q2 paths. ARM adds exact-lane DotProd, prepared activations/column/decode-row reuse and persistent workers; vendor backend, model weights and sampler remain pinned and unchanged. See [architecture](architecture.md) for the application flow and [optimizations](optimizations.md) for measurements.
+Status: implementation reference for Outpost 0.17.0. The owned wrappers support guarded x86 and ARM Q2 paths. ARM adds exact-lane DotProd, prepared activations/column/decode-row reuse and persistent workers; vendor backend, model weights and sampler remain pinned and unchanged. See [architecture](architecture.md) for the application flow and [optimizations](optimizations.md) for measurements.
 
 For the complete weight/activation/arithmetic/KV/dispatch contract and measured CPU attribution, see [the stack audit](inference-stack-audit-2026-10-01.md).
+
+## Current 0.17 normal-decoder policy
+
+[Validation](validation-0.17.md) admits six physical decode/prompt workers with four logical attention workers only for the exact Pixel/Bonsai4 key. The ordinary single-query operation receives the original tensor/mask and a four-worker compute-parameter view; two other graph workers synchronize without changing the reduction. Multi-query prefill stays original. `attentionThreads` joins configuration, cache identity and persistence; the ARM key becomes `q2-arm-dot-attn4-v1`. Product speculation remains zero. Versioned sections below preserve their recorded stages; this section owns the current worker preset. Future verification work must measure against this new faster baseline.
 
 ## 0.16 row scheduling
 
@@ -45,13 +49,13 @@ The registry separately reports CPU compatibility, compiled implementation, enab
 
 The measured profile key includes Android fingerprint/API, ABI, feature mask, online CPU count, app version, kernel identifier, and model SHA-256. A different key returns a conservative default: at most 4 decode/prompt threads, batch 128 and width 1, marked unmeasured. The key uses app `versionName`, not the source/APK hash; changing code without a version change does not automatically invalidate it. Calibration is a developer action, not an automatic startup benchmark. Current Settings exposes model preparation, not runtime calibration/metrics. Any future runtime UI must distinguish unsupported or unmeasured states.
 
-## ARM policy in 0.15
+## ARM policy in 0.15 — historical
 
-The Q2 ARM baseline uses NEON and emulates dot products. Native SDOT groups products differently, so the wrapper explicitly preserves the old lane grouping, fused float accumulation and final reduction. Prepared activation data stays inside the existing per-graph workspace; model weights are not expanded or rewritten. The exact Pixel/Bonsai 4B preset uses 4 decode workers, 6 prompt workers,batch 128,width 8,prefillRows1/decodeRows4 and no affinity. It is gated by the recorded OS fingerprint,8 CPUs,featureMask7168,model identity and active DotProd path. Other keys keep conservative matrix settings.
+The Q2 ARM baseline uses NEON and emulates dot products. Native SDOT groups products differently, so the wrapper explicitly preserves the old lane grouping, fused float accumulation and final reduction. Prepared activation data stays inside the existing per-graph workspace; model weights are not expanded or rewritten. The 0.15 Pixel/Bonsai 4B preset used 4 decode workers, 6 prompt workers,batch 128,width 8,prefillRows1/decodeRows4 and no affinity. It is gated by the recorded OS fingerprint,8 CPUs,featureMask7168,model identity and active DotProd path. Other keys keep conservative matrix settings.
 
 ARM configuration defaults use session-owned pools; x86 defaults keep their previous worker lifecycle. Pools are paused after each request and cache release, and freed on close. A context is destroyed before any referenced pool is freed or resized because the CPU backend retains that pointer. Research affinity is restricted to eligible Outpost threads and restores the caller's original mask; no fixed affinity is shipped. ARM calibration uses `q2-arm-dot-pool-v1`.
 
-Changing decoder thread count can change the backend's split-KV attention reduction and therefore rounding. The6/6 candidate was rejected after a long answer diverged. The adopted4/6 policy matches every sampling-logit hash and token in complete confirmation. Logit tracing and extended per-session deadlines are explicit test APIs, disabled in ordinary app requests. Research comparison uses300 seconds on both arms; product output remains192 tokens and120 seconds.
+Changing decoder thread count can change the backend's split-KV attention reduction and therefore rounding. The6/6 candidate was rejected after a long answer diverged. The adopted4/6 policy matches every sampling-logit hash and token in complete confirmation. Logit tracing and extended per-session deadlines are explicit test APIs, disabled in ordinary app requests. Those historical 0.15 comparisons used 300 seconds on both arms. Current product and 0.17 confirmation use 192 tokens and 120 seconds.
 
 ## Cache invariants
 
@@ -59,7 +63,7 @@ Changing decoder thread count can change the backend's split-KV attention reduct
 2. For an identical prompt, retain its KV state and saved final-prompt logits. Start a fresh sampler and sample the first output from those logits.
 3. For a partial match, reuse only complete batches aligned with cold execution. Recompute the remaining prompt.
 4. Remove generated response tokens from attention before the next request. Caching does not create conversational history.
-5. Invalidate incompatible model, thread/batch/width/kernel/row-queue settings, and contexts affected by cancellation or error.
+5. Invalidate incompatible model, thread/batch/width/kernel/row-queue/logical-attention settings, and contexts affected by cancellation or error.
 6. Release context on backgrounding or the relevant memory callback; do not retain it when Android reports low memory.
 
 Re-evaluating only the last token of an identical prompt was tried and replaced after UI logits/text changed. The failed record remains part of the [cache evidence](../evidence/0.7-before-outpost/strata/cache-initial-ui-mismatch.json).
@@ -96,8 +100,8 @@ The Spark profile is hash-pinned in test assets and absent from ModelStore.PROFI
 
 ## Research sample and round diagnostics
 
-The [Pixel speculation study](speculation-pixel-2026-10-01.md) adds test-only sample events and round diagnostics through separate getters, retaining the 19-slot result array. Tracing and storage are off by default. Legacy `verifyMicros` remains the verification span; new comparable controller costs include proposal/evaluation/sampling/rollback/token callbacks and exclude measured trace overhead. An accepted draft prefix may contain samples never emitted after cancellation; use emitted-event markers and committed counts rather than `accepted` alone. Product speculation stays disabled and current research APK hashes differ from the installed frozen release.
+The [Pixel speculation study](speculation-pixel-2026-10-01.md) adds test-only sample events and round diagnostics through separate getters, retaining the 19-slot result array. Tracing and storage are off by default. Legacy `verifyMicros` remains the verification span; new comparable controller costs include proposal/evaluation/sampling/rollback/token callbacks and exclude measured trace overhead. An accepted draft prefix may contain samples never emitted after cancellation; use emitted-event markers and committed counts rather than `accepted` alone. Product speculation stays disabled; the handoff owns current artifact and installed-device identities.
 
-## Experimental attention parity wrapper
+## Experimental verification attention wrapper
 
-[TND-02b](attention-parity-2026-10-01.md) adds a link-time wrapper around `ggml_compute_forward_flash_attn_ext`, off in ordinary product calls. Research mode 1 changes only attention to vec reference for causal isolation; mode 2 keeps the original attention operation and four-worker reduction per verification query, reconstructs each serial padded KV extent and synchronizes scratch reuse. It is restricted to dense causal Bonsai F16-cache shapes; all other cases retain the original route. JNI diagnostics record actual shape/dispatch and rejection counts. The underlying projections remain batched. Current candidate numerical/sample gates pass; cost-aware product admission and generalized model/device support remain open.
+[TND-02b](attention-parity-2026-10-01.md) retains test-only modes for attention ablation and sliced multi-query verification. Mode 1 uses vec-only attention; mode 2 preserves four-worker serial attention per query; mode 3 uses six graph workers with four logical attention workers. They are not selected by product speculation, which remains disabled. Mode 4 is the distinct ordinary-decoding operation admitted in 0.17: it preserves the original single-query tensor and mask. Verification cost policy and generalized model/device support remain open; measure them against the new normal decoder.

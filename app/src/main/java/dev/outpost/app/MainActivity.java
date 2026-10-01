@@ -58,6 +58,7 @@ public final class MainActivity extends Activity {
     private ChatStore chats;
     private ModelStore models;
     private NativeEngine engine;
+    String attentionAuditForTests(){return engine==null?"{}":engine.attentionStats();}
     private LinearLayout root, content, messages;
     private ScrollView scroll;
     private EditText query;

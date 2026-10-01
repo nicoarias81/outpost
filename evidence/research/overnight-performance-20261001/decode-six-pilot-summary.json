@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "runId": "arm-decode-six-pilot-20261001T221733Z-adbd276a",
+  "reportSha256": "6b341725fec0d6ee66c4611abe0f1fa92479511969e4b9c936fd2737c3427913",
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T22:16:02.8997547Z",
+    "versionName": "0.16.0",
+    "versionCode": 18,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "706118c2a63eb439cb18a596058ecaddc54d016497974ce945d22c2c4df4390c",
+    "testSourcesSha256": "8d061114bcf3bf7a3fd4ef9b7b12b95eb3c93355e475c0c9f8d311219f9c2894",
+    "appSha256": "07bc0be6f07deab8793db7eee62eaebeccd98b6db5ce040b9d5964f8140f905d",
+    "testApkSha256": "a5778cefa2580ec4705aa52f0458d2a2f432c2a66373adffb1bf39a481fbca05",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "checksPassed": 60,
+  "rounds": 1,
+  "exactParity": true,
+  "cases": [
+    {
+      "case": 0,
+      "pairs": [
+        {
+          "round": 0,
+          "candidateFirst": false,
+          "tokens": 133,
+          "decodeMs": {
+            "plain": 22462,
+            "candidate": 18601,
+            "ratio": 0.8281096963761019
+          },
+          "totalMs": {
+            "plain": 31750,
+            "candidate": 29411,
+            "ratio": 0.9263307086614173
+          },
+          "firstTokenMs": {
+            "plain": 9289,
+            "candidate": 10812,
+            "ratio": 1.1639573689309937
+          },
+          "prefillMs": {
+            "plain": 9167,
+            "candidate": 10634,
+            "ratio": 1.1600305443438421
+          },
+          "processCpuMs": {
+            "plain": 143692,
+            "candidate": 173678,
+            "ratio": 1.2086824597054813
+          },
+          "conditionsPlainBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 371,
+            "plugged": 2
+          },
+          "conditionsCandidateBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 375,
+            "plugged": 2
+          }
+        }
+      ],
+      "medianRatios": {
+        "decodeMs": 0.8281096963761019,
+        "totalMs": 0.9263307086614173,
+        "firstTokenMs": 1.1639573689309937,
+        "prefillMs": 1.1600305443438421,
+        "processCpuMs": 1.2086824597054813
+      },
+      "latencyGate": true
+    },
+    {
+      "case": 1,
+      "pairs": [
+        {
+          "round": 0,
+          "candidateFirst": true,
+          "tokens": 162,
+          "decodeMs": {
+            "plain": 28607,
+            "candidate": 23038,
+            "ratio": 0.8053273674275527
+          },
+          "totalMs": {
+            "plain": 41952,
+            "candidate": 36312,
+            "ratio": 0.8655606407322655
+          },
+          "firstTokenMs": {
+            "plain": 13346,
+            "candidate": 13276,
+            "ratio": 0.994754982766372
+          },
+          "prefillMs": {
+            "plain": 13153,
+            "candidate": 13084,
+            "ratio": 0.9947540485060442
+          },
+          "processCpuMs": {
+            "plain": 191523,
+            "candidate": 214555,
+            "ratio": 1.1202570970588388
+          },
+          "conditionsPlainBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 379,
+            "plugged": 2
+          },
+          "conditionsCandidateBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 379,
+            "plugged": 2
+          }
+        }
+      ],
+      "medianRatios": {
+        "decodeMs": 0.8053273674275527,
+        "totalMs": 0.8655606407322655,
+        "firstTokenMs": 0.994754982766372,
+        "prefillMs": 0.9947540485060442,
+        "processCpuMs": 1.1202570970588388
+      },
+      "latencyGate": true
+    },
+    {
+      "case": 2,
+      "pairs": [
+        {
+          "round": 0,
+          "candidateFirst": false,
+          "tokens": 154,
+          "decodeMs": {
+            "plain": 25813,
+            "candidate": 27758,
+            "ratio": 1.0753496300313796
+          },
+          "totalMs": {
+            "plain": 34713,
+            "candidate": 42371,
+            "ratio": 1.2206089937487397
+          },
+          "firstTokenMs": {
+            "plain": 8901,
+            "candidate": 14614,
+            "ratio": 1.6418379957308167
+          },
+          "prefillMs": {
+            "plain": 8721,
+            "candidate": 14429,
+            "ratio": 1.6545120972365555
+          },
+          "processCpuMs": {
+            "plain": 154230,
+            "candidate": 228597,
+            "ratio": 1.4821824547753355
+          },
+          "conditionsPlainBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 381,
+            "plugged": 2
+          },
+          "conditionsCandidateBefore": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": true,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 381,
+            "plugged": 2
+          }
+        }
+      ],
+      "medianRatios": {
+        "decodeMs": 1.0753496300313796,
+        "totalMs": 1.2206089937487397,
+        "firstTokenMs": 1.6418379957308167,
+        "prefillMs": 1.6545120972365555,
+        "processCpuMs": 1.4821824547753355
+      },
+      "latencyGate": false
+    }
+  ],
+  "scope": "Complete sampled answers on the registered Pixel; identical prompt/model/sampler/output budget and full logits/tokens required. USB-powered, uncontrolled background activity and no energy claim. Pilot alone cannot admit a preset.",
+  "boundedConfirmationGate": false,
+  "productAdmission": false
+}

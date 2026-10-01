@@ -2,6 +2,12 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## 0.17.0 — 2026-10-02
+
+- Added six-worker normal decoding with original four-way attention arithmetic on the exact Pixel/Bonsai4 preset.
+- Preserved all target logits, tokens and complete answers; counterbalanced measurements reduced decode about 20% and total time 13–15% in three known synthetic cases. Retained mixed/outlier research results and CPU-time limits.
+- Added explicit persisted attention policy/cache identity, single-query prompt-tail and lifecycle checks, final real UI/model/x86 validation and fixtures v10. All prior artifacts and original phone data/APKs remain preserved.
+
 ## Post-0.16 attention parity repair — 2026-10-01
 
 - Isolated single-query split-KV versus batched attention reduction and 256-cell padding boundaries on the registered Pixel.

@@ -158,6 +158,12 @@ Ownership/poison tests and complete per-step-logit traces pass. The first campai
 
 All 640 tested candidate logit vectors and bounded sampled/rejection/EOS/cancellation/cache checks agree. The cost is serialized per-query attention, four verification workers and a narrow guarded shape contract. Retain depth 0 in the product until real proposal/controller work demonstrates repeated end-to-end benefit. More scheduler workers require preserving the four-way mathematical partitions separately, not changing arithmetic. [Evidence, limitations and reproduction](attention-parity-2026-10-01.md).
 
+## ADR-037 — Separate normal-decode parallelism from attention reduction
+
+**Status: admitted for the exact Pixel/Bonsai4 profile in 0.17, 2026-10-02.** The owner requested autonomous performance improvement without losing quality. Six physical workers accelerate matrix work while four preserve original single-query attention arithmetic; two workers participate only in its barriers. The original tensor/mask/KV extent are retained. This avoids the earlier six-partition logit drift and the unnecessary reconstruction used by verification experiments.
+
+Three counterbalanced complete-answer pairs per case pass exact target distributions and the predeclared latency gate. Final configuration, cache/prefix/cancellation, UI, pinned-model and x86 checks pass. Preserve original fallback and exact device/model key. CPU-time increase is recorded; energy and other devices remain unvalidated. Speculation remains disabled and must be re-evaluated against the improved ordinary decoder. Backend changes require re-auditing the single-query barrier contract. [Evidence](validation-0.17.md).
+
 ## Updating this register
 
 Add a new numbered decision when a material tradeoff changes. Include status, problem, choice, alternatives, consequences, evidence, and reconsideration condition. Mark superseded decisions rather than erasing the reason an earlier implementation existed.

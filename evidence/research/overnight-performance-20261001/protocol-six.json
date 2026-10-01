@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "objective": "Preserve original four-way attention arithmetic while using six graph workers for verification matrices",
+  "hypothesis": "Pinned single-query attention has one internal barrier; two idle graph workers can participate while four workers retain original scratch/reduction indexing",
+  "modes": [
+    2,
+    3
+  ],
+  "prefixes": [
+    253,
+    509,
+    1666
+  ],
+  "widths": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "continuationPositions": 16,
+  "rounds": 2,
+  "gates": [
+    "Exact original serial logits at every position",
+    "Observed four/six graph workers, no attention fallback",
+    "Full sampled trace and lifecycle parity",
+    "Measure forward costs separately from proposal and user-visible total time"
+  ],
+  "devicePolicy": "Registered Pixel only, private-state isolation and baseline-APK restoration; no global thermal/power/radio changes",
+  "productSpeculationDepth": 0
+}

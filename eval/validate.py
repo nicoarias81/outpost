@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Host-only validator for eval/fixtures-v9.json.
+"""Host-only validator for eval/fixtures-v10.json.
 
 Run from the repository root as:  python eval/validate.py
 
@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-MANIFEST_PATH = ROOT / "eval" / "fixtures-v9.json"
+MANIFEST_PATH = ROOT / "eval" / "fixtures-v10.json"
 LIBRARY_PATH = ROOT / "app" / "src" / "androidTest" / "assets" / "library.json"
 MODEL_LOCK_PATH = ROOT / "model-lock.json"
 BONSAI_LOCK_PATH = ROOT / "bonsai-lock.json"
@@ -729,7 +729,7 @@ def main():
     global MANIFEST_PATH
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--manifest", default="eval/fixtures-v9.json")
+    parser.add_argument("--manifest", default="eval/fixtures-v10.json")
     args = parser.parse_args()
     MANIFEST_PATH = ROOT / args.manifest
     manifest = load_json(MANIFEST_PATH, str(MANIFEST_PATH.relative_to(ROOT)))
@@ -774,7 +774,7 @@ def main():
     check_network_permission_claim(manifest, android_manifest_text)
 
     if PROBLEMS:
-        print("FAILED: eval/fixtures-v9.json has %d problem(s):" % len(PROBLEMS))
+        print("FAILED: eval/fixtures-v10.json has %d problem(s):" % len(PROBLEMS))
         for index, message in enumerate(PROBLEMS, start=1):
             print("%3d. %s" % (index, message))
         for message in WARNINGS:
@@ -785,7 +785,7 @@ def main():
     tier_counts = {}
     for fixture in fixtures:
         tier_counts[fixture.get("tier")] = tier_counts.get(fixture.get("tier"), 0) + 1
-    print("OK: eval/fixtures-v9.json is internally consistent with the pinned lock files "
+    print("OK: eval/fixtures-v10.json is internally consistent with the pinned lock files "
           "and application sources.")
     print("Fixtures: %d total (%s)" % (len(fixtures), ", ".join(
         "%s: %d" % (tier, tier_counts[tier]) for tier in sorted(tier_counts))))

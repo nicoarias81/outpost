@@ -1,14 +1,14 @@
 # Outpost
 
-Current runtime update: [0.16 validation](docs/validation-0.16.md) admits 32-row dynamic prefill scheduling for the registered Pixel/Bonsai4 profile after two complete paired campaigns. Attention/decode workers and model outputs remain unchanged.
+Current runtime update: [0.17 validation](docs/validation-0.17.md) admits six decode/prompt workers with original four-way attention arithmetic for the exact Pixel/Bonsai4 profile. Counterbalanced complete answers retain every logit/token and reduce decode about 20%, total time 13–15% in three known synthetic cases. CPU time and energy limits are reported separately.
 
-Performance update (2026-10-01): [Outpost 0.15 validation](docs/validation-0.15.md) enables bit-preserving ARM DotProd kernels and persistent workers. On the tested Pixel/Bonsai workloads, identical complete outputs took about 5.8–6.2× less native time; first-token latency improved about 3.2–3.3×. Other-device and answer-quality work remain open.
+Historical performance update (2026-10-01): [Outpost 0.15 validation](docs/validation-0.15.md) enables bit-preserving ARM DotProd kernels and persistent workers. On the tested Pixel/Bonsai workloads, identical complete outputs took about 5.8–6.2× less native time; first-token latency improved about 3.2–3.3×. Other-device and answer-quality work remain open.
 
 Research update (2026-10-01): [Spark admission and measured comparison](docs/spark-candidate-results-2026-10-01.md) records the original emulator study. Spark remains research-only; the three selectable product models and pinned weights remain unchanged. Historical same-version 0.14 research builds retain separate hashes.
 
 An offline Android assistant. Open the app to chat; add your own documents through **Settings → Add file / Add folder**. The interface and maintained documentation are in English.
 
-**Current version: 0.16.0, user-test candidate.** The app starts with an empty document library. There are no sample notes, Explore/Library/Status tabs, benchmark buttons, reviewer controls or runtime metrics in the product interface.
+**Current version: 0.17.0, user-test candidate.** The app starts with an empty document library. There are no sample notes, Explore/Library/Status tabs, benchmark buttons, reviewer controls or runtime metrics in the product interface.
 
 ## Current experience
 
@@ -21,11 +21,11 @@ An offline Android assistant. Open the app to chat; add your own documents throu
 
 PDFs are limited to 10 MiB and 100 pages, with bounded extracted text. Text/CSV files are limited to 1 MiB. Scans without readable text, encrypted PDFs and invalid files receive explicit errors; no OCR is implemented. Source references enable inspection, not automatic verification of claims.
 
-The tested Pixel 10 Pro/Bonsai 4B preset uses 4 decode workers, 6 prompt workers, batch 128, width 8 and decode row groups of 4, with 32-row queued prefill and static single-column work. Persistent workers pause between requests. The exact device/OS/model key and [measurements](docs/validation-0.16.md) bound this preset; other keys retain conservative matrix settings and unsupported CPUs keep the backend fallback. The [x86 row experiment](docs/kernel-rows-0.14.md) remains historical evidence.
+The tested Pixel 10 Pro/Bonsai 4B preset uses 6 decode workers, 6 prompt workers, four logical attention partitions, batch 128, width 8 and decode row groups of 4, with 32-row queued prefill and static single-column work. Persistent workers pause between requests. The exact device/OS/model key and [measurements](docs/validation-0.17.md) bound this preset; other keys retain conservative matrix settings and unsupported CPUs keep the backend fallback. The [x86 row experiment](docs/kernel-rows-0.14.md) remains historical evidence.
 
 ## Engineering and validation
 
-Start with [AGENTS.md](AGENTS.md), the [handoff](docs/handoff.md), [current state](docs/current-state.md), [chat and document design](docs/chat-beta.md), and [latest validation](docs/validation-0.16.md). The [roadmap](docs/roadmap.md) separates implementation from remaining quality/device work.
+Start with [AGENTS.md](AGENTS.md), the [handoff](docs/handoff.md), [current state](docs/current-state.md), [chat and document design](docs/chat-beta.md), and [latest validation](docs/validation-0.17.md). The [roadmap](docs/roadmap.md) separates implementation from remaining quality/device work.
 
 The APK now packages **arm64-v8a and x86_64**. Historical runtime validation used Outpost35, the x86_64 Android emulator. The owner has now authorized the connected Pixel 10 Pro; [its protocol and status](docs/pixel10-testing.md) distinguish physical results from emulator evidence. No physical-device latency, compatibility, peak memory, battery, thermal or GrapheneOS claim follows from the build.
 
