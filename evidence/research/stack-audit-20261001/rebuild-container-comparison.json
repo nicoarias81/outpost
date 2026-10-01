@@ -1,0 +1,23 @@
+{
+  "baselineAppSha256": "dc8af7cb9b7d92fdee9b93c27a7879482be77338dc6a62c592e86249517f9719",
+  "rebuiltAppSha256": "f68e209e065396ec94b9c993bb90725a2ca6bf4b89c3d17380bb3458913855c2",
+  "allUncompressedApkEntriesIdentical": true,
+  "changedOffsets": [
+    {
+      "entry": "classes3.dex",
+      "baselineOffset": 7403024,
+      "rebuiltOffset": 8986792
+    },
+    {
+      "entry": "lib/arm64-v8a/liboutpost_engine.so",
+      "baselineOffset": 8986792,
+      "rebuiltOffset": 15205360
+    },
+    {
+      "entry": "lib/x86_64/liboutpost_engine.so",
+      "baselineOffset": 15205360,
+      "rebuiltOffset": 28769866
+    }
+  ],
+  "scope": "Restored product sources rebuilt successfully with identical APK entry payloads, but incremental ZIP entry order changes the APK hash. Preserve both identities. The frozen, previously tested APK and its genuine earlier receipt are restored to local outputs; no new 0.15 artifact is published."
+}

@@ -1,0 +1,31 @@
+
+E:\projects\outpost\app\build\intermediates\cxx\Release\4h1y6t6z\obj\arm64-v8a\liboutpost_engine.so:	file format elf64-littleaarch64
+
+Disassembly of section .text:
+
+00000000003878cc <ggml_graph_compute_thread>:
+  3879c0: b94006e8     	ldr	w8, [x23, #0x4]
+  3879c4: 11000729     	add	w9, w25, #0x1
+  3879c8: 6b08013f     	cmp	w9, w8
+  3879cc: 54fffbea     	b.ge	0x387948 <ggml_graph_compute_thread+0x7c>
+  3879d0: f9410a74     	ldr	x20, [x19, #0x210]
+  3879d4: b9406a88     	ldr	w8, [x20, #0x68]
+  3879d8: 12003d08     	and	w8, w8, #0xffff
+  3879dc: 7100051b     	subs	w27, w8, #0x1
+  3879e0: 54fffb40     	b.eq	0x387948 <ggml_graph_compute_thread+0x7c>
+  3879e4: b940c29c     	ldr	w28, [x20, #0xc0]
+  3879e8: 91020281     	add	x1, x20, #0x80
+  3879ec: 52800020     	mov	w0, #0x1                // =1
+  3879f0: 94044720     	bl	0x499670 <__aarch64_ldadd4_acq_rel>
+  3879f4: 6b1b001f     	cmp	w0, w27
+  3879f8: 540000c1     	b.ne	0x387a10 <ggml_graph_compute_thread+0x144>
+  3879fc: 91030281     	add	x1, x20, #0xc0
+  387a00: 52800020     	mov	w0, #0x1                // =1
+  387a04: b900829f     	str	wzr, [x20, #0x80]
+  387a08: 9404471a     	bl	0x499670 <__aarch64_ldadd4_acq_rel>
+  387a0c: 17ffffcf     	b	0x387948 <ggml_graph_compute_thread+0x7c>
+  387a10: b940c288     	ldr	w8, [x20, #0xc0]
+  387a14: 6b1c011f     	cmp	w8, w28
+  387a18: 54fff961     	b.ne	0x387944 <ggml_graph_compute_thread+0x78>
+  387a1c: d503203f     	yield
+  387a20: 17fffffc     	b	0x387a10 <ggml_graph_compute_thread+0x144>

@@ -2,6 +2,12 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## Post-0.15 research — 2026-10-01
+
+- Added test-only app CPU sampling with matched output controls and build-ID-checked native symbol attribution; the released product APK is unchanged.
+- Documented the actual Q2 storage/INT8 arithmetic/F16 cache contract and measured prefill/decode hotspots.
+- Rejected half-block prefill scheduling after exact numeric/full-output checks did not establish the required latency gain. Preserved trial source, raw measurements and verified phone restoration.
+
 ## 0.15.0 — Measured ARM execution — 2026-10-01
 
 - Adds guarded ARM DotProd Q2 kernels with exact reference lane/FMA ordering, prepared activations, specialized column groups and decode-row reuse.

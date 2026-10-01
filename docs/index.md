@@ -19,6 +19,7 @@
 | Run/review candidate models | [Candidate testing](candidate-testing.md), [Spark results and research-build identity](spark-candidate-results-2026-10-01.md) |
 | Review Spark-X2.5 and storage stalls | [Model admission and NVMe/Engram analysis](spark-x25-storage-review.md) |
 | Compare models and memory designs | [Model alternatives and emulator study](model-alternatives.md), [Engram review](engram-review.md), [pinned research metadata](../evidence/research/model-survey-20260930/survey-metadata.json) |
+| Inspect actual arithmetic and CPU hotspots | [Encoding/kernel stack audit and app-only profile](inference-stack-audit-2026-10-01.md) |
 | Improve inference | [Runtime](inference-runtime.md), [measured optimizations](optimizations.md), [ARM experiment](arm-optimization-2026-10-01.md), [historical x86 row experiment](kernel-rows-0.14.md), [speculation/MTP](speculation.md) |
 | Inspect answer-pipeline behavior | [NeMo Relay review and proposed local traces](nemo-relay-review.md) |
 | Define/score outcomes | [Evaluation protocol](evaluation.md), [runner/review guide](../eval/README.md), [v8 fixtures](../eval/fixtures-v8.json), [rubric v2](../eval/rubric-v2.md) |

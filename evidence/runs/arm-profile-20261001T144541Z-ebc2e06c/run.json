@@ -1,0 +1,78 @@
+{
+  "runId": "arm-profile-20261001T144541Z-ebc2e06c",
+  "phase": "profile",
+  "target": "Pixel10Pro",
+  "startedUtc": "2026-10-01T14:45:41.5382481Z",
+  "gitHead": "ab4cd7e4b7274ed71329e91244a7f86c691a1131",
+  "sourceStatus": [
+    " M app/src/androidTest/java/dev/outpost/app/ArmKernelChecks.java",
+    " M scripts/test-arm.ps1",
+    " M scripts/test-pixel-chat-isolated.ps1",
+    "?? app/src/androidTest/java/dev/outpost/app/AppCpuProfiler.java",
+    "?? evidence/runs/pixel-isolation-20261001T144536Z-d219416d/"
+  ],
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T14:45:04.0988771Z",
+    "versionName": "0.15.0",
+    "versionCode": 17,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "064241c22de3cfef2362960a0ac59162ab80154f96aa700f4bfebf9eb46c9720",
+    "testSourcesSha256": "83637ad995c33976c8188ffe194e1f66fa8af095b12528eae7d748b69756a37f",
+    "appSha256": "dc8af7cb9b7d92fdee9b93c27a7879482be77338dc6a62c592e86249517f9719",
+    "testApkSha256": "c4d32563fd145930696592a78f12fc0e0d3faa52e21d9c9becafbde95e704a7c",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "deviceProperties": {
+    "ro.kernel.qemu": "",
+    "ro.boot.qemu.avd_name": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.device": "blazer",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.version.release": "17",
+    "ro.build.version.sdk": "37",
+    "ro.build.version.security_patch": "2026-09-05",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "ro.soc.manufacturer": "Google",
+    "ro.soc.model": "Tensor G5",
+    "sys.boot_completed": "1"
+  },
+  "radioSettings": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "conditionsBefore": {
+    "capturedUtc": "2026-10-01T14:45:41.8952013Z",
+    "battery": [
+      "  AC powered: false",
+      "  USB powered: true",
+      "  Wireless powered: false",
+      "  Dock powered: false",
+      "  status: 2",
+      "  health: 2",
+      "  present: true",
+      "  level: 73",
+      "  scale: 100",
+      "  voltage: 4191",
+      "  temperature: 308",
+      "  technology: Li-ion"
+    ],
+    "memory": [
+      "MemTotal:       15949000 kB",
+      "MemFree:         1403492 kB",
+      "MemAvailable:    4507628 kB",
+      "SwapTotal:       7974496 kB",
+      "SwapFree:        3973096 kB"
+    ],
+    "dataSpace": [
+      "Filesystem       1K-blocks      Used Available Use% Mounted on",
+      "/dev/block/dm-80 239543380 116004404 123407904  49% /data/user/0"
+    ]
+  },
+  "threads": 4,
+  "width": 8,
+  "decodeRows": 4,
+  "scope": "Foreground ARM parity/performance research; per-call thermal/screen gates, unchanged model/prompt/output budget. No personal app content is read by the replacement Activity."
+}

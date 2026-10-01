@@ -1,0 +1,985 @@
+{
+  "schemaVersion": 1,
+  "runId": "arm-profile-20261001T144541Z-ebc2e06c",
+  "nativeBuildId": "0373d6b13986c6bc89ac194944bd9299711412de",
+  "reportSha256": "d8b1b7b2ac1aacde75ff68f28cc425f556684082c514daff8f8d0156a85cb7ee",
+  "appSha256": "dc8af7cb9b7d92fdee9b93c27a7879482be77338dc6a62c592e86249517f9719",
+  "testApkSha256": "c4d32563fd145930696592a78f12fc0e0d3faa52e21d9c9becafbde95e704a7c",
+  "nativeElfSha256": "64db6b36f020b83182cb601dc9d86518b7489a076d1cfb1ade80c03c6c6d37e2",
+  "event": "cpu-clock:u",
+  "frequencyHz": 100,
+  "clock": "monotonic",
+  "scope": "Weighted leaf CPU samples, not wall-time shares, memory-bandwidth measurements or stack traces. Before-first-text includes preparation/prefill/sampling; after-first-text includes decode/sampling/callbacks. Single on/off pair per case is not a calibrated overhead estimate.",
+  "cases": [
+    {
+      "case": 0,
+      "file": "profile-case0.data",
+      "sha256": "3395e2f98cb2ce96d420891f670aa6dd3addead59309ae43792f60c25be1929d",
+      "samplesRecorded": 8188,
+      "samplesLost": 0,
+      "samplesOutsideRequests": 1,
+      "simpleperfVersion": "1.build.16091614",
+      "allTokensAndDistributionsEqual": true,
+      "control": {
+        "promptTokens": 242,
+        "tokens": 64,
+        "firstTokenMs": 8773,
+        "prefillMs": 8670,
+        "decodeMs": 6636,
+        "totalMs": 15409,
+        "conditionsBefore": {
+          "thermalStatus": 0,
+          "interactive": true,
+          "keyguard": true,
+          "benchmarkResumed": true,
+          "benchmarkHasFocus": true,
+          "batteryTenthsC": 308,
+          "plugged": 2
+        },
+        "conditionsAfter": {
+          "thermalStatus": 0,
+          "interactive": true,
+          "keyguard": true,
+          "benchmarkResumed": true,
+          "benchmarkHasFocus": true,
+          "batteryTenthsC": 308,
+          "plugged": 2
+        }
+      },
+      "sampled": {
+        "promptTokens": 242,
+        "tokens": 64,
+        "firstTokenMs": 9325,
+        "prefillMs": 9190,
+        "decodeMs": 6750,
+        "totalMs": 16075,
+        "conditionsBefore": {
+          "thermalStatus": 0,
+          "interactive": true,
+          "keyguard": true,
+          "benchmarkResumed": true,
+          "benchmarkHasFocus": true,
+          "batteryTenthsC": 308,
+          "plugged": 2
+        },
+        "conditionsAfter": {
+          "thermalStatus": 0,
+          "interactive": true,
+          "keyguard": true,
+          "benchmarkResumed": true,
+          "benchmarkHasFocus": true,
+          "batteryTenthsC": 331,
+          "plugged": 2
+        }
+      },
+      "phases": {
+        "beforeFirstText": {
+          "samples": 5494,
+          "sampledCpuMs": 54940.0,
+          "functions": [
+            {
+              "name": "columns8",
+              "cpuMs": 44730.0,
+              "percent": 81.4160902803058
+            },
+            {
+              "name": "ggml_graph_compute_thread",
+              "cpuMs": 7610.0,
+              "percent": 13.851474335638878
+            },
+            {
+              "name": "ggml_compute_forward_flash_attn_ext",
+              "cpuMs": 1080.0,
+              "percent": 1.965780851838369
+            },
+            {
+              "name": "columns2",
+              "cpuMs": 510.0,
+              "percent": 0.9282854022570076
+            },
+            {
+              "name": "quantize_row_q8_0",
+              "cpuMs": 220.0,
+              "percent": 0.4004368401892974
+            },
+            {
+              "name": "ggml_vec_swiglu_f32",
+              "cpuMs": 140.0,
+              "percent": 0.25482344375682564
+            },
+            {
+              "name": "ggml_vec_soft_max_f32",
+              "cpuMs": 110.0,
+              "percent": 0.2002184200946487
+            },
+            {
+              "name": "ggml_compute_forward_rms_norm_mul_fused",
+              "cpuMs": 100.0,
+              "percent": 0.18201674554058975
+            },
+            {
+              "name": "void ggml_compute_forward_rope_flt<float>(ggml_compute_params const*, ggml_tensor*, bool)",
+              "cpuMs": 70.0,
+              "percent": 0.12741172187841282
+            },
+            {
+              "name": "decode_rows4",
+              "cpuMs": 70.0,
+              "percent": 0.12741172187841282
+            },
+            {
+              "name": "ggml_compute_forward_add_non_quantized",
+              "cpuMs": 60.0,
+              "percent": 0.10921004732435384
+            },
+            {
+              "name": "libc.so: __memset_aarch64",
+              "cpuMs": 40.0,
+              "percent": 0.0728066982162359
+            },
+            {
+              "name": "libc.so: __memmove_aarch64_simd",
+              "cpuMs": 40.0,
+              "percent": 0.0728066982162359
+            },
+            {
+              "name": "ggml_cpu_fp32_to_fp16",
+              "cpuMs": 40.0,
+              "percent": 0.0728066982162359
+            },
+            {
+              "name": "outpost_q2_arm_matmul",
+              "cpuMs": 30.0,
+              "percent": 0.05460502366217692
+            },
+            {
+              "name": "ggml_barrier",
+              "cpuMs": 30.0,
+              "percent": 0.05460502366217692
+            },
+            {
+              "name": "prepare_activations",
+              "cpuMs": 20.0,
+              "percent": 0.03640334910811795
+            },
+            {
+              "name": "libc.so: scudo::Allocator<scudo::AndroidNormalConfig, &scudo_malloc_postinit>::allocate(unsigned long, scudo::Chunk::Origin, unsigned long, bool)",
+              "cpuMs": 10.0,
+              "percent": 0.018201674554058973
+            },
+            {
+              "name": "columns",
+              "cpuMs": 10.0,
+              "percent": 0.018201674554058973
+            },
+            {
+              "name": "ggml_cpu_fp16_to_fp32",
+              "cpuMs": 10.0,
+              "percent": 0.018201674554058973
+            },
+            {
+              "name": "llama_vocab_n_tokens",
+              "cpuMs": 10.0,
+              "percent": 0.018201674554058973
+            }
+          ],
+          "cpuPercent": {
+            "2": 16.690935566072078,
+            "3": 16.563523844193664,
+            "4": 16.690935566072078,
+            "5": 16.6363305424099,
+            "6": 16.67273389151802,
+            "7": 16.745540589734254
+          },
+          "topNativeAddresses": [
+            {
+              "function": "columns8",
+              "address": "0x19e77c",
+              "percent": 8.900618856934837
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x387a1c",
+              "percent": 8.13614852566436
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e87c",
+              "percent": 7.153258099745177
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e8b0",
+              "percent": 6.73461958500182
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e830",
+              "percent": 4.240990171095741
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e9b0",
+              "percent": 4.113578449217328
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e94c",
+              "percent": 4.07717510010921
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e928",
+              "percent": 2.8030578813250817
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x387a14",
+              "percent": 2.3844193665817257
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e9e0",
+              "percent": 2.31161266836549
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e994",
+              "percent": 2.056789224608664
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x387a10",
+              "percent": 2.038587550054605
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e7a0",
+              "percent": 1.94757917728431
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e9d4",
+              "percent": 1.492537313432836
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e898",
+              "percent": 1.437932289770659
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e860",
+              "percent": 1.383327266108482
+            }
+          ]
+        },
+        "afterFirstText": {
+          "samples": 2693,
+          "sampledCpuMs": 26930.0,
+          "functions": [
+            {
+              "name": "decode_rows4",
+              "cpuMs": 19040.0,
+              "percent": 70.70181953212031
+            },
+            {
+              "name": "ggml_graph_compute_thread",
+              "cpuMs": 3270.0,
+              "percent": 12.14259190493873
+            },
+            {
+              "name": "ggml_barrier",
+              "cpuMs": 2200.0,
+              "percent": 8.169327887114742
+            },
+            {
+              "name": "ggml_compute_forward_flash_attn_ext_f16_one_chunk(ggml_compute_params const*, ggml_tensor*, int, int, long, long, float*, long)",
+              "cpuMs": 1140.0,
+              "percent": 4.233197177868548
+            },
+            {
+              "name": "ggml_vec_dot_f16",
+              "cpuMs": 650.0,
+              "percent": 2.4136650575566283
+            },
+            {
+              "name": "ggml_graph_compute_secondary_thread",
+              "cpuMs": 160.0,
+              "percent": 0.5941329372447085
+            },
+            {
+              "name": "libm.so: expf",
+              "cpuMs": 80.0,
+              "percent": 0.29706646862235425
+            },
+            {
+              "name": "ggml_compute_forward_rms_norm_mul_fused",
+              "cpuMs": 50.0,
+              "percent": 0.18566654288897141
+            },
+            {
+              "name": "ggml_vec_swiglu_f32",
+              "cpuMs": 40.0,
+              "percent": 0.14853323431117713
+            },
+            {
+              "name": "void ggml_compute_forward_rope_flt<float>(ggml_compute_params const*, ggml_tensor*, bool)",
+              "cpuMs": 40.0,
+              "percent": 0.14853323431117713
+            },
+            {
+              "name": "ggml_cpu_fp32_to_fp16",
+              "cpuMs": 30.0,
+              "percent": 0.11139992573338285
+            },
+            {
+              "name": "ggml_compute_forward_flash_attn_ext",
+              "cpuMs": 30.0,
+              "percent": 0.11139992573338285
+            },
+            {
+              "name": "Java_dev_outpost_app_NativeEngine_nativeGenerate",
+              "cpuMs": 30.0,
+              "percent": 0.11139992573338285
+            },
+            {
+              "name": "ggml::cpu::repack::extra_buffer_type::get_tensor_traits(ggml_tensor const*)",
+              "cpuMs": 20.0,
+              "percent": 0.07426661715558856
+            },
+            {
+              "name": "__aarch64_ldadd4_acq_rel",
+              "cpuMs": 20.0,
+              "percent": 0.07426661715558856
+            },
+            {
+              "name": "outpost_q2_arm_matmul",
+              "cpuMs": 20.0,
+              "percent": 0.07426661715558856
+            },
+            {
+              "name": "llama_kv_cache::init_update(llama_context*, bool)",
+              "cpuMs": 10.0,
+              "percent": 0.03713330857779428
+            },
+            {
+              "name": "ggml_nbytes",
+              "cpuMs": 10.0,
+              "percent": 0.03713330857779428
+            },
+            {
+              "name": "ggml_backend_cpu_repack_buffer_type()",
+              "cpuMs": 10.0,
+              "percent": 0.03713330857779428
+            },
+            {
+              "name": "[unresolved engine 0x4a459c]",
+              "cpuMs": 10.0,
+              "percent": 0.03713330857779428
+            },
+            {
+              "name": "[unresolved engine 0x4a584c]",
+              "cpuMs": 10.0,
+              "percent": 0.03713330857779428
+            },
+            {
+              "name": "[unresolved engine 0x4a43fc]",
+              "cpuMs": 10.0,
+              "percent": 0.03713330857779428
+            },
+            {
+              "name": "quantize_row_q8_0",
+              "cpuMs": 10.0,
+              "percent": 0.03713330857779428
+            },
+            {
+              "name": "ggml_type_size",
+              "cpuMs": 10.0,
+              "percent": 0.03713330857779428
+            }
+          ],
+          "cpuPercent": {
+            "2": 22.46565168956554,
+            "3": 12.699591533605645,
+            "4": 12.291125139249907,
+            "5": 18.455254363163757,
+            "6": 9.060527292981805,
+            "7": 25.027849981433345
+          },
+          "topNativeAddresses": [
+            {
+              "function": "decode_rows4",
+              "address": "0x19c640",
+              "percent": 24.507983661344227
+            },
+            {
+              "function": "decode_rows4",
+              "address": "0x19c6f0",
+              "percent": 8.280727812848125
+            },
+            {
+              "function": "decode_rows4",
+              "address": "0x19c750",
+              "percent": 7.612328258447827
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x387a1c",
+              "percent": 5.9784626810248795
+            },
+            {
+              "function": "ggml_barrier",
+              "address": "0x383e74",
+              "percent": 4.010397326401782
+            },
+            {
+              "function": "decode_rows4",
+              "address": "0x19c78c",
+              "percent": 3.5647976234682512
+            },
+            {
+              "function": "decode_rows4",
+              "address": "0x19c658",
+              "percent": 3.37913108057928
+            },
+            {
+              "function": "decode_rows4",
+              "address": "0x19c660",
+              "percent": 2.784998143334571
+            },
+            {
+              "function": "ggml_barrier",
+              "address": "0x383e68",
+              "percent": 2.005198663200891
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x387a14",
+              "percent": 1.9680653546230968
+            },
+            {
+              "function": "decode_rows4",
+              "address": "0x19c64c",
+              "percent": 1.55959896026736
+            },
+            {
+              "function": "ggml_compute_forward_flash_attn_ext_f16_one_chunk(ggml_compute_params const*, ggml_tensor*, int, int, long, long, float*, long)",
+              "address": "0x41093c",
+              "percent": 1.4853323431117713
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x387a20",
+              "percent": 1.4853323431117713
+            },
+            {
+              "function": "ggml_barrier",
+              "address": "0x383e6c",
+              "percent": 1.4110657259561827
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x387a10",
+              "percent": 1.1511325659116227
+            },
+            {
+              "function": "decode_rows4",
+              "address": "0x19c644",
+              "percent": 1.0768659487560341
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": 1,
+      "file": "profile-case1.data",
+      "sha256": "f99e99ea4ec9f9e63f8ed17fbc39797e1784a8184e8355b759e89a13e022c527",
+      "samplesRecorded": 9107,
+      "samplesLost": 0,
+      "samplesOutsideRequests": 1,
+      "simpleperfVersion": "1.build.16091614",
+      "allTokensAndDistributionsEqual": true,
+      "control": {
+        "promptTokens": 273,
+        "tokens": 64,
+        "firstTokenMs": 11821,
+        "prefillMs": 11679,
+        "decodeMs": 10109,
+        "totalMs": 21929,
+        "conditionsBefore": {
+          "thermalStatus": 0,
+          "interactive": true,
+          "keyguard": true,
+          "benchmarkResumed": true,
+          "benchmarkHasFocus": true,
+          "batteryTenthsC": 343,
+          "plugged": 2
+        },
+        "conditionsAfter": {
+          "thermalStatus": 0,
+          "interactive": true,
+          "keyguard": true,
+          "benchmarkResumed": true,
+          "benchmarkHasFocus": true,
+          "batteryTenthsC": 351,
+          "plugged": 2
+        }
+      },
+      "sampled": {
+        "promptTokens": 273,
+        "tokens": 64,
+        "firstTokenMs": 10112,
+        "prefillMs": 9978,
+        "decodeMs": 7908,
+        "totalMs": 18019,
+        "conditionsBefore": {
+          "thermalStatus": 0,
+          "interactive": true,
+          "keyguard": true,
+          "benchmarkResumed": true,
+          "benchmarkHasFocus": true,
+          "batteryTenthsC": 339,
+          "plugged": 2
+        },
+        "conditionsAfter": {
+          "thermalStatus": 0,
+          "interactive": true,
+          "keyguard": true,
+          "benchmarkResumed": true,
+          "benchmarkHasFocus": true,
+          "batteryTenthsC": 343,
+          "plugged": 2
+        }
+      },
+      "phases": {
+        "beforeFirstText": {
+          "samples": 5954,
+          "sampledCpuMs": 59540.0,
+          "functions": [
+            {
+              "name": "columns8",
+              "cpuMs": 48680.0,
+              "percent": 81.76016123614377
+            },
+            {
+              "name": "ggml_graph_compute_thread",
+              "cpuMs": 7780.0,
+              "percent": 13.066845817937521
+            },
+            {
+              "name": "ggml_compute_forward_flash_attn_ext",
+              "cpuMs": 1230.0,
+              "percent": 2.0658380920389656
+            },
+            {
+              "name": "ggml_compute_forward_flash_attn_ext_f16_one_chunk(ggml_compute_params const*, ggml_tensor*, int, int, long, long, float*, long)",
+              "cpuMs": 330.0,
+              "percent": 0.5542492442055761
+            },
+            {
+              "name": "columns1",
+              "cpuMs": 290.0,
+              "percent": 0.48706751763520323
+            },
+            {
+              "name": "ggml_vec_dot_f16",
+              "cpuMs": 220.0,
+              "percent": 0.36949949613705074
+            },
+            {
+              "name": "quantize_row_q8_0",
+              "cpuMs": 180.0,
+              "percent": 0.3023177695666779
+            },
+            {
+              "name": "ggml_vec_swiglu_f32",
+              "cpuMs": 120.0,
+              "percent": 0.20154517971111857
+            },
+            {
+              "name": "decode_rows4",
+              "cpuMs": 120.0,
+              "percent": 0.20154517971111857
+            },
+            {
+              "name": "ggml_compute_forward_rms_norm_mul_fused",
+              "cpuMs": 110.0,
+              "percent": 0.18474974806852537
+            },
+            {
+              "name": "ggml_vec_soft_max_f32",
+              "cpuMs": 80.0,
+              "percent": 0.13436345314074571
+            },
+            {
+              "name": "outpost_q2_arm_matmul",
+              "cpuMs": 70.0,
+              "percent": 0.1175680214981525
+            },
+            {
+              "name": "ggml_compute_forward_add_non_quantized",
+              "cpuMs": 60.0,
+              "percent": 0.10077258985555929
+            },
+            {
+              "name": "ggml_barrier",
+              "cpuMs": 40.0,
+              "percent": 0.06718172657037286
+            },
+            {
+              "name": "libm.so: expf",
+              "cpuMs": 40.0,
+              "percent": 0.06718172657037286
+            },
+            {
+              "name": "libc.so: __memset_aarch64",
+              "cpuMs": 30.0,
+              "percent": 0.05038629492777964
+            },
+            {
+              "name": "void ggml_compute_forward_rope_flt<float>(ggml_compute_params const*, ggml_tensor*, bool)",
+              "cpuMs": 30.0,
+              "percent": 0.05038629492777964
+            },
+            {
+              "name": "ggml_cpu_fp32_to_fp16",
+              "cpuMs": 20.0,
+              "percent": 0.03359086328518643
+            },
+            {
+              "name": "libc.so: __memmove_aarch64_simd",
+              "cpuMs": 20.0,
+              "percent": 0.03359086328518643
+            },
+            {
+              "name": "ggml_graph_compute_secondary_thread",
+              "cpuMs": 20.0,
+              "percent": 0.03359086328518643
+            },
+            {
+              "name": "libm.so: sincosf",
+              "cpuMs": 10.0,
+              "percent": 0.016795431642593214
+            },
+            {
+              "name": "ggml_compute_forward_set_rows",
+              "cpuMs": 10.0,
+              "percent": 0.016795431642593214
+            },
+            {
+              "name": "__aarch64_ldadd4_acq_rel",
+              "cpuMs": 10.0,
+              "percent": 0.016795431642593214
+            },
+            {
+              "name": "ggml_cpu_fp16_to_fp32",
+              "cpuMs": 10.0,
+              "percent": 0.016795431642593214
+            }
+          ],
+          "cpuPercent": {
+            "2": 16.661068189452468,
+            "3": 16.728249916022843,
+            "4": 16.627477326167284,
+            "5": 16.627477326167284,
+            "6": 16.577091031239505,
+            "7": 16.778636210950623
+          },
+          "topNativeAddresses": [
+            {
+              "function": "columns8",
+              "address": "0x19e77c",
+              "percent": 9.791736647631843
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x387a1c",
+              "percent": 7.373194491098421
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e8b0",
+              "percent": 6.936513268390998
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e87c",
+              "percent": 6.734968088679879
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e94c",
+              "percent": 4.635539133355727
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e9b0",
+              "percent": 4.014108162579778
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e830",
+              "percent": 3.913335572724219
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e928",
+              "percent": 3.459858918374202
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x387a14",
+              "percent": 2.267383271750084
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e994",
+              "percent": 2.1498152502519314
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x387a10",
+              "percent": 2.032247228753779
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e7a0",
+              "percent": 1.797111185757474
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e9e0",
+              "percent": 1.7635203224722875
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e860",
+              "percent": 1.561975142761169
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x387a20",
+              "percent": 1.3940208263352367
+            },
+            {
+              "function": "columns8",
+              "address": "0x19e9d4",
+              "percent": 1.2932482364796776
+            }
+          ]
+        },
+        "afterFirstText": {
+          "samples": 3152,
+          "sampledCpuMs": 31520.0,
+          "functions": [
+            {
+              "name": "decode_rows4",
+              "cpuMs": 20470.0,
+              "percent": 64.94289340101523
+            },
+            {
+              "name": "ggml_graph_compute_thread",
+              "cpuMs": 5270.0,
+              "percent": 16.71954314720812
+            },
+            {
+              "name": "ggml_barrier",
+              "cpuMs": 2670.0,
+              "percent": 8.470812182741117
+            },
+            {
+              "name": "ggml_compute_forward_flash_attn_ext_f16_one_chunk(ggml_compute_params const*, ggml_tensor*, int, int, long, long, float*, long)",
+              "cpuMs": 1380.0,
+              "percent": 4.378172588832487
+            },
+            {
+              "name": "ggml_vec_dot_f16",
+              "cpuMs": 860.0,
+              "percent": 2.728426395939086
+            },
+            {
+              "name": "ggml_graph_compute_secondary_thread",
+              "cpuMs": 330.0,
+              "percent": 1.0469543147208122
+            },
+            {
+              "name": "libm.so: expf",
+              "cpuMs": 190.0,
+              "percent": 0.6027918781725888
+            },
+            {
+              "name": "ggml_cpu_fp32_to_fp16",
+              "cpuMs": 50.0,
+              "percent": 0.15862944162436549
+            },
+            {
+              "name": "ggml_compute_forward_rms_norm_mul_fused",
+              "cpuMs": 40.0,
+              "percent": 0.12690355329949238
+            },
+            {
+              "name": "outpost_q2_arm_matmul",
+              "cpuMs": 40.0,
+              "percent": 0.12690355329949238
+            },
+            {
+              "name": "ggml_compute_forward_flash_attn_ext",
+              "cpuMs": 40.0,
+              "percent": 0.12690355329949238
+            },
+            {
+              "name": "__aarch64_ldadd4_acq_rel",
+              "cpuMs": 30.0,
+              "percent": 0.09517766497461928
+            },
+            {
+              "name": "void ggml_compute_forward_rope_flt<float>(ggml_compute_params const*, ggml_tensor*, bool)",
+              "cpuMs": 30.0,
+              "percent": 0.09517766497461928
+            },
+            {
+              "name": "ggml_vec_swiglu_f32",
+              "cpuMs": 20.0,
+              "percent": 0.06345177664974619
+            },
+            {
+              "name": "[unresolved engine 0x4a4590]",
+              "cpuMs": 20.0,
+              "percent": 0.06345177664974619
+            },
+            {
+              "name": "ggml_rope_yarn_corr_dims",
+              "cpuMs": 10.0,
+              "percent": 0.031725888324873094
+            },
+            {
+              "name": "[unresolved engine 0x4a45d0]",
+              "cpuMs": 10.0,
+              "percent": 0.031725888324873094
+            },
+            {
+              "name": "ggml::cpu::repack::extra_buffer_type::get_tensor_traits(ggml_tensor const*)",
+              "cpuMs": 10.0,
+              "percent": 0.031725888324873094
+            },
+            {
+              "name": "prepare_activations",
+              "cpuMs": 10.0,
+              "percent": 0.031725888324873094
+            },
+            {
+              "name": "Java_dev_outpost_app_NativeEngine_nativeGenerate",
+              "cpuMs": 10.0,
+              "percent": 0.031725888324873094
+            },
+            {
+              "name": "libm.so: sincosf",
+              "cpuMs": 10.0,
+              "percent": 0.031725888324873094
+            },
+            {
+              "name": "quantize_row_q8_0",
+              "cpuMs": 10.0,
+              "percent": 0.031725888324873094
+            },
+            {
+              "name": "libm.so: powf",
+              "cpuMs": 10.0,
+              "percent": 0.031725888324873094
+            }
+          ],
+          "cpuPercent": {
+            "2": 25.031725888324875,
+            "5": 25.031725888324875,
+            "6": 24.873096446700508,
+            "7": 25.063451776649746
+          },
+          "topNativeAddresses": [
+            {
+              "function": "decode_rows4",
+              "address": "0x19c640",
+              "percent": 23.223350253807105
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x387a1c",
+              "percent": 8.534263959390863
+            },
+            {
+              "function": "decode_rows4",
+              "address": "0x19c750",
+              "percent": 7.58248730964467
+            },
+            {
+              "function": "decode_rows4",
+              "address": "0x19c6f0",
+              "percent": 6.916243654822335
+            },
+            {
+              "function": "decode_rows4",
+              "address": "0x19c78c",
+              "percent": 4.187817258883249
+            },
+            {
+              "function": "ggml_barrier",
+              "address": "0x383e74",
+              "percent": 4.156091370558376
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x387a14",
+              "percent": 2.696700507614213
+            },
+            {
+              "function": "decode_rows4",
+              "address": "0x19c660",
+              "percent": 2.25253807106599
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x387a20",
+              "percent": 2.1573604060913705
+            },
+            {
+              "function": "ggml_barrier",
+              "address": "0x383e68",
+              "percent": 2.1256345177664975
+            },
+            {
+              "function": "decode_rows4",
+              "address": "0x19c658",
+              "percent": 2.0939086294416245
+            },
+            {
+              "function": "ggml_compute_forward_flash_attn_ext_f16_one_chunk(ggml_compute_params const*, ggml_tensor*, int, int, long, long, float*, long)",
+              "address": "0x41093c",
+              "percent": 1.7131979695431472
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x387a10",
+              "percent": 1.4593908629441625
+            },
+            {
+              "function": "ggml_barrier",
+              "address": "0x383e6c",
+              "percent": 1.2373096446700507
+            },
+            {
+              "function": "ggml_graph_compute_thread",
+              "address": "0x388218",
+              "percent": 1.2055837563451777
+            },
+            {
+              "function": "decode_rows4",
+              "address": "0x19c64c",
+              "percent": 1.2055837563451777
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

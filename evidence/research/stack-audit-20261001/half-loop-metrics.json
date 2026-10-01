@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "runId": "arm-halfloop-20261001T145550Z-f6fe32ca",
+  "reportSha256": "69f57b0044527d5563af4de923875f7ec867481a0bcfaf6f5aac1b51c92d9503",
+  "appSha256": "7deab018b81d4a26759ce13d4e6ccf8863354c054445225c90cf26fc89a81523",
+  "testApkSha256": "1070de63e816b0b6a11985e7a9eae12d60c9e3c82935fe977499984a2c49994a",
+  "cases": [
+    {
+      "case": 0,
+      "tokens": 133,
+      "normalEos": true,
+      "allTokensAndDistributionsEqual": true,
+      "arms": {
+        "control": {
+          "prefillMs": {
+            "observations": [
+              8893,
+              12451,
+              12463
+            ],
+            "median": 12451
+          },
+          "firstTokenMs": {
+            "observations": [
+              9002,
+              12634,
+              12644
+            ],
+            "median": 12634
+          },
+          "decodeMs": {
+            "observations": [
+              14492,
+              23385,
+              23059
+            ],
+            "median": 23059
+          },
+          "totalMs": {
+            "observations": [
+              23493,
+              36018,
+              35701
+            ],
+            "median": 35701
+          }
+        },
+        "candidate": {
+          "prefillMs": {
+            "observations": [
+              9515,
+              12717,
+              13074
+            ],
+            "median": 12717
+          },
+          "firstTokenMs": {
+            "observations": [
+              9630,
+              12866,
+              13263
+            ],
+            "median": 12866
+          },
+          "decodeMs": {
+            "observations": [
+              18319,
+              23035,
+              23037
+            ],
+            "median": 23035
+          },
+          "totalMs": {
+            "observations": [
+              27949,
+              35900,
+              36299
+            ],
+            "median": 35900
+          }
+        }
+      },
+      "controlOverCandidateRatio": {
+        "prefillMs": 0.9790831170873634,
+        "firstTokenMs": 0.9819679776154205,
+        "decodeMs": 1.001041892771869,
+        "totalMs": 0.9944568245125348
+      },
+      "pairs": [
+        {
+          "round": 0,
+          "prefillRatio": 0.9346295323173935,
+          "totalRatio": 0.8405667465741171
+        },
+        {
+          "round": 1,
+          "prefillRatio": 0.9790831170873634,
+          "totalRatio": 1.0032869080779945
+        },
+        {
+          "round": 2,
+          "prefillRatio": 0.9532660241701086,
+          "totalRatio": 0.9835257169618998
+        }
+      ]
+    },
+    {
+      "case": 1,
+      "tokens": 162,
+      "normalEos": true,
+      "allTokensAndDistributionsEqual": true,
+      "arms": {
+        "control": {
+          "prefillMs": {
+            "observations": [
+              14051,
+              14057,
+              17601
+            ],
+            "median": 14057
+          },
+          "firstTokenMs": {
+            "observations": [
+              14232,
+              14253,
+              17798
+            ],
+            "median": 14253
+          },
+          "decodeMs": {
+            "observations": [
+              28329,
+              28642,
+              31657
+            ],
+            "median": 28642
+          },
+          "totalMs": {
+            "observations": [
+              42560,
+              42893,
+              49453
+            ],
+            "median": 42893
+          }
+        },
+        "candidate": {
+          "prefillMs": {
+            "observations": [
+              14817,
+              16693,
+              18039
+            ],
+            "median": 16693
+          },
+          "firstTokenMs": {
+            "observations": [
+              15002,
+              16884,
+              18234
+            ],
+            "median": 16884
+          },
+          "decodeMs": {
+            "observations": [
+              28328,
+              29371,
+              29391
+            ],
+            "median": 29371
+          },
+          "totalMs": {
+            "observations": [
+              43329,
+              46254,
+              47624
+            ],
+            "median": 46254
+          }
+        }
+      },
+      "controlOverCandidateRatio": {
+        "prefillMs": 0.8420894985922243,
+        "firstTokenMs": 0.8441719971570718,
+        "decodeMs": 0.9751795989241088,
+        "totalMs": 0.9273360141825572
+      },
+      "pairs": [
+        {
+          "round": 0,
+          "prefillRatio": 0.948302625362759,
+          "totalRatio": 0.9822520713609822
+        },
+        {
+          "round": 1,
+          "prefillRatio": 0.8420894985922243,
+          "totalRatio": 0.9273360141825572
+        },
+        {
+          "round": 2,
+          "prefillRatio": 0.9757192749043738,
+          "totalRatio": 1.0384050058793886
+        }
+      ]
+    }
+  ],
+  "scope": "Known synthetic cases, three rotated full-output pairs. Same product limits and runtime policy; only eight-column scheduling differs. Ratios greater than 1 favor the candidate. No quality, energy or cross-device claim."
+}

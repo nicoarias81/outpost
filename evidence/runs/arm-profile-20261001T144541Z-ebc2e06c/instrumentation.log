@@ -1,0 +1,27 @@
+
+Starting profile/case0/warmup / DotProd / 4 threads / width 8
+
+Completed profile/case0/warmup: 9383ms / first 8701ms / 8 tokens / stop 1
+
+Starting profile/case0/control / DotProd / 4 threads / width 8
+
+Completed profile/case0/control: 15409ms / first 8773ms / 64 tokens / stop 1
+
+Starting profile/case0/sampled / DotProd / 4 threads / width 8
+
+Completed profile/case0/sampled: 16075ms / first 9325ms / 64 tokens / stop 1
+
+Starting profile/case1/warmup / DotProd / 4 threads / width 8
+
+Completed profile/case1/warmup: 11539ms / first 10741ms / 8 tokens / stop 1
+
+Starting profile/case1/sampled / DotProd / 4 threads / width 8
+
+Completed profile/case1/sampled: 18019ms / first 10112ms / 64 tokens / stop 1
+
+Starting profile/case1/control / DotProd / 4 threads / width 8
+
+Completed profile/case1/control: 21929ms / first 11821ms / 64 tokens / stop 1
+
+PASS ARM profile: 23 controls.
+

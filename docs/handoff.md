@@ -2,6 +2,8 @@
 
 Updated 2026-10-01. Current product: **Outpost 0.15.0 / code 17**, canonical repo `E:/projects/outpost`, branch `codex/outpost`, app `dev.outpost.app`. Read [current validation](validation-0.15.md), [capability inventory](current-state.md), [runtime](inference-runtime.md) and [the documentation index](index.md).
 
+A subsequent [stack audit and app-only CPU profile](inference-stack-audit-2026-10-01.md) keeps the released product APK unchanged, adds a test-only `profile` phase and records verified native symbol attribution. The half-block prefill variant passed numerical/full-output parity but was rejected for speed; its source survives in the run snapshots, and maintained product sources are restored. The current profiling test APK is `c4d32563fd145930696592a78f12fc0e0d3faa52e21d9c9becafbde95e704a7c`; it differs from release validation. Final rebuild changed only APK ZIP ordering, so the tested baseline app/receipt pair was restored to local outputs after payload verification. Verify the current receipt before `-SkipInstall`.
+
 ## Persistent scope
 
 - English app UI, maintained docs/comments and primary fixtures; preserve imported/historical language and deliberate multilingual tests.

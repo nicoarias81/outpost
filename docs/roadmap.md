@@ -1,6 +1,6 @@
 # Roadmap and actionable backlog
 
-Baseline: Outpost 0.14.0; [current validation](validation-0.14.md). Chat/Settings, seed removal, bounded PDF extraction and ARM64 packaging are implemented; quality and physical-device acceptance remain separate. R-01 through R-04 are implemented and validated in the [0.8.1 report](validation-0.8.1.md). Field-answer quality remains separate open work. All other tasks below are **open** unless explicitly labeled otherwise. Priorities express sequence and dependencies, not dates or committed effort estimates. Owner is unassigned. The [current-state inventory](current-state.md) lists already implemented features.
+Baseline: Outpost 0.15.0; [current validation](validation-0.15.md). Chat/Settings, seed removal, bounded PDF extraction and ARM64 packaging are implemented; quality and broader physical-device acceptance remain separate. R-01 through R-04 are implemented and validated in the [0.8.1 report](validation-0.8.1.md). Field-answer quality remains separate open work. All other tasks below are **open** unless explicitly labeled otherwise. Priorities express sequence and dependencies, not dates or committed effort estimates. Owner is unassigned. The [current-state inventory](current-state.md) lists already implemented features.
 
 ## Milestones
 
@@ -10,13 +10,13 @@ Baseline: Outpost 0.14.0; [current validation](validation-0.14.md). Chat/Setting
 | M1 — Evidence and reliable task baseline | Versioned evidence plus a task-oriented evaluation harness | Partial: migration and executable/reviewed controls exist; reliable task outcomes and broader provenance coverage remain |
 | M2 — Useful contextual knowledge workflows | Several question families across world, regional and personal evidence | Partial: chat and source inspection exist; reviewed useful outcomes across varied domains and missing/ambiguous data remain |
 | M3 — Broader knowledge | Encyclopedia and geographic package prototypes | Partial: bounded OSM feature import exists; ZIM and real-region storage/latency/quality remain open |
-| M4 — Portable runtime | Complete ARM build and defensible dispatch/fallback | Build complete; ARM runtime/fallback evidence pending. Physical-device execution requires scope expansion |
+| M4 — Portable runtime | Complete ARM build and defensible dispatch/fallback | Dual-ABI build and bounded registered-Pixel DotProd/reference runtime validated in0.15; other devices and broader field/stress acceptance remain open |
 
 Performance work can continue alongside M1/M2, but no speed result substitutes for their quality gates.
 
 ## P0 — Project foundation and quality baseline
 
-E-01/W-01 definitions and an executable evidence-only runner exist; the current manifest is v7 (schema 2, app 0.14). V1 baseline/candidate and v2 baseline/diagnostic runs have attributed assistant reviews; see [0.9 validation](validation-0.9.md). V7 has 12 runnable and 3 blocked fixtures. Product chat uses a different prompt; no new broad v7/chat quality score is claimed. A validator PASS establishes internal consistency; reviewed development outcomes are not general task accuracy.
+E-01/W-01 definitions and an executable evidence-only runner exist; the current manifest is v8 (schema 2, app 0.15). V1 baseline/candidate and v2 baseline/diagnostic runs have attributed assistant reviews; see [0.9 validation](validation-0.9.md). V8 has 12 runnable and 3 blocked fixtures. Product chat uses a different prompt; no new broad v8/chat quality score is claimed. A validator PASS establishes internal consistency; reviewed development outcomes are not general task accuracy.
 
 | ID | Task | Depends on | Acceptance criteria |
 |---|---|---|---|
@@ -25,7 +25,7 @@ E-01/W-01 definitions and an executable evidence-only runner exist; the current 
 | R-03 — done | Remove sibling toolchain assumptions | R-02 | SDK/JDK/cache can be configured explicitly; missing prerequisites have actionable errors; build from new location |
 | R-04 — done | Establish English application baseline | R-01 | Resource-backed UI strings, English prompts and demo content, locale-aware formatting, reviewed screenshots and mission results; no stale JNI/test/appId references |
 | R-05 | Choose code license and distribution policy | Before public distribution | Root license and contribution/release terms chosen; dependency notices retained; no accidental relicensing of upstream assets |
-| E-01 — done | Create a versioned mission fixture manifest and rubric — recorded in [current fixtures v7](../eval/fixtures-v7.json) and [rubric v2](../eval/rubric-v2.md), with the original v1 definitions preserved, checked by `eval/validate.py` | None | Five contexts, expected evidence, successful outcome, critical failures, package/model/prompt identities; executable checks distinct from reviewed quality (runner and development review are implemented; broader end-to-end acceptance remains E-02, E-04 and E-05) |
+| E-01 — done | Create a versioned mission fixture manifest and rubric — recorded in [current fixtures v8](../eval/fixtures-v8.json) and [rubric v2](../eval/rubric-v2.md), with the original v1 definitions preserved, checked by `eval/validate.py` | None | Five contexts, expected evidence, successful outcome, critical failures, package/model/prompt identities; executable checks distinct from reviewed quality (runner and development review are implemented; broader end-to-end acceptance remains E-02, E-04 and E-05) |
 | E-02 — partial | Reproduce traveler and mountaineer failures under controlled prompts | E-01 | Controlled prompt/budget diagnostics executed; longer candidate rejected and source/citation/date failures recorded. Continue causal isolation and resolve quality failures without weakening the rubric |
 | E-03 — partial | Preserve run identity and evidence snapshots | None | Current chat/folder/OSM/knowledge/evaluation runs have unique directories and identity checks; evaluation captures frozen inputs/source snapshots. Extend this convention to legacy fixed-path scripts and retain failed setup/execution outputs |
 | E-08 — researched, proposed | Add bounded local lifecycle traces to emulator evaluations | E-03 | Correlate actual route/retrieval/prompt/native/persistence/UI events across queues; distinguish outcomes from execution status. Validate cancellation, missing ends, event drops and trace-on/off overhead; payload-minimal diagnostics, no automatic upload. [NeMo Relay review](nemo-relay-review.md) supplies the design; SDK integration and ATOF conformance remain unproven |
@@ -51,7 +51,7 @@ The user clarified that [Vitalik's example](offline-world-knowledge.md) identifi
 
 | ID | Task | Dependencies / acceptance |
 |---|---|---|
-| W-01 — done | Define a varied question-family benchmark — declared in [current fixtures v7](../eval/fixtures-v7.json) and judged per [rubric v2](../eval/rubric-v2.md), with historical runs retained | E-01; varied domains, contextual constraints, held-out questions/entities, public/personal/mixed evidence, missing/ambiguous/conflicting data and inspectable locators (definition, execution and attributed development scores exist; failed outcomes and broader quality work remain E-02, E-04 and E-05) |
+| W-01 — done | Define a varied question-family benchmark — declared in [current fixtures v8](../eval/fixtures-v8.json) and judged per [rubric v2](../eval/rubric-v2.md), with historical runs retained | E-01; varied domains, contextual constraints, held-out questions/entities, public/personal/mixed evidence, missing/ambiguous/conflicting data and inspectable locators (definition, execution and attributed development scores exist; failed outcomes and broader quality work remain E-02, E-04 and E-05) |
 | W-02 | Demonstrate contextual retrieval and recommendations | K-01 and source-specific adapters; K-02 only when a versioned pack is used. OSM place questions use K-06 without K-07; preserve applicable entities/constraints, explain ranking criteria, show useful results before long generation, and avoid unsupported current-state claims |
 | W-03 | Demonstrate comparison, synthesis and supported explanations | K-01, W-01 and suitable reference material; combine relevant sources, preserve specifications/units, distinguish evidence from inference, and clarify material gaps |
 
@@ -118,3 +118,7 @@ Recursive selected-folder import and bounded OSM XML/Overpass JSON are implement
 | K-09 — open | Harden file recovery and snapshot management | K-03/K-04/K-06; test process death during copy/index, storage exhaustion, orphan cleanup and coherent retry without deleting valid imports; define user-visible old/new snapshot management before automatic freshness selection. |
 
 Recommended sequence: improve U-03/E-02 using observed source/conversation failures, harden K-09, then expand real-region K-06/W-02 and document E-04/W-03 workflows. Choose runtime experiments from measured bottlenecks. Do not close blocked PDF/OSM evaluation fixtures merely because their low-level importers exist. None of this sequence authorizes phone execution or public release.
+
+## Post-0.15 measured stack work
+
+P-02 now has an [app-only CPU profile](inference-stack-audit-2026-10-01.md): the eight-column prefill kernel accounts for about 82% of pre-first-text user CPU samples in two known synthetic cases. The half-block scheduling experiment passed exact numeric/full-output checks but failed speed admission; retain the 0.15 kernel. Further activation-layout and load-balancing experiments remain open. Preserve separate storage/arithmetic/KV identities and exact output gates.

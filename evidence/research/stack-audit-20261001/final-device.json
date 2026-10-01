@@ -1,0 +1,58 @@
+{
+  "recordedUtc": "2026-10-01T15:10:44.7323556Z",
+  "properties": {
+    "ro.kernel.qemu": "",
+    "ro.boot.qemu.avd_name": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.device": "blazer",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.version.release": "17",
+    "ro.build.version.sdk": "37",
+    "ro.build.version.security_patch": "2026-09-05",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "ro.soc.manufacturer": "Google",
+    "ro.soc.model": "Tensor G5",
+    "sys.boot_completed": "1"
+  },
+  "radioSettings": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "conditions": {
+    "capturedUtc": "2026-10-01T15:10:45.2886238Z",
+    "battery": [
+      "  AC powered: false",
+      "  USB powered: true",
+      "  Wireless powered: false",
+      "  Dock powered: false",
+      "  status: 2",
+      "  health: 2",
+      "  present: true",
+      "  level: 75",
+      "  scale: 100",
+      "  voltage: 4226",
+      "  temperature: 369",
+      "  technology: Li-ion"
+    ],
+    "memory": [
+      "MemTotal:       15949000 kB",
+      "MemFree:         1821760 kB",
+      "MemAvailable:    4927756 kB",
+      "SwapTotal:       7974496 kB",
+      "SwapFree:        3767676 kB"
+    ],
+    "dataSpace": [
+      "Filesystem       1K-blocks      Used Available Use% Mounted on",
+      "/dev/block/dm-80 239543380 116010424 123401884  49% /data/user/0"
+    ]
+  },
+  "isolation": "pixel-isolation-20261001T145544Z-19d0c582",
+  "isolationStatus": "restored",
+  "profilerRunning": false,
+  "screenOffTimeout": "30000",
+  "stayOnWhilePluggedIn": "0",
+  "perfMaxSampleRate": "",
+  "perfHarden": "0"
+}

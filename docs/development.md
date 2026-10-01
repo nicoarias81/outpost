@@ -117,3 +117,7 @@ For docs-only work, inspect source contracts, resolve local links, run `eval/val
 | Provider not ready | Owner grant after instrumentation startup; keep component registered and inspect the unique failure run |
 | Warm request slow / feature detected but unused | Exact cache/profile compatibility; compiled/enabled kernel is separate from CPU capability |
 | Harness passes but answer is wrong | Review supported outcome, citations and truncation independently |
+
+## App-only CPU sampling
+
+The current ARM wrapper also accepts `-ArmPhase profile` through the Pixel isolation script. Use 4 decode/6 prompt workers, width 8, decodeRows 4 and persistent workers as shown in [the stack audit](inference-stack-audit-2026-10-01.md). It records own-process user CPU samples with Android simpleperf and observed first-text boundaries, then restores personal app data. Run the offline symbol analysis against the exact native build ID. The rejected half-block experiment is retained only in its evidence snapshots.

@@ -2,6 +2,8 @@
 
 Status: implementation reference for Outpost 0.15.0. The owned wrappers support guarded x86 and ARM Q2 paths. ARM adds exact-lane DotProd, prepared activations/column/decode-row reuse and persistent workers; vendor backend, model weights and sampler remain pinned and unchanged. See [architecture](architecture.md) for the application flow and [optimizations](optimizations.md) for measurements.
 
+For the complete weight/activation/arithmetic/KV/dispatch contract and measured CPU attribution, see [the stack audit](inference-stack-audit-2026-10-01.md).
+
 ## Model identities
 
 | Profile | Locked file format | Bytes | Role |

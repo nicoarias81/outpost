@@ -2,6 +2,8 @@
 
 Status: current ARM adoption in Outpost 0.15, followed by preserved historical x86 measurements. Pinned model/backend sources are unchanged. The exact Pixel/Bonsai preset and [0.15 validation](validation-0.15.md) govern current phone performance; the [0.14 record](kernel-rows-0.14.md) remains specific to its measured emulator configuration.
 
+The [stack audit and CPU profile](inference-stack-audit-2026-10-01.md) separates packed storage, INT8 arithmetic, F16 cache and actual function samples. The resulting half-block scheduling experiment removed inner-loop spills and preserved all outputs but did not pass speed admission. The original kernel remains selected; the profile itself is not a new speedup.
+
 ## Current ARM result
 
 [0.15 validation](validation-0.15.md) adopts guarded DotProd, activation/column/decode-row reuse and persistent workers for the tested Pixel/Bonsai preset. Three exact full-trace pairs show205.05→35.52s and262.63→42.32s native medians; first-token medians41.08→12.38s and45.37→14.13s. Both comparison arms used300-second research deadlines; normal app limits are unchanged. This is a combined runtime improvement on two known workloads, not a DotProd-only or universal device speedup.

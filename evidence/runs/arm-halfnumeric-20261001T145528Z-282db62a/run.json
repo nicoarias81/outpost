@@ -1,0 +1,92 @@
+{
+  "runId": "arm-halfnumeric-20261001T145528Z-282db62a",
+  "phase": "halfnumeric",
+  "target": "Pixel10Pro",
+  "startedUtc": "2026-10-01T14:55:28.9001162Z",
+  "gitHead": "ab4cd7e4b7274ed71329e91244a7f86c691a1131",
+  "sourceStatus": [
+    " M app/src/androidTest/java/dev/outpost/app/ArmKernelChecks.java",
+    " M app/src/main/cpp/engine.cpp",
+    " M app/src/main/cpp/q2_arm.c",
+    " M app/src/main/cpp/q2_arm.h",
+    " M app/src/main/java/dev/outpost/app/NativeEngine.java",
+    " M docs/handoff.md",
+    " M docs/index.md",
+    " M docs/inference-runtime.md",
+    " M docs/optimizations.md",
+    " M docs/roadmap.md",
+    " M scripts/test-arm.ps1",
+    " M scripts/test-pixel-chat-isolated.ps1",
+    "?? app/src/androidTest/java/dev/outpost/app/AppCpuProfiler.java",
+    "?? docs/inference-stack-audit-2026-10-01.md",
+    "?? eval/summarize-cpu-profile.py",
+    "?? evidence/research/stack-audit-20261001/",
+    "?? evidence/runs/arm-profile-20261001T144541Z-ebc2e06c/",
+    "?? evidence/runs/pixel-isolation-20261001T144536Z-d219416d/",
+    "?? evidence/runs/pixel-isolation-20261001T145524Z-896905ed/"
+  ],
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T14:54:35.8165555Z",
+    "versionName": "0.15.0",
+    "versionCode": 17,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "42bef6cc48540118be10ad3aa673c9eb9a77fb08c9eeee3d9e2bb87ca80d180d",
+    "testSourcesSha256": "77be0185a5497cdcfff0a3a4449029cbd01f7479abfc55dbc365beed5f5e45f8",
+    "appSha256": "7deab018b81d4a26759ce13d4e6ccf8863354c054445225c90cf26fc89a81523",
+    "testApkSha256": "1070de63e816b0b6a11985e7a9eae12d60c9e3c82935fe977499984a2c49994a",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "deviceProperties": {
+    "ro.kernel.qemu": "",
+    "ro.boot.qemu.avd_name": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.device": "blazer",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.version.release": "17",
+    "ro.build.version.sdk": "37",
+    "ro.build.version.security_patch": "2026-09-05",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "ro.soc.manufacturer": "Google",
+    "ro.soc.model": "Tensor G5",
+    "sys.boot_completed": "1"
+  },
+  "radioSettings": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "conditionsBefore": {
+    "capturedUtc": "2026-10-01T14:55:29.1862576Z",
+    "battery": [
+      "  AC powered: false",
+      "  USB powered: true",
+      "  Wireless powered: false",
+      "  Dock powered: false",
+      "  status: 2",
+      "  health: 2",
+      "  present: true",
+      "  level: 74",
+      "  scale: 100",
+      "  voltage: 4223",
+      "  temperature: 327",
+      "  technology: Li-ion"
+    ],
+    "memory": [
+      "MemTotal:       15949000 kB",
+      "MemFree:         1381896 kB",
+      "MemAvailable:    4540224 kB",
+      "SwapTotal:       7974496 kB",
+      "SwapFree:        3935796 kB"
+    ],
+    "dataSpace": [
+      "Filesystem       1K-blocks      Used Available Use% Mounted on",
+      "/dev/block/dm-80 239543380 116015164 123397144  49% /data/user/0"
+    ]
+  },
+  "threads": 4,
+  "width": 8,
+  "decodeRows": 4,
+  "scope": "Foreground ARM parity/performance research; per-call thermal/screen gates, unchanged model/prompt/output budget. No personal app content is read by the replacement Activity."
+}
