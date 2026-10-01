@@ -54,6 +54,7 @@ final class ChatChecks {
                 ?android.os.Build.MANUFACTURER.equals("Google")&&android.os.Build.MODEL.equals("Pixel 10 Pro")&&android.os.Build.SUPPORTED_ABIS[0].equals("arm64-v8a")
                 :target.equals("Outpost35")&&android.os.Build.SUPPORTED_ABIS[0].equals("x86_64")&&android.os.Build.MODEL.toLowerCase(java.util.Locale.ROOT).contains("sdk");
             check(identity,"Chat runs on the explicitly admitted target architecture/model");
+            if(target.equals("Pixel10Pro")&&test.getTargetContext().getSystemService(android.app.KeyguardManager.class).isKeyguardLocked())throw new IllegalStateException("Unlock the registered Pixel before visual chat checks");
             String[] permissions=test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",android.content.pm.PackageManager.GET_PERMISSIONS).requestedPermissions;
             check(permissions==null||!java.util.Arrays.asList(permissions).contains("android.permission.INTERNET"),"Product APK remains offline without INTERNET permission");
             check(!java.util.Arrays.asList(test.getTargetContext().getAssets().list("")).contains("library.json"),"Production APK does not bundle the mock knowledge base");
@@ -166,7 +167,7 @@ final class ChatChecks {
         test.finish(complete?Activity.RESULT_OK:Activity.RESULT_CANCELED,result);
     }
     private static void writeText(java.nio.file.Path path,String text)throws Exception {Files.write(path,text.getBytes(StandardCharsets.UTF_8));}
-    private MainActivity start(){MainActivity activity=(MainActivity)test.startActivitySync(new Intent(test.getTargetContext(),MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));for(int i=0;i<100&&activity.findViewById(MainActivity.QUERY_ID)==null;i++)SystemClock.sleep(100);test.waitForIdleSync();return activity;}
+    private MainActivity start(){MainActivity activity=(MainActivity)test.startActivitySync(new Intent(test.getTargetContext(),MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));test.runOnMainSync(()->activity.getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON));for(int i=0;i<100&&activity.findViewById(MainActivity.QUERY_ID)==null;i++)SystemClock.sleep(100);test.waitForIdleSync();return activity;}
     private Library.Document awaitDocument(String name,Set<String> existing)throws Exception {for(int i=0;i<300;i++){try(Library l=new Library(test.getTargetContext())){for(Library.Document d:l.documents())if(d.title().equals(name)&&!existing.contains(d.id()))return d;}SystemClock.sleep(100);}throw new AssertionError("Import did not finish: "+name);}
     private void send(MainActivity app,String message)throws Exception {test.runOnMainSync(()->app.sendMessage(message));waitAnswer(app);}
     private void waitAnswer(MainActivity app)throws Exception{for(int i=0;i<1400&&!app.answerDone;i++)SystemClock.sleep(100);test.waitForIdleSync();check(app.answerDone,"Chat request settles within its bounded deadline");}
