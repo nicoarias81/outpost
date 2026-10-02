@@ -79,11 +79,11 @@ The audit examines manifest settings, ABIs, notices, assets, JNI exports and nat
 
 ## Release state
 
-The source version is `0.19.0-rc2`, version code 22. The private [GitHub repository](https://github.com/nicoarias81/outpost/releases) has a `v0.19.0-rc2` candidate release draft. Its tag identifies the current source, including the license and release instructions.
+The source version is `0.19.0-rc2`, version code 22. The public [GitHub repository](https://github.com/nicoarias81/outpost/releases) has a `v0.19.0-rc2` QA prerelease. Its immutable tag identifies the recorded source, including the license and release instructions. Later documentation commits update the publication status without changing the APK.
 
-The draft contains the recorded QA APK, source archive, checksums, license files and artifact metadata. `release-manifest.json` records the APK hash, certificate and source identity. The QA APK has a development certificate and application ID `dev.outpost.app.releaseqa`. Production identity, signing and final signed-device acceptance are not complete.
+The prerelease contains the recorded QA APK, source archive, checksums, license files and artifact metadata. `release-manifest.json` records the APK hash, certificate and source identity. The QA APK has a development certificate and application ID `dev.outpost.app.releaseqa`. Production identity, signing and final signed-device acceptance are not complete.
 
-The proposed production ID is `dev.outpost.mobile`. Owner approval is still necessary for that ID and a new local signing key. The current app does not use that proposed ID. Public source and a signed release are delivery goals. Owner action and completed acceptance tests are also necessary for public visibility and release publication.
+The proposed production ID is `dev.outpost.mobile`. Owner approval is still necessary for that ID and a new local signing key. The current app does not use that proposed ID. The source and QA prerelease are public. A production-signed release still needs the identity decision and completed acceptance tests.
 
 ## Signing procedure
 

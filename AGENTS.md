@@ -12,7 +12,7 @@ Read [README.md](README.md), then the relevant guide: [architecture](docs/archit
 - Keep imports as snapshots, preserve exact citation identity and keep the product library empty initially. Fixtures/providers belong to test APKs. Keep fixture providers registered; cleanup hides roots and revokes grants.
 - Gate native changes by CPU/OS support, compiled availability, shape and numerical validation. Preserve the fixed-attention barrier contract and original accumulation order; backend changes require re-audit. Capability detection is not proof that a kernel executed.
 - Run focused checks. For docs-only work, verify links, fixtures and unchanged build receipts; do not rebuild or rerun models. A harness PASS is not an answer-quality claim.
-- Models, SDKs, AVDs, private documents, caches and signing material stay outside Git. The owner authorized source pushes and GitHub Releases in the existing private repository; do not change visibility. Production ID/key selection remains pending, and the QA certificate is not a production signing identity.
+- Models, SDKs, AVDs, private documents, caches and signing material stay outside Git. The owner made the repository public and approved the RC2 QA prerelease. Source pushes use the existing repository; do not change visibility. Production ID/key selection remains pending, and the QA certificate is not a production signing identity.
 
 ## Documentation rules
 

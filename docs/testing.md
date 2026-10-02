@@ -155,14 +155,14 @@ The review validator examines structure and attribution. It does not give scores
 
 | Area | Necessary evidence | Current state |
 |---|---|---|
-| Offline operation | Complete tasks after preparation with phone connectivity disabled. Include source display and persistence. | No app INTERNET permission or Play Services dependency. Offline AOSP test results are available. Pixel tests kept the original radio settings. |
+| Offline operation | Complete tasks after preparation with phone connectivity disabled. Include source display and persistence. | No app INTERNET permission or Play Services dependency. Offline AOSP test results are available. RC2 Pixel demo captures used airplane mode and restored the original radio settings. |
 | Android and GrapheneOS | Use the exact signed APK on compatible physical hardware. Record OS, model, ABI and build. | Physical Android QA test results are available. GrapheneOS and production-certificate tests are incomplete. |
 | Memory | Run representative tasks on hardware with a maximum of 12 GB installed RAM. Record peaks and memory-pressure recovery. | Pixel measurements use a 16 GB phone. Emulator results and low app-memory samples do not prove this physical-device condition. |
 | Storage | Count app, weights, originals, indexes, databases, caches and temporary copies. Keep the complete setup within 50 GB. | Model sizes are known. Complete footprint acceptance and a global cap are not available. |
 | Research quality | Compare identical missions against a small model and an internet-assisted frontier model. Include absent and conflicting evidence. | The goal is more than half the reference score under a declared rubric. This measurement is not complete. |
 | Response time | Record first token, first useful information and completed answer times. Include output length and cold/warm conditions. | Paired Pixel results are available. They do not establish a universal speed or usefulness claim. |
-| Installation | Public source tag, signed APK, checksums, exact assets, index instructions and a clean-phone setup trial | Source and model instructions are available. The repository is private. The release is a draft. Signing is incomplete. |
-| Demonstration | Record a disconnected phone, difficult questions, complete answers, source display and the matching source revision. | Synthetic screenshots are available. The final release demonstration is incomplete. |
+| Installation | Public source tag, signed APK, checksums, exact assets, index instructions and a clean-phone setup trial | The source and QA APK are public. Model instructions and checksums are available. Production signing and clean-phone acceptance remain incomplete. |
+| Demonstration | Record a disconnected phone, difficult questions, complete answers, source display and the matching source revision. | The recorded RC2 QA demo covers four questions, source inspection and a named small-model comparison. Production-signed release demonstration is incomplete. |
 
 Wider questions must include differences between applicable manuals and a travel plan from regional and personal information. They must also include causes that a single saved identifier cannot describe. Each fixture must specify evidence, expected outcomes and critical failures. Existing lookup tests do not prove performance on these wider tasks.
 
@@ -175,7 +175,7 @@ Wider questions must include differences between applicable manuals and a travel
 | [Pixel acceptance](../evidence/research/release-acceptance-20261002/summary.json) | 73 accepted checks across imports, contextual questions, cancellation and seeded recovery |
 | [Answer review](../evidence/research/release-acceptance-20261002/answer-review.json) | Assessment of the specified synthetic cases only |
 
-Production identity, key selection, signed-APK installation, update acceptance and publication are incomplete. Wider quality work includes applicability, row/range filters and citation binding. Other incomplete tests include actual process death during import, storage pressure, memory pressure, sustained energy use and thermal behavior. Tests on other phone families and 16 KiB runtime are also necessary. A passing suite does not prove general factual accuracy.
+The QA prerelease is public. Production identity, key selection, production-signed APK installation and update acceptance are incomplete. Wider quality work includes applicability, row/range filters and citation binding. Other incomplete tests include actual process death during import, storage pressure, memory pressure, sustained energy use and thermal behavior. Tests on other phone families and 16 KiB runtime are also necessary. A passing suite does not prove general factual accuracy.
 
 For documentation-only changes, do link and fixture checks. Make sure that build receipts and frozen artifacts do not change. Do not rebuild the app or run model suites for these changes.
 
