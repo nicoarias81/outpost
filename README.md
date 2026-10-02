@@ -84,12 +84,14 @@ These are acceptance goals. They are not measured guarantees or enforced library
 
 ## Installation and first use
 
-The distribution channel is [GitHub Releases](https://github.com/nicoarias81/outpost/releases). The current source version is **0.19.0-rc2**. The release is a draft. The repository is private. Production identity, signing and final signed-APK tests are not complete.
+The distribution channel is [GitHub Releases](https://github.com/nicoarias81/outpost/releases). The current source version and candidate tag are **0.19.0-rc2** and `v0.19.0-rc2`. The release is a draft. The repository is private.
 
-When a signed APK is available, do these steps:
+The candidate release contains `outpost-0.19.0-rc2-qa.apk`, its checksums, license files and matching source archive. This is the exact non-debuggable QA APK shown in the recorded Pixel demo. Its application ID is `dev.outpost.app.releaseqa`. It uses a development certificate. Production identity, signing and final signed-APK tests are not complete.
 
-1. Download the APK.
-2. Download its checksum file.
+For this QA candidate, do these steps:
+
+1. Download `outpost-0.19.0-rc2-qa.apk` from the candidate release.
+2. Download `SHA256SUMS.txt` from the same release.
 3. Compare the APK SHA256 with the checksum file.
 4. Install the APK only if the values agree.
 5. Download one model file from the table above.
