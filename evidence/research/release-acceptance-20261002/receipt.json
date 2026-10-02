@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "runId": "release-20261002T063221Z-f6fd07d3",
+  "builtAtUtc": "2026-10-02T06:32:21.7515073Z",
+  "mainSourcesSha256": "04d68095063e3adabfba269c2c28f8708f760350a0c9b806d46f54d8d0884292",
+  "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+  "artifacts": [
+    {
+      "bytes": 23432335,
+      "sha256": "4695fa542deb9830714dd4f01ff51ac21d7f7e0a4c03503968e0932bafa034ee",
+      "path": "app/build/outputs/apk/release/app-release-unsigned.apk"
+    },
+    {
+      "bytes": 17361549,
+      "sha256": "87d9d41b776aac7f67a5f3bf64ed3e3fb50b32bdf6d30d82c54981a7e852f8eb",
+      "path": "app/build/outputs/bundle/release/app-release.aab"
+    },
+    {
+      "bytes": 23436443,
+      "sha256": "7e61e918494e9c6dc8c79f73dc71b8399880d836b426cb3be0bf7e9c3095863a",
+      "path": "app/build/outputs/apk/releaseQa/app-releaseQa.apk"
+    },
+    {
+      "bytes": 40408,
+      "sha256": "2ad3e84ff0dd5719bdd7a713e68693b99a651c11a0e15360b200348bd6c1b299",
+      "path": "app/build/outputs/apk/androidTest/releaseQa/app-releaseQa-androidTest.apk"
+    }
+  ],
+  "scope": "Unsigned production candidate; debug-signed non-debuggable QA twin. Not approved for distribution or exact signed-device acceptance."
+}

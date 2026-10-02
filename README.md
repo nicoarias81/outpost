@@ -51,3 +51,7 @@ Publish the local debug artifact with `scripts/publish-artifact.ps1`, then verif
 Use the [documentation index](docs/index.md) to find architecture, decisions, source contracts, test procedures and remaining work.
 
 [Dependency notices](THIRD_PARTY.md) and lock files identify the pinned runtime, models, PDF library and toolchain. Historical failed results and the original Brújula implementation remain preserved. [Bounty #31](docs/bounty-31.md) is background motivation; no bounty acceptance or public submission is claimed.
+
+## GitHub delivery
+
+Distribution is through the existing private [GitHub repository and releases](https://github.com/nicoarias81/outpost/releases). See [installation and offline setup](docs/getting-started.md) and [Pixel release acceptance](docs/release-acceptance-2026-10-02.md). A draft release exists; the production signing/application identity and exact signed-APK acceptance remain pending.

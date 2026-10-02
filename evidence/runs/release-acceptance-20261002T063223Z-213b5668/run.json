@@ -1,0 +1,77 @@
+{
+  "runId": "release-acceptance-20261002T063223Z-213b5668",
+  "target": "Pixel10Pro",
+  "device": {
+    "ro.kernel.qemu": "",
+    "ro.boot.qemu.avd_name": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.device": "blazer",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.version.release": "17",
+    "ro.build.version.sdk": "37",
+    "ro.build.version.security_patch": "2026-09-05",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "ro.soc.manufacturer": "Google",
+    "ro.soc.model": "Tensor G5",
+    "sys.boot_completed": "1"
+  },
+  "receipt": {
+    "schemaVersion": 1,
+    "runId": "release-20261002T063221Z-f6fd07d3",
+    "builtAtUtc": "2026-10-02T06:32:21.7515073Z",
+    "mainSourcesSha256": "04d68095063e3adabfba269c2c28f8708f760350a0c9b806d46f54d8d0884292",
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "artifacts": [
+      {
+        "bytes": 23432335,
+        "sha256": "4695fa542deb9830714dd4f01ff51ac21d7f7e0a4c03503968e0932bafa034ee",
+        "path": "app/build/outputs/apk/release/app-release-unsigned.apk"
+      },
+      {
+        "bytes": 17361549,
+        "sha256": "87d9d41b776aac7f67a5f3bf64ed3e3fb50b32bdf6d30d82c54981a7e852f8eb",
+        "path": "app/build/outputs/bundle/release/app-release.aab"
+      },
+      {
+        "bytes": 23436443,
+        "sha256": "7e61e918494e9c6dc8c79f73dc71b8399880d836b426cb3be0bf7e9c3095863a",
+        "path": "app/build/outputs/apk/releaseQa/app-releaseQa.apk"
+      },
+      {
+        "bytes": 40408,
+        "sha256": "2ad3e84ff0dd5719bdd7a713e68693b99a651c11a0e15360b200348bd6c1b299",
+        "path": "app/build/outputs/apk/androidTest/releaseQa/app-releaseQa-androidTest.apk"
+      }
+    ],
+    "scope": "Unsigned production candidate; debug-signed non-debuggable QA twin. Not approved for distribution or exact signed-device acceptance."
+  },
+  "originalApks": {
+    "dev.outpost.app": "095c5c56995e3de9947d0125a0757387c429191cf0602700f7d5b9b8c036239f",
+    "dev.outpost.app.test": "92d2c533b1aaff6267c1607b46f6219351589da83bf62ea3b1b1fa4f0c0fa0d0"
+  },
+  "privateDigests": {
+    "files/documents": "absent",
+    "shared_prefs": "e18580c419b42c8dc878c8566cdc4d1f6cd5cc1618713e1c1fed4945c7cea100  -",
+    "databases": "46b566b9982ee0d42000e7f3b31ccb6188c6781685fbc8dde0ed0f20bfc84824  -"
+  },
+  "phases": [
+    {
+      "passed": true,
+      "run": "accept-20261002T063229Z-529b3a42",
+      "step": "seed",
+      "ownerRun": "accept-20261002T062037Z-8554f0ce",
+      "checks": 5
+    },
+    {
+      "passed": true,
+      "run": "accept-20261002T063229Z-f1d19ea1",
+      "step": "recover",
+      "ownerRun": "accept-20261002T062037Z-8554f0ce",
+      "checks": 17
+    }
+  ],
+  "passed": true,
+  "originalStatePreserved": true,
+  "limits": "Non-debuggable QA package and debug QA certificate. Exact production-signed acceptance is separate."
+}

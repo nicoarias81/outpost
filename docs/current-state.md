@@ -53,3 +53,7 @@ Use **Outpost35 / emulator-5582**, AOSP API 35 x86_64, four virtual CPUs and 4 G
 ## Model exploration checkpoint
 
 [Spark-X2.5 research admission and comparison](spark-candidate-results-2026-10-01.md) is implemented and executed on Outpost35. The candidate stays outside the three-model product selector. The emulator uses a separately hashed same-version research build; the published 0.14 APK remains frozen. Greedy reserved-case review found 13/24 fully supported outcomes for each model, with material failures; no default replacement or phone claim follows. Compact cache remains experimental after failed first-logit equivalence. Other model candidates, cold storage profiling and full lifecycle tracing remain pending.
+
+## GitHub distribution and Pixel release acceptance
+
+The owner authorized source upload and GitHub Releases on 2026-10-02. The existing repository remains private. [Expanded Pixel acceptance](release-acceptance-2026-10-02.md) records 73 accepted controls and the remaining distinction between QA and a production-signed APK. [First-user installation](getting-started.md) describes exact model preparation. The production application ID/key proposal is still awaiting the owner; do not create a key, change app identity or publish an unsigned artifact as production. The dedicated QA installation is synthetic and separate from the original phone app.

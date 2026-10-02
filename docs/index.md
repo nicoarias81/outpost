@@ -65,3 +65,7 @@ Prior release reports preserve observations, failures, old screen names and orig
 ## Maintenance
 
 For behavior changes, update the owning guide/task/decision and record exact app/test/model/prompt/source identity with results and limitations. Preserve failed experiments and raw evidence; do not translate or rewrite old outputs as current observations. For docs-only updates, check source consistency, local links/anchors, fixture validation and unchanged build/artifact identities; no model rerun is needed.
+
+## GitHub distribution and Pixel release acceptance
+
+The owner authorized source upload and GitHub Releases on 2026-10-02. The existing repository remains private. [Expanded Pixel acceptance](release-acceptance-2026-10-02.md) records 73 accepted controls and the remaining distinction between QA and a production-signed APK. [First-user installation](getting-started.md) describes exact model preparation. The production application ID/key proposal is still awaiting the owner; do not create a key, change app identity or publish an unsigned artifact as production. The dedicated QA installation is synthetic and separate from the original phone app.

@@ -1,0 +1,60 @@
+{
+  "error": "java.lang.AssertionError: Unsent draft survives process death/update",
+  "passed": false,
+  "checks": [
+    {
+      "name": "Dedicated release acceptance package",
+      "passed": true
+    },
+    {
+      "name": "Synthetic store ownership matches recorded provisioning",
+      "passed": true
+    },
+    {
+      "name": "Unique evidence directory",
+      "passed": true
+    },
+    {
+      "name": "Chat loads after process start",
+      "passed": true
+    },
+    {
+      "name": "Pending conversation recovers after process death",
+      "passed": true
+    },
+    {
+      "name": "Completed answer survives process death/update",
+      "passed": true
+    },
+    {
+      "name": "Document count survives update/restart",
+      "passed": true
+    },
+    {
+      "name": "Document identity/content retained: Farm log.csv",
+      "passed": true
+    },
+    {
+      "name": "Document identity/content retained: Field manual.txt",
+      "passed": true
+    },
+    {
+      "name": "Document identity/content retained: Manual.pdf",
+      "passed": true
+    },
+    {
+      "name": "Document identity/content retained: Travel kit.txt",
+      "passed": true
+    },
+    {
+      "name": "Document identity/content retained: Area.osm",
+      "passed": true
+    },
+    {
+      "name": "Unsent draft survives process death/update",
+      "passed": false
+    }
+  ],
+  "answers": [],
+  "run": "accept-20261002T062159Z-bcc76386"
+}

@@ -26,7 +26,7 @@ The dedicated test runner accepts only the identity-checked offline Outpost35 em
 
 ## Signing and distribution decisions
 
-The owner was asked whether the first channel is a direct closed-group APK, a Google Play closed test or public APK, and whether code stays private or receives a selected license. These decisions remain pending until explicitly answered. No project license is selected by this document. No public upload or new signing identity is created.
+On 2026-10-02 the owner selected GitHub repository distribution and authorized source upload and release creation. The existing repository is private and its visibility is unchanged. The production application ID and signing-key proposal remain pending; no new key or code license has been selected. A GitHub draft exists, with publication held for the actual signed artifact. [Expanded Pixel acceptance](release-acceptance-2026-10-02.md) records later physical QA validation.
 
 Android updates require the appropriate signing identity; existing debug installations cannot be replaced by an unrelated production certificate. Never uninstall the owner's app or clear its data to make an install work. Decide a data-preserving migration or separate preview ID before migrating real users. Follow [Android's signing guidance](https://developer.android.com/studio/publish/app-signing).
 
@@ -39,7 +39,7 @@ For an owner-provided keystore and independently verified certificate fingerprin
 | Release packaging and static controls | Implementation in this candidate; exact executed evidence is recorded below |
 | Non-debuggable release-path behavior | Isolated QA tests; final production-signed APK still needs fresh install, update, restart, chat/import/source/cancel acceptance |
 | Signing identity and recovery | Owner chooses/provides identity; verify certificate, secure backup/recovery and update path |
-| Distribution and code license | Owner decision pending; preserve all dependency notices |
+| Distribution and code license | GitHub Releases selected; existing repository private. Code license remains unselected; preserve dependency notices |
 | User-facing setup | Test a first-time user obtaining/importing a pinned model and documents before losing connectivity |
 | Reliability | Process death during import/generation, low storage/memory and long-session recovery remain open; inspect K-09 and U-03 |
 | Quality | Known row/range filtering, source applicability/citation binding and model-fact failures remain; define reviewed representative release acceptance, not just harness PASS |

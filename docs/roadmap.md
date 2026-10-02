@@ -149,6 +149,6 @@ The [initial Pixel study](speculation-pixel-2026-10-01.md) completes sample trac
 |---|---|---|
 | REL-01 | Implemented in 0.19 RC | Non-debuggable release APK/AAB, debug-only research assets, native export allowlist, guarded generation policies, static artifact checks and isolated QA runner; executed evidence in release document |
 | REL-02 | Open | Owner-selected signing identity, backed-up key and certificate pin; exact signed install/update validation without destroying debug-install data |
-| REL-03 | Open | Owner channel/license decision (R-05), first-user setup trial, reviewed field-question acceptance, reliability gates and distribution artifacts |
+| REL-03 | Open | GitHub channel selected; code-license decision remains open. First-user setup trial, signed-APK field-question acceptance, reliability gates and distribution artifacts |
 
 Freeze new kernel/model work while closing these release gates. Do not relabel the existing debug APK or QA certificate as production.

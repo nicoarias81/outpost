@@ -39,3 +39,6 @@ gradlew.bat text eol=crlf
 /evidence/research/overnight-performance-20261001/** -text whitespace=cr-at-eol
 /evidence/research/i8mm-20261002/** -text whitespace=cr-at-eol
 /evidence/runs/release-qa-*/*.log whitespace=cr-at-eol,-blank-at-eof
+
+/evidence/research/release-acceptance-20261002/** -text whitespace=cr-at-eol
+/evidence/runs/release-acceptance-*/*.log whitespace=cr-at-eol,-blank-at-eof

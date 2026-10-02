@@ -9,7 +9,7 @@ Updated 2026-10-02. Current local delivery: **Outpost 0.18.0 / code 20**, canoni
 - English app/docs/comments/primary fixtures; preserve imported language and historical evidence.
 - Inference/numerical tests only on Outpost35/emulator-5582 or the specifically registered owner-authorized Pixel 10 Pro. Preserve Brújula/emulator-5580. Host builds, static inspection and report analysis are allowed; host inference and other phones are not.
 - Outpost is a general offline knowledge assistant. OSM supplies place knowledge for chat; maps/navigation are outside scope. Equipment actions and deferred online queues remain proposals.
-- Preserve pins, original reference arithmetic/fallback, raw failed evidence, private data and global phone settings. No remote publication or push is authorized by these records.
+- Preserve pins, original reference arithmetic/fallback, raw failed evidence, private data and global phone settings. The owner authorized source pushes and GitHub release preparation on 2026-10-02; preserve current private repository visibility.
 
 ## Current I8MM addition
 
@@ -53,3 +53,7 @@ Known content failures remain: model facts, row/range filtering, applicability a
 ## Release candidate resumption
 
 Start with [0.19 release closure](release-0.19.md). The current release receipt/audit is archived under `evidence/releases/0.19.0-rc1`; unsigned local APK/AAB are frozen in dist. Separate non-debuggable `dev.outpost.app.releaseqa` and its test package remain on Outpost35 with synthetic data. Original app/test APKs and radios are unchanged; Pixel was not touched in this pass. Debug build and research assets remain available, v12 fixtures are current. No active device workflow remains after the recorded final run. Channel, code-license policy and production signing identity require owner decisions. Final signed-device acceptance, field quality and reliability gates remain open; do not resume kernel experiments as the next release task.
+
+## GitHub distribution and Pixel release acceptance
+
+The owner authorized source upload and GitHub Releases on 2026-10-02. The existing repository remains private. [Expanded Pixel acceptance](release-acceptance-2026-10-02.md) records 73 accepted controls and the remaining distinction between QA and a production-signed APK. [First-user installation](getting-started.md) describes exact model preparation. The production application ID/key proposal is still awaiting the owner; do not create a key, change app identity or publish an unsigned artifact as production. The dedicated QA installation is synthetic and separate from the original phone app.

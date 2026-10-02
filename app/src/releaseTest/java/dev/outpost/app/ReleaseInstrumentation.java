@@ -23,7 +23,18 @@ public final class ReleaseInstrumentation extends Instrumentation {
         if(!ok)throw new AssertionError(name);
     }
     @Override public void onCreate(Bundle arguments){super.onCreate(arguments);args=arguments==null?new Bundle():arguments;start();}
+    @Override public void callActivityOnCreate(Activity activity,Bundle state){
+        // Only a test-owned empty/synthetic package may display above keyguard.
+        String pkg=getTargetContext().getPackageName();
+        if((pkg.equals("dev.outpost.app.releaseqa")||pkg.equals("dev.outpost.mobile"))
+            &&new File(getTargetContext().getFilesDir(),"release-acceptance-owned").isFile()){
+            activity.setShowWhenLocked(true);activity.setTurnScreenOn(true);
+            activity.getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        super.callActivityOnCreate(activity,state);
+    }
     @Override public void onStart(){
+        if(args.getString("phase","").startsWith("accept-")){new AcceptanceChecks(this,args).run();return;}
         JSONObject result=new JSONObject();Activity activity=null;boolean passed=false;
         try {
             var context=getTargetContext();

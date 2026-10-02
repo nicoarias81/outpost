@@ -1,0 +1,40 @@
+{
+  "acceptedPhases": [
+    {
+      "run": "release-acceptance-20261002T062029Z-8be70eaa",
+      "phase": "prepare",
+      "checks": 20
+    },
+    {
+      "run": "release-acceptance-20261002T062029Z-8be70eaa",
+      "phase": "chat",
+      "checks": 31
+    },
+    {
+      "run": "release-acceptance-20261002T063223Z-213b5668",
+      "phase": "seed",
+      "checks": 5
+    },
+    {
+      "run": "release-acceptance-20261002T063223Z-213b5668",
+      "phase": "recover",
+      "checks": 17
+    }
+  ],
+  "acceptedControls": 73,
+  "staticControls": 61,
+  "qaApkSha256": "7e61e918494e9c6dc8c79f73dc71b8399880d836b426cb3be0bf7e9c3095863a",
+  "originalStatePreserved": true,
+  "productionSignedAcceptance": false,
+  "recoveryScope": "Seed pending conversation, draft and interrupted-folder status; terminate the QA process, reinstall the same-version QA APK, launch and verify recovery. This is not an actual mid-write import kill or a version/schema upgrade.",
+  "failedAttemptsRetained": [
+    "release-acceptance-20261002T062029Z-8be70eaa",
+    "release-acceptance-20261002T062517Z-365eecb6",
+    "release-acceptance-20261002T062712Z-bd6b5de2"
+  ],
+  "harnessRepairs": [
+    "QA Activity preferences use the fully qualified class name because package and Java namespace differ.",
+    "Folder recovery message is inside the report dialog, not directly on Settings.",
+    "Wait for the matching accessibility window rather than assuming a fixed animation delay."
+  ]
+}

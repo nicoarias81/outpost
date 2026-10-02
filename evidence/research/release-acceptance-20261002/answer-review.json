@@ -1,0 +1,46 @@
+{
+  "reviewer": "assistant",
+  "method": "Compared the seven recorded answers with the synthetic fixture definitions and inspected the captured product UI. This is bounded development review, not independent or unseen evaluation.",
+  "cases": [
+    {
+      "case": "traveler-place",
+      "groundedExpectedFact": true,
+      "assessment": "Expected stored place, identifier, time or name is present; no unsupported current availability claim in the recorded response."
+    },
+    {
+      "case": "park-lookup",
+      "groundedExpectedFact": true,
+      "assessment": "Expected stored place, identifier, time or name is present; no unsupported current availability claim in the recorded response."
+    },
+    {
+      "case": "field-manual",
+      "groundedExpectedFact": true,
+      "assessment": "Expected stored place, identifier, time or name is present; no unsupported current availability claim in the recorded response."
+    },
+    {
+      "case": "farmer-record",
+      "groundedExpectedFact": true,
+      "assessment": "Expected stored place, identifier, time or name is present; no unsupported current availability claim in the recorded response."
+    },
+    {
+      "case": "hiker-shelter",
+      "groundedExpectedFact": true,
+      "assessment": "Expected stored place, identifier, time or name is present; no unsupported current availability claim in the recorded response."
+    },
+    {
+      "case": "roadside-reference",
+      "groundedExpectedFact": true,
+      "assessment": "Expected stored place, identifier, time or name is present; no unsupported current availability claim in the recorded response."
+    },
+    {
+      "case": "after-cancel",
+      "groundedExpectedFact": true,
+      "assessment": "Expected stored place, identifier, time or name is present; no unsupported current availability claim in the recorded response."
+    }
+  ],
+  "limits": [
+    "No general accuracy score",
+    "No direct test of all citation misbinding/applicability failure modes",
+    "No new speed comparison or battery claim"
+  ]
+}

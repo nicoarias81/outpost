@@ -1,0 +1,608 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "package dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "version dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "non-debuggable dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "no permissions or instrumentation dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "no auxiliary components dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "one launcher activity dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "backup disabled dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "no debug or testOnly flag dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "16KiB ZIP alignment dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "no research head, models or fixture library dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "notice llama-MIT.txt dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "notice pdfbox-android-LICENSE.txt dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "notice pdfbox-android-NOTICE.txt dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "notice bouncycastle-LICENSE.html dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "notice android-NDK-NOTICE.txt dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "notice android-toolchain-NOTICE.txt dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "two complete ABIs dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "ELF64 little-endian lib/arm64-v8a/libc++_shared.so",
+      "passed": true
+    },
+    {
+      "name": "16KiB ELF LOAD alignment lib/arm64-v8a/libc++_shared.so",
+      "passed": true
+    },
+    {
+      "name": "ELF64 little-endian lib/arm64-v8a/liboutpost_engine.so",
+      "passed": true
+    },
+    {
+      "name": "16KiB ELF LOAD alignment lib/arm64-v8a/liboutpost_engine.so",
+      "passed": true
+    },
+    {
+      "name": "exact seven production JNI exports lib/arm64-v8a/liboutpost_engine.so",
+      "passed": true
+    },
+    {
+      "name": "ELF64 little-endian lib/x86_64/libc++_shared.so",
+      "passed": true
+    },
+    {
+      "name": "16KiB ELF LOAD alignment lib/x86_64/libc++_shared.so",
+      "passed": true
+    },
+    {
+      "name": "ELF64 little-endian lib/x86_64/liboutpost_engine.so",
+      "passed": true
+    },
+    {
+      "name": "16KiB ELF LOAD alignment lib/x86_64/liboutpost_engine.so",
+      "passed": true
+    },
+    {
+      "name": "exact seven production JNI exports lib/x86_64/liboutpost_engine.so",
+      "passed": true
+    },
+    {
+      "name": "package dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "version dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "non-debuggable dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "no permissions or instrumentation dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "no auxiliary components dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "one launcher activity dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "backup disabled dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "no debug or testOnly flag dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "16KiB ZIP alignment dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "no research head, models or fixture library dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "notice llama-MIT.txt dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "notice pdfbox-android-LICENSE.txt dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "notice pdfbox-android-NOTICE.txt dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "notice bouncycastle-LICENSE.html dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "notice android-NDK-NOTICE.txt dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "notice android-toolchain-NOTICE.txt dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "two complete ABIs dev.outpost.app.releaseqa",
+      "passed": true
+    },
+    {
+      "name": "ELF64 little-endian lib/arm64-v8a/libc++_shared.so",
+      "passed": true
+    },
+    {
+      "name": "16KiB ELF LOAD alignment lib/arm64-v8a/libc++_shared.so",
+      "passed": true
+    },
+    {
+      "name": "ELF64 little-endian lib/arm64-v8a/liboutpost_engine.so",
+      "passed": true
+    },
+    {
+      "name": "16KiB ELF LOAD alignment lib/arm64-v8a/liboutpost_engine.so",
+      "passed": true
+    },
+    {
+      "name": "exact seven production JNI exports lib/arm64-v8a/liboutpost_engine.so",
+      "passed": true
+    },
+    {
+      "name": "ELF64 little-endian lib/x86_64/libc++_shared.so",
+      "passed": true
+    },
+    {
+      "name": "16KiB ELF LOAD alignment lib/x86_64/libc++_shared.so",
+      "passed": true
+    },
+    {
+      "name": "ELF64 little-endian lib/x86_64/liboutpost_engine.so",
+      "passed": true
+    },
+    {
+      "name": "16KiB ELF LOAD alignment lib/x86_64/liboutpost_engine.so",
+      "passed": true
+    },
+    {
+      "name": "exact seven production JNI exports lib/x86_64/liboutpost_engine.so",
+      "passed": true
+    },
+    {
+      "name": "QA and unsigned release native bytes identical",
+      "passed": true
+    },
+    {
+      "name": "QA and unsigned release assets identical",
+      "passed": true
+    },
+    {
+      "name": "AAB has no research head or signature",
+      "passed": true
+    },
+    {
+      "name": "AAB native identity lib/arm64-v8a/libc++_shared.so",
+      "passed": true
+    },
+    {
+      "name": "AAB native identity lib/arm64-v8a/liboutpost_engine.so",
+      "passed": true
+    },
+    {
+      "name": "AAB native identity lib/x86_64/libc++_shared.so",
+      "passed": true
+    },
+    {
+      "name": "AAB native identity lib/x86_64/liboutpost_engine.so",
+      "passed": true
+    }
+  ],
+  "release": {
+    "sha256": "4695fa542deb9830714dd4f01ff51ac21d7f7e0a4c03503968e0932bafa034ee",
+    "bytes": 23432335,
+    "native": {
+      "lib/arm64-v8a/libc++_shared.so": {
+        "sha256": "ad74bf43eb1fd576518168f664ad16a74e00eeda9595875c33dd87f6dd197869",
+        "loadAlignments": [
+          16384,
+          16384,
+          16384,
+          16384
+        ]
+      },
+      "lib/arm64-v8a/liboutpost_engine.so": {
+        "sha256": "a687fc1f01cd6a82016830769144656df37a18548875204091268216dfac9d74",
+        "loadAlignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "exports": [
+          "Java_dev_outpost_app_NativeEngine_kernelName",
+          "Java_dev_outpost_app_NativeEngine_kernelProfile",
+          "Java_dev_outpost_app_NativeEngine_nativeCancel",
+          "Java_dev_outpost_app_NativeEngine_nativeClearCache",
+          "Java_dev_outpost_app_NativeEngine_nativeClose",
+          "Java_dev_outpost_app_NativeEngine_nativeCreate",
+          "Java_dev_outpost_app_NativeEngine_nativeGenerate"
+        ]
+      },
+      "lib/x86_64/libc++_shared.so": {
+        "sha256": "294e0ce4e88589103952c57c9484f917c26509d66170bc86d07d48f0fc879de4",
+        "loadAlignments": [
+          16384,
+          16384,
+          16384,
+          16384
+        ]
+      },
+      "lib/x86_64/liboutpost_engine.so": {
+        "sha256": "e52791faae706a3f4894fea8acedcec0dc1f830c4e86f0acb76f7e9a157abbac",
+        "loadAlignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "exports": [
+          "Java_dev_outpost_app_NativeEngine_kernelName",
+          "Java_dev_outpost_app_NativeEngine_kernelProfile",
+          "Java_dev_outpost_app_NativeEngine_nativeCancel",
+          "Java_dev_outpost_app_NativeEngine_nativeClearCache",
+          "Java_dev_outpost_app_NativeEngine_nativeClose",
+          "Java_dev_outpost_app_NativeEngine_nativeCreate",
+          "Java_dev_outpost_app_NativeEngine_nativeGenerate"
+        ]
+      }
+    },
+    "assets": {
+      "assets/com/tom_roush/fontbox/resources/cmap/83pv-RKSJ-H": "8a4d60015eb64baa6a73646a9983e7c6b987c0ab06e7c8b4b7e35a32a9ef1449",
+      "assets/com/tom_roush/fontbox/resources/cmap/90ms-RKSJ-H": "3e591fe1447fee58a8df9c4dcc52f42a134f014dc7884ebcf3cd64f5e02fcfe1",
+      "assets/com/tom_roush/fontbox/resources/cmap/90ms-RKSJ-V": "f61fb56f9360bcd43850cfa094f83e933d274bba5894d5edb6b4c5f42abefe63",
+      "assets/com/tom_roush/fontbox/resources/cmap/90msp-RKSJ-H": "824e53249249ebb3b67762cec9b814975b42d8311fa40795548ddf4fa79e4bec",
+      "assets/com/tom_roush/fontbox/resources/cmap/90msp-RKSJ-V": "603f62a6aef8d2af13b6107734f43ecc4e3973d635b16bcf4677798fbd5cf60d",
+      "assets/com/tom_roush/fontbox/resources/cmap/90pv-RKSJ-H": "560f4ee82591d5d3f818e094a15a9fd50a9285b11e5ae8735c6e07f10e2d0d24",
+      "assets/com/tom_roush/fontbox/resources/cmap/90pv-RKSJ-V": "f635a43f916d59c40f4f22d03f6a9f986ecfbe06e40de0bdb59eb52279f1c382",
+      "assets/com/tom_roush/fontbox/resources/cmap/Add-RKSJ-H": "633343db1a48217594859e4beaac76958cff002b533bfbe03c5aa6280d7bffce",
+      "assets/com/tom_roush/fontbox/resources/cmap/Add-RKSJ-V": "28ee457da75ee57462428e5aceb6a3b36f8e4a76da5ffcb809b02dfba1059600",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-0": "4d0fbf58240e829be555656c69ff5035df3c9b96e65ace4b88a36da25cfb1cc5",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-1": "def350b60edc58bd83eae5f0fd4042c5ee396c6439243a5694ee72aaa3a64350",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-2": "5508dc9163640b54e5ccac4c27ce7c5c41517d4527f05b19598fe021e50883ba",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-3": "81a5ea00f07f4a7b4d9889e2b5eba58b457e9abb894d8ae5e2a3de6e5ed189f7",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-4": "e0baf6d32584ac942075cc56bea708bbe2472a78083c5fc3bca8b42c79afd237",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-5": "552cac06aafa81418c70f0c5f2c9f9ed4d59152a72e981d20b7d51fdbef494e4",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-6": "9190f32e01d5aed99dbaf5db9ee325b83eb8ab2fce4c336f821e2d9061994fc6",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-UCS2": "27eae250f6ce060b1d144c645d4176411b29cb2ef188d83cbe66811eb7997539",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-GB1-0": "dccee80c8763a28653e932953f55fb61a1b0776773855d63a286bc11a8c10128",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-GB1-1": "7b2530073fe760ff0bbd08938ca199a224caeb574d3f7d14be84ec32649a17d7",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-GB1-2": "d94c753cfdac8a00b9934306a26e4f139a4286d5ffc83d773561e3878d0273b9",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-GB1-3": "b86dfcca26dd1de22e57efa4a6f331c571e572fe172644318d1bc573dfa10b90",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-GB1-4": "eda6981ec7fb1df6e85b9c3ad85cab4a95997c012166356e7083e23ec755ec36",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-GB1-5": "c33f09da6fafc29259b853ad73177e8e2161b099621127690a7643038b6047d2",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-GB1-UCS2": "039bec9e3e378ba479b5fe458aed57743d2d469d037ea5489a9f86c40c09e997",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-0": "c63388ab8d18d5cbbf9911b10329d057d60e1e9295b5644941e00fc8f8489452",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-1": "9c93b77ac7de09ab1510e3d3b36c2ea64ab98d4b95938e5b5b83f1bf061ba391",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-2": "51abc4a77a662306a66a1fadcb0d0e7526dbee73533b5aed266471177ee26076",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-3": "b9241616bb96a3e76993787f986da7dcacf5e381ab79293e607864621ee1df16",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-4": "43a9cdb72943d9522cd7d8a75a9b5f6674e3fa4e076b1df3792957619f089dd9",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-5": "bb027d172491e320104b4d5ba8e4e9a80e3cadc15cc1cac97dc64de741ed202e",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-6": "284f546fd6a6d41a4df764b00ccae5a62f4bd7c5f156140d45e23abc581f3acd",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-7": "7290cf1ef3c5f4c1d2efd7c6ef32c18fafc33ded7154b99b37386aa8b3b7ccdd",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-UCS2": "0e392f53d43bfb3e26ee459bd198e133faf61f97ddcc980e433a8965632c3671",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan2-0": "e7c0a1a9eed5971c2b7cbfa9684d578a82facb14eb00e904e4fe2b885df417d1",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Korea1-0": "6ef218726585b71e563a23d9978d47df58c40ca6fe7e77954af4c2ea5b28fd26",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Korea1-1": "d1e84a360208a70d1eb50e2d751bfd9eaca7f2806365831839505744eb7ea096",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Korea1-2": "b9ca3d49b1d36eb883fb878aecc88120ebb227f01a463866e2fc0b2aa6ca9ef0",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Korea1-UCS2": "aa7cfb680fdafa53e9d9ec054309d56611eb0e568c99e1c1895efb3c94743f6d",
+      "assets/com/tom_roush/fontbox/resources/cmap/B5pc-H": "bdd5f880359612ec71fd3bee930ab4ee2a550fbe7193ae1a0cba727f3b37314b",
+      "assets/com/tom_roush/fontbox/resources/cmap/B5pc-V": "6ea096eb62f99ca54fdefc036bfb21058ba1664fc263411f5f7d3d3307e3c690",
+      "assets/com/tom_roush/fontbox/resources/cmap/CNS-EUC-H": "5bcb99e1829ce797c246462cf79c1e484223449355b4f91070046c7c804ef0eb",
+      "assets/com/tom_roush/fontbox/resources/cmap/CNS-EUC-V": "4e9dd5c2bac3283d7d582dc69c5b2fc1de612ae5d2ed2d257bf48a69c1b06bb5",
+      "assets/com/tom_roush/fontbox/resources/cmap/ETen-B5-H": "b885a24a86a0adee73c724b636facce5b33351155bc26adb320a797afee1effa",
+      "assets/com/tom_roush/fontbox/resources/cmap/ETen-B5-V": "c8ec6c4af760c07e3b46ed0d586f87a28278518f3adab17bbf78180e16c0bee9",
+      "assets/com/tom_roush/fontbox/resources/cmap/ETenms-B5-H": "98f7bc74c7accb0341398d2d949a4953528f25d38d070ba51d028da1bc3df40c",
+      "assets/com/tom_roush/fontbox/resources/cmap/ETenms-B5-V": "283856f9060d23ad6006cd84dbc22213ac70e83674d96288e3f35e8f2ba8bee9",
+      "assets/com/tom_roush/fontbox/resources/cmap/EUC-H": "02fc3b4034a9550084439ecf24a9cb2a057840cd4c20ff377a8245f0d7fa2f58",
+      "assets/com/tom_roush/fontbox/resources/cmap/EUC-V": "beaf35ca3bc2ad1bbe3d87a295f80393425c347bca7ad33e68958908f04079a9",
+      "assets/com/tom_roush/fontbox/resources/cmap/Ext-RKSJ-H": "ea4cbe2526a53486e48ab7acbb075e29fd8cdee2b056133610854af1510962ab",
+      "assets/com/tom_roush/fontbox/resources/cmap/Ext-RKSJ-V": "d943e0ae518c2bc1eea6b39dfcfab69c396bbdbdbf913c3c070f1cf3d83d54ae",
+      "assets/com/tom_roush/fontbox/resources/cmap/GB-EUC-H": "fa25c5791620ed8dae9d7f199c2c415d4d4b84971f85069ba9802efc2fb054bf",
+      "assets/com/tom_roush/fontbox/resources/cmap/GB-EUC-V": "714c9658f04d00c2ecf40a8c61765fada60122b3ea42cc77698f971d5b5d6cb1",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBK-EUC-H": "9a5dd798943b1a022cc04569c9b219d89b1f2dc11ae3346433d8e5dd55fa518b",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBK-EUC-V": "3f517d357c3aa087361728eddc09f099673eb50896610a56efe5aae400a1d8c6",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBK2K-H": "94b54de60a7949d1ad6d7eafd5fa27f71c9adb5178854fa51a0e4453b7c86381",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBK2K-V": "a78c093fd20cd6518259803c83981308e11d2a6755e2b0b354a85ae67c2251a3",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBKp-EUC-H": "6d69b495381489ee27ce375c4874177e96a20e106331d8d90429d27140e77e16",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBKp-EUC-V": "18ac591fe2129fbbcfcef9b8bbd485e97e5348c492aefc31c2472018a14cb3a7",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBpc-EUC-H": "bb641407340acf3d86ef6c32938799c7b6785e10dcdd539d159d88992fc6c935",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBpc-EUC-V": "80545181928392bcfac425cf3badb115f9b5ede9fbf3ca894e8a2e54a6c0a84b",
+      "assets/com/tom_roush/fontbox/resources/cmap/H": "6a9a490592a6a014b61b8e778da66f27f837558e4de8b40081c821909afd88cf",
+      "assets/com/tom_roush/fontbox/resources/cmap/HKscs-B5-H": "a9d484d9038eebfe056cab89af9304537b94cbe2c56031dbb64c1578391bc8d0",
+      "assets/com/tom_roush/fontbox/resources/cmap/HKscs-B5-V": "fc31fafb887a9af37eed4d1170d1ca6067140c2665b3214e95516a7ccbc7f1ac",
+      "assets/com/tom_roush/fontbox/resources/cmap/Identity-H": "866c40836b501ddc098d4077d8d31e8ab8f4b9f9842db91ea9acf87488e6d7c1",
+      "assets/com/tom_roush/fontbox/resources/cmap/Identity-V": "1c5ae69b98af36325cc8539f4cbe4d041f8b55b497b1e9ea45b3a75c484ed5c2",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSC-EUC-H": "4aa1c382cc5c291e9af14db1a35f8e1a5ddc8507420fdcc16dfb8bd0d9537184",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSC-EUC-V": "963ae7419ae0c87e2d9b56bda40446af4e46453f27a4384bc8b3e8106fee51b4",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSCms-UHC-H": "94ea4aeb4aff7b75dea32fa5425fef6f9a2859d99d001e874fb7948f672ffbb2",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSCms-UHC-HW-H": "317ddb148acf62c396f9610ddabcccb7fb4d8035af247c60184ae8dcaa969eff",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSCms-UHC-HW-V": "d3628080a1e9ea9ba388fc65c3d2ebd80e7f297b3916495ecc57e977dfdbd10f",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSCms-UHC-V": "eb999e7aedff28d89a21c6c3f57d4450dd68054a1f40fa39e0259afad3a6e5cc",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSCpc-EUC-H": "43f20e1fc1b09caf46e0756ace2ac4ee8fb9380c32ab83f18dc2eb608c84c92b",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSCpc-EUC-V": "4fbf738a8f5a2509d576b76b1c0f4a025ee30ceb0918f318098ae55e4aa8870a",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniCNS-UCS2-H": "66d61241fc5753ad3552a323cb9a19df13d7fe8f20d93b4ff3ffdbd612f95c66",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniCNS-UCS2-V": "bcab0409b46fbe543702385af21fcb157a3a48dfdf1c8339b9c207cd475c749a",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniCNS-UTF16-H": "72ca52e339289db8d99f0efec1deda556a21c8aa24ca90b2b286542f1791a3c6",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniCNS-UTF16-V": "9a569876c221587c192ba1051747dddc31025b295380a69e75d7c43652eb336e",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniGB-UCS2-H": "4603049c11199a18eadde1bb868cb9e8fb77b48f9f94cc1a8479dc575dfbe7d7",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniGB-UCS2-V": "2c244746379aab24392bc55faba4970fa536ee3c2c116c9126f4e8f97cd5b59b",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniGB-UTF16-H": "5bd239e20b678428318efb1ba3085c5ff19ea3c82dc4d9ea790efe46aa6bff81",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniGB-UTF16-V": "d5f7dd7c6ddd6b5d39a971a728c5d721fc1786227b3f1725bf8d26ce6dd530a4",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniJIS-UCS2-H": "25a5fa588b689c13501498d08d34866b77c42582e6299a4e223849db9281e86b",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniJIS-UCS2-HW-H": "3008e520b23f8d3838f2463efb1a9842f66adca29cbecf15cd6bda1955788e57",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniJIS-UCS2-HW-V": "45d7bd6e0cbf31853e3b517d5b6d2939e0831d86ca4318887a059967b9512545",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniJIS-UCS2-V": "cf815152be6bee432087f63fba26345b581d718c7ce5ba4560fd6ebde8f2ad2a",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniJIS-UTF16-H": "d2fd8b3c6001ea398c04e0f910e0bc63819405e5ae63a167d93d2a2160466afa",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniJIS-UTF16-V": "f18385a7fdf57183091f9cadc8fbfbf27712284934f04ae44f3a4d3bdefa032f",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniKS-UCS2-H": "bd4277d5ae23f3a92252cc54e6449c240d25c918c3b91f6abbccb1a2be4b9acf",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniKS-UCS2-V": "904f9c063ab89075b09bf2c471cfc2ac4db6604c3a2ae29a08c9c37761a353e4",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniKS-UTF16-H": "ddd37676e3ae5ced89062cd2c8c859dda4363f5a835c16aca989855f47b1f70c",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniKS-UTF16-V": "334ae271967e8bc786efd35283c615e99c23052b43e15039cc656b8954ee2a18",
+      "assets/com/tom_roush/fontbox/resources/cmap/V": "8eea3990962a4c5dd9565fcdfd30497747b6004940bb8d71fa2e0b0669eb9237",
+      "assets/com/tom_roush/fontbox/resources/unicode/Scripts.txt": "47744a58fa24e82df8258ea1e866a058ae87f9f78304964cf1ddad0a3657bfd8",
+      "assets/com/tom_roush/pdfbox/resources/afm/Courier-Bold.afm": "1e86f0a949e316c08df32adc2fc2e2a92ed9902ffd54e3516e5a66a32db856da",
+      "assets/com/tom_roush/pdfbox/resources/afm/Courier-BoldOblique.afm": "e1349f5f306b16338972eaf7f43d7913535cc075a15189b5f3efc841aee3d02e",
+      "assets/com/tom_roush/pdfbox/resources/afm/Courier-Oblique.afm": "9e3494b4abb127a6586c095a377924514dd6956973f8f3b0bd7d6d00fcc89ea6",
+      "assets/com/tom_roush/pdfbox/resources/afm/Courier.afm": "e72833dda79161e3aaf385adfeb59c61c89a4a3e184f27d21c178056eea30e17",
+      "assets/com/tom_roush/pdfbox/resources/afm/Helvetica-Bold.afm": "59ac93091bc7e76eb6baf60210526a4df88fe107dd5e13eb0ae70c9fc6d91fb9",
+      "assets/com/tom_roush/pdfbox/resources/afm/Helvetica-BoldOblique.afm": "1f848276efd76c0e5020ef98ccb459005f5a022f56cb8579e52c98e33ffab03b",
+      "assets/com/tom_roush/pdfbox/resources/afm/Helvetica-Oblique.afm": "8c00ac46ca5963df22d4fc1153ea1246c8778475820378640c8d54d4fd3a46fe",
+      "assets/com/tom_roush/pdfbox/resources/afm/Helvetica.afm": "5654761eab868ccb3080122accf13b4fb79edf37af09e1c57a881c35c334ee03",
+      "assets/com/tom_roush/pdfbox/resources/afm/Symbol.afm": "13eeef80def2f9a8d3a31a980731376823e8b48340ff3891ffc1cc0299c0b4fe",
+      "assets/com/tom_roush/pdfbox/resources/afm/Times-Bold.afm": "37efa084183acfb06f45ad73bd75f6dd09b20d1e498c66ce1b9aa72b00db4ac7",
+      "assets/com/tom_roush/pdfbox/resources/afm/Times-BoldItalic.afm": "1bf83cee5300d4de1ce90681a2a2d70fd1876c664e91c1c4c6b6b5b12873b6da",
+      "assets/com/tom_roush/pdfbox/resources/afm/Times-Italic.afm": "2f34d3bc49530532daa690aec165b68368162d4c27d24fbe6a3fb24aae49a74a",
+      "assets/com/tom_roush/pdfbox/resources/afm/Times-Roman.afm": "b6dbde33196ff61f051f8468fb81a0dece63997a80b7fba058e8295f49480026",
+      "assets/com/tom_roush/pdfbox/resources/afm/ZapfDingbats.afm": "d3e7b9f6366ab0df06acbb217c8586c5962ff2efbd4e1b5566c7eaf5b745dd41",
+      "assets/com/tom_roush/pdfbox/resources/glyphlist/additional.txt": "b4329742fc6c6d35ecf66fb7ae23099b2a8274f43a7a96fd8b5a6b79090cd9de",
+      "assets/com/tom_roush/pdfbox/resources/glyphlist/glyphlist.txt": "4f71046e46ced81d1e636d595a372fcb63d4696444c497ef1c59224478745351",
+      "assets/com/tom_roush/pdfbox/resources/glyphlist/zapfdingbats.txt": "e1afd7b8676d20a5b25a92342ad59e209ee6722708d1f7892353fa4e0fd879c7",
+      "assets/com/tom_roush/pdfbox/resources/text/BidiMirroring.txt": "350d1302116194b0b21def287434b55c5088098fbc726e879f7420a391965643",
+      "assets/com/tom_roush/pdfbox/resources/ttf/LiberationSans-Regular.ttf": "76d04c18ea243f426b7de1f3ad208e927008f961dc5945e5aad352d0dfde8ee8",
+      "assets/licenses/android-NDK-NOTICE.txt": "25fcec60cfe677e2d5f18cb08e9d6058fd08fe330f1472b32f5c100d391f577b",
+      "assets/licenses/android-toolchain-NOTICE.txt": "29a2f78e36f309749b33f366ef39c8f75b55ce618adad70ce6a7af26440c79da",
+      "assets/licenses/bouncycastle-LICENSE.html": "537e0e2946266c2b5049c12b1934543c301e6b45f283dce17ad64aad4ae2ccfc",
+      "assets/licenses/dohnuts-Apache-2.0.txt": "9bf4e882bdd75e8d10fc788c53d0a787ef0f59cead1fe1f0878c240896fc8610",
+      "assets/licenses/llama-MIT.txt": "bcd8ec749126d45cb06737d0690295d73df4b6e7e194205bcf91190368f27285",
+      "assets/licenses/pdfbox-android-LICENSE.txt": "8ceed6051cbd7f6d5d56bad8ca5e73f0414fb13cbe0c4170f7c4c9beaa1a7679",
+      "assets/licenses/pdfbox-android-NOTICE.txt": "8191c60848b9e5666a1ee50a65a7f6eab7339dc1ea20b52092f3eac5ef10d0cd"
+    }
+  },
+  "qa": {
+    "sha256": "7e61e918494e9c6dc8c79f73dc71b8399880d836b426cb3be0bf7e9c3095863a",
+    "bytes": 23436443,
+    "native": {
+      "lib/arm64-v8a/libc++_shared.so": {
+        "sha256": "ad74bf43eb1fd576518168f664ad16a74e00eeda9595875c33dd87f6dd197869",
+        "loadAlignments": [
+          16384,
+          16384,
+          16384,
+          16384
+        ]
+      },
+      "lib/arm64-v8a/liboutpost_engine.so": {
+        "sha256": "a687fc1f01cd6a82016830769144656df37a18548875204091268216dfac9d74",
+        "loadAlignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "exports": [
+          "Java_dev_outpost_app_NativeEngine_kernelName",
+          "Java_dev_outpost_app_NativeEngine_kernelProfile",
+          "Java_dev_outpost_app_NativeEngine_nativeCancel",
+          "Java_dev_outpost_app_NativeEngine_nativeClearCache",
+          "Java_dev_outpost_app_NativeEngine_nativeClose",
+          "Java_dev_outpost_app_NativeEngine_nativeCreate",
+          "Java_dev_outpost_app_NativeEngine_nativeGenerate"
+        ]
+      },
+      "lib/x86_64/libc++_shared.so": {
+        "sha256": "294e0ce4e88589103952c57c9484f917c26509d66170bc86d07d48f0fc879de4",
+        "loadAlignments": [
+          16384,
+          16384,
+          16384,
+          16384
+        ]
+      },
+      "lib/x86_64/liboutpost_engine.so": {
+        "sha256": "e52791faae706a3f4894fea8acedcec0dc1f830c4e86f0acb76f7e9a157abbac",
+        "loadAlignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "exports": [
+          "Java_dev_outpost_app_NativeEngine_kernelName",
+          "Java_dev_outpost_app_NativeEngine_kernelProfile",
+          "Java_dev_outpost_app_NativeEngine_nativeCancel",
+          "Java_dev_outpost_app_NativeEngine_nativeClearCache",
+          "Java_dev_outpost_app_NativeEngine_nativeClose",
+          "Java_dev_outpost_app_NativeEngine_nativeCreate",
+          "Java_dev_outpost_app_NativeEngine_nativeGenerate"
+        ]
+      }
+    },
+    "assets": {
+      "assets/com/tom_roush/fontbox/resources/cmap/83pv-RKSJ-H": "8a4d60015eb64baa6a73646a9983e7c6b987c0ab06e7c8b4b7e35a32a9ef1449",
+      "assets/com/tom_roush/fontbox/resources/cmap/90ms-RKSJ-H": "3e591fe1447fee58a8df9c4dcc52f42a134f014dc7884ebcf3cd64f5e02fcfe1",
+      "assets/com/tom_roush/fontbox/resources/cmap/90ms-RKSJ-V": "f61fb56f9360bcd43850cfa094f83e933d274bba5894d5edb6b4c5f42abefe63",
+      "assets/com/tom_roush/fontbox/resources/cmap/90msp-RKSJ-H": "824e53249249ebb3b67762cec9b814975b42d8311fa40795548ddf4fa79e4bec",
+      "assets/com/tom_roush/fontbox/resources/cmap/90msp-RKSJ-V": "603f62a6aef8d2af13b6107734f43ecc4e3973d635b16bcf4677798fbd5cf60d",
+      "assets/com/tom_roush/fontbox/resources/cmap/90pv-RKSJ-H": "560f4ee82591d5d3f818e094a15a9fd50a9285b11e5ae8735c6e07f10e2d0d24",
+      "assets/com/tom_roush/fontbox/resources/cmap/90pv-RKSJ-V": "f635a43f916d59c40f4f22d03f6a9f986ecfbe06e40de0bdb59eb52279f1c382",
+      "assets/com/tom_roush/fontbox/resources/cmap/Add-RKSJ-H": "633343db1a48217594859e4beaac76958cff002b533bfbe03c5aa6280d7bffce",
+      "assets/com/tom_roush/fontbox/resources/cmap/Add-RKSJ-V": "28ee457da75ee57462428e5aceb6a3b36f8e4a76da5ffcb809b02dfba1059600",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-0": "4d0fbf58240e829be555656c69ff5035df3c9b96e65ace4b88a36da25cfb1cc5",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-1": "def350b60edc58bd83eae5f0fd4042c5ee396c6439243a5694ee72aaa3a64350",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-2": "5508dc9163640b54e5ccac4c27ce7c5c41517d4527f05b19598fe021e50883ba",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-3": "81a5ea00f07f4a7b4d9889e2b5eba58b457e9abb894d8ae5e2a3de6e5ed189f7",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-4": "e0baf6d32584ac942075cc56bea708bbe2472a78083c5fc3bca8b42c79afd237",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-5": "552cac06aafa81418c70f0c5f2c9f9ed4d59152a72e981d20b7d51fdbef494e4",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-6": "9190f32e01d5aed99dbaf5db9ee325b83eb8ab2fce4c336f821e2d9061994fc6",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-CNS1-UCS2": "27eae250f6ce060b1d144c645d4176411b29cb2ef188d83cbe66811eb7997539",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-GB1-0": "dccee80c8763a28653e932953f55fb61a1b0776773855d63a286bc11a8c10128",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-GB1-1": "7b2530073fe760ff0bbd08938ca199a224caeb574d3f7d14be84ec32649a17d7",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-GB1-2": "d94c753cfdac8a00b9934306a26e4f139a4286d5ffc83d773561e3878d0273b9",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-GB1-3": "b86dfcca26dd1de22e57efa4a6f331c571e572fe172644318d1bc573dfa10b90",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-GB1-4": "eda6981ec7fb1df6e85b9c3ad85cab4a95997c012166356e7083e23ec755ec36",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-GB1-5": "c33f09da6fafc29259b853ad73177e8e2161b099621127690a7643038b6047d2",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-GB1-UCS2": "039bec9e3e378ba479b5fe458aed57743d2d469d037ea5489a9f86c40c09e997",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-0": "c63388ab8d18d5cbbf9911b10329d057d60e1e9295b5644941e00fc8f8489452",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-1": "9c93b77ac7de09ab1510e3d3b36c2ea64ab98d4b95938e5b5b83f1bf061ba391",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-2": "51abc4a77a662306a66a1fadcb0d0e7526dbee73533b5aed266471177ee26076",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-3": "b9241616bb96a3e76993787f986da7dcacf5e381ab79293e607864621ee1df16",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-4": "43a9cdb72943d9522cd7d8a75a9b5f6674e3fa4e076b1df3792957619f089dd9",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-5": "bb027d172491e320104b4d5ba8e4e9a80e3cadc15cc1cac97dc64de741ed202e",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-6": "284f546fd6a6d41a4df764b00ccae5a62f4bd7c5f156140d45e23abc581f3acd",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-7": "7290cf1ef3c5f4c1d2efd7c6ef32c18fafc33ded7154b99b37386aa8b3b7ccdd",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan1-UCS2": "0e392f53d43bfb3e26ee459bd198e133faf61f97ddcc980e433a8965632c3671",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Japan2-0": "e7c0a1a9eed5971c2b7cbfa9684d578a82facb14eb00e904e4fe2b885df417d1",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Korea1-0": "6ef218726585b71e563a23d9978d47df58c40ca6fe7e77954af4c2ea5b28fd26",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Korea1-1": "d1e84a360208a70d1eb50e2d751bfd9eaca7f2806365831839505744eb7ea096",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Korea1-2": "b9ca3d49b1d36eb883fb878aecc88120ebb227f01a463866e2fc0b2aa6ca9ef0",
+      "assets/com/tom_roush/fontbox/resources/cmap/Adobe-Korea1-UCS2": "aa7cfb680fdafa53e9d9ec054309d56611eb0e568c99e1c1895efb3c94743f6d",
+      "assets/com/tom_roush/fontbox/resources/cmap/B5pc-H": "bdd5f880359612ec71fd3bee930ab4ee2a550fbe7193ae1a0cba727f3b37314b",
+      "assets/com/tom_roush/fontbox/resources/cmap/B5pc-V": "6ea096eb62f99ca54fdefc036bfb21058ba1664fc263411f5f7d3d3307e3c690",
+      "assets/com/tom_roush/fontbox/resources/cmap/CNS-EUC-H": "5bcb99e1829ce797c246462cf79c1e484223449355b4f91070046c7c804ef0eb",
+      "assets/com/tom_roush/fontbox/resources/cmap/CNS-EUC-V": "4e9dd5c2bac3283d7d582dc69c5b2fc1de612ae5d2ed2d257bf48a69c1b06bb5",
+      "assets/com/tom_roush/fontbox/resources/cmap/ETen-B5-H": "b885a24a86a0adee73c724b636facce5b33351155bc26adb320a797afee1effa",
+      "assets/com/tom_roush/fontbox/resources/cmap/ETen-B5-V": "c8ec6c4af760c07e3b46ed0d586f87a28278518f3adab17bbf78180e16c0bee9",
+      "assets/com/tom_roush/fontbox/resources/cmap/ETenms-B5-H": "98f7bc74c7accb0341398d2d949a4953528f25d38d070ba51d028da1bc3df40c",
+      "assets/com/tom_roush/fontbox/resources/cmap/ETenms-B5-V": "283856f9060d23ad6006cd84dbc22213ac70e83674d96288e3f35e8f2ba8bee9",
+      "assets/com/tom_roush/fontbox/resources/cmap/EUC-H": "02fc3b4034a9550084439ecf24a9cb2a057840cd4c20ff377a8245f0d7fa2f58",
+      "assets/com/tom_roush/fontbox/resources/cmap/EUC-V": "beaf35ca3bc2ad1bbe3d87a295f80393425c347bca7ad33e68958908f04079a9",
+      "assets/com/tom_roush/fontbox/resources/cmap/Ext-RKSJ-H": "ea4cbe2526a53486e48ab7acbb075e29fd8cdee2b056133610854af1510962ab",
+      "assets/com/tom_roush/fontbox/resources/cmap/Ext-RKSJ-V": "d943e0ae518c2bc1eea6b39dfcfab69c396bbdbdbf913c3c070f1cf3d83d54ae",
+      "assets/com/tom_roush/fontbox/resources/cmap/GB-EUC-H": "fa25c5791620ed8dae9d7f199c2c415d4d4b84971f85069ba9802efc2fb054bf",
+      "assets/com/tom_roush/fontbox/resources/cmap/GB-EUC-V": "714c9658f04d00c2ecf40a8c61765fada60122b3ea42cc77698f971d5b5d6cb1",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBK-EUC-H": "9a5dd798943b1a022cc04569c9b219d89b1f2dc11ae3346433d8e5dd55fa518b",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBK-EUC-V": "3f517d357c3aa087361728eddc09f099673eb50896610a56efe5aae400a1d8c6",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBK2K-H": "94b54de60a7949d1ad6d7eafd5fa27f71c9adb5178854fa51a0e4453b7c86381",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBK2K-V": "a78c093fd20cd6518259803c83981308e11d2a6755e2b0b354a85ae67c2251a3",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBKp-EUC-H": "6d69b495381489ee27ce375c4874177e96a20e106331d8d90429d27140e77e16",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBKp-EUC-V": "18ac591fe2129fbbcfcef9b8bbd485e97e5348c492aefc31c2472018a14cb3a7",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBpc-EUC-H": "bb641407340acf3d86ef6c32938799c7b6785e10dcdd539d159d88992fc6c935",
+      "assets/com/tom_roush/fontbox/resources/cmap/GBpc-EUC-V": "80545181928392bcfac425cf3badb115f9b5ede9fbf3ca894e8a2e54a6c0a84b",
+      "assets/com/tom_roush/fontbox/resources/cmap/H": "6a9a490592a6a014b61b8e778da66f27f837558e4de8b40081c821909afd88cf",
+      "assets/com/tom_roush/fontbox/resources/cmap/HKscs-B5-H": "a9d484d9038eebfe056cab89af9304537b94cbe2c56031dbb64c1578391bc8d0",
+      "assets/com/tom_roush/fontbox/resources/cmap/HKscs-B5-V": "fc31fafb887a9af37eed4d1170d1ca6067140c2665b3214e95516a7ccbc7f1ac",
+      "assets/com/tom_roush/fontbox/resources/cmap/Identity-H": "866c40836b501ddc098d4077d8d31e8ab8f4b9f9842db91ea9acf87488e6d7c1",
+      "assets/com/tom_roush/fontbox/resources/cmap/Identity-V": "1c5ae69b98af36325cc8539f4cbe4d041f8b55b497b1e9ea45b3a75c484ed5c2",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSC-EUC-H": "4aa1c382cc5c291e9af14db1a35f8e1a5ddc8507420fdcc16dfb8bd0d9537184",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSC-EUC-V": "963ae7419ae0c87e2d9b56bda40446af4e46453f27a4384bc8b3e8106fee51b4",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSCms-UHC-H": "94ea4aeb4aff7b75dea32fa5425fef6f9a2859d99d001e874fb7948f672ffbb2",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSCms-UHC-HW-H": "317ddb148acf62c396f9610ddabcccb7fb4d8035af247c60184ae8dcaa969eff",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSCms-UHC-HW-V": "d3628080a1e9ea9ba388fc65c3d2ebd80e7f297b3916495ecc57e977dfdbd10f",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSCms-UHC-V": "eb999e7aedff28d89a21c6c3f57d4450dd68054a1f40fa39e0259afad3a6e5cc",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSCpc-EUC-H": "43f20e1fc1b09caf46e0756ace2ac4ee8fb9380c32ab83f18dc2eb608c84c92b",
+      "assets/com/tom_roush/fontbox/resources/cmap/KSCpc-EUC-V": "4fbf738a8f5a2509d576b76b1c0f4a025ee30ceb0918f318098ae55e4aa8870a",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniCNS-UCS2-H": "66d61241fc5753ad3552a323cb9a19df13d7fe8f20d93b4ff3ffdbd612f95c66",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniCNS-UCS2-V": "bcab0409b46fbe543702385af21fcb157a3a48dfdf1c8339b9c207cd475c749a",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniCNS-UTF16-H": "72ca52e339289db8d99f0efec1deda556a21c8aa24ca90b2b286542f1791a3c6",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniCNS-UTF16-V": "9a569876c221587c192ba1051747dddc31025b295380a69e75d7c43652eb336e",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniGB-UCS2-H": "4603049c11199a18eadde1bb868cb9e8fb77b48f9f94cc1a8479dc575dfbe7d7",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniGB-UCS2-V": "2c244746379aab24392bc55faba4970fa536ee3c2c116c9126f4e8f97cd5b59b",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniGB-UTF16-H": "5bd239e20b678428318efb1ba3085c5ff19ea3c82dc4d9ea790efe46aa6bff81",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniGB-UTF16-V": "d5f7dd7c6ddd6b5d39a971a728c5d721fc1786227b3f1725bf8d26ce6dd530a4",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniJIS-UCS2-H": "25a5fa588b689c13501498d08d34866b77c42582e6299a4e223849db9281e86b",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniJIS-UCS2-HW-H": "3008e520b23f8d3838f2463efb1a9842f66adca29cbecf15cd6bda1955788e57",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniJIS-UCS2-HW-V": "45d7bd6e0cbf31853e3b517d5b6d2939e0831d86ca4318887a059967b9512545",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniJIS-UCS2-V": "cf815152be6bee432087f63fba26345b581d718c7ce5ba4560fd6ebde8f2ad2a",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniJIS-UTF16-H": "d2fd8b3c6001ea398c04e0f910e0bc63819405e5ae63a167d93d2a2160466afa",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniJIS-UTF16-V": "f18385a7fdf57183091f9cadc8fbfbf27712284934f04ae44f3a4d3bdefa032f",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniKS-UCS2-H": "bd4277d5ae23f3a92252cc54e6449c240d25c918c3b91f6abbccb1a2be4b9acf",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniKS-UCS2-V": "904f9c063ab89075b09bf2c471cfc2ac4db6604c3a2ae29a08c9c37761a353e4",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniKS-UTF16-H": "ddd37676e3ae5ced89062cd2c8c859dda4363f5a835c16aca989855f47b1f70c",
+      "assets/com/tom_roush/fontbox/resources/cmap/UniKS-UTF16-V": "334ae271967e8bc786efd35283c615e99c23052b43e15039cc656b8954ee2a18",
+      "assets/com/tom_roush/fontbox/resources/cmap/V": "8eea3990962a4c5dd9565fcdfd30497747b6004940bb8d71fa2e0b0669eb9237",
+      "assets/com/tom_roush/fontbox/resources/unicode/Scripts.txt": "47744a58fa24e82df8258ea1e866a058ae87f9f78304964cf1ddad0a3657bfd8",
+      "assets/com/tom_roush/pdfbox/resources/afm/Courier-Bold.afm": "1e86f0a949e316c08df32adc2fc2e2a92ed9902ffd54e3516e5a66a32db856da",
+      "assets/com/tom_roush/pdfbox/resources/afm/Courier-BoldOblique.afm": "e1349f5f306b16338972eaf7f43d7913535cc075a15189b5f3efc841aee3d02e",
+      "assets/com/tom_roush/pdfbox/resources/afm/Courier-Oblique.afm": "9e3494b4abb127a6586c095a377924514dd6956973f8f3b0bd7d6d00fcc89ea6",
+      "assets/com/tom_roush/pdfbox/resources/afm/Courier.afm": "e72833dda79161e3aaf385adfeb59c61c89a4a3e184f27d21c178056eea30e17",
+      "assets/com/tom_roush/pdfbox/resources/afm/Helvetica-Bold.afm": "59ac93091bc7e76eb6baf60210526a4df88fe107dd5e13eb0ae70c9fc6d91fb9",
+      "assets/com/tom_roush/pdfbox/resources/afm/Helvetica-BoldOblique.afm": "1f848276efd76c0e5020ef98ccb459005f5a022f56cb8579e52c98e33ffab03b",
+      "assets/com/tom_roush/pdfbox/resources/afm/Helvetica-Oblique.afm": "8c00ac46ca5963df22d4fc1153ea1246c8778475820378640c8d54d4fd3a46fe",
+      "assets/com/tom_roush/pdfbox/resources/afm/Helvetica.afm": "5654761eab868ccb3080122accf13b4fb79edf37af09e1c57a881c35c334ee03",
+      "assets/com/tom_roush/pdfbox/resources/afm/Symbol.afm": "13eeef80def2f9a8d3a31a980731376823e8b48340ff3891ffc1cc0299c0b4fe",
+      "assets/com/tom_roush/pdfbox/resources/afm/Times-Bold.afm": "37efa084183acfb06f45ad73bd75f6dd09b20d1e498c66ce1b9aa72b00db4ac7",
+      "assets/com/tom_roush/pdfbox/resources/afm/Times-BoldItalic.afm": "1bf83cee5300d4de1ce90681a2a2d70fd1876c664e91c1c4c6b6b5b12873b6da",
+      "assets/com/tom_roush/pdfbox/resources/afm/Times-Italic.afm": "2f34d3bc49530532daa690aec165b68368162d4c27d24fbe6a3fb24aae49a74a",
+      "assets/com/tom_roush/pdfbox/resources/afm/Times-Roman.afm": "b6dbde33196ff61f051f8468fb81a0dece63997a80b7fba058e8295f49480026",
+      "assets/com/tom_roush/pdfbox/resources/afm/ZapfDingbats.afm": "d3e7b9f6366ab0df06acbb217c8586c5962ff2efbd4e1b5566c7eaf5b745dd41",
+      "assets/com/tom_roush/pdfbox/resources/glyphlist/additional.txt": "b4329742fc6c6d35ecf66fb7ae23099b2a8274f43a7a96fd8b5a6b79090cd9de",
+      "assets/com/tom_roush/pdfbox/resources/glyphlist/glyphlist.txt": "4f71046e46ced81d1e636d595a372fcb63d4696444c497ef1c59224478745351",
+      "assets/com/tom_roush/pdfbox/resources/glyphlist/zapfdingbats.txt": "e1afd7b8676d20a5b25a92342ad59e209ee6722708d1f7892353fa4e0fd879c7",
+      "assets/com/tom_roush/pdfbox/resources/text/BidiMirroring.txt": "350d1302116194b0b21def287434b55c5088098fbc726e879f7420a391965643",
+      "assets/com/tom_roush/pdfbox/resources/ttf/LiberationSans-Regular.ttf": "76d04c18ea243f426b7de1f3ad208e927008f961dc5945e5aad352d0dfde8ee8",
+      "assets/licenses/android-NDK-NOTICE.txt": "25fcec60cfe677e2d5f18cb08e9d6058fd08fe330f1472b32f5c100d391f577b",
+      "assets/licenses/android-toolchain-NOTICE.txt": "29a2f78e36f309749b33f366ef39c8f75b55ce618adad70ce6a7af26440c79da",
+      "assets/licenses/bouncycastle-LICENSE.html": "537e0e2946266c2b5049c12b1934543c301e6b45f283dce17ad64aad4ae2ccfc",
+      "assets/licenses/dohnuts-Apache-2.0.txt": "9bf4e882bdd75e8d10fc788c53d0a787ef0f59cead1fe1f0878c240896fc8610",
+      "assets/licenses/llama-MIT.txt": "bcd8ec749126d45cb06737d0690295d73df4b6e7e194205bcf91190368f27285",
+      "assets/licenses/pdfbox-android-LICENSE.txt": "8ceed6051cbd7f6d5d56bad8ca5e73f0414fb13cbe0c4170f7c4c9beaa1a7679",
+      "assets/licenses/pdfbox-android-NOTICE.txt": "8191c60848b9e5666a1ee50a65a7f6eab7339dc1ea20b52092f3eac5ef10d0cd"
+    }
+  },
+  "limits": "Static alignment is not 16KiB runtime validation; QA signature/package differ from production. Signing and exact signed-device acceptance pending."
+}
