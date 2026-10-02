@@ -1,5 +1,7 @@
 # Current implementation and known gaps
 
+**Release preparation:** source is now **0.19.0-rc1 / code 21**. See the [production candidate, build/signing workflow and remaining gates](release-0.19.md). The frozen 0.18 user-test APK and its performance evidence remain unchanged; the candidate is not a signed production delivery.
+
 **Outpost 0.18.0 / version code 20**, checked on 2026-10-02. Canonical source: `E:/projects/outpost`, branch `codex/outpost`. The product is an English offline Android chat with an empty initial knowledge library. [Validation](validation-0.18.md) owns exact artifact identities/results; the [roadmap](roadmap.md) owns remaining tasks.
 
 The owner authorized the connected Pixel 10 Pro on 2026-10-01. [The Pixel protocol](pixel10-testing.md) records preparation, run identities and current physical validation status. Historical emulator results below are not phone results.

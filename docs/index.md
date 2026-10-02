@@ -1,5 +1,7 @@
 # Documentation index
 
+**Release preparation:** source is now **0.19.0-rc1 / code 21**. See the [production candidate, build/signing workflow and remaining gates](release-0.19.md). The frozen 0.18 user-test APK and its performance evidence remain unchanged; the candidate is not a signed production delivery.
+
 **Outpost 0.18.0 / version code 20**, maintained English documentation updated through **2026-10-02**. Canonical repository: `E:/projects/outpost`. Start with [AGENTS.md](../AGENTS.md), [handoff](handoff.md) and [current validation](validation-0.18.md).
 
 ## Reading paths and ownership

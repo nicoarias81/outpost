@@ -1,6 +1,6 @@
 # Third-party dependencies and model provenance
 
-Product baseline: Outpost 0.16.0, with ARM optimization and the separately identified Spark research profile. Runtime/model identities remain pinned; PDF extraction adds the dependencies listed below. Model and dependency identities refer to the locked files used by this prototype, not automatically to newer upstream releases. This file preserves dependency notices; it does not select a license for this project's own code.
+Frozen product baseline: Outpost 0.18.0; release candidate 0.19.0-rc1, with ARM optimization and the separately identified Spark research profile. Runtime/model identities remain pinned; PDF extraction adds the dependencies listed below. Model and dependency identities refer to the locked files used by this prototype, not automatically to newer upstream releases. This file preserves dependency notices; it does not select a license for this project's own code.
 
 ## llama.cpp
 
@@ -92,3 +92,7 @@ The application uses Android's XML pull parser and JSON reader; no map SDK or ad
 ## Owned row-kernel work in 0.14
 
 The two-row Q2 helper, phase-separated runtime settings and tests are project-owned extensions to the existing wrappers. No DeepGEMM-Ascend code, CANN/TorchNPU dependency, new model or vendor patch was imported. [Measured scope](docs/kernel-rows-0.14.md) distinguishes the conceptual reference from our implementation and rejects unsupported hardware/model-performance claims.
+
+## Production candidate packaging in 0.19
+
+The Kev auxiliary head and its configuration are debug-only assets. Release excludes them and exposes only product JNI functions; existing notices remain intact. Models stay separate from the APK. Settings now provides offline access to packaged notices. No dependency, model or own-code license was changed. See [release preparation](docs/release-0.19.md).

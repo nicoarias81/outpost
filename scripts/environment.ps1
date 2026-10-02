@@ -23,10 +23,14 @@ function ConvertTo-OutpostArgumentString([string[]]$Arguments) {
 function Get-OutpostSourceFingerprint([ValidateSet('main','androidTest')][string]$Scope='main') {
     $root = Split-Path $PSScriptRoot -Parent
     $files = @(Get-ChildItem -LiteralPath (Join-Path $root "app/src/$Scope") -Recurse -File)
+    foreach ($variant in @('debug','release','releaseQa','releaseTest')) {
+        $variantRoot=Join-Path $root "app/src/$variant"
+        if(Test-Path -LiteralPath $variantRoot){$files+=Get-ChildItem -LiteralPath $variantRoot -Recurse -File}
+    }
     foreach ($name in @('app/build.gradle','build.gradle','settings.gradle','gradle.properties',
         'gradle/wrapper/gradle-wrapper.properties','gradle/wrapper/gradle-wrapper.jar',
         'pdfbox-lock.json','llama-revision.txt','toolchain-lock.json','model-lock.json','bonsai-lock.json','judge-lock.json',
-        'scripts/build.ps1','scripts/environment.ps1')) {
+        'scripts/build.ps1','scripts/build-release.ps1','scripts/environment.ps1','eval/audit-release.py')) {
         $path = Join-Path $root $name
         if (-not (Test-Path -LiteralPath $path)) { throw "Required build input is missing: $name" }
         $files += Get-Item -LiteralPath $path

@@ -10,4 +10,5 @@
   <item type="id" name="folder_report" />
   <item type="id" name="documents_previous" />
   <item type="id" name="documents_next" />
+  <item type="id" name="release_about" />
 </resources>

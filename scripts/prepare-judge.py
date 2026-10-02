@@ -18,7 +18,7 @@ def fetch(item):
     if target.stat().st_size != item['size']:
         raise RuntimeError('Wrong size: ' + item['file'])
     if not item['file'].endswith('.gguf'):
-        assets = ROOT / 'app/src/main/assets/kev'
+        assets = ROOT / 'app/src/debug/assets/kev'
         assets.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(target, assets / item['file'])
 

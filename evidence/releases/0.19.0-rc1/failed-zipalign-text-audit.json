@@ -1,0 +1,42 @@
+{
+  "passed": false,
+  "checks": [
+    {
+      "name": "package dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "version dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "non-debuggable dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "no permissions or instrumentation dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "no auxiliary components dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "one launcher activity dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "backup disabled dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "no debug or testOnly flag dev.outpost.app",
+      "passed": true
+    },
+    {
+      "name": "16KiB ZIP alignment dev.outpost.app",
+      "passed": false
+    }
+  ],
+  "error": "16KiB ZIP alignment dev.outpost.app"
+}

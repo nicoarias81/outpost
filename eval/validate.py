@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Host-only validator for eval/fixtures-v11.json.
+"""Host-only validator for eval/fixtures-v12.json.
 
 Run from the repository root as:  python eval/validate.py
 
@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-MANIFEST_PATH = ROOT / "eval" / "fixtures-v11.json"
+MANIFEST_PATH = ROOT / "eval" / "fixtures-v12.json"
 LIBRARY_PATH = ROOT / "app" / "src" / "androidTest" / "assets" / "library.json"
 MODEL_LOCK_PATH = ROOT / "model-lock.json"
 BONSAI_LOCK_PATH = ROOT / "bonsai-lock.json"
@@ -405,7 +405,7 @@ def check_09_identity_locks(manifest, model_lock, bonsai_lock, judge_lock, llama
                     if aux.get("sha256") != aux_match.get("sha256"):
                         problem("check 9: kev auxiliary file %r sha256 does not match judge-lock.json"
                                 % aux_file)
-                    expected_path = "app/src/main/assets/kev/" + str(aux_file)
+                    expected_path = ("app/src/debug/assets/kev/" if manifest.get("manifest_version", 0) >= 12 else "app/src/main/assets/kev/") + str(aux_file)
                     if aux.get("path") != expected_path:
                         problem("check 9: kev auxiliary file %r path %r != expected %r"
                                 % (aux_file, aux.get("path"), expected_path))
@@ -729,7 +729,7 @@ def main():
     global MANIFEST_PATH
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--manifest", default="eval/fixtures-v11.json")
+    parser.add_argument("--manifest", default="eval/fixtures-v12.json")
     args = parser.parse_args()
     MANIFEST_PATH = ROOT / args.manifest
     manifest = load_json(MANIFEST_PATH, str(MANIFEST_PATH.relative_to(ROOT)))
@@ -774,7 +774,7 @@ def main():
     check_network_permission_claim(manifest, android_manifest_text)
 
     if PROBLEMS:
-        print("FAILED: eval/fixtures-v11.json has %d problem(s):" % len(PROBLEMS))
+        print("FAILED: eval/fixtures-v12.json has %d problem(s):" % len(PROBLEMS))
         for index, message in enumerate(PROBLEMS, start=1):
             print("%3d. %s" % (index, message))
         for message in WARNINGS:
@@ -785,7 +785,7 @@ def main():
     tier_counts = {}
     for fixture in fixtures:
         tier_counts[fixture.get("tier")] = tier_counts.get(fixture.get("tier"), 0) + 1
-    print("OK: eval/fixtures-v11.json is internally consistent with the pinned lock files "
+    print("OK: eval/fixtures-v12.json is internally consistent with the pinned lock files "
           "and application sources.")
     print("Fixtures: %d total (%s)" % (len(fixtures), ", ".join(
         "%s: %d" % (tier, tier_counts[tier]) for tier in sorted(tier_counts))))

@@ -1,5 +1,7 @@
 # Outpost
 
+**Release preparation:** source is now **0.19.0-rc1 / code 21**. See the [production candidate, build/signing workflow and remaining gates](docs/release-0.19.md). The frozen 0.18 user-test APK and its performance evidence remain unchanged; the candidate is not a signed production delivery.
+
 Current runtime update: [0.18 validation](docs/validation-0.18.md) combines guarded I8MM prefill with six-worker normal decoding and original four-way attention arithmetic on the exact Pixel/Bonsai4 profile. Complete paired answers preserve every logit/token; direct combined-stack timings and all limits are recorded with raw evidence.
 
 Historical performance update (2026-10-01): [Outpost 0.15 validation](docs/validation-0.15.md) enables bit-preserving ARM DotProd kernels and persistent workers. On the tested Pixel/Bonsai workloads, identical complete outputs took about 5.8–6.2× less native time; first-token latency improved about 3.2–3.3×. Other-device and answer-quality work remain open.
@@ -44,7 +46,7 @@ pwsh -File scripts/test-knowledge.ps1 -SkipInstall
 
 The offline flag requires cached dependencies. Read the [emulator runbook](docs/emulator-runbook.md) before any runtime work. The commands above retain emulator guards. Candidate/ARM and isolated chat wrappers also accept the specifically registered Pixel through its separate protocol. Model execution never runs on the host. Tests install synthetic content only for isolated checks and clean up their own inputs. Run the listed checks sequentially and stop on any nonzero exit code; `-Generate` is optional and requires an installed verified Bonsai 4B model.
 
-Publish the local debug artifact with `scripts/publish-artifact.ps1`, then verify it with `-Verify`. See [validation](docs/validation-0.15.md) for the exact filename, hash, checked build and limits. A debug candidate is not a signed production release. Project license, release signing, public distribution and broader field trials remain separate work; the existing GitHub remote is private.
+Publish the local debug artifact with `scripts/publish-artifact.ps1`, then verify it with `-Verify`. See [validation](docs/validation-0.18.md) for the frozen user-test filename, hash, checked build and limits. A debug candidate is not a signed production release. Project license, release signing, public distribution and broader field trials remain separate work; the existing GitHub remote is private.
 
 Use the [documentation index](docs/index.md) to find architecture, decisions, source contracts, test procedures and remaining work.
 

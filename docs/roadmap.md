@@ -1,6 +1,6 @@
 # Roadmap and actionable backlog
 
-Baseline: Outpost 0.16.0; [current validation](validation-0.16.md). Chat/Settings, seed removal, bounded PDF extraction and ARM64 packaging are implemented; quality and broader physical-device acceptance remain separate. R-01 through R-04 are implemented and validated in the [0.8.1 report](validation-0.8.1.md). Field-answer quality remains separate open work. All other tasks below are **open** unless explicitly labeled otherwise. Priorities express sequence and dependencies, not dates or committed effort estimates. Owner is unassigned. The [current-state inventory](current-state.md) lists already implemented features.
+Frozen delivery: Outpost 0.18.0; [current validation](validation-0.18.md). Source candidate 0.19.0-rc1 is in [production release preparation](release-0.19.md). Chat/Settings, seed removal, bounded PDF extraction and ARM64 packaging are implemented; quality and broader physical-device acceptance remain separate. R-01 through R-04 are implemented and validated in the [0.8.1 report](validation-0.8.1.md). Field-answer quality remains separate open work. All other tasks below are **open** unless explicitly labeled otherwise. Priorities express sequence and dependencies, not dates or committed effort estimates. Owner is unassigned. The [current-state inventory](current-state.md) lists already implemented features.
 
 ## Milestones
 
@@ -142,3 +142,13 @@ The [initial Pixel study](speculation-pixel-2026-10-01.md) completes sample trac
 ## P-02 — I8MM prefill admitted in 0.18
 
 [Current validation](validation-0.18.md) adds exact I8MM matrix work and direct final-stack comparisons without multiplying prior gains. More efficient fixed-attention scheduling, other hardware, sustained low-memory behavior and actual energy remain open. TND-03 must measure against the new 6/6 + attention 4 + I8MM baseline; the existing speculative configuration remains disabled. No trained MTP/Engram was added.
+
+## Release closure
+
+| ID | State | Acceptance |
+|---|---|---|
+| REL-01 | Implemented in 0.19 RC | Non-debuggable release APK/AAB, debug-only research assets, native export allowlist, guarded generation policies, static artifact checks and isolated QA runner; executed evidence in release document |
+| REL-02 | Open | Owner-selected signing identity, backed-up key and certificate pin; exact signed install/update validation without destroying debug-install data |
+| REL-03 | Open | Owner channel/license decision (R-05), first-user setup trial, reviewed field-question acceptance, reliability gates and distribution artifacts |
+
+Freeze new kernel/model work while closing these release gates. Do not relabel the existing debug APK or QA certificate as production.

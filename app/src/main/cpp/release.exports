@@ -1,0 +1,11 @@
+{
+  global:
+    Java_dev_outpost_app_NativeEngine_nativeCreate;
+    Java_dev_outpost_app_NativeEngine_nativeCancel;
+    Java_dev_outpost_app_NativeEngine_nativeClose;
+    Java_dev_outpost_app_NativeEngine_nativeClearCache;
+    Java_dev_outpost_app_NativeEngine_nativeGenerate;
+    Java_dev_outpost_app_NativeEngine_kernelName;
+    Java_dev_outpost_app_NativeEngine_kernelProfile;
+  local: *;
+};

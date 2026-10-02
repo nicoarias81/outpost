@@ -58,4 +58,9 @@
   <string name="chat_remove_pack_confirm">This document belongs to a knowledge pack. Remove the entire pack and its retained versions? Chat references to the pack will become unavailable.</string>
   <string name="chat_pdf_loading">Opening original page…</string>
   <string name="chat_archived_source">Older document version. A newer version may be available.</string>
+  <string name="release_about">About and privacy</string>
+  <string name="release_version">Outpost %1$s</string>
+  <string name="release_notices">Third-party notices</string>
+  <string name="release_notice_error">Could not open this notice.</string>
+  <string name="release_privacy">Outpost works on your device. It has no network permission, accounts, analytics or automatic uploads.\n\nImported documents, models and your conversation are stored locally. File providers you choose may have their own network access. Import needed files before going offline.\n\nNew chat removes the conversation. Remove documents from Settings. Uninstalling Outpost removes its private data; application backup is disabled.</string>
 </resources>

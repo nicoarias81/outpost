@@ -259,8 +259,35 @@ public final class MainActivity extends Activity {
         Button clear=button(getString(R.string.chat_new),PAPER,INK);clear.setId(R.id.chat_new);clear.setEnabled(answerDone&&!importing);
         clear.setOnClickListener(v->new AlertDialog.Builder(this).setTitle(R.string.chat_new).setMessage(R.string.chat_clear_confirm)
             .setNegativeButton(R.string.cancel_action,null).setPositiveButton(R.string.chat_clear,(d,w)->worker.execute(()->{chats.clear();runOnUiThread(()->{if(!closed){turns.clear();draft="";showChat();}});})).show());add(content,clear,12,48);
+        Button about=button(getString(R.string.release_about),PAPER,GREEN);about.setId(R.id.release_about);
+        about.setOnClickListener(v->showAbout());add(content,about,24,48);
         if(importing&&folderCancellation==null)add(content,text(getString(R.string.chat_importing),14,GREEN),16,0);
         if(!answerDone)add(content,text(getString(R.string.chat_wait_reply),13,MUTED),16,0);
+    }
+    void showAbout() {
+        String version;
+        try{version=getPackageManager().getPackageInfo(getPackageName(),0).versionName;}
+        catch(android.content.pm.PackageManager.NameNotFoundException impossible){version="";}
+        new AlertDialog.Builder(this).setTitle(getString(R.string.release_version,version))
+            .setMessage(R.string.release_privacy)
+            .setNeutralButton(R.string.release_notices,(d,w)->showNotices())
+            .setPositiveButton(R.string.chat_done,null).show();
+    }
+    private void showNotices() {
+        try{
+            String[] names=getAssets().list("licenses");java.util.Arrays.sort(names);
+            new AlertDialog.Builder(this).setTitle(R.string.release_notices).setItems(names,(d,index)->worker.execute(()->{
+                try(InputStream input=getAssets().open("licenses/"+names[index])){
+                    ByteArrayOutputStream bytes=new ByteArrayOutputStream();copyBounded(input,bytes,4*1024*1024);String notice=bytes.toString(StandardCharsets.UTF_8.name());
+                    runOnUiThread(()->{if(closed)return;
+                        TextView body=text("",14,INK);body.setText(names[index].endsWith(".html")?android.text.Html.fromHtml(notice,android.text.Html.FROM_HTML_MODE_LEGACY):notice);
+                        body.setTextIsSelectable(true);body.setPadding(dp(18),dp(12),dp(18),dp(12));
+                        ScrollView scroll=new ScrollView(this);scroll.addView(body);
+                        new AlertDialog.Builder(this).setTitle(names[index]).setView(scroll).setPositiveButton(R.string.chat_done,null).show();
+                    });
+                }catch(Exception e){error(getString(R.string.release_notice_error));}
+            })).setNegativeButton(R.string.chat_done,null).show();
+        }catch(Exception e){error(getString(R.string.release_notice_error));}
     }
     private static String modelName(ModelStore.Spec spec){return spec==ModelStore.BONSAI4?"Bonsai 4B":spec==ModelStore.BONSAI17?"Bonsai 1.7B":"Qwen 1.5B";}
     private void manageModel() {

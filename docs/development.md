@@ -1,5 +1,7 @@
 # Developer guide
 
+**Release preparation:** source is now **0.19.0-rc1 / code 21**. See the [production candidate, build/signing workflow and remaining gates](release-0.19.md). The frozen 0.18 user-test APK and its performance evidence remain unchanged; the candidate is not a signed production delivery.
+
 Current baseline: **Outpost 0.18.0**, Windows/PowerShell host. Work from `E:/projects/outpost`. The APK packages x86_64/ARM64; execution is allowed on Outpost35/emulator-5582 or the specifically registered Pixel10Pro. Read [the emulator guide](emulator-runbook.md) or [the Pixel protocol](pixel10-testing.md) before runtime work. Host inference remains outside scope.
 
 ## Environment and preparation

@@ -26,7 +26,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--sdk", required=True)
     parser.add_argument("--serial", default="emulator-5582")
-    parser.add_argument("--manifest", default="eval/fixtures-v11.json")
+    parser.add_argument("--manifest", default="eval/fixtures-v12.json")
     parser.add_argument("--model", choices=["qwen15", "bonsai17", "bonsai4"], default="bonsai4")
     parser.add_argument("--variants", default="baseline,candidate")
     parser.add_argument("--fixtures", default="")

@@ -1,0 +1,69 @@
+{
+  "runId": "release-qa-20261002T054518Z-cd5f089d",
+  "target": "Outpost35",
+  "device": {
+    "ro.kernel.qemu": "1",
+    "ro.boot.qemu.avd_name": "Outpost35",
+    "ro.product.manufacturer": "unknown",
+    "ro.product.model": "Android SDK built for x86_64",
+    "ro.product.device": "emu64x",
+    "ro.product.cpu.abi": "x86_64",
+    "ro.build.version.release": "15",
+    "ro.build.version.sdk": "35",
+    "ro.build.version.security_patch": "2024-09-05",
+    "ro.build.fingerprint": "Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys",
+    "ro.soc.manufacturer": "AOSP",
+    "ro.soc.model": "ranchu",
+    "sys.boot_completed": "1"
+  },
+  "receipt": {
+    "schemaVersion": 1,
+    "runId": "release-20261002T054516Z-8b4af162",
+    "builtAtUtc": "2026-10-02T05:45:16.6347239Z",
+    "mainSourcesSha256": "c94e8354ef0747f3f4ee42fd9590bc2662d7223a16569323a6a04f5a4ba0c962",
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "artifacts": [
+      {
+        "bytes": 23432335,
+        "sha256": "d0aca81fa83a40a7b9f90eccf846cb9c77b6216faa1a5e65829fc56ce5d7ee4c",
+        "path": "app/build/outputs/apk/release/app-release-unsigned.apk"
+      },
+      {
+        "bytes": 17361549,
+        "sha256": "2c5f5fc284c98cd0c5839a64d3ee62285233f94740badd12f4d8b88f039f5f55",
+        "path": "app/build/outputs/bundle/release/app-release.aab"
+      },
+      {
+        "bytes": 23436443,
+        "sha256": "017f76c3f55f554eeb185146d1149bce23031cb8473b78c3284e8a3e08b6ef14",
+        "path": "app/build/outputs/apk/releaseQa/app-releaseQa.apk"
+      },
+      {
+        "bytes": 19420,
+        "sha256": "31237d1fa0bae7b325ec3b4d244372af69951cb044f5c02cf04b2375fb59e751",
+        "path": "app/build/outputs/apk/androidTest/releaseQa/app-releaseQa-androidTest.apk"
+      }
+    ],
+    "scope": "Unsigned production candidate; debug-signed non-debuggable QA twin. Not approved for distribution or exact signed-device acceptance."
+  },
+  "passed": true,
+  "originalApks": {
+    "dev.outpost.app": "93b91e7fe5e9ac0363488fb07b000f2ea4355199337946dc3f6cdeb9c3ff5d35",
+    "dev.outpost.app.test": "1fb39c9df410c54de0bedcf09097df3ca2fb621d6745d4cb3a08bf2e6ccc1ef6"
+  },
+  "originalApksUnchanged": true,
+  "phases": [
+    {
+      "passed": true,
+      "checks": 21,
+      "phase": "smoke"
+    },
+    {
+      "passed": true,
+      "checks": 14,
+      "phase": "generate"
+    }
+  ],
+  "limits": "Non-debuggable QA package with production native bytes/assets; debug QA certificate and separate application ID. Exact production signature acceptance remains pending.",
+  "radioSettingsUnchanged": true
+}

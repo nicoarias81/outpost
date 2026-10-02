@@ -1,12 +1,12 @@
 # Local data, provenance and trust boundaries
 
-Current controls in **Outpost 0.12.0**, checked against the implementation. This is not a security certification.
+Current product controls through **Outpost 0.18.0**, with 0.19.0-rc1 release preparation, checked against the implementation. This is not a security certification.
 
 ## Application boundary
 
 The [product manifest](../app/src/main/AndroidManifest.xml) declares no permissions, disables application backup and has no service, analytics, account, cloud inference, synchronization or arbitrary tool executor. The launcher Activity is exported for normal app launch. Documents/models enter through Android's picker and become app-private copies. External document providers may use their own network connection; offline availability requires their bytes to be locally readable at import time.
 
-The user candidate is debug-signed. Test instrumentation is a separate APK, not a component bundled into the user candidate. Production signing, debug-surface review and public distribution remain open. Backup settings are not a promise of protection against device compromise or all data loss.
+The frozen 0.18 user-test candidate is debug-signed. The [0.19 production candidate](release-0.19.md) is explicitly non-debuggable, has a seven-function native export allowlist and rejects experimental generation policies; research head assets are debug-only. Test instrumentation remains a separate APK. The separate release QA package uses a debug certificate solely for testing. Production signing, exact signed-device acceptance and distribution remain open. Backup settings are not a promise of protection against device compromise or all data loss.
 
 ## Input controls
 

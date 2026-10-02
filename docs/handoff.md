@@ -1,5 +1,7 @@
 # Engineering handoff — start here
 
+**Release preparation:** source is now **0.19.0-rc1 / code 21**. See the [production candidate, build/signing workflow and remaining gates](release-0.19.md). The frozen 0.18 user-test APK and its performance evidence remain unchanged; the candidate is not a signed production delivery.
+
 Updated 2026-10-02. Current local delivery: **Outpost 0.18.0 / code 20**, canonical repo `E:/projects/outpost`, branch `codex/outpost`, app `dev.outpost.app`. Read [validation](validation-0.18.md), [capability inventory](current-state.md), [runtime](inference-runtime.md) and [documentation index](index.md).
 
 ## Scope and constraints
@@ -13,7 +15,7 @@ Updated 2026-10-02. Current local delivery: **Outpost 0.18.0 / code 20**, canoni
 
 0.18 enables `matrixKernel=1` only on the exact Pixel/Bonsai4 compiled/ISA-qualified profile, with six graph workers and `attentionThreads=4`. Vector/single-column decoding remains DotProd; matrix-node audits report actual I8MM use. 65,029,512 numeric comparisons and the final same-APK original-policy versus current-policy comparison pass. Use the current validation for combined measured gains; do not multiply 0.17 and I8MM-only ratios. Weight/model/backend/sampler/precision and limits stay pinned.
 
-Final phases: `i8mm-numeric`, `i8mm-lifecycle`, `stack-confirm`, `-CandidateAdmission`, `-Generate`, plus x86 regression. Current build outputs match the validated 0.18 receipt. The Pixel is restored to the original 0.16 pair, so -SkipInstall must reject it until matching current APKs are installed. See `.local/overnight-progress.json` for any later experiment; no work should be active at this release checkpoint.
+Final phases: `i8mm-numeric`, `i8mm-lifecycle`, `stack-confirm`, `-CandidateAdmission`, `-Generate`, plus x86 regression. The 0.18 archive retains its validated receipt; current build outputs belong to release preparation. The Pixel is restored to the original 0.16 pair, so -SkipInstall must reject it until matching current APKs are installed. See `.local/overnight-progress.json` for any later experiment; no work should be active at this release checkpoint.
 
 ## Delivery and runtime
 
@@ -23,7 +25,7 @@ The exact Pixel/Bonsai4 preset is **6 decode/6 prompt workers, four logical atte
 
 `NativeEngine.Configuration` has 15 fields including `attentionThreads` and `matrixKernel`; old constructors default added fields to 0. `attentionThreads=4` requires 6/6 and speculation 0; `matrixKernel=1` requires that fixed-attention profile. Both join cache identity and profile persistence; the ARM key is `q2-arm-i8mm-attn4-v1`. MainActivity must use `Profile.configuration(!m.lowMemory)`. Single-query prefill tails also need the fixed attention policy. Changing the pinned backend requires checking its barrier contract. I8MM matrix execution is now admitted under explicit guards; VNNI remains unimplemented. Hardware capability alone is not an executed kernel.
 
-The current source/build APKs are the validated 0.18 pair. The Pixel has been restored to original frozen 0.16 app `095c5c56995e3de9947d0125a0757387c429191cf0602700f7d5b9b8c036239f` / test `92d2c533b1aaff6267c1607b46f6219351589da83bf62ea3b1b1fa4f0c0fa0d0`, with original stores/settings. Outpost35 is restored too. Therefore `-SkipInstall` must reject the phone until the matching new pair is installed. No test or install workflow should remain active at this checkpoint.
+The frozen 0.18 pair remains the performance reference; current build outputs are 0.19.0-rc1 debug and release candidates. The Pixel has been restored to original frozen 0.16 app `095c5c56995e3de9947d0125a0757387c429191cf0602700f7d5b9b8c036239f` / test `92d2c533b1aaff6267c1607b46f6219351589da83bf62ea3b1b1fa4f0c0fa0d0`, with original stores/settings. Outpost35 is restored too. Therefore `-SkipInstall` must reject the phone until the matching new pair is installed. No test or install workflow should remain active at this checkpoint.
 
 ## Safe resumption
 
@@ -47,3 +49,7 @@ Strict UTF-8 TXT/Markdown/CSV, text-bearing PDF and OSM XML/Overpass JSON are su
 I8MM prefill is now implemented and validated; retain its original-lane accumulation and in-place activation contract. Next candidates include reducing fixed-attention synchronization waste and broader hardware/energy work. Keep latency, CPU time, storage effects and actual energy separate. [Roadmap](roadmap.md) owns other task IDs.
 
 Known content failures remain: model facts, row/range filtering, applicability and citation binding. Continue structured-source operations, representative personal/regional data, real picker/folder/OSM coverage, process-death/storage-pressure recovery and broader device/energy tests. OCR/Office/ZIM, trained MTP/Engram and other models remain separate work. Pixel page size 4096; 16KiB/GrapheneOS unvalidated. Keep the fixture provider registered; cleanup hides roots and revokes grants rather than disabling it.
+
+## Release candidate resumption
+
+Start with [0.19 release closure](release-0.19.md). The current release receipt/audit is archived under `evidence/releases/0.19.0-rc1`; unsigned local APK/AAB are frozen in dist. Separate non-debuggable `dev.outpost.app.releaseqa` and its test package remain on Outpost35 with synthetic data. Original app/test APKs and radios are unchanged; Pixel was not touched in this pass. Debug build and research assets remain available, v12 fixtures are current. No active device workflow remains after the recorded final run. Channel, code-license policy and production signing identity require owner decisions. Final signed-device acceptance, field quality and reliability gates remain open; do not resume kernel experiments as the next release task.

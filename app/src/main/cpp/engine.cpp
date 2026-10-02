@@ -290,6 +290,10 @@ Java_dev_outpost_app_NativeEngine_nativeGenerate(JNIEnv *env, jclass, jlong id,
     jint max_tokens,jint template_policy,jint sampler_policy,jint seed,jint threads,jint prompt_threads,jint batch_size,jboolean cache,jint matrix_width,
     jint spec_depth,jboolean adaptive,jint row_tile,jint decode_rows,jboolean persistent_threads,jint affinity_mask,jint prefill_chunk,jint decode_chunk,jint attention_threads,jint matrix_kernel,jintArray oracle_tokens,jobject callback) {
     try {
+#if !OUTPOST_RESEARCH
+        if(oracle_tokens || spec_depth!=0 || template_policy!=0 || sampler_policy>1)
+            throw std::runtime_error("Research generation policy is unavailable in release builds");
+#endif
         if (run <= 0 || max_tokens < 1 || max_tokens > 256 || !callback) throw std::runtime_error("Invalid generation parameters");
         if(template_policy<0 || template_policy>2 || sampler_policy<0 || sampler_policy>2 || seed<0
             || (template_policy==0 && sampler_policy==2) || (template_policy>0 && sampler_policy==1))throw std::runtime_error("Invalid generation policy");
