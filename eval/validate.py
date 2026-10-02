@@ -11,7 +11,7 @@ Exit code 0 when clean; exit code 1 with a numbered problem list otherwise.
 Warnings (declared enums unused by any fixture) never affect the exit code.
 
 What this validator proves and does not prove is stated in the manifest's
-"authority" object and in eval/README.md. A passing run establishes only the
+"authority" object and in docs/testing.md. A passing run establishes only the
 internal consistency of the declared evaluation artifacts.
 """
 
@@ -33,7 +33,7 @@ ANDROID_MANIFEST_PATH = ROOT / "app" / "src" / "main" / "AndroidManifest.xml"
 
 KNOWN_SCHEMA_VERSIONS = {"1", "2"}
 
-# Fixed rubric dimension ids from docs/evaluation.md (binding for the manifest).
+# Fixed rubric dimension ids from eval/rubric-v2.md (binding for the manifest).
 RUBRIC_DIMENSIONS = {
     "task-completion",
     "evidence-applicability",

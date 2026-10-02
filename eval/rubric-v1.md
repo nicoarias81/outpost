@@ -1,6 +1,6 @@
 # Evaluation rubric v1
 
-> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](../docs/current-state.md), [handoff](../docs/handoff.md) and [current validation](../docs/validation-0.12.md). Original results and language are preserved.
+> Historical record: observations, proposals and commands below describe the recorded release/session. For Outpost 0.12 use [current state](https://github.com/nicoarias81/outpost/blob/b6aac40022a2d01298782312ddc6cf44a498bbac/docs/current-state.md), [handoff](https://github.com/nicoarias81/outpost/blob/b6aac40022a2d01298782312ddc6cf44a498bbac/docs/handoff.md) and [current validation](https://github.com/nicoarias81/outpost/blob/b6aac40022a2d01298782312ddc6cf44a498bbac/docs/validation-0.12.md). Original results and language are preserved.
 
 Version: 1. Date: 2026-09-29. This file defines how Outpost answers are scored against the
 fixtures declared in [fixtures-v1.json](fixtures-v1.json): the rubric dimensions, the
@@ -11,7 +11,7 @@ The **fixture definitions live in the manifest** ([fixtures-v1.json](fixtures-v1
 must not duplicate them: per-fixture critical failures, evidence conditions, and expected outcomes
 are declared there, and this file only defines how they are judged. The evaluation protocol and
 performance-measurement rules it builds on live in
-[../docs/evaluation.md](../docs/evaluation.md).
+[../docs/evaluation.md](https://github.com/nicoarias81/outpost/blob/b6aac40022a2d01298782312ddc6cf44a498bbac/docs/evaluation.md).
 
 ## Rubric dimensions
 
@@ -80,7 +80,7 @@ Label: emitted citation indices resolve to the exact local source that supports 
 
 Evidence the scorer must point at: the emitted citation indices in the recorded output, and the
 full source each citation opens in the local corpus. An index in range proves resolution only,
-never claim support (ADR-011, [../docs/decisions.md](../docs/decisions.md)).
+never claim support (ADR-011, [../docs/decisions.md](https://github.com/nicoarias81/outpost/blob/b6aac40022a2d01298782312ddc6cf44a498bbac/docs/decisions.md)).
 
 ### `context-handling`
 
@@ -142,7 +142,7 @@ separately from completed-answer latency.
 
 Evidence the scorer must point at: the recorded timings and their declared measurement scope
 (model-cold, context-cold, partial-cache, exact-cache), as separated in
-[../docs/evaluation.md](../docs/evaluation.md).
+[../docs/evaluation.md](https://github.com/nicoarias81/outpost/blob/b6aac40022a2d01298782312ddc6cf44a498bbac/docs/evaluation.md).
 
 ## Critical-failure policy
 
@@ -165,7 +165,7 @@ What each evidence type proves, and what it does not.
 |---|---|---|
 | Deterministic check declared in the manifest, executed by a harness | That the bounded string or index assertion held over the recorded output. | That the answer is correct, useful, or complete — a passing assertion establishes only the asserted property (manifest `authority` block). |
 | Reviewed outcome recorded under `evidence/` | That a human observed the recorded output and recorded an assessment. | Qualified field validation or real-world task success; the reviewer can be wrong and the scope is bounded. |
-| Executed harness output | That the harness ran and what it recorded. | Answer correctness — a harness PASS does not establish that an answer is correct (project rule; [../docs/evaluation.md](../docs/evaluation.md)). |
+| Executed harness output | That the harness ran and what it recorded. | Answer correctness — a harness PASS does not establish that an answer is correct (project rule; [../docs/evaluation.md](https://github.com/nicoarias81/outpost/blob/b6aac40022a2d01298782312ddc6cf44a498bbac/docs/evaluation.md)). |
 | Citation index in range | That the emitted index resolves within the sources provided to the model. | That the cited passage supports the claim — citation checks validate indices only (ADR-011). |
 | Kev reviewer score | That a bounded reviewer model judged a first sentence against up to three passages. | Correctness — Kev has recorded false positives and is never evaluation ground truth (ADR-011). |
 
@@ -178,7 +178,7 @@ content in that declared language. An answer that is correct but in the wrong la
 ## Bounty-relative protocol (R-BAR-50PCT) — proposed, not measured
 
 This protocol targets bounty requirement `R-BAR-50PCT` (see
-[../docs/bounty-31.md](../docs/bounty-31.md)). **Nothing in this repository measures this bar
+[../docs/bounty-31.md](https://github.com/nicoarias81/outpost/blob/b6aac40022a2d01298782312ddc6cf44a498bbac/docs/bounty-31.md)). **Nothing in this repository measures this bar
 today.** The protocol is proposed only.
 
 1. **Freeze** the question set from the manifest: fixture ids, initial contexts, user turns, and

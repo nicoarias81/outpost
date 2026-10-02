@@ -1,80 +1,87 @@
 # Architecture
 
-Implementation reference for **Outpost 0.14.0 / code 16**, checked on 2026-09-30. One Android process owns the UI, local databases and JNI inference session. There is no inference server or cloud fallback. Inference and knowledge are separate responsibilities within one application module, not separate Gradle modules.
-
-## Current application flow
+Outpost is one Android application with two independent responsibilities: **knowledge retrieval** and **local inference**. The UI, SQLite databases and native model session live in one process. There is no inference server, cloud fallback or tool executor.
 
 ```mermaid
 flowchart TD
-    UI[Chat and Settings] --> W[Library worker]
-    UI --> SAF[Android file or folder picker]
-    SAF --> F[FolderImporter / DocumentImporter]
-    F --> P[Text / CSV / PDF / OSM parsing]
-    P --> L[Library schema 5 and FTS4]
-    W --> L
-    W --> CS[ChatStore: local conversation]
-    L --> CP[ChatPrompt: current evidence]
-    CS --> CP
-    CP --> IQ[Inference queue]
-    MS[Verified ModelStore and RuntimeSettings] --> IQ
-    IQ --> JNI[NativeEngine / engine.cpp]
-    JNI --> LL[Pinned llama.cpp CPU backend]
-    LL --> Q[Guarded Q2 wrappers / reference fallback]
-    JNI --> UI
-    L --> SR[Text / record / PDF page / OSM source reader]
+    UI[Chat and Settings] --> Import[Android file or folder picker]
+    Import --> Parse[Bounded TXT / CSV / PDF / OSM import]
+    Parse --> DB[SQLite library and FTS4]
+    UI --> Route[Question routing]
+    Route --> Places[Structured place queries]
+    Places --> DB
+    Places --> Answer[Answer and exact source references]
+    Route --> Retrieve[Document retrieval]
+    Retrieve --> DB
+    Retrieve --> Prompt[Current excerpts and recent conversation]
+    Chat[SQLite conversation] --> Prompt
+    Prompt --> Native[JNI and llama.cpp]
+    Model[Verified GGUF and runtime profile] --> Native
+    Native --> Answer
+    Answer --> UI
+    Answer --> Chat
 ```
 
-### Source map
+## Components
 
-Java files are under [app/src/main/java/dev/outpost/app](../app/src/main/java/dev/outpost/app); native files are under [app/src/main/cpp](../app/src/main/cpp).
+Java sources are in [app/src/main/java/dev/outpost/app](../app/src/main/java/dev/outpost/app); native sources are in [app/src/main/cpp](../app/src/main/cpp).
 
 | Component | Responsibility |
 |---|---|
-| `MainActivity` | Chat/Settings, pickers, document management, streaming, lifecycle, worker coordination |
-| `ChatStore` / `ChatPrompt` | Private conversation persistence; bounded recent turns and current evidence |
-| `FolderImporter` / `DocumentImporter` | Iterative SAF traversal, per-item outcomes, bounded staging/hash/parser selection, unchanged-file identity |
-| `Library` / `Evidence` | Schema migration, source metadata/locators, documents/packs, lexical retrieval, resolution/removal |
-| `CsvTable` / `KnowledgePack` | Literal CSV record parsing; bounded developer JSON pack contract |
-| `PdfImporter` | Bounded page text extraction; the UI renders private originals with Android PdfRenderer |
-| `OsmImporter` / `OsmStorage` | Bounded XML/JSON feature validation; separate feature rows, FTS entries and element resolution |
-| `ModelStore` / `RuntimeSettings` | Locked generator imports; device/app-version/model-specific runtime policy |
-| `NativeEngine` / `engine.cpp` | JNI, request IDs/cancellation, model/context lifecycle, sampling, cache and results |
-| `cpu_caps.c` / `q2_dispatch.c` | CPU/OS detection separated from compiled/enabled implementation selection |
-| `q2_kernel.c` / `q2_batch.c` | AVX2/F16C Q2 g64 dot, grouped columns and guarded output-row reuse; separate multi-/single-column selection and reference fallback |
-| `speculation.cpp` | Research-only same-request proposals, verification helpers and cost controller |
-| `ResearchPrompt`, `JudgeStore`, `EvidenceReview` | Evidence-only evaluation and optional Kev research; no reviewer/speculation product controls |
-| `CMakeLists.txt` | Pinned unmodified backend, ABI configuration and linker wrappers |
+| `MainActivity` | Chat, Settings, document/model pickers, source readers, streaming and lifecycle |
+| `ChatStore` / `ChatPrompt` | Persist turns; construct bounded conversation/evidence context |
+| `DocumentImporter` / `FolderImporter` | Snapshot identity, limits, recursive SAF traversal, cancellation and per-item outcomes |
+| `Library` / `Evidence` | SQLite migrations, FTS retrieval, documents/packs and immutable locators |
+| `CsvTable` / `PdfImporter` | Literal CSV records and page-preserving PDF text extraction |
+| `OsmImporter` / `OsmStorage` / `PlaceQueries` | Parse bounded extracts, store features and answer supported spatial questions |
+| `ModelStore` / `RuntimeSettings` | Verify pinned files and select a device/OS/app/model-specific configuration |
+| `NativeEngine` / `engine.cpp` | JNI, requests, cancellation, model/context lifecycle, sampling and cache |
+| `cpu_caps.c` / `q2_dispatch.c` | CPU/OS capabilities and compiled/enabled kernel selection |
+| `q2_kernel.c` / `q2_batch.c` / `q2_arm.c` | Guarded Q2 vector/matrix kernels and original reference fallback |
+| `attention_probe.cpp` | Fixed attention-worker arithmetic and debug research probes |
 
-### Direct place questions
+`speculation.cpp`, `ResearchPrompt`, `JudgeStore` and `EvidenceReview` support research/evaluation. The product has no reviewer or speculation controls. Release excludes the Kev auxiliary assets and exports only the seven product JNI functions listed in [release.exports](../app/src/main/cpp/release.exports).
 
-`MainActivity` first calls synchronized `Library.answerPlaces`. `PlaceQueries` parses bounded named/category/radius intent, uses only prior user requests for short follow-ups, scans source features with row/character limits, detects global positive-ID conflicts, and computes spherical straight-line distances locally. It returns at most five source-backed results or explicit clarification/absence/constraint/limit outcomes. Identical records across extracts collapse for this answer only; original snapshots and locators remain unchanged. No schema or generator is needed for this path. Cancellation is checked during scans and complete answers/sources persist in the existing ChatStore.
+## Answer flow
 
-### General chat request
+For supported place questions, `Library.answerPlaces` uses named features, categories and a stated landmark/radius. It detects ambiguity/conflicting IDs, computes approximate straight-line distances, and returns at most five results with exact stored sources. This path works without a generator. It does not infer GPS position, live conditions, routing or polygon containment.
 
-1. Sending saves a pending turn and retrieves against the current message. `Library.search` bounds the query to 1,000 characters and 20 normalized terms, reads up to 500 FTS candidates and returns up to eight ranked fragments. This general path uses lexical retrieval; an empty first search retries with the preceding user question appended. Recent conversation is supplied to generation. Structured place queries use the separate deterministic path above.
-2. `ChatPrompt` v1.1 includes the last two completed/length-limited turns (240 question and 400 answer characters each), up to three current excerpts of 600 characters, titles of 100 characters and the current question bounded to 600 characters. Excerpts are query-centered. Earlier numeric citations are stripped; failed/canceled/interrupted drafts are excluded.
-3. The app saves the selected exact source locators and resolves the verified model/profile. No matching document permits general model knowledge with explicit instructions against invented personal/current facts. Research fixtures instead use `ResearchPrompt` and its evidence-only no-hit path.
-4. The inference queue calls JNI with context 2,048 tokens, output limit 192 tokens and deadline 120 seconds, applying the measured row/width profile when its key matches. Multi-column and single-column row settings are independent and part of context-cache compatibility. Product chat always sets speculation depth to zero. Character bounds do not guarantee token fit; native validation remains authoritative.
-5. Confirmed text streams to the UI. The final turn retains its response, source references and completion/limit/cancel/error state. Numeric citation checks do not prove factual support.
+Other questions use lexical FTS retrieval. A no-hit search can retry with the preceding user question. `ChatPrompt` includes the last two completed or length-limited turns and up to three query-centered source excerpts. Failed, canceled and interrupted output is excluded from subsequent prompt history. Source text is framed as data, with role delimiters sanitized.
 
-The document reader is usable without a loaded generator. There is no separate product search screen; the library search API remains available to chat and tests. See [chat behavior](chat-beta.md).
+The app saves the pending turn and selected locators before generation. Verified model bytes and `RuntimeSettings.Profile.configuration(...)` supply the native request. Confirmed text streams to chat; the final answer, references and completion state are stored locally. With no matching source, the prompt permits general model knowledge but forbids invented personal records or current conditions. This instruction is not a correctness guarantee.
 
-## Data and transactions
+The current generation budget is a 2,048-token context, 192 output tokens and a 120-second deadline. Bonsai uses top-k 20, top-p 0.8, temperature 0.7 and seed 42; Qwen's product profile is greedy. Product speculation depth is zero.
 
-`library.db` is schema 5; `chat.db` is schema 1. The library holds documents, FTS4 passages, versioned `knowledge_packs`, `imported_files` origin bindings and `osm_features`. [Knowledge contracts](knowledge-base.md) define exact hash/locator semantics and migration steps. Fresh product storage is empty. `TestLibrary` explicitly seeds isolated research databases from test-APK assets.
+## Storage and imports
 
-Single-file and folder imports are snapshots. URI identity + format + original-byte hash skips an unchanged extant import. Changed bytes create a new document; older snapshots remain searchable. Pack updates have a different contract: atomic activation, old versions excluded from ordinary search but retained for existing locators. Neither policy silently rebinds a saved citation.
+| Store | Contents |
+|---|---|
+| `library.db`, schema 5 | Documents, FTS4 passages, import-origin bindings, versioned packs and OSM features |
+| `chat.db`, schema 1 | Questions, answers, source locators and complete/limit/canceled/error/interrupted states |
+| `files/documents` | Private PDF and OSM originals for source inspection |
+| `files/models` | Imported GGUFs and verification markers |
+| App preferences | Draft, selected model, import status and keyed runtime settings |
 
-Each folder file commits independently. Each OSM extract commits its document, feature rows, FTS and origin binding atomically; features are not concatenated into a giant document body. PDF and OSM originals live privately under `files/documents`. Filesystem copies and SQLite are not one crash-atomic transaction; comprehensive orphan cleanup remains pending.
+The product starts empty. Test providers and synthetic knowledge belong only to test APKs.
 
-## Concurrency and lifecycle
+File/folder import identity combines source URI identity, format and original-byte hash. Unchanged extant imports are skipped; changed bytes create another snapshot, preserving older citations. Developer knowledge packs use a separate atomic activation contract: older pack versions stay resolvable but leave ordinary search. A locator binds a document, revision, source kind, ordinal and content hash; it must never silently rebind after removal or replacement.
 
-Library work and inference use separate single-thread executors. A folder import occupies the library worker, disables chat send and exposes progress; drafts remain editable. Import/model changes are gated against active generation. Provider calls and initial parser loading may delay cooperative cancellation.
+Folder files commit independently and retain readable subfolder provenance. OSM document/features/FTS/origin rows commit atomically in SQLite, with features stored separately rather than in one oversized document body. Filesystem copies and database transactions are not jointly crash-atomic; complete orphan recovery remains open.
 
-Native sessions have a per-session lock; a global `execution_mutex` serializes graph execution because kernel settings are process-shared. Do not change worker kernel configuration during a graph. Backgrounding stops generation and queues cache release; Activity destruction also cancels folder work. Android low-memory state disables retaining context for that request. Database persistence and prompt KV reuse are distinct lifetimes. [Runtime](inference-runtime.md) owns the cache invariants.
+## Execution and cache invariants
 
-## Extensions still proposed
+Library operations and inference use separate single-thread executors. Import and model changes are gated against active generation. A folder import occupies the library worker and disables sending while allowing draft editing. Provider calls and parser startup can delay cooperative cancellation.
 
-The coordinator may eventually own editable mission context, typed arithmetic/units, structured applicability checks and a tool allowlist. ZIM and Office/OCR need their own adapters and evidence. The bounded OSM operations now resolve exact recorded names and category/proximity queries directly in chat; broader language, spatial indexes and polygon applicability remain future work; see [scope](osm-place-queries.md). Map rendering, navigation and routing are outside this feature. Named-reference queries do not require GPS. Stored coordinates do not supply the device's current position or prove polygon containment.
+Native sessions have their own lock, plus a global `execution_mutex` because kernel settings are shared within the process. Configure kernels only under that execution boundary. Persistent pools pause between requests. Backgrounding cancels generation and queues cache release; destruction also cancels folder work. A low-memory request disables retaining its context.
 
-Discovery proposals for equipment transport, an action ledger and reflection-specific retention are not implemented. Source text/model output cannot authorize actions. Reconnection alone cannot authorize delivery. Future request categories such as `no_coverage`, `missing_context` and `unsupported_capability` are design ideas, not current public error enums. See [decisions](decisions.md), [discovery](discovery-2026-09-29.md) and [roadmap](roadmap.md).
+Compatible token prefixes and saved prefix logits permit KV reuse. Model, template, context and kernel-policy changes must invalidate incompatible state. The 15-field `NativeEngine.Configuration` includes attention and matrix policy; do not reconstruct it through an older constructor and drop those fields.
+
+The admitted Pixel/Bonsai 4B profile uses six decode/prefill workers, four logical attention workers, batch 128, width 8, prefill/decode row groups 1/4, prefill/decode chunks 32/0, persistent pools and no affinity. `attentionThreads=4` requires six/six workers and no speculation; `matrixKernel=1` additionally requires that attention policy and compiled, CPU-compatible I8MM. The exact fingerprint/capability guards are in [RuntimeSettings.java](../app/src/main/java/dev/outpost/app/RuntimeSettings.java); other profiles retain conservative settings.
+
+ARM I8MM is for eligible multi-column prompt matrices; single-column work stays on DotProd. Q2_0 g64 stores 2.25 effective bits per weight including scales and uses prepared Q8 activations. Kernel lane grouping and accumulation order preserve the admitted reference arithmetic. KV storage remains F16. The fixed-attention wrapper depends on the pinned backend's barrier/scratch contract; changing that backend requires a new numerical and concurrency audit.
+
+## Boundaries and extension points
+
+The product manifest requests no permissions and disables backup. Imports create private copies. Sources cannot execute code, invoke device tools or authorize external actions. No telemetry, account, downloader or synchronization service is present.
+
+Add knowledge adapters through bounded parsing, explicit source identity and resolvable citations. Add models through reviewed pins/templates/runtime admission. Add kernels behind independent CPU, compiled-availability, shape and numerical gates. OCR, Office/ZIM, trained MTP/Engram, broader device tuning and equipment actions are unimplemented. Remaining acceptance work is summarized in [testing](testing.md).

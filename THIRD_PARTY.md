@@ -1,98 +1,28 @@
 # Third-party dependencies and model provenance
 
-Frozen product baseline: Outpost 0.18.0; release candidate 0.19.0-rc1, with ARM optimization and the separately identified Spark research profile. Runtime/model identities remain pinned; PDF extraction adds the dependencies listed below. Model and dependency identities refer to the locked files used by this prototype, not automatically to newer upstream releases. This file preserves dependency notices; it does not select a license for this project's own code.
+This inventory preserves attribution and points to the authoritative pins/notices. It does not select a license for Outpost's own code. Models are obtained separately from their publishers and are not bundled in the product APK.
 
-## llama.cpp
+| Component | Version / identity | License and notice |
+|---|---|---|
+| [llama.cpp](https://github.com/ggml-org/llama.cpp) | Unmodified revision in [llama-revision.txt](llama-revision.txt) | MIT; [bundled notice](app/src/main/assets/licenses/llama-MIT.txt) |
+| [PdfBox-Android](https://github.com/TomRoush/PdfBox-Android) | 2.0.27.0; [resolved pins](pdfbox-lock.json) | Apache-2.0; bundled [LICENSE](app/src/main/assets/licenses/pdfbox-android-LICENSE.txt) and [NOTICE](app/src/main/assets/licenses/pdfbox-android-NOTICE.txt) |
+| BouncyCastle `bcprov`, `bcpkix`, `bcutil` | `jdk15to18` 1.72; transitive PDF dependencies | [Bundled license](app/src/main/assets/licenses/bouncycastle-LICENSE.html) |
+| Android NDK / libc++ and build tools | NDK r28b, CMake 3.22.1; [toolchain pins](toolchain-lock.json) | Bundled [NDK notices](app/src/main/assets/licenses/android-NDK-NOTICE.txt) and [toolchain notices](app/src/main/assets/licenses/android-toolchain-NOTICE.txt) |
+| [Qwen2.5 1.5B Instruct GGUF](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF) | Q4_K_M; [model-lock.json](model-lock.json) | Publisher-declared Apache-2.0; separate download |
+| PrismML [Bonsai 1.7B](https://huggingface.co/prism-ml/Ternary-Bonsai-1.7B-gguf) / [4B](https://huggingface.co/prism-ml/Ternary-Bonsai-4B-gguf) | Q2_0 g64; [bonsai-lock.json](bonsai-lock.json) | Publisher-declared Apache-2.0; separate downloads |
 
-- Upstream: [ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp).
-- Pinned revision: `86ea01d05ec237f89b78b41c8c1ee0f908141ac7`, also in [llama-revision.txt](llama-revision.txt).
-- License: MIT. Full notice: [llama-MIT.txt](app/src/main/assets/licenses/llama-MIT.txt), included in APK assets.
-- Vendor code is built without source modifications. Own JNI integration is in `app/src/main/cpp/engine.cpp`.
-- Own `q2_kernel.c` wraps `ggml_vec_dot_q2_0_q8_0` through the linker. AVX2/F16C selection retains the original reference fallback. This uses the pinned revision's formats and contracts and must be revalidated on upgrade. No external VNNI PR or fork kernel was imported.
-- `cpu_caps.c` separates CPUID/XCR0 and HWCAP/HWCAP2 detection from `q2_dispatch.c` policy. VNNI/I8MM candidates remain descriptors. The own `q2_arm.c` implements guarded DotProd while preserving the pinned backend's emulated-dot lane grouping and fused accumulation.
-- `q2_batch.c` also wraps `ggml_compute_forward_mul_mat_tiled` for supported Q2 g64 operations. It uses GGML activation quantization and barriers with an own grouped-token kernel. Context reuse and saved-logit sampling use llama.cpp memory and sampler APIs.
-- Since 0.7, own `speculation.cpp` proposes same-request token continuations and controls their cost. JNI verifies them using decode, logits, sampler, and memory APIs. No DSpark/EAGLE implementation or auxiliary speculative weights were imported.
-- CPU/x86_64 and ARM64 are packaged; bounded runtime validation now covers the x86 emulator and specifically authorized Pixel10Pro. Persistent workers use existing GGML/llama public thread-pool APIs; no vendor source was modified. HTTP server, tools, OpenSSL, and web interfaces are not built.
+Outpost's JNI integration, dispatch, Q2 kernels and attention wrapper are project extensions around the pinned backend. Strata and DeepGEMM-Ascend were conceptual references; their kernels or runtime dependencies were not imported. No external VNNI kernel was imported. Java compatibility also uses `com.android.tools:desugar_jdk_libs:2.1.5`. Current build configuration is in [app/build.gradle](app/build.gradle).
 
-[DeepGEMM-Ascend](docs/deepgemm-ascend-review.md) was inspected at a pinned revision as an optimization reference; no code, dependency or model from that project was integrated.
+## Research-only material
 
-[Strata](https://github.com/Niko1221/Strata) was a conceptual reference. Its engine, ActQ layout, and kernel code were not imported. The custom wrappers still depend on backend internals; this is not a stable upstream extension ABI.
+- [Spark-X2.5-1.7B](https://huggingface.co/XHToken/Spark-X2.5-1.7B-GGUF): publisher-declared Apache-2.0. The [test lock](app/src/androidTest/assets/candidates/spark17-lock.json) identifies exact weights; they remain outside Git/APKs and outside the product model selector.
+- [Kev](https://huggingface.co/jaredpalmer/kev-0.8b), converted by [DreamBlooms](https://huggingface.co/DreamBlooms/kev-0.8b-GGUF): model/head pins are in [judge-lock.json](judge-lock.json). Model/head license is Apache-2.0. It is an experimental classifier, not TypeSafe AI's Jev or an answer-correctness authority.
+- Kev token layout/readout adapts `src/side/kev.cpp` and `src/side/runner.cpp` from [dohnuts.cpp](https://github.com/DreamBlooms/dohnuts.cpp) revision `63374ff55a66c50b266adfef422e1fc4b0ee5717`. Preserve its [Apache-2.0 notice](app/src/main/assets/licenses/dohnuts-Apache-2.0.txt). The unchanged head/config live in debug-only assets; release excludes them. GGUF weights remain a separate download.
 
-## Qwen2.5 1.5B Instruct
+## Imported and test content
 
-- Publisher: Qwen / Alibaba Cloud; [official GGUF repository](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF).
-- Revision: `91cad51170dc346986eccefdc2dd33a9da36ead9`.
-- File: `qwen2.5-1.5b-instruct-q4_k_m.gguf`.
-- Size: 1,117,320,736 bytes.
-- SHA-256: `6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e`.
-- Publisher-declared license for this model: Apache-2.0. The model is downloaded from its publisher, kept separate from the APK, and used without modification as a functional baseline.
+Imported documents remain subject to their source's rights. User-supplied source/license metadata is not verified provenance or permission to redistribute it. Synthetic examples and test fixtures are separate from the empty product library.
 
-The initial comparison also used Qwen2.5 0.5B Instruct Q4_K_M. Its identity is preserved in [the historical lock](evidence/0.7-before-outpost/model-0.5b-lock.json), with [baseline](evidence/0.7-before-outpost/generation-baseline.json) and [0.5B outputs](evidence/0.7-before-outpost/generation-0.5b.json). It is not one of the current selectable generator profiles.
+OSM sources retain **© OpenStreetMap contributors** and the [ODbL/copyright link](https://www.openstreetmap.org/copyright). The APK contains no real geographic dataset and uses no map SDK. A bounded Madrid extract exists only in the test APK; its [provenance](evidence/research/osm-places-20260930/source.json) records preparation and attribution. Keep that provenance and the source's rights when redistributing actual data.
 
-## Ternary Bonsai
-
-- Publisher: PrismML; [1.7B GGUF](https://huggingface.co/prism-ml/Ternary-Bonsai-1.7B-gguf) and [4B GGUF](https://huggingface.co/prism-ml/Ternary-Bonsai-4B-gguf).
-- Publisher-declared license: Apache-2.0.
-- [bonsai-lock.json](bonsai-lock.json) pins exact revisions, filenames, byte counts, and SHA-256 values.
-- These files use Q2_0 g64, GGML tensor type 42, groups of 64 weights with an FP16 scale: 2.25 effective bits per matrix weight. Normalization tensors remain F32; file sizes include vocabulary and metadata.
-- Matrix values are scaled ternary values. The three-state entropy of approximately 1.58 bits is not this file's physical storage cost. Older Q2_0 g128 blocks use a different layout and are not interchangeable.
-- Architecture: `qwen3`. Both locked templates end the assistant prefix with a closed empty `think` block. The integration reproduces that suffix because the basic ChatML formatter does not execute that Jinja-specific part. Generated output is retained without removing generated reasoning text after the fact.
-- Bonsai sampling uses top-k 20, top-p 0.8, temperature 0.7, and seed 42. The earlier parameter choice was informed by the [Qwen3 non-thinking guidance](https://huggingface.co/Qwen/Qwen3-4B); it is not a claim that these are optimal Bonsai parameters.
-- Weights are downloaded from the publisher, verified, and excluded from the APK. The same pinned llama.cpp backend is used; no Prism fork replaced it.
-
-## Spark-X2.5-1.7B research profile
-
-- Publisher: XHToken; [official GGUF repository](https://huggingface.co/XHToken/Spark-X2.5-1.7B-GGUF/tree/1f7fa33b1245c14730da39e125714ad3a327901b).
-- Publisher-declared license: Apache-2.0. Exact file/revision/bytes/hash are in the [research lock](app/src/androidTest/assets/candidates/spark17-lock.json).
-- Official weights are downloaded, fully verified on host/Android and kept outside Git/APK. This is not a new product model distribution or a change to the project's own license.
-- Own JNI formatting implements the official template's two-message/no-tools/no-thinking subset, with explicit literal-data token handling. Template SHA and source provenance are recorded with the [admission evidence](evidence/research/spark-admission-20261001/verified-model-header.json). No model Python code or upstream serving stack was executed or imported.
-- The existing unmodified pinned llama.cpp implements the model graph. Research fixtures/lock are packaged only in the test APK. Full-cache policy is used for comparisons; the compact candidate failed strict numerical equivalence. [Results](docs/spark-candidate-results-2026-10-01.md).
-
-## Kev classifier and GGUF conversion
-
-- Original model: [jaredpalmer/kev-0.8b](https://huggingface.co/jaredpalmer/kev-0.8b); [project source](https://github.com/jaredpalmer/kev).
-- Conversion: [DreamBlooms/kev-0.8b-GGUF](https://huggingface.co/DreamBlooms/kev-0.8b-GGUF), revision `4f3367e227569b4be717a0ca4aa30739efcaa575`.
-- [judge-lock.json](judge-lock.json) pins the GGUF, FP32 head, and configuration sizes and SHA-256 values.
-- Port used as reference/adapted: [DreamBlooms/dohnuts.cpp](https://github.com/DreamBlooms/dohnuts.cpp), revision `63374ff55a66c50b266adfef422e1fc4b0ee5717`, specifically `src/side/kev.cpp` and `src/side/runner.cpp`.
-- Model/head and port license: Apache-2.0; the port notice is retained in [APK assets](app/src/main/assets/licenses/dohnuts-Apache-2.0.txt).
-- The JNI adaptation handles one textual question per call, with no HTTP server, remote tools, or vision. The head/config assets are redistributed without modification; GGUF weights are obtained from the publisher and remain separate.
-- Published temperature: `2.406050072164233`; pointer-head dimension 256; hidden dimension 1024. Scores have not been calibrated for the current application; historical probes include Spanish and English tasks. Kev remains a research classifier with recorded false positives, without a product reviewer control.
-- Kev is a community project inspired by Jev. It is not TypeSafe AI's Jev and does not call that service.
-
-## Android build dependencies
-
-Gradle 8.11.1 is pinned through the wrapper and its SHA-256. AGP is 8.9.2; SDK platform 35; NDK r28b / 28.1.13356709; CMake 3.22.1. Official Google NDK/CMake archive identities and SHA-1 checksums are in [toolchain-lock.json](toolchain-lock.json). Model files use SHA-256; do not describe every lock as using the same hash algorithm.
-
-The APK includes the NDK's `libc++_shared.so`. Distribution notices are retained in [android-NDK-NOTICE.txt](app/src/main/assets/licenses/android-NDK-NOTICE.txt) and [android-toolchain-NOTICE.txt](app/src/main/assets/licenses/android-toolchain-NOTICE.txt). Java compatibility uses `com.android.tools:desugar_jdk_libs:2.1.5`.
-
-Downloaded native tooling is kept in ignored `.local/`. Preparation and compilation run on the host; runtime model and numerical validation run inside Android in the emulator.
-
-## Demonstration content and future distribution
-
-[The test corpus](app/src/androidTest/assets/library.json) contains original short synthetic demonstration summaries with source references and incorporation dates. It is packaged only in the test APK and explicitly seeded into isolated test databases. The user APK has no seed library or bundled real geographic dataset. Imported documents are labeled unverified, and their rights remain with their respective owners.
-
-Before public distribution, choose the project code license, review all redistributed assets and notices, and define release/evidence storage. Future ZIM, map-rendering/routing, OCR and other dependencies/datasets need their own recorded versions and attribution. Current PDF and bounded OSM integration are described below; neither implies the broader adapters exist.
-
-## Knowledge-pack examples in 0.9
-
-Files under `examples/knowledge` are synthetic project demonstration material. Pack parsing and CSV support add no third-party parser library. Imported `source` and `license` fields are declared metadata, not verified provenance or a redistribution grant. Keep each actual source's attribution and rights when preparing packs; the pack slice added no encyclopedia/map/Office adapter dependency. Later OSM import uses platform parsers and is separate from the pack format.
-
-## PDF extraction in 0.10
-
-- [PdfBox-Android](https://github.com/TomRoush/PdfBox-Android), `com.tom-roush:pdfbox-android:2.0.27.0`, pinned from Maven Central. Apache-2.0; upstream tag `v2.0.27.0` LICENSE and NOTICE are included in assets/licenses.
-- Its pinned transitive BouncyCastle artifacts are `bcprov-jdk15to18`, `bcpkix-jdk15to18` and `bcutil-jdk15to18`, version 1.72. The official `r1rv72` license is included in assets/licenses.
-- [pdfbox-lock.json](pdfbox-lock.json) records resolved AAR/JAR/POM sizes/hashes and notice-source hashes. These are pinned resolved inputs, not a claim of independent security certification or the latest upstream versions.
-- No optional JPEG2000 library, OCR engine, network service or cloud parser is added. Android PdfRenderer displays stored original pages. Original files stay in app-private storage.
-
-
-## OpenStreetMap data in 0.12
-
-The application uses Android's XML pull parser and JSON reader; no map SDK or additional parser dependency was added. Users supply bounded OSM XML/Overpass JSON extracts. Source/evidence UI carries OpenStreetMap contributor attribution and the [OSM copyright/license link](https://www.openstreetmap.org/copyright). The product APK ships no real map dataset. A bounded prepared public Madrid subset is packaged only in the test APK for place-query regression; [provenance](evidence/research/osm-places-20260930/source.json) retains source URL, hashes, preparation and ODbL attribution. It is not a bundled product knowledge base or current availability data. Instrumented examples are synthetic and remain outside production assets. Data licensing does not select a license for Outpost's code; redistribution decisions must preserve the actual source's rights and attribution.
-
-## Owned row-kernel work in 0.14
-
-The two-row Q2 helper, phase-separated runtime settings and tests are project-owned extensions to the existing wrappers. No DeepGEMM-Ascend code, CANN/TorchNPU dependency, new model or vendor patch was imported. [Measured scope](docs/kernel-rows-0.14.md) distinguishes the conceptual reference from our implementation and rejects unsupported hardware/model-performance claims.
-
-## Production candidate packaging in 0.19
-
-The Kev auxiliary head and its configuration are debug-only assets. Release excludes them and exposes only product JNI functions; existing notices remain intact. Models stay separate from the APK. Settings now provides offline access to packaged notices. No dependency, model or own-code license was changed. See [release preparation](docs/release-0.19.md).
+Packaged notices are available offline through Settings → About and privacy → Third-party notices. Preserve them when changing build variants or preparing a release.

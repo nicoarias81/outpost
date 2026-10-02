@@ -3,7 +3,7 @@ function Resolve-OutpostTestTarget([string]$Adb,[ValidateSet('Outpost35','Pixel1
     $root=Split-Path $PSScriptRoot -Parent
     if($Target -eq 'Pixel10Pro') {
         $path=Join-Path $root '.local/pixel10-target.json'
-        if(-not(Test-Path -LiteralPath $path)){throw 'Register the specifically authorized Pixel in .local/pixel10-target.json; see docs/pixel10-testing.md.'}
+        if(-not(Test-Path -LiteralPath $path)){throw 'Register the specifically authorized Pixel in .local/pixel10-target.json; see docs/testing.md.'}
         $registered=Get-Content -LiteralPath $path -Raw|ConvertFrom-Json
         if($registered.model -cne 'Pixel 10 Pro' -or $registered.authorization -cne 'owner-request-2026-10-01' -or $registered.serial -notmatch '^[A-Za-z0-9]{6,40}$'){throw 'Invalid Pixel registration'}
         if(-not $Serial){$Serial=$registered.serial}

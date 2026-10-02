@@ -15,7 +15,7 @@ for field,expected in [('ro.kernel.qemu','1'),('ro.boot.qemu.avd_name','Outpost3
 for field,expected in [('airplane_mode_on','1'),('wifi_on','0'),('mobile_data','0')]:
     if run('shell','settings','get','global',field)!=expected:raise RuntimeError('Offline emulator required')
 if not run('shell','pm','path','dev.outpost.app').startswith('package:'):
-    raise RuntimeError('Install the Outpost debug APK first, following docs/emulator-runbook.md')
+    raise RuntimeError('Install the Outpost debug APK first, following docs/testing.md')
 run('shell','run-as','dev.outpost.app','pwd')
 filename=lock['file']
 if not re.fullmatch(r'[A-Za-z0-9._-]+\.gguf',filename):raise ValueError('Invalid pinned filename')
