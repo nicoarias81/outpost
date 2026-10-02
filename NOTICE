@@ -1,0 +1,11 @@
+Outpost - offline research and information on Android
+Copyright (C) 2026 Outpost contributors
+
+Outpost's original code is licensed under the GNU Affero General Public
+License, version 3 only (SPDX: AGPL-3.0-only). See LICENSE.
+
+Third-party code, model weights, datasets and imported documents retain
+their respective licenses. This notice does not relicense that material.
+See THIRD_PARTY.md and the component-specific notices.
+
+Source and build instructions: https://github.com/nicoarias81/outpost

@@ -104,6 +104,16 @@ The script examines the build and audit receipts. It signs a local APK and rejec
 
 An unrelated certificate cannot update an existing debug installation. Do not uninstall the owner's app to correct a signature mismatch. Do not clear its storage. Do not replace a frozen artifact with different bytes under the same version.
 
+## License files
+
+Outpost's original code uses `AGPL-3.0-only`. Commercial use is permitted under those terms. Third-party dependencies, model weights and data keep their own licenses.
+
+1. Include `LICENSE`, `NOTICE` and `THIRD_PARTY.md` with a distributed APK.
+2. Provide the corresponding source and build instructions as the license requires.
+3. Preserve all component-specific notices.
+
+The license decision did not change the recorded RC2 APK or its functionality.
+
 ## Publication procedure
 
 1. Do installation and update tests with the final signed APK.

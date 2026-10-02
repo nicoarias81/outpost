@@ -1,6 +1,6 @@
 # Third-party dependencies and model provenance
 
-This inventory preserves attribution and points to the authoritative pins/notices. It does not select a license for Outpost's own code. Models are obtained separately from their publishers and are not bundled in the product APK.
+Outpost's original code uses [AGPL-3.0-only](LICENSE). This inventory preserves third-party attribution and points to the authoritative pins/notices. Third-party terms remain in force. Models are obtained separately from their publishers and are not bundled in the product APK.
 
 | Component | Version / identity | License and notice |
 |---|---|---|

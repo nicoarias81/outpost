@@ -127,4 +127,12 @@ OCR in another tool is necessary for scanned PDFs. The app does not accept Offic
 - [Build and release](docs/build.md): tools, configuration, compilation and signing.
 - [Testing](docs/testing.md): devices, test procedures, evidence and acceptance conditions.
 
-The [documentation rules](AGENTS.md#documentation-rules) use ASD-STE100 Issue 9 as the writing reference. [Third-party notices](THIRD_PARTY.md) identify dependencies and model provenance. The owner has not selected a license for Outpost's code.
+The [documentation rules](AGENTS.md#documentation-rules) use ASD-STE100 Issue 9 as the writing reference. [Third-party notices](THIRD_PARTY.md) identify dependencies and model provenance. Outpost's original code uses AGPL-3.0-only.
+
+## License
+
+Outpost's original code uses the [GNU Affero General Public License, version 3 only](LICENSE), identified as `AGPL-3.0-only`. Commercial use is permitted.
+
+If you distribute covered binaries, provide the corresponding source as the license requires. Modified versions offered over a network must offer their corresponding source to remote users. Private use does not require public release of your changes.
+
+Third-party code, model weights and datasets keep their own licenses. See [NOTICE](NOTICE) and [THIRD_PARTY.md](THIRD_PARTY.md). The project license does not change the rights in imported user documents.
