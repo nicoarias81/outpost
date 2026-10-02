@@ -12,3 +12,20 @@ Read [README.md](README.md), then the relevant guide: [architecture](docs/archit
 - Gate native changes by CPU/OS support, compiled availability, shape and numerical validation. Preserve the fixed-attention barrier contract and original accumulation order; backend changes require re-audit. Capability detection is not proof that a kernel executed.
 - Run focused checks. For docs-only work, verify links, fixtures and unchanged build receipts; do not rebuild or rerun models. A harness PASS is not an answer-quality claim.
 - Models, SDKs, AVDs, private documents, caches and signing material stay outside Git. The owner authorized source pushes and GitHub Releases in the existing private repository; do not change visibility. Production ID/key selection remains pending, and the QA certificate is not a production signing identity.
+
+## Documentation rules
+
+Use [ASD-STE100 Issue 9](https://www.asd-ste100.org/assets/files/ASD-STE100_ISSUE9.pdf) as the writing reference for the README and the three guides.
+
+- Use a maximum of 20 words in a procedural sentence.
+- Use a maximum of 25 words in a descriptive sentence.
+- Give one instruction in each sentence, except for simultaneous actions.
+- Use the active voice.
+- Put a necessary condition before its instruction.
+- Use one topic in each paragraph.
+- Keep each paragraph within six sentences.
+- Use the specified [technical terms](docs/architecture.md#technical-terms) consistently.
+- Keep exact code symbols, file paths, commands, interface labels and measured values.
+- Do not rewrite third-party license text or historical test output for this style change.
+
+The project term list identifies software nouns and verbs outside the general dictionary. A sentence-length screen does not establish full vocabulary or grammar conformity. A complete conformity statement needs review against both parts of the standard. Do not claim certification from a local style check.

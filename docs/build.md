@@ -1,25 +1,29 @@
 # Build and release
 
-The maintained build workflow uses Windows and PowerShell. Run commands from the repository root. [Testing](testing.md) covers Android targets; compilation alone does not establish runtime support.
+This build procedure uses Windows and PowerShell. Commands use paths relative to the repository root. The [test guide](testing.md) gives the Android procedures. A successful build does not show correct operation on a device.
 
-## Toolchain
+## Necessary tools
 
-| Component | Configuration |
+| Tool | Version or setting |
 |---|---|
-| Java | JDK 21 tested; application language level 17 |
+| Java | JDK 21 in the recorded tests; application language level 17 |
 | Gradle / Android Gradle Plugin | 8.11.1 / 8.9.2 |
-| Android SDK | Platform 35, Build Tools 35.0.0, platform-tools |
+| Android SDK | Platform 35, Build Tools 35.0.0 and platform-tools |
 | NDK / CMake | r28b (`28.1.13356709`) / 3.22.1 |
-| Python / shell | Python 3.9+, Git and PowerShell |
-| Optional emulator | `system-images;android-35;default;x86_64` |
+| Other host tools | Python 3.9+, Git and PowerShell |
+| Optional emulator image | `system-images;android-35;default;x86_64` |
 
-[toolchain-lock.json](../toolchain-lock.json), the Gradle wrapper and [app/build.gradle](../app/build.gradle) own the versions. NDK/CMake downloads use the archive hashes in the lock; model pins use SHA256.
+[toolchain-lock.json](../toolchain-lock.json), the Gradle wrapper and [app/build.gradle](../app/build.gradle) specify the versions. NDK and CMake archive checks use the hashes in the lock file. Model checks use SHA256.
 
-## Configure and prepare
+## Preparation procedure
 
-Create `.local/developer-settings.json` from [developer-settings.example.json](../developer-settings.example.json), using your actual paths. Set `sdk`, `javaHome`, `gradleHome` and `pythonExecutable`. `gradleExecutable` optionally selects an installed Gradle; the debug build falls back to the wrapper, while the current release-build script requires this setting. No machine-specific settings belong in Git.
-
-Create ignored `local.properties` with your SDK path, for example `sdk.dir=C:/Android/Sdk`. Then prepare the pinned backend, NDK and CMake:
+1. Open PowerShell in the repository root.
+2. Make `.local/developer-settings.json` from [developer-settings.example.json](../developer-settings.example.json).
+3. Set `sdk`, `javaHome`, `gradleHome` and `pythonExecutable` to the correct paths on your computer.
+4. For release builds, set `gradleExecutable` to the installed Gradle executable.
+5. Make the ignored `local.properties` file.
+6. Set `sdk.dir` to the SDK path, for example `sdk.dir=C:/Android/Sdk`.
+7. Run the commands below in sequence.
 
 ```powershell
 . ./scripts/environment.ps1
@@ -30,9 +34,16 @@ $env:PYTHONUTF8 = '1'
 if ($LASTEXITCODE -ne 0) { throw 'Native preparation failed.' }
 ```
 
-This also downloads the pinned Qwen test model and writes `cmake.dir` into `local.properties`. It does not install the base SDK or JDK. Initial preparation needs connectivity and several GB of free space; verified caches are reused. Run `scripts/prepare-bonsai.py` for Bonsai weights. `scripts/prepare-judge.py` is optional Kev research setup, not required for product use.
+The preparation script gets the specified backend, NDK, CMake and Qwen test model. It adds `cmake.dir` to `local.properties`. It does not install the base SDK or JDK. For initial preparation, network access and several GB of free storage are necessary. The script reuses files that pass its cache checks.
 
-## Compile
+The debug build can use the Gradle wrapper if `gradleExecutable` is absent. That setting is necessary for the current release-build script. Machine-specific settings must stay outside Git.
+
+For Bonsai weights, run `scripts/prepare-bonsai.py` with the configured Python interpreter. For optional Kev research, run `scripts/prepare-judge.py`. Product use does not need Kev preparation.
+
+## Debug build procedure
+
+1. If the Gradle cache is empty, omit `-Offline` from the first build.
+2. Run the commands below in sequence.
 
 ```powershell
 ./scripts/build.ps1 -Offline
@@ -40,54 +51,88 @@ if ($LASTEXITCODE -ne 0) { throw 'Debug build failed.' }
 ./eval/check-build.ps1
 ```
 
-Omit `-Offline` when populating Gradle dependencies initially. The build compiles both ABIs and the test APK, runs lint, checks the pinned backend/PDF dependencies and records unchanged input hashes. Outputs are under `app/build/outputs`; `.local/build-receipt.json` binds the debug app/test bytes to their inputs. Direct Gradle invocation does not issue that receipt.
+The script builds both ABIs and the test APK. It runs lint and compares backend and PDF dependency identities with their specified values. It also makes sure that source inputs do not change during the build.
 
-For the production candidate and isolated QA variant:
+Build outputs are in `app/build/outputs`. `.local/build-receipt.json` identifies the debug app, test APK and source inputs. A direct Gradle command does not make this receipt.
+
+## Release build procedure
+
+1. Make sure that all dependencies are in the local cache.
+2. Run these commands:
 
 ```powershell
 ./scripts/build-release.ps1 -Offline
 if ($LASTEXITCODE -ne 0) { throw 'Release build or audit failed.' }
 ```
 
-| Variant | Application ID | Purpose |
+| Variant | Application ID | Function |
 |---|---|---|
-| `debug` | `dev.outpost.app` | Debug-signed development and research hooks |
-| `release` | `dev.outpost.app` | Non-debuggable unsigned APK/AAB awaiting production signing |
+| `debug` | `dev.outpost.app` | Development build with a debug certificate and research functions |
+| `release` | `dev.outpost.app` | Non-debuggable unsigned APK and AAB |
 | `releaseQa` | `dev.outpost.app.releaseqa` | Non-debuggable test copy with a debug QA certificate |
 
-Release excludes the Kev head/configuration, restricts JNI exports and rejects experimental generation policies. It currently keeps minification disabled. The release build produces all candidate/QA artifacts, runs lint and [audit-release.py](../eval/audit-release.py), then archives bytes and reports in a unique `.local/release-<timestamp>-<id>/` directory. `.local/release-build-receipt.json` identifies the latest successful build.
+Release builds exclude the Kev head and configuration. They limit JNI exports and reject experimental generation policies. Minification is disabled.
 
-The audit checks manifest boundaries, ABIs, notices, research-asset exclusion, native exports, release/QA native and asset identity, and 16 KiB ELF/ZIP alignment. Static alignment does not prove 16 KiB runtime behavior. Receipts identify exact local bytes; they are not independent reproducible-build attestations.
+The release procedure builds candidate and QA files. It runs lint and [audit-release.py](../eval/audit-release.py). It then saves the files and reports in a new `.local/release-<timestamp>-<id>/` directory. `.local/release-build-receipt.json` identifies the last successful release build.
 
-## Sign and distribute
+The audit examines manifest settings, ABIs, notices, assets, JNI exports and native-file identity. It also examines 16 KiB ELF and ZIP alignment. Static alignment does not prove operation on a 16 KiB device. A receipt identifies exact local bytes. It is not independent proof of a reproducible build.
 
-The distribution channel is the existing private [GitHub repository and Releases](https://github.com/nicoarias81/outpost/releases). Source is `0.19.0-rc1`, version code 21. A `v0.19.0` release draft exists; production identity/signing and exact signed-device acceptance remain pending. The proposed separate production ID `dev.outpost.mobile` and a new local signing key have not been approved or applied. The intended delivery is a public, reproducible GitHub repository and signed release; public visibility and release publication remain pending owner action and acceptance.
+## Release state
 
-Once the owner provides or approves a signing identity, configure `OUTPOST_STORE_PASSWORD` and `OUTPOST_KEY_PASSWORD` in the invoking process and run:
+The source version is `0.19.0-rc1`, version code 21. The private [GitHub repository](https://github.com/nicoarias81/outpost/releases) has a `v0.19.0` release draft. Production identity, signing and final signed-device acceptance are not complete.
+
+The proposed production ID is `dev.outpost.mobile`. Owner approval is still necessary for that ID and a new local signing key. The current app does not use that proposed ID. Public source and a signed release are delivery goals. Owner action and completed acceptance tests are also necessary for public visibility and release publication.
+
+## Signing procedure
+
+Owner approval and a known signing identity are necessary before this procedure. The procedure does not make a signing key.
+
+1. Set `OUTPOST_STORE_PASSWORD` in the current process.
+2. Set `OUTPOST_KEY_PASSWORD` in the current process.
+3. Get the approved certificate's SHA256 fingerprint through an independent check.
+4. Replace the three placeholders below with the actual values.
+5. Run the command.
 
 ```powershell
 ./scripts/sign-release.ps1 -KeyStore '<private-keystore-path>' `
     -KeyAlias '<alias>' -ExpectedCertificateSha256 '<verified-64-hex-fingerprint>'
 ```
 
-Keep passwords out of command arguments, logs and Git; keep signing material outside tracked files. The script checks the source/audit receipt, signs a local APK, rejects debug/unexpected certificates, verifies signature/alignment and writes hash/certificate metadata. It does not upload, install or sign an AAB. Signing success and key recovery still need validation with the selected production identity.
+Do not put passwords in command arguments, logs or Git. Keep signing material outside tracked files.
 
-Existing debug installations cannot be replaced by an unrelated certificate. Do not clear storage or uninstall the owner's app to work around a signature conflict. Test the final signed artifact and its data-preserving installation/update path before attaching it to the GitHub release with checksums, certificate fingerprint and validation results. Publish only that reviewed artifact. Never overwrite frozen bytes under an existing version.
+The script examines the build and audit receipts. It signs a local APK and rejects debug or unexpected certificates. It examines the signature and alignment, then writes file-hash and certificate metadata. It does not upload files, install an APK or sign an AAB. Tests with the selected production identity are still necessary for signing and key recovery.
 
-The final release must bind the downloadable APK to an exact source tag and include its SHA256, signing-certificate fingerprint, supported/tested device details and validation scope. The README supplies direct pinned model downloads; lock files identify model/dependency versions, sizes and hashes. Documents and regional extracts are supplied by the user, and SQLite indexes are created locally. Do not imply a bundled world corpus or external index that the app does not ship.
+An unrelated certificate cannot update an existing debug installation. Do not uninstall the owner's app to correct a signature mismatch. Do not clear its storage. Do not replace a frozen artifact with different bytes under the same version.
 
-A first-time user should be able to follow the README, install the APK, import a listed model and ask an offline question without developer tools. Time that workflow on a clean compatible phone, record download time separately, and include a short device recording with several queries, complete answers and source inspection. Keep private content and signing material out of all release assets. This check is still pending for the production-signed artifact.
+## Publication procedure
 
-`scripts/publish-artifact.ps1` is a separate **local debug artifact** workflow: it copies into ignored `dist/`, writes checksums and supports `-Verify`. It does not produce a production release.
+1. Do installation and update tests with the final signed APK.
+2. Make sure that the tests keep existing user data.
+3. Associate that APK with its exact source tag.
+4. Add the APK, SHA256 and certificate fingerprint to the release.
+5. Add the tested device and OS details.
+6. Add the validation results and their limits.
+7. Publish only the reviewed artifact.
 
-## Common failures
+The README gives direct model downloads. Lock files specify dependency and model versions, sizes and hashes. Users supply their documents and regional extracts. The app makes SQLite indexes locally. It does not contain a complete world corpus or a remote search index.
 
-| Failure | Action |
+A new user must be able to install the app from the README without developer tools. This installation trial must use the production-signed APK.
+
+1. Measure the setup time on a clean compatible phone.
+2. Record download time separately.
+3. Record offline operation with several questions, complete answers and source display.
+4. Remove private content from release material.
+
+`scripts/publish-artifact.ps1` is a separate local procedure for debug artifacts. It saves files in ignored `dist/` and writes checksums. `-Verify` examines an existing artifact. This procedure does not make a production release.
+
+## Fault isolation
+
+| Condition | Action |
 |---|---|
-| SDK/JDK/native headers missing | Check local settings, `local.properties` and preparation output |
-| Offline dependency resolution fails | Populate the host Gradle cache with connectivity |
-| Receipt or installed APK mismatch | Rebuild/install matching bytes; a version label is insufficient |
-| Model rejected | Select the matching profile and exact pinned GGUF; do not bypass verification |
-| Detected CPU feature remains unused | Check compiled availability, policy and tensor eligibility separately |
+| Missing SDK, JDK or native headers | Examine local settings, `local.properties` and preparation output. |
+| Offline dependency resolution failure | Populate the host Gradle cache with network access. |
+| Receipt or APK mismatch | Rebuild the source. Install the matching files. A version label is not sufficient. |
+| Model rejection | Select the correct profile. Use its exact specified GGUF. Do not bypass the file checks. |
+| Detected CPU feature stays unused | Examine compiled availability, enabled policy and tensor conditions separately. |
 
-Models, SDKs, AVDs, build caches, private imports and keys stay ignored. Preserve [dependency notices](../THIRD_PARTY.md). The current lint baseline is zero errors and three upstream BouncyCastle warnings; do not report it as warning-free.
+Keep models, SDKs, AVDs, caches, private imports and keys outside Git. Keep the [dependency notices](../THIRD_PARTY.md). The lint baseline has zero errors and three upstream BouncyCastle warnings.

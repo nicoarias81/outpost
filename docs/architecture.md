@@ -1,22 +1,24 @@
 # Architecture
 
-Outpost is one Android application with two independent responsibilities: **knowledge retrieval** and **local inference**. The UI, SQLite databases and native model session live in one process. Core operation has no Google Play Services dependency, inference server, cloud fallback or tool executor. Setup may download assets outside the app; inference, retrieval, indexing and source inspection then use local bytes.
+Outpost has one Android process and two main functions: knowledge retrieval and local inference. The process contains the user interface, SQLite databases and native model session. Google Play Services are not necessary for core operation. The app has no inference server, cloud fallback or tool executor.
+
+Preparation can use external downloads. After preparation, inference, retrieval, indexing and source display use local files.
 
 ```mermaid
 flowchart TD
     UI[Chat and Settings] --> Import[Android file or folder picker]
-    Import --> Parse[Bounded TXT / CSV / PDF / OSM import]
+    Import --> Parse[TXT / CSV / PDF / OSM import]
     Parse --> DB[SQLite library and FTS4]
-    UI --> Route[Question routing]
-    Route --> Places[Structured place queries]
+    UI --> Route[Question selection]
+    Route --> Places[Place queries]
     Places --> DB
-    Places --> Answer[Answer and exact source references]
+    Places --> Answer[Answer and source references]
     Route --> Retrieve[Document retrieval]
     Retrieve --> DB
-    Retrieve --> Prompt[Current excerpts and recent conversation]
+    Retrieve --> Prompt[Source excerpts and recent conversation]
     Chat[SQLite conversation] --> Prompt
     Prompt --> Native[JNI and llama.cpp]
-    Model[Verified GGUF and runtime profile] --> Native
+    Model[Model file and runtime profile] --> Native
     Native --> Answer
     Answer --> UI
     Answer --> Chat
@@ -24,70 +26,148 @@ flowchart TD
 
 ## Components
 
-Java sources are in [app/src/main/java/dev/outpost/app](../app/src/main/java/dev/outpost/app); native sources are in [app/src/main/cpp](../app/src/main/cpp).
+Java files are in [app/src/main/java/dev/outpost/app](../app/src/main/java/dev/outpost/app). Native files are in [app/src/main/cpp](../app/src/main/cpp).
 
-| Component | Responsibility |
+| Component | Function |
 |---|---|
-| `MainActivity` | Chat, Settings, document/model pickers, source readers, streaming and lifecycle |
-| `ChatStore` / `ChatPrompt` | Persist turns; construct bounded conversation/evidence context |
-| `DocumentImporter` / `FolderImporter` | Snapshot identity, limits, recursive SAF traversal, cancellation and per-item outcomes |
-| `Library` / `Evidence` | SQLite migrations, FTS retrieval, documents/packs and immutable locators |
-| `CsvTable` / `PdfImporter` | Literal CSV records and page-preserving PDF text extraction |
-| `OsmImporter` / `OsmStorage` / `PlaceQueries` | Parse bounded extracts, store features and answer supported spatial questions |
-| `ModelStore` / `RuntimeSettings` | Verify pinned files and select a device/OS/app/model-specific configuration |
-| `NativeEngine` / `engine.cpp` | JNI, requests, cancellation, model/context lifecycle, sampling and cache |
-| `cpu_caps.c` / `q2_dispatch.c` | CPU/OS capabilities and compiled/enabled kernel selection |
-| `q2_kernel.c` / `q2_batch.c` / `q2_arm.c` | Guarded Q2 vector/matrix kernels and original reference fallback |
-| `attention_probe.cpp` | Fixed attention-worker arithmetic and debug research probes |
+| `MainActivity` | Chat, Settings, file selection, source display and lifecycle control |
+| `ChatStore` / `ChatPrompt` | Conversation storage and prompt preparation |
+| `DocumentImporter` / `FolderImporter` | Import identity, limits, folder traversal and cancellation |
+| `Library` / `Evidence` | Database changes, retrieval, document packs and source locators |
+| `CsvTable` / `PdfImporter` | CSV records and PDF text with page identity |
+| `OsmImporter` / `OsmStorage` / `PlaceQueries` | OSM parsing, feature storage and place queries |
+| `ModelStore` / `RuntimeSettings` | Model identity checks and runtime configuration |
+| `NativeEngine` / `engine.cpp` | JNI, requests, model state, sampling and cache control |
+| `cpu_caps.c` / `q2_dispatch.c` | CPU detection and kernel selection |
+| `q2_kernel.c` / `q2_batch.c` / `q2_arm.c` | Q2 vector/matrix calculations and the original reference path |
+| `attention_probe.cpp` | Attention-worker control and research probes |
 
-`speculation.cpp`, `ResearchPrompt`, `JudgeStore` and `EvidenceReview` support research/evaluation. The product has no reviewer or speculation controls. Release excludes the Kev auxiliary assets and exports only the seven product JNI functions listed in [release.exports](../app/src/main/cpp/release.exports).
+`speculation.cpp`, `ResearchPrompt`, `JudgeStore` and `EvidenceReview` are for research and evaluation. The product has no reviewer or speculation controls. Release builds exclude the Kev head and configuration. They expose only the seven JNI functions in [release.exports](../app/src/main/cpp/release.exports).
 
 ## Answer flow
 
-For supported place questions, `Library.answerPlaces` uses named features, categories and a stated landmark/radius. It detects ambiguity/conflicting IDs, computes approximate straight-line distances, and returns at most five results with exact stored sources. This path works without a generator. It does not infer GPS position, live conditions, routing or polygon containment.
+### Place questions
 
-Other questions use lexical FTS retrieval. A no-hit search can retry with the preceding user question. `ChatPrompt` includes the last two completed or length-limited turns and up to three query-centered source excerpts. Failed, canceled and interrupted output is excluded from subsequent prompt history. Source text is framed as data, with role delimiters sanitized.
+`Library.answerPlaces` uses stored names, categories and the stated landmark or radius. It detects ambiguous names and conflicting IDs. It calculates approximate straight-line distances. It returns a maximum of five results with source references.
 
-The app saves the pending turn and selected locators before generation. Verified model bytes and `RuntimeSettings.Profile.configuration(...)` supply the native request. Confirmed text streams to chat; the final answer, references and completion state are stored locally. With no matching source, the prompt permits general model knowledge but forbids invented personal records or current conditions. This instruction is not a correctness guarantee.
+A model is not necessary for this path. It does not give GPS position, current conditions, routes or polygon containment.
 
-The current generation budget is a 2,048-token context, 192 output tokens and a 120-second deadline. Bonsai uses top-k 20, top-p 0.8, temperature 0.7 and seed 42; Qwen's product profile is greedy. Product speculation depth is zero.
+### Other questions
 
-## Storage and imports
+FTS retrieves passages for the question. If the first search gives no result, another search can include the previous user question. `ChatPrompt` includes the last two completed or length-limited turns. It also includes a maximum of three source excerpts related to the question.
+
+Later prompts exclude failed, canceled and interrupted output. The prompt treats source text as data. It replaces role delimiters in source text with literal text.
+
+Before inference, the app saves a pending turn and its source locators. `RuntimeSettings.Profile.configuration(...)` gives the native request its configuration. The app shows completed output tokens as they become available. It then saves the answer, references and completion state.
+
+If retrieval finds no document, the model can use general knowledge. The prompt gives instructions against invented personal records and current conditions. This instruction does not guarantee a correct answer.
+
+| Setting | Value |
+|---|---|
+| Context | 2,048 tokens |
+| Output | 192 tokens or fewer |
+| Request deadline | 120 seconds |
+| Bonsai sampling | top-k 20; top-p 0.8; temperature 0.7; seed 42 |
+| Qwen sampling | Greedy |
+| Production speculation depth | Zero |
+
+## Data storage
 
 | Store | Contents |
 |---|---|
-| `library.db`, schema 5 | Documents, FTS4 passages, import-origin bindings, versioned packs and OSM features |
-| `chat.db`, schema 1 | Questions, answers, source locators and complete/limit/canceled/error/interrupted states |
-| `files/documents` | Private PDF and OSM originals for source inspection |
-| `files/models` | Imported GGUFs and verification markers |
-| App preferences | Draft, selected model, import status and keyed runtime settings |
+| `library.db`, schema 5 | Documents, FTS4 passages, import origins, versioned packs and OSM features |
+| `chat.db`, schema 1 | Questions, answers, source locators and turn states |
+| `files/documents` | Private PDF and OSM originals |
+| `files/models` | GGUF files and verification markers |
+| App preferences | Draft, selected model, import state and runtime settings |
 
-The product starts empty. Test providers and synthetic knowledge belong only to test APKs.
+The initial product library is empty. Test APKs contain the example knowledge and test providers.
 
-File/folder import identity combines source URI identity, format and original-byte hash. Unchanged extant imports are skipped; changed bytes create another snapshot, preserving older citations. Developer knowledge packs use a separate atomic activation contract: older pack versions stay resolvable but leave ordinary search. A locator binds a document, revision, source kind, ordinal and content hash; it must never silently rebind after removal or replacement.
+Import identity includes the source URI, format and original-byte hash. An unchanged file does not make another document if the app already has its saved copy. Changed bytes make a new snapshot. Older snapshots are still searchable.
 
-Folder files commit independently and retain readable subfolder provenance. OSM document/features/FTS/origin rows commit atomically in SQLite, with features stored separately rather than in one oversized document body. Filesystem copies and database transactions are not jointly crash-atomic; complete orphan recovery remains open.
+Knowledge packs use atomic activation. An older pack version stays available for its existing locators but leaves normal search results. A source locator contains document identity, revision, source kind, ordinal and content hash. A removed source must not silently resolve to another document.
 
-## Execution and cache invariants
+Each folder file has a separate commit. OSM document, feature, FTS and origin rows have one SQLite transaction. OSM features use separate rows, not one large document body. File copies and SQLite transactions are not one crash-atomic operation. Complete orphan-file recovery is not available.
 
-Library operations and inference use separate single-thread executors. Import and model changes are gated against active generation. A folder import occupies the library worker and disables sending while allowing draft editing. Provider calls and parser startup can delay cooperative cancellation.
+## Execution and cache control
 
-Native sessions have their own lock, plus a global `execution_mutex` because kernel settings are shared within the process. Configure kernels only under that execution boundary. Persistent pools pause between requests. Backgrounding cancels generation and queues cache release; destruction also cancels folder work. A low-memory request disables retaining its context.
+Library work and inference use separate single-thread executors. During generation, the app blocks import and model changes. During a folder import, the app blocks message sending. The user can still change a draft. Provider calls and parser startup can delay cancellation.
 
-Compatible token prefixes and saved prefix logits permit KV reuse. Model, template, context and kernel-policy changes must invalidate incompatible state. The 15-field `NativeEngine.Configuration` includes attention and matrix policy; do not reconstruct it through an older constructor and drop those fields.
+Each native session has a lock. A global `execution_mutex` also controls graph execution because kernel settings are process-wide. Kernel configuration must be inside this execution boundary. Persistent thread pools pause between requests.
 
-The admitted Pixel/Bonsai 4B profile uses six decode/prefill workers, four logical attention workers, batch 128, width 8, prefill/decode row groups 1/4, prefill/decode chunks 32/0, persistent pools and no affinity. `attentionThreads=4` requires six/six workers and no speculation; `matrixKernel=1` additionally requires that attention policy and compiled, CPU-compatible I8MM. The exact fingerprint/capability guards are in [RuntimeSettings.java](../app/src/main/java/dev/outpost/app/RuntimeSettings.java); other profiles retain conservative settings.
+When the app moves to the background, it stops generation and schedules cache removal. Activity destruction also stops folder work. A low-memory request does not keep its context for reuse.
 
-ARM I8MM is for eligible multi-column prompt matrices; single-column work stays on DotProd. Q2_0 g64 stores 2.25 effective bits per weight including scales and uses prepared Q8 activations. Kernel lane grouping and accumulation order preserve the admitted reference arithmetic. KV storage remains F16. The fixed-attention wrapper depends on the pinned backend's barrier/scratch contract; changing that backend requires a new numerical and concurrency audit.
+The runtime can reuse compatible token prefixes and saved prefix logits. Changes to the model, template, context or kernel policy must remove incompatible cache state. `NativeEngine.Configuration` has 15 fields. These include attention and matrix settings. Older constructors can omit these fields.
 
-## Resource envelope
+## Pixel runtime profile
 
-The deployment target is an Android/GrapheneOS device with no more than 12 GB of installed RAM and a complete offline footprint no larger than 50 GB. Count the app, models, original files, indexes, databases, temporary import copies and any other local assets. Small GGUF download sizes alone do not establish either limit: the live model, KV cache, activation workspace, parsers and operating system also consume resources.
+The accepted Pixel/Bonsai 4B profile has these values:
 
-Per-file import limits and guarded kernels already exist; a global storage cap and constrained physical-device acceptance do not. The current Pixel measurements come from a 16 GB device. Keep allocation/cache policy and import storage accounting separate from claims of meeting the target; [testing](testing.md) defines the required measurements.
+| Setting | Value |
+|---|---|
+| Decode workers / prefill workers | 6 / 6 |
+| Logical attention workers | 4 |
+| Batch / width | 128 / 8 |
+| Prefill row group / decode row group | 1 / 4 |
+| Prefill chunk / decode chunk | 32 / 0 |
+| Thread pools / affinity | Persistent / none |
+| Matrix kernel policy | I8MM policy 1 |
 
-## Boundaries and extension points
+For `attentionThreads=4`, six decode workers, six prefill workers and zero speculation are necessary. That attention setting and available I8MM code are also necessary for `matrixKernel=1`. CPU support alone is not sufficient. [RuntimeSettings.java](../app/src/main/java/dev/outpost/app/RuntimeSettings.java) gives the exact fingerprint and capability conditions. Other profiles use conservative settings.
 
-The product manifest requests no permissions and disables backup. Imports create private copies. Sources cannot execute code, invoke device tools or authorize external actions. No telemetry, account, downloader or synchronization service is present.
+ARM I8MM processes eligible matrices with more than one column. Single-column work uses DotProd. Q2_0 g64 storage uses 2.25 effective bits per weight, including scales. Its prepared activations use Q8. The kernels keep the original lane groups and accumulation order. KV storage uses F16.
 
-Add knowledge adapters through bounded parsing, explicit source identity and resolvable citations. Add models through reviewed pins/templates/runtime admission. Add kernels behind independent CPU, compiled-availability, shape and numerical gates. OCR, Office/ZIM, trained MTP/Engram, broader device tuning and equipment actions are unimplemented. Remaining acceptance work is summarized in [testing](testing.md).
+The attention wrapper depends on the specified backend barrier and scratch-memory behavior. New numeric and concurrency tests are necessary after a backend change.
+
+## Resource goals and extensions
+
+The device goal is a maximum of 12 GB installed RAM. The storage goal is 50 GB for the complete offline setup. This total includes the app, models, originals, indexes, databases, caches and temporary copies.
+
+Model file size is not sufficient evidence for these limits. Live model state, KV cache, activation workspace, parsers and the OS also use memory. Per-file import limits exist. There is no global storage cap. Current physical measurements use a 16 GB Pixel.
+
+The manifest requests no permissions and disables backup. Imports make private copies. Sources cannot run code, operate device tools or give permission for external actions. The app has no account, telemetry, downloader or synchronization service.
+
+New data adapters must have parser limits, source identity and resolvable references. File, template and runtime checks are necessary for new models. CPU, compiled-code, shape and numerical checks are necessary for new kernels. OCR, Office/ZIM, trained MTP/Engram and equipment actions are not available. The [test guide](testing.md) lists the remaining acceptance work.
+
+## Technical terms
+
+These terms have the meanings below in Outpost documentation. Product names, code symbols, file paths and interface labels keep their exact spelling.
+
+| Technical noun | Meaning |
+|---|---|
+| ABI | Binary interface for a processor architecture |
+| APK / AAB | Android application package / Android App Bundle |
+| Backend | The model computation code supplied by llama.cpp |
+| Build receipt | A record of source and output file identities for one build |
+| Decode | The operation that generates answer tokens |
+| Fallback | The original calculation path used when a faster kernel is not eligible |
+| Fixture | Specified test input and expected results |
+| GGUF | The model file format used by this app |
+| Inference | Model calculations that give output from an input prompt |
+| JNI | Java Native Interface, between Java and native code |
+| Kernel | A program for a specified numerical operation |
+| KV cache | Stored attention keys and values for previous tokens |
+| Logits | Model scores for possible next tokens, before sampling |
+| Prefill | The operation that processes prompt tokens and prepares the KV cache |
+| Quantization | Numerical encoding that uses fewer bits for model values |
+| Runtime profile | Settings for a specified device, OS, app version and model |
+| Snapshot | A saved version of imported source bytes |
+| Source locator | Data that identifies an exact saved source fragment |
+| Thread pool | Workers that the runtime can use for more than one request |
+
+The technical verbs below apply only to the specified software operations.
+
+| Technical verb | Meaning |
+|---|---|
+| Build | Make application files from source code and dependencies |
+| Compile | Make a program from source code |
+| Enter | Put text into a user interface field |
+| Generate | Calculate new output with the model or another program |
+| Run | Operate a program or test procedure |
+| Reuse | Use existing compatible data or workers for another software operation |
+| Download / upload | Transfer a file from / to another computer |
+| Import / export | Transfer data into / out of the app's defined data format or storage |
+| Hash | Calculate a file digest with the specified hash algorithm |
+| Parse | Read data according to its defined syntax |
+| Rebuild | Compile the specified source again |
+| Sign | Apply a digital signature with the selected key |
