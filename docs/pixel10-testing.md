@@ -2,6 +2,10 @@
 
 The owner explicitly authorized the connected physical Pixel 10 Pro on 2026-10-01. This supersedes the earlier emulator-only constraint for that phone (ADR-033). Outpost35 remains available, emulator-5580 is preserved, and host inference/other phones are outside scope.
 
+## 0.18 I8MM matrix policy
+
+The exact preset retains 6/6 and attention 4 while enabling guarded I8MM multi-column matrices. Use `i8mm-numeric`, `i8mm-lifecycle`, `i8mm-model`, `i8mm-confirm` and `stack-confirm` through the existing isolation wrapper. `-CandidateAdmission` and `-Generate` cover compatibility and actual product UI. Phone restoration remains the original 0.16 pair; install matching current APKs before -SkipInstall and preserve old artifact hashes. [Validation](validation-0.18.md).
+
 ## 0.17 normal decode
 
 The measured preset is 6/6 with four logical attention workers. Use `decode-six-pilot`, `decode-six-confirm` and `decode-six-lifecycle` through the isolation wrapper. `-CandidateAdmission` now isolates private stores for model compatibility too; `-Generate` exercises actual chat. The phone is restored to frozen 0.16 after this campaign; 0.17 is a separate local artifact. Verify live hashes before -SkipInstall, and allow an explicit debug downgrade when restoring an older saved APK. [Validation](validation-0.17.md).

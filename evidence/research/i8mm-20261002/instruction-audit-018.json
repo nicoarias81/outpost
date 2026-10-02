@@ -1,0 +1,13 @@
+{
+  "scope": "Static disassembly only; no host kernel/model execution. Runtime optional-ISA eligibility is separately tested on Pixel.",
+  "unstrippedLibrarySha256": "079800f52b0fd8ab60b579f617af54c587f39e100d3aac8c8d73874c45c6522d",
+  "instruction": "SMMLA",
+  "functions": {
+    "i8mm_primitive_checks": 1,
+    "i8mm_columns2": 8,
+    "i8mm_columns4": 16,
+    "i8mm_columns6": 24,
+    "i8mm_columns8": 32
+  },
+  "guardedFunctionContainment": true
+}

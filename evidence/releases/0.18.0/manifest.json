@@ -1,0 +1,173 @@
+{
+  "version": "0.18.0",
+  "versionCode": 20,
+  "appSha256": "450c88214a945d7fdc231a29e1890c23318f905be257ae5708c9806147e67f3c",
+  "testApkSha256": "0b1ffa84b246c3a30eb4f040062c3338fe7b3500dc7f8abf019f8c4da74fbcd0",
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-02T00:29:41.9058639Z",
+    "versionName": "0.18.0",
+    "versionCode": 20,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "c7d685a52b23d301e814dc03c9548160f56e36fd23e0f651aafe644e386e03b6",
+    "testSourcesSha256": "58a23639a9591938157b2bc288ac75fe45ba3609c1b404ba5e18715f17bd5c89",
+    "appSha256": "450c88214a945d7fdc231a29e1890c23318f905be257ae5708c9806147e67f3c",
+    "testApkSha256": "0b1ffa84b246c3a30eb4f040062c3338fe7b3500dc7f8abf019f8c4da74fbcd0",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "runs": {
+    "finalNumeric": "arm-i8mm-numeric-20261002T003134Z-66bced59",
+    "finalLifecycle": "arm-i8mm-lifecycle-20261002T003150Z-1a68ce8c",
+    "finalStack": "arm-stack-confirm-20261002T003255Z-92f4ea1b",
+    "finalAdmission": "candidate-admission-20261002T004321Z-6bf07b07",
+    "finalChat": "chat-20261002T004710Z-0b8437e2",
+    "finalX86": "x86-regression-20261002T003138Z-bd39cc6f",
+    "i8mmConfirmation": "arm-i8mm-confirm-20261002T001500Z-b3cad0c3"
+  },
+  "selectedProfile": {
+    "threads": 6,
+    "promptThreads": 6,
+    "batch": 128,
+    "width": 8,
+    "rowTile": 1,
+    "decodeRows": 4,
+    "prefillChunk": 32,
+    "decodeChunk": 0,
+    "attentionThreads": 4,
+    "matrixKernel": 1,
+    "measured": true,
+    "persistentThreads": true,
+    "kernel": "Q2_0 NEON DotProd"
+  },
+  "productLimits": {
+    "context": 2048,
+    "outputTokens": 192,
+    "deadlineMs": 120000,
+    "speculativeDepth": 0
+  },
+  "uiObservations": [
+    {
+      "case": "first-turn",
+      "text": "Cedar",
+      "tokens": 2,
+      "firstTokenMs": 5515,
+      "totalMs": 5674,
+      "attention": {
+        "calls": 144,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 108,
+        "originalTiledCalls": 36,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 72,
+        "sliceRows": 72,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 256,
+        "kvMax": 256,
+        "queryMin": 1,
+        "queryMax": 128,
+        "threadsMin": 6,
+        "threadsMax": 6,
+        "logicalKvMin": 256,
+        "logicalKvMax": 256
+      },
+      "i8mm": {
+        "compiled": true,
+        "cpuCompatible": true,
+        "requested": true,
+        "matrixNodes": 498,
+        "scope": "Request-scoped matrix I8MM path; one-column/vector dispatch remains DotProd. No expanded weights or larger graph workspace."
+      }
+    },
+    {
+      "case": "follow-up",
+      "text": "Cedar",
+      "tokens": 2,
+      "firstTokenMs": 5298,
+      "totalMs": 5461,
+      "attention": {
+        "calls": 144,
+        "originalSplitCalls": 0,
+        "originalVectorCalls": 72,
+        "originalTiledCalls": 72,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 72,
+        "sliceRows": 72,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 256,
+        "kvMax": 256,
+        "queryMin": 1,
+        "queryMax": 128,
+        "threadsMin": 6,
+        "threadsMax": 6,
+        "logicalKvMin": 256,
+        "logicalKvMax": 256
+      },
+      "i8mm": {
+        "compiled": true,
+        "cpuCompatible": true,
+        "requested": true,
+        "matrixNodes": 498,
+        "scope": "Request-scoped matrix I8MM path; one-column/vector dispatch remains DotProd. No expanded weights or larger graph workspace."
+      }
+    },
+    {
+      "case": "with-document",
+      "text": "[1] Equipment manual.pdf: Sample unit PX-65 uses spare filter F-92.",
+      "tokens": 21,
+      "firstTokenMs": 3836,
+      "totalMs": 5894,
+      "attention": {
+        "calls": 828,
+        "originalSplitCalls": 756,
+        "originalVectorCalls": 36,
+        "originalTiledCalls": 36,
+        "forcedReferenceCalls": 0,
+        "slicedCalls": 756,
+        "sliceRows": 756,
+        "shapeRejections": 0,
+        "maskRejections": 0,
+        "scratchRejections": 0,
+        "kvMin": 256,
+        "kvMax": 512,
+        "queryMin": 1,
+        "queryMax": 128,
+        "threadsMin": 6,
+        "threadsMax": 6,
+        "logicalKvMin": 512,
+        "logicalKvMax": 512
+      },
+      "i8mm": {
+        "compiled": true,
+        "cpuCompatible": true,
+        "requested": true,
+        "matrixNodes": 498,
+        "scope": "Request-scoped matrix I8MM path; one-column/vector dispatch remains DotProd. No expanded weights or larger graph workspace."
+      }
+    }
+  ],
+  "nativeLibraries": {
+    "arm64-v8a": {
+      "sha256": "1dd5e92857b38e9f573a70b6c994c2575296c99f2be7db775ba96093f83e738a"
+    },
+    "x86_64": {
+      "sha256": "96308e920cad69edba0f0d64f19e7ca2933b2031a528ab9b13e5c4895023c6d1"
+    }
+  },
+  "visualReview": {
+    "files": [
+      "chat-home.png",
+      "chat-settings.png",
+      "chat-documents.png",
+      "chat-pdf.png",
+      "chat-conversation.png",
+      "chat-sourced.png"
+    ],
+    "result": "All six synthetic captures visually reviewed; English UI remains readable and no personal app data is shown."
+  },
+  "scope": "Local user-test artifact. Exact paired output/logit preservation on the registered Pixel and unchanged x86 fallback. No generalized field-quality, device or energy claim.",
+  "finalDeviceRecord": "final-device.json"
+}

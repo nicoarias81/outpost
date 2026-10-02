@@ -1,6 +1,6 @@
 # Executable evaluation and attributed review
 
-The current default is [fixtures-v10.json](fixtures-v10.json): manifest schema2, revision10, app **0.17.0**, 15 defined fixtures (**12 runnable, 3 blocked**). This evaluates the evidence-only `ResearchPrompt` protocol. Product chat uses `ChatPrompt` v1.1 and has separate integration checks. No historical score automatically transfers to current chat.
+The current default is [fixtures-v11.json](fixtures-v11.json): manifest schema2, revision11, app **0.18.0**, 15 defined fixtures (**12 runnable, 3 blocked**). This evaluates the evidence-only `ResearchPrompt` protocol. Product chat uses `ChatPrompt` v1.1 and has separate integration checks. No historical score automatically transfers to current chat.
 
 ## Validate, execute and review
 

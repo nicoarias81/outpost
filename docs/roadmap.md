@@ -138,3 +138,7 @@ The [initial Pixel study](speculation-pixel-2026-10-01.md) completes sample trac
 ## P-02 — normal decoder improved in 0.17
 
 [Fixed four-way attention with six graph workers](validation-0.17.md) preserves full outputs and reduces measured decode latency about 20%, total time 13–15% on three paired synthetic Pixel cases. Keep I8MM, more efficient scheduling of fixed attention partitions, other devices and actual energy measurements open. TND-03/TND-04 remain research: recalibrate against normal 6/6 + attention 4; do not reuse old 4/6 break-even costs or claim trained MTP is implemented.
+
+## P-02 — I8MM prefill admitted in 0.18
+
+[Current validation](validation-0.18.md) adds exact I8MM matrix work and direct final-stack comparisons without multiplying prior gains. More efficient fixed-attention scheduling, other hardware, sustained low-memory behavior and actual energy remain open. TND-03 must measure against the new 6/6 + attention 4 + I8MM baseline; the existing speculative configuration remains disabled. No trained MTP/Engram was added.

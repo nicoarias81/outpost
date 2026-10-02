@@ -1,0 +1,44 @@
+{
+  "scope": "Final-APK comparison of the original0.16 policy and combined0.18 policy; do not multiply ratios across earlier runs",
+  "reference": {
+    "threads": 4,
+    "promptThreads": 6,
+    "attentionThreads": 0,
+    "matrixKernel": 0
+  },
+  "candidate": {
+    "threads": 6,
+    "promptThreads": 6,
+    "attentionThreads": 4,
+    "matrixKernel": 1
+  },
+  "shared": {
+    "batch": 128,
+    "width": 8,
+    "rowTile": 1,
+    "decodeRows": 4,
+    "chunks": [
+      32,
+      0
+    ],
+    "persistentThreads": true,
+    "affinity": 0,
+    "context": 2048,
+    "maxTokens": 192,
+    "deadlineMs": 120000,
+    "sampler": "top-k20/top-p0.8/temp0.7/seed42"
+  },
+  "cases": [
+    "Late arrival",
+    "Manual applicability",
+    "GPS and maps"
+  ],
+  "pairsPerCase": 3,
+  "counterbalance": "Alternate arm order by case and round",
+  "gates": [
+    "Exact complete tokens, text, stop reason and all sampled-logit hashes",
+    "Actual selected matrix and attention paths",
+    "Report both phase and total timings and all outliers; final improvement requires lower paired median total time in each case"
+  ],
+  "limits": "Warm model, USB-powered, uncontrolled background/thermal state; no field-quality or energy claim"
+}

@@ -1,0 +1,18 @@
+{
+  "scope": "Research-only matrix I8MM candidate. Published 0.17 remains frozen; normal/vector dispatch remains DotProd. No vendor/model edits.",
+  "sources": [
+    "https://arm-software.github.io/acle/neon_intrinsics/advsimd.html",
+    "Bundled NDK r28b Clang19 arm_neon.h vmmlaq_s32 declaration"
+  ],
+  "hypothesis": "SMMLA evaluates a pair of weight rows and activation columns for one old eight-product integer partial. Four independent FP32 lane histories retain original FMA/reduction order.",
+  "packing": "Repack Q8 activation column pairs inside existing graph workspace; preserve FP16 scales. No model-weight expansion, rewrite or workspace enlargement. Unpaired columns retain the old prepared layout.",
+  "gates": [
+    "Hardware NEON/DotProd/I8MM present before optional instructions",
+    "128 direct integer-layout controls on Pixel",
+    "Every original GGML matrix float bit matches, including poison, tails, padding, widths and workers",
+    "Actual I8MM eligibility and one-column fallback observed",
+    "Conversion/packing included in graph cost; compare against existing DotProd, not only scalar fallback",
+    "Run full-model pairing only if numerical gate and useful matrix-cost signal pass"
+  ],
+  "productPolicy": "Disabled; current 0.17 physical6/6 logical-attention4 profile is the baseline."
+}

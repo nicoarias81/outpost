@@ -1,5 +1,7 @@
 # Optimization record
 
+Current delivery is [0.18](validation-0.18.md): fixed original attention arithmetic with six graph workers and exact I8MM prefill. The final same-APK combined comparison records about 20–22% lower total time on three known Pixel cases without changing any logits/tokens. Older sections below retain their historical scopes; do not multiply their gains. Broader hardware and actual energy remain open.
+
 Status: current ARM adoption in Outpost 0.15, followed by preserved historical x86 measurements. Pinned model/backend sources are unchanged. The exact Pixel/Bonsai preset and [0.15 validation](validation-0.15.md) govern current phone performance; the [0.14 record](kernel-rows-0.14.md) remains specific to its measured emulator configuration.
 
 The [stack audit and CPU profile](inference-stack-audit-2026-10-01.md) separates packed storage, INT8 arithmetic, F16 cache and actual function samples. The resulting half-block scheduling experiment removed inner-loop spills and preserved all outputs but did not pass speed admission. The original kernel remains selected; the profile itself is not a new speedup.

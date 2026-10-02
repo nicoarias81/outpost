@@ -1,6 +1,6 @@
 # Documentation index
 
-**Outpost 0.17.0 / version code 19**, maintained English documentation updated through **2026-10-02**. Canonical repository: `E:/projects/outpost`. Start with [AGENTS.md](../AGENTS.md), [handoff](handoff.md) and [current validation](validation-0.17.md).
+**Outpost 0.18.0 / version code 20**, maintained English documentation updated through **2026-10-02**. Canonical repository: `E:/projects/outpost`. Start with [AGENTS.md](../AGENTS.md), [handoff](handoff.md) and [current validation](validation-0.18.md).
 
 ## Reading paths and ownership
 
@@ -20,13 +20,13 @@
 | Review Spark-X2.5 and storage stalls | [Model admission and NVMe/Engram analysis](spark-x25-storage-review.md) |
 | Compare models and memory designs | [Model alternatives and emulator study](model-alternatives.md), [Engram review](engram-review.md), [pinned research metadata](../evidence/research/model-survey-20260930/survey-metadata.json) |
 | Inspect actual arithmetic and CPU hotspots | [Encoding/kernel stack audit and app-only profile](inference-stack-audit-2026-10-01.md) |
-| Review current runtime performance | [0.17 fixed attention and complete-answer results](validation-0.17.md), [0.16 prefill scheduling](validation-0.16.md) |
+| Review current runtime performance | [0.18 combined I8MM/attention results](validation-0.18.md), [0.16 prefill scheduling](validation-0.16.md) |
 | Review cost-aware speculation | [TandemLLM/StairCut review, exactness limits and proposed Pixel experiments](tandemllm-review.md) |
 | Resume measured speculation research | [Historical attention parity repair](attention-parity-2026-10-01.md), [initial trace/cost study](speculation-pixel-2026-10-01.md) |
 | Improve inference | [Runtime](inference-runtime.md), [measured optimizations](optimizations.md), [ARM experiment](arm-optimization-2026-10-01.md), [historical x86 row experiment](kernel-rows-0.14.md), [speculation/MTP](speculation.md) |
 | Inspect answer-pipeline behavior | [NeMo Relay review and proposed local traces](nemo-relay-review.md) |
-| Define/score outcomes | [Evaluation protocol](evaluation.md), [runner/review guide](../eval/README.md), [v10 fixtures](../eval/fixtures-v10.json), [rubric v2](../eval/rubric-v2.md) |
-| Verify current delivery | [0.17 validation](validation-0.17.md), [frozen release manifest](../evidence/releases/0.17.0/manifest.json) |
+| Define/score outcomes | [Evaluation protocol](evaluation.md), [runner/review guide](../eval/README.md), [v11 fixtures](../eval/fixtures-v11.json), [rubric v2](../eval/rubric-v2.md) |
+| Verify current delivery | [0.18 validation](validation-0.18.md), [frozen release manifest](../evidence/releases/0.18.0/manifest.json) |
 | Trace external/product input | [Bounty snapshot and requirement trace](bounty-31.md), [anonymized discovery](discovery-2026-09-29.md) |
 | Understand naming and history | [Migration record](repository-migration.md), [changelog](../CHANGELOG.md), [glossary](glossary.md) |
 | Review this documentation pass | [Documentation audit](documentation-audit-2026-09-30.md) |

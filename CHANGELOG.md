@@ -2,6 +2,12 @@
 
 This history is reconstructed from saved validation reports. Version dates are omitted where no release timestamp was established. Historical artifacts retain the Brújula name. No public release or repository publication is implied.
 
+## 0.18.0 — 2026-10-02
+
+- Added guarded matrix-only I8MM prefill using existing activation workspace and exact original FP32 accumulation order; ordinary DotProd decoding and fixed-attention semantics remain.
+- Added explicit matrix policy, cache identity and profile persistence; actual hardware/compiler/path checks prevent format/ISA labels being mistaken for execution.
+- Preserved all logits/answers in numeric, model and direct combined-stack comparisons; validated cancellation/cache/UI/model/x86 behavior and retained all earlier artifacts and unfavorable measurements.
+
 ## 0.17.0 — 2026-10-02
 
 - Added six-worker normal decoding with original four-way attention arithmetic on the exact Pixel/Bonsai4 preset.

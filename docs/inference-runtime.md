@@ -1,10 +1,14 @@
 # Inference runtime
 
-Status: implementation reference for Outpost 0.17.0. The owned wrappers support guarded x86 and ARM Q2 paths. ARM adds exact-lane DotProd, prepared activations/column/decode-row reuse and persistent workers; vendor backend, model weights and sampler remain pinned and unchanged. See [architecture](architecture.md) for the application flow and [optimizations](optimizations.md) for measurements.
+Status: implementation reference for Outpost 0.18.0. The owned wrappers support guarded x86 and ARM Q2 paths. ARM adds exact-lane DotProd, prepared activations/column/decode-row reuse and persistent workers; vendor backend, model weights and sampler remain pinned and unchanged. See [architecture](architecture.md) for the application flow and [optimizations](optimizations.md) for measurements.
 
 For the complete weight/activation/arithmetic/KV/dispatch contract and measured CPU attribution, see [the stack audit](inference-stack-audit-2026-10-01.md).
 
-## Current 0.17 normal-decoder policy
+## Current 0.18 matrix policy
+
+[Validation](validation-0.18.md) admits a guarded 2-row I8MM path for multi-column Q2_0 g64 matrices on the exact Pixel/Bonsai4 key. Activation column pairs are permuted inside existing Q8 workspace; four FP32 histories keep original FMA/reduction ordering. One-column work remains DotProd. `matrixKernel` joins configuration/cache/profile identity, defaulting to 0 in old constructors; 1 requires fixed attention. The ARM key is `q2-arm-i8mm-attn4-v1`. Matrix compilation/CPU compatibility and actual per-request node counts are separate from the legacy vector dispatch registry. Weight storage/precision and product speculation remain unchanged.
+
+## Retained 0.17 normal-decoder policy
 
 [Validation](validation-0.17.md) admits six physical decode/prompt workers with four logical attention workers only for the exact Pixel/Bonsai4 key. The ordinary single-query operation receives the original tensor/mask and a four-worker compute-parameter view; two other graph workers synchronize without changing the reduction. Multi-query prefill stays original. `attentionThreads` joins configuration, cache identity and persistence; the ARM key becomes `q2-arm-dot-attn4-v1`. Product speculation remains zero. Versioned sections below preserve their recorded stages; this section owns the current worker preset. Future verification work must measure against this new faster baseline.
 
@@ -43,9 +47,9 @@ One model is loaded in the native session at a time. Selecting another generator
 | AVX-512 VNNI | CPU extensions plus required OS extended-state support | Descriptor only |
 | ARM NEON | Baseline ARM SIMD | Available through the original backend fallback |
 | ARM DotProd | NEON and HWCAP_ASIMDDP | Compiled guarded custom Q2 path, validated on the registered Pixel |
-| ARM I8MM | NEON and HWCAP2_I8MM | Descriptor only; no custom I8MM kernel |
+| ARM I8MM matrices | NEON, DotProd and HWCAP2_I8MM plus shape/layout guards | Compiled matrix-only path, admitted for the exact Pixel/Bonsai4 profile in 0.18; vector dispatch remains DotProd |
 
-The registry separately reports CPU compatibility, compiled implementation, enabled policy, and selected path. Detection never makes a missing implementation executable. Synthetic dispatch checks test policy; they do not exercise unsupported instructions. The current APK packages x86_64 and ARM64. The [authorized Pixel 10 Pro trial](pixel10-results-2026-10-01.md) now verifies bounded ARM model admission and product chat in addition to the historical x86_64 emulator checks. That initial trial selected the backend reference path. The subsequent [0.15 validation](validation-0.15.md) admits custom DotProd and persistent workers; I8MM remains pending. Other devices, 16 KiB pages and broad stress/field validation are not established by this trial.
+The registry separately reports CPU compatibility, compiled implementation, enabled policy, and selected path. Detection never makes a missing implementation executable. Synthetic dispatch checks test policy; they do not exercise unsupported instructions. The current APK packages x86_64 and ARM64. The [authorized Pixel 10 Pro trial](pixel10-results-2026-10-01.md) now verifies bounded ARM model admission and product chat in addition to the historical x86_64 emulator checks. That initial trial selected the backend reference path. The subsequent [0.15 validation](validation-0.15.md) admits custom DotProd and persistent workers; The separate 0.18 I8MM matrix admission is described below. Other devices, 16 KiB pages and broad stress/field validation are not established by this trial.
 
 The measured profile key includes Android fingerprint/API, ABI, feature mask, online CPU count, app version, kernel identifier, and model SHA-256. A different key returns a conservative default: at most 4 decode/prompt threads, batch 128 and width 1, marked unmeasured. The key uses app `versionName`, not the source/APK hash; changing code without a version change does not automatically invalidate it. Calibration is a developer action, not an automatic startup benchmark. Current Settings exposes model preparation, not runtime calibration/metrics. Any future runtime UI must distinguish unsupported or unmeasured states.
 

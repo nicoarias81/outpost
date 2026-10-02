@@ -1,0 +1,87 @@
+{
+  "runId": "chat-20261002T004710Z-0b8437e2",
+  "target": "Pixel10Pro",
+  "serial": "registered-pixel-ending-03Q6",
+  "modelExecution": true,
+  "deviceProperties": {
+    "ro.kernel.qemu": "",
+    "ro.boot.qemu.avd_name": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.device": "blazer",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.version.release": "17",
+    "ro.build.version.sdk": "37",
+    "ro.build.version.security_patch": "2026-09-05",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "ro.soc.manufacturer": "Google",
+    "ro.soc.model": "Tensor G5",
+    "sys.boot_completed": "1"
+  },
+  "radioSettingsBefore": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "conditionsBefore": {
+    "capturedUtc": "2026-10-02T00:47:09.4882908Z",
+    "battery": [
+      "  AC powered: false",
+      "  USB powered: true",
+      "  Wireless powered: false",
+      "  Dock powered: false",
+      "  status: 2",
+      "  health: 2",
+      "  present: true",
+      "  level: 80",
+      "  scale: 100",
+      "  voltage: 4226",
+      "  temperature: 369",
+      "  technology: Li-ion"
+    ],
+    "memory": [
+      "MemTotal:       15949000 kB",
+      "MemFree:          810916 kB",
+      "MemAvailable:    4705120 kB",
+      "SwapTotal:       7974496 kB",
+      "SwapFree:        3536556 kB"
+    ],
+    "dataSpace": [
+      "Filesystem       1K-blocks      Used Available Use% Mounted on",
+      "/dev/block/dm-80 239543380 115453832 123958476  49% /data/user/0"
+    ]
+  },
+  "conditionsAfter": {
+    "capturedUtc": "2026-10-02T00:47:38.4272013Z",
+    "battery": [
+      "  AC powered: false",
+      "  USB powered: true",
+      "  Wireless powered: false",
+      "  Dock powered: false",
+      "  status: 2",
+      "  health: 2",
+      "  present: true",
+      "  level: 80",
+      "  scale: 100",
+      "  voltage: 4202",
+      "  temperature: 372",
+      "  technology: Li-ion"
+    ],
+    "memory": [
+      "MemTotal:       15949000 kB",
+      "MemFree:         1032172 kB",
+      "MemAvailable:    4593752 kB",
+      "SwapTotal:       7974496 kB",
+      "SwapFree:        3542852 kB"
+    ],
+    "dataSpace": [
+      "Filesystem       1K-blocks      Used Available Use% Mounted on",
+      "/dev/block/dm-80 239543380 115455052 123957256  49% /data/user/0"
+    ]
+  },
+  "appSha256": "450c88214a945d7fdc231a29e1890c23318f905be257ae5708c9806147e67f3c",
+  "testApkSha256": "0b1ffa84b246c3a30eb4f040062c3338fe7b3500dc7f8abf019f8c4da74fbcd0",
+  "mainSourcesSha256": "c7d685a52b23d301e814dc03c9548160f56e36fd23e0f651aafe644e386e03b6",
+  "testSourcesSha256": "58a23639a9591938157b2bc288ac75fe45ba3609c1b404ba5e18715f17bd5c89",
+  "scope": "Chat/import/migration checks on the recorded Android target. Synthetic content is removed; product selection is restored. No battery-life or field-quality claim."
+}

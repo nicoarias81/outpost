@@ -1,6 +1,6 @@
 # Developer guide
 
-Current baseline: **Outpost 0.17.0**, Windows/PowerShell host. Work from `E:/projects/outpost`. The APK packages x86_64/ARM64; execution is allowed on Outpost35/emulator-5582 or the specifically registered Pixel10Pro. Read [the emulator guide](emulator-runbook.md) or [the Pixel protocol](pixel10-testing.md) before runtime work. Host inference remains outside scope.
+Current baseline: **Outpost 0.18.0**, Windows/PowerShell host. Work from `E:/projects/outpost`. The APK packages x86_64/ARM64; execution is allowed on Outpost35/emulator-5582 or the specifically registered Pixel10Pro. Read [the emulator guide](emulator-runbook.md) or [the Pixel protocol](pixel10-testing.md) before runtime work. Host inference remains outside scope.
 
 ## Environment and preparation
 
@@ -48,7 +48,7 @@ pwsh -File scripts/publish-artifact.ps1 -Verify
 if ($LASTEXITCODE -ne 0) { throw 'Artifact verification failed.' }
 ```
 
-Publication copies the debug APK into ignored `dist/` using the version in `app/build.gradle`, writes an LF checksum sidecar and refuses a different artifact with the same version. `-Verify` checks the existing artifact without requiring a build APK. This is local integrity checking, not production signing, public distribution or an independent reproducible-build attestation. The current artifact is `outpost-0.17.0-user-test.apk`; exact hashes/receipt are in [validation](validation-0.17.md).
+Publication copies the debug APK into ignored `dist/` using the version in `app/build.gradle`, writes an LF checksum sidecar and refuses a different artifact with the same version. `-Verify` checks the existing artifact without requiring a build APK. This is local integrity checking, not production signing, public distribution or an independent reproducible-build attestation. The current artifact is `outpost-0.18.0-user-test.apk`; exact hashes/receipt are in [validation](validation-0.18.md).
 
 Current lint: **0 errors, 3 existing upstream BouncyCastle TrustAllX509TrustManager warnings**. The app has no INTERNET permission and does not use those networking helpers. Report actual counts; do not describe lint as having no issues.
 

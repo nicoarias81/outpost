@@ -1,0 +1,555 @@
+package dev.outpost.app;
+
+import android.app.Activity;
+import android.app.Instrumentation;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.PowerManager;
+import android.os.SystemClock;
+import android.widget.TextView;
+import java.io.File;
+import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+/** Foreground ARM research. The replacement Activity never opens personal app state. */
+final class ArmKernelChecks {
+    static final class BenchActivity extends Activity {
+        TextView message;
+        volatile boolean resumed;
+        @Override public void onCreate(Bundle state){super.onCreate(null);setShowWhenLocked(true);setTurnScreenOn(true);getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);message=new TextView(this);message.setTextSize(20);message.setPadding(32,96,32,32);message.setText("Outpost performance test\n\nPlease leave this screen open.\nYour conversation and documents are not used.\nThe device lock remains enabled.");setContentView(message);}
+        @Override protected void onResume(){super.onResume();resumed=true;}
+        @Override protected void onPause(){resumed=false;super.onPause();}
+    }
+    private final Instrumentation test;private final Bundle args;
+    private final JSONObject report=new JSONObject();private final JSONArray checks=new JSONArray(),answers=new JSONArray();
+    private File output;private BenchActivity screen;private int promptThreadsOverride,prefillChunk,decodeChunk,attentionThreadsOverride;
+    ArmKernelChecks(Instrumentation test,Bundle args){this.test=test;this.args=args;}
+    private void write()throws Exception{Files.write(output.toPath(),report.toString(2).getBytes(StandardCharsets.UTF_8));}
+    private void require(boolean ok,String label)throws Exception{checks.put(new JSONObject().put("label",label).put("passed",ok));write();if(!ok)throw new AssertionError(label);}
+    private void status(String text){Bundle b=new Bundle();b.putString("stream","\n"+text+"\n");test.sendStatus(0,b);if(screen!=null)test.runOnMainSync(()->screen.message.setText("Outpost performance test\n\n"+text+"\n\nPlease leave this screen open."));}
+    private JSONObject conditions()throws Exception{
+        var context=test.getTargetContext();Intent battery=context.registerReceiver(null,new android.content.IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        boolean[] focus={false};if(screen!=null)test.runOnMainSync(()->focus[0]=screen.hasWindowFocus());
+        return new JSONObject().put("thermalStatus",context.getSystemService(PowerManager.class).getCurrentThermalStatus()).put("interactive",context.getSystemService(PowerManager.class).isInteractive()).put("keyguard",context.getSystemService(android.app.KeyguardManager.class).isKeyguardLocked()).put("benchmarkResumed",screen!=null&&screen.resumed).put("benchmarkHasFocus",focus[0]).put("batteryTenthsC",battery==null?-1:battery.getIntExtra("temperature",-1)).put("plugged",battery==null?-1:battery.getIntExtra("plugged",-1));
+    }
+    void run(){boolean passed=false;Bundle end=new Bundle();
+        try{
+            String id=args.getString("arm_run",""),phase=args.getString("arm_phase","numeric");if(!id.matches("[A-Za-z0-9_-]{8,80}"))throw new IllegalArgumentException("Unique run required");
+            File dir=new File(test.getTargetContext().getFilesDir(),"evidence/arm/"+id);if(dir.exists()||!dir.mkdirs())throw new IllegalStateException("Run exists");output=new File(dir,"arm-checks.json");
+            report.put("runId",id).put("phase",phase).put("passed",false).put("checks",checks).put("answers",answers).put("initialRuntime",new JSONObject(NativeEngine.kernelProfile())).put("scope","Foreground Android ARM experiment. Synthetic prompts only; exact parity and actual dispatch required. USB-powered, no energy claim.");write();
+            require(android.os.Build.MANUFACTURER.equals("Google")&&android.os.Build.MODEL.equals("Pixel 10 Pro")&&android.os.Build.SUPPORTED_ABIS[0].equals("arm64-v8a"),"Registered Pixel architecture/model");
+            JSONObject initial=conditions();require(initial.getInt("thermalStatus")<PowerManager.THERMAL_STATUS_SEVERE,"Thermal status permits the bounded test");
+            screen=(BenchActivity)test.startActivitySync(new Intent(test.getTargetContext(),MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));test.waitForIdleSync();
+            for(int i=0;i<30&&(!conditions().getBoolean("interactive")||!conditions().getBoolean("benchmarkHasFocus"));i++)SystemClock.sleep(100);
+            require(conditions().getBoolean("interactive")&&conditions().getBoolean("benchmarkHasFocus")&&screen.resumed,"Dedicated benchmark Activity is visible, focused and resumed");
+            report.put("conditionsBefore",conditions()).put("foregroundActivity",true).put("keyguardPolicy","Test Activity may occlude keyguard using standard Activity APIs; it never dismisses authentication or loads personal app state.").put("numericTimingScope","Foreground numeric control; not model speed");write();
+            if(phase.equals("i8mm-numeric")){
+                status("Checking guarded SMMLA layout, original float bits and real matrix costs...");JSONObject proof=new JSONObject(NativeEngine.nativeI8mmChecks());report.put("i8mm",proof);write();
+                require(proof.getBoolean("supported")&&proof.getInt("primitiveFailures")==0&&proof.getInt("primitiveComparisons")==128,"Actual I8MM instruction has the expected signed 2x2 matrix layout");
+                require(proof.getLong("comparisons")>10000&&proof.getInt("failures")==0,"Every original GGML matrix output bit and dispatch/fallback case is preserved");
+            }else if(phase.equals("numeric")||phase.equals("row-numeric")){
+                if(phase.equals("row-numeric")){
+                    status("Checking dynamic row ownership, tails and fallback...");
+                    JSONObject schedule=new JSONObject(NativeEngine.nativeArmScheduleChecks());report.put("scheduleCoverage",schedule);write();
+                    require(schedule.getBoolean("supported")&&schedule.getLong("rowCoverageChecks")>100000&&schedule.getInt("failures")==0,"Every scheduled row is written exactly once across all chunk sizes and worker counts");
+                }
+                status("Checking 16,000+ vectors, guard pages and reference dispatch...");
+                double[] d=NativeEngine.nativeKernelChecks();report.put("vectors",new JSONObject().put("supported",d[0]==1).put("comparisons",d[1]).put("bitMismatches",d[2]).put("dispatch",d[3]==1).put("guard",d[4]==1).put("maxAbsolute",d[5]).put("maxRelative",d[6]).put("referenceNs",d[7]).put("dotProdNs",d[8]));write();
+                require(d[0]==1&&d[1]>=16000&&d[2]==0&&d[3]==1&&d[4]==1,"Direct ARM dot preserves all bits and guarded bounds");
+                int[] policy=NativeEngine.nativeDispatchChecks();require(policy[0]>=50&&policy[1]==0,"Capability/dispatch policy checks");
+                status("Checking matrix strides, tails, workers and real Bonsai shapes...");JSONObject graphs=new JSONObject(NativeEngine.nativeArmGraphChecks());report.put("graphs",graphs);write();
+                require(graphs.getBoolean("supported")&&graphs.getInt("comparisons")>10000&&graphs.getInt("failures")==0&&graphs.getJSONArray("benchmarks").length()==189,"Prepared matrix path is bitwise equivalent across all graphs");
+            }else{
+                ModelStore model=new ModelStore(test.getTargetContext(),ModelStore.BONSAI4);MessageDigest digest=MessageDigest.getInstance("SHA-256");
+                try(var in=new FileInputStream(model.file())){byte[] b=new byte[1024*1024];int n;while((n=in.read(b))!=-1)digest.update(b,0,n);}
+                StringBuilder hash=new StringBuilder();for(byte b:digest.digest())hash.append(String.format(java.util.Locale.ROOT,"%02x",b&255));
+                require(model.file().length()==model.spec().bytes()&&hash.toString().equals(model.spec().sha256()),"Pinned Bonsai bytes verified; file pages are warm");report.put("modelSha256",hash.toString());write();
+                try(NativeEngine engine=new NativeEngine()){
+                    if(phase.equals("tune"))tune(engine,model);
+                    else if(phase.equals("controller"))controller(engine,model);
+                    else if(phase.equals("lifecycle"))lifecycle(engine,model);
+                    else if(phase.equals("trace"))trace(engine,model);
+                    else if(phase.equals("profile"))profile(engine,model);
+                    else if(phase.equals("row-tune"))rowTune(engine,model);
+                    else if(phase.equals("row-confirm")||phase.equals("row-confirm-reverse"))rowConfirm(engine,model,phase.equals("row-confirm-reverse"));
+                    else if(phase.equals("row-lifecycle"))rowLifecycle(engine,model);
+                    else if(phase.equals("spec-trace"))specTrace(engine,model);
+                    else if(phase.equals("spec-curve"))specCurve(engine,model);
+                    else if(phase.equals("spec-edges"))specEdges(engine,model);
+                    else if(phase.equals("attention-curve"))attentionCurve(engine,model);
+                    else if(phase.equals("attention-six"))attentionSix(engine,model);
+                    else if(phase.equals("decode-six-pilot"))decodeSix(engine,model,1);
+                    else if(phase.equals("decode-six-confirm"))decodeSix(engine,model,3);
+                    else if(phase.equals("decode-six-lifecycle"))decodeSixLifecycle(engine,model);
+                    else if(phase.equals("i8mm-model"))i8mmModel(engine,model,1);
+                    else if(phase.equals("i8mm-confirm"))i8mmModel(engine,model,3);
+                    else if(phase.equals("attention-trace-six")){engine.attentionForTests(3);specTrace(engine,model);require(report.getBoolean("speculationParityGatePassed"),"Six-worker verification retains all serial target distributions and text");specEdges(engine,model);engine.attentionForTests(0);}
+                    else if(phase.equals("attention-trace")){engine.attentionForTests(2);specTrace(engine,model);require(report.getBoolean("speculationParityGatePassed"),"Sliced verification preserves all target distributions and emitted text");specEdges(engine,model);engine.attentionForTests(0);}
+                    else if(phase.equals("model")||phase.equals("confirm"))paired(engine,model,phase.equals("confirm"));
+                    else throw new IllegalArgumentException("Unknown ARM phase");
+                }
+            }
+            report.put("conditionsAfter",conditions()).put("passed",true).put("checksPassed",checks.length());write();passed=true;end.putString("stream","\nPASS ARM "+phase+": "+checks.length()+" controls.\n");
+        }catch(Throwable error){try{report.put("error",android.util.Log.getStackTraceString(error));write();}catch(Exception ignored){}end.putString("stream","\nFAIL ARM: "+android.util.Log.getStackTraceString(error));}
+        finally{NativeEngine.setKernelAutomatic(false);if(screen!=null){BenchActivity last=screen;test.runOnMainSync(last::finish);}}
+        test.finish(passed?Activity.RESULT_OK:Activity.RESULT_CANCELED,end);
+    }
+    private NativeEngine.Result call(NativeEngine engine,ModelStore model,String id,String system,String user,boolean fast,int threads,int width,int cap)throws Exception{
+        boolean pools=fast&&"true".equals(args.getString("arm_pools","false"));int mask=pools&&"performance".equals(args.getString("arm_affinity","none"))?performanceMask(threads):0;
+        return call(engine,model,id,system,user,fast,threads,width,cap,pools,mask);
+    }
+    private static int performanceMask(int threads){return ((1<<threads)-1)<<(8-threads);}
+    private NativeEngine.Result call(NativeEngine engine,ModelStore model,String id,String system,String user,boolean fast,int threads,int width,int cap,boolean pools,int mask)throws Exception{
+        JSONObject before=conditions();if(!before.getBoolean("benchmarkHasFocus")||!before.getBoolean("benchmarkResumed")||!before.getBoolean("interactive")||before.getInt("thermalStatus")>=PowerManager.THERMAL_STATUS_SEVERE)throw new IllegalStateException("Foreground/thermal precondition changed");
+        NativeEngine.setKernelAutomatic(fast);engine.clearCache();engine.configure(new NativeEngine.Configuration(threads,promptThreadsOverride>0?promptThreadsOverride:threads,128,false,width,0,true,1,Integer.parseInt(args.getString("arm_rows","1")),pools,mask,prefillChunk,decodeChunk,attentionThreadsOverride));
+        JSONObject row=new JSONObject().put("id",id).put("fast",fast).put("threads",threads).put("promptThreads",promptThreadsOverride>0?promptThreadsOverride:threads).put("width",width).put("batch",128).put("persistentThreads",pools).put("affinityMask",mask).put("prefillChunk",prefillChunk).put("decodeChunk",decodeChunk).put("decodeRows",Integer.parseInt(args.getString("arm_rows","1"))).put("attentionThreads",attentionThreadsOverride).put("deadlineMs",engine.deadlineForTests()).put("maxTokens",cap).put("sampler","top-k20/top-p0.8/temp0.7/seed42").put("system",system).put("user",user).put("status","running").put("conditionsBefore",before);answers.put(row);write();status("Starting "+id+" / "+(fast?"DotProd":"reference")+" / "+threads+" threads / width "+width);
+        long cpu=android.os.Process.getElapsedCpuTime(),start=SystemClock.elapsedRealtime(),startMonoNs=System.nanoTime();long[] firstCallbackNs={0};NativeEngine.Result r;
+        try{r=engine.generateWithSampling(engine.request(),model.file(),system,user,cap,true,(s,n)->{if(firstCallbackNs[0]==0)firstCallbackNs[0]=System.nanoTime();});}catch(Throwable e){row.put("status","error").put("error",e.toString());write();throw e;}
+        long endMonoNs=System.nanoTime();row.put("startMonoNs",startMonoNs).put("firstCallbackMonoNs",firstCallbackNs[0]).put("endMonoNs",endMonoNs).put("prepareMs",r.prepareMs());
+        row.put("status","returned").put("text",r.text()).put("tokens",r.tokens()).put("promptTokens",r.promptTokens()).put("firstTokenMs",r.firstTokenMs()).put("totalMs",r.totalMs()).put("loadMs",r.loadMs()).put("prefillMs",r.prefillMs()).put("decodeMs",r.decodeMs()).put("stopReason",r.reason()).put("firstLogitsHash",Long.toUnsignedString(r.firstLogitsHash())).put("tokenIds",new JSONArray(engine.lastTokens())).put("kernelUsed",NativeEngine.kernelWasUsed()).put("batchUsed",NativeEngine.kernelBatchUsed()).put("rowKernelUsed",NativeEngine.kernelRowsUsed()).put("processCpuMs",android.os.Process.getElapsedCpuTime()-cpu).put("wallMs",SystemClock.elapsedRealtime()-start).put("conditionsAfter",conditions());write();
+        JSONObject schedule=new JSONObject(NativeEngine.armScheduleAudit());row.put("rowSchedule",schedule);write();
+        if(prefillChunk>0)require(schedule.getInt("prefillNodes")>0,"Dynamic prefill row path executed");
+        if(decodeChunk>0&&r.tokens()>1)require(schedule.getInt("decodeNodes")>0,"Dynamic decode row path executed");
+        if(prefillChunk==0)require(schedule.getInt("prefillNodes")==0,"Static prefill row path retained");
+        if(decodeChunk==0)require(schedule.getInt("decodeNodes")==0,"Static decode row path retained");
+        JSONArray trace=new JSONArray();for(long h:engine.logitTrace())trace.put(Long.toUnsignedString(h));row.put("logitTrace",trace);
+        JSONObject poolState=new JSONObject(engine.threadpoolAudit());row.put("threadpool",poolState).put("attention",new JSONObject(engine.attentionStats())).put("i8mm",new JSONObject(engine.i8mmStats()));write();require(poolState.getBoolean("affinityRestored")&&poolState.getInt("affinityBefore")==poolState.getInt("affinityAfter")&&poolState.getBoolean("pausedAfterRequest"),"Caller affinity restored and pools paused: "+id);if(mask!=0)require(poolState.getInt("effectiveMask")==mask&&(poolState.getInt("affinityDuring")&~mask)==0,"Requested application-thread affinity applied");require(NativeEngine.kernelWasUsed()==fast,"Requested kernel actually executed: "+id);status("Completed "+id+": "+r.totalMs()+"ms / first "+r.firstTokenMs()+"ms / "+r.tokens()+" tokens / stop "+r.reason());return r;
+    }
+    private List<ChatPrompt.Prepared> prompts()throws Exception{
+        JSONObject fixtures;try(var in=test.getContext().getAssets().open("candidates/missions-v1.json")){fixtures=new JSONObject(new String(in.readAllBytes(),StandardCharsets.UTF_8));}
+        List<ChatPrompt.Prepared> result=new ArrayList<>();JSONArray list=fixtures.getJSONArray("development");
+        for(int i=0;i<2;i++){JSONObject c=list.getJSONObject(i);List<Library.Hit> hits=new ArrayList<>();JSONArray docs=c.getJSONArray("documents");
+            for(int j=0;j<docs.length();j++){JSONObject d=docs.getJSONObject(j);Library.Document doc=new Library.Document("arm-fixture-"+i+"-"+j,d.getString("title"),"Synthetic","Synthetic","","2026-10-01",d.getString("body"));hits.add(new Library.Hit(doc,doc.body(),j+1,1));}
+            result.add(ChatPrompt.prepare(c.getString("question"),List.of(),hits));}
+        return result;
+    }
+    private void paired(NativeEngine engine,ModelStore model,boolean confirm)throws Exception{
+        int threads=Integer.parseInt(args.getString("arm_threads","4")),width=Integer.parseInt(args.getString("arm_width","4"));int rounds=confirm?3:1;int promptThreads=Integer.parseInt(args.getString("arm_prompt_threads",Integer.toString(threads)));engine.traceLogitsForTests(true);
+        engine.deadlineForTests(300000);report.put("comparisonThreads",threads).put("comparisonWidth",width).put("comparisonPromptThreads",promptThreads).put("referenceThreads",4).put("rounds",rounds).put("researchDeadlineMs",300000).put("productDeadlineMs",120000);write();
+        ChatPrompt.Prepared shortPrompt=ChatPrompt.prepare("For this conversation my code name is Cedar. Reply with just the code name.",List.of(),List.of());
+        NativeEngine.Result shortReference=call(engine,model,"complete-control/reference",ChatPrompt.SYSTEM,shortPrompt.user(),false,4,width,192);int[] shortTokens=engine.lastTokens();long[] shortTrace=engine.logitTrace();promptThreadsOverride=promptThreads;
+        NativeEngine.Result shortFast=call(engine,model,"complete-control/candidate",ChatPrompt.SYSTEM,shortPrompt.user(),true,threads,width,192);
+        require(shortReference.reason()==0&&shortFast.reason()==0&&shortReference.text().equals(shortFast.text())&&shortReference.firstLogitsHash()==shortFast.firstLogitsHash()&&Arrays.equals(shortTokens,engine.lastTokens())&&Arrays.equals(shortTrace,engine.logitTrace()),"Complete short chat has identical tokens/text/logits");
+        List<ChatPrompt.Prepared> prompts=prompts();
+        for(int c=0;c<prompts.size();c++){
+            var prompt=prompts.get(c);String expected=null;long hash=0;int[] tokens=null;long[] expectedTrace=null;int expectedStop=-1;
+            for(int round=0;round<rounds;round++)for(int order=0;order<2;order++){
+                boolean fast=(c+round+order)%2!=0;promptThreadsOverride=fast?promptThreads:4;
+                call(engine,model,"case"+c+"/round"+round+"/warmup",ChatPrompt.SYSTEM,prompt.user(),fast,fast?threads:4,width,8);
+                answers.getJSONObject(answers.length()-1).put("warmup",true);write();
+                NativeEngine.Result r=call(engine,model,"case"+c+"/round"+round,ChatPrompt.SYSTEM,prompt.user(),fast,fast?threads:4,width,192);
+                require(r.reason()==0||r.reason()==1,"Request finishes naturally or at unchanged192-token cap within equal300-second research deadline");
+                if(expected==null){expected=r.text();hash=r.firstLogitsHash();tokens=engine.lastTokens();expectedTrace=engine.logitTrace();expectedStop=(int)r.reason();}
+                else require(expectedStop==r.reason()&&expected.equals(r.text())&&hash==r.firstLogitsHash()&&Arrays.equals(tokens,engine.lastTokens())&&Arrays.equals(expectedTrace,engine.logitTrace()),"Full generated sequence, stop reason and initial logits remain identical");
+            }
+        }
+    }
+    private void controller(NativeEngine engine,ModelStore model)throws Exception{
+        String user=prompts().get(1).user();String[] names={"legacy","pools-only","kernel-only","kernel-pools","kernel-pools-affinity"};
+        boolean[] fast={false,false,true,true,true},pools={false,true,false,true,true};int[] masks={0,0,0,0,240};
+        call(engine,model,"controller/warmup",ChatPrompt.SYSTEM,user,false,4,8,8,false,0);answers.getJSONObject(answers.length()-1).put("warmup",true);write();
+        String expected=null;long hash=0;int[] tokens=null;
+        for(int round=0;round<2;round++)for(int order=0;order<5;order++){
+            int index=round==0?order:4-order;String id="controller/round"+round+"/"+names[index];
+            NativeEngine.Result r=call(engine,model,id,ChatPrompt.SYSTEM,user,fast[index],4,8,32,pools[index],masks[index]);
+            require(r.reason()<2&&r.tokens()>0,"Bounded controller diagnostic returned");
+            if(expected==null){expected=r.text();hash=r.firstLogitsHash();tokens=engine.lastTokens();}
+            else require(expected.equals(r.text())&&hash==r.firstLogitsHash()&&Arrays.equals(tokens,engine.lastTokens()),"Controller changes preserve all sampled tokens and initial logits");
+        }
+    }
+    private boolean equivalent(NativeEngine.Result r,int[] actual,long hash,int[] expected){
+        if(r.reason()>1||r.tokens()==0||r.firstLogitsHash()!=hash||actual.length>expected.length)return false;
+        for(int i=0;i<actual.length;i++)if(actual[i]!=expected[i])return false;return true;
+    }
+    private void rowTune(NativeEngine engine,ModelStore model)throws Exception{
+        engine.traceLogitsForTests(true);promptThreadsOverride=6;
+        require("4".equals(args.getString("arm_rows")),"Row tuning retains the admitted four-row decoder");
+        String user=prompts().get(1).user();
+        call(engine,model,"row-tune/warmup",ChatPrompt.SYSTEM,user,true,4,8,8,true,0);answers.getJSONObject(answers.length()-1).put("warmup",true);write();
+        int[][] choices={{0,0},{32,0},{0,64},{32,64},{64,128}};
+        String expected=null;int[] tokens=null;long[] trace=null;long reason=-1;
+        for(int round=0;round<2;round++)for(int step=0;step<choices.length;step++){
+            int index=round==0?step:choices.length-1-step;prefillChunk=choices[index][0];decodeChunk=choices[index][1];
+            NativeEngine.Result result=call(engine,model,"row-tune/round"+round+"/mode"+index,ChatPrompt.SYSTEM,user,true,4,8,64,true,0);
+            require(result.reason()<2&&result.tokens()==64,"Tuning request reaches the matched 64-token cap");
+            if(expected==null){expected=result.text();tokens=engine.lastTokens();trace=engine.logitTrace();reason=result.reason();}
+            else require(expected.equals(result.text())&&Arrays.equals(tokens,engine.lastTokens())&&Arrays.equals(trace,engine.logitTrace())&&reason==result.reason(),"Row policy preserves every sampled distribution and output token");
+        }
+        prefillChunk=decodeChunk=0;promptThreadsOverride=0;
+    }
+    private void rowConfirm(NativeEngine engine,ModelStore model,boolean reversed)throws Exception{
+        engine.traceLogitsForTests(true);promptThreadsOverride=6;
+        int chosenPrefill=Integer.parseInt(args.getString("arm_prefill_chunk","32")),chosenDecode=Integer.parseInt(args.getString("arm_decode_chunk","64"));
+        require("4".equals(args.getString("arm_rows"))&&(chosenPrefill>0||chosenDecode>0),"Row comparison retains admitted decoder and an explicit candidate");
+        report.put("reversedOrder",reversed).put("rowProtocol","Three rotated complete-output pairs per case. Both arms retain 4/6 workers, width8, rows1/4, persistent workers, no affinity, 120 seconds and 192 output tokens.");write();
+        List<ChatPrompt.Prepared> cases=prompts();
+        for(int caseOrder=0;caseOrder<cases.size();caseOrder++){
+            int c=reversed?cases.size()-1-caseOrder:caseOrder;
+            String user=cases.get(c).user(),expected=null;int[] tokens=null;long[] trace=null;long reason=-1;
+            for(int round=0;round<3;round++)for(int order=0;order<2;order++){
+                boolean candidate=(c+round+order+(reversed?1:0))%2!=0;prefillChunk=candidate?chosenPrefill:0;decodeChunk=candidate?chosenDecode:0;
+                call(engine,model,"row-confirm/case"+c+"/round"+round+"/warmup",ChatPrompt.SYSTEM,user,true,4,8,8,true,0);
+                answers.getJSONObject(answers.length()-1).put("warmup",true);write();
+                NativeEngine.Result result=call(engine,model,"row-confirm/case"+c+"/round"+round+"/"+(candidate?"candidate":"control"),ChatPrompt.SYSTEM,user,true,4,8,192,true,0);
+                require(result.reason()==0,"Complete confirmation answer reaches natural EOS");
+                if(expected==null){expected=result.text();tokens=engine.lastTokens();trace=engine.logitTrace();reason=result.reason();}
+                else require(expected.equals(result.text())&&Arrays.equals(tokens,engine.lastTokens())&&Arrays.equals(trace,engine.logitTrace())&&reason==result.reason(),"Every logit distribution, token, text and stop reason match across row policies");
+            }
+        }
+        prefillChunk=decodeChunk=0;promptThreadsOverride=0;
+    }
+    private void rowLifecycle(NativeEngine engine,ModelStore model)throws Exception{
+        NativeEngine.setKernelAutomatic(true);engine.traceLogitsForTests(true);
+        int pc=Integer.parseInt(args.getString("arm_prefill_chunk","32")),dc=Integer.parseInt(args.getString("arm_decode_chunk","64"));
+        ChatPrompt.Prepared prompt=ChatPrompt.prepare("For this conversation my code name is Cedar. Reply with just the code name.",List.of(),List.of());
+        NativeEngine.Configuration original=new NativeEngine.Configuration(4,6,128,true,8,0,true,1,4,true,0,0,0);
+        NativeEngine.Configuration candidate=new NativeEngine.Configuration(4,6,128,true,8,0,true,1,4,true,0,pc,dc);
+        engine.configure(original);NativeEngine.Result first=engine.generateWithSampling(engine.request(),model.file(),ChatPrompt.SYSTEM,prompt.user(),48,true,(s,n)->{});int[] expected=engine.lastTokens();long[] trace=engine.logitTrace();
+        engine.configure(candidate);NativeEngine.Result changed=engine.generateWithSampling(engine.request(),model.file(),ChatPrompt.SYSTEM,prompt.user(),48,true,(s,n)->{});
+        require(changed.cachedTokens()==0&&changed.reason()==0&&changed.text().equals(first.text())&&Arrays.equals(expected,engine.lastTokens())&&Arrays.equals(trace,engine.logitTrace()),"Row-policy change invalidates cache and preserves complete logits/tokens");
+        JSONObject audit=new JSONObject(NativeEngine.armScheduleAudit());require((pc==0||audit.getInt("prefillNodes")>0)&&(dc==0||audit.getInt("decodeNodes")>0),"Lifecycle request uses selected row queues");
+        NativeEngine.Result repeated=engine.generateWithSampling(engine.request(),model.file(),ChatPrompt.SYSTEM,prompt.user(),48,true,(s,n)->{});
+        require(repeated.cachedTokens()==first.promptTokens()&&repeated.text().equals(first.text())&&Arrays.equals(expected,engine.lastTokens())&&Arrays.equals(trace,engine.logitTrace()),"Exact cached repeat remains identical with row scheduling");
+        long request=engine.request();NativeEngine.Result stopped=engine.generateWithSampling(request,model.file(),ChatPrompt.SYSTEM,"Explain differences between a maintenance log and a manufacturer manual.",96,true,(s,n)->{if(n>=3)engine.cancel(request);});
+        require(stopped.cancelled()&&stopped.tokens()==3&&new JSONObject(engine.threadpoolAudit()).getBoolean("pausedAfterRequest"),"Cancellation joins scheduled work and pauses workers");
+        NativeEngine.Result recovered=engine.generateWithSampling(engine.request(),model.file(),ChatPrompt.SYSTEM,prompt.user(),48,true,(s,n)->{});
+        require(recovered.cachedTokens()==0&&recovered.text().equals(first.text())&&Arrays.equals(trace,engine.logitTrace()),"Cancelled scheduled context is discarded and recovers exactly");
+        engine.configure(original);NativeEngine.Result restored=engine.generateWithSampling(engine.request(),model.file(),ChatPrompt.SYSTEM,prompt.user(),48,true,(s,n)->{});
+        JSONObject pools=new JSONObject(engine.threadpoolAudit());
+        require(restored.cachedTokens()==0&&restored.text().equals(first.text())&&Arrays.equals(trace,engine.logitTrace())&&pools.getBoolean("pausedAfterRequest")&&pools.getBoolean("affinityRestored"),"Returning to static scheduling invalidates cache and restores an identical paused session");
+        RuntimeSettings.Profile selected=RuntimeSettings.load(test.getTargetContext(),model.spec());
+        require(selected.prefillChunk()==32&&selected.decodeChunk()==0&&selected.threads()==6&&selected.promptThreads()==6&&selected.attentionThreads()==4,"Exact Pixel product profile selects the admitted row policy");
+        RuntimeSettings.save(test.getTargetContext(),model.spec(),selected);
+        require(selected.equals(RuntimeSettings.load(test.getTargetContext(),model.spec())),"Measured row policy round-trips through local calibration storage");
+        report.put("rowLifecycle",new JSONObject().put("selected",audit).put("pools",pools).put("reusedTokens",repeated.cachedTokens()));write();
+    }
+    private void specConditions()throws Exception{
+        JSONObject c=conditions();if(!c.getBoolean("interactive")||!c.getBoolean("benchmarkHasFocus")||!c.getBoolean("benchmarkResumed")||c.getInt("thermalStatus")>=PowerManager.THERMAL_STATUS_SEVERE)throw new IllegalStateException("Speculation experiment foreground/thermal gate");
+    }
+    private NativeEngine.Result specCall(NativeEngine e,ModelStore model,String id,String system,String user,int depth,int cap,int[] oracle,boolean cache,boolean clear,int cancelAt)throws Exception{
+        return specCall(e,model,id,system,user,depth,cap,oracle,cache,clear,cancelAt,false);
+    }
+    private NativeEngine.Result specCall(NativeEngine e,ModelStore model,String id,String system,String user,int depth,int cap,int[] oracle,boolean cache,boolean clear,int cancelAt,boolean adaptive)throws Exception{
+        specConditions();NativeEngine.setKernelAutomatic(true);if(clear)e.clearCache();
+        e.configure(new NativeEngine.Configuration(4,6,128,cache,8,depth,adaptive,1,4,true,0,32,0));e.oracleForTests(oracle);
+        e.traceLogitsForTests(true);e.specStatsForTests(true);long request=e.request();
+        JSONObject row=new JSONObject().put("id",id).put("system",system).put("user",user).put("depth",depth).put("adaptive",adaptive).put("maxTokens",cap).put("oracle",oracle!=null).put("cache",cache).put("cancelAt",cancelAt).put("conditionsBefore",conditions()).put("status","running");answers.put(row);write();status("Starting "+id+" / depth "+depth);
+        NativeEngine.Result result;
+        try{result=e.generateWithSampling(request,model.file(),system,user,cap,true,(text,n)->{if(cancelAt>0&&n>=cancelAt)e.cancel(request);});}
+        catch(Throwable failure){row.put("status","error").put("error",failure.toString());write();throw failure;}
+        finally{e.oracleForTests(null);}
+        JSONObject diagnostic=new JSONObject(e.specDiagnostics());long[] hashes=e.logitTrace();int[] ids=e.lastTokens();JSONArray trace=new JSONArray();for(long h:hashes)trace.put(Long.toUnsignedString(h));
+        row.put("status","returned").put("tokens",result.tokens()).put("tokenIds",new JSONArray(ids)).put("text",result.text()).put("promptTokens",result.promptTokens()).put("cachedTokens",result.cachedTokens()).put("firstTokenMs",result.firstTokenMs()).put("prefillMs",result.prefillMs()).put("decodeMs",result.decodeMs()).put("totalMs",result.totalMs()).put("reason",result.reason()).put("drafted",result.drafted()).put("accepted",result.accepted()).put("verifyPasses",result.verifyPasses()).put("rejectedWindows",result.rejectedWindows()).put("disabledByCost",result.speculationDisabled()).put("logitTrace",trace).put("diagnostics",diagnostic).put("attention",new JSONObject(e.attentionStats())).put("conditionsAfter",conditions()).put("threadpool",new JSONObject(e.threadpoolAudit()));write();
+        JSONArray samples=diagnostic.getJSONArray("sampleTrace"),rounds=diagnostic.getJSONArray("rounds");
+        require(samples.length()==hashes.length&&samples.length()>=ids.length,"Every target sample has a hash and output index: "+id);
+        for(int i=0;i<samples.length();i++){
+            JSONObject sample=samples.getJSONObject(i);if(sample.getInt("outputIndex")!=i||!sample.getString("logitsHash").equals(Long.toUnsignedString(hashes[i])))throw new AssertionError("Noncontiguous or missing target sample trace");
+            if(i<ids.length&&(!sample.getBoolean("emitted")||sample.getInt("tokenId")!=ids[i]))throw new AssertionError("An emitted token lacks target confirmation");
+            if(i>=ids.length&&sample.getBoolean("emitted"))throw new AssertionError("Unused target sample marked emitted");
+        }
+        long committed=0,draws=1,windows=0;
+        for(int i=0;i<rounds.length();i++){
+            JSONObject rr=rounds.getJSONObject(i);committed+=rr.getInt("committed");draws+=rr.getInt("samples");if(rr.getString("kind").equals("verify"))windows++;
+            long parts=0;for(String key:new String[]{"proposalUs","evaluateUs","sampleUs","rollbackUs","emitUs","traceUs"})parts+=rr.getLong(key);
+            if(parts>rr.getLong("totalUs")||rr.getLong("controllerUs")!=rr.getLong("totalUs")-rr.getLong("traceUs"))throw new AssertionError("Inconsistent round timing partitions");
+        }
+        require(committed==ids.length&&draws==samples.length()&&windows==result.verifyPasses(),"Round accounting covers emitted tokens, all samples and verification windows: "+id);
+        require(new JSONObject(e.threadpoolAudit()).getBoolean("pausedAfterRequest"),"Workers paused after diagnostic: "+id);
+        status("Completed "+id+": "+result.tokens()+" tokens, "+result.verifyPasses()+" verify windows, "+result.accepted()+" accepted / "+result.drafted()+" proposed");return result;
+    }
+    private void specTrace(NativeEngine e,ModelStore model)throws Exception{
+        int[] unit=NativeEngine.nativeSpeculationChecks();require(unit[0]>=561&&unit[1]==0,"Lookup/acceptance/controller and 512 toy sampling traces pass");
+        String user=prompts().get(1).user();specCall(e,model,"spec/warmup",ChatPrompt.SYSTEM,user,0,1,null,false,true,0);answers.getJSONObject(answers.length()-1).put("warmup",true);write();
+        NativeEngine.Result base=specCall(e,model,"spec/plain",ChatPrompt.SYSTEM,user,0,64,null,true,true,0);int[] tokens=e.lastTokens();long[] hashes=e.logitTrace();require(tokens.length==64&&base.reason()==1,"Matched 64-token reference available");
+        JSONArray comparisons=new JSONArray();boolean all=true;
+        for(int depth:new int[]{1,3,7}){
+            NativeEngine.Result result=specCall(e,model,"spec/oracle"+depth,ChatPrompt.SYSTEM,user,depth,64,tokens,false,true,0);long[] actual=e.logitTrace();int first=-1;for(int i=0;i<Math.min(hashes.length,actual.length);i++)if(hashes[i]!=actual[i]){first=i;break;}
+            boolean same=Arrays.equals(hashes,actual)&&Arrays.equals(tokens,e.lastTokens())&&result.reason()==base.reason();all&=same;
+            require(result.verifyPasses()>0&&result.reason()<2,"Oracle exercises actual verification within budget");
+            comparisons.put(new JSONObject().put("depth",depth).put("fullTraceParity",same).put("textParity",base.text().equals(result.text())).put("firstDifferentSample",first));report.put("speculativeComparisons",comparisons);write();
+        }
+        specCall(e,model,"spec/request-lookup",ChatPrompt.SYSTEM,user,3,64,null,false,true,0);
+        int[] wrong=tokens.clone();for(int i=0;i<wrong.length;i++)wrong[i]=(wrong[i]+1)%100000;
+        NativeEngine.Result rejected=specCall(e,model,"spec/wrong-proposals",ChatPrompt.SYSTEM,user,3,32,wrong,false,true,0);require(rejected.rejectedWindows()>0,"Adversarial proposals cause real rejections");
+        NativeEngine.Result cancelled=specCall(e,model,"spec/cancel",ChatPrompt.SYSTEM,user,7,64,tokens,true,true,3);require(cancelled.cancelled()&&cancelled.tokens()==3,"Cancellation emits only the first three target-confirmed tokens");
+        NativeEngine.Result recovery=specCall(e,model,"spec/recovery",ChatPrompt.SYSTEM,user,0,64,null,true,false,0);
+        require(recovery.cachedTokens()==0&&Arrays.equals(tokens,e.lastTokens())&&Arrays.equals(hashes,e.logitTrace()),"Cancelled context is discarded and normal decoding recovers exactly");
+        NativeEngine.Result cached=specCall(e,model,"spec/exact-cache",ChatPrompt.SYSTEM,user,0,64,null,true,false,0);
+        require(cached.cachedTokens()==base.promptTokens()&&Arrays.equals(tokens,e.lastTokens())&&Arrays.equals(hashes,e.logitTrace()),"Cached first logits retain the complete target trace");
+        report.put("speculationParityGatePassed",all).put("productSpeculationDepth",0).put("scope","Execution and trace/accounting controls only. Numerical parity is a separate recorded gate. Oracle proposals are supplied reference tokens, not a deployed drafter or a speed claim.");write();
+    }
+    private void specEdges(NativeEngine e,ModelStore model)throws Exception{
+        String user=ChatPrompt.prepare("For this conversation my code name is Cedar. Reply with just the code name.",List.of(),List.of()).user();
+        NativeEngine.Result base=specCall(e,model,"edges/eos-plain",ChatPrompt.SYSTEM,user,0,48,null,true,true,0);int[] ids=e.lastTokens();long[] hashes=e.logitTrace();
+        require(base.reason()==0&&ids.length>=2&&hashes.length==ids.length+1,"EOS is a sampled but un-emitted decision");
+        NativeEngine.Result verified=specCall(e,model,"edges/eos-oracle",ChatPrompt.SYSTEM,user,7,48,ids,true,true,0);
+        require(verified.reason()==0&&verified.verifyPasses()>0&&e.logitTrace().length==verified.tokens()+1,"Verification records its sampled EOS without emitting it");
+        report.put("shortEosFullParity",Arrays.equals(ids,e.lastTokens())&&Arrays.equals(hashes,e.logitTrace()));write();
+        NativeEngine.Result restored=specCall(e,model,"edges/cache-after-verification",ChatPrompt.SYSTEM,user,0,48,null,true,false,0);
+        require(restored.cachedTokens()==base.promptTokens()&&Arrays.equals(ids,e.lastTokens())&&Arrays.equals(hashes,e.logitTrace()),"Successful speculative request leaves an exact reusable prompt prefix");
+        e.clearCache();e.traceLogitsForTests(false);e.specStatsForTests(false);e.configure(new NativeEngine.Configuration(4,6,128,false,8,0,true,1,4,true,0,32,0));
+        NativeEngine.Result untraced=e.generateWithSampling(e.request(),model.file(),ChatPrompt.SYSTEM,user,48,true,(text,n)->{});JSONObject off=new JSONObject(e.specDiagnostics());
+        require(untraced.reason()==base.reason()&&untraced.text().equals(base.text())&&Arrays.equals(ids,e.lastTokens())&&untraced.firstLogitsHash()==base.firstLogitsHash()&&e.logitTrace().length==0&&off.getJSONArray("sampleTrace").length()==0&&off.getJSONArray("rounds").length()==0,"Disabled diagnostics allocate no recorded events and preserve output");
+        String manual=prompts().get(1).user();specCall(e,model,"edges/controller-reference",ChatPrompt.SYSTEM,manual,0,32,null,false,true,0);int[] wrong=e.lastTokens();for(int i=0;i<wrong.length;i++)wrong[i]=(wrong[i]+1)%100000;
+        NativeEngine.Result adaptive=specCall(e,model,"edges/adaptive-wrong",ChatPrompt.SYSTEM,manual,3,32,wrong,false,true,0,true);
+        JSONArray rounds=new JSONObject(e.specDiagnostics()).getJSONArray("rounds");double plain=0,total=0;int normal=0,windows=0,advanced=0;boolean disabled=false;
+        for(int i=0;i<rounds.length();i++){
+            JSONObject row=rounds.getJSONObject(i);if(!row.getBoolean("complete"))continue;double us=row.getLong("controllerUs");
+            if(row.getString("kind").equals("serial")&&us>0){plain=normal==0?us:0.8*plain+0.2*us;normal++;}
+            else if(row.getString("kind").equals("verify")){
+                require(!disabled,"No more verification windows after cost fallback");windows++;advanced+=row.getInt("committed");total+=us;
+                if(windows>=3&&normal>=2&&total/advanced>=plain*0.95)disabled=true;
+            }
+        }
+        require(windows>0&&disabled==adaptive.speculationDisabled(),"Adaptive decision matches independently recomputed whole-round cost accounting");
+        report.put("adaptiveCostCheck",new JSONObject().put("windows",windows).put("disabled",disabled).put("plainEwmaUs",plain).put("windowUs",total).put("windowCommitted",advanced));write();
+    }
+    private void specCurve(NativeEngine e,ModelStore model)throws Exception{
+        NativeEngine.Result base=specCall(e,model,"curve/reference-tokens",ChatPrompt.SYSTEM,prompts().get(1).user(),0,32,null,false,true,0);int[] tokens=e.lastTokens();require(tokens.length>=16,"Teacher-forced continuation tokens available");tokens=Arrays.copyOf(tokens,16);
+        JSONArray curves=new JSONArray();report.put("curves",curves).put("teacherForcedTokens",new JSONArray(tokens)).put("scope","Forward-cost and numerical curves only. Fixed valid continuation, not naturally generated answers or deployable speculation. Hash/copy/compare and reset are outside evaluation timings.");write();
+        int[] repeats={0,16,40,64};
+        for(int c=0;c<repeats.length;c++){
+            String user="Fictional inventory.\n"+"Shelf K: seal S-42; crate R: cable C-17; this is an archived label.\n".repeat(repeats[c]+1)+"Explain what this record establishes and what it cannot establish.";
+            NativeEngine.Result prefix=specCall(e,model,"curve/prefix"+c,"Use only the fictional inventory text.",user,0,1,null,true,true,0);
+            require(prefix.reason()<2&&prefix.promptTokens()+16<2048,"Cached curve prefix fits unchanged context and deadline");
+            for(int threads:(c%2==0?new int[]{6,4}:new int[]{4,6})){
+                specConditions();JSONObject before=conditions();status("Curve context "+prefix.promptTokens()+" / verify workers "+threads+" / rows 1,2,4,8");
+                JSONObject curve=new JSONObject(e.causalCurveForTests(e.request(),tokens,threads));curve.put("conditionsBefore",before).put("conditionsAfter",conditions());curves.put(curve);write();
+                require(curve.getInt("positions")==16&&curve.getJSONArray("observations").length()==8,"Both rotated curve rounds completed");
+                JSONArray observations=curve.getJSONArray("observations");for(int j=0;j<observations.length();j++){JSONObject row=observations.getJSONObject(j);if(row.getInt("batchRows")==1)require(row.getInt("bitIdenticalPositions")==16,"Repeated serial control stays bitwise identical");}
+                require(new JSONObject(e.threadpoolAudit()).getBoolean("pausedAfterRequest"),"Curve restores sleeping pools");
+            }
+            e.configure(new NativeEngine.Configuration(4,6,128,true,8,0,true,1,4,true,0,32,0));
+            NativeEngine.Result restored=specCall(e,model,"curve/cache-after-audit"+c,"Use only the fictional inventory text.",user,0,1,null,true,false,0);
+            require(restored.cachedTokens()==prefix.promptTokens()&&restored.firstLogitsHash()==prefix.firstLogitsHash(),"Curve removes forced suffix and preserves saved prefix logits");
+        }
+    }
+    private void attentionCurve(NativeEngine e,ModelStore model)throws Exception{
+        specCall(e,model,"attention/reference-tokens",ChatPrompt.SYSTEM,prompts().get(1).user(),0,32,null,false,true,0);
+        int[] tokens=Arrays.copyOf(e.lastTokens(),16);JSONArray curves=new JSONArray();report.put("curves",curves).put("teacherForcedTokens",new JSONArray(tokens));write();
+        String system="Use only the fictional inventory text.";
+        String user="Fictional inventory.\n"+"Shelf K: seal S-42; crate R: cable C-17; this is an archived label.\n".repeat(65)+"Explain what this record establishes and what it cannot establish.";
+        // Starts deliberately place a 2/4/8-row batch across a 256-cell boundary.
+        // Each truncated-prefix audit discards its cache; no stale logits survive.
+        for(int prefix:new int[]{253,509,765,1066,1666})for(int mode:new int[]{0,1,2}){
+            if(mode==1&&prefix!=509)continue;
+            specCall(e,model,"attention/prefix"+prefix+"/mode"+mode,system,user,0,1,null,true,true,0);
+            specConditions();JSONObject before=conditions();status("Attention mode "+mode+" / prefix "+prefix+" / rows 1,2,4,8");
+            JSONObject curve=new JSONObject(e.causalCurveForTests(e.request(),tokens,4,mode,prefix));curve.put("conditionsBefore",before).put("conditionsAfter",conditions());curves.put(curve);write();
+            require(curve.getInt("prefixTokens")==prefix&&curve.getJSONArray("observations").length()==8,"Complete attention curve at the requested exact token boundary");
+            JSONArray observations=curve.getJSONArray("observations");
+            for(int i=0;i<observations.length();i++){
+                JSONObject row=observations.getJSONObject(i),a=row.getJSONObject("attention");int width=row.getInt("batchRows");
+                require(a.getInt("calls")==36*16/width,"Actual attention dispatch captured for every layer and batch");
+                require(a.getInt("shapeRejections")==0&&a.getInt("maskRejections")==0&&a.getInt("scratchRejections")==0,"Attention shape, dense causal mask and scratch contract holds");
+                if(mode==2){require(row.getInt("bitIdenticalPositions")==16,"Candidate preserves every original serial logit bit at prefix "+prefix+" width "+width);if(width>1)require(a.getInt("slicedCalls")==a.getInt("calls")&&a.getInt("sliceRows")==36*16,"Every verification query uses the serial attention path");}
+                if(mode==1)require(row.getInt("modeBitIdenticalPositions")==16,"Attention-only ablation gives matching serial and batched distributions");
+                if(mode==0&&width==1)require(row.getInt("bitIdenticalPositions")==16,"Original serial control repeats exactly");
+            }
+            require(new JSONObject(e.threadpoolAudit()).getBoolean("pausedAfterRequest"),"Attention audit restores sleeping pools");
+        }
+        report.put("productSpeculationDepth",0).put("scope","Attention-only ablation and guarded verification experiment. Original serial logits remain the adoption reference. Fixed continuation; timing is forward-only, not a user-visible speed claim.");write();
+    }
+    private void i8mmModel(NativeEngine e,ModelStore model,int rounds)throws Exception{
+        promptThreadsOverride=6;prefillChunk=32;decodeChunk=0;attentionThreadsOverride=4;e.attentionForTests(0);e.traceLogitsForTests(true);
+        List<ChatPrompt.Prepared> cases=new ArrayList<>(prompts());cases.add(ChatPrompt.prepare("Why can a phone show its GPS position without mobile data, yet fail to show a detailed map?",List.of(),List.of()));
+        e.i8mmForTests(0);call(e,model,"i8mm/warmup",ChatPrompt.SYSTEM,cases.get(0).user(),true,6,8,4,true,0);answers.getJSONObject(answers.length()-1).put("warmup",true);write();
+        for(int c=0;c<cases.size();c++){
+            String text=null;int[] ids=null;long[] hashes=null;int reason=-1;
+            for(int round=0;round<rounds;round++)for(int order=0;order<2;order++){
+                boolean candidate=(c+round+order)%2==1;e.i8mmForTests(candidate?1:0);
+                NativeEngine.Result result=call(e,model,"i8mm/case"+c+"/round"+round+(candidate?"/candidate":"/dot"),ChatPrompt.SYSTEM,cases.get(c).user(),true,6,8,192,true,0);
+                require(result.reason()<2,"I8MM comparison completes within original output and deadline limits");
+                if(text==null){text=result.text();ids=e.lastTokens();hashes=e.logitTrace();reason=(int)result.reason();}
+                else require(text.equals(result.text())&&reason==result.reason()&&Arrays.equals(ids,e.lastTokens())&&Arrays.equals(hashes,e.logitTrace()),"I8MM preserves every full-model logit distribution, token, answer and stop reason");
+                JSONObject matrix=new JSONObject(e.i8mmStats());require(matrix.getBoolean("requested")==candidate&&(matrix.getInt("matrixNodes")>0)==candidate,"Actual I8MM matrix use matches the selected arm");
+                JSONObject attention=new JSONObject(e.attentionStats());require(attention.getInt("slicedCalls")>=36*(result.tokens()-1)&&attention.getInt("shapeRejections")==0,"Both arms retain the validated six-worker/four-partition normal decoder");
+            }
+        }
+        e.i8mmForTests(0);attentionThreadsOverride=0;promptThreadsOverride=0;
+        report.put("productSpeculationDepth",0).put("scope","I8MM matrix experiment versus the actual 0.17 DotProd baseline, both6/6 and attention4. Complete sampled answers, identical inputs/budgets and full logit traces. No model/backend/weight precision change.");write();
+    }
+    private NativeEngine.Result decodeLifeCall(NativeEngine e,ModelStore model,String id,NativeEngine.Configuration cfg,String system,String user,int cap,boolean clear,int cancelAt)throws Exception{
+        specConditions();NativeEngine.setKernelAutomatic(true);e.attentionForTests(0);e.traceLogitsForTests(true);if(clear)e.clearCache();e.configure(cfg);long request=e.request();
+        JSONObject row=new JSONObject().put("id",id).put("system",system).put("user",user).put("threads",cfg.threads()).put("attentionThreads",cfg.attentionThreads()).put("maxTokens",cap).put("clear",clear).put("cancelAt",cancelAt).put("status","running").put("conditionsBefore",conditions());answers.put(row);write();status("Starting "+id);
+        NativeEngine.Result result=e.generateWithSampling(request,model.file(),system,user,cap,true,(text,n)->{if(cancelAt>0&&n>=cancelAt)e.cancel(request);});
+        JSONArray hashes=new JSONArray();for(long h:e.logitTrace())hashes.put(Long.toUnsignedString(h));JSONObject attention=new JSONObject(e.attentionStats()),pools=new JSONObject(e.threadpoolAudit());
+        row.put("status","returned").put("text",result.text()).put("tokenIds",new JSONArray(e.lastTokens())).put("logitTrace",hashes).put("firstLogitsHash",Long.toUnsignedString(result.firstLogitsHash())).put("tokens",result.tokens()).put("promptTokens",result.promptTokens()).put("cachedTokens",result.cachedTokens()).put("reason",result.reason()).put("firstTokenMs",result.firstTokenMs()).put("totalMs",result.totalMs()).put("attention",attention).put("threadpool",pools).put("conditionsAfter",conditions());write();
+        require(pools.getBoolean("pausedAfterRequest")&&pools.getBoolean("affinityRestored"),"Lifecycle call restores sleeping workers and caller affinity: "+id);
+        require(attention.getInt("shapeRejections")==0&&attention.getInt("maskRejections")==0&&attention.getInt("scratchRejections")==0,"Lifecycle call has no unexpected attention fallback: "+id);
+        return result;
+    }
+    private void decodeSixLifecycle(NativeEngine e,ModelStore model)throws Exception{
+        RuntimeSettings.Profile selected=RuntimeSettings.load(test.getTargetContext(),model.spec());NativeEngine.Configuration candidate=selected.configuration(true);
+        require(selected.threads()==6&&selected.promptThreads()==6&&selected.attentionThreads()==4&&selected.prefillChunk()==32&&selected.decodeChunk()==0,"Exact Pixel/Bonsai product preset selects six workers and four logical attention partitions");
+        require(candidate.attentionThreads()==4&&candidate.speculativeDepth()==0&&candidate.persistentThreads(),"Product configuration factory preserves attention policy and keeps speculation disabled");
+        RuntimeSettings.save(test.getTargetContext(),model.spec(),selected);require(selected.equals(RuntimeSettings.load(test.getTargetContext(),model.spec())),"Attention policy round-trips through versioned calibration storage");
+        NativeEngine.Configuration reference=new NativeEngine.Configuration(4,6,128,true,8,0,true,1,4,true,0,32,0);
+        String user=prompts().get(1).user();
+        NativeEngine.Result base=decodeLifeCall(e,model,"life/plain",reference,ChatPrompt.SYSTEM,user,48,true,0);int[] ids=e.lastTokens();long[] hashes=e.logitTrace();
+        NativeEngine.Result first=decodeLifeCall(e,model,"life/product",candidate,ChatPrompt.SYSTEM,user,48,true,0);
+        require(base.reason()==first.reason()&&base.text().equals(first.text())&&Arrays.equals(ids,e.lastTokens())&&Arrays.equals(hashes,e.logitTrace()),"Production attention field preserves every original target distribution and output");
+        NativeEngine.Result cached=decodeLifeCall(e,model,"life/exact-cache",candidate,ChatPrompt.SYSTEM,user,48,false,0);
+        require(cached.cachedTokens()==first.promptTokens()&&Arrays.equals(ids,e.lastTokens())&&Arrays.equals(hashes,e.logitTrace()),"Exact prefix reuse retains the full corrected attention sequence");
+        NativeEngine.Result cancelled=decodeLifeCall(e,model,"life/cancel",candidate,ChatPrompt.SYSTEM,user,48,false,3);
+        require(cancelled.cancelled()&&cancelled.tokens()==3&&Arrays.equals(Arrays.copyOf(ids,3),e.lastTokens()),"Cancellation emits only the first three original tokens");
+        NativeEngine.Result recovery=decodeLifeCall(e,model,"life/recovery",candidate,ChatPrompt.SYSTEM,user,48,false,0);
+        require(recovery.cachedTokens()==0&&Arrays.equals(ids,e.lastTokens())&&Arrays.equals(hashes,e.logitTrace()),"Cancelled context is discarded and normal product decoding recovers exactly");
+        String tail="Fictional inventory.\n"+"Shelf K: seal S-42; crate R: cable C-17; this is an archived label.\n".repeat(24)+"Explain what this record establishes and what it cannot establish.";
+        String system="Use only the fictional inventory text.";
+        NativeEngine.Result four=decodeLifeCall(e,model,"life/tail-attention4",candidate,system,tail,1,true,0);
+        require(four.promptTokens()%128==1,"Cache-identity control has a single-query prefill tail");
+        NativeEngine.Configuration sixOriginal=new NativeEngine.Configuration(6,6,128,true,8,0,true,1,4,true,0,32,0);
+        NativeEngine.Result changed=decodeLifeCall(e,model,"life/tail-attention-native",sixOriginal,system,tail,1,false,0);
+        require(changed.cachedTokens()==0,"Changing only logical attention policy invalidates cached computation");
+        NativeEngine.Result restored=decodeLifeCall(e,model,"life/tail-attention4-restored",candidate,system,tail,1,false,0);
+        require(restored.cachedTokens()==0&&restored.firstLogitsHash()==four.firstLogitsHash()&&new JSONObject(e.threadpoolAudit()).getInt("attentionThreads")==4,"Restoring logical attention policy recomputes the exact original prefix");
+        NativeEngine.Result baselineTail=decodeLifeCall(e,model,"life/tail-original4",reference,system,tail,1,false,0);
+        require(baselineTail.firstLogitsHash()==four.firstLogitsHash(),"Single-query prompt tail matches the original four-worker decoder");
+        boolean rejected=false;try{new NativeEngine.Configuration(4,6,128,true,8,0,true,1,4,true,0,32,0,4);}catch(IllegalArgumentException expected){rejected=true;}
+        require(rejected,"Incompatible physical/logical worker configuration is rejected before inference");
+        report.put("productProfile",new JSONObject().put("threads",selected.threads()).put("promptThreads",selected.promptThreads()).put("attentionThreads",selected.attentionThreads()).put("prefillChunk",selected.prefillChunk()).put("decodeChunk",selected.decodeChunk())).put("productSpeculationDepth",0);write();
+    }
+    private void decodeSix(NativeEngine e,ModelStore model,int rounds)throws Exception{
+        promptThreadsOverride=6;prefillChunk=32;decodeChunk=0;e.traceLogitsForTests(true);
+        require("4".equals(args.getString("arm_rows")),"Normal decode comparison retains four-row DotProd grouping");
+        List<ChatPrompt.Prepared> cases=new ArrayList<>(prompts());
+        cases.add(ChatPrompt.prepare("Why can a phone show its GPS position without mobile data, yet fail to show a detailed map?",List.of(),List.of()));
+        // A one-token prefill tail also takes the decode worker count. It must
+        // use the same four-way attention arithmetic as the original profile.
+        String tail="Fictional inventory.\n"+"Shelf K: seal S-42; crate R: cable C-17; this is an archived label.\n".repeat(24)+"Explain what this record establishes and what it cannot establish.";
+        String[] systems={ChatPrompt.SYSTEM,"Use only the fictional inventory text."};
+        String[] controls={ChatPrompt.prepare("For this conversation my code name is Cedar. Reply with just the code name.",List.of(),List.of()).user(),tail};
+        for(int c=0;c<2;c++){
+            e.attentionForTests(0);attentionThreadsOverride=0;NativeEngine.Result base=call(e,model,"decode6/control"+c+"/plain",systems[c],controls[c],true,4,8,16,true,0);int[] ids=e.lastTokens();long[] hashes=e.logitTrace();
+            attentionThreadsOverride=4;NativeEngine.Result candidate=call(e,model,"decode6/control"+c+"/candidate",systems[c],controls[c],true,6,8,16,true,0);
+            require(base.text().equals(candidate.text())&&base.reason()==candidate.reason()&&Arrays.equals(ids,e.lastTokens())&&Arrays.equals(hashes,e.logitTrace()),"Short/EOS or single-token prefill-tail control preserves all logits and outputs");
+            if(c==1)require(base.promptTokens()%128==1,"Deliberate one-token prefill tail exercised");
+        }
+        for(int c=0;c<cases.size();c++){
+            String text=null;int[] ids=null;long[] hashes=null;int reason=-1;
+            for(int round=0;round<rounds;round++)for(int order=0;order<2;order++){
+                boolean candidate=(c+round+order)%2==1;e.attentionForTests(0);attentionThreadsOverride=candidate?4:0;
+                NativeEngine.Result result=call(e,model,"decode6/case"+c+"/round"+round+(candidate?"/candidate":"/plain"),ChatPrompt.SYSTEM,cases.get(c).user(),true,candidate?6:4,8,192,true,0);
+                require(result.reason()<2,"Normal decode pair completes within unchanged 120-second deadline and 192-token cap");
+                if(text==null){text=result.text();ids=e.lastTokens();hashes=e.logitTrace();reason=(int)result.reason();}
+                else require(text.equals(result.text())&&reason==result.reason()&&Arrays.equals(ids,e.lastTokens())&&Arrays.equals(hashes,e.logitTrace()),"Full answer, every sampled distribution and stop reason match original normal decoding");
+                if(candidate){JSONObject a=new JSONObject(e.attentionStats());require(a.getInt("slicedCalls")>=36*(result.tokens()-1)&&a.getInt("shapeRejections")==0&&a.getInt("maskRejections")==0&&a.getInt("scratchRejections")==0,"Six physical workers execute four-way attention without fallback");}
+            }
+        }
+        e.attentionForTests(0);attentionThreadsOverride=0;promptThreadsOverride=0;
+        report.put("productSpeculationDepth",0).put("scope","Normal decode worker experiment: original 4/6 against 6/6 with four logical attention workers. No speculation, sampler/model/prompt/precision change. Counterbalanced complete answers with full logit traces.");write();
+    }
+    private void attentionSix(NativeEngine e,ModelStore model)throws Exception{
+        specCall(e,model,"six/reference-tokens",ChatPrompt.SYSTEM,prompts().get(1).user(),0,32,null,false,true,0);
+        int[] tokens=Arrays.copyOf(e.lastTokens(),16);JSONArray curves=new JSONArray();report.put("curves",curves).put("teacherForcedTokens",new JSONArray(tokens));write();
+        String system="Use only the fictional inventory text.";
+        for(int prefix:new int[]{253,509,1666})for(int mode:(prefix==509?new int[]{3,2}:new int[]{2,3})){
+            int lines=Math.min(65,prefix/25+2);
+            String user="Fictional inventory.\n"+"Shelf K: seal S-42; crate R: cable C-17; this is an archived label.\n".repeat(lines)+"Explain what this record establishes and what it cannot establish.";
+            NativeEngine.Result prep=specCall(e,model,"six/prefix"+prefix+"/mode"+mode,system,user,0,1,null,true,true,0);
+            require(prep.reason()<2&&prep.promptTokens()>=prefix,"Six-worker audit has a complete cached prefix");
+            specConditions();JSONObject before=conditions();status("Four logical attention workers / "+(mode==3?6:4)+" matrix workers / prefix "+prefix);
+            JSONObject curve=new JSONObject(e.causalCurveForTests(e.request(),tokens,mode==3?6:4,mode,prefix));curve.put("conditionsBefore",before).put("conditionsAfter",conditions());curves.put(curve);write();
+            require(curve.getJSONArray("observations").length()==8,"Both reversed width orders completed");
+            JSONArray observations=curve.getJSONArray("observations");
+            for(int i=0;i<observations.length();i++){
+                JSONObject row=observations.getJSONObject(i),a=row.getJSONObject("attention");int width=row.getInt("batchRows"),workers=mode==3&&width>1?6:4;
+                require(row.getInt("bitIdenticalPositions")==16&&row.getDouble("maxAbsoluteLogitDifference")==0,"Every logit bit equals original serial at prefix "+prefix+" width "+width+" mode "+mode);
+                require(a.getInt("calls")==36*16/width&&a.getInt("threadsMin")==workers&&a.getInt("threadsMax")==workers,"Actual graph workers and attention dispatch observed");
+                require(a.getInt("shapeRejections")==0&&a.getInt("maskRejections")==0&&a.getInt("scratchRejections")==0,"Supported shapes retain guarded attention route");
+                if(width>1)require(a.getInt("slicedCalls")==a.getInt("calls")&&a.getInt("sliceRows")==36*16,"Every query executes preserved attention arithmetic");
+            }
+            require(new JSONObject(e.threadpoolAudit()).getBoolean("pausedAfterRequest"),"Six-worker audit restores sleeping pools");
+        }
+        report.put("productSpeculationDepth",0).put("scope","Separate scheduler width from attention numerical partitions. Forward-only teacher-forced comparison, no drafter or app-speed claim.");write();
+    }
+    private void profile(NativeEngine engine,ModelStore model)throws Exception{
+        // Both arms retain logit tracing; only the sampled arm runs the external profiler.
+        // The first Java text callback is an observable boundary, not a GPU/graph timing event.
+        engine.traceLogitsForTests(true);promptThreadsOverride=6;
+        require("4".equals(args.getString("arm_rows")),"Profiling uses the admitted four-row decoder");
+        report.put("profileProtocol",new JSONObject().put("event","cpu-clock:u").put("frequencyHz",100)
+            .put("clock","CLOCK_MONOTONIC / System.nanoTime").put("stackCapture",false)
+            .put("scope","Own app process; before-first-text and after-first-text CPU samples. These include scheduling/spin and sampling costs, not pure operator wall time or memory bandwidth."));write();
+        List<ChatPrompt.Prepared> cases=prompts();
+        for(int c=0;c<cases.size();c++){
+            String user=cases.get(c).user();
+            call(engine,model,"profile/case"+c+"/warmup",ChatPrompt.SYSTEM,user,true,4,8,8,true,0);
+            answers.getJSONObject(answers.length()-1).put("warmup",true);write();
+            String expected=null;int[] tokens=null;long[] trace=null;long stop=-1;
+            for(int order=0;order<2;order++){
+                boolean sampled=(c+order)%2!=0;
+                AppCpuProfiler profiler=sampled?new AppCpuProfiler(output.getParentFile(),"profile-case"+c):null;
+                NativeEngine.Result result;
+                try{result=call(engine,model,"profile/case"+c+"/"+(sampled?"sampled":"control"),ChatPrompt.SYSTEM,user,true,4,8,64,true,0);}
+                finally{if(profiler!=null)profiler.close();}
+                JSONObject row=answers.getJSONObject(answers.length()-1);row.put("cpuSampled",sampled);write();
+                require(result.reason()==0||result.reason()==1,"Profile request completes within unchanged product deadline");
+                if(expected==null){expected=result.text();tokens=engine.lastTokens();trace=engine.logitTrace();stop=result.reason();}
+                else require(expected.equals(result.text())&&Arrays.equals(tokens,engine.lastTokens())&&Arrays.equals(trace,engine.logitTrace())&&stop==result.reason(),"CPU sampling preserves every output token, logit distribution and stop reason");
+            }
+        }
+        promptThreadsOverride=0;
+    }
+    private void trace(NativeEngine engine,ModelStore model)throws Exception{
+        engine.traceLogitsForTests(true);String user=prompts().get(1).user();promptThreadsOverride=4;
+        NativeEngine.Result reference=call(engine,model,"trace/reference4-4",ChatPrompt.SYSTEM,user,false,4,8,8,false,0);long[] expected=engine.logitTrace();int[] tokens=engine.lastTokens();
+        JSONArray comparisons=new JSONArray();int[][] configs={{6,6},{4,6},{4,4}};
+        for(int[] c:configs){promptThreadsOverride=c[1];NativeEngine.Result r=call(engine,model,"trace/candidate"+c[0]+"-"+c[1],ChatPrompt.SYSTEM,user,true,c[0],8,8,true,0);long[] actual=engine.logitTrace();
+            int first=-1;for(int i=0;i<Math.min(expected.length,actual.length);i++)if(expected[i]!=actual[i]){first=i;break;}
+            boolean same=Arrays.equals(expected,actual)&&Arrays.equals(tokens,engine.lastTokens())&&reference.text().equals(r.text());comparisons.put(new JSONObject().put("threads",c[0]).put("promptThreads",c[1]).put("allLogitsIdentical",same).put("firstDifferentLogitIndex",first));report.put("traceComparison",comparisons);write();
+            if(c[0]==4)require(same,"Four decode workers preserve every sampled distribution");
+        }
+        promptThreadsOverride=0;
+    }
+    private void lifecycle(NativeEngine engine,ModelStore model)throws Exception{
+        NativeEngine.setKernelAutomatic(true);engine.configure(new NativeEngine.Configuration(4,4,128,true,8,0,true,1,4,true,0));
+        ChatPrompt.Prepared prompt=ChatPrompt.prepare("For this conversation my code name is Cedar. Reply with just the code name.",List.of(),List.of());
+        NativeEngine.Result first=engine.generateWithSampling(engine.request(),model.file(),ChatPrompt.SYSTEM,prompt.user(),48,true,(s,n)->{});int[] expected=engine.lastTokens();
+        JSONObject firstPool=new JSONObject(engine.threadpoolAudit());
+        NativeEngine.Result repeated=engine.generateWithSampling(engine.request(),model.file(),ChatPrompt.SYSTEM,prompt.user(),48,true,(s,n)->{});
+        JSONObject secondPool=new JSONObject(engine.threadpoolAudit());
+        require(first.reason()==0&&repeated.reason()==0&&first.firstLogitsHash()==repeated.firstLogitsHash()&&first.text().equals(repeated.text())&&Arrays.equals(expected,engine.lastTokens()),"Persistent workers preserve exact cached answer");
+        require(repeated.cachedTokens()==first.promptTokens()&&firstPool.getInt("poolCreations")==secondPool.getInt("poolCreations")&&secondPool.getBoolean("pausedAfterRequest"),"Exact cache reuse retains sleeping workers without creating new pools");
+        long request=engine.request();NativeEngine.Result stopped=engine.generateWithSampling(request,model.file(),ChatPrompt.SYSTEM,"Explain several differences between a maintenance log and a manufacturer manual.",96,true,(s,n)->{if(n>=3)engine.cancel(request);});
+        require(stopped.cancelled()&&stopped.tokens()==3&&new JSONObject(engine.threadpoolAudit()).getBoolean("pausedAfterRequest"),"Cancellation joins the graph and pauses persistent workers");
+        NativeEngine.Result recovered=engine.generateWithSampling(engine.request(),model.file(),ChatPrompt.SYSTEM,prompt.user(),48,true,(s,n)->{});
+        require(recovered.cachedTokens()==0&&recovered.text().equals(first.text())&&recovered.firstLogitsHash()==first.firstLogitsHash(),"Cancelled context is discarded and recovery matches cold output");
+        engine.configure(new NativeEngine.Configuration(2,6,128,false,8,0,true,1,4,true,0));
+        NativeEngine.Result resized=engine.generateWithSampling(engine.request(),model.file(),ChatPrompt.SYSTEM,prompt.user(),48,true,(s,n)->{});JSONObject resizedPool=new JSONObject(engine.threadpoolAudit());
+        require(resized.text().equals(first.text())&&resized.firstLogitsHash()==first.firstLogitsHash()&&resizedPool.getInt("threads")==2&&resizedPool.getInt("promptThreads")==6&&resizedPool.getBoolean("pausedAfterRequest"),"Independent prompt/decode pools resize without changing the answer");
+        report.put("lifecycle",new JSONObject().put("firstText",first.text()).put("repeatReusedTokens",repeated.cachedTokens()).put("firstPool",firstPool).put("repeatedPool",secondPool).put("resizedPool",resizedPool));write();
+    }
+    private void tune(NativeEngine engine,ModelStore model)throws Exception{
+        engine.deadlineForTests(300000);String system=ChatPrompt.SYSTEM,user=prompts().get(1).user();
+        NativeEngine.Result reference=call(engine,model,"tune/reference",system,user,false,4,8,64,false,0);int[] expected=engine.lastTokens();long hash=reference.firstLogitsHash();
+        require(reference.reason()<2&&expected.length>=8,"Reference sequence available for tuning");
+        int[] prompts={2,4,6,8},widths={4,8};double[][] times=new double[8][2];boolean[] allowed=new boolean[8];Arrays.fill(allowed,true);
+        for(int round=0;round<2;round++)for(int step=0;step<8;step++){
+            int choice=round==0?step:7-step;promptThreadsOverride=prompts[choice/2];int width=widths[choice%2];
+            NativeEngine.Result r=call(engine,model,"prefill/round"+round+"/p"+promptThreadsOverride+"/w"+width,system,user,true,4,width,8,true,0);
+            boolean parity=equivalent(r,engine.lastTokens(),hash,expected);allowed[choice]&=parity;times[choice][round]=r.firstTokenMs();answers.getJSONObject(answers.length()-1).put("tuningEligible",parity);write();
+        }
+        int best=-1;double bestTime=Double.POSITIVE_INFINITY;
+        for(int i=0;i<8;i++)if(allowed[i]&&(times[i][0]+times[i][1])/2<bestTime){best=i;bestTime=(times[i][0]+times[i][1])/2;}
+        require(best>=0,"At least one prefill configuration preserves reference logits/tokens");
+        promptThreadsOverride=prompts[best/2];int width=widths[best%2];int[] decoders={1,2,4,6,8};double[][] decode=new double[5][2];boolean[] decodeAllowed=new boolean[5];Arrays.fill(decodeAllowed,true);
+        for(int round=0;round<2;round++)for(int step=0;step<5;step++){
+            int choice=round==0?step:4-step;NativeEngine.Result r=call(engine,model,"decode/round"+round+"/t"+decoders[choice],system,user,true,decoders[choice],width,64,true,0);
+            boolean parity=equivalent(r,engine.lastTokens(),hash,expected)&&engine.lastTokens().length==expected.length;
+            decodeAllowed[choice]&=parity;decode[choice][round]=r.decodeMs();answers.getJSONObject(answers.length()-1).put("tuningEligible",parity);write();
+        }
+        int bestDecode=-1;bestTime=Double.POSITIVE_INFINITY;
+        for(int i=0;i<5;i++)if(decodeAllowed[i]&&(decode[i][0]+decode[i][1])/2<bestTime){bestDecode=i;bestTime=(decode[i][0]+decode[i][1])/2;}
+        require(bestDecode>=0,"At least one decode configuration preserves the full reference sequence");
+        report.put("recommendation",new JSONObject().put("threads",decoders[bestDecode]).put("promptThreads",promptThreadsOverride).put("width",width).put("batch",128).put("decodeRows",Integer.parseInt(args.getString("arm_rows","1"))).put("attentionThreads",attentionThreadsOverride).put("persistentThreads",true).put("affinityMask",0).put("scope","Exploratory two-stage selection. Requires independent complete-output confirmation before product adoption."));write();promptThreadsOverride=0;
+    }
+}

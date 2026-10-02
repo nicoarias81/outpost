@@ -1,0 +1,20 @@
+{
+  "reference": "Frozen0.17 algorithm: DotProd, six decode/prompt workers, four logical attention workers, width8, rows1/4, chunks32/0, persistent workers, no affinity",
+  "candidate": "Identical profile plus guarded I8MM matrix-only research selector",
+  "cases": [
+    "Late arrival with downloaded reservation",
+    "Pump manual revision applicability",
+    "GPS versus downloaded map data"
+  ],
+  "limits": {
+    "context": 2048,
+    "output": 192,
+    "deadlineMs": 120000
+  },
+  "pilotPairsPerCase": 1,
+  "confirmationPairsPerCase": 3,
+  "order": "Alternate arm order by case and round; warmup before recorded cases",
+  "qualityGate": "All initial/step/EOS target logit hashes, token IDs, full answer text and stop reasons must match DotProd. Actual I8MM and fixed-attention paths must be observed.",
+  "performanceGate": "Confirmation median paired prefill reduction >=5% in every case; no median complete-time regression >3%. Preserve all observations. Lifecycle and actual product-field/UI/ABI checks required separately before any release.",
+  "interpretation": "Known synthetic warm-page USB-powered experiment, not new field-quality or energy evidence"
+}

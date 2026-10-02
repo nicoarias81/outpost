@@ -164,6 +164,12 @@ All 640 tested candidate logit vectors and bounded sampled/rejection/EOS/cancell
 
 Three counterbalanced complete-answer pairs per case pass exact target distributions and the predeclared latency gate. Final configuration, cache/prefix/cancellation, UI, pinned-model and x86 checks pass. Preserve original fallback and exact device/model key. CPU-time increase is recorded; energy and other devices remain unvalidated. Speculation remains disabled and must be re-evaluated against the improved ordinary decoder. Backend changes require re-auditing the single-query barrier contract. [Evidence](validation-0.17.md).
 
+## ADR-038 — Use I8MM without changing the original FP32 accumulation history
+
+**Status: admitted for exact Pixel/Bonsai4 in 0.18, 2026-10-02.** Use signed 2×2 integer matrix tiles only for eligible multi-column Q2 work. Keep four original partial histories and FMA/reduction order; permute activation pairs inside existing workspace and preserve scale bytes. DotProd remains the one-column/unsupported-shape path. Runtime ISA and compiled-code checks precede optional instructions, and actual node counters distinguish policy from execution.
+
+65,029,512 numeric comparisons, complete per-step traces, counterbalanced I8MM-only and direct combined-stack timing, cache/cancellation/profile/UI/model/x86 checks pass. The initial pilot's slower total-time case and all outliers remain preserved. Add explicit `matrixKernel` cache/profile identity and retain all old constructors with default 0. No larger model representation, weights/backend change or native two-bit arithmetic is claimed. Device/energy breadth and speculative proposals remain future work. [Evidence](validation-0.18.md).
+
 ## Updating this register
 
 Add a new numbered decision when a material tradeoff changes. Include status, problem, choice, alternatives, consequences, evidence, and reconsideration condition. Mark superseded decisions rather than erasing the reason an earlier implementation existed.

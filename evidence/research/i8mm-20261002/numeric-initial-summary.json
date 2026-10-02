@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 1,
+  "runId": "arm-i8mm-numeric-20261001T235718Z-ddfc7a11",
+  "reportSha256": "e6a96dca7f7f4e8dfd3208d612ba2a4cbf7c2a278f8c42e32ad006f32c272544",
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-01T23:55:37.0493567Z",
+    "versionName": "0.17.0",
+    "versionCode": 19,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "c4665f59cf49aaa8c7e9a5ccfc74053c3552c94248d5247eceb8bcdccbfdf8c8",
+    "testSourcesSha256": "33cc4b1022b88a0d0dcd2ceb423b6d582e102e09c824d5b176d034c62cff8f8f",
+    "appSha256": "48c66ac150f90e4a0af17737e27a13e80da7ff8e20b96ec3d0dbefd0b7a1d6b1",
+    "testApkSha256": "1a31b5228365f31d9f0b3f162ebf213c7777c0a32048a2b301c2c64c102a17a5",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "checksPassed": 5,
+  "productAdmission": false,
+  "primitiveComparisons": 128,
+  "exactValueComparisons": 65018904,
+  "matrices": [
+    {
+      "k": 2560,
+      "rows": 1024,
+      "columns": 128,
+      "width": 4,
+      "dotNs": [
+        4710143,
+        3353919,
+        4737552
+      ],
+      "candidateNs": [
+        3381640,
+        3471263,
+        3306719
+      ],
+      "medianDotNs": 4710143,
+      "medianCandidateNs": 3381640,
+      "dotOverCandidate": 1.3928576075513657
+    },
+    {
+      "k": 2560,
+      "rows": 1024,
+      "columns": 128,
+      "width": 8,
+      "dotNs": [
+        3523086,
+        4424088,
+        4068099
+      ],
+      "candidateNs": [
+        3001836,
+        3096106,
+        2183203
+      ],
+      "medianDotNs": 4068099,
+      "medianCandidateNs": 3001836,
+      "dotOverCandidate": 1.355203615387383
+    },
+    {
+      "k": 2560,
+      "rows": 4096,
+      "columns": 128,
+      "width": 4,
+      "dotNs": [
+        13006302,
+        10384401,
+        9956862
+      ],
+      "candidateNs": [
+        9702760,
+        9539323,
+        9261420
+      ],
+      "medianDotNs": 10384401,
+      "medianCandidateNs": 9539323,
+      "dotOverCandidate": 1.0885888862343795
+    },
+    {
+      "k": 2560,
+      "rows": 4096,
+      "columns": 128,
+      "width": 8,
+      "dotNs": [
+        9113880,
+        9251146,
+        9430390
+      ],
+      "candidateNs": [
+        8019700,
+        7976810,
+        8063424
+      ],
+      "medianDotNs": 9251146,
+      "medianCandidateNs": 8019700,
+      "dotOverCandidate": 1.1535526266568574
+    },
+    {
+      "k": 2560,
+      "rows": 9728,
+      "columns": 128,
+      "width": 4,
+      "dotNs": [
+        23900286,
+        25524518,
+        25153919
+      ],
+      "candidateNs": [
+        22953802,
+        23114779,
+        23084036
+      ],
+      "medianDotNs": 25153919,
+      "medianCandidateNs": 23084036,
+      "dotOverCandidate": 1.0896672921494317
+    },
+    {
+      "k": 2560,
+      "rows": 9728,
+      "columns": 128,
+      "width": 8,
+      "dotNs": [
+        22973828,
+        23411445,
+        23657826
+      ],
+      "candidateNs": [
+        19268790,
+        19257552,
+        19763516
+      ],
+      "medianDotNs": 23411445,
+      "medianCandidateNs": 19268790,
+      "dotOverCandidate": 1.2149930016363248
+    },
+    {
+      "k": 2560,
+      "rows": 151669,
+      "columns": 1,
+      "width": 4,
+      "dotNs": [
+        9341680,
+        5401094,
+        5368242
+      ],
+      "candidateNs": [
+        6920924,
+        5662774,
+        5426888
+      ],
+      "medianDotNs": 5401094,
+      "medianCandidateNs": 5662774,
+      "dotOverCandidate": 0.9537894325290044
+    },
+    {
+      "k": 2560,
+      "rows": 151669,
+      "columns": 1,
+      "width": 8,
+      "dotNs": [
+        9936094,
+        5899154,
+        5379740
+      ],
+      "candidateNs": [
+        7633750,
+        5731341,
+        5450612
+      ],
+      "medianDotNs": 5899154,
+      "medianCandidateNs": 5731341,
+      "dotOverCandidate": 1.0292798840620372
+    },
+    {
+      "k": 4096,
+      "rows": 2560,
+      "columns": 128,
+      "width": 4,
+      "dotNs": [
+        11402226,
+        10035938,
+        10173268
+      ],
+      "candidateNs": [
+        9535924,
+        9239830,
+        9351718
+      ],
+      "medianDotNs": 10173268,
+      "medianCandidateNs": 9351718,
+      "dotOverCandidate": 1.0878501682792403
+    },
+    {
+      "k": 4096,
+      "rows": 2560,
+      "columns": 128,
+      "width": 8,
+      "dotNs": [
+        10595208,
+        10962356,
+        11358816
+      ],
+      "candidateNs": [
+        8608555,
+        8417096,
+        8846081
+      ],
+      "medianDotNs": 10962356,
+      "medianCandidateNs": 8608555,
+      "dotOverCandidate": 1.2734257956184285
+    },
+    {
+      "k": 9728,
+      "rows": 2560,
+      "columns": 128,
+      "width": 4,
+      "dotNs": [
+        30644401,
+        32308112,
+        32193450
+      ],
+      "candidateNs": [
+        25769778,
+        26599440,
+        26658203
+      ],
+      "medianDotNs": 32193450,
+      "medianCandidateNs": 26599440,
+      "dotOverCandidate": 1.2103055553049238
+    },
+    {
+      "k": 9728,
+      "rows": 2560,
+      "columns": 128,
+      "width": 8,
+      "dotNs": [
+        30923737,
+        31480222,
+        32918047
+      ],
+      "candidateNs": [
+        22996966,
+        23229961,
+        23962474
+      ],
+      "medianDotNs": 31480222,
+      "medianCandidateNs": 23229961,
+      "dotOverCandidate": 1.3551560418030835
+    }
+  ],
+  "scope": "Matrix graph timing includes conversion/packing and is not model speed. One-column rows retain DotProd in both arms."
+}

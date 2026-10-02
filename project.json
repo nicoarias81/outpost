@@ -4,7 +4,7 @@
   "applicationId": "dev.outpost.app",
   "nativeLibrary": "outpost_engine",
   "defaultLanguage": "en",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "executionScope": "Outpost35 and the specifically registered Pixel 10 Pro",
   "previousIdentity": {
     "name": "Brújula",

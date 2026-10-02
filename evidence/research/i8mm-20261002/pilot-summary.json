@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "runId": "arm-i8mm-model-20261002T000439Z-67a90ce3",
+  "reportSha256": "b8b442e87e1ad253ad3e51cdcf5dc69646806f62c22041b1464192cfd684f6f0",
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-02T00:03:12.5067971Z",
+    "versionName": "0.17.0",
+    "versionCode": 19,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "c4665f59cf49aaa8c7e9a5ccfc74053c3552c94248d5247eceb8bcdccbfdf8c8",
+    "testSourcesSha256": "038b0ff8f8443e90acb734b32d77fd148de97d4b85a16e88571850a8f2eeed41",
+    "appSha256": "48c66ac150f90e4a0af17737e27a13e80da7ff8e20b96ec3d0dbefd0b7a1d6b1",
+    "testApkSha256": "2bd56a85700aae9310ae8d5793a9ec97c0bdf7f7f12b7680fabd7682e352b4b4",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "checksPassed": 53,
+  "productAdmission": false,
+  "rounds": 1,
+  "exactParity": true,
+  "cases": [
+    {
+      "case": 0,
+      "pairs": [
+        {
+          "round": 0,
+          "tokens": 133,
+          "candidateFirst": false,
+          "prefillMs": {
+            "dot": 7015,
+            "candidate": 6124,
+            "ratio": 0.8729864575908767
+          },
+          "decodeMs": {
+            "dot": 10799,
+            "candidate": 10806,
+            "ratio": 1.0006482081674228
+          },
+          "firstTokenMs": {
+            "dot": 7128,
+            "candidate": 6235,
+            "ratio": 0.8747194163860831
+          },
+          "totalMs": {
+            "dot": 17926,
+            "candidate": 17040,
+            "ratio": 0.9505745844025438
+          },
+          "processCpuMs": {
+            "dot": 106153,
+            "candidate": 100938,
+            "ratio": 0.9508727968121485
+          }
+        }
+      ],
+      "medianRatios": {
+        "prefillMs": 0.8729864575908767,
+        "decodeMs": 1.0006482081674228,
+        "firstTokenMs": 0.8747194163860831,
+        "totalMs": 0.9505745844025438,
+        "processCpuMs": 0.9508727968121485
+      },
+      "latencyGate": true
+    },
+    {
+      "case": 1,
+      "pairs": [
+        {
+          "round": 0,
+          "tokens": 162,
+          "candidateFirst": true,
+          "prefillMs": {
+            "dot": 8500,
+            "candidate": 6931,
+            "ratio": 0.8154117647058824
+          },
+          "decodeMs": {
+            "dot": 13752,
+            "candidate": 13485,
+            "ratio": 0.9805846422338569
+          },
+          "firstTokenMs": {
+            "dot": 8614,
+            "candidate": 7047,
+            "ratio": 0.8180868353842582
+          },
+          "totalMs": {
+            "dot": 22366,
+            "candidate": 20532,
+            "ratio": 0.9180005365286595
+          },
+          "processCpuMs": {
+            "dot": 132742,
+            "candidate": 121765,
+            "ratio": 0.9173057510057103
+          }
+        }
+      ],
+      "medianRatios": {
+        "prefillMs": 0.8154117647058824,
+        "decodeMs": 0.9805846422338569,
+        "firstTokenMs": 0.8180868353842582,
+        "totalMs": 0.9180005365286595,
+        "processCpuMs": 0.9173057510057103
+      },
+      "latencyGate": true
+    },
+    {
+      "case": 2,
+      "pairs": [
+        {
+          "round": 0,
+          "tokens": 154,
+          "candidateFirst": false,
+          "prefillMs": {
+            "dot": 5950,
+            "candidate": 5224,
+            "ratio": 0.8779831932773109
+          },
+          "decodeMs": {
+            "dot": 12179,
+            "candidate": 14710,
+            "ratio": 1.2078167337219805
+          },
+          "firstTokenMs": {
+            "dot": 6067,
+            "candidate": 5339,
+            "ratio": 0.8800065930443383
+          },
+          "totalMs": {
+            "dot": 18246,
+            "candidate": 20050,
+            "ratio": 1.0988709854214622
+          },
+          "processCpuMs": {
+            "dot": 108103,
+            "candidate": 118806,
+            "ratio": 1.0990074281009778
+          }
+        }
+      ],
+      "medianRatios": {
+        "prefillMs": 0.8779831932773109,
+        "decodeMs": 1.2078167337219805,
+        "firstTokenMs": 0.8800065930443383,
+        "totalMs": 1.0988709854214622,
+        "processCpuMs": 1.0990074281009778
+      },
+      "latencyGate": false
+    }
+  ],
+  "boundedConfirmationGate": false,
+  "scope": "Known synthetic complete answers on one USB-powered Pixel; exact same-input logits/tokens required. Counterbalanced timing, not general field-quality or energy evidence."
+}

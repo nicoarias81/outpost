@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "runId": "arm-i8mm-confirm-20261002T001500Z-b3cad0c3",
+  "reportSha256": "a209379b8b20945f324e7a7ada92c0e8d4d79ee4e2df15ad32a044663c4929a7",
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-02T00:13:19.7610692Z",
+    "versionName": "0.17.0",
+    "versionCode": 19,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "c388a1fd0b68ef8005f923a0f5d481bc220531cc9e8c4555ef1babf79a9df138",
+    "testSourcesSha256": "038b0ff8f8443e90acb734b32d77fd148de97d4b85a16e88571850a8f2eeed41",
+    "appSha256": "21e2214b92b5556303fa5f9a446e5f5ad40164432a126392125a0229df9f3838",
+    "testApkSha256": "2bd56a85700aae9310ae8d5793a9ec97c0bdf7f7f12b7680fabd7682e352b4b4",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "checksPassed": 149,
+  "productAdmission": false,
+  "rounds": 3,
+  "exactParity": true,
+  "cases": [
+    {
+      "case": 0,
+      "pairs": [
+        {
+          "round": 0,
+          "tokens": 133,
+          "candidateFirst": false,
+          "prefillMs": {
+            "dot": 7194,
+            "candidate": 6088,
+            "ratio": 0.8462607728662774
+          },
+          "decodeMs": {
+            "dot": 10862,
+            "candidate": 11047,
+            "ratio": 1.0170318541705026
+          },
+          "firstTokenMs": {
+            "dot": 7296,
+            "candidate": 6199,
+            "ratio": 0.8496436403508771
+          },
+          "totalMs": {
+            "dot": 18158,
+            "candidate": 17246,
+            "ratio": 0.9497742042075118
+          },
+          "processCpuMs": {
+            "dot": 107692,
+            "candidate": 102239,
+            "ratio": 0.9493648553281581
+          }
+        },
+        {
+          "round": 1,
+          "tokens": 133,
+          "candidateFirst": true,
+          "prefillMs": {
+            "dot": 7616,
+            "candidate": 6170,
+            "ratio": 0.8101365546218487
+          },
+          "decodeMs": {
+            "dot": 11821,
+            "candidate": 11206,
+            "ratio": 0.9479739446747314
+          },
+          "firstTokenMs": {
+            "dot": 7731,
+            "candidate": 6284,
+            "ratio": 0.8128314577674298
+          },
+          "totalMs": {
+            "dot": 19551,
+            "candidate": 17490,
+            "ratio": 0.8945833972686819
+          },
+          "processCpuMs": {
+            "dot": 115964,
+            "candidate": 103643,
+            "ratio": 0.8937515090890277
+          }
+        },
+        {
+          "round": 2,
+          "tokens": 133,
+          "candidateFirst": false,
+          "prefillMs": {
+            "dot": 8784,
+            "candidate": 7909,
+            "ratio": 0.9003870673952641
+          },
+          "decodeMs": {
+            "dot": 15618,
+            "candidate": 17079,
+            "ratio": 1.093545908567038
+          },
+          "firstTokenMs": {
+            "dot": 8897,
+            "candidate": 8034,
+            "ratio": 0.903001011576936
+          },
+          "totalMs": {
+            "dot": 24514,
+            "candidate": 25112,
+            "ratio": 1.024394223708901
+          },
+          "processCpuMs": {
+            "dot": 145419,
+            "candidate": 148731,
+            "ratio": 1.0227755657788873
+          }
+        }
+      ],
+      "medianRatios": {
+        "prefillMs": 0.8462607728662774,
+        "decodeMs": 1.0170318541705026,
+        "firstTokenMs": 0.8496436403508771,
+        "totalMs": 0.9497742042075118,
+        "processCpuMs": 0.9493648553281581
+      },
+      "latencyGate": true
+    },
+    {
+      "case": 1,
+      "pairs": [
+        {
+          "round": 0,
+          "tokens": 162,
+          "candidateFirst": true,
+          "prefillMs": {
+            "dot": 11801,
+            "candidate": 9998,
+            "ratio": 0.8472163375985086
+          },
+          "decodeMs": {
+            "dot": 21603,
+            "candidate": 21232,
+            "ratio": 0.9828264592880619
+          },
+          "firstTokenMs": {
+            "dot": 11951,
+            "candidate": 10149,
+            "ratio": 0.8492176386913229
+          },
+          "totalMs": {
+            "dot": 33553,
+            "candidate": 31380,
+            "ratio": 0.9352367895568205
+          },
+          "processCpuMs": {
+            "dot": 198656,
+            "candidate": 185687,
+            "ratio": 0.934716293492268
+          }
+        },
+        {
+          "round": 1,
+          "tokens": 162,
+          "candidateFirst": false,
+          "prefillMs": {
+            "dot": 11735,
+            "candidate": 9669,
+            "ratio": 0.823945462292288
+          },
+          "decodeMs": {
+            "dot": 32647,
+            "candidate": 21322,
+            "ratio": 0.6531074830765461
+          },
+          "firstTokenMs": {
+            "dot": 11887,
+            "candidate": 9821,
+            "ratio": 0.8261966854546984
+          },
+          "totalMs": {
+            "dot": 44533,
+            "candidate": 31142,
+            "ratio": 0.6993016414793524
+          },
+          "processCpuMs": {
+            "dot": 252209,
+            "candidate": 184282,
+            "ratio": 0.730671784115555
+          }
+        },
+        {
+          "round": 2,
+          "tokens": 162,
+          "candidateFirst": true,
+          "prefillMs": {
+            "dot": 11803,
+            "candidate": 9968,
+            "ratio": 0.8445310514276031
+          },
+          "decodeMs": {
+            "dot": 21481,
+            "candidate": 21396,
+            "ratio": 0.9960430147572273
+          },
+          "firstTokenMs": {
+            "dot": 11955,
+            "candidate": 10120,
+            "ratio": 0.8465077373483898
+          },
+          "totalMs": {
+            "dot": 33434,
+            "candidate": 31516,
+            "ratio": 0.9426332475922713
+          },
+          "processCpuMs": {
+            "dot": 198011,
+            "candidate": 186564,
+            "ratio": 0.9421900803490715
+          }
+        }
+      ],
+      "medianRatios": {
+        "prefillMs": 0.8445310514276031,
+        "decodeMs": 0.9828264592880619,
+        "firstTokenMs": 0.8465077373483898,
+        "totalMs": 0.9352367895568205,
+        "processCpuMs": 0.934716293492268
+      },
+      "latencyGate": true
+    },
+    {
+      "case": 2,
+      "pairs": [
+        {
+          "round": 0,
+          "tokens": 154,
+          "candidateFirst": false,
+          "prefillMs": {
+            "dot": 8228,
+            "candidate": 6998,
+            "ratio": 0.8505104521147302
+          },
+          "decodeMs": {
+            "dot": 18909,
+            "candidate": 19067,
+            "ratio": 1.00835580940293
+          },
+          "firstTokenMs": {
+            "dot": 8378,
+            "candidate": 7154,
+            "ratio": 0.8539030794939126
+          },
+          "totalMs": {
+            "dot": 27287,
+            "candidate": 26220,
+            "ratio": 0.9608971305017041
+          },
+          "processCpuMs": {
+            "dot": 161449,
+            "candidate": 155050,
+            "ratio": 0.9603651927233987
+          }
+        },
+        {
+          "round": 1,
+          "tokens": 154,
+          "candidateFirst": true,
+          "prefillMs": {
+            "dot": 8717,
+            "candidate": 7361,
+            "ratio": 0.8444418951474131
+          },
+          "decodeMs": {
+            "dot": 19909,
+            "candidate": 19877,
+            "ratio": 0.9983926867245969
+          },
+          "firstTokenMs": {
+            "dot": 8897,
+            "candidate": 7540,
+            "ratio": 0.8474766775317523
+          },
+          "totalMs": {
+            "dot": 28805,
+            "candidate": 27417,
+            "ratio": 0.9518139211942371
+          },
+          "processCpuMs": {
+            "dot": 169996,
+            "candidate": 161816,
+            "ratio": 0.9518812207346056
+          }
+        },
+        {
+          "round": 2,
+          "tokens": 154,
+          "candidateFirst": false,
+          "prefillMs": {
+            "dot": 8695,
+            "candidate": 7371,
+            "ratio": 0.8477285796434733
+          },
+          "decodeMs": {
+            "dot": 19835,
+            "candidate": 19867,
+            "ratio": 1.0016133098058986
+          },
+          "firstTokenMs": {
+            "dot": 8884,
+            "candidate": 7552,
+            "ratio": 0.85006753714543
+          },
+          "totalMs": {
+            "dot": 28718,
+            "candidate": 27419,
+            "ratio": 0.9547670450588481
+          },
+          "processCpuMs": {
+            "dot": 169600,
+            "candidate": 161839,
+            "ratio": 0.9542393867924528
+          }
+        }
+      ],
+      "medianRatios": {
+        "prefillMs": 0.8477285796434733,
+        "decodeMs": 1.0016133098058986,
+        "firstTokenMs": 0.85006753714543,
+        "totalMs": 0.9547670450588481,
+        "processCpuMs": 0.9542393867924528
+      },
+      "latencyGate": true
+    }
+  ],
+  "boundedConfirmationGate": true,
+  "scope": "Known synthetic complete answers on one USB-powered Pixel; exact same-input logits/tokens required. Counterbalanced timing, not general field-quality or energy evidence."
+}

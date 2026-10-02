@@ -1,0 +1,79 @@
+
+Starting i8mm/warmup / DotProd / 6 threads / width 8
+
+Completed i8mm/warmup: 7641ms / first 7431ms / 4 tokens / stop 1
+
+Starting i8mm/case0/round0/dot / DotProd / 6 threads / width 8
+
+Completed i8mm/case0/round0/dot: 18158ms / first 7296ms / 133 tokens / stop 0
+
+Starting i8mm/case0/round0/candidate / DotProd / 6 threads / width 8
+
+Completed i8mm/case0/round0/candidate: 17246ms / first 6199ms / 133 tokens / stop 0
+
+Starting i8mm/case0/round1/candidate / DotProd / 6 threads / width 8
+
+Completed i8mm/case0/round1/candidate: 17490ms / first 6284ms / 133 tokens / stop 0
+
+Starting i8mm/case0/round1/dot / DotProd / 6 threads / width 8
+
+Completed i8mm/case0/round1/dot: 19551ms / first 7731ms / 133 tokens / stop 0
+
+Starting i8mm/case0/round2/dot / DotProd / 6 threads / width 8
+
+Completed i8mm/case0/round2/dot: 24514ms / first 8897ms / 133 tokens / stop 0
+
+Starting i8mm/case0/round2/candidate / DotProd / 6 threads / width 8
+
+Completed i8mm/case0/round2/candidate: 25112ms / first 8034ms / 133 tokens / stop 0
+
+Starting i8mm/case1/round0/candidate / DotProd / 6 threads / width 8
+
+Completed i8mm/case1/round0/candidate: 31380ms / first 10149ms / 162 tokens / stop 0
+
+Starting i8mm/case1/round0/dot / DotProd / 6 threads / width 8
+
+Completed i8mm/case1/round0/dot: 33553ms / first 11951ms / 162 tokens / stop 0
+
+Starting i8mm/case1/round1/dot / DotProd / 6 threads / width 8
+
+Completed i8mm/case1/round1/dot: 44533ms / first 11887ms / 162 tokens / stop 0
+
+Starting i8mm/case1/round1/candidate / DotProd / 6 threads / width 8
+
+Completed i8mm/case1/round1/candidate: 31142ms / first 9821ms / 162 tokens / stop 0
+
+Starting i8mm/case1/round2/candidate / DotProd / 6 threads / width 8
+
+Completed i8mm/case1/round2/candidate: 31516ms / first 10120ms / 162 tokens / stop 0
+
+Starting i8mm/case1/round2/dot / DotProd / 6 threads / width 8
+
+Completed i8mm/case1/round2/dot: 33434ms / first 11955ms / 162 tokens / stop 0
+
+Starting i8mm/case2/round0/dot / DotProd / 6 threads / width 8
+
+Completed i8mm/case2/round0/dot: 27287ms / first 8378ms / 154 tokens / stop 0
+
+Starting i8mm/case2/round0/candidate / DotProd / 6 threads / width 8
+
+Completed i8mm/case2/round0/candidate: 26220ms / first 7154ms / 154 tokens / stop 0
+
+Starting i8mm/case2/round1/candidate / DotProd / 6 threads / width 8
+
+Completed i8mm/case2/round1/candidate: 27417ms / first 7540ms / 154 tokens / stop 0
+
+Starting i8mm/case2/round1/dot / DotProd / 6 threads / width 8
+
+Completed i8mm/case2/round1/dot: 28805ms / first 8897ms / 154 tokens / stop 0
+
+Starting i8mm/case2/round2/dot / DotProd / 6 threads / width 8
+
+Completed i8mm/case2/round2/dot: 28718ms / first 8884ms / 154 tokens / stop 0
+
+Starting i8mm/case2/round2/candidate / DotProd / 6 threads / width 8
+
+Completed i8mm/case2/round2/candidate: 27419ms / first 7552ms / 154 tokens / stop 0
+
+PASS ARM i8mm-confirm: 149 controls.
+

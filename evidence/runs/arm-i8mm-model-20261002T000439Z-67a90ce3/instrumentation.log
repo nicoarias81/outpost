@@ -1,0 +1,31 @@
+
+Starting i8mm/warmup / DotProd / 6 threads / width 8
+
+Completed i8mm/warmup: 8048ms / first 7835ms / 4 tokens / stop 1
+
+Starting i8mm/case0/round0/dot / DotProd / 6 threads / width 8
+
+Completed i8mm/case0/round0/dot: 17926ms / first 7128ms / 133 tokens / stop 0
+
+Starting i8mm/case0/round0/candidate / DotProd / 6 threads / width 8
+
+Completed i8mm/case0/round0/candidate: 17040ms / first 6235ms / 133 tokens / stop 0
+
+Starting i8mm/case1/round0/candidate / DotProd / 6 threads / width 8
+
+Completed i8mm/case1/round0/candidate: 20532ms / first 7047ms / 162 tokens / stop 0
+
+Starting i8mm/case1/round0/dot / DotProd / 6 threads / width 8
+
+Completed i8mm/case1/round0/dot: 22366ms / first 8614ms / 162 tokens / stop 0
+
+Starting i8mm/case2/round0/dot / DotProd / 6 threads / width 8
+
+Completed i8mm/case2/round0/dot: 18246ms / first 6067ms / 154 tokens / stop 0
+
+Starting i8mm/case2/round0/candidate / DotProd / 6 threads / width 8
+
+Completed i8mm/case2/round0/candidate: 20050ms / first 5339ms / 154 tokens / stop 0
+
+PASS ARM i8mm-model: 53 controls.
+
