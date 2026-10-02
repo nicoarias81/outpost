@@ -1,0 +1,42 @@
+[
+  {
+    "action": "Focus question field",
+    "elapsedMs": 1238
+  },
+  {
+    "action": "Keyboard visible",
+    "elapsedMs": 2144
+  },
+  {
+    "action": "Question typed character by character",
+    "elapsedMs": 8978
+  },
+  {
+    "action": "Send question",
+    "elapsedMs": 10364
+  },
+  {
+    "action": "Scroll visible page",
+    "elapsedMs": 42091
+  },
+  {
+    "action": "Read stored place results",
+    "elapsedMs": 43199
+  },
+  {
+    "action": "View saved OSM sources",
+    "elapsedMs": 43419
+  },
+  {
+    "action": "Open Restaurante La Ancha saved record",
+    "elapsedMs": 45410
+  },
+  {
+    "action": "Return from saved OSM record",
+    "elapsedMs": 49887
+  },
+  {
+    "action": "Answer reading pause complete",
+    "elapsedMs": 56092
+  }
+]

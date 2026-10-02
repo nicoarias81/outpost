@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 6,
   "language": "en",
   "scope": "Original synthetic text/CSV demonstration documents plus an attributed, bounded public Madrid OSM snapshot. No live availability or equipment advice.",
   "baseline": {
@@ -76,5 +76,12 @@
   },
   "protocol": "Freeze these cases before collecting results. Preserve all outputs, including failures. Compare equal prompt evidence and output limits with each model's embedded chat template. Record greedy and product sampling explicitly. Do not change outputs for the video.",
   "supplementNote": "The two-plot case was added after the first pilot exposed omission of the East CSV row from the three-excerpt prompt. The original failure remains in the package. Final demo selection is not an unseen benchmark.",
-  "summaryNote": "A plain-text companion repeats the original CSV values without changing them. It was added after the pilot exposed the current one-fragment-per-document retrieval limitation. The video must describe this as saved notes, not as general multi-row CSV analysis. All earlier failures remain available."
+  "summaryNote": "A plain-text companion repeats the original CSV values without changing them. It was added after the pilot exposed the current one-fragment-per-document retrieval limitation. The video must describe this as saved notes, not as general multi-row CSV analysis. All earlier failures remain available.",
+  "generalKnowledgeCase": {
+    "id": "gps-without-cellular",
+    "question": "Explain GPS positioning without cellular coverage. Two brief sentences.",
+    "expected": "The receiver uses radio signals and timing from multiple satellites to estimate its position. A cellular network is unnecessary for the basic satellite fix. Do not confuse map imagery or map data with live satellite ranging signals.",
+    "sourcePolicy": "Use the normal app path with the library still loaded. Require zero retrieved passages and no prior chat history. No retrieval bypass.",
+    "revisionNote": "The first model-only take confused offline map contents with satellite data. That failed pilot is retained in review evidence. This narrower question demonstrates satellite positioning only."
+  }
 }

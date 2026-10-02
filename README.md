@@ -62,7 +62,7 @@ Prefill processes the input prompt. Decode generates the answer tokens. Outpost 
 | Persistent thread pools and row scheduling | Less worker setup and distribution of prefill work |
 | Six workers and four attention partitions | Faster Pixel decode with the specified attention calculations |
 | KV cache and saved prefix logits | Reuse of compatible prompt state |
-| Direct place queries | Answers from stored OSM data without model inference |
+| Structured place retrieval | Local filtering and distance calculations supply facts for model-generated answers |
 
 The runtime does three separate checks: CPU support, compiled kernel availability and enabled policy. The faster Pixel profile applies only to the specified device, OS and model. Other profiles use conservative settings and a reference path. Production settings do not use VNNI, speculative decoding, MTP or Engram.
 
@@ -84,7 +84,7 @@ These are acceptance goals. They are not measured guarantees or enforced library
 
 ## Installation and first use
 
-The distribution channel is [GitHub Releases](https://github.com/nicoarias81/outpost/releases). The current source version is **0.19.0-rc1**. The release is a draft. The repository is private. Production identity, signing and final signed-APK tests are not complete.
+The distribution channel is [GitHub Releases](https://github.com/nicoarias81/outpost/releases). The current source version is **0.19.0-rc2**. The release is a draft. The repository is private. Production identity, signing and final signed-APK tests are not complete.
 
 When a signed APK is available, do these steps:
 

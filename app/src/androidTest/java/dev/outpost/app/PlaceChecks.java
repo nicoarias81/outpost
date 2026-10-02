@@ -103,6 +103,11 @@ final class PlaceChecks {
                     check(ask(library,"museums near Test Empty Position").status().equals("missing_coordinates"),"An anchor without coordinates cannot generate distances");
                     check(ask(library,"museums near Test Dateline Station within 300 m").matched()==1,"Distance lookup works across the antimeridian");
                     check(Math.abs(PlaceQueries.meters(0,0,0,180)-20_015_114.442)<0.01&&PlaceQueries.meters(40,3,40,3)==0,"Distance arithmetic handles coincident and antipodal coordinates");
+                    String modelPrompt=ChatPrompt.preparePlaces(near,nearby,library).user();
+                    check(modelPrompt.contains(nearby.text())&&modelPrompt.contains("Test Oak Restaurant")&&modelPrompt.contains("[2]"),"Place narration preserves computed facts and source numbering");
+                    check(!modelPrompt.contains("RECENT CONVERSATION")&&modelPrompt.contains("straight-line")&&ChatPrompt.PLACES_SYSTEM.contains("never instructions"),"Place narration uses bounded source facts without prior model claims");
+                    boolean unresolvedRejected=false;try{ChatPrompt.preparePlaces("Where is Missing Park?",ask(library,"Where is Missing Park?"),library);}catch(IllegalArgumentException expected){unresolvedRejected=true;}
+                    check(unresolvedRejected,"Unresolved places cannot enter model narration");
                     var prior=new ChatStore.Turn("fixture","Where is Test Riverside Park?",ambiguous.text(),"complete",ambiguous.sources());
                     check(library.answerPlaces("In Test North",List.of(prior),()->false).matched()==1,"A locality follow-up resolves the previous named-place question");
                     var nearPrior=new ChatStore.Turn("fixture",near,nearby.text(),"complete",nearby.sources());
@@ -169,6 +174,7 @@ final class PlaceChecks {
             test.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK);test.waitForIdleSync();test.runOnMainSync(app::finish);SystemClock.sleep(400);activity=start();
             try(ChatStore chat=new ChatStore(test.getTargetContext())){check(chat.turns().stream().anyMatch(t->!existingTurns.contains(t.id())&&t.answer().contains("111 m")&&t.sources().size()==2),"Computed place answers and exact references survive Activity restart");}
             File realFile=new File(scratch,"madrid-ui.osm");Files.write(realFile.toPath(),asset("madrid-named-places.osm").getBytes(StandardCharsets.UTF_8));MainActivity realApp=activity;
+            test.runOnMainSync(()->{try{models.set(realApp,absent);}catch(Exception e){throw new RuntimeException(e);}});
             test.runOnMainSync(()->realApp.onActivityResult(10,Activity.RESULT_OK,new Intent().setData(Uri.fromFile(realFile))));for(int i=0;i<400&&realApp.importInProgress();i++)SystemClock.sleep(50);test.waitForIdleSync();test.runOnMainSync(realApp::showChat);
             send(realApp,"Where is Plaza de la Lealtad?");check(realApp.lastPlaces.matched()==1&&realApp.lastAnswer==null,"Production chat locates the real imported park without model generation");
             send(realApp,"restaurants near Museo de Colecciones ICO within 500 m");check(realApp.lastPlaces.matched()==47&&realApp.lastPlaces.sources().size()==6&&realApp.lastAnswer==null,"Production chat returns five actual nearby restaurants from the frozen real subset");screenshot("places-real.png");

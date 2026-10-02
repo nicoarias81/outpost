@@ -12,7 +12,10 @@ flowchart TD
     UI --> Route[Question selection]
     Route --> Places[Place queries]
     Places --> DB
-    Places --> Answer[Answer and source references]
+    Places --> PlaceFacts[Resolved places and calculated distances]
+    PlaceFacts --> Prompt
+    Places --> Fallback[Clarification or no-model fallback]
+    Fallback --> Answer[Answer and source references]
     Route --> Retrieve[Document retrieval]
     Retrieve --> DB
     Retrieve --> Prompt[Source excerpts and recent conversation]
@@ -50,7 +53,9 @@ Java files are in [app/src/main/java/dev/outpost/app](../app/src/main/java/dev/o
 
 `Library.answerPlaces` uses stored names, categories and the stated landmark or radius. It detects ambiguous names and conflicting IDs. It calculates approximate straight-line distances. It returns a maximum of five results with source references.
 
-A model is not necessary for this path. It does not give GPS position, current conditions, routes or polygon containment.
+When a model is ready, `ChatPrompt.preparePlaces` supplies the resolved places, calculated distances and selected recorded tags. The model writes a contextual answer with the same source references. List answers describe up to three results. The saved source list retains all returned records.
+
+Unresolved queries, conflicting snapshots and missing models keep the direct database response. This path does not give GPS position, current conditions, routes or polygon containment. Model wording can be incorrect. Source review remains necessary.
 
 ### Other questions
 

@@ -3,7 +3,7 @@ import argparse,datetime,hashlib,json,os,re,subprocess,time,uuid
 from pathlib import Path
 R=Path(__file__).resolve().parents[1]
 if not (R/'app').exists():R=Path('E:/projects/outpost')
-p=argparse.ArgumentParser();p.add_argument('action',choices=['prepare','compare','compare-summary','add-summary','record','restore']);p.add_argument('--scene',type=int,default=0);p.add_argument('--from-case',type=int,default=0);p.add_argument('--allow-offline-transition',action='store_true');a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('action',choices=['prepare','compare','compare-selected','compare-summary','add-summary','record','restore']);p.add_argument('--scene',type=int,default=0);p.add_argument('--from-case',type=int,default=0);p.add_argument('--allow-offline-transition',action='store_true');a=p.parse_args()
 if a.action=='record' and not a.allow_offline_transition:p.error('Pass --allow-offline-transition only after owner approval for temporary phone disconnection.')
 settings=json.loads((R/'.local/developer-settings.json').read_text(encoding='utf-8-sig'));registration=json.loads((R/'.local/pixel10-target.json').read_text(encoding='utf-8-sig'))
 assert registration['model']=='Pixel 10 Pro' and registration['authorization']=='owner-request-2026-10-01'
@@ -47,6 +47,10 @@ def instrument(phase,extra=()):
  if not data['passed']:raise RuntimeError('Demo phase failed: '+str(data.get('error')))
  return data
 def restore_radios():
+ if 'showTouchesBefore' in state:
+  value=state['showTouchesBefore']
+  call('shell','settings','delete','system','show_touches') if value=='null' else call('shell','settings','put','system','show_touches',value)
+  assert call('shell','settings','get','system','show_touches')==value,'Touch indicator restoration mismatch'
  before=state['radios']
  call('shell','cmd','connectivity','airplane-mode','enable' if before['airplane_mode_on']=='1' else 'disable')
  call('shell','svc','wifi','enable' if before['wifi_on']=='1' else 'disable')
@@ -86,8 +90,8 @@ else:
  assert state['status']!='restored','Session already restored';remote=f'/sdcard/Android/data/{package}/files/{state["session"]}'
  if a.action=='add-summary':
   result=instrument('demo-add-summary');print(json.dumps({'passed':result['passed']}))
- elif a.action in ['compare','compare-summary']:
-  result=instrument('demo-compare-summary' if a.action=='compare-summary' else ('demo-compare-extra' if a.from_case else 'demo-compare'),('-e','case_start',str(a.from_case)));print(json.dumps({'passed':result['passed'],'answers':len(result['answers']),'out':state['out']}))
+ elif a.action in ['compare','compare-selected','compare-summary']:
+  result=instrument('demo-compare-selected' if a.action=='compare-selected' else 'demo-compare-summary' if a.action=='compare-summary' else ('demo-compare-extra' if a.from_case else 'demo-compare'),('-e','case_start',str(a.from_case)));print(json.dumps({'passed':result['passed'],'answers':len(result['answers']),'out':state['out']}))
  elif a.action=='restore':
   try:
    if not state.get('qaRestored'):
@@ -97,11 +101,13 @@ else:
   state['status']='restored';save();Path(state['out'],'session.json').write_text(json.dumps(state,indent=2)+'\n')
   print(json.dumps({'status':'restored','originalStatePreserved':True,'radios':radios()}))
  elif a.action=='record':
-  assert 0<=a.scene<=len(json.loads((R/'app/src/releaseTest/assets/demo/cases.json').read_text())['cases'])
+  assert 0<=a.scene<=len(json.loads((R/'app/src/releaseTest/assets/demo/cases.json').read_text())['cases'])+1
   scene_dir=f'{remote}/scene-{a.scene}';host=Path(state['out']);recorder=None;runner=None;pid=None
+  if 'showTouchesBefore' not in state:state['showTouchesBefore']=call('shell','settings','get','system','show_touches')
   if 'bluetoothBefore' not in state:state['bluetoothBefore']=call('shell','settings','get','global','bluetooth_on')
   state['status']='recording';state['radiosRestored']=False;save()
   try:
+   call('shell','settings','put','system','show_touches','1')
    call('shell','cmd','connectivity','airplane-mode','enable');call('shell','svc','wifi','disable')
    expected={'airplane_mode_on':'1','wifi_on':'0','mobile_data':state['radios']['mobile_data']}
    end=time.time()+30

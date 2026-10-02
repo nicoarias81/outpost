@@ -1,0 +1,50 @@
+[
+  {
+    "action": "Open Settings",
+    "elapsedMs": 1211
+  },
+  {
+    "action": "Open loaded documents",
+    "elapsedMs": 3337
+  },
+  {
+    "action": "Scroll visible page",
+    "elapsedMs": 6012
+  },
+  {
+    "action": "Scroll visible page",
+    "elapsedMs": 8121
+  },
+  {
+    "action": "Open Pump revision C source",
+    "elapsedMs": 9607
+  },
+  {
+    "action": "Close source",
+    "elapsedMs": 12327
+  },
+  {
+    "action": "Return to chat",
+    "elapsedMs": 13132
+  },
+  {
+    "action": "Focus question field",
+    "elapsedMs": 14050
+  },
+  {
+    "action": "Keyboard visible",
+    "elapsedMs": 14956
+  },
+  {
+    "action": "Question typed character by character",
+    "elapsedMs": 31968
+  },
+  {
+    "action": "Send question",
+    "elapsedMs": 33337
+  },
+  {
+    "action": "Answer reading pause complete",
+    "elapsedMs": 65950
+  }
+]

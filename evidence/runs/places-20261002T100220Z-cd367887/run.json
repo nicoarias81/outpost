@@ -1,0 +1,10 @@
+{
+  "runId": "places-20261002T100220Z-cd367887",
+  "serial": "emulator-5582",
+  "modelExecution": false,
+  "appSha256": "502cb17d2821b82dc62a153b50809ed4aff9e22f6511e9881cfc14d9d6cb0de5",
+  "testApkSha256": "1d53c6de6d749e498f998c491f02cf10c42ccde7a23e04e321f0f0c7964d0b44",
+  "mainSourcesSha256": "82322731530a3f90cc73d25825a1d3d586ad7d4781b0b807a7042f9e70967634",
+  "testSourcesSha256": "5fbd28697bd030ace2d8674e133a413dc176711445f1e819b228d7683a82d853",
+  "scope": "Deterministic OSM place resolution, category/distance filtering and actual chat without model execution; synthetic and frozen public OSM subset; emulator only."
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "action": "Focus question field",
+    "elapsedMs": 1219
+  },
+  {
+    "action": "Keyboard visible",
+    "elapsedMs": 2123
+  },
+  {
+    "action": "Question typed character by character",
+    "elapsedMs": 10764
+  },
+  {
+    "action": "Send question",
+    "elapsedMs": 12169
+  },
+  {
+    "action": "Answer reading pause complete",
+    "elapsedMs": 28339
+  }
+]

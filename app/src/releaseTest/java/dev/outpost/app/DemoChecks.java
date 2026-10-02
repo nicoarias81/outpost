@@ -102,6 +102,7 @@ final class DemoChecks {
         JSONArray questions=cases.getJSONArray("cases");
         try(Library library=new Library(context);NativeEngine engine=new NativeEngine()){
             for(int i=Integer.parseInt(args.getString("case_start","0"));i<questions.length();i++){
+                if(phase.equals("demo-compare-selected")&&i!=1&&i!=3)continue;
                 JSONObject q=questions.getJSONObject(i);var hits=library.search(q.getString("question"));var prompt=ChatPrompt.prepare(q.getString("question"),List.of(),hits);
                 JSONArray evidence=new JSONArray();for(var hit:prompt.sources())evidence.put(new JSONObject().put("title",hit.document().title()).put("passage",hit.passage()).put("ordinal",hit.number()));
                 for(int variant=0;variant<3;variant++){
@@ -126,30 +127,102 @@ final class DemoChecks {
         if(view instanceof android.view.ViewGroup group)for(int i=0;i<group.getChildCount();i++)if(scrollTop(group.getChildAt(i)))return true;
         return false;
     }
+    final JSONArray interactions=new JSONArray();
+    long recordingStart;
+    void event(String action)throws Exception{interactions.put(new JSONObject().put("action",action).put("elapsedMs",SystemClock.elapsedRealtime()-recordingStart));write(new File(output,"interactions.json"),interactions.toString(2));}
+    android.view.View find(android.view.View root,java.util.function.Predicate<android.view.View> predicate){
+        if(predicate.test(root))return root;
+        if(root instanceof android.view.ViewGroup group)for(int i=0;i<group.getChildCount();i++){var match=find(group.getChildAt(i),predicate);if(match!=null)return match;}
+        return null;
+    }
+    android.view.View view(int id){final android.view.View[] found={null};test.runOnMainSync(()->found[0]=activity.findViewById(id));return found[0];}
+    void tap(android.view.View target,String label)throws Exception{
+        check(target!=null,"Visible target: "+label);int[] xy=new int[2];boolean[] visible={false};
+        test.runOnMainSync(()->{android.graphics.Rect rect=new android.graphics.Rect();visible[0]=target.isShown()&&target.isEnabled()&&target.getGlobalVisibleRect(rect);xy[0]=rect.centerX();xy[1]=rect.centerY();});
+        check(visible[0],"Touchable target: "+label);long time=SystemClock.uptimeMillis();
+        for(int action:new int[]{android.view.MotionEvent.ACTION_DOWN,android.view.MotionEvent.ACTION_UP}){
+            var touch=android.view.MotionEvent.obtain(time,SystemClock.uptimeMillis(),action,xy[0],xy[1],0);touch.setSource(android.view.InputDevice.SOURCE_TOUCHSCREEN);test.sendPointerSync(touch);touch.recycle();SystemClock.sleep(80);
+        }
+        test.waitForIdleSync();event(label);
+    }
+    void swipeUp()throws Exception{
+        int width=activity.getResources().getDisplayMetrics().widthPixels,height=activity.getResources().getDisplayMetrics().heightPixels;long time=SystemClock.uptimeMillis();
+        for(int i=0;i<=16;i++){int action=i==0?0:i==16?1:2;float y=height*(.76f-.40f*i/16);var touch=android.view.MotionEvent.obtain(time,SystemClock.uptimeMillis(),action,width*.72f,y,0);touch.setSource(android.view.InputDevice.SOURCE_TOUCHSCREEN);test.sendPointerSync(touch);touch.recycle();SystemClock.sleep(28);}
+        test.waitForIdleSync();event("Scroll visible page");SystemClock.sleep(1100);
+    }
+    void documentsTour()throws Exception{
+        tap(view(R.id.chat_settings),"Open Settings");SystemClock.sleep(1700);capture("settings.png");
+        tap(view(R.id.chat_documents),"Open loaded documents");SystemClock.sleep(1800);capture("documents.png");
+        android.view.View[] open={null};
+        for(int page=0;page<6;page++){
+            test.runOnMainSync(()->{var title=find(activity.getWindow().getDecorView(),v->v instanceof android.widget.TextView t&&t.getText().toString().equals("Pump revision C.txt"));
+                if(title!=null){var button=find((android.view.View)title.getParent(),v->v instanceof android.widget.Button b&&b.getText().toString().equals("Open"));android.graphics.Rect rect=new android.graphics.Rect();if(button!=null&&button.getGlobalVisibleRect(rect)&&rect.height()>=button.getHeight()-2)open[0]=button;}});
+            if(open[0]!=null)break;swipeUp();
+        }
+        capture("manual-in-library.png");tap(open[0],"Open Pump revision C source");waitFor(()->activity.documentOpen,5000,"Source opened from document library");SystemClock.sleep(2500);capture("source.png");
+        test.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK);event("Close source");SystemClock.sleep(600);
+        android.view.View[] back={null};test.runOnMainSync(()->back[0]=find(activity.getWindow().getDecorView(),v->"Back to chat".contentEquals(v.getContentDescription()==null?"":v.getContentDescription())));
+        tap(back[0],"Return to chat");SystemClock.sleep(700);
+    }
+    void typeQuestion(String question)throws Exception{
+        EditText input=(EditText)view(MainActivity.QUERY_ID);
+        // Test input only: avoid personal suggestions without changing the user's keyboard settings.
+        test.runOnMainSync(()->{input.setInputType(android.text.InputType.TYPE_CLASS_TEXT|android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE|android.text.InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);input.setImeOptions(android.view.inputmethod.EditorInfo.IME_ACTION_SEND|android.view.inputmethod.EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING);input.setImeHintLocales(new android.os.LocaleList(java.util.Locale.US));});
+        tap(input,"Focus question field");
+        waitFor(()->{boolean[] visible={false};test.runOnMainSync(()->{var insets=activity.getWindow().getDecorView().getRootWindowInsets();visible[0]=insets!=null&&insets.isVisible(android.view.WindowInsets.Type.ime());});return visible[0];},7000,"Real keyboard visible");
+        SystemClock.sleep(900);event("Keyboard visible");capture("keyboard.png");
+        var keys=android.view.KeyCharacterMap.load(android.view.KeyCharacterMap.VIRTUAL_KEYBOARD);
+        for(int i=0;i<question.length();i++){
+            boolean[] focused={false};test.runOnMainSync(()->focused[0]=input.hasFocus()&&activity.hasWindowFocus());check(focused[0],"Question field retains focus at character "+i);
+            var events=keys.getEvents(new char[]{question.charAt(i)});check(events!=null,"Supported keyboard character "+i);
+            for(var key:events)test.sendKeySync(key);
+            SystemClock.sleep(question.charAt(i)==' '?170:65+(i*17)%50);
+            if(i==Math.min(30,question.length()-1))capture("typing.png");
+        }
+        test.waitForIdleSync();String[] typed={""};test.runOnMainSync(()->typed[0]=input.getText().toString());check(question.equals(typed[0]),"Typed question matches comparison prompt");
+        event("Question typed character by character");SystemClock.sleep(1000);capture("question-ready.png");
+    }
+    void inspectPlaceSource()throws Exception{
+        SystemClock.sleep(2400);swipeUp();event("Read stored place results");
+        android.view.View[] sources={null};test.runOnMainSync(()->sources[0]=find(activity.getWindow().getDecorView(),v->v instanceof android.widget.Button b&&b.getText().toString().equals("View sources")));
+        tap(sources[0],"View saved OSM sources");SystemClock.sleep(1600);capture("osm-source-list.png");
+        var root=test.getUiAutomation().getRootInActiveWindow();check(root!=null,"Source picker is visible");
+        var matches=root.findAccessibilityNodeInfosByText("Restaurante La Ancha");check(!matches.isEmpty(),"Restaurant source in picker");
+        var node=matches.get(0);check(context.getPackageName().contentEquals(node.getPackageName()),"Source picker belongs to demo app");
+        android.graphics.Rect rect=new android.graphics.Rect();node.getBoundsInScreen(rect);check(!rect.isEmpty(),"Restaurant source has visible bounds");
+        long time=SystemClock.uptimeMillis();for(int action:new int[]{0,1}){var touch=android.view.MotionEvent.obtain(time,SystemClock.uptimeMillis(),action,rect.centerX(),rect.centerY(),0);touch.setSource(android.view.InputDevice.SOURCE_TOUCHSCREEN);test.sendPointerSync(touch);touch.recycle();SystemClock.sleep(80);}
+        event("Open Restaurante La Ancha saved record");waitFor(()->activity.documentOpen,5000,"Saved OSM record is visible");SystemClock.sleep(4200);capture("osm-source.png");
+        test.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK);event("Return from saved OSM record");SystemClock.sleep(1000);
+    }
     void record()throws Exception{
         own();check(Settings.Global.getInt(context.getContentResolver(),"airplane_mode_on",0)==1,"Airplane mode on");
         check(Settings.Global.getInt(context.getContentResolver(),"wifi_on",1)==0,"Wi-Fi off");
         String[] permissions=context.getPackageManager().getPackageInfo(context.getPackageName(),android.content.pm.PackageManager.GET_PERMISSIONS).requestedPermissions;
         check(permissions==null||permissions.length==0,"Demo app declares no permissions");
         int scene=Integer.parseInt(args.getString("scene","0"));
-        String question=scene<cases.getJSONArray("cases").length()?cases.getJSONArray("cases").getJSONObject(scene).getString("question"):cases.getString("placeQuestion");
+        boolean general=scene==cases.getJSONArray("cases").length()+1;
+        String question=general?cases.getJSONObject("generalKnowledgeCase").getString("question"):scene<cases.getJSONArray("cases").length()?cases.getJSONArray("cases").getJSONObject(scene).getString("question"):cases.getString("placeQuestion");
+        if(general)try(Library library=new Library(context)){check(library.search(question).isEmpty(),"General question retrieves no documents before capture");}
         try(ChatStore chat=new ChatStore(context)){chat.clear();}
         ModelStore.select(context,ModelStore.BONSAI4);MainActivity app=start();
         write(new File(output,"ready.json"),new JSONObject().put("question",question).put("scene",scene).toString());
-        waitFor(()->new File(output,"go").isFile(),60000,"Host recording started");long start=SystemClock.elapsedRealtime();
-        SystemClock.sleep(1800);test.runOnMainSync(()->((EditText)app.findViewById(MainActivity.QUERY_ID)).setText(question));SystemClock.sleep(2000);
-        long submitted=SystemClock.elapsedRealtime()-start;test.runOnMainSync(()->app.findViewById(MainActivity.SEARCH_ID).performClick());
+        waitFor(()->new File(output,"go").isFile(),60000,"Host recording started");long start=SystemClock.elapsedRealtime();recordingStart=start;
+        SystemClock.sleep(1000);if(scene==1)documentsTour();typeQuestion(question);
+        long submitted=SystemClock.elapsedRealtime()-start;tap(view(MainActivity.SEARCH_ID),"Send question");
         waitFor(()->app.answerDone,135000,"Recorded request completed");long finished=SystemClock.elapsedRealtime()-start;
         JSONObject answer=app.lastAnswer!=null?result("Bonsai 4B","scene-"+scene,app.lastAnswer):new JSONObject().put("model","structured OSM query").put("text",app.lastPlaces==null?"":app.lastPlaces.text());
         answer.put("mobileDataPreference",Settings.Global.getInt(context.getContentResolver(),"mobile_data",-1));
-        if(app.lastPrepared!=null)answer.put("system",ChatPrompt.SYSTEM).put("preparedUser",app.lastPrepared.user());
-        answer.put("question",question).put("submittedMs",submitted).put("finishedMs",finished).put("sceneStartElapsedRealtime",start);answers.put(answer);
+        if(general)check(app.lastPrepared!=null&&app.lastPrepared.sources().isEmpty()&&app.lastHits.isEmpty(),"General knowledge answer has zero retrieved documents");
+        answer.put("route",app.lastPlaces==null?"chat":app.lastAnswer==null?"places-direct":"places-with-model").put("placeSourceCount",app.lastPlaces==null?0:app.lastPlaces.sources().size());
+        answer.put("retrievedPassageCount",app.lastPrepared==null?0:app.lastPrepared.sources().size());
+        if(app.lastPrepared!=null)answer.put("system",app.lastSystem).put("preparedUser",app.lastPrepared.user());
+        answer.put("interactionMethod","Visible native keyboard; incremental key events; injected touchscreen navigation; automated walkthrough").put("question",question).put("submittedMs",submitted).put("finishedMs",finished).put("sceneStartElapsedRealtime",start);answers.put(answer);
         check(!answer.getString("text").isBlank(),"Actual app returned visible content");
         SystemClock.sleep(1800);
         if(app.lastPlaces!=null){test.runOnMainSync(()->scrollTop(app.getWindow().getDecorView()));SystemClock.sleep(800);}
-        capture("answer.png");
+        capture("answer.png");if(scene==cases.getJSONArray("cases").length()){check(app.lastAnswer!=null&&app.lastPlaces!=null&&app.lastPlaces.sources().size()>0,"Place answer uses the local model with OSM sources");inspectPlaceSource();}
         if(app.lastAnswer!=null)check(app.lastAnswer.reason()==0,"Recorded answer ended naturally");
-        SystemClock.sleep(4200);answer.put("sceneEndMs",SystemClock.elapsedRealtime()-start);
+        SystemClock.sleep(5200);event("Answer reading pause complete");answer.put("sceneEndMs",SystemClock.elapsedRealtime()-start);
         write(new File(output,"scene-complete.json"),answer.toString(2));
         // Keep the synthetic Activity visible until the host closes the recording.
         waitFor(()->new File(output,"stop-confirmed").isFile(),45000,"Recording closed by host");
@@ -162,7 +235,7 @@ final class DemoChecks {
             try(var in=test.getContext().getAssets().open("demo/cases.json")){java.io.ByteArrayOutputStream bytes=new java.io.ByteArrayOutputStream();byte[] b=new byte[8192];int n;while((n=in.read(b))!=-1)bytes.write(b,0,n);cases=new JSONObject(bytes.toString("UTF-8"));}
             String suffix=phase.equals("demo-record")?"scene-"+args.getString("scene","0"):phase;
             output=new File(context.getExternalFilesDir(null),session+"/"+suffix);check(output.mkdirs(),"New evidence directory");
-            switch(phase){case "demo-prepare"->prepare();case "demo-compare","demo-compare-extra","demo-compare-summary"->compare();case "demo-add-summary"->addSummary();case "demo-record"->record();case "demo-restore"->restore();default->throw new IllegalArgumentException("Unknown demo phase");}
+            switch(phase){case "demo-prepare"->prepare();case "demo-compare","demo-compare-extra","demo-compare-summary","demo-compare-selected"->compare();case "demo-add-summary"->addSummary();case "demo-record"->record();case "demo-restore"->restore();default->throw new IllegalArgumentException("Unknown demo phase");}
             passed=true;
         }catch(Throwable error){try{report.put("error",error.toString());}catch(Exception ignored){}}
         finally{

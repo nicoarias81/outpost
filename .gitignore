@@ -26,3 +26,7 @@ private/
 /evidence/runs/demo-*/**/stop-confirmed
 /evidence/runs/demo-20261002T082743Z-a0478c82/scene-3/
 /evidence/runs/demo-20261002T082743Z-a0478c82/scene-4/
+
+# Superseded capture takes remain local; the selected run keeps the rejected GPS result.
+/evidence/runs/demo-20261002T094647Z-6c9f8d6a/
+/evidence/runs/demo-20261002T095545Z-4c5796fa/

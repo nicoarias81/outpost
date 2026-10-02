@@ -190,3 +190,9 @@ For documentation-only changes, do link and fixture checks. Make sure that build
 5. Always run `restore` after capture or failure.
 
 The recording guard needs airplane mode, Wi-Fi off and no active default network. It keeps mobile-data preferences unchanged. A review must examine the complete timeline for unrelated UI or private content. Raw videos stay outside Git. Public posting and claim submission need separate owner approval.
+
+The capture uses the native keyboard, incremental key events and touchscreen navigation. This is an automated walkthrough of the real app. The first selected scene opens the loaded library and a source. The general-knowledge scene requires zero retrieved passages through the normal app path.
+
+The test input requests no suggestions or personalized learning. The keyboard can still show generic predictions. It supplies an English keyboard hint. The recorder restores the original touch-indicator preference. Captures keep the actual response text and generation time.
+
+RC2 place narration passed the 66-check OSM suite on Outpost35. The [recorded Pixel review](../evidence/runs/demo-20261002T100257Z-a1235e31/quality-review.json) includes model output, source checks and timings. It also identifies the repeated small-model comparison and rejected pilot. These selected cases do not prove general factual accuracy.

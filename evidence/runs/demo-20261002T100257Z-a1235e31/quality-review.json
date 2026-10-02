@@ -1,0 +1,65 @@
+{
+  "reviewer": "Codex assistant",
+  "scope": "Selected synthetic demonstrations, not a blind field benchmark. Human owner review is pending.",
+  "version": "0.19.0-rc2",
+  "originalStateRestored": true,
+  "allScenesSameQaApk": "1a6f0b14697fa99d7fdc14ced2b59cce5bb6cb213c21e890a4196e19b1d76ada",
+  "scenes": [
+    {
+      "scene": 1,
+      "question": "My PX-80 serial number is 5274. Compare the two saved revisions. Which filter and connector apply, and why should I not use revision B?",
+      "firstTokenMs": 12546,
+      "totalMs": 25383,
+      "tokens": 125,
+      "route": "chat",
+      "placeSources": 0,
+      "documentPassages": 3
+    },
+    {
+      "scene": 3,
+      "question": "Decide only for North and South. Use the farm readings and exception notes. For each plot, give YES or NO for today's watering list and one reason. Use two short bullet points.",
+      "firstTokenMs": 10062,
+      "totalMs": 23565,
+      "tokens": 135,
+      "route": "chat",
+      "placeSources": 0,
+      "documentPassages": 3
+    },
+    {
+      "scene": 4,
+      "question": "Restaurants near Museo de Colecciones ICO within 500 m",
+      "firstTokenMs": 17613,
+      "totalMs": 25792,
+      "tokens": 58,
+      "route": "places-with-model",
+      "placeSources": 6,
+      "documentPassages": 0
+    },
+    {
+      "scene": 5,
+      "question": "Explain GPS positioning without cellular coverage. Two brief sentences.",
+      "firstTokenMs": 5297,
+      "totalMs": 9039,
+      "tokens": 40,
+      "route": "chat",
+      "placeSources": 0,
+      "documentPassages": 0
+    }
+  ],
+  "outcomes": {
+    "manual": "Correct revision C, F-12 and J4 for serial 5274.",
+    "farm": "Correct North NO despite 18 < 25 because of its hold; South YES at 22 < 25 with no hold.",
+    "osm": "Correct first three names, distances and Spanish cuisine. Model omits some supplied addresses. No live availability claim. Source viewer opens exact La Ancha feature.",
+    "gps": "Correct general explanation; zero retrieved passages or prior conversation. First broader GPS/maps pilot was incorrect and is retained."
+  },
+  "smallModelComparison": "TinyLlama 1.1B Chat Q4_K_M, greedy, 192 tokens. Wrong manual revision and North hold decision. Bonsai greedy and product sampling give correct core decisions. Other small models and prompts may differ.",
+  "visualReview": "Screenshots and one-second samples across each complete selected timeline inspected. Real native keyboard, incremental input, document/source navigation and streaming answers. No unrelated system panel observed.",
+  "editing": "Contrasting frame, English labels, separate comparison cards, original playback speed and added three-second final-frame reading holds. No replaced answers.",
+  "validation": {
+    "releaseAuditChecks": 61,
+    "placeRegressionChecks": 66,
+    "placeRegressionRun": "places-20261002T100520Z-ff9bc69d",
+    "initialPlaceTestFailure": "places-20261002T100220Z-cd367887: absent-model test override was lost on Activity restart. Fixed in test only; failed evidence retained."
+  },
+  "publication": "Review only. Private repository, draft release and QA certificate. No public post or claim."
+}

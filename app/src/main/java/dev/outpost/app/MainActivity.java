@@ -88,6 +88,7 @@ public final class MainActivity extends Activity {
     volatile boolean answerDone=true, searchDone=true, documentOpen;
     volatile int cacheReleaseRequests;
     volatile NativeEngine.Result lastAnswer;
+    volatile String lastSystem=ChatPrompt.SYSTEM;
     volatile ChatPrompt.Prepared lastPrepared;
     volatile PlaceQueries.Answer lastPlaces;
     volatile List<Library.Hit> lastHits=List.of();
@@ -210,15 +211,23 @@ public final class MainActivity extends Activity {
             try {
                 chats.save(pending);
                 PlaceQueries.Answer places=library.answerPlaces(pending.question(),history,()->closed||stopRequested);
-                if(places!=null){lastPlaces=places;lastHits=List.of();searchDone=true;
-                    ChatStore.Turn reply=new ChatStore.Turn(pending.id(),pending.question(),stopRequested?"":places.text(),stopRequested?"canceled":"complete",places.sources());
-                    finishTurn(reply,null,request);return;}
-                if(!model.ready()){searchDone=true;finishTurn(pending.withAnswer(getString(R.string.chat_setup_model),"complete"),null,request);return;}
-                List<Library.Hit> found=library.search(pending.question());
-                if(found.isEmpty()&&!history.isEmpty())found=library.search(pending.question()+" "+history.get(history.size()-1).question());
-                ChatPrompt.Prepared prepared=ChatPrompt.prepare(pending.question(),history,found);lastPrepared=prepared;
-                List<ChatStore.Source> sources=new ArrayList<>();
-                for(Library.Hit hit:prepared.sources()){Evidence evidence=library.evidence(hit);sources.add(new ChatStore.Source(evidence.title(),evidence.locator()));}
+                ChatPrompt.Prepared prepared;String system;List<ChatStore.Source> sources=new ArrayList<>();
+                if(places!=null){
+                    lastPlaces=places;lastHits=List.of();searchDone=true;
+                    // Clarifications, conflicts and the no-model fallback remain exact database results.
+                    if(!model.ready()||!places.status().equals("found")||stopRequested){
+                        ChatStore.Turn reply=new ChatStore.Turn(pending.id(),pending.question(),stopRequested?"":places.text(),stopRequested?"canceled":"complete",places.sources());
+                        finishTurn(reply,null,request);return;
+                    }
+                    prepared=ChatPrompt.preparePlaces(pending.question(),places,library);system=ChatPrompt.PLACES_SYSTEM;sources.addAll(places.sources());
+                }else{
+                    if(!model.ready()){searchDone=true;finishTurn(pending.withAnswer(getString(R.string.chat_setup_model),"complete"),null,request);return;}
+                    List<Library.Hit> found=library.search(pending.question());
+                    if(found.isEmpty()&&!history.isEmpty())found=library.search(pending.question()+" "+history.get(history.size()-1).question());
+                    prepared=ChatPrompt.prepare(pending.question(),history,found);system=ChatPrompt.SYSTEM;
+                    for(Library.Hit hit:prepared.sources()){Evidence evidence=library.evidence(hit);sources.add(new ChatStore.Source(evidence.title(),evidence.locator()));}
+                }
+                lastPrepared=prepared;lastSystem=system;
                 ChatStore.Turn withSources=new ChatStore.Turn(pending.id(),pending.question(),"","pending",List.copyOf(sources));chats.save(withSources);
                 lastHits=prepared.sources();searchDone=true;
                 if(closed||stopRequested){finishTurn(withSources.withAnswer("","canceled"),null,request);return;}
@@ -228,7 +237,7 @@ public final class MainActivity extends Activity {
                         RuntimeSettings.Profile p=RuntimeSettings.load(this,model.spec());
                         ActivityManager.MemoryInfo m=new ActivityManager.MemoryInfo();((ActivityManager)getSystemService(ACTIVITY_SERVICE)).getMemoryInfo(m);
                         engine.configure(p.configuration(!m.lowMemory));
-                        NativeEngine.Result result=engine.generateWithSampling(request,model.file(),ChatPrompt.SYSTEM,prepared.user(),192,model.spec().sampled(),(value,count)->runOnUiThread(()->{
+                        NativeEngine.Result result=engine.generateWithSampling(request,model.file(),system,prepared.user(),192,model.spec().sampled(),(value,count)->runOnUiThread(()->{
                             if(!closed&&activeRun==request){ChatStore.Turn streaming=withSources.withAnswer(value,"pending");replaceTurn(streaming);TextView view=replyViews.get(pending.id());if(view!=null){view.setText(value);scrollBottom();}}
                         }));
                         String answer=ResearchPrompt.hasAnswerContent(result.text())?result.text():getString(R.string.chat_no_answer);

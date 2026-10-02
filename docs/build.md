@@ -79,7 +79,7 @@ The audit examines manifest settings, ABIs, notices, assets, JNI exports and nat
 
 ## Release state
 
-The source version is `0.19.0-rc1`, version code 21. The private [GitHub repository](https://github.com/nicoarias81/outpost/releases) has a `v0.19.0` release draft. Production identity, signing and final signed-device acceptance are not complete.
+The source version is `0.19.0-rc2`, version code 22. The private [GitHub repository](https://github.com/nicoarias81/outpost/releases) has a `v0.19.0` release draft. Production identity, signing and final signed-device acceptance are not complete.
 
 The proposed production ID is `dev.outpost.mobile`. Owner approval is still necessary for that ID and a new local signing key. The current app does not use that proposed ID. Public source and a signed release are delivery goals. Owner action and completed acceptance tests are also necessary for public visibility and release publication.
 
