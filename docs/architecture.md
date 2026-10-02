@@ -1,6 +1,6 @@
 # Architecture
 
-Outpost is one Android application with two independent responsibilities: **knowledge retrieval** and **local inference**. The UI, SQLite databases and native model session live in one process. There is no inference server, cloud fallback or tool executor.
+Outpost is one Android application with two independent responsibilities: **knowledge retrieval** and **local inference**. The UI, SQLite databases and native model session live in one process. Core operation has no Google Play Services dependency, inference server, cloud fallback or tool executor. Setup may download assets outside the app; inference, retrieval, indexing and source inspection then use local bytes.
 
 ```mermaid
 flowchart TD
@@ -79,6 +79,12 @@ Compatible token prefixes and saved prefix logits permit KV reuse. Model, templa
 The admitted Pixel/Bonsai 4B profile uses six decode/prefill workers, four logical attention workers, batch 128, width 8, prefill/decode row groups 1/4, prefill/decode chunks 32/0, persistent pools and no affinity. `attentionThreads=4` requires six/six workers and no speculation; `matrixKernel=1` additionally requires that attention policy and compiled, CPU-compatible I8MM. The exact fingerprint/capability guards are in [RuntimeSettings.java](../app/src/main/java/dev/outpost/app/RuntimeSettings.java); other profiles retain conservative settings.
 
 ARM I8MM is for eligible multi-column prompt matrices; single-column work stays on DotProd. Q2_0 g64 stores 2.25 effective bits per weight including scales and uses prepared Q8 activations. Kernel lane grouping and accumulation order preserve the admitted reference arithmetic. KV storage remains F16. The fixed-attention wrapper depends on the pinned backend's barrier/scratch contract; changing that backend requires a new numerical and concurrency audit.
+
+## Resource envelope
+
+The deployment target is an Android/GrapheneOS device with no more than 12 GB of installed RAM and a complete offline footprint no larger than 50 GB. Count the app, models, original files, indexes, databases, temporary import copies and any other local assets. Small GGUF download sizes alone do not establish either limit: the live model, KV cache, activation workspace, parsers and operating system also consume resources.
+
+Per-file import limits and guarded kernels already exist; a global storage cap and constrained physical-device acceptance do not. The current Pixel measurements come from a 16 GB device. Keep allocation/cache policy and import storage accounting separate from claims of meeting the target; [testing](testing.md) defines the required measurements.
 
 ## Boundaries and extension points
 

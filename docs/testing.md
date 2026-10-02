@@ -81,6 +81,21 @@ if ($LASTEXITCODE -ne 0) { throw 'Fixture validation failed.' }
 
 `RUN_ID` is the actual generated directory, not a literal test target. The review validator checks the review's structure and attribution; it does not generate scores.
 
+## Release acceptance
+
+| Area | Required evidence | Current boundary |
+|---|---|---|
+| Offline operation | After asset preparation, complete lookup, research, source inspection and persistence with phone connectivity disabled; no app API/web/cloud calls | No INTERNET permission or Play Services dependency; offline AOSP coverage exists. The recorded Pixel trial preserved the phone's radios rather than proving a fully disconnected phone mission |
+| Android and GrapheneOS | Install and use the exact release artifact on supported physical hardware; record OS, model, ABI and build | Real Pixel Android QA runs exist; GrapheneOS runtime and the production certificate are untested |
+| Memory | Run representative short/long conversations and imports on hardware with at most 12 GB installed RAM; record process peaks, system pressure and recovery | Pixel results came from a 16 GB environment; a low app-memory sample or 4 GB emulator alone does not close this physical-device gate |
+| Storage | Inventory APK, weights, originals, indexes, databases, caches and import/update staging; keep the whole prepared setup within 50 GB | Pinned model sizes are known; full installed-footprint acceptance and a global cap are not established |
+| Research quality | Evaluate explanation, comparison, cross-source synthesis, reasoning, absent/conflicting evidence and exact applicability; compare identical missions against a small-model baseline and an internet-assisted frontier-model reference | Current contextual checks are bounded. Target offline usefulness above half of the reference result under a declared rubric; no such comparative score has been measured |
+| Usable response time | Report first token, first useful information and completed-answer latency with output length, cold/warm state and device conditions | Paired Pixel performance evidence exists; no universal speed or usefulness claim follows |
+| Reproducible installation | Public source tag, signed APK/checksums, pinned assets or direct downloads, documented index creation and a clean-phone setup trial | Source/build instructions and model links exist; repository is private, release is draft and production signing remains open |
+| Inspectable demonstration | Record a real phone operating without connectivity, with several complete responses including challenging research tasks, source inspection and the matching source revision | Synthetic screenshots exist; the final release demonstration is pending |
+
+Question coverage should include a real comparison between two applicable manuals, synthesis of travel instructions with regional facts, and an explanation that cannot be judged by a single memorized identifier. Predeclare evidence, expected outcomes and critical failures. Do not relabel existing lookup checks as proof of these harder tasks, or count an unmeasured comparison as a passed gate.
+
 ## Current acceptance and remaining gates
 
 - [Performance evidence](../evidence/research/i8mm-20261002/combined-summary.json): exact compared logits/tokens and paired Pixel latency improvements; no energy measurement.

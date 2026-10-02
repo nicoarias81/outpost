@@ -1,18 +1,18 @@
 # Outpost
 
-**An offline knowledge assistant for Android.** Outpost runs a language model on your phone and answers questions using your saved documents and imported place data. It is built for situations where useful information matters and a connection is unavailable: travel, field work, farming, hiking and driving through areas without coverage.
+**Offline research and everyday knowledge on your Android phone.** Outpost combines an on-device language model with your saved documents and imported place data. Its aim is useful lookup, explanation, comparison and synthesis when internet access is unavailable: during travel, field work, farming, hiking or a drive through areas without coverage.
 
 ## What it does
 
-- **Chat locally.** Ask questions, follow up on an answer and keep the conversation on your device.
+- **Research locally.** Ask for an explanation, compare information from saved sources or reason through a practical question. Keep the conversation on your device and inspect the supporting material.
 - **Find information in your files.** Import TXT, Markdown, CSV and text-bearing PDFs. Answers can reference the original passage, CSV record or PDF page.
 - **Import a whole folder.** Outpost traverses readable subfolders, skips unchanged files and reports unsupported or failed imports.
 - **Answer questions about places.** Import OpenStreetMap XML or Overpass JSON to ask where a named park is, which restaurants are near a museum, or what places match a category around a landmark.
 - **Prepare before going offline.** Load a model and the documents or regional extracts you expect to need. The initial library is empty; there is no bundled demo knowledge base.
 
-Examples include “Which spare filter does this pump use?”, “What time is irrigation scheduled for the North plot?”, “What restaurants are near this museum?” and “What roadside assistance reference did I save?”
+Example questions range from “Which spare filter does this pump use?” and “What restaurants are near this museum?” to “Explain why GPS can work without mobile data”, “Compare the inspection requirements in these two manuals” and “Combine my arrival instructions and saved transport notes into a plan”. These illustrate the intended use; broad reasoning and synthesis quality still need evaluation.
 
-Chat is the home screen. Settings contains model setup, file/folder import, document management, privacy information and dependency notices. Outpost has no network permission, account, analytics or cloud inference. External file providers may require connectivity before their files can be imported.
+Chat is the home screen. Settings contains model setup, file/folder import, document management, privacy information and dependency notices. Once the model and required data are prepared, core use needs no connection, Google Play Services, account or API key. The app has no network permission, telemetry, web-search calls or remote inference. External file providers may require connectivity during preparation; their bytes must be imported before going offline.
 
 ## What it uses
 
@@ -61,6 +61,12 @@ On the tested Pixel 10 Pro with Bonsai 4B, median paired reductions in total res
 
 The [paired measurements](evidence/research/i8mm-20261002/combined-summary.json) and [numeric checks](evidence/research/i8mm-20261002/numeric-018-summary.json) retain the evidence. The kernel checks include over 65 million exact float comparisons. Process CPU time increased about 3–4%; battery consumption was not measured. These results do not establish the same speedup on other phones or on a future signed release.
 
+## Deployment goals
+
+The target is a useful offline research app on Android and GrapheneOS-compatible hardware, in an environment with **at most 12 GB of RAM** and **50 GB for the complete installed offline setup**: app, weights, documents, indexes, databases and other assets. These are release acceptance goals, not measured resource guarantees or enforced library limits.
+
+Current execution evidence covers an AOSP emulator and a real Pixel 10 Pro. The physical tests used a 16 GB phone; they do not establish the 12 GB environment target. GrapheneOS runtime, full installed storage accounting and broader explanation/comparison/synthesis quality remain open. The [testing guide](docs/testing.md) defines the checks needed before a public release.
+
 ## Getting started
 
 Distribution is through [GitHub Releases](https://github.com/nicoarias81/outpost/releases). **The current source is 0.19.0-rc1; the release remains a draft pending production identity, signing and final signed-APK validation.** The repository is currently private.
@@ -69,7 +75,7 @@ Once a signed APK is available:
 
 1. Download the APK and check its SHA256 against the release checksum before installing it.
 2. Download one of the pinned model files above. In Settings, select that model and use **Import model** to import its GGUF. Allow storage for both the downloaded file and the app-private copy.
-3. Use **Add file** or **Add folder** to import your local knowledge. Open a source and try a representative question before leaving coverage.
+3. Use **Add file** or **Add folder** to import your local knowledge. Search indexes are built locally; no separate database download, server setup or remote index is required. Open a source and try a representative question before leaving coverage.
 
 Imports are snapshots: unchanged files are skipped; changed versions remain separately searchable. **New chat** removes the conversation without deleting documents. Uninstalling the app removes its private data; application backup is disabled.
 

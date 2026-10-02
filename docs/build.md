@@ -61,7 +61,7 @@ The audit checks manifest boundaries, ABIs, notices, research-asset exclusion, n
 
 ## Sign and distribute
 
-The distribution channel is the existing private [GitHub repository and Releases](https://github.com/nicoarias81/outpost/releases). Source is `0.19.0-rc1`, version code 21. A `v0.19.0` release draft exists; production identity/signing and exact signed-device acceptance remain pending. The proposed separate production ID `dev.outpost.mobile` and a new local signing key have not been approved or applied.
+The distribution channel is the existing private [GitHub repository and Releases](https://github.com/nicoarias81/outpost/releases). Source is `0.19.0-rc1`, version code 21. A `v0.19.0` release draft exists; production identity/signing and exact signed-device acceptance remain pending. The proposed separate production ID `dev.outpost.mobile` and a new local signing key have not been approved or applied. The intended delivery is a public, reproducible GitHub repository and signed release; public visibility and release publication remain pending owner action and acceptance.
 
 Once the owner provides or approves a signing identity, configure `OUTPOST_STORE_PASSWORD` and `OUTPOST_KEY_PASSWORD` in the invoking process and run:
 
@@ -73,6 +73,10 @@ Once the owner provides or approves a signing identity, configure `OUTPOST_STORE
 Keep passwords out of command arguments, logs and Git; keep signing material outside tracked files. The script checks the source/audit receipt, signs a local APK, rejects debug/unexpected certificates, verifies signature/alignment and writes hash/certificate metadata. It does not upload, install or sign an AAB. Signing success and key recovery still need validation with the selected production identity.
 
 Existing debug installations cannot be replaced by an unrelated certificate. Do not clear storage or uninstall the owner's app to work around a signature conflict. Test the final signed artifact and its data-preserving installation/update path before attaching it to the GitHub release with checksums, certificate fingerprint and validation results. Publish only that reviewed artifact. Never overwrite frozen bytes under an existing version.
+
+The final release must bind the downloadable APK to an exact source tag and include its SHA256, signing-certificate fingerprint, supported/tested device details and validation scope. The README supplies direct pinned model downloads; lock files identify model/dependency versions, sizes and hashes. Documents and regional extracts are supplied by the user, and SQLite indexes are created locally. Do not imply a bundled world corpus or external index that the app does not ship.
+
+A first-time user should be able to follow the README, install the APK, import a listed model and ask an offline question without developer tools. Time that workflow on a clean compatible phone, record download time separately, and include a short device recording with several queries, complete answers and source inspection. Keep private content and signing material out of all release assets. This check is still pending for the production-signed artifact.
 
 `scripts/publish-artifact.ps1` is a separate **local debug artifact** workflow: it copies into ignored `dist/`, writes checksums and supports `-Verify`. It does not produce a production release.
 
