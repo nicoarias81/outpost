@@ -178,3 +178,15 @@ Wider questions must include differences between applicable manuals and a travel
 Production identity, key selection, signed-APK installation, update acceptance and publication are incomplete. Wider quality work includes applicability, row/range filters and citation binding. Other incomplete tests include actual process death during import, storage pressure, memory pressure, sustained energy use and thermal behavior. Tests on other phone families and 16 KiB runtime are also necessary. A passing suite does not prove general factual accuracy.
 
 For documentation-only changes, do link and fixture checks. Make sure that build receipts and frozen artifacts do not change. Do not rebuild the app or run model suites for these changes.
+
+## Demo capture
+
+`scripts/prepare-demo-tools.py` gets the specified comparison model and local video encoder. It does not run a model on the host. `scripts/record-demo.py` controls the registered Pixel and keeps a recovery journal in `.local/demo-active.json`.
+
+1. Get owner approval before a temporary phone disconnection.
+2. Run `prepare` to isolate the QA store.
+3. Run `compare` for local model evidence, if necessary.
+4. Run `record --scene NUMBER --allow-offline-transition` only with that approval.
+5. Always run `restore` after capture or failure.
+
+The recording guard needs airplane mode, Wi-Fi off and no active default network. It keeps mobile-data preferences unchanged. A review must examine the complete timeline for unrelated UI or private content. Raw videos stay outside Git. Public posting and claim submission need separate owner approval.

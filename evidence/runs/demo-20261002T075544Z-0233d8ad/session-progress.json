@@ -1,0 +1,118 @@
+{
+  "session": "demo-20261002T075544Z-0233d8ad",
+  "status": "recording",
+  "out": "E:\\projects\\outpost\\evidence\\runs\\demo-20261002T075544Z-0233d8ad",
+  "device": {
+    "ro.kernel.qemu": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "sys.boot_completed": "1"
+  },
+  "radios": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "radiosRestored": true,
+  "original": {
+    "dev.outpost.app": "095c5c56995e3de9947d0125a0757387c429191cf0602700f7d5b9b8c036239f",
+    "dev.outpost.app.test": "92d2c533b1aaff6267c1607b46f6219351589da83bf62ea3b1b1fa4f0c0fa0d0",
+    "databases": "46b566b9982ee0d42000e7f3b31ccb6188c6781685fbc8dde0ed0f20bfc84824  -",
+    "shared_prefs": "e18580c419b42c8dc878c8566cdc4d1f6cd5cc1618713e1c1fed4945c7cea100  -",
+    "files/documents": "absent"
+  },
+  "receipt": {
+    "schemaVersion": 1,
+    "runId": "release-20261002T075411Z-b55a9c85",
+    "builtAtUtc": "2026-10-02T07:54:12.5110405Z",
+    "mainSourcesSha256": "21c305abb177fb463443f944f12286f483ba27b5e5c039eed1d8cde787c08db1",
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "artifacts": [
+      {
+        "bytes": 23432335,
+        "sha256": "f8335621410b3e75e55cde422d8f6b022c5a25d06d30090427ade5d609de1128",
+        "path": "app/build/outputs/apk/release/app-release-unsigned.apk"
+      },
+      {
+        "bytes": 17361548,
+        "sha256": "f43a331b262eec240237a6fbe96fcb25bd9dadd40d53c3d13a2b6b673eb72f11",
+        "path": "app/build/outputs/bundle/release/app-release.aab"
+      },
+      {
+        "bytes": 23436443,
+        "sha256": "b4f7e94c218a9652141e9248d7165c59991d323ac1005768f2bc60f76a50d143",
+        "path": "app/build/outputs/apk/releaseQa/app-releaseQa.apk"
+      },
+      {
+        "bytes": 57944,
+        "sha256": "de59c0e3958a228f0cb9ffb841fc94f96114a12a431219fb9778395052d9e5f7",
+        "path": "app/build/outputs/apk/androidTest/releaseQa/app-releaseQa-androidTest.apk"
+      }
+    ],
+    "scope": "Unsigned production candidate; debug-signed non-debuggable QA twin. Not approved for distribution or exact signed-device acceptance."
+  },
+  "scenes": [],
+  "supplementBuild": {
+    "schemaVersion": 1,
+    "runId": "release-20261002T080644Z-9637d13d",
+    "builtAtUtc": "2026-10-02T08:06:45.6793218Z",
+    "mainSourcesSha256": "12ace4b496b627cffbc69816624dbd5ac1ab042ad56344caf01f6b23019a9a6e",
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "artifacts": [
+      {
+        "sha256": "f8335621410b3e75e55cde422d8f6b022c5a25d06d30090427ade5d609de1128",
+        "path": "app/build/outputs/apk/release/app-release-unsigned.apk",
+        "bytes": 23432335
+      },
+      {
+        "sha256": "f43a331b262eec240237a6fbe96fcb25bd9dadd40d53c3d13a2b6b673eb72f11",
+        "path": "app/build/outputs/bundle/release/app-release.aab",
+        "bytes": 17361548
+      },
+      {
+        "sha256": "b4f7e94c218a9652141e9248d7165c59991d323ac1005768f2bc60f76a50d143",
+        "path": "app/build/outputs/apk/releaseQa/app-releaseQa.apk",
+        "bytes": 23436443
+      },
+      {
+        "sha256": "2e92a567c8c1f9d82a59754b09165d264c3fe397dc7225af487e1063b179a963",
+        "path": "app/build/outputs/apk/androidTest/releaseQa/app-releaseQa-androidTest.apk",
+        "bytes": 58296
+      }
+    ],
+    "scope": "Unsigned production candidate; debug-signed non-debuggable QA twin. Not approved for distribution or exact signed-device acceptance."
+  },
+  "finalDemoBuildReceipt": {
+    "schemaVersion": 1,
+    "runId": "release-20261002T081209Z-d392b30f",
+    "builtAtUtc": "2026-10-02T08:12:10.4529038Z",
+    "mainSourcesSha256": "0f810ee58c820f732de9b641e6f3e175b00b0904ed019275126abdca5b78fffb",
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "artifacts": [
+      {
+        "bytes": 23432335,
+        "sha256": "f8335621410b3e75e55cde422d8f6b022c5a25d06d30090427ade5d609de1128",
+        "path": "app/build/outputs/apk/release/app-release-unsigned.apk"
+      },
+      {
+        "bytes": 17361548,
+        "sha256": "f43a331b262eec240237a6fbe96fcb25bd9dadd40d53c3d13a2b6b673eb72f11",
+        "path": "app/build/outputs/bundle/release/app-release.aab"
+      },
+      {
+        "bytes": 23436443,
+        "sha256": "b4f7e94c218a9652141e9248d7165c59991d323ac1005768f2bc60f76a50d143",
+        "path": "app/build/outputs/apk/releaseQa/app-releaseQa.apk"
+      },
+      {
+        "bytes": 59184,
+        "sha256": "88f61405a3708e34190fedb091e60be775e6561123acc92a0f1027671d74a675",
+        "path": "app/build/outputs/apk/androidTest/releaseQa/app-releaseQa-androidTest.apk"
+      }
+    ],
+    "scope": "Unsigned production candidate; debug-signed non-debuggable QA twin. Not approved for distribution or exact signed-device acceptance."
+  },
+  "bluetoothBefore": "1"
+}

@@ -1,0 +1,10 @@
+{
+  "model": "structured OSM query",
+  "text": "Within 500 m of the recorded position of Museo de Colecciones ICO [1] (approximate straight-line distance):\n• Restaurante La Ancha [2] — 17 m\n  7 Calle de Zorrilla\n  40.416788, -3.697583\n• Casa Mortero [3] — 49 m\n  9 C. de Zorrilla\n  40.416822, -3.697191\n• Umiko [4] — 91 m\n  40.417546, -3.697237\n• Edelweiss [5] — 97 m\n  40.416923, -3.696632\n• Casa Manolo [6] — 102 m\n  40.417005, -3.696596\nShowing 5 of 47 matching places.\nSaved OSM information; coverage may be incomplete and current conditions are not checked.",
+  "mobileDataPreference": 1,
+  "question": "Restaurants near Museo de Colecciones ICO within 500 m",
+  "submittedMs": 3817,
+  "finishedMs": 3947,
+  "sceneStartElapsedRealtime": 352479955,
+  "sceneEndMs": 10942
+}

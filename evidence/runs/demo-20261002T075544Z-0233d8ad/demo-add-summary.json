@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "session": "demo-20261002T075544Z-0233d8ad",
+  "phase": "demo-add-summary",
+  "checks": [
+    {
+      "name": "Valid demo session",
+      "passed": true
+    },
+    {
+      "name": "Isolated QA package",
+      "passed": true
+    },
+    {
+      "name": "New evidence directory",
+      "passed": true
+    },
+    {
+      "name": "Active isolated demo store",
+      "passed": true
+    },
+    {
+      "name": "Known explicit companion source",
+      "passed": true
+    },
+    {
+      "name": "Explicit text companion imported; original CSV kept",
+      "passed": true
+    }
+  ],
+  "answers": []
+}

@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "session": "demo-20261002T082743Z-a0478c82",
+  "phase": "demo-restore",
+  "checks": [
+    {
+      "name": "Valid demo session",
+      "passed": true
+    },
+    {
+      "name": "Isolated QA package",
+      "passed": true
+    },
+    {
+      "name": "New evidence directory",
+      "passed": true
+    },
+    {
+      "name": "Restoration session identity",
+      "passed": true
+    },
+    {
+      "name": "Known restoration path",
+      "passed": true
+    },
+    {
+      "name": "Archive destination unused",
+      "passed": true
+    },
+    {
+      "name": "QA data restored: databases",
+      "passed": true
+    },
+    {
+      "name": "Known restoration path",
+      "passed": true
+    },
+    {
+      "name": "Archive destination unused",
+      "passed": true
+    },
+    {
+      "name": "QA data restored: shared_prefs",
+      "passed": true
+    },
+    {
+      "name": "Known restoration path",
+      "passed": true
+    },
+    {
+      "name": "Archive destination unused",
+      "passed": true
+    },
+    {
+      "name": "QA data restored: files/documents",
+      "passed": true
+    }
+  ],
+  "answers": []
+}

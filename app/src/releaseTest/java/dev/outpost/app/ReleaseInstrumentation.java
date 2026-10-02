@@ -34,6 +34,7 @@ public final class ReleaseInstrumentation extends Instrumentation {
         super.callActivityOnCreate(activity,state);
     }
     @Override public void onStart(){
+        if(args.getString("phase","").startsWith("demo-")){new DemoChecks(this,args).run();return;}
         if(args.getString("phase","").startsWith("accept-")){new AcceptanceChecks(this,args).run();return;}
         JSONObject result=new JSONObject();Activity activity=null;boolean passed=false;
         try {

@@ -1,0 +1,25 @@
+{
+  "status": "review package only; no public post or claim",
+  "language": "en",
+  "selectedCaptures": {
+    "manual": "demo-20261002T082743Z-a0478c82/scene-1",
+    "farm": "demo-20261002T085020Z-3d17b604/scene-3",
+    "places": "demo-20261002T083729Z-68d795e1/scene-4"
+  },
+  "comparisonRun": "demo-20261002T075544Z-0233d8ad",
+  "baseline": "TinyLlama 1.1B Chat v1.0 Q4_K_M",
+  "comparisonLimit": "Named-model development cases; selection followed pilot results, not a general small-model benchmark.",
+  "knownFailures": [
+    "Travel reasoning error and truncation",
+    "Missing CSV rows in three-excerpt retrieval",
+    "Incorrect or unsupported farm details before an explicit text companion"
+  ],
+  "privacyExcluded": "The first farm video contains a system panel; its raw video is local only and excluded from the review package. A clean retake replaces it.",
+  "restoration": "Selected capture sessions ended restored, with original app/data checks and connection preference checks.",
+  "publicationGates": [
+    "Public repository",
+    "Approved signed/functional release identity",
+    "Public post URL",
+    "12 GB environment and other open acceptance criteria"
+  ]
+}

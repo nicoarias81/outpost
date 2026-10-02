@@ -1,0 +1,184 @@
+{
+  "session": "demo-20261002T083729Z-68d795e1",
+  "status": "restored",
+  "out": "E:\\projects\\outpost\\evidence\\runs\\demo-20261002T083729Z-68d795e1",
+  "device": {
+    "ro.kernel.qemu": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "sys.boot_completed": "1"
+  },
+  "radios": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "mobileDataPreferencesBefore": {
+    "mobile_data2": "1",
+    "mobile_data3": "0",
+    "mobile_data": "1",
+    "mobile_data_always_on": "1"
+  },
+  "radiosRestored": true,
+  "original": {
+    "dev.outpost.app": "095c5c56995e3de9947d0125a0757387c429191cf0602700f7d5b9b8c036239f",
+    "dev.outpost.app.test": "92d2c533b1aaff6267c1607b46f6219351589da83bf62ea3b1b1fa4f0c0fa0d0",
+    "databases": "46b566b9982ee0d42000e7f3b31ccb6188c6781685fbc8dde0ed0f20bfc84824  -",
+    "shared_prefs": "e18580c419b42c8dc878c8566cdc4d1f6cd5cc1618713e1c1fed4945c7cea100  -",
+    "files/documents": "absent"
+  },
+  "receipt": {
+    "schemaVersion": 1,
+    "runId": "release-20261002T083728Z-8eb613b3",
+    "builtAtUtc": "2026-10-02T08:37:28.9376780Z",
+    "mainSourcesSha256": "0f42102713a71d63a1ea128723d7bdc6f9b81474f2c18b99bf2854c241d651ee",
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "artifacts": [
+      {
+        "bytes": 23432335,
+        "path": "app/build/outputs/apk/release/app-release-unsigned.apk",
+        "sha256": "f8335621410b3e75e55cde422d8f6b022c5a25d06d30090427ade5d609de1128"
+      },
+      {
+        "bytes": 17361548,
+        "path": "app/build/outputs/bundle/release/app-release.aab",
+        "sha256": "f43a331b262eec240237a6fbe96fcb25bd9dadd40d53c3d13a2b6b673eb72f11"
+      },
+      {
+        "bytes": 23436443,
+        "path": "app/build/outputs/apk/releaseQa/app-releaseQa.apk",
+        "sha256": "b4f7e94c218a9652141e9248d7165c59991d323ac1005768f2bc60f76a50d143"
+      },
+      {
+        "bytes": 74312,
+        "path": "app/build/outputs/apk/androidTest/releaseQa/app-releaseQa-androidTest.apk",
+        "sha256": "d7c2ceb0819b3918593af8de8c462efa56d32c4e0012761ee439a8c5061d949a"
+      }
+    ],
+    "scope": "Unsigned production candidate; debug-signed non-debuggable QA twin. Not approved for distribution or exact signed-device acceptance."
+  },
+  "scenes": [
+    {
+      "scene": 4,
+      "offlineEvidence": {
+        "radioSettings": {
+          "airplane_mode_on": "1",
+          "wifi_on": "0",
+          "mobile_data": "1"
+        },
+        "defaultNetwork": "none",
+        "mobileDataPreferenceUnchanged": true
+      },
+      "videoSha256": "90e33089cdd5b8e503cde0d5d848c5540140efb730bfa6bb393f14c29d8a8772",
+      "result": {
+        "passed": true,
+        "session": "demo-20261002T083729Z-68d795e1",
+        "phase": "demo-record",
+        "checks": [
+          {
+            "name": "Valid demo session",
+            "passed": true
+          },
+          {
+            "name": "Isolated QA package",
+            "passed": true
+          },
+          {
+            "name": "New evidence directory",
+            "passed": true
+          },
+          {
+            "name": "Active isolated demo store",
+            "passed": true
+          },
+          {
+            "name": "Airplane mode on",
+            "passed": true
+          },
+          {
+            "name": "Wi-Fi off",
+            "passed": true
+          },
+          {
+            "name": "Demo app declares no permissions",
+            "passed": true
+          },
+          {
+            "name": "Chat ready",
+            "passed": true
+          },
+          {
+            "name": "Host recording started",
+            "passed": true
+          },
+          {
+            "name": "Recorded request completed",
+            "passed": true
+          },
+          {
+            "name": "Actual app returned visible content",
+            "passed": true
+          },
+          {
+            "name": "Real screenshot available",
+            "passed": true
+          },
+          {
+            "name": "Recording closed by host",
+            "passed": true
+          }
+        ],
+        "answers": [
+          {
+            "model": "structured OSM query",
+            "text": "Within 500 m of the recorded position of Museo de Colecciones ICO [1] (approximate straight-line distance):\n\u2022 Restaurante La Ancha [2] \u2014 17 m\n  7 Calle de Zorrilla\n  40.416788, -3.697583\n\u2022 Casa Mortero [3] \u2014 49 m\n  9 C. de Zorrilla\n  40.416822, -3.697191\n\u2022 Umiko [4] \u2014 91 m\n  40.417546, -3.697237\n\u2022 Edelweiss [5] \u2014 97 m\n  40.416923, -3.696632\n\u2022 Casa Manolo [6] \u2014 102 m\n  40.417005, -3.696596\nShowing 5 of 47 matching places.\nSaved OSM information; coverage may be incomplete and current conditions are not checked.",
+            "mobileDataPreference": 1,
+            "question": "Restaurants near Museo de Colecciones ICO within 500 m",
+            "submittedMs": 3817,
+            "finishedMs": 3947,
+            "sceneStartElapsedRealtime": 352479955,
+            "sceneEndMs": 10942
+          }
+        ]
+      }
+    }
+  ],
+  "bluetoothBefore": "1",
+  "offlineTransition": [
+    {
+      "settings": {
+        "airplane_mode_on": "1",
+        "wifi_on": "0",
+        "mobile_data": "1"
+      },
+      "defaultNetwork": "Active default network: 276"
+    },
+    {
+      "settings": {
+        "airplane_mode_on": "1",
+        "wifi_on": "0",
+        "mobile_data": "1"
+      },
+      "defaultNetwork": "Active default network: 276"
+    },
+    {
+      "settings": {
+        "airplane_mode_on": "1",
+        "wifi_on": "0",
+        "mobile_data": "1"
+      },
+      "defaultNetwork": "Active default network: 276"
+    },
+    {
+      "settings": {
+        "airplane_mode_on": "1",
+        "wifi_on": "0",
+        "mobile_data": "1"
+      },
+      "defaultNetwork": "Active default network: none"
+    }
+  ],
+  "qaRestored": true
+}

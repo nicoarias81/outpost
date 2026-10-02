@@ -38,7 +38,7 @@ android {
         defaultConfig.testInstrumentationRunner 'dev.outpost.app.ReleaseInstrumentation'
         sourceSets.androidTest {
             java.setSrcDirs(['src/releaseTest/java'])
-            assets.setSrcDirs([])
+            assets.setSrcDirs(['src/releaseTest/assets'])
             manifest.srcFile 'src/releaseTest/AndroidManifest.xml'
         }
     }

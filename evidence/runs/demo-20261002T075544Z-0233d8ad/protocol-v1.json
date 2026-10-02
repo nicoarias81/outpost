@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "language": "en",
+  "scope": "Original synthetic demonstration data. These are not live schedules, real maintenance instructions or field advice.",
+  "baseline": {
+    "name": "TinyLlama 1.1B Chat v1.0",
+    "repo": "TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF",
+    "revision": "52e7645ba7c309695bec7ac98f4f005b139cf465",
+    "file": "tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf",
+    "bytes": 668788096,
+    "sha256": "9fecc3b3cd76bba89d504f29b616eedf7da85b96540e490ca5824d3f7d2776a0",
+    "license": "Apache-2.0",
+    "limits": "One named 1.1B baseline. Results do not establish failure by every model near 1B parameters."
+  },
+  "documents": [
+    {"file":"Airport arrival.txt","text":"Synthetic travel plan. The traveler reaches Cedar Station at 22:20. This is the station arrival time, not the flight landing time. The last airport train E7 departs at 22:10. Night bus N4 departs from Cedar Station at 22:30 and reaches the inn at 22:50. The next N4 departs at 23:00 and reaches the inn at 23:20. These are saved example times, not live service information."},
+    {"file":"Inn access.txt","text":"Synthetic inn instructions. Reception closes at 23:00. Guests who arrive before 23:00 can check in at reception. Guests who arrive at or after 23:00 must use the saved late-entry code LATE-73. There is no need for the code when reception is open. These instructions are demonstration data."},
+    {"file":"Pump revision B.txt","text":"Synthetic parts manual for pump PX-80, revision B. This revision applies only to serial numbers 3000 through 4999. It specifies spare filter F-08 and connector J2. It does not apply to serial numbers 5000 or above. Do not choose a part solely because this file has a later download date."},
+    {"file":"Pump revision C.txt","text":"Synthetic parts manual for pump PX-80, revision C. This revision applies to serial numbers 5000 through 5999. The recorded field unit has serial number 5274. The specified spare filter is F-12 and the connector is J4. This document lists part identities only. It gives no instructions to energize, repair or operate equipment."},
+    {"file":"Farm readings.csv","text":"plot,moisture_percent,watering_threshold_percent\nNorth,18,25\nSouth,22,25\nEast,29,25\n"},
+    {"file":"Farm exceptions.txt","text":"Synthetic farm schedule. A plot is eligible for today's watering list only if moisture is below its own threshold and there is no hold. North has an active hold because a pipe leak has not been repaired. South has no hold. East has no hold. A low moisture reading does not override a hold. This record is a planning example, not an equipment command."}
+  ],
+  "cases": [
+    {"id":"late-arrival","question":"I reach Cedar Station at 22:20. Which saved route gets me to the inn before reception closes, and do I need the late-entry code? Explain why the train is not an option.","expected":"Choose N4 at 22:30, arrival 22:50 before 23:00; no late-entry code; E7 at 22:10 has already departed. No live availability claims."},
+    {"id":"manual-applicability","question":"My PX-80 serial number is 5274. Compare the two saved revisions. Which filter and connector apply, and why should I not use revision B?","expected":"Revision C, F-12 and J4. Serial 5274 is in 5000-5999, outside revision B's 3000-4999 range. No equipment-operation instructions."},
+    {"id":"farm-exception","question":"Use the farm readings and exception notes. Which plots belong on today's watering list? Explain why a low reading alone is not enough.","expected":"Only South. North is below threshold but has a hold. East is above threshold. Both moisture and holds must be considered."}
+  ],
+  "placeQuestion": "What restaurants are near Cedar Museum?",
+  "placeSource": "Synthetic OSM nodes: Cedar Museum at 40.4000,-3.7000; Willow Kitchen at 40.4001,-3.7001; Ridge Park at 40.4020,-3.7020.",
+  "protocol": "Freeze these cases before collecting results. Preserve all outputs, including failures. Compare equal prompt evidence and output limits with each model's embedded chat template. Record greedy and product sampling explicitly. Do not change outputs for the video."
+}

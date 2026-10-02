@@ -17,3 +17,6 @@ __pycache__/
 .env.*
 !.env.example
 private/
+
+# Captured video stays in local review packages; reports retain its hashes.
+/evidence/runs/demo-*/**/*.mp4

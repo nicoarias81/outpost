@@ -42,3 +42,7 @@ gradlew.bat text eol=crlf
 
 /evidence/research/release-acceptance-20261002/** -text whitespace=cr-at-eol
 /evidence/runs/release-acceptance-*/*.log whitespace=cr-at-eol,-blank-at-eof
+
+/app/src/releaseTest/assets/demo/*.osm -text whitespace=cr-at-eol
+/evidence/research/demo-review-20261002/** -text whitespace=cr-at-eol
+/evidence/runs/demo-*/*.log whitespace=cr-at-eol,-blank-at-eof

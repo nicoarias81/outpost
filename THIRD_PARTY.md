@@ -19,6 +19,8 @@ Outpost's JNI integration, dispatch, Q2 kernels and attention wrapper are projec
 - [Kev](https://huggingface.co/jaredpalmer/kev-0.8b), converted by [DreamBlooms](https://huggingface.co/DreamBlooms/kev-0.8b-GGUF): model/head pins are in [judge-lock.json](judge-lock.json). Model/head license is Apache-2.0. It is an experimental classifier, not TypeSafe AI's Jev or an answer-correctness authority.
 - Kev token layout/readout adapts `src/side/kev.cpp` and `src/side/runner.cpp` from [dohnuts.cpp](https://github.com/DreamBlooms/dohnuts.cpp) revision `63374ff55a66c50b266adfef422e1fc4b0ee5717`. Preserve its [Apache-2.0 notice](app/src/main/assets/licenses/dohnuts-Apache-2.0.txt). The unchanged head/config live in debug-only assets; release excludes them. GGUF weights remain a separate download.
 
+The video comparison also uses [TinyLlama 1.1B Chat v1.0](https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0) with a [TheBloke GGUF conversion](https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF). The model card declares Apache-2.0. The [demo fixture](app/src/releaseTest/assets/demo/cases.json) pins its revision, size and SHA256. It is a test-only baseline, not a product model choice; weights remain outside Git and the APK.
+
 ## Imported and test content
 
 Imported documents remain subject to their source's rights. User-supplied source/license metadata is not verified provenance or permission to redistribute it. Synthetic examples and test fixtures are separate from the empty product library.
