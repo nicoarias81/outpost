@@ -2,6 +2,8 @@
 
 [build.md](build.md) gives the compilation procedures. Only one installation or instrumentation workflow can use a target at a time. The host can compile code and examine files or reports. Model inference and numerical kernel execution must occur in Android on the targets below.
 
+Airplane mode is a condition for offline tests. Complete installation, model preparation and data preparation before the offline test phase. The app operates with or without a network connection. Connectivity guards belong to test runners.
+
 ## Targets
 
 | Target | Identity |

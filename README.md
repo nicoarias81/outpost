@@ -28,6 +28,8 @@ Chat is the first screen. Settings contains model selection, document import, pr
 
 After preparation, Google Play Services, an account and an API key are not necessary for the app. It has no network permission, telemetry, web search or remote inference. Network access can be necessary for an external file provider during preparation. The app must import the necessary files before offline use.
 
+Outpost operates with or without a network connection. Offline tests enable airplane mode after installation, model preparation and data preparation.
+
 ## Software and models
 
 | Part | Software |

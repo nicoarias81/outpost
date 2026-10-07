@@ -1,7 +1,7 @@
 {
   "date": "2026-10-07",
   "status": "Research and native capability witness; no product backend selected",
-  "acceptedSetupPolicy": "Explicit preparation downloads may use networking. The user puts the phone offline with airplane mode. No added automatic radio checks or network cut-off is required by the user. Current RC2 still has no networking permission or downloader.",
+  "acceptedSetupPolicy": "Explicit preparation downloads may use networking. The app operates with or without a network connection. For offline tests, install the APK, prepare models and data, then enable airplane mode. No product connectivity check or airplane-mode gate is required. Current RC2 still has no networking permission or downloader.",
   "options": [
     {
       "name": "Native SQLite FTS5 with compressed content shards",
@@ -99,5 +99,6 @@
     "bytesPerElement": 4,
     "rawVectorBytes": 15360000000,
     "note": "Excludes graph/search-index overhead, text and metadata; a full vector index is not the initial default."
-  }
+  },
+  "setupClarificationDate": "2026-10-07"
 }

@@ -136,7 +136,7 @@ New data adapters must have parser limits, source identity and resolvable refere
 
 ## Large knowledge packs: research direction
 
-Preparation downloads will use an explicit user action. The user will put the phone offline with airplane mode. No automatic radio checks or network cut-off are required for this design. RC2 still has no downloader or network permission.
+Preparation downloads will use an explicit user action. The app will operate with or without a network connection. Offline tests enable airplane mode after installation, model preparation and data preparation. The product does not require a connectivity check or an airplane-mode gate. RC2 still has no downloader or network permission.
 
 The [pack review](../evidence/research/pack-options-20261007/review.json) compares four storage and retrieval options. The [catalog snapshot](../evidence/research/pack-options-20261007/catalog-snapshot.json) records exact publisher file sizes. These are research findings, not supported product formats.
 
