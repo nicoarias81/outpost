@@ -1,0 +1,16 @@
+{
+  "tag": "v0.19.0-rc3",
+  "releaseId": 406052816,
+  "public": true,
+  "prerelease": true,
+  "sourceCommit": "08cd6e5860eae617d0474739967b13732febc9d4",
+  "tagCommit": "08cd6e5860eae617d0474739967b13732febc9d4",
+  "anonymousApkDownload": {
+    "httpStatus": 200,
+    "bytes": 23453797,
+    "sha256": "b32b47d53ccb4044c18df4978fc532a38d5ea450f8cd0bdd9dca7402b6fd64a7",
+    "matched": true
+  },
+  "assetCount": 9,
+  "releaseUrl": "https://github.com/nicoarias81/outpost/releases/tag/v0.19.0-rc3"
+}

@@ -86,32 +86,34 @@ These are acceptance goals. They are not measured guarantees or enforced library
 
 ## Installation and first use
 
-The distribution channel is [GitHub Releases](https://github.com/nicoarias81/outpost/releases). The current source candidate is **0.19.0-rc3**, version code 23. Pixel QA validation is complete. Publication of this candidate is pending. The last published candidate is `v0.19.0-rc2`.
+The distribution channel is [GitHub Releases](https://github.com/nicoarias81/outpost/releases). The current source and [QA prerelease](https://github.com/nicoarias81/outpost/releases/tag/v0.19.0-rc3) are **0.19.0-rc3**, version code 23. Pixel QA validation is complete. The repository and QA APK are public.
 
 The RC3 candidate contains `outpost-0.19.0-rc3-qa.apk`, checksums, license files and matching source. It is non-debuggable. Its application ID is `dev.outpost.app.releaseqa`. It uses a development certificate. Production identity, signing and final signed-APK acceptance remain incomplete.
 
 For RC3 model preparation, do these steps:
 
-1. Download the QA APK and `SHA256SUMS.txt` from the candidate release.
-2. Compare the APK SHA256 with the checksum file.
-3. Install the APK only if the values agree.
-4. Open Settings in Outpost.
-5. Select **Manage model**.
-6. Select a model.
-7. If you need its file, select **Download from Hugging Face**.
-8. Select **Download** to open the specified file in your browser.
-9. Wait until the download finishes.
-10. Return to **Manage model** in Outpost.
-11. Select **Load local file**.
-12. Select **Choose file**.
-13. Select the completed GGUF file.
-14. Wait until Outpost reports that the model is ready.
-15. Use **Add file** or **Add folder** to import the necessary documents.
-16. Open an imported source.
-17. Open chat.
-18. Enter a representative question.
-19. Select **Send message** (the upward arrow).
-20. Check the answer against its sources.
+1. Download [outpost-0.19.0-rc3-qa.apk](https://github.com/nicoarias81/outpost/releases/download/v0.19.0-rc3/outpost-0.19.0-rc3-qa.apk).
+2. Download [SHA256SUMS.txt](https://github.com/nicoarias81/outpost/releases/download/v0.19.0-rc3/SHA256SUMS.txt) from the same release.
+3. Compare the APK SHA256 with the checksum file.
+4. Install the APK only if the values agree.
+5. Open Settings in Outpost.
+6. Select **Manage model**.
+7. Select a model.
+8. If you need its file, select **Download from Hugging Face**.
+9. Select **Download** to open the specified file in your browser.
+10. Wait until the download finishes.
+11. Return to **Manage model** in Outpost.
+12. Select **Load local file**.
+13. Select **Choose file**.
+14. Select the completed GGUF file.
+15. Wait until Outpost reports that the model is ready.
+16. Use **Add file** or **Add folder** to import the necessary documents.
+17. Open an imported source.
+18. Open chat.
+19. Enter a representative question.
+20. Select **Send message** (the upward arrow).
+21. Check the answer against its sources.
+
 
 If the specified file is already on your device, start with **Load local file**. **Copy link** supplies the download URL. An alternative server must provide the exact specified file.
 
