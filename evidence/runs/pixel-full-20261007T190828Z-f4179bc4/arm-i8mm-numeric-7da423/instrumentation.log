@@ -1,0 +1,3 @@
+Checking guarded SMMLA layout, original float bits and real matrix costs...
+
+PASS ARM i8mm-numeric: 5 controls.

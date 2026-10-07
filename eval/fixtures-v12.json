@@ -20,8 +20,8 @@
     "app": {
       "name": "Outpost",
       "applicationId": "dev.outpost.app",
-      "versionName": "0.19.0-rc3",
-      "versionCode": 23,
+      "versionName": "0.19.0-rc4",
+      "versionCode": 24,
       "nativeLibrary": "outpost_engine",
       "abiFilters": [
         "x86_64",

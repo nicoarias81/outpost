@@ -1,0 +1,47 @@
+{
+  "version": "0.19.0-rc4",
+  "versionCode": 24,
+  "functionalRun": "pixel-full-20261007T194539Z-66ab2da5",
+  "functionalPassed": true,
+  "functionalChecks": 422,
+  "emptyQaNamespacesRequired": true,
+  "freshRegressionModelsAbsent": true,
+  "kernelRun": "pixel-full-20261007T190828Z-f4179bc4",
+  "kernelPassed": true,
+  "kernelControls": 309,
+  "nativeIdentity": "native-identity.json",
+  "staticReleaseChecks": 64,
+  "releaseReceipt": {
+    "schemaVersion": 1,
+    "runId": "release-20261007T194151Z-3379aaf1",
+    "builtAtUtc": "2026-10-07T19:41:52.2924362Z",
+    "mainSourcesSha256": "8b8069afcac487704e6f5f8bdc87891f15c113e98df35dc92588b9df45157b53",
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "artifacts": [
+      {
+        "sha256": "511c0b19c16a4cdc4b897a591a8d7a112d28d72c5b8ecf7c873df7dd2710eaaa",
+        "bytes": 23449689,
+        "path": "app/build/outputs/apk/release/app-release-unsigned.apk"
+      },
+      {
+        "sha256": "2ae87c2836e2eda47746ee03c7b3524b5c81e9ff2ac19b16b4ceb72324e257dd",
+        "bytes": 17366137,
+        "path": "app/build/outputs/bundle/release/app-release.aab"
+      },
+      {
+        "sha256": "e2afd674f21ad3726a13ac8e18d1dc58582f97f131837bff94d3cedd1445ecb3",
+        "bytes": 23453797,
+        "path": "app/build/outputs/apk/releaseQa/app-releaseQa.apk"
+      },
+      {
+        "sha256": "8e73988cdb03e9f113969c8e588b1175f334b0fa65e91ff787768a15e953de2f",
+        "bytes": 96882,
+        "path": "app/build/outputs/apk/androidTest/releaseQa/app-releaseQa-androidTest.apk"
+      }
+    ],
+    "scope": "Unsigned production candidate; debug-signed non-debuggable QA twin. Not approved for distribution or exact signed-device acceptance."
+  },
+  "radiosRestored": true,
+  "personalAppDataPreserved": true,
+  "scope": "Owner-requested QA-only clean uninstall and model reload. The personal 0.16 installation remains preserved because automatic approval review rejected its deletion and explicit approval is pending. Registered 16 GB Pixel, USB power. Native binaries are byte-identical to the complete fresh-install kernel run. Not production-certificate, GrapheneOS, 12 GB, total-footprint, clean-phone unassisted setup, broad-quality or energy acceptance."
+}

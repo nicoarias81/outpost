@@ -1,0 +1,159 @@
+{
+  "version": "0.19.0-rc4",
+  "checksPassed": 17,
+  "checks": [
+    {
+      "name": "Generation uses an admitted synthetic target",
+      "passed": true
+    },
+    {
+      "name": "Native inference APK still has no INTERNET permission",
+      "passed": true
+    },
+    {
+      "name": "Pinned model imported and hash verified",
+      "passed": true
+    },
+    {
+      "name": "Invalid GGUF rejected without replacing installed model",
+      "passed": true
+    },
+    {
+      "name": "Model control-token delimiters neutralized in source text",
+      "passed": true
+    },
+    {
+      "name": "Unknown source references are flagged",
+      "passed": true
+    },
+    {
+      "name": "Oversized reference numbers cannot bypass validation",
+      "passed": true
+    },
+    {
+      "name": "No evidence produces no generation prompt",
+      "passed": true
+    },
+    {
+      "name": "Cancellation before queued generation is preserved",
+      "passed": true
+    },
+    {
+      "name": "Real GGUF generation emits streamed text",
+      "passed": true
+    },
+    {
+      "name": "Measured first token and elapsed time available",
+      "passed": true
+    },
+    {
+      "name": "Generation completes within 120-second cap",
+      "passed": true
+    },
+    {
+      "name": "Streaming preserves complete UTF-8 text",
+      "passed": true
+    },
+    {
+      "name": "In-flight cancellation aborts decoding",
+      "passed": true
+    },
+    {
+      "name": "Next request works after cancellation with fresh context",
+      "passed": true
+    },
+    {
+      "name": "Chat send action is visible",
+      "passed": true
+    },
+    {
+      "name": "UI button completes native local generation",
+      "passed": true
+    }
+  ],
+  "answers": [
+    {
+      "case": "energy",
+      "text": "Kilowatts (kW) measure power, while kilowatt-hours (kWh) measure energy. Power is the rate at which energy is consumed or produced, measured in watts or kilowatts. Energy is the product of power and time, measured in watt-hours or kilowatt-hours. kW and kWh are not interchangeable because energy is calculated by multiplying power by time. [1]",
+      "tokens": 81,
+      "promptTokens": 207,
+      "firstTokenMs": 7987,
+      "totalMs": 12469,
+      "loadMs": 1284,
+      "stopReason": 0,
+      "sources": [
+        {
+          "title": "Power and energy: kW versus kWh",
+          "passage": "Power expresses the rate at which energy is consumed or produced. It is measured in watts (W) or kilowatts (kW): one kilowatt equals one thousand watts. Energy consumed over an interval can be expressed in watt-hours (Wh) or kilowatt-hours (kWh)."
+        },
+        {
+          "title": "Power and energy: kW versus kWh",
+          "passage": "If power remains constant, energy is power multiplied by time. For example, a 100 W appliance running for three hours consumes 300 Wh, or 0.3 kWh. This calculated example illustrates why kW and kWh are not interchangeable."
+        }
+      ]
+    },
+    {
+      "case": "cancel-after-three-tokens",
+      "text": "Kilow",
+      "tokens": 3,
+      "promptTokens": 207,
+      "firstTokenMs": 3,
+      "totalMs": 114,
+      "loadMs": 0,
+      "stopReason": 2,
+      "sources": [
+        {
+          "title": "Power and energy: kW versus kWh",
+          "passage": "Power expresses the rate at which energy is consumed or produced. It is measured in watts (W) or kilowatts (kW): one kilowatt equals one thousand watts. Energy consumed over an interval can be expressed in watt-hours (Wh) or kilowatt-hours (kWh)."
+        },
+        {
+          "title": "Power and energy: kW versus kWh",
+          "passage": "If power remains constant, energy is power multiplied by time. For example, a 100 W appliance running for three hours consumes 300 Wh, or 0.3 kWh. This calculated example illustrates why kW and kWh are not interchangeable."
+        }
+      ]
+    },
+    {
+      "case": "gps-after-cancellation",
+      "text": "GPS calculates its position by receiving signals from satellites, using the time taken for these signals to reach the receiver to estimate distances. Combining multiple signals provides the receiver's position and corrects its clock. [1]",
+      "tokens": 43,
+      "promptTokens": 227,
+      "firstTokenMs": 7935,
+      "totalMs": 10511,
+      "loadMs": 0,
+      "stopReason": 0,
+      "sources": [
+        {
+          "title": "GPS: position from satellites",
+          "passage": "A GPS receiver calculates its position from radio signals sent by satellites. The time taken by each signal helps estimate the distance to the satellite. Combining several signals provides the receiver position and corrects its clock."
+        },
+        {
+          "title": "Why GPS accuracy changes",
+          "passage": "GPS position accuracy depends on satellite geometry, obstacles blocking signals, atmospheric conditions, and receiver characteristics. The accuracy of the transmitted signal does not guarantee the same accuracy on a phone."
+        },
+        {
+          "title": "GPS: position from satellites",
+          "passage": "Receiving satellite signals is different from downloading an online map. A receiver can therefore calculate coordinates without a data connection. To show those coordinates on a map, the application must also have the map available. This is an educational explanation, not a test of any particular application."
+        }
+      ]
+    },
+    {
+      "case": "ui-chat-energy",
+      "text": "The difference between kW and kWh is as follows:\n\n- kW (kilowatt) is a unit of power, which measures the rate at which energy is consumed or produced. It is a measure of power in the International System of Units (SI).\n- kWh (kilowatt-hour) is a unit of energy, which measures the amount of energy consumed or produced over a period of time. It is also a measure of energy in the SI system.\n\nIn simpler terms:\n- kW is a measure of power.\n- kWh is a measure of energy.\n\nThe relationship between kW and kWh is that one kWh is equal to 1,000 kW hours. This means that if you have a device that consumes 1 kW of power, it will consume 1 kWh of energy every hour.",
+      "tokens": 160,
+      "promptTokens": 175,
+      "firstTokenMs": 5624,
+      "totalMs": 14594,
+      "loadMs": 329,
+      "stopReason": 0,
+      "sources": []
+    }
+  ],
+  "elapsedMs": 39510,
+  "model": "Qwen2.5 1.5B Instruct · Q4_K_M",
+  "modelSha256": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
+  "modelBytes": 1117320736,
+  "androidApi": 37,
+  "device": "Pixel 10 Pro",
+  "processPssKiBAtEnd": 1366070,
+  "measurementScope": "Recorded admitted Android target. PSS snapshot is not peak RAM. Functional tests, not research-quality evaluation."
+}

@@ -1,0 +1,36 @@
+{
+  "cacheParity": true,
+  "legacyUser": "RECENT CONVERSATION (context, not verified evidence):\nUser: For this conversation my code name is Cedar. Reply with just the code name.\nAssistant: Cedar\nUser: What code name did I just give you?\nAssistant: Cedar\n\nDOCUMENTS FOR THIS TURN:\n[1] Field note.txt\nSynthetic document for application verification. Sample unit PX-65 lists spare filter F-92. No current operating condition is recorded.\n\n[2] Equipment manual.pdf\nSample unit PX-65 uses spare filter F-92.\n\n[3] Equipment manual.pdf\nSynthetic manual: sample unit PX-65.\n\n\nCURRENT USER MESSAGE: What spare filter does sample unit PX-65 use? Cite the document.\nASSISTANT:",
+  "filteredUser": "RECENT CONVERSATION (context, not verified evidence):\n\nDOCUMENTS FOR THIS TURN:\n[1] Field note.txt\nSynthetic document for application verification. Sample unit PX-65 lists spare filter F-92. No current operating condition is recorded.\n\n[2] Equipment manual.pdf\nSample unit PX-65 uses spare filter F-92.\n\n[3] Equipment manual.pdf\nSynthetic manual: sample unit PX-65.\n\n\nCURRENT USER MESSAGE: What spare filter does sample unit PX-65 use? Cite the document.\nASSISTANT:",
+  "answersFact": true,
+  "passed": true,
+  "answers": [
+    {
+      "case": "legacy-unrelated-history",
+      "text": "[2] Equipment manual.pdf",
+      "reason": 0,
+      "tokens": 6,
+      "cachedTokens": 0,
+      "firstTokenMs": 8987,
+      "totalMs": 9929
+    },
+    {
+      "case": "filtered-history",
+      "text": "The sample unit PX-65 uses spare filter F-92, as stated in the Equipment manual.pdf. This is supported by Document [2].",
+      "reason": 0,
+      "tokens": 31,
+      "cachedTokens": 0,
+      "firstTokenMs": 7294,
+      "totalMs": 11571
+    },
+    {
+      "case": "filtered-after-two-turns",
+      "text": "The sample unit PX-65 uses spare filter F-92, as stated in the Equipment manual.pdf. This is supported by Document [2].",
+      "reason": 0,
+      "tokens": 31,
+      "cachedTokens": 0,
+      "firstTokenMs": 7160,
+      "totalMs": 11437
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+{"imported":6,"failed":3,"skipped":4,"issues":[{"path":"Field kit\/Field kit","reason":"Already processed in this folder."},{"path":"Field kit\/note.TXT","reason":"Already processed in this folder."},{"path":"Field kit\/Restricted","reason":"Permission denied. Choose the folder again or make the file available locally."},{"path":"Field kit\/virtual.txt","reason":"Export a local copy of this document before importing it."},{"path":"Field kit\/large.txt","reason":"Text or CSV exceeds 1 MiB."},{"path":"Field kit\/broken.csv","reason":"CSV record 2 has a different column count"},{"path":"Field kit\/photo.png","reason":"Unsupported type; accepts PDF, TXT, Markdown, CSV, OSM XML and Overpass JSON."}]}
+
+PASS folders: 30 checks.

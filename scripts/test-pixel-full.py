@@ -4,7 +4,7 @@ import argparse,datetime,hashlib,json,re,subprocess,time,uuid
 R=Path(__file__).resolve().parents[1];cfg=json.loads((R/'.local/developer-settings.json').read_text(encoding='utf-8-sig'));reg=json.loads((R/'.local/pixel10-target.json').read_text(encoding='utf-8-sig'))
 assert reg['model']=='Pixel 10 Pro' and reg['authorization']=='owner-request-2026-10-01'
 serial=reg['serial'];adb=str(Path(cfg['sdk'])/'platform-tools/adb.exe');QA='dev.outpost.app.releaseqa';REG='dev.outpost.app.regressionqa'
-p=argparse.ArgumentParser();p.add_argument('action',choices=['all','restore']);p.add_argument('--functional-only',action='store_true');a=p.parse_args();active=R/'.local/pixel-full-active.json';state=None
+p=argparse.ArgumentParser();p.add_argument('action',choices=['all','restore']);p.add_argument('--functional-only',action='store_true');p.add_argument('--fresh-qa',action='store_true');a=p.parse_args();active=R/'.local/pixel-full-active.json';state=None
 def call(*args,timeout=120,allow=False,binary=False):
  result=subprocess.run([adb,'-s',serial,*map(str,args)],capture_output=True,timeout=timeout)
  if binary:
@@ -99,7 +99,7 @@ def restore():
   finally:restore_radios()
  assert original()==state['originalBefore'],'Original app/data identity changed'
  state['originalPreserved']=True;state['status']='restored';state['currentPhase']=None;save();Path(state['out'],'run.json').write_text(json.dumps(state,indent=2)+'\n')
- print('Original app/data, QA store and connection settings restored.',flush=True)
+ print('Personal app/data and radio settings preserved; fresh QA store retained.' if state.get('freshQa') else 'Original app/data, QA store and connection settings restored.',flush=True)
 props={k:call('shell','getprop',k) for k in ['ro.kernel.qemu','ro.product.manufacturer','ro.product.model','ro.product.cpu.abi','ro.build.fingerprint','sys.boot_completed']}
 assert props['ro.kernel.qemu']!='1' and props['ro.product.manufacturer']=='Google' and props['ro.product.model']=='Pixel 10 Pro' and props['ro.product.cpu.abi']=='arm64-v8a' and props['sys.boot_completed']=='1'
 if a.action=='restore':
@@ -114,6 +114,8 @@ assert release['mainSourcesSha256']==regression['mainSourcesSha256'],'Build sour
 script=". ./scripts/environment.ps1; Get-OutpostSourceFingerprint main; Get-OutpostSourceFingerprint androidTest"
 verify=subprocess.run(['pwsh','-NoProfile','-ExecutionPolicy','Bypass','-Command',script],cwd=R,capture_output=True,text=True,check=True).stdout.strip().splitlines()
 assert verify==[regression['mainSourcesSha256'],regression['testSourcesSha256']],'Sources changed after build' 
+if a.fresh_qa:
+ assert all(not app_hashes(pkg) for pkg in [QA,QA+'.test',REG,REG+'.test']), 'Fresh QA requires empty QA namespaces; preserve or remove their data only with owner authorization'
 existing=app_hashes(REG)
 if existing:
  prior=json.loads(active.read_text());assert prior['status']=='restored' and prior.get('regressionCreated') and not prior.get('regressionRemoved'),'Unknown existing regression package'
@@ -121,7 +123,7 @@ if existing:
 
 session='pixel-full-'+datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8]
 owner=session.replace('pixel-full-','pixel-regression-');out=R/'evidence/runs'/session;out.mkdir(parents=True)
-state={'session':session,'functionalOnly':a.functional_only,'status':'preparing','out':str(out),'device':props,'radioBefore':settings(),'dataPreferencesBefore':data_prefs(),'initialDefaultNetwork':network(),'originalBefore':original(),'releaseReceipt':release,'regressionReceipt':regression,'regressionOwner':owner,'regressionCreated':False,'regressionExistedBefore':bool(existing),'regressionPriorOwner':private(REG,'cat files/pixel-regression-owned') if existing else None,'regressionArchives':[],'releaseStoreIsolated':False,'phases':[],'passed':False,'originalPreserved':False,'radiosRestored':False}
+state={'session':session,'functionalOnly':a.functional_only,'freshQa':a.fresh_qa,'status':'preparing','out':str(out),'device':props,'radioBefore':settings(),'dataPreferencesBefore':data_prefs(),'initialDefaultNetwork':network(),'originalBefore':original(),'releaseReceipt':release,'regressionReceipt':regression,'regressionOwner':owner,'regressionCreated':False,'regressionExistedBefore':bool(existing),'regressionPriorOwner':private(REG,'cat files/pixel-regression-owned') if existing else None,'regressionArchives':[],'releaseStoreIsolated':False,'phases':[],'passed':False,'originalPreserved':False,'radiosRestored':False}
 save();remote='/sdcard/Android/data/'+REG+'/files'
 try:
  for receipt in [release,regression]:
@@ -135,6 +137,9 @@ try:
    before=digest(REG,path);state['regressionArchives'].append({'path':path,'index':index,'present':present,'digest':before});save()
    if present:private(REG,f'mv {path} {backup}/original-{index}')
  private(REG,'printf %s '+owner+' > files/pixel-regression-owned')
+ if a.fresh_qa:
+  assert private(REG,'if test -d files/models; then find files/models -type f; fi')=='', 'Fresh model store is not empty'
+  state['freshRegressionModelsAbsent']=True;save()
  call('shell','mkdir','-p',remote)
  for name,pin in [('qwen2.5-1.5b-instruct-q4_k_m.gguf','6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e'),('Ternary-Bonsai-1.7B-Q2_0_g64.gguf','6d0ecb3d9055969b5cde332b6fdb60e67ed3599e9f73e56b977731e1467e5c91'),('Ternary-Bonsai-4B-Q2_0_g64.gguf','9d968b04a3c9a794897bcc744c8072fb6a061c0e42efd03c989401ddf8baef0c')]:
   file=R/'.local/models'/name;assert sha(file)==pin,'Cached model differs';print('Staging '+name,flush=True);present=call('shell',f'if test -f {remote}/{name}; then sha256sum {remote}/{name}; fi')
@@ -147,8 +152,12 @@ try:
   prior=call('shell',f'if test -f {qa_external}/{name}; then sha256sum {qa_external}/{name}; fi')
   if prior:assert prior.split()[0]==expected,'Existing QA staging model differs; preserve it before testing'
   else:call('shell','cp',remote+'/'+name,qa_external+'/'+name)
+  call('shell','chmod','0644',qa_external+'/'+name)
   assert call('shell','sha256sum',qa_external+'/'+name).split()[0]==expected
- state['releaseStoreIsolated']=True;save();store_phase('validation-isolate')
+ if not a.fresh_qa:
+  state['releaseStoreIsolated']=True;save();store_phase('validation-isolate')
+ else:
+  state['freshReleaseStore']=True;save()
  accept='accept-'+datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8];state['acceptOwner']=accept;save()
  args=('-e','accept_run',accept,'-e','owner_run',accept)
  result,folder=qa_phase('accept-prepare',args)
@@ -183,7 +192,7 @@ try:
 except Exception as error:
  state['failure']=str(error).replace(serial,'<registered-pixel>');save();print('FAILED: '+state['failure'],flush=True)
 finally:restore()
-if state['passed'] and not state['regressionExistedBefore']:
+if state['passed'] and not state['regressionExistedBefore'] and not a.fresh_qa:
  assert private(REG,'cat files/pixel-regression-owned')==owner
  call('uninstall',REG+'.test');call('uninstall',REG);state['regressionRemoved']=True;save();Path(state['out'],'run.json').write_text(json.dumps(state,indent=2)+'\n')
 print(json.dumps({'passed':state['passed'],'out':state['out'],'phases':state['phases'],'originalPreserved':state['originalPreserved'],'radiosRestored':state['radiosRestored']}),flush=True)

@@ -1,0 +1,211 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Dedicated release acceptance package",
+      "passed": true
+    },
+    {
+      "name": "Synthetic store ownership matches recorded provisioning",
+      "passed": true
+    },
+    {
+      "name": "Unique evidence directory",
+      "passed": true
+    },
+    {
+      "name": "Pinned Bonsai 4B imported and ready",
+      "passed": true
+    },
+    {
+      "name": "Production speculation remains off",
+      "passed": true
+    },
+    {
+      "name": "Chat loads after process start",
+      "passed": true
+    },
+    {
+      "name": "Request completes: traveler-place",
+      "passed": true
+    },
+    {
+      "name": "Expected grounded result: traveler-place",
+      "passed": true
+    },
+    {
+      "name": "Natural completion: traveler-place",
+      "passed": true
+    },
+    {
+      "name": "Place answer has stored OSM source",
+      "passed": true
+    },
+    {
+      "name": "Narration does not deny a retrieved restaurant result",
+      "passed": true
+    },
+    {
+      "name": "Request completes: park-lookup",
+      "passed": true
+    },
+    {
+      "name": "Expected grounded result: park-lookup",
+      "passed": true
+    },
+    {
+      "name": "Natural completion: park-lookup",
+      "passed": true
+    },
+    {
+      "name": "Park narration does not invent its name as a street",
+      "passed": true
+    },
+    {
+      "name": "Request completes: field-manual",
+      "passed": true
+    },
+    {
+      "name": "Expected grounded result: field-manual",
+      "passed": true
+    },
+    {
+      "name": "Natural completion: field-manual",
+      "passed": true
+    },
+    {
+      "name": "Field answer uses imported evidence",
+      "passed": true
+    },
+    {
+      "name": "Screenshot available: grounded-answer.png",
+      "passed": true
+    },
+    {
+      "name": "Request completes: farmer-record",
+      "passed": true
+    },
+    {
+      "name": "Expected grounded result: farmer-record",
+      "passed": true
+    },
+    {
+      "name": "Natural completion: farmer-record",
+      "passed": true
+    },
+    {
+      "name": "Request completes: hiker-shelter",
+      "passed": true
+    },
+    {
+      "name": "Expected grounded result: hiker-shelter",
+      "passed": true
+    },
+    {
+      "name": "Natural completion: hiker-shelter",
+      "passed": true
+    },
+    {
+      "name": "Request completes: roadside-reference",
+      "passed": true
+    },
+    {
+      "name": "Expected grounded result: roadside-reference",
+      "passed": true
+    },
+    {
+      "name": "Natural completion: roadside-reference",
+      "passed": true
+    },
+    {
+      "name": "Stop settles a queued request",
+      "passed": true
+    },
+    {
+      "name": "Cancellation is persisted",
+      "passed": true
+    },
+    {
+      "name": "Request completes: after-cancel",
+      "passed": true
+    },
+    {
+      "name": "Expected grounded result: after-cancel",
+      "passed": true
+    },
+    {
+      "name": "Natural completion: after-cancel",
+      "passed": true
+    },
+    {
+      "name": "Screenshot available: after-cancel.png",
+      "passed": true
+    }
+  ],
+  "answers": [
+    {
+      "case": "traveler-place",
+      "question": "What restaurants are near Cedar Museum?",
+      "text": "- Willow Kitchen [2] — 14 m, type: restaurant, cuisine: not supplied  \n  Coordinates: 40.400100, -3.700100  \n\n(No other restaurants within 2.00 km of Cedar Museum were found in the saved query results.)  \n\nDistances are straight-line estimates. Current conditions were not checked.",
+      "firstTokenMs": 16093,
+      "totalMs": 26734,
+      "tokens": 81,
+      "reason": 0
+    },
+    {
+      "case": "park-lookup",
+      "question": "Where is Ridge Park?",
+      "text": "Ridge Park is a park located at coordinates 40.402000, -3.702000. It has no recorded street address. [1]",
+      "firstTokenMs": 15231,
+      "totalMs": 20626,
+      "tokens": 40,
+      "reason": 0
+    },
+    {
+      "case": "field-manual",
+      "question": "What spare filter does sample pump PX-65 use? Cite the document.",
+      "text": "The spare filter for the sample pump PX-65 is F-92. This information is cited from [1] and [2].",
+      "firstTokenMs": 7960,
+      "totalMs": 11479,
+      "tokens": 29,
+      "reason": 0
+    },
+    {
+      "case": "farmer-record",
+      "question": "According to the farm log, what time is irrigation for the North plot?",
+      "text": "The irrigation time for the North plot is 06:30, as recorded in the farm log.csv at CSV record 2. [1]",
+      "firstTokenMs": 12096,
+      "totalMs": 16627,
+      "tokens": 31,
+      "reason": 0
+    },
+    {
+      "case": "hiker-shelter",
+      "question": "According to my travel kit, what is the mountain shelter called?",
+      "text": "The mountain shelter called Aspen Hut is mentioned in your travel kit.txt.",
+      "firstTokenMs": 13181,
+      "totalMs": 15228,
+      "tokens": 14,
+      "reason": 0
+    },
+    {
+      "case": "roadside-reference",
+      "question": "What roadside assistance reference did I store in the travel kit?",
+      "text": "[1] The roadside assistance reference stored in the travel kit is ROAD-42.",
+      "firstTokenMs": 9819,
+      "totalMs": 12421,
+      "tokens": 18,
+      "reason": 0
+    },
+    {
+      "case": "after-cancel",
+      "question": "What spare filter does sample pump PX-65 use?",
+      "text": "The spare filter for the sample pump PX-65 is F-92. This information is stated in both the manual and the field manual provided. [1] and [2] confirm that the spare filter for the sample pump PX-65 is F-92.",
+      "firstTokenMs": 7726,
+      "totalMs": 15205,
+      "tokens": 57,
+      "reason": 0
+    }
+  ],
+  "run": "accept-20261007T195055Z-5adbaab6"
+}

@@ -86,14 +86,14 @@ These are acceptance goals. They are not measured guarantees or enforced library
 
 ## Installation and first use
 
-The distribution channel is [GitHub Releases](https://github.com/nicoarias81/outpost/releases). The current source and [QA prerelease](https://github.com/nicoarias81/outpost/releases/tag/v0.19.0-rc3) are **0.19.0-rc3**, version code 23. Pixel QA validation is complete. The repository and QA APK are public.
+The distribution channel is [GitHub Releases](https://github.com/nicoarias81/outpost/releases). The current source candidate is **0.19.0-rc4**, version code 24. Fresh QA installation and model reload tests passed. RC4 publication is pending. The last public QA release is [RC3](https://github.com/nicoarias81/outpost/releases/tag/v0.19.0-rc3).
 
-The RC3 candidate contains `outpost-0.19.0-rc3-qa.apk`, checksums, license files and matching source. It is non-debuggable. Its application ID is `dev.outpost.app.releaseqa`. It uses a development certificate. Production identity, signing and final signed-APK acceptance remain incomplete.
+The RC4 candidate contains `outpost-0.19.0-rc4-qa.apk`, checksums, license files and matching source. It is non-debuggable. Its application ID is `dev.outpost.app.releaseqa`. It uses a development certificate. Production identity, signing and final signed-APK acceptance remain incomplete.
 
-For RC3 model preparation, do these steps:
+For RC4 model preparation, do these steps:
 
-1. Download [outpost-0.19.0-rc3-qa.apk](https://github.com/nicoarias81/outpost/releases/download/v0.19.0-rc3/outpost-0.19.0-rc3-qa.apk).
-2. Download [SHA256SUMS.txt](https://github.com/nicoarias81/outpost/releases/download/v0.19.0-rc3/SHA256SUMS.txt) from the same release.
+1. Download [outpost-0.19.0-rc4-qa.apk](https://github.com/nicoarias81/outpost/releases/download/v0.19.0-rc4/outpost-0.19.0-rc4-qa.apk).
+2. Download [SHA256SUMS.txt](https://github.com/nicoarias81/outpost/releases/download/v0.19.0-rc4/SHA256SUMS.txt) from the same release.
 3. Compare the APK SHA256 with the checksum file.
 4. Install the APK only if the values agree.
 5. Open Settings in Outpost.
