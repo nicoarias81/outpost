@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-07",
+  "method": "Official Kiwix directory plus HTTP HEAD Content-Length; no corpus downloaded or content checksum verified",
+  "storageLimitBytes": 50000000000,
+  "entries": [
+    {
+      "file": "wikipedia_en_all_nopic_2026-06.zim",
+      "bytes": 52690706555,
+      "url": "https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_nopic_2026-06.zim",
+      "content": "Full articles, no images",
+      "selection": "Excluded from a 50,000,000,000-byte budget even before model installation",
+      "decimalGB": 52.690706555,
+      "GiB": 49.07204448711127
+    },
+    {
+      "file": "wikipedia_en_all_mini_2026-09.zim",
+      "bytes": 14386799064,
+      "url": "https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_mini_2026-09.zim",
+      "content": "Introductions and infoboxes",
+      "selection": "Broad but shallow; quality must be assessed separately from full articles",
+      "decimalGB": 14.386799064,
+      "GiB": 13.398750744760036
+    },
+    {
+      "file": "wikipedia_en_top_nopic_2026-09.zim",
+      "bytes": 2745850723,
+      "url": "https://download.kiwix.org/zim/wikipedia/wikipedia_en_top_nopic_2026-09.zim",
+      "content": "Selected full articles without images",
+      "selection": "Candidate for a manageable full-text pilot",
+      "decimalGB": 2.745850723,
+      "GiB": 2.557272764854133
+    },
+    {
+      "file": "wikipedia_en-simple_all_nopic_2026-09.zim",
+      "bytes": 1094936257,
+      "url": "https://download.kiwix.org/zim/wikipedia/wikipedia_en-simple_all_nopic_2026-09.zim",
+      "content": "Simple English full articles without images",
+      "selection": "Low-storage pilot; different coverage and depth from English Wikipedia",
+      "decimalGB": 1.094936257,
+      "GiB": 1.0197388539090753
+    },
+    {
+      "file": "wikivoyage_en_all_nopic_2026-09.zim",
+      "bytes": 272495142,
+      "url": "https://download.kiwix.org/zim/wikivoyage/wikivoyage_en_all_nopic_2026-09.zim",
+      "content": "Saved travel articles without images",
+      "selection": "Travel-oriented pilot; no current opening hours or live availability claim",
+      "decimalGB": 0.272495142,
+      "GiB": 0.2537808772176504
+    }
+  ],
+  "formatDefinitions": "https://get.kiwix.org/en/faq-items/what-do-mini-nopic-and-maxi-mean-in-the-wikipedia-zim-files/"
+}

@@ -196,3 +196,13 @@ The capture uses the native keyboard, incremental key events and touchscreen nav
 The test input requests no suggestions or personalized learning. The keyboard can still show generic predictions. It supplies an English keyboard hint. The recorder restores the original touch-indicator preference. Captures keep the actual response text and generation time.
 
 RC2 place narration passed the 66-check OSM suite on Outpost35. The [recorded Pixel review](../evidence/runs/demo-20261002T100257Z-a1235e31/quality-review.json) includes model output, source checks and timings. It also identifies the repeated small-model comparison and rejected pilot. These selected cases do not prove general factual accuracy.
+
+## Pack retrieval research
+
+`scripts/probe-pack-search.py` builds a separate SQLite executable on the host. It executes the retrieval probe only on Outpost35. It does not install an APK or execute a model.
+
+The [recorded probe](../evidence/research/pack-options-20261007/pack-options-20261007T150407Z-c2bee17e/report.json) found FTS4 in the platform SQLite CLI. FTS5 and a separate RTree capability check failed in that CLI. These results do not establish the capabilities of every Android database API or device.
+
+Native SQLite 3.46.1 with FTS5 ran on the emulator. A constructed 10,000-record fixture exposed loss of the applicable record through a 500-candidate cap. BM25 returned that record first. The timings include process startup and the ADB round trip. They are not isolated query latency or final-answer quality measurements.
+
+The [research review](../evidence/research/pack-options-20261007/review.json) lists the next gates. Real-corpus tests must measure cold and warm latency, memory, source resolution and final answers. They must also count installed storage and update peaks. ZIM, Leviathan and Tantivy Android integration remain unmeasured in Outpost.

@@ -1,0 +1,27 @@
+[
+  {
+    "rowid": 10000,
+    "title": "PX-80 revision C",
+    "score": -25.310686591099728
+  },
+  {
+    "rowid": 5274,
+    "title": "Pump routine 5274",
+    "score": -8.294367497855559
+  },
+  {
+    "rowid": 1,
+    "title": "Pump routine 1",
+    "score": -1.3750531685735744e-06
+  },
+  {
+    "rowid": 2,
+    "title": "Pump routine 2",
+    "score": -1.3750531685735744e-06
+  },
+  {
+    "rowid": 3,
+    "title": "Pump routine 3",
+    "score": -1.3750531685735744e-06
+  }
+]

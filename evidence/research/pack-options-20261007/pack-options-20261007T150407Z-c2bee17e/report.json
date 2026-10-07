@@ -1,0 +1,107 @@
+{
+  "runId": "pack-options-20261007T150407Z-c2bee17e",
+  "checkedUtc": "2026-10-07T15:04:39.923354+00:00",
+  "target": "emulator-5582",
+  "device": "Outpost35 Android 15 x86_64",
+  "platformSqlite": {
+    "version": {
+      "exitCode": 0,
+      "stdout": "3.44.3",
+      "stderr": ""
+    },
+    "fts4": {
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "fts5": {
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "Error: stepping, no such module: fts5"
+    }
+  },
+  "bundledSqliteVersion": "3.46.1 2024-08-13 09:16:08 c9c2ab54ba1f5f46360f1b4f35d849cd3f080e6fc2b6c60e91b16c63f69a1e33 (64-bit)",
+  "source": {
+    "url": "https://www.sqlite.org/2024/sqlite-amalgamation-3460100.zip",
+    "sha256": "77823cb110929c2bcb0f5d48e4833b5c59a8a6e40cdea3936b99e199dbbe5784"
+  },
+  "binarySha256": "516aa432ebe57b1adc3d50470396eb5479465bde372cb4f2009ca612fc1221c9",
+  "compileCommand": [
+    "E:\\projects\\outpost\\.local\\native\\ndk\\android-ndk-r28b\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+    "--target=x86_64-linux-android28",
+    "-O2",
+    "-DNDEBUG",
+    "-DSQLITE_ENABLE_FTS4",
+    "-DSQLITE_ENABLE_FTS5",
+    "-DSQLITE_THREADSAFE=1",
+    "E:\\projects\\outpost\\.local\\pack-options-20261007T150407Z-c2bee17e\\sqlite-source\\sqlite3.c",
+    "E:\\projects\\outpost\\.local\\pack-options-20261007T150407Z-c2bee17e\\sqlite-source\\shell.c",
+    "-ldl",
+    "-lm",
+    "-o",
+    "E:\\projects\\outpost\\.local\\pack-options-20261007T150407Z-c2bee17e\\outpost-sqlite-fts5"
+  ],
+  "fixtureScope": "One constructed candidate-truncation witness. Generic pump matches precede the only record with the required serial, filter and connector. Not an unseen corpus or answer-quality benchmark.",
+  "results": [
+    {
+      "engine": "fts4",
+      "rows": 10000,
+      "databaseBytes": 1196032,
+      "result": [
+        {
+          "candidates": 500,
+          "target_present": 0
+        }
+      ],
+      "hostObservedRoundTripMs": [
+        51.954,
+        58.909,
+        48.801,
+        47.937,
+        55.72
+      ],
+      "measurementScope": "CLI process start, SQLite query, JSON serialization and ADB round trip. No isolated search latency or APK/JNI measurement."
+    },
+    {
+      "engine": "fts5",
+      "rows": 10000,
+      "databaseBytes": 1183744,
+      "result": [
+        {
+          "rowid": 10000,
+          "title": "PX-80 revision C",
+          "score": -25.310686591099728
+        },
+        {
+          "rowid": 5274,
+          "title": "Pump routine 5274",
+          "score": -8.294367497855559
+        },
+        {
+          "rowid": 1,
+          "title": "Pump routine 1",
+          "score": -1.3750531685735744e-06
+        },
+        {
+          "rowid": 2,
+          "title": "Pump routine 2",
+          "score": -1.3750531685735744e-06
+        },
+        {
+          "rowid": 3,
+          "title": "Pump routine 3",
+          "score": -1.3750531685735744e-06
+        }
+      ],
+      "hostObservedRoundTripMs": [
+        65.681,
+        61.159,
+        60.574,
+        68.323,
+        72.761
+      ],
+      "measurementScope": "CLI process start, SQLite query, JSON serialization and ADB round trip. No isolated search latency or APK/JNI measurement."
+    }
+  ],
+  "conclusion": "The candidate cap omits the matching record before any Java ranking. Native FTS5/BM25 returns that record first on the same corpus. Android integration and real-corpus memory/latency tests remain necessary."
+}

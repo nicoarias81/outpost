@@ -134,6 +134,25 @@ The manifest requests no permissions and disables backup. Imports make private c
 
 New data adapters must have parser limits, source identity and resolvable references. File, template and runtime checks are necessary for new models. CPU, compiled-code, shape and numerical checks are necessary for new kernels. OCR, Office/ZIM, trained MTP/Engram and equipment actions are not available. The [test guide](testing.md) lists the remaining acceptance work.
 
+## Large knowledge packs: research direction
+
+Preparation downloads will use an explicit user action. The user will put the phone offline with airplane mode. No automatic radio checks or network cut-off are required for this design. RC2 still has no downloader or network permission.
+
+The [pack review](../evidence/research/pack-options-20261007/review.json) compares four storage and retrieval options. The [catalog snapshot](../evidence/research/pack-options-20261007/catalog-snapshot.json) records exact publisher file sizes. These are research findings, not supported product formats.
+
+| Candidate | Proposed use | Necessary validation |
+|---|---|---|
+| ZIM with libzim/Xapian | Prepared encyclopedia and travel snapshots | Android reader, text extraction, references and memory |
+| Native SQLite FTS5 | Custom packs and user records | Ranking, compressed content, cancellation and storage |
+| Leviathan library | Records grouped by equipment or another entity | Android integration, scope, filters and complete evidence |
+| Tantivy | Larger custom indexes if another engine reaches a measured limit | Android integration, segments, memory and equal-corpus performance |
+
+The provisional design uses separate readers behind a common retrieval interface. Results must identify the pack, content hash, entry and passage. Source display must resolve the exact stored version.
+
+OSM region packs need spatial filtering before distance calculations. The current place query scans at most 20,000 records. Lexical ranking alone does not replace a spatial index.
+
+The installed storage budget must count content, indexes, model weights, originals, caches, partial downloads and update copies. File sizes in GB use decimal bytes. The initial conservative total limit is 50,000,000,000 bytes.
+
 ## Technical terms
 
 These terms have the meanings below in Outpost documentation. Product names, code symbols, file paths and interface labels keep their exact spelling.
@@ -155,6 +174,10 @@ These terms have the meanings below in Outpost documentation. Product names, cod
 | Logits | Model scores for possible next tokens, before sampling |
 | Prefill | The operation that processes prompt tokens and prepares the KV cache |
 | Quantization | Numerical encoding that uses fewer bits for model values |
+| Pack reader | Component that searches one stored knowledge format and resolves its sources |
+| FTS5 / BM25 | SQLite full-text extension and its relevance scoring function |
+| ZIM | Compressed archive format for offline content |
+| Spatial index | Structure that selects records by coordinate bounds |
 | Runtime profile | Settings for a specified device, OS, app version and model |
 | Snapshot | A saved version of imported source bytes |
 | Source locator | Data that identifies an exact saved source fragment |

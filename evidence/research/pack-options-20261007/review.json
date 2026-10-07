@@ -1,0 +1,103 @@
+{
+  "date": "2026-10-07",
+  "status": "Research and native capability witness; no product backend selected",
+  "acceptedSetupPolicy": "Explicit preparation downloads may use networking. The user puts the phone offline with airplane mode. No added automatic radio checks or network cut-off is required by the user. Current RC2 still has no networking permission or downloader.",
+  "options": [
+    {
+      "name": "Native SQLite FTS5 with compressed content shards",
+      "role": "General custom packs and user records",
+      "benefits": [
+        "Explicit SQL control, BM25 and typed metadata",
+        "Contentless/external-content indexes can avoid a second searchable-text payload",
+        "Shared SQLite/RTREE path is a candidate for OSM"
+      ],
+      "gaps": [
+        "Requires bundled native SQLite on the probed target",
+        "Compression and passage/source identity need an Outpost format",
+        "Broad queries still need query-budget, cancellation and memory tests"
+      ],
+      "source": "https://www.sqlite.org/fts5.html"
+    },
+    {
+      "name": "ZIM with libzim/Xapian through Android Java bindings",
+      "role": "Ready-made encyclopedia and travel snapshots",
+      "benefits": [
+        "Compressed corpus and embedded full-text search when available",
+        "Android Archive, Searcher, Search and SearchIterator APIs exist",
+        "Can return entry paths, snippets, archive IDs and counts without wholesale import"
+      ],
+      "gaps": [
+        "HTML-to-text section extraction and stable passage citations",
+        "Not every archive necessarily has full-text search",
+        "No incremental archive updates; replacement peak storage matters",
+        "Native libraries, 16 KiB alignment and cache memory need target validation"
+      ],
+      "pins": {
+        "java-libkiwix": "ff2919fd10d5ff2c69158925dd89ccb251546f8e",
+        "libzim": "e4de4b7a26366a19290ee2b0300b7ea878d9cd92"
+      },
+      "source": "https://github.com/kiwix/java-libkiwix"
+    },
+    {
+      "name": "Leviathan library",
+      "role": "Entity-oriented CSV, logs and equipment records",
+      "benefits": [
+        "Mapped fields, scoped search, filters and compact cards",
+        "Uses bundled SQLite/FTS5 and exposes a Rust library"
+      ],
+      "gaps": [
+        "Android build/JNI adapter not measured",
+        "Disable cross-entity fallback for applicability-sensitive questions",
+        "JSON arrays load in memory; use streaming inputs or prebuilt indexes",
+        "Build temp_store=MEMORY and a 256 MiB cache need mobile tuning",
+        "Fuzzy group lookup and exact total counting can scale with matches"
+      ],
+      "pin": "702ea92dc4695de00c488a66b43d75419bbb78e8",
+      "benchmark": "Synthetic records on desktop against grep, not a comparison with Outpost or final LLM answer quality",
+      "source": "https://github.com/elstongun/leviathan"
+    },
+    {
+      "name": "Tantivy",
+      "role": "Custom large search packs if SQLite reaches a measured bottleneck",
+      "benefits": [
+        "BM25, compressed document store, range filters and mmap directory",
+        "Configurable tokenization and field types"
+      ],
+      "gaps": [
+        "Rust/JNI integration and Android portability are unmeasured here",
+        "Segment lifecycle and cache behavior add implementation work",
+        "No claimed performance improvement without equal-corpus Android tests"
+      ],
+      "pin": "e988ecb7a11109d89f9f4582b386089fc3a2fec0",
+      "source": "https://github.com/quickwit-oss/tantivy"
+    }
+  ],
+  "spatialRetrieval": {
+    "proposal": "Use typed OSM rows and a spatial index for region packs; use lexical search to resolve named anchors. Preserve the exact distance calculation and source locators before model narration.",
+    "currentLimit": "PlaceQueries scans at most 20,000 stored records and 32 million payload characters.",
+    "platformCliRtreeProbe": "no such module: rtree",
+    "source": "https://www.sqlite.org/rtree.html"
+  },
+  "nativeProbe": {
+    "report": "pack-options-20261007T150407Z-c2bee17e/report.json",
+    "scope": "Android x86_64 CLI only. No APK/JNI integration, ARM run, model execution or real-corpus quality test.",
+    "targetWitness": "FTS4 OR query with a pre-ranking 500-candidate cap omits row 10000. FTS5/BM25 returns row 10000 first.",
+    "latency": "Recorded host timings include CLI process startup, query, JSON serialization and ADB round trip; not isolated search latency."
+  },
+  "provisionalDirection": "Federated pack readers: evaluate ZIM for ready-made knowledge, SQLite for private/custom records and spatial OSM data. Leviathan is an entity-record candidate; Tantivy remains a reserve option. Do not require all packs to share one physical storage format.",
+  "nextExperiments": [
+    "Use the same real text corpus and the same query/evidence budget across text backends",
+    "Test installed bytes including model, indexes, originals, partial downloads, updates and caches",
+    "Test cold and warm p50/p95, cancellation, process memory, source resolution and final answer correctness on Android",
+    "Test missing/conflicting data, multilingual terms, record ranges, multiple rows and geographic coverage",
+    "Scale selected real packs only after smaller pilot gates pass; do not pad data to reach 20 GB"
+  ],
+  "vectorBudgetExample": {
+    "status": "Illustration, not a measured pack",
+    "passages": 10000000,
+    "dimensions": 384,
+    "bytesPerElement": 4,
+    "rawVectorBytes": 15360000000,
+    "note": "Excludes graph/search-index overhead, text and metadata; a full vector index is not the initial default."
+  }
+}
