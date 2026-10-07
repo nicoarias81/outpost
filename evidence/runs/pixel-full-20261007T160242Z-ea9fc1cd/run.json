@@ -1,0 +1,133 @@
+{
+  "session": "pixel-full-20261007T160242Z-ea9fc1cd",
+  "status": "restored",
+  "out": "E:\\projects\\outpost\\evidence\\runs\\pixel-full-20261007T160242Z-ea9fc1cd",
+  "device": {
+    "ro.kernel.qemu": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "sys.boot_completed": "1"
+  },
+  "radioBefore": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1",
+    "bluetooth_on": "1"
+  },
+  "dataPreferencesBefore": {
+    "mobile_data2": "1",
+    "mobile_data3": "0",
+    "mobile_data": "1",
+    "mobile_data_always_on": "1"
+  },
+  "initialDefaultNetwork": "Active default network: 344",
+  "originalBefore": {
+    "dev.outpost.app": {
+      "base.apk": "095c5c56995e3de9947d0125a0757387c429191cf0602700f7d5b9b8c036239f"
+    },
+    "dev.outpost.app.test": {
+      "base.apk": "92d2c533b1aaff6267c1607b46f6219351589da83bf62ea3b1b1fa4f0c0fa0d0"
+    },
+    "databases": "46b566b9982ee0d42000e7f3b31ccb6188c6781685fbc8dde0ed0f20bfc84824  -",
+    "shared_prefs": "e18580c419b42c8dc878c8566cdc4d1f6cd5cc1618713e1c1fed4945c7cea100  -",
+    "files/documents": "absent"
+  },
+  "releaseReceipt": {
+    "schemaVersion": 1,
+    "runId": "release-20261007T154218Z-c1cf4f49",
+    "builtAtUtc": "2026-10-07T15:42:18.6737717Z",
+    "mainSourcesSha256": "27d6b2bcb3830715124dc7f9413b9831f7697c028d6310ab05222f2434777440",
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "artifacts": [
+      {
+        "bytes": 23448719,
+        "path": "app/build/outputs/apk/release/app-release-unsigned.apk",
+        "sha256": "dcaf78714f9f2febe8fa9a0b03c67d90570968cd3184e108e523472b5490963a"
+      },
+      {
+        "bytes": 17362228,
+        "path": "app/build/outputs/bundle/release/app-release.aab",
+        "sha256": "eae5457af92845180793b08de5790067f8ab57ea0b219523760cb359d668db2f"
+      },
+      {
+        "bytes": 23452827,
+        "path": "app/build/outputs/apk/releaseQa/app-releaseQa.apk",
+        "sha256": "5a315d98203635e1e344adbd5b26a987af281800b9bc28c2bb88d98aa6f82949"
+      },
+      {
+        "bytes": 91974,
+        "path": "app/build/outputs/apk/androidTest/releaseQa/app-releaseQa-androidTest.apk",
+        "sha256": "9c355c03c2ff962f2c8b59a37281f354d67d3bcbfc31ff133aea2f98a781e32a"
+      }
+    ],
+    "scope": "Unsigned production candidate; debug-signed non-debuggable QA twin. Not approved for distribution or exact signed-device acceptance."
+  },
+  "regressionReceipt": {
+    "scope": "Dedicated debuggable regression QA; synthetic data only; research native APIs for ARM tests.",
+    "runId": "regression-build-20261007T154845Z-d60f91da",
+    "artifacts": [
+      {
+        "path": "app/build/outputs/apk/regressionQa/app-regressionQa.apk",
+        "sha256": "e00625a6997b8a81dbb227a2eca218f5693a32ee05fec6a8425d682ddf91af02",
+        "bytes": 26962274
+      },
+      {
+        "path": "app/build/outputs/apk/androidTest/regressionQa/app-regressionQa-androidTest.apk",
+        "sha256": "88e719d1c7c76c19c3becb67b9ef79d26ab22065935207916cd1b4685ee821bf",
+        "bytes": 894717
+      }
+    ],
+    "testSourcesSha256": "5f2677052397cc263cbc97a215bb2ca7791258a5b11b3a43305465721d2e99bb",
+    "mainSourcesSha256": "27d6b2bcb3830715124dc7f9413b9831f7697c028d6310ab05222f2434777440"
+  },
+  "regressionOwner": "pixel-regression-20261007T160242Z-ea9fc1cd",
+  "regressionCreated": true,
+  "releaseStoreIsolated": true,
+  "phases": [
+    {
+      "phase": "model-import",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T160242Z-ea9fc1cd\\model-import-998c59",
+      "checks": 0
+    },
+    {
+      "phase": "validation-isolate",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T160242Z-ea9fc1cd\\validation-isolate-e6dfc7",
+      "checks": 0
+    },
+    {
+      "phase": "accept-prepare",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T160242Z-ea9fc1cd\\accept-prepare-4bfd65",
+      "checks": 20
+    },
+    {
+      "phase": "release-smoke-before-offline",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T160242Z-ea9fc1cd\\release-smoke-before-offline-b3fdac",
+      "checks": 21
+    },
+    {
+      "phase": "release-bonsai17-before-offline",
+      "passed": false,
+      "folder": "evidence\\runs\\pixel-full-20261007T160242Z-ea9fc1cd\\release-bonsai17-before-offline-dfcbb8",
+      "checks": 8
+    },
+    {
+      "phase": "validation-restore",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T160242Z-ea9fc1cd\\validation-restore-193596",
+      "checks": 0
+    }
+  ],
+  "passed": false,
+  "originalPreserved": true,
+  "radiosRestored": true,
+  "currentPhase": null,
+  "acceptOwner": "accept-20261007T160424Z-eca45547",
+  "failure": "release-bonsai17-before-offline failed: java.io.FileNotFoundException: /storage/emulated/0/Android/data/dev.outpost.app.releaseqa/files/Ternary-Bonsai-1.7B-Q2_0_g64.gguf: open failed: ENOENT (No such file or directory)",
+  "releaseStoreRestored": true
+}

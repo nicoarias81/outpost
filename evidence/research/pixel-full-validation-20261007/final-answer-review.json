@@ -1,0 +1,47 @@
+{
+  "reviewer": {
+    "kind": "assistant",
+    "name": "Codex"
+  },
+  "runId": "pixel-full-20261007T181117Z-e652e078",
+  "automaticPassed": true,
+  "scope": "Review of seven synthetic non-debuggable QA answers against their recorded inputs. Not general model accuracy or field safety acceptance.",
+  "assessments": [
+    {
+      "case": "traveler-place",
+      "taskOutcome": "satisfied",
+      "rationale": "Willow Kitchen is identified as a restaurant, 14 m from Cedar Museum. Missing cuisine stays unknown. The statement about other restaurants is scoped to saved query results."
+    },
+    {
+      "case": "park-lookup",
+      "taskOutcome": "satisfied",
+      "rationale": "The park coordinates are preserved. The answer correctly says it has no recorded street address."
+    },
+    {
+      "case": "field-manual",
+      "taskOutcome": "satisfied",
+      "rationale": "F-92 is the supplied filter and the response cites its supplied sources."
+    },
+    {
+      "case": "farmer-record",
+      "taskOutcome": "satisfied",
+      "rationale": "The 06:30 time and CSV record identity match the supplied farm log."
+    },
+    {
+      "case": "hiker-shelter",
+      "taskOutcome": "satisfied",
+      "rationale": "Aspen Hut is correct and the source filename is named. The response omits a numbered inline citation; the app retains the exact source locator."
+    },
+    {
+      "case": "roadside-reference",
+      "taskOutcome": "satisfied",
+      "rationale": "ROAD-42 is preserved and the supplied source is cited."
+    },
+    {
+      "case": "after-cancel",
+      "taskOutcome": "satisfied",
+      "rationale": "The recovered request answers F-92 with references. It repeats the fact but does not contradict it."
+    }
+  ],
+  "outputsSha256": "1a71efa3f0f2fe46416078f59357922315d00689d9bf991d29759dd05ac89cc6"
+}

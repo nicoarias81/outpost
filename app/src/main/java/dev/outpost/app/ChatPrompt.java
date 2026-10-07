@@ -25,16 +25,29 @@ final class ChatPrompt {
         int start=text.length();
         for(int i=0;i<Math.min(4,places.sources().size());i++){
             var locator=places.sources().get(i).locator();var feature=library.osmFeature(locator.documentId(),locator.ordinal()).feature();
-            for(String tag:List.of("cuisine","diet:vegan","wheelchair")){
-                String value=feature.tags().get(tag);if(value!=null&&text.length()-start<700)
-                    text.append('[').append(i+1).append("] ").append(tag).append(": ").append(ResearchPrompt.clean(value,100)).append('\n');
+            boolean anchor=i==0&&places.radius()>0&&places.sources().size()>1;
+            text.append('[').append(i+1).append(anchor?"] Reference place: ":"] Result place: ").append(ResearchPrompt.clean(feature.name(),100)).append('\n');
+            String type=List.of("amenity","tourism","leisure","shop").stream().map(feature.tags()::get).filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(", "));
+            text.append('[').append(i+1).append("] Recorded type: ").append(type.isEmpty()?"not recorded":ResearchPrompt.clean(type,80)).append('\n');
+            String street=feature.tags().get("addr:street");
+            text.append('[').append(i+1).append("] Recorded street: ").append(street==null?"not recorded":ResearchPrompt.clean(street,100)).append('\n');
+            for(String tag:List.of("addr:housenumber","addr:city","cuisine","diet:vegan","wheelchair")){
+                String value=feature.tags().get(tag);if(value!=null&&text.length()-start<1100)
+                    text.append('[').append(i+1).append("] ").append(switch(tag){case "addr:housenumber"->"Recorded house number";case "addr:city"->"Recorded city";default->tag;}).append(": ").append(ResearchPrompt.clean(value,100)).append('\n');
             }
         }
         text.append("\nCURRENT USER MESSAGE: ").append(ResearchPrompt.clean(question,600));
-        text.append("\nWrite a useful answer in English, under 100 words. For a list, describe only the first three results, in distance order. "
-            +"Use short bullets with source references. Include their recorded address or cuisine when supplied. "
-            +"Explain that distances are straight-line estimates and current conditions were not checked. "
-            +"For a single place, explain its recorded location. Do not invent missing details.\nASSISTANT:");
+        if(places.matched()==1&&places.sources().size()==1) {
+            text.append("\nAnswer about this single recorded place in one short paragraph, under 60 words. "
+                +"Answer the current question directly using the supplied facts. State its recorded street when the question asks for it. "
+                +"Keep known address facts and cite [1]. A place name is not a street. If its street is not recorded, keep that field unknown. "
+                +"Current conditions were not checked.\nASSISTANT:");
+        }else{
+            text.append("\nWrite a useful answer in English, under 100 words. Describe only the first three Result places in their supplied order. The Reference place is the search anchor. "
+                +"Use short bullets with source references. Use their recorded types, addresses and cuisines when supplied. "
+                +"When distances are supplied, explain that they are straight-line estimates. Current conditions were not checked. "
+                +"Do not invent missing details.\nASSISTANT:");
+        }
         return new Prepared(text.toString(),List.of());
     }
     record Prepared(String user,List<Library.Hit> sources) {}

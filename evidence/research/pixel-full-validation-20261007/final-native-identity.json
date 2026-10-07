@@ -1,0 +1,55 @@
+{
+  "baselineRun": "pixel-full-20261007T171655Z-95603fbc",
+  "finalFunctionalRun": "pixel-full-20261007T175357Z-cfae8894",
+  "libraries": [
+    {
+      "variant": "releaseQa",
+      "library": "lib/arm64-v8a/libc++_shared.so",
+      "sha256": "ad74bf43eb1fd576518168f664ad16a74e00eeda9595875c33dd87f6dd197869",
+      "identical": true
+    },
+    {
+      "variant": "releaseQa",
+      "library": "lib/arm64-v8a/liboutpost_engine.so",
+      "sha256": "a687fc1f01cd6a82016830769144656df37a18548875204091268216dfac9d74",
+      "identical": true
+    },
+    {
+      "variant": "releaseQa",
+      "library": "lib/x86_64/libc++_shared.so",
+      "sha256": "294e0ce4e88589103952c57c9484f917c26509d66170bc86d07d48f0fc879de4",
+      "identical": true
+    },
+    {
+      "variant": "releaseQa",
+      "library": "lib/x86_64/liboutpost_engine.so",
+      "sha256": "e52791faae706a3f4894fea8acedcec0dc1f830c4e86f0acb76f7e9a157abbac",
+      "identical": true
+    },
+    {
+      "variant": "regressionQa",
+      "library": "lib/arm64-v8a/libc++_shared.so",
+      "sha256": "ad74bf43eb1fd576518168f664ad16a74e00eeda9595875c33dd87f6dd197869",
+      "identical": true
+    },
+    {
+      "variant": "regressionQa",
+      "library": "lib/arm64-v8a/liboutpost_engine.so",
+      "sha256": "aa96f8d9f4e0845ef03338378bdd2d6e5a9fc38dac2a8d41cba1ed6e40b386b9",
+      "identical": true
+    },
+    {
+      "variant": "regressionQa",
+      "library": "lib/x86_64/libc++_shared.so",
+      "sha256": "294e0ce4e88589103952c57c9484f917c26509d66170bc86d07d48f0fc879de4",
+      "identical": true
+    },
+    {
+      "variant": "regressionQa",
+      "library": "lib/x86_64/liboutpost_engine.so",
+      "sha256": "8b64c3928d23742003e3e2f6d575357dbdfc489cfbbea5238f0bc253c9e9cceb",
+      "identical": true
+    }
+  ],
+  "scope": "Both ABIs in both QA variants retain exact native bytes after the narration-only fix. The complete native regression applies to these unchanged libraries; final functional tests use the rebuilt APKs."
+}

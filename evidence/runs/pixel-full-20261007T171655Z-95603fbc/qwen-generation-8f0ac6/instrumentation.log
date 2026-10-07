@@ -1,0 +1,9 @@
+Completed energy: 81 tokens in 11716 ms
+
+Completed cancel-after-three-tokens: 3 tokens in 101 ms
+
+Completed gps-after-cancellation: 43 tokens in 8778 ms
+
+Completed ui-chat-energy: 160 tokens in 12975 ms
+
+PASS: 17 local generation checks on the admitted target.

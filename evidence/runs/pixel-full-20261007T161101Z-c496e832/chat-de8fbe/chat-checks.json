@@ -1,0 +1,34 @@
+{
+  "runId": "chat-c0490d1f840c40de9225",
+  "target": "Pixel10Pro",
+  "version": "0.19.0-rc2",
+  "passed": false,
+  "checksPassed": 4,
+  "checks": [
+    {
+      "name": "Chat runs on the explicitly admitted target architecture\/model",
+      "passed": true
+    },
+    {
+      "name": "Product APK remains offline without INTERNET permission",
+      "passed": true
+    },
+    {
+      "name": "Production APK does not bundle the mock knowledge base",
+      "passed": true
+    },
+    {
+      "name": "Fresh product library is empty and has no mock search results",
+      "passed": true
+    }
+  ],
+  "answers": [
+    {
+      "error": "java.lang.IllegalStateException: android.content.pm.PackageManager$NameNotFoundException: Application package dev.outpost.app.test not found\n\tat dev.outpost.app.TestLibrary.seeded(TestLibrary.java:25)\n\tat dev.outpost.app.ChatChecks.run(ChatChecks.java:72)\n\tat dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:94)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2655)\nCaused by: android.content.pm.PackageManager$NameNotFoundException: Application package dev.outpost.app.test not found\n\tat android.app.ContextImpl.createPackageContextAsUser(ContextImpl.java:3150)\n\tat android.app.ContextImpl.createPackageContext(ContextImpl.java:3117)\n\tat dev.outpost.app.TestLibrary.seeded(TestLibrary.java:12)\n\t... 3 more\n"
+    }
+  ],
+  "modelExecution": true,
+  "promptVersion": "chat-v1.1",
+  "runtimeProfile": {},
+  "scope": "Recorded Android target. Synthetic documents exercise import\/chat plumbing, not general answer quality, battery life or field acceptance."
+}

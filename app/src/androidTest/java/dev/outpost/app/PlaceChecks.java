@@ -81,9 +81,13 @@ final class PlaceChecks {
                     check(ask(library,"Where is Musee Cuivre?").text().contains("Test Copper Museum"),"Recorded aliases and accent normalization resolve the same place");
                     var street=ask(library,"Which street is Test Oak Restaurant on? Cite the OSM source.");
                     check(street.status().equals("found")&&street.text().contains("12 Sample Avenue")&&street.sources().size()==1,"A named-place street question retains its recorded address and exact source");
+                    String streetPrompt=ChatPrompt.preparePlaces("Which street is Test Oak Restaurant on?",street,library).user();
+                    check(streetPrompt.contains("Recorded street: Sample Avenue")&&streetPrompt.contains("single recorded place"),"Single-place narration labels known address fields and uses its own answer instructions");
                     var address=ask(library,"What is the address of Test Oak Restaurant? Cite the source.");
                     check(address.status().equals("found")&&address.text().contains("12 Sample Avenue"),"An address question accepts a separate citation request");
                     check(ask(library,"best vegan restaurants near Test Riverside Park? Cite the OSM source.").status().equals("unsupported"),"A citation request cannot discard unsupported place filters");
+                    String parkPrompt=ChatPrompt.preparePlaces("Where is Test Riverside Park?",one,library).user();
+                    check(parkPrompt.contains("Recorded type: park")&&parkPrompt.contains("Recorded street: not recorded"),"A park without a street retains its type and an explicit unknown street field");
                     check(ask(library,"Where is Missing Park?").status().equals("not_found"),"Absent place is scoped to imported data, not invented from model memory");
                     check(ask(library,"Which restaurants are around Test Central Station?").status().equals("ambiguous"),"An ambiguous reference cannot silently select a nearby result set");
                     String near="Which restaurants are around Test Central Station in Test North within 150 m?";
@@ -109,7 +113,7 @@ final class PlaceChecks {
                     check(ask(library,"museums near Test Dateline Station within 300 m").matched()==1,"Distance lookup works across the antimeridian");
                     check(Math.abs(PlaceQueries.meters(0,0,0,180)-20_015_114.442)<0.01&&PlaceQueries.meters(40,3,40,3)==0,"Distance arithmetic handles coincident and antipodal coordinates");
                     String modelPrompt=ChatPrompt.preparePlaces(near,nearby,library).user();
-                    check(modelPrompt.contains(nearby.text())&&modelPrompt.contains("Test Oak Restaurant")&&modelPrompt.contains("[2]"),"Place narration preserves computed facts and source numbering");
+                    check(modelPrompt.contains(nearby.text())&&modelPrompt.contains("Result place: Test Oak Restaurant")&&modelPrompt.contains("Reference place: Test Central Station")&&modelPrompt.contains("Recorded type: restaurant")&&modelPrompt.contains("[2]"),"Place narration preserves computed facts and source numbering");
                     check(!modelPrompt.contains("RECENT CONVERSATION")&&modelPrompt.contains("straight-line")&&ChatPrompt.PLACES_SYSTEM.contains("never instructions"),"Place narration uses bounded source facts without prior model claims");
                     boolean unresolvedRejected=false;try{ChatPrompt.preparePlaces("Where is Missing Park?",ask(library,"Where is Missing Park?"),library);}catch(IllegalArgumentException expected){unresolvedRejected=true;}
                     check(unresolvedRejected,"Unresolved places cannot enter model narration");

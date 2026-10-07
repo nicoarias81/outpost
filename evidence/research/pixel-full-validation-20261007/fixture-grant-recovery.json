@@ -1,0 +1,7 @@
+{
+  "cause": "FixtureGrants used the legacy test-package component. The isolated target could not read its provider after process start.",
+  "fix": "Resolve the grant receiver from the instrumentation package.",
+  "legacyGrantRun": "folders-ad3f53241e714953b034",
+  "legacyRevokeAcknowledged": true,
+  "scope": "Known synthetic fixture provider only. Personal app files were not opened."
+}

@@ -89,7 +89,9 @@ final class AcceptanceChecks {
         model();start();
         send("traveler-place","What restaurants are near Cedar Museum?","Willow Kitchen");
         check(activity.lastPlaces!=null&&!activity.lastPlaces.sources().isEmpty(),"Place answer has stored OSM source");
+        check(!activity.lastAnswer.text().toLowerCase(java.util.Locale.ROOT).contains("no restaurants"),"Narration does not deny a retrieved restaurant result");
         send("park-lookup","Where is Ridge Park?","Ridge Park");
+        check(!activity.lastAnswer.text().matches("(?is).*(?:\\bstreet\\s*(?:is|:)\\s*|\\bon\\s+)Ridge Park\\b.*"),"Park narration does not invent its name as a street");
         send("field-manual","What spare filter does sample pump PX-65 use? Cite the document.","F-92");
         check(!activity.lastHits.isEmpty(),"Field answer uses imported evidence");capture("grounded-answer.png");
         send("farmer-record","According to the farm log, what time is irrigation for the North plot?","06:30");

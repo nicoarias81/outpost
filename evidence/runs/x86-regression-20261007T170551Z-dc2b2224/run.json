@@ -1,0 +1,61 @@
+{
+  "runId": "x86-regression-20261007T170551Z-dc2b2224",
+  "target": "Outpost35",
+  "device": {
+    "ro.kernel.qemu": "1",
+    "ro.boot.qemu.avd_name": "Outpost35",
+    "ro.product.manufacturer": "unknown",
+    "ro.product.model": "Android SDK built for x86_64",
+    "ro.product.device": "emu64x",
+    "ro.product.cpu.abi": "x86_64",
+    "ro.build.version.release": "15",
+    "ro.build.version.sdk": "35",
+    "ro.build.version.security_patch": "2024-09-05",
+    "ro.build.fingerprint": "Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys",
+    "ro.soc.manufacturer": "AOSP",
+    "ro.soc.model": "ranchu",
+    "sys.boot_completed": "1"
+  },
+  "buildReceipt": {
+    "schemaVersion": 1,
+    "builtAtUtc": "2026-10-07T17:04:59.7550287Z",
+    "versionName": "0.19.0-rc3",
+    "versionCode": 23,
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "mainSourcesSha256": "ae1fdca8fcf0adba8d995c2b5e37c088418382ae85db15a1b88564fad0f98823",
+    "testSourcesSha256": "3725a397b768f7713997b3b6fc61f2316d676705be4c5726948b513a3818f39f",
+    "appSha256": "bc882101b039b96674d230fb2d89fcdf1c8bf58dcacebc78604f113f5a05a100",
+    "testApkSha256": "e0977e3cab0d299464a80a2f87d582fd770b9f5aa3c44a4654a836cbf0c76dd1",
+    "scope": "Successful local Gradle build and lint with unchanged captured inputs; not a signed reproducible-build attestation."
+  },
+  "phases": [
+    {
+      "passed": true,
+      "phase": "numeric"
+    },
+    {
+      "passed": true,
+      "phase": "dispatch"
+    },
+    {
+      "passed": true,
+      "phase": "batch"
+    },
+    {
+      "passed": true,
+      "phase": "decoder4"
+    }
+  ],
+  "passed": true,
+  "originalApksRestored": true,
+  "originalApks": [
+    {
+      "package": "dev.outpost.app",
+      "sha256": "502cb17d2821b82dc62a153b50809ed4aff9e22f6511e9881cfc14d9d6cb0de5"
+    },
+    {
+      "package": "dev.outpost.app.test",
+      "sha256": "53f12a71541d390573a83a2a20ea1bb4426efb004766933e5d9e7fad99200cc0"
+    }
+  ]
+}

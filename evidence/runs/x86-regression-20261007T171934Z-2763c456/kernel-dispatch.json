@@ -1,0 +1,79 @@
+{
+  "version": "0.19.0-rc3",
+  "policyChecks": 64,
+  "failures": 0,
+  "runtimeProfile": {
+    "abi": "x86_64",
+    "onlineCpus": 4,
+    "featureMask": 15,
+    "selected": "Q2_0 AVX2\/F16C",
+    "candidates": [
+      {
+        "id": 0,
+        "name": "Q2_0 reference",
+        "cpuCompatible": true,
+        "compiled": true,
+        "enabled": true,
+        "selected": false
+      },
+      {
+        "id": 1,
+        "name": "Q2_0 AVX2\/F16C",
+        "cpuCompatible": true,
+        "compiled": true,
+        "enabled": true,
+        "selected": true
+      },
+      {
+        "id": 2,
+        "name": "Q2_0 AVX-VNNI",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 3,
+        "name": "Q2_0 AVX-512 VNNI\/VL",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 4,
+        "name": "Q2_0 NEON",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 5,
+        "name": "Q2_0 NEON DotProd",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 6,
+        "name": "Q2_0 NEON I8MM",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      }
+    ],
+    "matrixI8mm": {
+      "compiled": false,
+      "cpuCompatible": false,
+      "requested": false,
+      "matrixNodes": 0,
+      "scope": "Request-scoped matrix I8MM path; one-column\/vector dispatch remains DotProd. No expanded weights or larger graph workspace."
+    }
+  },
+  "limits": "Synthetic x86\/ARM capability and eligibility tests run inside the x86 emulator. They do not execute VNNI or ARM kernels.",
+  "forcedFallback": "Q2_0 reference",
+  "restored": "Q2_0 AVX2\/F16C"
+}

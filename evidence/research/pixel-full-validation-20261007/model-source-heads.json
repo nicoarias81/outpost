@@ -1,0 +1,26 @@
+[
+  {
+    "file": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
+    "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/91cad51170dc346986eccefdc2dd33a9da36ead9/qwen2.5-1.5b-instruct-q4_k_m.gguf",
+    "status": 200,
+    "contentLength": "1117320736",
+    "expectedBytes": 1117320736,
+    "scope": "HEAD metadata only; no model downloaded."
+  },
+  {
+    "file": "Ternary-Bonsai-1.7B-Q2_0_g64.gguf",
+    "url": "https://huggingface.co/prism-ml/Ternary-Bonsai-1.7B-gguf/resolve/983b5dec2ff16aab79990711ba0f828a499a7e6a/Ternary-Bonsai-1.7B-Q2_0_g64.gguf",
+    "status": 200,
+    "contentLength": "490163968",
+    "expectedBytes": 490163968,
+    "scope": "HEAD metadata only; no model downloaded."
+  },
+  {
+    "file": "Ternary-Bonsai-4B-Q2_0_g64.gguf",
+    "url": "https://huggingface.co/prism-ml/Ternary-Bonsai-4B-gguf/resolve/a3eb42bafe873f9686bc97486c43b72ef7d75ec8/Ternary-Bonsai-4B-Q2_0_g64.gguf",
+    "status": 200,
+    "contentLength": "1137806656",
+    "expectedBytes": 1137806656,
+    "scope": "HEAD metadata only; no model downloaded."
+  }
+]

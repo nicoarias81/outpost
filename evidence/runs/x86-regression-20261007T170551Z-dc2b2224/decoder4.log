@@ -1,0 +1,7 @@
+
+Scalar decoder: 7 tokens in 30711 ms
+
+AVX2 decoder: 7 tokens in 6617 ms
+
+PASS decoder: identical text using scalar and AVX2; real model used both paths.
+

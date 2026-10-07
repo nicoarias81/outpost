@@ -1,0 +1,15 @@
+{
+  "version": "0.19.0-rc3",
+  "backend": "Q2_0 AVX2\/F16C",
+  "avx2F16cAvailable": true,
+  "vectorsCompared": 16241,
+  "bitMismatches": 0,
+  "runtimeDispatchAndFallbackPassed": true,
+  "guardPagesPassed": true,
+  "maxAbsoluteDifference": 0,
+  "maxRelativeDifference": 0,
+  "scalarNanosecondsPer4096": 2875.575,
+  "avx2NanosecondsPer4096": 452.995,
+  "microbenchmarkSpeedup": 6.347917747436505,
+  "limits": "Median of 3 warm-cache rounds, 20000 dots per round. Not end-to-end speed or a phone measurement."
+}

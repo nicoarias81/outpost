@@ -1,0 +1,36 @@
+{
+  "runId": "folders-ad3f53241e714953b034",
+  "version": "0.19.0-rc3",
+  "passed": false,
+  "checksPassed": 6,
+  "checks": [
+    {
+      "name": "Tests use an admitted synthetic target",
+      "passed": true
+    },
+    {
+      "name": "Folder selection adds no broad storage or network permission",
+      "passed": true
+    },
+    {
+      "name": "Folder action uses the system directory picker",
+      "passed": true
+    },
+    {
+      "name": "Folder picker requests read access without source write access",
+      "passed": true
+    },
+    {
+      "name": "Actual schema-3 database migrates to schema 5",
+      "passed": true
+    },
+    {
+      "name": "Schema upgrade preserves existing document bytes and identity",
+      "passed": true
+    },
+    {
+      "error": "java.lang.IllegalStateException: Synthetic document provider did not become readable after its owner granted access.\n\tat dev.outpost.app.FixtureGrants.grant(FixtureGrants.java:22)\n\tat dev.outpost.app.FolderChecks.grantFixtureAccess(FolderChecks.java:127)\n\tat dev.outpost.app.FolderChecks.run(FolderChecks.java:49)\n\tat dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:96)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2655)\n"
+    }
+  ],
+  "scope": "Real Android DocumentsProvider, SQLite and Activity checks on an admitted synthetic target; no model execution."
+}

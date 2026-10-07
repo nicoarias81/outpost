@@ -1,0 +1,6 @@
+{
+  "stage": "Initial regression QA compile",
+  "error": "Files.readString(Path) is absent from the compileSdk Android API.",
+  "fix": "Read the ownership marker with Files.readAllBytes and StandardCharsets.US_ASCII.",
+  "productCodeChanged": false
+}

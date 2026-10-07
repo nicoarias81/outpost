@@ -51,9 +51,11 @@ Java files are in [app/src/main/java/dev/outpost/app](../app/src/main/java/dev/o
 
 ### Place questions
 
-`Library.answerPlaces` uses stored names, categories and the stated landmark or radius. It detects ambiguous names and conflicting IDs. It calculates approximate straight-line distances. It returns a maximum of five results with source references.
+`Library.answerPlaces` uses stored names, categories and the stated landmark or radius. Street and address questions resolve the same named feature. It detects ambiguous names and conflicting IDs. It calculates approximate straight-line distances. It returns a maximum of five results with source references.
 
-When a model is ready, `ChatPrompt.preparePlaces` supplies the resolved places, calculated distances and selected recorded tags. The model writes a contextual answer with the same source references. List answers describe up to three results. The saved source list retains all returned records.
+When a model is ready, `ChatPrompt.preparePlaces` supplies the resolved places, calculated distances and selected recorded tags. The prompt labels reference places, result places, recorded types and street fields. Missing streets remain explicit unknown values.
+
+The model writes an answer with the same source references. List answers describe up to three results. Single-place answers use a short paragraph. The saved source list retains all returned records.
 
 Unresolved queries, conflicting snapshots and missing models keep the direct database response. This path does not give GPS position, current conditions, routes or polygon containment. Model wording can be incorrect. Source review remains necessary.
 
@@ -65,7 +67,9 @@ Model import compares size and SHA256 before activation. An alternative download
 
 ### Other questions
 
-FTS retrieves passages for the question. If the first search gives no result, another search can include the previous user question. `ChatPrompt` considers the last two completed or length-limited turns. Independent document questions omit unrelated turns. Follow-ups, shared topics and explicit ongoing preferences retain bounded context. This selection uses text rules and can misclassify context. The prompt also includes a maximum of three source excerpts related to the question.
+FTS retrieves passages for the question. If the first search gives no result, another search can include the previous user question.
+
+`ChatPrompt` considers the last two completed or length-limited turns. Independent document questions omit unrelated turns. Follow-ups, shared topics and explicit ongoing preferences retain bounded context. This selection uses text rules and can misclassify context. The prompt also includes a maximum of three source excerpts related to the question.
 
 Later prompts exclude failed, canceled and interrupted output. The prompt treats source text as data. It replaces role delimiters in source text with literal text.
 

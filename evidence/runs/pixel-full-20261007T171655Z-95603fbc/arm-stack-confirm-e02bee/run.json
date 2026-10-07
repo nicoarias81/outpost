@@ -1,0 +1,32 @@
+{
+  "runId": "arm-stack-confirm-34759817652e4a94",
+  "buildReceipt": {
+    "testSourcesSha256": "3c10a72d7734955257675f36dd18f6f56a5df85a3160e86c37f80e5464b296b7",
+    "runId": "regression-build-20261007T171557Z-3c4d155c",
+    "mainSourcesSha256": "40fd30b2039362114018563f0cd48117965c8e2aa7e5fb52f0a87b2673161960",
+    "artifacts": [
+      {
+        "path": "app/build/outputs/apk/regressionQa/app-regressionQa.apk",
+        "bytes": 27235048,
+        "sha256": "8eacd7df05766df4b05d4bb11bb67ed2d94c66bde64fd6b540af3377b9623d2f"
+      },
+      {
+        "path": "app/build/outputs/apk/androidTest/regressionQa/app-regressionQa-androidTest.apk",
+        "bytes": 908329,
+        "sha256": "8077f75bc074ea9542136720d825fe370e27cf9186f5e38874b0e8bdd613162e"
+      }
+    ],
+    "scope": "Dedicated debuggable regression QA; synthetic data only; research native APIs for ARM tests."
+  },
+  "device": {
+    "ro.kernel.qemu": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "sys.boot_completed": "1"
+  },
+  "parentValidation": "pixel-full-20261007T171655Z-95603fbc",
+  "sourceCheckpoint": "508d97a51712d3294c46fbe3a95578c7dd3f9dc3",
+  "scope": "Metadata for the exact archived stack report. USB-powered owned synthetic package. No host inference."
+}

@@ -1,0 +1,20 @@
+{
+  "reviewer": {
+    "kind": "assistant",
+    "name": "Codex"
+  },
+  "runId": "pixel-full-20261007T175357Z-cfae8894",
+  "taskOutcome": "failed",
+  "failures": [
+    {
+      "case": "traveler-place",
+      "reason": "The result includes Willow Kitchen but denies that any restaurants are listed. The prompt omitted its amenity=restaurant classification."
+    },
+    {
+      "case": "park-lookup",
+      "reason": "The model invented Ridge Park as the recorded street. No addr:street exists for this fixture."
+    }
+  ],
+  "action": "Supply explicit reference/result roles, names, recorded types and missing street fields. Add non-debuggable acceptance assertions.",
+  "scope": "Review of the exact synthetic outputs; automatic execution had passed."
+}

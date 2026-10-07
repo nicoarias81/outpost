@@ -104,6 +104,10 @@ The runner archives an existing owned QA store without reading its documents. Re
 
 The runner requires PowerShell 7 for source fingerprints. Existing regression packages need a matching prior ownership journal. The release QA store needs its synthetic ownership marker. Do not use this runner with unknown QA data.
 
+The current [RC3 validation summary](../evidence/research/pixel-full-validation-20261007/validation-summary.json) records 422 functional checks and 309 native controls. It also records 64 static release checks and the x86 regression. Final prompt changes retain identical native libraries. Their functional checks use the rebuilt APKs. Earlier failures and attributed answer reviews remain available.
+
+Use `all --functional-only` after a change confined to prompts or the user interface. Before reusing native results, compare the native library hashes. Do not reuse them after native or backend changes.
+
 ## Original phone package
 
 The wrapper `scripts/test-pixel-chat-isolated.ps1` separates test data from the original phone data. It temporarily moves databases, preferences and document files to private locations. The tests use a synthetic store. The wrapper restores the original data and compares its digests in `finally`.

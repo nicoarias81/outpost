@@ -1,0 +1,223 @@
+{
+  "session": "pixel-full-20261007T181117Z-e652e078",
+  "functionalOnly": true,
+  "status": "restored",
+  "out": "E:\\projects\\outpost\\evidence\\runs\\pixel-full-20261007T181117Z-e652e078",
+  "device": {
+    "ro.kernel.qemu": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "sys.boot_completed": "1"
+  },
+  "radioBefore": {
+    "airplane_mode_on": "0",
+    "wifi_on": "1",
+    "mobile_data": "1",
+    "bluetooth_on": "1"
+  },
+  "dataPreferencesBefore": {
+    "mobile_data2": "1",
+    "mobile_data3": "0",
+    "mobile_data": "1",
+    "mobile_data_always_on": "1"
+  },
+  "initialDefaultNetwork": "Active default network: 581",
+  "originalBefore": {
+    "dev.outpost.app": {
+      "base.apk": "095c5c56995e3de9947d0125a0757387c429191cf0602700f7d5b9b8c036239f"
+    },
+    "dev.outpost.app.test": {
+      "base.apk": "92d2c533b1aaff6267c1607b46f6219351589da83bf62ea3b1b1fa4f0c0fa0d0"
+    },
+    "databases": "46b566b9982ee0d42000e7f3b31ccb6188c6781685fbc8dde0ed0f20bfc84824  -",
+    "shared_prefs": "e18580c419b42c8dc878c8566cdc4d1f6cd5cc1618713e1c1fed4945c7cea100  -",
+    "files/documents": "absent"
+  },
+  "releaseReceipt": {
+    "schemaVersion": 1,
+    "runId": "release-20261007T180817Z-7756b143",
+    "builtAtUtc": "2026-10-07T18:08:18.1687815Z",
+    "mainSourcesSha256": "7700156b5124b5f1197794878939afe5b6238945632e51b0a185096b77e4191d",
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "artifacts": [
+      {
+        "bytes": 23449689,
+        "sha256": "3e15d8f30147c97205f364b5f86211031c596da432d9bd7e75f43558bf1b6615",
+        "path": "app/build/outputs/apk/release/app-release-unsigned.apk"
+      },
+      {
+        "bytes": 17366140,
+        "sha256": "b5bdf598a48078f6bab788940571a1dcef71e09c7837e8cdbb580cef3ce5905e",
+        "path": "app/build/outputs/bundle/release/app-release.aab"
+      },
+      {
+        "bytes": 23453797,
+        "sha256": "b32b47d53ccb4044c18df4978fc532a38d5ea450f8cd0bdd9dca7402b6fd64a7",
+        "path": "app/build/outputs/apk/releaseQa/app-releaseQa.apk"
+      },
+      {
+        "bytes": 96882,
+        "sha256": "8e73988cdb03e9f113969c8e588b1175f334b0fa65e91ff787768a15e953de2f",
+        "path": "app/build/outputs/apk/androidTest/releaseQa/app-releaseQa-androidTest.apk"
+      }
+    ],
+    "scope": "Unsigned production candidate; debug-signed non-debuggable QA twin. Not approved for distribution or exact signed-device acceptance."
+  },
+  "regressionReceipt": {
+    "artifacts": [
+      {
+        "bytes": 27237292,
+        "sha256": "1356bab09a90a1281f979f98afb0f7be9b4b07e2d190739515dda7a54a13eee5",
+        "path": "app/build/outputs/apk/regressionQa/app-regressionQa.apk"
+      },
+      {
+        "bytes": 908841,
+        "sha256": "ec7b2a22fb5f8badb24303fd19756597d866ad2d32206ce99b24ee50217135e2",
+        "path": "app/build/outputs/apk/androidTest/regressionQa/app-regressionQa-androidTest.apk"
+      }
+    ],
+    "testSourcesSha256": "017e850b9cf7b273eb1d3ea6551a96c5bed415a2893cc4929b3f0c55271d0ecf",
+    "mainSourcesSha256": "7700156b5124b5f1197794878939afe5b6238945632e51b0a185096b77e4191d",
+    "runId": "regression-build-20261007T180852Z-a0d32ff1",
+    "scope": "Dedicated debuggable regression QA; synthetic data only; research native APIs for ARM tests."
+  },
+  "regressionOwner": "pixel-regression-20261007T181117Z-e652e078",
+  "regressionCreated": true,
+  "regressionExistedBefore": true,
+  "regressionPriorOwner": "pixel-regression-20261007T161101Z-c496e832",
+  "regressionArchives": [
+    {
+      "path": "databases",
+      "index": 0,
+      "present": true,
+      "digest": "484ee1bf3dfab6ec11db61629f95a81eb5af66b4b1187c8221606b917526074f  -"
+    },
+    {
+      "path": "shared_prefs",
+      "index": 1,
+      "present": true,
+      "digest": "b5a3c72b4e35162b3963e0c8e74628a5bd43e49a680e1ca2ad6b2f5c50f6f41c  -"
+    },
+    {
+      "path": "files/documents",
+      "index": 2,
+      "present": false,
+      "digest": "absent"
+    }
+  ],
+  "releaseStoreIsolated": true,
+  "phases": [
+    {
+      "phase": "model-import",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\model-import-467fd0",
+      "checks": 0
+    },
+    {
+      "phase": "validation-isolate",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\validation-isolate-3ca220",
+      "checks": 0
+    },
+    {
+      "phase": "accept-prepare",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\accept-prepare-308d7f",
+      "checks": 20
+    },
+    {
+      "phase": "release-smoke-before-offline",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\release-smoke-before-offline-415c6a",
+      "checks": 31
+    },
+    {
+      "phase": "release-bonsai17-before-offline",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\release-bonsai17-before-offline-5ee681",
+      "checks": 24
+    },
+    {
+      "phase": "chat",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\chat-51f1a5",
+      "checks": 70
+    },
+    {
+      "phase": "knowledge",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\knowledge-7def55",
+      "checks": 60
+    },
+    {
+      "phase": "folders",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\folders-837214",
+      "checks": 30
+    },
+    {
+      "phase": "osm",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\osm-ccfa39",
+      "checks": 42
+    },
+    {
+      "phase": "places",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\places-92b688",
+      "checks": 71
+    },
+    {
+      "phase": "answer-history-regression",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\answer-history-regression-891fcd",
+      "checks": 0
+    },
+    {
+      "phase": "qwen-generation",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\qwen-generation-384cb3",
+      "checks": 17
+    },
+    {
+      "phase": "accept-chat",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\accept-chat-eae5c9",
+      "checks": 35
+    },
+    {
+      "phase": "accept-seed",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\accept-seed-657f43",
+      "checks": 5
+    },
+    {
+      "phase": "accept-recover",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\accept-recover-ef9860",
+      "checks": 17
+    },
+    {
+      "phase": "validation-restore",
+      "passed": true,
+      "folder": "evidence\\runs\\pixel-full-20261007T181117Z-e652e078\\validation-restore-f1e53c",
+      "checks": 0
+    }
+  ],
+  "passed": true,
+  "originalPreserved": true,
+  "radiosRestored": true,
+  "currentPhase": null,
+  "acceptOwner": "accept-20261007T181204Z-22d5bcb7",
+  "offlineEvidence": {
+    "airplaneMode": true,
+    "wifiOff": true,
+    "defaultNetwork": "none",
+    "dataPreferencesUnchanged": true
+  },
+  "releaseStoreRestored": true,
+  "regressionMarkerFinal": "pixel-regression-20261007T161101Z-c496e832",
+  "regressionDataRestored": true
+}

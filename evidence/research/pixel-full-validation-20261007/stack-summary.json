@@ -1,0 +1,566 @@
+{
+  "schemaVersion": 1,
+  "runId": "arm-stack-confirm-34759817652e4a94",
+  "reportSha256": "5c8d207524849bbebe4b2055ad33a550bf2727fb31ef7cd4b6d230e356d240fe",
+  "buildReceipt": {
+    "testSourcesSha256": "3c10a72d7734955257675f36dd18f6f56a5df85a3160e86c37f80e5464b296b7",
+    "runId": "regression-build-20261007T171557Z-3c4d155c",
+    "mainSourcesSha256": "40fd30b2039362114018563f0cd48117965c8e2aa7e5fb52f0a87b2673161960",
+    "artifacts": [
+      {
+        "path": "app/build/outputs/apk/regressionQa/app-regressionQa.apk",
+        "bytes": 27235048,
+        "sha256": "8eacd7df05766df4b05d4bb11bb67ed2d94c66bde64fd6b540af3377b9623d2f"
+      },
+      {
+        "path": "app/build/outputs/apk/androidTest/regressionQa/app-regressionQa-androidTest.apk",
+        "bytes": 908329,
+        "sha256": "8077f75bc074ea9542136720d825fe370e27cf9186f5e38874b0e8bdd613162e"
+      }
+    ],
+    "scope": "Dedicated debuggable regression QA; synthetic data only; research native APIs for ARM tests."
+  },
+  "checksPassed": 140,
+  "exactParity": true,
+  "cases": [
+    {
+      "case": 0,
+      "pairs": [
+        {
+          "round": 0,
+          "tokens": 133,
+          "candidateFirst": false,
+          "prefillMs": {
+            "original": 10322,
+            "current": 8282,
+            "ratio": 0.802363882968417
+          },
+          "decodeMs": {
+            "original": 23268,
+            "current": 17244,
+            "ratio": 0.7411036616812791
+          },
+          "firstTokenMs": {
+            "original": 10466,
+            "current": 8434,
+            "ratio": 0.8058475062105867
+          },
+          "totalMs": {
+            "original": 33733,
+            "current": 25677,
+            "ratio": 0.7611834109032698
+          },
+          "processCpuMs": {
+            "original": 154266,
+            "current": 152172,
+            "ratio": 0.9864260433277585
+          },
+          "conditionsOriginal": {
+            "thermalStatus": 0,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 369,
+            "plugged": 2
+          },
+          "conditionsCurrent": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 371,
+            "plugged": 2
+          }
+        },
+        {
+          "round": 1,
+          "tokens": 133,
+          "candidateFirst": true,
+          "prefillMs": {
+            "original": 10377,
+            "current": 8688,
+            "ratio": 0.8372361954322058
+          },
+          "decodeMs": {
+            "original": 23106,
+            "current": 17697,
+            "ratio": 0.7659049597507142
+          },
+          "firstTokenMs": {
+            "original": 10527,
+            "current": 8836,
+            "ratio": 0.839365441246319
+          },
+          "totalMs": {
+            "original": 33632,
+            "current": 26532,
+            "ratio": 0.7888915318744053
+          },
+          "processCpuMs": {
+            "original": 153818,
+            "current": 157206,
+            "ratio": 1.0220260307636297
+          },
+          "conditionsOriginal": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 372,
+            "plugged": 2
+          },
+          "conditionsCurrent": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 371,
+            "plugged": 2
+          }
+        },
+        {
+          "round": 2,
+          "tokens": 133,
+          "candidateFirst": false,
+          "prefillMs": {
+            "original": 10515,
+            "current": 8200,
+            "ratio": 0.7798383262006657
+          },
+          "decodeMs": {
+            "original": 23380,
+            "current": 17426,
+            "ratio": 0.7453378956372968
+          },
+          "firstTokenMs": {
+            "original": 10668,
+            "current": 8351,
+            "ratio": 0.7828083989501312
+          },
+          "totalMs": {
+            "original": 34047,
+            "current": 25776,
+            "ratio": 0.7570711075865715
+          },
+          "processCpuMs": {
+            "original": 155822,
+            "current": 152726,
+            "ratio": 0.980131175315424
+          },
+          "conditionsOriginal": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 372,
+            "plugged": 2
+          },
+          "conditionsCurrent": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 373,
+            "plugged": 2
+          }
+        }
+      ],
+      "medianRatios": {
+        "prefillMs": 0.802363882968417,
+        "decodeMs": 0.7453378956372968,
+        "firstTokenMs": 0.8058475062105867,
+        "totalMs": 0.7611834109032698,
+        "processCpuMs": 0.9864260433277585
+      },
+      "medianTimes": {
+        "prefillMs": {
+          "original": 10377,
+          "current": 8282
+        },
+        "decodeMs": {
+          "original": 23268,
+          "current": 17426
+        },
+        "firstTokenMs": {
+          "original": 10527,
+          "current": 8434
+        },
+        "totalMs": {
+          "original": 33733,
+          "current": 25776
+        },
+        "processCpuMs": {
+          "original": 154266,
+          "current": 152726
+        }
+      },
+      "totalImproved": true
+    },
+    {
+      "case": 1,
+      "pairs": [
+        {
+          "round": 0,
+          "tokens": 162,
+          "candidateFirst": true,
+          "prefillMs": {
+            "original": 11785,
+            "current": 9939,
+            "ratio": 0.843360203648706
+          },
+          "decodeMs": {
+            "original": 28147,
+            "current": 21741,
+            "ratio": 0.7724091377411447
+          },
+          "firstTokenMs": {
+            "original": 11939,
+            "current": 10087,
+            "ratio": 0.8448781304966915
+          },
+          "totalMs": {
+            "original": 40086,
+            "current": 31827,
+            "ratio": 0.7939679688669361
+          },
+          "processCpuMs": {
+            "original": 182214,
+            "current": 188723,
+            "ratio": 1.0357217337855489
+          },
+          "conditionsOriginal": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 373,
+            "plugged": 2
+          },
+          "conditionsCurrent": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 373,
+            "plugged": 2
+          }
+        },
+        {
+          "round": 1,
+          "tokens": 162,
+          "candidateFirst": false,
+          "prefillMs": {
+            "original": 12004,
+            "current": 9581,
+            "ratio": 0.7981506164611796
+          },
+          "decodeMs": {
+            "original": 28281,
+            "current": 21904,
+            "ratio": 0.7745129238711502
+          },
+          "firstTokenMs": {
+            "original": 12179,
+            "current": 9734,
+            "ratio": 0.7992446013630019
+          },
+          "totalMs": {
+            "original": 40459,
+            "current": 31637,
+            "ratio": 0.7819520996564423
+          },
+          "processCpuMs": {
+            "original": 184181,
+            "current": 187394,
+            "ratio": 1.0174447961516118
+          },
+          "conditionsOriginal": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 373,
+            "plugged": 2
+          },
+          "conditionsCurrent": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 374,
+            "plugged": 2
+          }
+        },
+        {
+          "round": 2,
+          "tokens": 162,
+          "candidateFirst": true,
+          "prefillMs": {
+            "original": 12538,
+            "current": 10479,
+            "ratio": 0.8357792311373424
+          },
+          "decodeMs": {
+            "original": 28782,
+            "current": 22102,
+            "ratio": 0.7679104996178167
+          },
+          "firstTokenMs": {
+            "original": 12714,
+            "current": 10652,
+            "ratio": 0.8378165801478685
+          },
+          "totalMs": {
+            "original": 41495,
+            "current": 32754,
+            "ratio": 0.7893481142306302
+          },
+          "processCpuMs": {
+            "original": 188920,
+            "current": 194072,
+            "ratio": 1.0272708024560662
+          },
+          "conditionsOriginal": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 374,
+            "plugged": 2
+          },
+          "conditionsCurrent": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 374,
+            "plugged": 2
+          }
+        }
+      ],
+      "medianRatios": {
+        "prefillMs": 0.8357792311373424,
+        "decodeMs": 0.7724091377411447,
+        "firstTokenMs": 0.8378165801478685,
+        "totalMs": 0.7893481142306302,
+        "processCpuMs": 1.0272708024560662
+      },
+      "medianTimes": {
+        "prefillMs": {
+          "original": 12004,
+          "current": 9939
+        },
+        "decodeMs": {
+          "original": 28281,
+          "current": 21904
+        },
+        "firstTokenMs": {
+          "original": 12179,
+          "current": 10087
+        },
+        "totalMs": {
+          "original": 40459,
+          "current": 31827
+        },
+        "processCpuMs": {
+          "original": 184181,
+          "current": 188723
+        }
+      },
+      "totalImproved": true
+    },
+    {
+      "case": 2,
+      "pairs": [
+        {
+          "round": 0,
+          "tokens": 154,
+          "candidateFirst": false,
+          "prefillMs": {
+            "original": 8008,
+            "current": 6653,
+            "ratio": 0.8307942057942058
+          },
+          "decodeMs": {
+            "original": 25539,
+            "current": 19302,
+            "ratio": 0.7557852695876894
+          },
+          "firstTokenMs": {
+            "original": 8155,
+            "current": 6801,
+            "ratio": 0.833966891477621
+          },
+          "totalMs": {
+            "original": 33693,
+            "current": 26102,
+            "ratio": 0.774700976463954
+          },
+          "processCpuMs": {
+            "original": 149391,
+            "current": 154520,
+            "ratio": 1.0343327241935591
+          },
+          "conditionsOriginal": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 374,
+            "plugged": 2
+          },
+          "conditionsCurrent": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 374,
+            "plugged": 2
+          }
+        },
+        {
+          "round": 1,
+          "tokens": 154,
+          "candidateFirst": true,
+          "prefillMs": {
+            "original": 8268,
+            "current": 6958,
+            "ratio": 0.8415578132559265
+          },
+          "decodeMs": {
+            "original": 26288,
+            "current": 19415,
+            "ratio": 0.7385499087035909
+          },
+          "firstTokenMs": {
+            "original": 8423,
+            "current": 7107,
+            "ratio": 0.8437611302386323
+          },
+          "totalMs": {
+            "original": 34711,
+            "current": 26521,
+            "ratio": 0.7640517415228602
+          },
+          "processCpuMs": {
+            "original": 153897,
+            "current": 157156,
+            "ratio": 1.0211765011663645
+          },
+          "conditionsOriginal": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 375,
+            "plugged": 2
+          },
+          "conditionsCurrent": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 375,
+            "plugged": 2
+          }
+        },
+        {
+          "round": 2,
+          "tokens": 154,
+          "candidateFirst": false,
+          "prefillMs": {
+            "original": 8068,
+            "current": 6650,
+            "ratio": 0.8242439266236986
+          },
+          "decodeMs": {
+            "original": 26084,
+            "current": 18990,
+            "ratio": 0.7280325103511731
+          },
+          "firstTokenMs": {
+            "original": 8247,
+            "current": 6831,
+            "ratio": 0.8283012004365223
+          },
+          "totalMs": {
+            "original": 34330,
+            "current": 25820,
+            "ratio": 0.7521118555199534
+          },
+          "processCpuMs": {
+            "original": 151927,
+            "current": 152830,
+            "ratio": 1.0059436439869147
+          },
+          "conditionsOriginal": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 376,
+            "plugged": 2
+          },
+          "conditionsCurrent": {
+            "thermalStatus": 1,
+            "interactive": true,
+            "keyguard": false,
+            "benchmarkResumed": true,
+            "benchmarkHasFocus": true,
+            "batteryTenthsC": 376,
+            "plugged": 2
+          }
+        }
+      ],
+      "medianRatios": {
+        "prefillMs": 0.8307942057942058,
+        "decodeMs": 0.7385499087035909,
+        "firstTokenMs": 0.833966891477621,
+        "totalMs": 0.7640517415228602,
+        "processCpuMs": 1.0211765011663645
+      },
+      "medianTimes": {
+        "prefillMs": {
+          "original": 8068,
+          "current": 6653
+        },
+        "decodeMs": {
+          "original": 26084,
+          "current": 19302
+        },
+        "firstTokenMs": {
+          "original": 8247,
+          "current": 6831
+        },
+        "totalMs": {
+          "original": 34330,
+          "current": 26102
+        },
+        "processCpuMs": {
+          "original": 151927,
+          "current": 154520
+        }
+      },
+      "totalImproved": true
+    }
+  ],
+  "scope": "Original0.16 4/6 DotProd policy versus combined0.18 6/6 + attention4 + I8MM policy inside one final APK; not cross-APK timing, multiplied historical ratios or energy evidence.",
+  "combinedGate": true
+}

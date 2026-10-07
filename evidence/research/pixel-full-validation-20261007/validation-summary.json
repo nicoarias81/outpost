@@ -1,0 +1,63 @@
+{
+  "version": "0.19.0-rc3",
+  "versionCode": 23,
+  "functionalRun": "pixel-full-20261007T181117Z-e652e078",
+  "functionalChecks": 422,
+  "functionalPassed": true,
+  "kernelRun": "pixel-full-20261007T171655Z-95603fbc",
+  "kernelControls": 309,
+  "kernelPassed": true,
+  "finalNativeIdentity": "final-native-identity-v3.json",
+  "x86Run": "x86-regression-20261007T171934Z-2763c456",
+  "x86KernelPhases": 4,
+  "x86FunctionalChecks": 53,
+  "staticReleaseChecks": 64,
+  "radiosRestored": true,
+  "originalAppDataPreserved": true,
+  "pairedTotalTimeReductionsPercent": [
+    23.88,
+    21.07,
+    23.59
+  ],
+  "exactTokensAndLogits": true,
+  "device": {
+    "ro.kernel.qemu": "",
+    "ro.product.manufacturer": "Google",
+    "ro.product.model": "Pixel 10 Pro",
+    "ro.product.cpu.abi": "arm64-v8a",
+    "ro.build.fingerprint": "google/blazer/blazer:17/CP3A.260905.009/16091614:user/release-keys",
+    "sys.boot_completed": "1"
+  },
+  "releaseReceipt": {
+    "schemaVersion": 1,
+    "runId": "release-20261007T180817Z-7756b143",
+    "builtAtUtc": "2026-10-07T18:08:18.1687815Z",
+    "mainSourcesSha256": "7700156b5124b5f1197794878939afe5b6238945632e51b0a185096b77e4191d",
+    "backendRevision": "86ea01d05ec237f89b78b41c8c1ee0f908141ac7",
+    "artifacts": [
+      {
+        "bytes": 23449689,
+        "sha256": "3e15d8f30147c97205f364b5f86211031c596da432d9bd7e75f43558bf1b6615",
+        "path": "app/build/outputs/apk/release/app-release-unsigned.apk"
+      },
+      {
+        "bytes": 17366140,
+        "sha256": "b5bdf598a48078f6bab788940571a1dcef71e09c7837e8cdbb580cef3ce5905e",
+        "path": "app/build/outputs/bundle/release/app-release.aab"
+      },
+      {
+        "bytes": 23453797,
+        "sha256": "b32b47d53ccb4044c18df4978fc532a38d5ea450f8cd0bdd9dca7402b6fd64a7",
+        "path": "app/build/outputs/apk/releaseQa/app-releaseQa.apk"
+      },
+      {
+        "bytes": 96882,
+        "sha256": "8e73988cdb03e9f113969c8e588b1175f334b0fa65e91ff787768a15e953de2f",
+        "path": "app/build/outputs/apk/androidTest/releaseQa/app-releaseQa-androidTest.apk"
+      }
+    ],
+    "scope": "Unsigned production candidate; debug-signed non-debuggable QA twin. Not approved for distribution or exact signed-device acceptance."
+  },
+  "answerReview": "final-answer-review.json",
+  "scope": "Registered 16 GB Pixel 10 Pro and Outpost35. Synthetic and saved-OSM fixtures. USB-powered warm model pages. Exact native identity justifies reuse of the full native regression after prompt-only changes. Not production-certificate, GrapheneOS, 12 GB, 50 GB total-footprint, clean-phone user setup, broad answer-quality or energy acceptance."
+}

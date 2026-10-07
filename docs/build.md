@@ -79,7 +79,7 @@ The audit examines manifest settings, ABIs, notices, assets, JNI exports and nat
 
 ## Release state
 
-The source candidate is `0.19.0-rc3`, version code 23. Device validation is in progress. The public [GitHub repository](https://github.com/nicoarias81/outpost/releases) has a `v0.19.0-rc2` QA prerelease. Its immutable tag identifies the recorded source, including the license and release instructions. Later documentation commits update the publication status without changing the APK.
+The source candidate is `0.19.0-rc3`, version code 23. Pixel QA validation is complete. RC3 publication is pending. The public [GitHub repository](https://github.com/nicoarias81/outpost/releases) has a `v0.19.0-rc2` QA prerelease. Its immutable tag identifies the recorded source, including the license and release instructions. Later documentation commits update the publication status without changing the APK.
 
 The prerelease contains the recorded QA APK, source archive, checksums, license files and artifact metadata. `release-manifest.json` records the APK hash, certificate and source identity. The QA APK has a development certificate and application ID `dev.outpost.app.releaseqa`. Production identity, signing and final signed-device acceptance are not complete.
 

@@ -112,6 +112,7 @@ final class OsmChecks {
             if(generate){test.runOnMainSync(app::showChat);test.runOnMainSync(()->app.sendMessage("Which street is Fixture Pharmacy on? Cite the OSM source."));for(int i=0;i<1400&&!app.answerDone;i++)SystemClock.sleep(100);test.waitForIdleSync();NativeEngine.Result result=app.lastAnswer;
                 answers.put(new JSONObject().put("text",result==null?"":result.text()).put("system",app.lastSystem==null?"":app.lastSystem).put("user",app.lastPrepared==null?"":app.lastPrepared.user()).put("tokens",result==null?0:result.tokens()).put("totalMs",result==null?0:result.totalMs()).put("reason",result==null?-1:result.reason()));screenshot("osm-chat.png");
                 check(app.answerDone&&result!=null&&result.text().contains("Sample Lane")&&result.text().contains("[1]"),"Real offline chat answers from the imported OSM feature and cites its source");
+                check(!result.text().toLowerCase(java.util.Locale.ROOT).matches("(?s).*street.{0,40}(unknown|unavailable|not available|not recorded|not supplied|not provided).*"),"OSM narration does not deny the supplied street name");
             }
             success=true;response.putString("stream","\nPASS OSM: "+passed+" checks.\n");
         }catch(Throwable error){try{checks.put(new JSONObject().put("error",android.util.Log.getStackTraceString(error)));}catch(Exception ignored){}response.putString("stream","\nFAIL OSM: "+android.util.Log.getStackTraceString(error));}

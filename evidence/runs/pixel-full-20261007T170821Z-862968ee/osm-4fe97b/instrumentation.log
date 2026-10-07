@@ -1,0 +1,5 @@
+FAIL OSM: java.lang.AssertionError: Real offline chat answers from the imported OSM feature and cites its source
+	at dev.outpost.app.OsmChecks.check(OsmChecks.java:28)
+	at dev.outpost.app.OsmChecks.run(OsmChecks.java:114)
+	at dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:95)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2655)

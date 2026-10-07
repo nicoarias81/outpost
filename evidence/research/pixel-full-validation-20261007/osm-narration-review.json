@@ -1,0 +1,12 @@
+{
+  "reviewer": {
+    "kind": "assistant",
+    "name": "Codex"
+  },
+  "runId": "pixel-full-20261007T171655Z-95603fbc",
+  "automaticAssertionPassed": true,
+  "taskOutcome": "failed",
+  "reason": "The response names Sample Lane and cites [1], but says that the exact street name is unavailable. The supplied addr:street is Sample Lane.",
+  "action": "Label recorded address fields; separate single-place instructions from list instructions; assert that the answer does not deny its supplied street.",
+  "scope": "Review of this exact synthetic output; no general model accuracy claim."
+}

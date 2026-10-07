@@ -1,0 +1,6 @@
+FAIL folders: java.lang.IllegalStateException: Synthetic document provider did not become readable after its owner granted access.
+	at dev.outpost.app.FixtureGrants.grant(FixtureGrants.java:22)
+	at dev.outpost.app.FolderChecks.grantFixtureAccess(FolderChecks.java:127)
+	at dev.outpost.app.FolderChecks.run(FolderChecks.java:49)
+	at dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:96)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2655)

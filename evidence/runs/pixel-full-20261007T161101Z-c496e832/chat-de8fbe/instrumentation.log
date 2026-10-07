@@ -1,0 +1,10 @@
+FAIL chat: java.lang.IllegalStateException: android.content.pm.PackageManager$NameNotFoundException: Application package dev.outpost.app.test not found
+	at dev.outpost.app.TestLibrary.seeded(TestLibrary.java:25)
+	at dev.outpost.app.ChatChecks.run(ChatChecks.java:72)
+	at dev.outpost.app.GenerationInstrumentation.onStart(GenerationInstrumentation.java:94)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2655)
+Caused by: android.content.pm.PackageManager$NameNotFoundException: Application package dev.outpost.app.test not found
+	at android.app.ContextImpl.createPackageContextAsUser(ContextImpl.java:3150)
+	at android.app.ContextImpl.createPackageContext(ContextImpl.java:3117)
+	at dev.outpost.app.TestLibrary.seeded(TestLibrary.java:12)
+	... 3 more

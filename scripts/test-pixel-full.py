@@ -4,7 +4,7 @@ import argparse,datetime,hashlib,json,re,subprocess,time,uuid
 R=Path(__file__).resolve().parents[1];cfg=json.loads((R/'.local/developer-settings.json').read_text(encoding='utf-8-sig'));reg=json.loads((R/'.local/pixel10-target.json').read_text(encoding='utf-8-sig'))
 assert reg['model']=='Pixel 10 Pro' and reg['authorization']=='owner-request-2026-10-01'
 serial=reg['serial'];adb=str(Path(cfg['sdk'])/'platform-tools/adb.exe');QA='dev.outpost.app.releaseqa';REG='dev.outpost.app.regressionqa'
-p=argparse.ArgumentParser();p.add_argument('action',choices=['all','restore']);a=p.parse_args();active=R/'.local/pixel-full-active.json';state=None
+p=argparse.ArgumentParser();p.add_argument('action',choices=['all','restore']);p.add_argument('--functional-only',action='store_true');a=p.parse_args();active=R/'.local/pixel-full-active.json';state=None
 def call(*args,timeout=120,allow=False,binary=False):
  result=subprocess.run([adb,'-s',serial,*map(str,args)],capture_output=True,timeout=timeout)
  if binary:
@@ -121,7 +121,7 @@ if existing:
 
 session='pixel-full-'+datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8]
 owner=session.replace('pixel-full-','pixel-regression-');out=R/'evidence/runs'/session;out.mkdir(parents=True)
-state={'session':session,'status':'preparing','out':str(out),'device':props,'radioBefore':settings(),'dataPreferencesBefore':data_prefs(),'initialDefaultNetwork':network(),'originalBefore':original(),'releaseReceipt':release,'regressionReceipt':regression,'regressionOwner':owner,'regressionCreated':False,'regressionExistedBefore':bool(existing),'regressionPriorOwner':private(REG,'cat files/pixel-regression-owned') if existing else None,'regressionArchives':[],'releaseStoreIsolated':False,'phases':[],'passed':False,'originalPreserved':False,'radiosRestored':False}
+state={'session':session,'functionalOnly':a.functional_only,'status':'preparing','out':str(out),'device':props,'radioBefore':settings(),'dataPreferencesBefore':data_prefs(),'initialDefaultNetwork':network(),'originalBefore':original(),'releaseReceipt':release,'regressionReceipt':regression,'regressionOwner':owner,'regressionCreated':False,'regressionExistedBefore':bool(existing),'regressionPriorOwner':private(REG,'cat files/pixel-regression-owned') if existing else None,'regressionArchives':[],'releaseStoreIsolated':False,'phases':[],'passed':False,'originalPreserved':False,'radiosRestored':False}
 save();remote='/sdcard/Android/data/'+REG+'/files'
 try:
  for receipt in [release,regression]:
@@ -171,7 +171,7 @@ try:
    if suite in ['folders','osm']:call('shell','am','broadcast','--include-stopped-packages','-n',receiver,'--es','run_id',run,'--es','operation','revoke')
  instrument(REG,'answer-history-regression',('-e','answer_diagnostic','true'),prefix='ANSWER_DIAGNOSTIC ')
  instrument(REG,'qwen-generation',('-e','generation','true'),relative='files/evidence/generation-checks.json')
- for phase in ['numeric','row-numeric','i8mm-numeric','controller','lifecycle','row-lifecycle','decode-six-lifecycle','i8mm-lifecycle','stack-confirm']:
+ for phase in ([] if a.functional_only else ['numeric','row-numeric','i8mm-numeric','controller','lifecycle','row-lifecycle','decode-six-lifecycle','i8mm-lifecycle','stack-confirm']):
   run='arm-'+phase+'-'+uuid.uuid4().hex[:16]
   instrument(REG,'arm-'+phase,('-e','arm_run',run,'-e','arm_phase',phase),relative='files/evidence/arm/'+run,limit=2400)
  for phase in ['chat','seed','recover']:

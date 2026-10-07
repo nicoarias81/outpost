@@ -32,7 +32,7 @@ final class ModelSetupChecks {
                     &&"https".equals(intent.getData().getScheme())&&"huggingface.co".equals(intent.getData().getHost())
                     &&intent.getData().getPath().endsWith("/"+spec.filename())&&intent.getData().getPath().matches(".*/resolve/[0-9a-f]{40}/[^/]+"),"Selected model has a pinned HTTPS source: "+spec.id(),checks);
             }
-            var image=test.getUiAutomation().takeScreenshot();require(image!=null,"Model setup screen can be captured",checks);
+            SystemClock.sleep(400);var image=test.getUiAutomation().takeScreenshot();require(image!=null,"Model setup screen can be captured",checks);
             try(var out=new FileOutputStream(screenshot)){image.compress(android.graphics.Bitmap.CompressFormat.PNG,100,out);}finally{image.recycle();}
             click(test,app.getString(R.string.chat_download_model));click(test,app.getString(R.string.chat_download_action));
             require(browser[0]!=null&&browser[0].getData().toString().equals(ModelStore.BONSAI4.downloadUrl()),"Download action opens the selected pinned file in the browser",checks);

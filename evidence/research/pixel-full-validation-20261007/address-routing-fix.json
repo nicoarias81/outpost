@@ -1,0 +1,13 @@
+{
+  "failedRun": "pixel-full-20261007T170821Z-862968ee",
+  "question": "Which street is Fixture Pharmacy on? Cite the OSM source.",
+  "cause": "The category parser treated a named-place street question as unsupported category filters, so it returned a direct clarification without model execution.",
+  "fix": "Parse street/address questions as named-place lookup. Accept a separate citation request without dropping unsupported filters.",
+  "encodingRepairFiles": [
+    "README.md",
+    "app/src/main/java/dev/outpost/app/MainActivity.java",
+    "app/src/main/java/dev/outpost/app/ModelStore.java",
+    "app/src/main/res/values/chat.xml",
+    "docs/testing.md"
+  ]
+}
