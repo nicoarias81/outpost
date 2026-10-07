@@ -66,8 +66,8 @@ final class PlaceChecks {
             if(!run.matches("[A-Za-z0-9_-]{8,80}"))throw new IllegalArgumentException("Unique run ID required");
             output=new File(test.getTargetContext().getFilesDir(),"evidence/places/"+run);if(output.exists()||!output.mkdirs())throw new IllegalStateException("Run already exists");
             scratch=new File(test.getTargetContext().getCacheDir(),run);if(!scratch.mkdir())throw new IllegalStateException("Scratch exists");
-            check(android.os.Build.SUPPORTED_ABIS[0].equals("x86_64"),"Place checks run inside the x86_64 emulator");
-            check(test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",android.content.pm.PackageManager.GET_PERMISSIONS).requestedPermissions==null,"Place queries need no network, location or storage permission");
+            check(TestTargets.admitted(test),"Place checks use an admitted synthetic target");
+            check(test.getTargetContext().getPackageManager().getPackageInfo(test.getTargetContext().getPackageName(),android.content.pm.PackageManager.GET_PERMISSIONS).requestedPermissions==null,"Place queries need no network, location or storage permission");
             String data=fixture();
             try(Library library=new Library(test.getTargetContext(),null)) {
                 try {
@@ -79,6 +79,11 @@ final class PlaceChecks {
                     check(one.status().equals("found")&&one.matched()==1&&one.sources().size()==1&&!one.text().contains("Test South"),"Recorded locality resolves the correct named park");
                     check(library.resolve(one.sources().get(0).locator()).content().contains("node/8600000000001"),"Named-place response opens the exact OSM source");
                     check(ask(library,"Where is Musee Cuivre?").text().contains("Test Copper Museum"),"Recorded aliases and accent normalization resolve the same place");
+                    var street=ask(library,"Which street is Test Oak Restaurant on? Cite the OSM source.");
+                    check(street.status().equals("found")&&street.text().contains("12 Sample Avenue")&&street.sources().size()==1,"A named-place street question retains its recorded address and exact source");
+                    var address=ask(library,"What is the address of Test Oak Restaurant? Cite the source.");
+                    check(address.status().equals("found")&&address.text().contains("12 Sample Avenue"),"An address question accepts a separate citation request");
+                    check(ask(library,"best vegan restaurants near Test Riverside Park? Cite the OSM source.").status().equals("unsupported"),"A citation request cannot discard unsupported place filters");
                     check(ask(library,"Where is Missing Park?").status().equals("not_found"),"Absent place is scoped to imported data, not invented from model memory");
                     check(ask(library,"Which restaurants are around Test Central Station?").status().equals("ambiguous"),"An ambiguous reference cannot silently select a nearby result set");
                     String near="Which restaurants are around Test Central Station in Test North within 150 m?";
@@ -186,7 +191,7 @@ final class PlaceChecks {
             if(captured){try(Library library=new Library(test.getTargetContext())){for(Library.Document d:library.documents())if(!existingDocs.contains(d.id()))library.removeDocument(d.id());}catch(Exception ignored){}
                 try(ChatStore chat=new ChatStore(test.getTargetContext())){for(ChatStore.Turn t:chat.turns())if(!existingTurns.contains(t.id()))chat.remove(t.id());}catch(Exception ignored){}}
             if(scratch!=null){File[] files=scratch.listFiles();if(files!=null)for(File file:files)file.delete();scratch.delete();}
-            try{Files.write(new File(output,"place-checks.json").toPath(),new JSONObject().put("runId",run).put("version",test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",0).versionName).put("passed",success).put("checksPassed",passed).put("checks",checks).put("answers",answers).put("modelExecution",false).put("scope","Synthetic import/SQLite/chat/source checks plus a frozen prepared public Madrid OSM subset, with an isolated absent-model context in Outpost35. No live availability, full-area coverage, physical-device or broad accuracy claim.").toString(2).getBytes(StandardCharsets.UTF_8));}catch(Exception ignored){}
+            try{Files.write(new File(output,"place-checks.json").toPath(),new JSONObject().put("runId",run).put("version",test.getTargetContext().getPackageManager().getPackageInfo(test.getTargetContext().getPackageName(),0).versionName).put("passed",success).put("checksPassed",passed).put("checks",checks).put("answers",answers).put("modelExecution",false).put("scope","Synthetic import/SQLite/chat/source checks plus a frozen prepared public Madrid OSM subset, with an isolated absent-model context on an admitted synthetic target. No live availability, full-area coverage or broad accuracy claim.").toString(2).getBytes(StandardCharsets.UTF_8));}catch(Exception ignored){}
         }
         test.finish(success?Activity.RESULT_OK:Activity.RESULT_CANCELED,response);
     }

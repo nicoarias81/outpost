@@ -54,6 +54,10 @@ def inspect(path,package):
     result['native'][n]['exports']=sorted(exported)
  return result
 try:
+ modelSource=(r/'app/src/main/java/dev/outpost/app/ModelStore.java').read_text(encoding='utf-8')
+ locks=[json.loads((r/'model-lock.json').read_text()),*json.loads((r/'bonsai-lock.json').read_text())['models']]
+ for lock in locks:
+  check(lock['repo']+'/resolve/'+lock['revision']+'/' in modelSource,'pinned model download source '+lock['file'])
  release=inspect(r/'app/build/outputs/apk/release/app-release-unsigned.apk','dev.outpost.app')
  qa=inspect(r/'app/build/outputs/apk/releaseQa/app-releaseQa.apk','dev.outpost.app.releaseqa')
  check(release['native']==qa['native'],'QA and unsigned release native bytes identical')

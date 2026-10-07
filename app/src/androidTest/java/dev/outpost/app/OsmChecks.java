@@ -39,8 +39,8 @@ final class OsmChecks {
             output=new File(test.getTargetContext().getFilesDir(),"evidence/osm/"+run);if(output.exists()||!output.mkdirs())throw new IllegalStateException("Run directory exists");
             scratch=new File(test.getTargetContext().getCacheDir(),run);if(!scratch.mkdir())throw new IllegalStateException("Scratch directory exists");
             File xml=new File(scratch,"places.osm"),json=new File(scratch,"water.json"),bad=new File(scratch,"bad.osm");text(xml,OsmFixtures.XML);text(json,OsmFixtures.JSON);
-            check(android.os.Build.SUPPORTED_ABIS[0].equals("x86_64"),"OSM checks run on the emulator");
-            String[] permissions=test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",android.content.pm.PackageManager.GET_PERMISSIONS).requestedPermissions;
+            check(TestTargets.admitted(test),"OSM checks use an admitted synthetic target");
+            String[] permissions=test.getTargetContext().getPackageManager().getPackageInfo(test.getTargetContext().getPackageName(),android.content.pm.PackageManager.GET_PERMISSIONS).requestedPermissions;
             check(permissions==null||permissions.length==0,"OSM imports add no Internet or location permission");
             OsmImporter.Extract parsed=OsmImporter.parse(xml,()->false);
             check(parsed.features().size()==3&&parsed.objects()==6&&parsed.omitted()==3,"XML indexes tagged current features and omits geometry-only/deleted objects");
@@ -110,7 +110,7 @@ final class OsmChecks {
             var root=test.getUiAutomation().getRootInActiveWindow();check(root!=null&&!root.findAccessibilityNodeInfosByText("OpenStreetMap contributors").isEmpty()&&!root.findAccessibilityNodeInfosByText("Sample Lane").isEmpty(),"Source reader shows original feature facts with OSM attribution");if(root!=null)root.recycle();screenshot("osm-source.png");
             test.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK);test.waitForIdleSync();
             if(generate){test.runOnMainSync(app::showChat);test.runOnMainSync(()->app.sendMessage("Which street is Fixture Pharmacy on? Cite the OSM source."));for(int i=0;i<1400&&!app.answerDone;i++)SystemClock.sleep(100);test.waitForIdleSync();NativeEngine.Result result=app.lastAnswer;
-                answers.put(new JSONObject().put("text",result==null?"":result.text()).put("system",ChatPrompt.SYSTEM).put("user",app.lastPrepared==null?"":app.lastPrepared.user()).put("tokens",result==null?0:result.tokens()).put("totalMs",result==null?0:result.totalMs()).put("reason",result==null?-1:result.reason()));screenshot("osm-chat.png");
+                answers.put(new JSONObject().put("text",result==null?"":result.text()).put("system",app.lastSystem==null?"":app.lastSystem).put("user",app.lastPrepared==null?"":app.lastPrepared.user()).put("tokens",result==null?0:result.tokens()).put("totalMs",result==null?0:result.totalMs()).put("reason",result==null?-1:result.reason()));screenshot("osm-chat.png");
                 check(app.answerDone&&result!=null&&result.text().contains("Sample Lane")&&result.text().contains("[1]"),"Real offline chat answers from the imported OSM feature and cites its source");
             }
             success=true;response.putString("stream","\nPASS OSM: "+passed+" checks.\n");
@@ -122,10 +122,10 @@ final class OsmChecks {
             ModelStore.select(test.getTargetContext(),previous);test.getTargetContext().deleteDatabase(migration);
             if(scratch!=null){File[] files=scratch.listFiles();if(files!=null)for(File file:files)file.delete();scratch.delete();}
             var edit=preferences.edit();for(String key:List.of("folder_operation","folder_running","folder_summary")){Object old=savedPreferences.get(key);if(old instanceof String s)edit.putString(key,s);else if(old instanceof Boolean b)edit.putBoolean(key,b);else edit.remove(key);}edit.commit();
-            try{Files.write(new File(output,"osm-checks.json").toPath(),new JSONObject().put("runId",run).put("version",test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",0).versionName).put("passed",success).put("checksPassed",passed).put("checks",checks).put("answers",answers).put("modelExecution",generate).put("scope","Synthetic OSM/Overpass fixtures, actual SQLite/SAF/Activity on Outpost35. Not real-place accuracy, routing or physical-device validation.").toString(2).getBytes(StandardCharsets.UTF_8));}catch(Exception ignored){}
+            try{Files.write(new File(output,"osm-checks.json").toPath(),new JSONObject().put("runId",run).put("version",test.getTargetContext().getPackageManager().getPackageInfo(test.getTargetContext().getPackageName(),0).versionName).put("passed",success).put("checksPassed",passed).put("checks",checks).put("answers",answers).put("modelExecution",generate).put("scope","Synthetic OSM/Overpass fixtures, actual SQLite/SAF/Activity on an admitted synthetic target. Not real-place accuracy or routing validation.").toString(2).getBytes(StandardCharsets.UTF_8));}catch(Exception ignored){}
         }
         test.finish(success?Activity.RESULT_OK:Activity.RESULT_CANCELED,response);
     }
     private void grant()throws Exception {FixtureGrants.grant(test,run);}
-    private void screenshot(String name)throws Exception{Bitmap b=test.getUiAutomation().takeScreenshot();if(b==null)throw new IllegalStateException("No screenshot");try(FileOutputStream f=new FileOutputStream(new File(output,name))){b.compress(Bitmap.CompressFormat.PNG,100,f);}b.recycle();}
+    private void screenshot(String name)throws Exception{SystemClock.sleep(400);Bitmap b=test.getUiAutomation().takeScreenshot();if(b==null)throw new IllegalStateException("No screenshot");try(FileOutputStream f=new FileOutputStream(new File(output,name))){b.compress(Bitmap.CompressFormat.PNG,100,f);}b.recycle();}
 }

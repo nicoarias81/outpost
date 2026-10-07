@@ -300,13 +300,42 @@ public final class MainActivity extends Activity {
     }
     private static String modelName(ModelStore.Spec spec){return spec==ModelStore.BONSAI4?"Bonsai 4B":spec==ModelStore.BONSAI17?"Bonsai 1.7B":"Qwen 1.5B";}
     private void manageModel() {
-        String[] names=ModelStore.PROFILES.stream().map(MainActivity::modelName).toArray(String[]::new);int selected=ModelStore.PROFILES.indexOf(models.spec());
-        new AlertDialog.Builder(this).setTitle(R.string.chat_choose_model).setSingleChoiceItems(names,selected,(dialog,index)->{
-            ModelStore.Spec spec=ModelStore.PROFILES.get(index);ModelStore.select(this,spec);models=new ModelStore(this,spec);dialog.dismiss();render();
-        }).setNeutralButton(R.string.chat_import_model,(d,w)->{
+        LinearLayout body=column();body.setPadding(dp(18),dp(8),dp(18),dp(8));
+        add(body,text(getString(R.string.chat_model_setup_help),14,MUTED),0,0);
+        android.widget.RadioGroup choices=new android.widget.RadioGroup(this);
+        choices.setOrientation(android.widget.RadioGroup.VERTICAL);
+        for(int index=0;index<ModelStore.PROFILES.size();index++) {
+            ModelStore.Spec spec=ModelStore.PROFILES.get(index);android.widget.RadioButton option=new android.widget.RadioButton(this);
+            option.setId(View.generateViewId());option.setTag(spec);option.setText(modelName(spec));option.setTextColor(INK);option.setTextSize(16);
+            choices.addView(option,new android.widget.RadioGroup.LayoutParams(-1,dp(48)));option.setChecked(spec==models.spec());
+        }
+        choices.setOnCheckedChangeListener((group,id)->{
+            ModelStore.Spec spec=(ModelStore.Spec)group.findViewById(id).getTag();ModelStore.select(this,spec);models=new ModelStore(this,spec);render();
+        });add(body,choices,12,0);
+        AlertDialog dialog=new AlertDialog.Builder(this).setTitle(R.string.chat_choose_model).setView(body).setNegativeButton(R.string.chat_done,null).create();
+        Button download=button(getString(R.string.chat_download_model),GREEN,Color.WHITE);
+        download.setOnClickListener(v->{dialog.dismiss();showModelDownload(models.spec());});add(body,download,16,52);
+        Button local=button(getString(R.string.chat_import_model),PAPER,GREEN);
+        local.setOnClickListener(v->{dialog.dismiss();
             new AlertDialog.Builder(this).setTitle(R.string.chat_import_model).setMessage(getString(R.string.chat_model_file,models.spec().filename()))
-                .setNegativeButton(R.string.cancel_action,null).setPositiveButton(R.string.chat_choose_file,(dialog,which)->pick(11)).show();
-        }).setNegativeButton(R.string.chat_done,null).show();
+                .setNegativeButton(R.string.cancel_action,null).setPositiveButton(R.string.chat_choose_file,(d,w)->pick(11)).show();
+        });add(body,local,8,52);dialog.show();
+    }
+    static Intent modelDownloadIntent(ModelStore.Spec spec) {
+        return new Intent(Intent.ACTION_VIEW,Uri.parse(spec.downloadUrl())).addCategory(Intent.CATEGORY_BROWSABLE);
+    }
+    private void showModelDownload(ModelStore.Spec spec) {
+        String size=String.format(java.util.Locale.ROOT,"%.2f GB",spec.bytes()/1_000_000_000.0);
+        new AlertDialog.Builder(this).setTitle(R.string.chat_download_model)
+            .setMessage(getString(R.string.chat_model_download_help,modelName(spec),spec.filename(),size))
+            .setNegativeButton(R.string.cancel_action,null)
+            .setNeutralButton(R.string.chat_copy_link,(d,w)->{
+                getSystemService(android.content.ClipboardManager.class).setPrimaryClip(android.content.ClipData.newPlainText(modelName(spec),spec.downloadUrl()));
+                Toast.makeText(this,R.string.chat_link_copied,Toast.LENGTH_SHORT).show();
+            }).setPositiveButton(R.string.chat_download_action,(d,w)->{
+                try{startActivity(modelDownloadIntent(spec));}
+                catch(android.content.ActivityNotFoundException missing){error(getString(R.string.chat_download_no_browser));}
+            }).show();
     }
     private void documentsPage() {
         if(documents.isEmpty()){add(content,text(getString(R.string.chat_no_documents),22,INK),16,0);add(content,text(getString(R.string.chat_no_documents_help),14,MUTED),12,0);}

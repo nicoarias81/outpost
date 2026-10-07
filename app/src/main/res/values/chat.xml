@@ -31,7 +31,14 @@
   <string name="chat_importing">Importing your file…</string>
   <string name="chat_wait_reply">Stop the current reply before changing documents or models.</string>
   <string name="chat_choose_model">Choose your offline model</string>
-  <string name="chat_import_model">Import model file</string>
+  <string name="chat_import_model">Load local file</string>
+  <string name="chat_download_model">Download from Hugging Face</string>
+  <string name="chat_download_action">Download</string>
+  <string name="chat_copy_link">Copy link</string>
+  <string name="chat_link_copied">Download link copied</string>
+  <string name="chat_model_setup_help">Choose a model. Download it from the source, or load a file already on your device.</string>
+  <string name="chat_model_download_help">%1$s · %3$s\n%2$s\n\nThe download opens in your browser and needs a network connection. After download, select Load local file in Outpost.\n\nKeep enough space for the download and its imported copy. Outpost checks the file before installation.</string>
+  <string name="chat_download_no_browser">No browser is installed. Copy the download link and open it on another device.</string>
   <string name="chat_model_file">Choose the downloaded file:\n%1$s</string>
   <string name="chat_choose_file">Choose file</string>
   <string name="chat_done">Done</string>
@@ -62,5 +69,5 @@
   <string name="release_version">Outpost %1$s</string>
   <string name="release_notices">Third-party notices</string>
   <string name="release_notice_error">Could not open this notice.</string>
-  <string name="release_privacy">Outpost works on your device. It has no network permission, accounts, analytics or automatic uploads.\n\nImported documents, models and your conversation are stored locally. File providers you choose may have their own network access. Import needed files before going offline.\n\nNew chat removes the conversation. Remove documents from Settings. Uninstalling Outpost removes its private data; application backup is disabled.</string>
+  <string name="release_privacy">Outpost works on your device. It has no network permission, accounts, analytics or automatic uploads.\n\nImported documents, models and your conversation are stored locally. Model download links open in your browser. File providers you choose may have their own network access. Import needed files before going offline.\n\nNew chat removes the conversation. Remove documents from Settings. Uninstalling Outpost removes its private data; application backup is disabled.</string>
 </resources>

@@ -2,7 +2,7 @@
     <application>
         <!-- Synthetic fixture provider only; test script enables it temporarily on Outpost35. -->
         <provider android:name="dev.outpost.app.FolderDocumentsProvider"
-            android:authorities="dev.outpost.app.test.folders" android:exported="true"
+            android:authorities="${applicationId}.folders" android:exported="true"
             android:enabled="true" android:grantUriPermissions="true" android:permission="android.permission.MANAGE_DOCUMENTS">
             <intent-filter><action android:name="android.content.action.DOCUMENTS_PROVIDER" /></intent-filter>
         </provider>

@@ -15,7 +15,17 @@ final class ModelStore {
     static final String FILENAME = "qwen2.5-1.5b-instruct-q4_k_m.gguf";
     static final String SHA256 = "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e";
     static final long BYTES = 1117320736L;
-    record Spec(String id, String name, String filename, long bytes, String sha256, boolean sampled) {}
+    record Spec(String id, String name, String filename, long bytes, String sha256, boolean sampled) {
+        String downloadUrl() {
+            String source=switch(id) {
+                case "qwen15"->"Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/91cad51170dc346986eccefdc2dd33a9da36ead9/";
+                case "bonsai17"->"prism-ml/Ternary-Bonsai-1.7B-gguf/resolve/983b5dec2ff16aab79990711ba0f828a499a7e6a/";
+                case "bonsai4"->"prism-ml/Ternary-Bonsai-4B-gguf/resolve/a3eb42bafe873f9686bc97486c43b72ef7d75ec8/";
+                default->throw new IllegalArgumentException("Unknown model source");
+            };
+            return "https://huggingface.co/"+source+filename;
+        }
+    }
     static final Spec QWEN = new Spec("qwen15",NAME,FILENAME,BYTES,SHA256,false);
     static final Spec BONSAI17 = new Spec("bonsai17","Ternary Bonsai 1.7B · Q2_0 g64","Ternary-Bonsai-1.7B-Q2_0_g64.gguf",490163968L,"6d0ecb3d9055969b5cde332b6fdb60e67ed3599e9f73e56b977731e1467e5c91",true);
     static final Spec BONSAI4 = new Spec("bonsai4","Ternary Bonsai 4B · Q2_0 g64","Ternary-Bonsai-4B-Q2_0_g64.gguf",1137806656L,"9d968b04a3c9a794897bcc744c8072fb6a061c0e42efd03c989401ddf8baef0c",true);

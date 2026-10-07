@@ -15,10 +15,14 @@ import java.util.Map;
 
 /** Synthetic SAF provider in the test APK only. No access to arbitrary files. Roots are hidden and grants revoked outside tests. */
 public final class FolderDocumentsProvider extends DocumentsProvider {
-    static final String AUTHORITY="dev.outpost.app.test.folders";
+    static String AUTHORITY="dev.outpost.app.test.folders";
+    static void configure(android.content.Context context){
+        try{AUTHORITY=context.getPackageManager().getProviderInfo(new android.content.ComponentName(context,FolderDocumentsProvider.class),0).authority;}
+        catch(Exception error){throw new IllegalStateException("Fixture authority unavailable",error);}
+    }
     private static final String[] DOCS={DocumentsContract.Document.COLUMN_DOCUMENT_ID,DocumentsContract.Document.COLUMN_DISPLAY_NAME,DocumentsContract.Document.COLUMN_MIME_TYPE,DocumentsContract.Document.COLUMN_SIZE,DocumentsContract.Document.COLUMN_FLAGS};
     private final Map<String,Integer> reads=new HashMap<>();
-    @Override public boolean onCreate(){return true;}
+    @Override public boolean onCreate(){configure(getContext());return true;}
     private static boolean directory(String id){return id.equals("root")||id.equals("sub")||id.equals("deep")||id.equals("other")||id.equals("denied")||id.equals("empty")||id.equals("many")||id.equals("osm-root");}
     private static String name(String id){return switch(id){case "root"->"Field kit";case "sub"->"Manuals";case "deep"->"More";case "other"->"Other";case "denied"->"Restricted";case "empty"->"Empty";case "many"->"Many files";case "osm-root"->"OSM extracts";case "osm-xml"->"area.osm";case "osm-json"->"area.json";case "note","other-note"->"note.TXT";case "rows"->"issues.csv";case "pdf"->"guide.PDF";case "hidden"->".hidden.md";case "unsupported"->"photo.png";case "bad"->"broken.csv";case "oversized"->"large.txt";case "virtual"->"virtual.txt";case "unknown-size"->"unknown.txt";default->id.startsWith("change-")?"changing.txt":id.startsWith("many-")?id+".txt":"missing";};}
     private static String mime(String id){return directory(id)?DocumentsContract.Document.MIME_TYPE_DIR:id.equals("pdf")?"application/pdf":id.equals("rows")||id.equals("bad")?"text/csv":id.equals("unsupported")?"image/png":"text/plain";}

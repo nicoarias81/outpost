@@ -42,7 +42,7 @@ Outpost operates with or without a network connection. Offline tests enable airp
 | Native calculations | C/C++ kernels, CPU detection and an original reference path |
 | System types | ARM64 and x86_64 Android; minimum Android 9 / API 28 |
 
-The app accepts the three model files below. The APK does not contain the model weights. During import, the app compares the file size and SHA256 with the specified values.
+The app accepts the three model files below. The APK does not contain the model weights. Model setup offers **Download from Hugging Face** and **Load local file**. Downloads open in the browser. During import, the app compares the file size and SHA256 with the specified values.
 
 | Model | File encoding | Download size | Specified file |
 |---|---|---:|---|
@@ -86,11 +86,11 @@ These are acceptance goals. They are not measured guarantees or enforced library
 
 ## Installation and first use
 
-The distribution channel is [GitHub Releases](https://github.com/nicoarias81/outpost/releases). The current source version and candidate tag are **0.19.0-rc2** and `v0.19.0-rc2`. The repository and [QA prerelease](https://github.com/nicoarias81/outpost/releases/tag/v0.19.0-rc2) are public.
+The distribution channel is [GitHub Releases](https://github.com/nicoarias81/outpost/releases). The current source candidate is **0.19.0-rc3**, version code 23. Device validation is in progress. The last published candidate is `v0.19.0-rc2`. The repository and [QA prerelease](https://github.com/nicoarias81/outpost/releases/tag/v0.19.0-rc2) are public.
 
 The candidate release contains `outpost-0.19.0-rc2-qa.apk`, its checksums, license files and matching source archive. This is the exact non-debuggable QA APK shown in the recorded Pixel demo. Its application ID is `dev.outpost.app.releaseqa`. It uses a development certificate. Production identity, signing and final signed-APK tests are not complete.
 
-For this QA candidate, do these steps:
+For the published RC2 QA candidate, do these steps:
 
 1. Download [outpost-0.19.0-rc2-qa.apk](https://github.com/nicoarias81/outpost/releases/download/v0.19.0-rc2/outpost-0.19.0-rc2-qa.apk).
 2. Download [SHA256SUMS.txt](https://github.com/nicoarias81/outpost/releases/download/v0.19.0-rc2/SHA256SUMS.txt) from the same release.
@@ -110,6 +110,8 @@ For this QA candidate, do these steps:
 16. Enter a representative question before offline use.
 17. Select **Send message** (the upward arrow).
 18. Do a source check of the answer.
+
+RC3 model setup keeps model selection and both preparation routes in one dialog. Select **Download from Hugging Face** for the specified file. After download, select **Load local file**. You can also copy the download link. An alternative server must provide the exact specified file.
 
 Model import makes an app-private copy. Free storage must be sufficient for the download and that copy. The app makes search indexes locally. A separate server or index download is not necessary.
 

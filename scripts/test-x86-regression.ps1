@@ -1,4 +1,4 @@
-param([string]$Sdk=$env:ANDROID_HOME)
+param([string]$Sdk=$env:ANDROID_HOME,[switch]$Functional)
 $ErrorActionPreference='Stop'
 $project=Split-Path $PSScriptRoot -Parent
 . (Join-Path $PSScriptRoot 'environment.ps1')
@@ -27,11 +27,12 @@ foreach($pkg in $packages){
 $record=[ordered]@{runId=$id;target='Outpost35';device=$device.Properties;buildReceipt=(Get-Content -LiteralPath "$project/.local/build-receipt.json" -Raw|ConvertFrom-Json);phases=@();passed=$false;originalApksRestored=$false;originalApks=@($packages|ForEach-Object {[ordered]@{package=$_.name;sha256=$_.oldHash}})}
 try {
     foreach($pkg in $packages){Invoke-RegressionAdb install -r (Join-Path $project $pkg.file)}
-    foreach($phase in @('numeric','dispatch','batch','decoder4')) {
-        $name="kernel-$phase.json"
+    $phases=@('numeric','dispatch','batch','decoder4');if($Functional){$phases+='functional'}
+    foreach($phase in $phases) {
+        $name=if($phase -eq 'functional'){'checks.json'}else{"kernel-$phase.json"}
         $present=Invoke-RegressionAdb shell run-as dev.outpost.app sh -c "'if test -e files/evidence/$name; then echo present; fi'"
         if($present -eq 'present'){Pull-Private "files/evidence/$name" (Join-Path $out "prior-$name")}
-        $log=Invoke-RegressionAdb shell am instrument -w -e kernel $phase dev.outpost.app.test/dev.outpost.app.GenerationInstrumentation | ForEach-Object {Write-Host $_;$_}
+        $log=if($phase -eq 'functional'){Invoke-RegressionAdb shell am instrument -w dev.outpost.app.test/dev.outpost.app.GenerationInstrumentation | ForEach-Object {Write-Host $_;$_}}else{Invoke-RegressionAdb shell am instrument -w -e kernel $phase dev.outpost.app.test/dev.outpost.app.GenerationInstrumentation | ForEach-Object {Write-Host $_;$_}}
         $log|Set-Content -LiteralPath (Join-Path $out "$phase.log") -Encoding utf8
         Pull-Private "files/evidence/$name" (Join-Path $out $name)
         if(-not($log -match 'PASS')){throw "Failed x86 $phase; prior and new evidence retained"}

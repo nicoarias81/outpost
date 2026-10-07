@@ -26,12 +26,18 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         if(isolation!=null&&isolation.matches("pixel-isolation-[0-9TZ]+-[a-f0-9]{8}")&&new File(getTargetContext().getFilesDir(),isolation+"/active").isFile()){
             activity.setShowWhenLocked(true);activity.setTurnScreenOn(true);
         }
+        if(TestTargets.ownedQa(this)){
+            activity.setShowWhenLocked(true);activity.setTurnScreenOn(true);
+            activity.getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
         super.callActivityOnCreate(activity,state);
     }
     @Override public Activity newActivity(ClassLoader loader,String name,Intent intent)throws InstantiationException,IllegalAccessException,ClassNotFoundException {
         if(armArgs!=null&&name.equals(MainActivity.class.getName()))return new ArmKernelChecks.BenchActivity();
         return super.newActivity(loader,name,intent);
     }
+    private boolean answerDiagnostic;
+    private boolean modelBootstrap;
     private boolean generationSuite;
     private Bundle chatArgs;
     private String folderRun;
@@ -57,6 +63,8 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         checks++;
     }
     @Override public void onCreate(Bundle arguments) {
+        answerDiagnostic=arguments!=null&&"true".equals(arguments.getString("answer_diagnostic"));
+        modelBootstrap=arguments!=null&&"true".equals(arguments.getString("model_bootstrap"));
         armArgs=arguments!=null&&arguments.containsKey("arm_run")?new Bundle(arguments):null;
         candidateArgs=arguments!=null&&arguments.containsKey("candidate_run")?new Bundle(arguments):null;
         rowsArgs=arguments!=null&&arguments.containsKey("rows_run")?new Bundle(arguments):null;
@@ -73,9 +81,13 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         kernelPhase = arguments == null ? "" : arguments.getString("kernel","");
         runtimePhase=arguments==null ? "" : arguments.getString("runtime","");
         speculationPhase=arguments==null ? "" : arguments.getString("speculation","");
+        FolderDocumentsProvider.configure(getContext());
+        if(getTargetContext().getPackageName().equals(TestTargets.QA)&&!TestTargets.admitted(this))throw new IllegalStateException("Owned regression store and registered Pixel required");
         super.onCreate(arguments);
     }
     @Override public void onStart() {
+        if(answerDiagnostic){ChatAnswerChecks.run(this);return;}
+        if(modelBootstrap){ModelBootstrapChecks.run(this);return;}
         if(armArgs!=null){new ArmKernelChecks(this,armArgs).run();return;}
         if(candidateArgs!=null){new CandidateChecks(this,candidateArgs).run();return;}
         if(rowsArgs!=null){new KernelRowsChecks(this,rowsArgs.getString("rows_run"),rowsArgs.getString("rows_phase","graphs"),"true".equals(rowsArgs.getString("rows_apply"))).run();return;}
@@ -94,8 +106,8 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
         Bundle out = new Bundle();
         long start = SystemClock.elapsedRealtime();
         try {
-            check(android.os.Build.SUPPORTED_ABIS[0].equals("x86_64"), "Tests restricted to x86_64 emulator artifact");
-            String[] permissions = getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app", PackageManager.GET_PERMISSIONS).requestedPermissions;
+            check(TestTargets.admitted(this), "Generation uses an admitted synthetic target");
+            String[] permissions = getTargetContext().getPackageManager().getPackageInfo(getTargetContext().getPackageName(), PackageManager.GET_PERMISSIONS).requestedPermissions;
             check(permissions == null || !Arrays.asList(permissions).contains("android.permission.INTERNET"), "Native inference APK still has no INTERNET permission");
             ModelStore.select(getTargetContext(),ModelStore.QWEN);
             ModelStore models = new ModelStore(getTargetContext(),ModelStore.QWEN);
@@ -148,12 +160,12 @@ public final class GenerationInstrumentation extends OfflineInstrumentation {
             record("ui-chat-energy", new ResearchPrompt.Prepared("ChatPrompt "+ChatPrompt.VERSION+"; inspect chat evidence for full conversation provenance",activity.lastHits), activity.lastAnswer);
             screenshot("generation.png");
             Debug.MemoryInfo memory = new Debug.MemoryInfo(); Debug.getMemoryInfo(memory);
-            JSONObject report = new JSONObject().put("version", getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",0).versionName).put("checksPassed", checks).put("checks", results).put("answers", answers)
+            JSONObject report = new JSONObject().put("version", getTargetContext().getPackageManager().getPackageInfo(getTargetContext().getPackageName(),0).versionName).put("checksPassed", checks).put("checks", results).put("answers", answers)
                 .put("elapsedMs", SystemClock.elapsedRealtime()-start).put("model", ModelStore.NAME).put("modelSha256", ModelStore.SHA256)
                 .put("modelBytes", ModelStore.BYTES).put("androidApi", android.os.Build.VERSION.SDK_INT).put("device", android.os.Build.MODEL)
-                .put("processPssKiBAtEnd", memory.getTotalPss()).put("measurementScope", "Emulator only. PSS snapshot is not peak RAM. Functional tests, not research-quality evaluation.");
+                .put("processPssKiBAtEnd", memory.getTotalPss()).put("measurementScope", "Recorded admitted Android target. PSS snapshot is not peak RAM. Functional tests, not research-quality evaluation.");
             write("generation-checks.json", report.toString(2));
-            out.putString("stream", "\nPASS: " + checks + " local generation checks. No physical device used.\n");
+            out.putString("stream", "\nPASS: " + checks + " local generation checks on the admitted target.\n");
             finish(Activity.RESULT_OK, out);
         } catch (Throwable error) {
             try { write("generation-failure.json", new JSONObject().put("error", android.util.Log.getStackTraceString(error)).put("checks", results).put("answers", answers).toString(2)); } catch (Exception ignored) { }

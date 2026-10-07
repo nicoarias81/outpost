@@ -51,7 +51,7 @@ The target guard examines live identity, ABI and boot status. It also makes sure
 
 The start script uses the installed AOSP image without a visible window. `.local/avd` contains emulator data. A successful start command is not an identity check.
 
-For the registered phone, use `-Target Pixel10Pro`. Do not change its radios, power settings or security settings. Do not change its private data. Do not use another discovered device.
+For the registered phone, use `-Target Pixel10Pro`. Only an owner-authorized offline test can change its radios. Restore their saved values after the test. Do not change power or security settings. Do not change its private data. Do not use another discovered device.
 
 The phone can have a network connection during some tests. The app has no network permission, but this does not make an external document provider offline. Test-owned synthetic UI can use Android show-when-locked and keep-screen-on flags. Device authentication must stay active. Screenshots must not contain the personal app's contents.
 
@@ -86,6 +86,23 @@ For fresh emulator setup, `test-generation.ps1` prepares Qwen. `test-bonsai.ps1 
 | Wider Pixel QA | `scripts/test-acceptance.ps1 -Target Pixel10Pro`, with a new test-owned QA store |
 
 Normal data wrappers use the emulator by default. Do not use them with personal phone storage. Only the test APK includes the folder and OSM fixture provider. Cleanup removes URI grants and hides inactive roots. It keeps the provider registered.
+
+## Complete isolated Pixel regression
+
+`regressionQa` has a separate application ID and a development certificate. Its research JNI supports numerical checks. `releaseQa` tests the non-debuggable product path. Neither package replaces the personal app.
+
+1. Build the release artifacts with `scripts/build-release.ps1 -Offline`.
+2. Build the regression pair with `scripts/build-regression.ps1`.
+3. Run `scripts/test-pixel-full.py all` with the configured Python runtime.
+4. Examine every phase report in the new `evidence/runs/pixel-full-*` directory.
+
+The runner checks the registered serial, live device identity, current source fingerprints and APK hashes. It verifies and imports all three models. Setup finishes before airplane mode starts. Tests use synthetic chat, files, folders, PDF, OSM and native calculations. Model-setup checks intercept browser and file-picker intents. They do not download weights or open personal external apps.
+
+The runner archives an existing owned QA store without reading its documents. Recovery restores database, preference, document and model digests. It also restores saved radio settings and compares personal APK and data digests. Failed runs remain available.
+
+5. If recovery is incomplete, run `scripts/test-pixel-full.py restore` before another phone workflow.
+
+The runner requires PowerShell 7 for source fingerprints. Existing regression packages need a matching prior ownership journal. The release QA store needs its synthetic ownership marker. Do not use this runner with unknown QA data.
 
 ## Original phone package
 

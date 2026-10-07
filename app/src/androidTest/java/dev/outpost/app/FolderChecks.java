@@ -20,7 +20,7 @@ import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/** Real content-provider traversal and app integration, entirely inside the emulator. */
+/** Real content-provider traversal and app integration, on admitted synthetic targets. */
 final class FolderChecks {
     private final Instrumentation test;private final String run;
     private final JSONArray checks=new JSONArray();private int passed;private File output;
@@ -37,8 +37,8 @@ final class FolderChecks {
         try {
             if(!run.matches("[A-Za-z0-9_-]{8,80}"))throw new IllegalArgumentException("Unique run ID required");
             output=new File(test.getTargetContext().getFilesDir(),"evidence/folders/"+run);if(output.exists()||!output.mkdirs())throw new IllegalStateException("Run already exists");
-            check(android.os.Build.SUPPORTED_ABIS[0].equals("x86_64"),"Tests run only in the x86_64 emulator");
-            String[] permissions=test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",android.content.pm.PackageManager.GET_PERMISSIONS).requestedPermissions;
+            check(TestTargets.admitted(test),"Tests use an admitted synthetic target");
+            String[] permissions=test.getTargetContext().getPackageManager().getPackageInfo(test.getTargetContext().getPackageName(),android.content.pm.PackageManager.GET_PERMISSIONS).requestedPermissions;
             check(permissions==null||permissions.length==0,"Folder selection adds no broad storage or network permission");
             Intent picker=MainActivity.folderPickerIntent();
             check(Intent.ACTION_OPEN_DOCUMENT_TREE.equals(picker.getAction()),"Folder action uses the system directory picker");
@@ -120,7 +120,7 @@ final class FolderChecks {
             android.content.SharedPreferences.Editor restore=preferences.edit();
             for(String key:List.of("folder_operation","folder_running","folder_summary")){Object old=beforePreferences.get(key);if(old instanceof String text)restore.putString(key,text);else if(old instanceof Boolean flag)restore.putBoolean(key,flag);else restore.remove(key);}restore.commit();
             test.getTargetContext().deleteDatabase(migration);
-            try{JSONObject report=new JSONObject().put("runId",run).put("version",test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",0).versionName).put("passed",success).put("checksPassed",passed).put("checks",checks).put("scope","Real Android DocumentsProvider, SQLite and Activity checks on Outpost35; synthetic files; no model execution or physical phone.");Files.write(new File(output,"folder-checks.json").toPath(),report.toString(2).getBytes(StandardCharsets.UTF_8));}catch(Exception ignored){}
+            try{JSONObject report=new JSONObject().put("runId",run).put("version",test.getTargetContext().getPackageManager().getPackageInfo(test.getTargetContext().getPackageName(),0).versionName).put("passed",success).put("checksPassed",passed).put("checks",checks).put("scope","Real Android DocumentsProvider, SQLite and Activity checks on an admitted synthetic target; no model execution.");Files.write(new File(output,"folder-checks.json").toPath(),report.toString(2).getBytes(StandardCharsets.UTF_8));}catch(Exception ignored){}
         }
         test.finish(success?Activity.RESULT_OK:Activity.RESULT_CANCELED,response);
     }

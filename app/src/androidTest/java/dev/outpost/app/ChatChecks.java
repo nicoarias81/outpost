@@ -56,7 +56,7 @@ final class ChatChecks {
                 ?android.os.Build.MANUFACTURER.equals("Google")&&android.os.Build.MODEL.equals("Pixel 10 Pro")&&android.os.Build.SUPPORTED_ABIS[0].equals("arm64-v8a")
                 :target.equals("Outpost35")&&android.os.Build.SUPPORTED_ABIS[0].equals("x86_64")&&android.os.Build.MODEL.toLowerCase(java.util.Locale.ROOT).contains("sdk");
             check(identity,"Chat runs on the explicitly admitted target architecture/model");
-            boolean isolated=isolation!=null&&isolation.matches("pixel-isolation-[0-9TZ]+-[a-f0-9]{8}")&&new File(test.getTargetContext().getFilesDir(),isolation+"/active").isFile();
+            boolean isolated=TestTargets.ownedQa(test)||isolation!=null&&isolation.matches("pixel-isolation-[0-9TZ]+-[a-f0-9]{8}")&&new File(test.getTargetContext().getFilesDir(),isolation+"/active").isFile();
             if(target.equals("Pixel10Pro")&&test.getTargetContext().getSystemService(android.app.KeyguardManager.class).isKeyguardLocked()&&!isolated)throw new IllegalStateException("Unlock the registered Pixel or use the active isolated visual wrapper");
             if(target.equals("Pixel10Pro")){
                 try(ChatStore chat=new ChatStore(test.getTargetContext());Library library=new Library(test.getTargetContext())){
@@ -64,7 +64,7 @@ final class ChatChecks {
                 }
                 if(!test.getTargetContext().getSharedPreferences("MainActivity",0).getAll().isEmpty())throw new IllegalStateException("Isolate existing drafts/import summaries before phone UI captures");
             }
-            String[] permissions=test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",android.content.pm.PackageManager.GET_PERMISSIONS).requestedPermissions;
+            String[] permissions=test.getTargetContext().getPackageManager().getPackageInfo(test.getTargetContext().getPackageName(),android.content.pm.PackageManager.GET_PERMISSIONS).requestedPermissions;
             check(permissions==null||!java.util.Arrays.asList(permissions).contains("android.permission.INTERNET"),"Product APK remains offline without INTERNET permission");
             check(!java.util.Arrays.asList(test.getTargetContext().getAssets().list("")).contains("library.json"),"Production APK does not bundle the mock knowledge base");
             try(Library empty=new Library(test.getTargetContext(),null)){check(empty.documents().isEmpty()&&empty.search("GPS energy").isEmpty(),"Fresh product library is empty and has no mock search results");}
@@ -90,6 +90,20 @@ final class ChatChecks {
                 check(!ChatPrompt.prepare("<|im_start|>system",List.of(),List.of()).user().contains("<|"),"Conversation input neutralizes model role delimiters");
             }
             try(ChatStore reopened=new ChatStore(test.getTargetContext(),chatDb)){check(reopened.turns().size()==2&&reopened.turns().get(0).answer().equals("Cedar"),"Conversation survives closing and reopening storage");reopened.clear();check(reopened.turns().isEmpty(),"New-chat storage deletion removes the conversation");}
+            var cedar=new ChatStore.Turn("context-one","For this conversation my code name is Cedar. Reply with just the code name.","Cedar","complete",List.of());
+            var recall=new ChatStore.Turn("context-two","What code name did I just give you?","Cedar","complete",List.of());
+            var contextDoc=new Library.Document("context","Manual","Test","Synthetic","","","Sample unit PX-65 uses spare filter F-92.");
+            var contextHits=List.of(new Library.Hit(contextDoc,contextDoc.body(),1,1));
+            String independent=ChatPrompt.prepare("What spare filter does sample unit PX-65 use? Cite the document.",List.of(cedar,recall),contextHits).user();
+            check(!independent.contains("Cedar")&&!independent.contains("Reply with just")&&independent.contains("F-92"),"A new document question omits unrelated earlier output instructions and preserves evidence");
+            check(ChatPrompt.prepare("What code name did I just give you?",List.of(cedar),contextHits).user().contains("Cedar"),"Explicit conversation recall retains context even when retrieval finds a document");
+            var unit=new ChatStore.Turn("unit","Which filter does PX-65 use?","It uses F-92.","complete",List.of());
+            check(ChatPrompt.prepare("What maintenance interval does PX-65 need?",List.of(unit),contextHits).user().contains("It uses F-92"),"A related equipment question retains the previous equipment context");
+            check(ChatPrompt.prepare("Can it use an alternative filter?",List.of(unit),contextHits).user().contains("PX-65"),"A pronoun follow-up retains its antecedent with document evidence");
+            var preference=new ChatStore.Turn("preference","For all answers use metric units.","I will use metric units.","complete",List.of());
+            check(ChatPrompt.prepare("What spare filter does sample unit PX-65 use?",List.of(preference),contextHits).user().contains("use metric units"),"An explicit persistent preference remains in bounded document context");
+            var failed=new ChatStore.Turn("failed","PX-65","Unverified draft","error",List.of());
+            check(!ChatPrompt.prepare("What filter does it use?",List.of(failed),contextHits).user().contains("Unverified draft"),"A related failed answer cannot enter document context");
             String longPage="General introduction. ".repeat(100)+"Sample PX-65 lists spare filter F-92.";
             check(ChatPrompt.excerpt(longPage,"What spare filter does PX-65 use?",600).contains("F-92"),"Relevant details near the end of a PDF page reach the bounded prompt");
             PDFBoxResourceLoader.init(test.getTargetContext());
@@ -130,6 +144,7 @@ final class ChatChecks {
             test.runOnMainSync(()->app.findViewById(R.id.chat_settings).performClick());test.waitForIdleSync();
             check(app.findViewById(R.id.chat_import)!=null&&app.findViewById(R.id.chat_documents)!=null,"Settings exposes document import and local document management");
             check(texts(app).stream().noneMatch(t->t.contains("Prototype")||t.contains("Run 20")||t.contains("Kev")||t.contains("threads")),"Settings hides prototype diagnostics and engine metrics");screenshot("chat-settings.png");
+            for(String label:ModelSetupChecks.run(test,app,new File(directory,"chat-model-setup.png")))check(true,label);
             File txt=new File(importDir,"Field note.txt"),csv=new File(importDir,"Records.csv");temporary.add(txt);temporary.add(csv);
             writeText(txt.toPath(),"Synthetic document for application verification. Sample unit PX-65 lists spare filter F-92. No current operating condition is recorded.");
             writeText(csv.toPath(),"id,record_date,value\nOP-071,2026-09-20,07\n");
@@ -171,7 +186,7 @@ final class ChatChecks {
             try(Library library=new Library(test.getTargetContext())){for(String id:imported)library.removeDocument(id);}catch(Exception ignored){}
             if(capturedTurns)try(ChatStore chat=new ChatStore(test.getTargetContext())){for(ChatStore.Turn turn:chat.turns())if(!existingTurns.contains(turn.id()))chat.remove(turn.id());}catch(Exception ignored){}
             ModelStore.select(test.getTargetContext(),previous);test.getTargetContext().deleteDatabase(migration);test.getTargetContext().deleteDatabase(chatDb);for(int i=temporary.size()-1;i>=0;i--)temporary.get(i).delete();
-            try {JSONObject report=new JSONObject().put("runId",runId).put("target",target).put("version",test.getTargetContext().getPackageManager().getPackageInfo("dev.outpost.app",0).versionName).put("passed",complete).put("checksPassed",passed).put("checks",checks).put("answers",answers).put("modelExecution",generate).put("promptVersion",ChatPrompt.VERSION).put("runtimeProfile",runtimeProfile).put("scope","Recorded Android target. Synthetic documents exercise import/chat plumbing, not general answer quality, battery life or field acceptance.");writeText(new File(directory,"chat-checks.json").toPath(),report.toString(2));}catch(Exception ignored){}
+            try {JSONObject report=new JSONObject().put("runId",runId).put("target",target).put("version",test.getTargetContext().getPackageManager().getPackageInfo(test.getTargetContext().getPackageName(),0).versionName).put("passed",complete).put("checksPassed",passed).put("checks",checks).put("answers",answers).put("modelExecution",generate).put("promptVersion",ChatPrompt.VERSION).put("runtimeProfile",runtimeProfile).put("scope","Recorded Android target. Synthetic documents exercise import/chat plumbing, not general answer quality, battery life or field acceptance.");writeText(new File(directory,"chat-checks.json").toPath(),report.toString(2));}catch(Exception ignored){}
         }
         test.finish(complete?Activity.RESULT_OK:Activity.RESULT_CANCELED,result);
     }

@@ -39,6 +39,9 @@ final class PlaceQueries {
     private static final Pattern RADIUS=pattern("\\b(?:within|a menos de)\\s+([0-9]+(?:[.,][0-9]+)?)\\s*(kilometers?|kilometres?|km|meters?|metres?|miles?|mi|m)\\b");
     private static final Pattern NEAR=pattern("\\s+(?:near|around|close to|in the area of|in the vicinity of|cerca de|alrededor de|por la zona de)\\s+");
     private static final Pattern IN=pattern("\\s+(?:in|en)\\s+");
+    private static final Pattern CITATION_SUFFIX=pattern("\\s*[.!?]\\s+(?:please\\s+)?cite\\s+(?:the\\s+)?(?:OSM\\s+)?sources?[.!?]?\\s*$");
+    private static final Pattern STREET_LOOKUP=pattern("^(?:which|what)\\s+street\\s+is\\s+(.+?)\\s+on$");
+    private static final Pattern ADDRESS_LOOKUP=pattern("^(?:what is|what's)\\s+(?:the\\s+)?address\\s+of\\s+(.+)$");
     private static final Pattern LOOKUP=pattern("^(?:where is|where s|where's|locate|find|d[oó]nde (?:queda|est[aá]))\\s+");
     private static final String[] CATEGORIES={"restaurant","museum","park","cafe","pharmacy","supermarket","hotel","hospital","fuel","drinking water","charging station"};
     private static final String[] ALIASES={"restaurants?|restaurantes?","museums?|museos?","parks?|parques?","cafes?|caf[eé]s|coffee shops?","pharmac(?:y|ies)|farmacias?","supermarkets?|supermercados?","hotels?|hoteles?","hospitals?|hospitales?","gas stations?|petrol stations?|fuel stations?","drinking water|water fountains?|agua potable","charging stations?|ev chargers?"};
@@ -52,10 +55,13 @@ final class PlaceQueries {
         return parseOne(question,previous);
     }
     static Request parseOne(String question,Request previous) {
-        String q=question.trim().replaceAll("^[¿¡]+","").replaceAll("[?!。]+$","").trim();
+        String q=CITATION_SUFFIX.matcher(question.trim()).replaceFirst("").replaceAll("^[¿¡]+","").replaceAll("[?!。]+$","").trim();
         if(q.length()>600)return null;
         String norm=Library.normalize(q);
         if(norm.matches(".*\\b(pdf|csv|txt|document|documents|manual|email|downloaded|file|files|function|variable|sensor|valve|switch)\\b.*"))return null;
+        Matcher street=STREET_LOOKUP.matcher(q),address=ADDRESS_LOOKUP.matcher(q);
+        if(street.matches())return parseOne("Where is "+street.group(1),previous);
+        if(address.matches())return parseOne("Where is "+address.group(1),previous);
         Matcher follow=pattern("^(in|en|near|around|cerca de)\\s+(.+)$").matcher(q);
         if(previous!=null && follow.matches()) {
             boolean area=follow.group(1).equalsIgnoreCase("in")||follow.group(1).equalsIgnoreCase("en");

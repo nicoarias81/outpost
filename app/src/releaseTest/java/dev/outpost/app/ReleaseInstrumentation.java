@@ -34,6 +34,7 @@ public final class ReleaseInstrumentation extends Instrumentation {
         super.callActivityOnCreate(activity,state);
     }
     @Override public void onStart(){
+        if(args.getString("phase","").startsWith("validation-")){ValidationStore.run(this,args);return;}
         if(args.getString("phase","").startsWith("demo-")){new DemoChecks(this,args).run();return;}
         if(args.getString("phase","").startsWith("accept-")){new AcceptanceChecks(this,args).run();return;}
         JSONObject result=new JSONObject();Activity activity=null;boolean passed=false;
@@ -101,6 +102,7 @@ public final class ReleaseInstrumentation extends Instrumentation {
             runOnMainSync(()->((MainActivity)launched).showSettings());
             boolean[] about={false};runOnMainSync(()->about[0]=launched.findViewById(R.id.release_about)!=null);
             check(about[0],"Settings exposes About and privacy");
+            for(String label:ModelSetupChecks.run(this,(MainActivity)launched,new File(context.getExternalFilesDir(null),"release-model-setup.png")))check(true,label);
             runOnMainSync(()->((MainActivity)launched).showAbout());waitForIdleSync();
             File screenshot=new File(context.getExternalFilesDir(null),"release-about.png");
             var image=getUiAutomation().takeScreenshot();

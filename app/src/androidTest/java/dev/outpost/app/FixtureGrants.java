@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 final class FixtureGrants {
     static void grant(Instrumentation test,String run)throws Exception {
         if(!run.matches("[A-Za-z0-9_-]{8,80}"))throw new IllegalArgumentException("Invalid fixture run");
-        String command="am broadcast --include-stopped-packages -n dev.outpost.app.test/dev.outpost.app.FixtureGrantReceiver --es run_id "+run+" --es operation grant";
+        String command="am broadcast --include-stopped-packages -n "+test.getContext().getPackageName()+"/dev.outpost.app.FixtureGrantReceiver --es run_id "+run+" --es operation grant";
         try(android.os.ParcelFileDescriptor fd=test.getUiAutomation().executeShellCommand(command);FileInputStream input=new FileInputStream(fd.getFileDescriptor())){
             String response=new String(input.readAllBytes(),StandardCharsets.UTF_8);if(!response.contains("result=-1")||!response.contains("granted"))throw new IllegalStateException(response);
         }

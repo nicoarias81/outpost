@@ -193,7 +193,7 @@ final class KnowledgeChecks {
             check(launched.documentOpen,"CSV source reader opens the selected record");
             test.waitForIdleSync(); SystemClock.sleep(200);
             android.view.accessibility.AccessibilityNodeInfo activeRoot=test.getUiAutomation().getRootInActiveWindow();
-            check(activeRoot!=null && "dev.outpost.app".equals(String.valueOf(activeRoot.getPackageName())), "Source reader is the active Outpost window");
+            check(activeRoot!=null && test.getTargetContext().getPackageName().equals(String.valueOf(activeRoot.getPackageName())), "Source reader is the active Outpost window");
             List<android.view.accessibility.AccessibilityNodeInfo> rowLabels=activeRoot.findAccessibilityNodeInfosByText("CSV record 2");
             List<android.view.accessibility.AccessibilityNodeInfo> dateLabels=activeRoot.findAccessibilityNodeInfosByText("record_date: 2026-09-20");
             check(!rowLabels.isEmpty() && !dateLabels.isEmpty(), "Active CSV reader exposes record locator and date field meaning in English");

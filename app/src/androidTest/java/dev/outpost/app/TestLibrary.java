@@ -9,7 +9,7 @@ final class TestLibrary {
     static Library seeded(Context context) {return seeded(context,null);}
     static Library seeded(Context context,String name) {
         Library library=new Library(context,name);
-        try(java.io.InputStream input=context.createPackageContext("dev.outpost.app.test",0).getAssets().open("library.json")) {
+        try(java.io.InputStream input=context.createPackageContext(context.getPackageName()+".test",0).getAssets().open("library.json")) {
             JSONArray items=new JSONArray(new String(input.readAllBytes(),StandardCharsets.UTF_8));
             SQLiteDatabase db=library.getWritableDatabase();
             for(int i=0;i<items.length();i++) {

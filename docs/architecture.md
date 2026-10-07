@@ -57,9 +57,15 @@ When a model is ready, `ChatPrompt.preparePlaces` supplies the resolved places, 
 
 Unresolved queries, conflicting snapshots and missing models keep the direct database response. This path does not give GPS position, current conditions, routes or polygon containment. Model wording can be incorrect. Source review remains necessary.
 
+### Model preparation
+
+Settings offers source download and local-file import for each supported model. Source URLs specify a Hugging Face repository, immutable revision and filename. Download opens the system browser. Outpost does not add network permission or download in the background. The user imports the completed file with the system file picker. 
+
+Model import compares size and SHA256 before activation. An alternative download source must provide the same specified bytes.
+
 ### Other questions
 
-FTS retrieves passages for the question. If the first search gives no result, another search can include the previous user question. `ChatPrompt` includes the last two completed or length-limited turns. It also includes a maximum of three source excerpts related to the question.
+FTS retrieves passages for the question. If the first search gives no result, another search can include the previous user question. `ChatPrompt` considers the last two completed or length-limited turns. Independent document questions omit unrelated turns. Follow-ups, shared topics and explicit ongoing preferences retain bounded context. This selection uses text rules and can misclassify context. The prompt also includes a maximum of three source excerpts related to the question.
 
 Later prompts exclude failed, canceled and interrupted output. The prompt treats source text as data. It replaces role delimiters in source text with literal text.
 

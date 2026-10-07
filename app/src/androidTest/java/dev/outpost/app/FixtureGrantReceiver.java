@@ -14,6 +14,9 @@ public final class FixtureGrantReceiver extends BroadcastReceiver {
     @Override public void onReceive(Context context,Intent intent) {
         String run=intent.getStringExtra("run_id");
         if(run==null||!run.matches("[A-Za-z0-9_-]{8,80}")){setResultCode(0);return;}
+        FolderDocumentsProvider.configure(context);
+        String target=context.getPackageName().replaceFirst("\\.test$", "");
+        if(!context.getPackageName().endsWith(".test")){setResultCode(0);return;}
         boolean revoke="revoke".equals(intent.getStringExtra("operation"));
         try {
             ComponentName provider=new ComponentName(context,FolderDocumentsProvider.class);
@@ -25,7 +28,7 @@ public final class FixtureGrantReceiver extends BroadcastReceiver {
                 DocumentsContract.buildTreeDocumentUri(FolderDocumentsProvider.AUTHORITY,"osm-root"),
                 DocumentsContract.buildDocumentUri(FolderDocumentsProvider.AUTHORITY,"note"),
                 DocumentsContract.buildDocumentUri(FolderDocumentsProvider.AUTHORITY,"change-"+run));
-            for(Uri uri:fixtures){if(revoke)context.revokeUriPermission("dev.outpost.app",uri,Intent.FLAG_GRANT_READ_URI_PERMISSION);else context.grantUriPermission("dev.outpost.app",uri,Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);}
+            for(Uri uri:fixtures){if(revoke)context.revokeUriPermission(target,uri,Intent.FLAG_GRANT_READ_URI_PERMISSION);else context.grantUriPermission(target,uri,Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);}
             context.getSharedPreferences("fixture-provider",Context.MODE_PRIVATE).edit().putBoolean("active",!revoke).commit();
             context.getContentResolver().notifyChange(DocumentsContract.buildRootsUri(FolderDocumentsProvider.AUTHORITY),null);
             setResultCode(-1);setResultData(revoke?"revoked":"granted");

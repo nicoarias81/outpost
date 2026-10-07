@@ -23,7 +23,7 @@ function ConvertTo-OutpostArgumentString([string[]]$Arguments) {
 function Get-OutpostSourceFingerprint([ValidateSet('main','androidTest')][string]$Scope='main') {
     $root = Split-Path $PSScriptRoot -Parent
     $files = @(Get-ChildItem -LiteralPath (Join-Path $root "app/src/$Scope") -Recurse -File)
-    foreach ($variant in @('debug','release','releaseQa','releaseTest')) {
+    foreach ($variant in @('debug','release','releaseQa','releaseTest','testSupport')) {
         $variantRoot=Join-Path $root "app/src/$variant"
         if(Test-Path -LiteralPath $variantRoot){$files+=Get-ChildItem -LiteralPath $variantRoot -Recurse -File}
     }

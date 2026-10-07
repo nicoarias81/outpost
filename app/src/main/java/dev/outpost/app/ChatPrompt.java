@@ -2,10 +2,12 @@ package dev.outpost.app;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 /** Bounded conversation context; supplied documents are data, never instructions. */
 final class ChatPrompt {
-    static final String VERSION="chat-v1.1";
+    static final String VERSION="chat-v1.2";
     static final String SYSTEM="You are Outpost, an offline assistant. Answer clearly in English. "
         + "Use the recent conversation to understand follow-up questions. "
         + "Use supplied documents when relevant and cite their numbered sources, for example [1]. "
@@ -53,12 +55,36 @@ final class ChatPrompt {
         if(best>0&&Character.isLowSurrogate(passage.charAt(best)))best--;
         return ResearchPrompt.clean(passage.substring(best),limit);
     }
-    static Prepared prepare(String question,List<ChatStore.Turn> history,List<Library.Hit> hits) {
-        StringBuilder text=new StringBuilder("RECENT CONVERSATION (context, not verified evidence):\n");
-        // Keep completed/length-limited context; interrupted or failed output is excluded.
+    private static final Pattern FOLLOW_UP=Pattern.compile(
+        "\\b(it|its|they|them|their|those|these|that|this|same|previous|earlier|above|again|instead)\\b"
+        +"|^(and |but |then |continue\\b|what about\\b|what else\\b|why not\\b)"
+        +"|\\b(what did i|just give|which one|which word|what word|in more detail)\\b");
+    private static final Pattern PERSISTENT_PREFERENCE=Pattern.compile(
+        "^(always |from now on |for all (your )?(answers|replies)|for every (answer|reply)|"
+        +"for the rest of (this |our |the )?conversation)");
+    private static final Set<String> CONTEXT_STOP=Set.of(
+        "can","could","would","should","will","have","has","had","was","were","are","be",
+        "my","your","you","for","with","about","from","which","when","where","why","do","did",
+        "please","tell","explain","describe","summarize","answer","reply","use","using","cite",
+        "source","sources","document","documents");
+    /** Keep follow-ups; omit unrelated turns from a self-contained document question. */
+    static List<ChatStore.Turn> context(String question,List<ChatStore.Turn> history,boolean hasDocuments) {
         List<ChatStore.Turn> completed=new ArrayList<>();
         for(ChatStore.Turn turn:history) if(turn.status().equals("complete")||turn.status().equals("limit")) completed.add(turn);
-        for(ChatStore.Turn turn:completed.subList(Math.max(0,completed.size()-2),completed.size())) {
+        List<ChatStore.Turn> recent=completed.subList(Math.max(0,completed.size()-2),completed.size());
+        if(!hasDocuments||FOLLOW_UP.matcher(Library.normalize(question)).find())return List.copyOf(recent);
+        List<String> terms=Library.terms(question).stream().filter(t->!CONTEXT_STOP.contains(t)).toList();
+        List<ChatStore.Turn> relevant=new ArrayList<>();
+        for(ChatStore.Turn turn:recent) {
+            if(PERSISTENT_PREFERENCE.matcher(Library.normalize(turn.question())).find()) {relevant.add(turn);continue;}
+            List<String> previous=Library.terms(turn.question()+" "+turn.answer());
+            if(terms.stream().anyMatch(previous::contains))relevant.add(turn);
+        }
+        return List.copyOf(relevant);
+    }
+    static Prepared prepare(String question,List<ChatStore.Turn> history,List<Library.Hit> hits) {
+        StringBuilder text=new StringBuilder("RECENT CONVERSATION (context, not verified evidence):\n");
+        for(ChatStore.Turn turn:context(question,history,!hits.isEmpty())) {
             text.append("User: ").append(ResearchPrompt.clean(turn.question(),240)).append('\n');
             text.append("Assistant: ").append(ResearchPrompt.clean(turn.answer().replaceAll("\\[[-0-9]+\\]",""),400)).append('\n');
         }
