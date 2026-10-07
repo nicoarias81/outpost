@@ -108,6 +108,12 @@ The current [RC3 validation summary](../evidence/research/pixel-full-validation-
 
 Use `all --functional-only` after a change confined to prompts or the user interface. Before reusing native results, compare the native library hashes. Do not reuse them after native or backend changes.
 
+For an owner-authorized clean QA trial, remove only the known QA application and test packages. Do not remove personal installations without explicit authorization. The `--fresh-qa` option requires all four QA namespaces to be absent. It verifies an empty model store before import. Use `all --fresh-qa` for the full trial. The runner retains the new QA store and restores phone settings.
+
+Shell-staged GGUF files must have mode `0644` inside their app-specific directory. This lets the fresh application UID read the test file. It does not add an app permission or alter user documents.
+
+The [RC4 clean-install summary](../evidence/research/clean-install-20261007/validation-summary.json) identifies the new APK, repeated checks and retained personal installation.
+
 ## Original phone package
 
 The wrapper `scripts/test-pixel-chat-isolated.ps1` separates test data from the original phone data. It temporarily moves databases, preferences and document files to private locations. The tests use a synthetic store. The wrapper restores the original data and compares its digests in `finally`.

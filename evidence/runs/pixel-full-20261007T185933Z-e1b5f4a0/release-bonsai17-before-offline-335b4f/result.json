@@ -1,0 +1,39 @@
+{
+  "modelStagingPath": "/storage/emulated/0/Android/data/dev.outpost.app.releaseqa/files/Ternary-Bonsai-1.7B-Q2_0_g64.gguf",
+  "error": "java.io.FileNotFoundException: /storage/emulated/0/Android/data/dev.outpost.app.releaseqa/files/Ternary-Bonsai-1.7B-Q2_0_g64.gguf: open failed: EACCES (Permission denied)",
+  "passed": false,
+  "checks": [
+    {
+      "name": "isolated QA application ID",
+      "passed": true
+    },
+    {
+      "name": "target is not debuggable",
+      "passed": true
+    },
+    {
+      "name": "backup disabled",
+      "passed": true
+    },
+    {
+      "name": "no requested permissions",
+      "passed": true
+    },
+    {
+      "name": "research head absent",
+      "passed": true
+    },
+    {
+      "name": "dependency notices present",
+      "passed": true
+    },
+    {
+      "name": "native runtime loads and reports dispatch",
+      "passed": true
+    },
+    {
+      "name": "research JNI is unavailable",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+Starting controller/warmup / reference / 4 threads / width 8
+
+Completed controller/warmup: 35854ms / first 34412ms / 8 tokens / stop 1
+
+Starting controller/round0/legacy / reference / 4 threads / width 8
+
+Completed controller/round0/legacy: 42316ms / first 34211ms / 32 tokens / stop 1
+
+Starting controller/round0/pools-only / reference / 4 threads / width 8
+
+Completed controller/round0/pools-only: 38631ms / first 33460ms / 32 tokens / stop 1
+
+Starting controller/round0/kernel-only / DotProd / 4 threads / width 8
+
+Completed controller/round0/kernel-only: 19724ms / first 14374ms / 32 tokens / stop 1
+
+Starting controller/round0/kernel-pools / DotProd / 4 threads / width 8
+
+Completed controller/round0/kernel-pools: 23512ms / first 18003ms / 32 tokens / stop 1
+
+Starting controller/round0/kernel-pools-affinity / DotProd / 4 threads / width 8
+
+Completed controller/round0/kernel-pools-affinity: 23909ms / first 18676ms / 32 tokens / stop 1
+
+Starting controller/round1/kernel-pools-affinity / DotProd / 4 threads / width 8
+
+Completed controller/round1/kernel-pools-affinity: 23635ms / first 18533ms / 32 tokens / stop 1
+
+Starting controller/round1/kernel-pools / DotProd / 4 threads / width 8
+
+Completed controller/round1/kernel-pools: 17929ms / first 13699ms / 32 tokens / stop 1
+
+Starting controller/round1/kernel-only / DotProd / 4 threads / width 8
+
+Completed controller/round1/kernel-only: 23658ms / first 17559ms / 32 tokens / stop 1
+
+Starting controller/round1/pools-only / reference / 4 threads / width 8
+
+Completed controller/round1/pools-only: 45260ms / first 39931ms / 32 tokens / stop 1
+
+Starting controller/round1/legacy / reference / 4 threads / width 8
+
+Completed controller/round1/legacy: 41028ms / first 34523ms / 32 tokens / stop 1
+
+PASS ARM controller: 69 controls.

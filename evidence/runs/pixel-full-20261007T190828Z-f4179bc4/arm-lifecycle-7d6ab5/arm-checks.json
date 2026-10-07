@@ -1,0 +1,188 @@
+{
+  "runId": "arm-lifecycle-02ef49e08c614e98",
+  "phase": "lifecycle",
+  "passed": true,
+  "checks": [
+    {
+      "label": "Registered Pixel architecture\/model",
+      "passed": true
+    },
+    {
+      "label": "Thermal status permits the bounded test",
+      "passed": true
+    },
+    {
+      "label": "Dedicated benchmark Activity is visible, focused and resumed",
+      "passed": true
+    },
+    {
+      "label": "Pinned Bonsai bytes verified; file pages are warm",
+      "passed": true
+    },
+    {
+      "label": "Persistent workers preserve exact cached answer",
+      "passed": true
+    },
+    {
+      "label": "Exact cache reuse retains sleeping workers without creating new pools",
+      "passed": true
+    },
+    {
+      "label": "Cancellation joins the graph and pauses persistent workers",
+      "passed": true
+    },
+    {
+      "label": "Cancelled context is discarded and recovery matches cold output",
+      "passed": true
+    },
+    {
+      "label": "Independent prompt\/decode pools resize without changing the answer",
+      "passed": true
+    }
+  ],
+  "answers": [],
+  "initialRuntime": {
+    "abi": "arm64-v8a",
+    "onlineCpus": 8,
+    "featureMask": 7168,
+    "selected": "Q2_0 NEON DotProd",
+    "candidates": [
+      {
+        "id": 0,
+        "name": "Q2_0 reference",
+        "cpuCompatible": true,
+        "compiled": true,
+        "enabled": true,
+        "selected": false
+      },
+      {
+        "id": 1,
+        "name": "Q2_0 AVX2\/F16C",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 2,
+        "name": "Q2_0 AVX-VNNI",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 3,
+        "name": "Q2_0 AVX-512 VNNI\/VL",
+        "cpuCompatible": false,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 4,
+        "name": "Q2_0 NEON",
+        "cpuCompatible": true,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      },
+      {
+        "id": 5,
+        "name": "Q2_0 NEON DotProd",
+        "cpuCompatible": true,
+        "compiled": true,
+        "enabled": true,
+        "selected": true
+      },
+      {
+        "id": 6,
+        "name": "Q2_0 NEON I8MM",
+        "cpuCompatible": true,
+        "compiled": false,
+        "enabled": false,
+        "selected": false
+      }
+    ],
+    "matrixI8mm": {
+      "compiled": true,
+      "cpuCompatible": true,
+      "requested": false,
+      "matrixNodes": 0,
+      "scope": "Request-scoped matrix I8MM path; one-column\/vector dispatch remains DotProd. No expanded weights or larger graph workspace."
+    }
+  },
+  "scope": "Foreground Android ARM experiment. Synthetic prompts only; exact parity and actual dispatch required. USB-powered, no energy claim.",
+  "conditionsBefore": {
+    "thermalStatus": 0,
+    "interactive": true,
+    "keyguard": true,
+    "benchmarkResumed": true,
+    "benchmarkHasFocus": true,
+    "batteryTenthsC": 347,
+    "plugged": 2
+  },
+  "foregroundActivity": true,
+  "keyguardPolicy": "Test Activity may occlude keyguard using standard Activity APIs; it never dismisses authentication or loads personal app state.",
+  "numericTimingScope": "Foreground numeric control; not model speed",
+  "modelSha256": "9d968b04a3c9a794897bcc744c8072fb6a061c0e42efd03c989401ddf8baef0c",
+  "lifecycle": {
+    "firstText": "Cedar",
+    "repeatReusedTokens": 186,
+    "firstPool": {
+      "enabled": true,
+      "poolCreations": 1,
+      "threads": 4,
+      "promptThreads": 4,
+      "attentionThreads": 0,
+      "matrixKernel": 0,
+      "requestedMask": 0,
+      "effectiveMask": 0,
+      "affinityBefore": 255,
+      "affinityDuring": 255,
+      "affinityAfter": 255,
+      "affinityRestored": true,
+      "pausedAfterRequest": true
+    },
+    "repeatedPool": {
+      "enabled": true,
+      "poolCreations": 1,
+      "threads": 4,
+      "promptThreads": 4,
+      "attentionThreads": 0,
+      "matrixKernel": 0,
+      "requestedMask": 0,
+      "effectiveMask": 0,
+      "affinityBefore": 255,
+      "affinityDuring": 255,
+      "affinityAfter": 255,
+      "affinityRestored": true,
+      "pausedAfterRequest": true
+    },
+    "resizedPool": {
+      "enabled": true,
+      "poolCreations": 3,
+      "threads": 2,
+      "promptThreads": 6,
+      "attentionThreads": 0,
+      "matrixKernel": 0,
+      "requestedMask": 0,
+      "effectiveMask": 0,
+      "affinityBefore": 255,
+      "affinityDuring": 255,
+      "affinityAfter": 255,
+      "affinityRestored": true,
+      "pausedAfterRequest": true
+    }
+  },
+  "conditionsAfter": {
+    "thermalStatus": 0,
+    "interactive": true,
+    "keyguard": true,
+    "benchmarkResumed": true,
+    "benchmarkHasFocus": true,
+    "batteryTenthsC": 347,
+    "plugged": 2
+  },
+  "checksPassed": 9
+}

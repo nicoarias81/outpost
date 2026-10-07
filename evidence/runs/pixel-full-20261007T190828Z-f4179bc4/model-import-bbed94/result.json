@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "models": [
+    {
+      "id": "qwen15",
+      "bytes": 1117320736,
+      "sha256": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
+      "importMs": 1899
+    },
+    {
+      "id": "bonsai17",
+      "bytes": 490163968,
+      "sha256": "6d0ecb3d9055969b5cde332b6fdb60e67ed3599e9f73e56b977731e1467e5c91",
+      "importMs": 959
+    },
+    {
+      "id": "bonsai4",
+      "bytes": 1137806656,
+      "sha256": "9d968b04a3c9a794897bcc744c8072fb6a061c0e42efd03c989401ddf8baef0c",
+      "importMs": 1765
+    }
+  ]
+}
