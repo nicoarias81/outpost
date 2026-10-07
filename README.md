@@ -86,7 +86,7 @@ These are acceptance goals. They are not measured guarantees or enforced library
 
 ## Installation and first use
 
-The distribution channel is [GitHub Releases](https://github.com/nicoarias81/outpost/releases). The current source candidate is **0.19.0-rc4**, version code 24. Fresh QA installation and model reload tests passed. RC4 publication is pending. The last public QA release is [RC3](https://github.com/nicoarias81/outpost/releases/tag/v0.19.0-rc3).
+The distribution channel is [GitHub Releases](https://github.com/nicoarias81/outpost/releases). The current source and [QA prerelease](https://github.com/nicoarias81/outpost/releases/tag/v0.19.0-rc4) are **0.19.0-rc4**, version code 24. Fresh QA installation and model reload tests passed. The repository and QA APK are public.
 
 The RC4 candidate contains `outpost-0.19.0-rc4-qa.apk`, checksums, license files and matching source. It is non-debuggable. Its application ID is `dev.outpost.app.releaseqa`. It uses a development certificate. Production identity, signing and final signed-APK acceptance remain incomplete.
 

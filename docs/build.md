@@ -79,7 +79,7 @@ The audit examines manifest settings, ABIs, notices, assets, JNI exports and nat
 
 ## Release state
 
-The source candidate is `0.19.0-rc4`, version code 24. Fresh QA installation and model reload tests passed. RC4 publication is pending. The public [GitHub repository](https://github.com/nicoarias81/outpost/releases) has a `v0.19.0-rc3` QA prerelease. Its immutable tag identifies the recorded source, including the license and release instructions. Later documentation commits update the publication status without changing the APK.
+The source candidate is `0.19.0-rc4`, version code 24. Fresh QA installation and model reload tests passed. The RC4 QA prerelease is public. The public [GitHub repository](https://github.com/nicoarias81/outpost/releases) has a `v0.19.0-rc4` QA prerelease. Its immutable tag identifies the recorded source, including the license and release instructions. Later documentation commits update the publication status without changing the APK.
 
 The prerelease contains the recorded QA APK, source archive, checksums, license files and artifact metadata. `release-manifest.json` records the APK hash, certificate and source identity. The QA APK has a development certificate and application ID `dev.outpost.app.releaseqa`. Production identity, signing and final signed-device acceptance are not complete.
 

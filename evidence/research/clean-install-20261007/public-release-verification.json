@@ -1,0 +1,17 @@
+{
+  "releaseId": 406135053,
+  "tag": "v0.19.0-rc4",
+  "sourceCommit": "d13e2da4b4df5258a4800d8fe51132c13c364534",
+  "tagCommit": "d13e2da4b4df5258a4800d8fe51132c13c364534",
+  "public": true,
+  "prerelease": true,
+  "anonymousApkDownload": {
+    "httpStatus": 200,
+    "sha256": "e2afd674f21ad3726a13ac8e18d1dc58582f97f131837bff94d3cedd1445ecb3",
+    "bytes": 23453797,
+    "matched": true
+  },
+  "assetCount": 9,
+  "releaseUrl": "https://github.com/nicoarias81/outpost/releases/tag/v0.19.0-rc4",
+  "mergedPr": "https://github.com/nicoarias81/outpost/pull/1"
+}
